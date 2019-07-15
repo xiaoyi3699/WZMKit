@@ -7,6 +7,7 @@
 //
 
 #import "WZMAppDelegate.h"
+#import <WZMKit/WZMKit.h>
 
 @implementation WZMAppDelegate
 
