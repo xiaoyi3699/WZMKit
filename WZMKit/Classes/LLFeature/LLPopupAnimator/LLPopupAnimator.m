@@ -8,7 +8,7 @@
 
 #import "LLPopupAnimator.h"
 #import "LLMacro.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @implementation LLPopupAnimator{
     __weak UIView    *_alertView;

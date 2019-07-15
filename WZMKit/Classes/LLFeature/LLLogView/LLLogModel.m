@@ -7,7 +7,7 @@
 //
 
 #import "LLLogModel.h"
-#import "NSString+LLAddPart.h"
+#import "NSString+wzmcate.h"
 
 @implementation LLLogModel
 

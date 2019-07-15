@@ -8,12 +8,12 @@
 
 #import "LLPhoto.h"
 #import <ImageIO/ImageIO.h>
-#import "NSString+LLAddPart.h"
+#import "NSString+wzmcate.h"
 #import "LLGifImageView.h"
 #import "LLImageCache.h"
-#import "UIView+LLAddPart.h"
-#import "NSData+LLAddData.h"
-#import "UIImage+LLAddPart.h"
+#import "UIView+wzmcate.h"
+#import "NSData+wzmcate.h"
+#import "UIImage+wzmcate.h"
 
 #define LLPhotoMaxSCale 3.0  //最大缩放比例
 #define LLPhotoMinScale 1.0  //最小缩放比例

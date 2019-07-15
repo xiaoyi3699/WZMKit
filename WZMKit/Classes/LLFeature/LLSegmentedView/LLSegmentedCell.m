@@ -7,7 +7,7 @@
 //
 
 #import "LLSegmentedCell.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @implementation LLSegmentedCell {
     UILabel *_titleLabel;

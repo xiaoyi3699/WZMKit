@@ -7,7 +7,7 @@
 //
 
 #import "LLCycleView.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 #import "LLMacro.h"
 
 @implementation LLCycleView {

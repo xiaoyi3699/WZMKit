@@ -8,7 +8,7 @@
 
 #import "LLSendEmail.h"
 #import "LLLog.h"
-#import "NSString+LLAddPart.h"
+#import "NSString+wzmcate.h"
 
 @implementation LLSendEmail
 

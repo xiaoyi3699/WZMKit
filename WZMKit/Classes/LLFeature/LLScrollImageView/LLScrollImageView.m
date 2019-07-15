@@ -7,7 +7,7 @@
 //
 
 #import "LLScrollImageView.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @interface LLScrollImageView ()<UIScrollViewDelegate>
 

@@ -8,7 +8,7 @@
 
 #import "LLLogView.h"
 #import "LLMacro.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @interface LHYMessageView : UIView<UITableViewDelegate,UITableViewDataSource> {
     BOOL _color;

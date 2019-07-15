@@ -9,10 +9,10 @@
 #import "LLAlertView.h"
 #import "LLMacro.h"
 #import "LLBlock.h"
-#import "UIView+LLAddPart.h"
-#import "NSString+LLAddPart.h"
-#import "UIColor+LLAddPart.h"
-#import "UIImage+LLAddPart.h"
+#import "UIView+wzmcate.h"
+#import "NSString+wzmcate.h"
+#import "UIColor+wzmcate.h"
+#import "UIImage+wzmcate.h"
 
 @interface LLAlertView(){
     doBlock  _OKBlock;

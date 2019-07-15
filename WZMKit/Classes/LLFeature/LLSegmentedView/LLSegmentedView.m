@@ -7,7 +7,7 @@
 //
 
 #import "LLSegmentedView.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @interface LLSegmentedView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 

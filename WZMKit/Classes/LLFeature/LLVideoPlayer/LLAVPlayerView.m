@@ -11,9 +11,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "LLLog.h"
 #import "LLMacro.h"
-#import "UIImage+LLAddPart.h"
-#import "UIView+LLAddPart.h"
-#import "UIViewController+LLAddPart.h"
+#import "UIImage+wzmcate.h"
+#import "UIView+wzmcate.h"
+#import "UIViewController+wzmcate.h"
 
 typedef NS_ENUM(NSUInteger, LLDirection) {
     LLDirectionNone = 0,

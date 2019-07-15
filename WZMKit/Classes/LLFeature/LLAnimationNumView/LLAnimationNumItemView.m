@@ -7,7 +7,7 @@
 //
 
 #import "LLAnimationNumItemView.h"
-#import "UIView+LLAddPart.h"
+#import "UIView+wzmcate.h"
 
 @implementation LLAnimationNumItemView {
     UILabel *_label_0;

@@ -8,7 +8,7 @@
 
 #import "LLNetWorking.h"
 #import "LLLog.h"
-#import "NSString+LLAddPart.h"
+#import "NSString+wzmcate.h"
 
 NSString * const LLNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
 NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8";
