@@ -59,7 +59,7 @@
 		3B4345D243F8F4F7CE2098B11DEB6F79 /* LLViewHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6D40F9A852910904A4CA282A6DC8 /* LLViewHandle.m */; };
 		3BCC4649F810FAB96A871275248F19DC /* LLBaseHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ECC24BBFCA6E501761AD99909C6CA4 /* LLBaseHeaderView.m */; };
 		3D4E3DFDF5D3FF1D04D9CDD8D0DE5FE6 /* UIView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4BA117E2606C0DE8D4E863932D289D /* UIView+wzmcate.m */; };
-		3E2CA2E70311BCA940A73B3BEF3ED955 /* LLSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A54502D9D6BD6B0CEBBEE3F19E99008 /* LLSqliteManager.m */; };
+		3E2CA2E70311BCA940A73B3BEF3ED955 /* WZMSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A54502D9D6BD6B0CEBBEE3F19E99008 /* WZMSqliteManager.m */; };
 		43D19DBE824EEAC170CA231E3B299424 /* UIAlertView+LLReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FD5B207046469DC7B2C0CA8484DE2F3 /* UIAlertView+LLReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		456CAC05BCAD7A5C5D9806FCECED4DE9 /* LLPopupAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 44DB0CA879FF0B63922FBE8439AFD1C3 /* LLPopupAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45AE6F0B9A1E10600F807995B6342B5E /* LLRefreshHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = B22A3B7AA01AD2D31DEC3EDFA2CA2AEA /* LLRefreshHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -323,7 +323,7 @@
 		681C2FC9036D0C73F792B1DFC494F5C5 /* LLLogModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLLogModel.h; sourceTree = "<group>"; };
 		6941708868B298789B95585C2784F8E8 /* LLFontView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLFontView.h; sourceTree = "<group>"; };
 		69BDB7AC942C4E6C60DB2B4756EA1535 /* LLNetworkDownload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLNetworkDownload.h; sourceTree = "<group>"; };
-		6A54502D9D6BD6B0CEBBEE3F19E99008 /* LLSqliteManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLSqliteManager.m; sourceTree = "<group>"; };
+		6A54502D9D6BD6B0CEBBEE3F19E99008 /* WZMSqliteManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMSqliteManager.m; sourceTree = "<group>"; };
 		6C57CF8F61242392C9FFC15CEA39C1DE /* NSNull+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSNull+wzmcate.m"; sourceTree = "<group>"; };
 		6D6781D6FDEA3B46AB5EA51D58F90ED0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6D9BE328DD6F0BAD90C0B17C5F9BBE0A /* LLSelectedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLSelectedView.m; sourceTree = "<group>"; };
@@ -552,7 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				65D2E069F6E68ABCAFE15CABD0958D95 /* WZMSqliteManager.h */,
-				6A54502D9D6BD6B0CEBBEE3F19E99008 /* LLSqliteManager.m */,
+				6A54502D9D6BD6B0CEBBEE3F19E99008 /* WZMSqliteManager.m */,
 			);
 			path = WZMSqliteManager;
 			sourceTree = "<group>";
@@ -1742,7 +1742,7 @@
 				1A5F11C647FFA052C16E6D71FE8D11A6 /* WZMSendEmail.m in Sources */,
 				49A02FD334C55E80390009942BC06C17 /* WZMSignalException.m in Sources */,
 				7330ED2C0399205E8151D1233E96C5CF /* LLSingleRotationGestureRecognizer.m in Sources */,
-				3E2CA2E70311BCA940A73B3BEF3ED955 /* LLSqliteManager.m in Sources */,
+				3E2CA2E70311BCA940A73B3BEF3ED955 /* WZMSqliteManager.m in Sources */,
 				671EB2F29C822FC8D9E11091318BD36A /* WZMUncaughtException.m in Sources */,
 				C86B2703A7C29F595202BB0795C551C8 /* WZMVideoPlayerHelper.m in Sources */,
 				BB712569B636C54892DC130B0AA97D4D /* WZMVideoPlayerViewController.m in Sources */,
