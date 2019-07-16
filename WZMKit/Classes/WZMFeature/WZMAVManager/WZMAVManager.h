@@ -1,5 +1,5 @@
 //
-//  LLAVManager.h
+//  WZMAVManager.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/10.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface LLAVManager : NSObject
+@interface WZMAVManager : NSObject
 
 ///震动
 + (void)shake;

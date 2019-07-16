@@ -1,34 +1,34 @@
 //
-//  LLAppStoreScore.m
+//  WZMAppStoreScore.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/5/22.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLAppStoreScore.h"
+#import "WZMAppStoreScore.h"
 #import "WZMFileManager.h"
-#import "LLAppJump.h"
+#import "WZMAppJump.h"
 #import "WZMDispatch.h"
 #import "LLViewHandle.h"
 
 //评分
 #define LL_STORE_KEY @"llStoreKey"
 #define LL_BAD_KEY   @"llBadKey"
-@interface LLAppStoreScore ()<UIAlertViewDelegate>
+@interface WZMAppStoreScore ()<UIAlertViewDelegate>
 
 @end
 
-@implementation LLAppStoreScore {
+@implementation WZMAppStoreScore {
     LLAppStoreType _type;
     NSString *_appId;
 }
 
 + (instancetype)shareScore {
-    static LLAppStoreScore *score;
+    static WZMAppStoreScore *score;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        score = [[LLAppStoreScore alloc] initWithAppId:@""];
+        score = [[WZMAppStoreScore alloc] initWithAppId:@""];
     });
     return score;
 }
@@ -52,7 +52,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [LLAppJump openAppStoreScore:_appId type:_type];
+        [WZMAppJump openAppStoreScore:_appId type:_type];
     }
     else if (buttonIndex == 2) {
         NSString *msg;

@@ -1,21 +1,21 @@
 //
-//  LLAudioPlayer.m
+//  WZMAudioPlayer.m
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/25.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLAudioPlayer.h"
+#import "WZMAudioPlayer.h"
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface LLAudioPlayer ()
+@interface WZMAudioPlayer ()
 
 @property (nonatomic, strong) AVAudioSession *audioSession;
 
 @end
 
-@implementation LLAudioPlayer
+@implementation WZMAudioPlayer
 
 - (id)initWithContentsOfURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)outError{
     self = [super initWithContentsOfURL:url error:outError];

@@ -1,26 +1,26 @@
 //
-//  LLAppJump.m
+//  WZMAppJump.m
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/18.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLAppJump.h"
-#import "LLAlertView.h"
+#import "WZMAppJump.h"
+#import "WZMAlertView.h"
 #import <StoreKit/StoreKit.h>
 
-@interface LLAppJump ()<SKStoreProductViewControllerDelegate>
+@interface WZMAppJump ()<SKStoreProductViewControllerDelegate>
 
 @end
 
-@implementation LLAppJump
+@implementation WZMAppJump
 
-+ (LLAppJump *)shareInstance{
-    static LLAppJump* instance;
++ (WZMAppJump *)shareInstance{
+    static WZMAppJump* instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[LLAppJump alloc] init];
+        instance = [[WZMAppJump alloc] init];
     });
     return instance;
 }
@@ -133,10 +133,10 @@
 + (void)openAppStoreDownload:(NSString *)appId type:(LLAppStoreType)type{
     
     if (type == LLAppStoreTypeOpen) {
-        [LLAppJump openAppStoreDownloadInAppStore:appId];
+        [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
     else {
-        [[LLAppJump shareInstance] openAppStoreDownloadInInnerApp:appId];
+        [[WZMAppJump shareInstance] openAppStoreDownloadInInnerApp:appId];
     }
 }
 
@@ -157,9 +157,9 @@
                       if (error) {
                           //没有打开内部App Store弹窗
                           if (presentingCtrl.presentedViewController == sc) {
-                              LLAlertView *alertView = [[LLAlertView alloc] initWithTitle:@"温馨提示" message:@"无法显示该应用,是否跳转到AppStore内查看" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:LLAlertViewTypeNormal];
+                              WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"温馨提示" message:@"无法显示该应用,是否跳转到AppStore内查看" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
                               [alertView setOKBlock:^{
-                                  [LLAppJump openAppStoreDownloadInAppStore:appId];
+                                  [WZMAppJump openAppStoreDownloadInAppStore:appId];
                               }];
                               [alertView showAnimated:YES];
                           }

@@ -1,12 +1,12 @@
 //
-//  LLAlertView.m
+//  WZMAlertView.m
 //  LLFoundation
 //
 //  Created by lhy on 16/8/17.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLAlertView.h"
+#import "WZMAlertView.h"
 #import "WZMMacro.h"
 #import "WZMBlock.h"
 #import "UIView+wzmcate.h"
@@ -14,7 +14,7 @@
 #import "UIColor+wzmcate.h"
 #import "UIImage+wzmcate.h"
 
-@interface LLAlertView(){
+@interface WZMAlertView(){
     doBlock  _OKBlock;
     doBlock  _cannelBlock;
     NSString *_OKButtonTitle;
@@ -25,9 +25,9 @@
 @end
 
 #define THEME_COLOR_UP [UIColor wzm_colorWithHex:0xa031ed]
-@implementation LLAlertView
+@implementation WZMAlertView
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(LLAlertViewType)type {
+- (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type {
     self = [super init];
     if (self) {
         CGRect rect           = [UIScreen mainScreen].bounds;
@@ -45,7 +45,7 @@
                 titleHeight   = 40;
                 btnHeight     = 40;
                 titleFont     = 15;
-                if (type == LLAlertViewTypeUpdate) {
+                if (type == WZMAlertViewTypeUpdate) {
                     messageFont   = 13;
                 }
                 else {
@@ -58,7 +58,7 @@
                 btnHeight     = 40;
                 titleFont     = 15;
                 leftEdge      = 40;
-                if (type == LLAlertViewTypeUpdate) {
+                if (type == WZMAlertViewTypeUpdate) {
                     messageFont   = 13;
                 }
                 else {
@@ -70,7 +70,7 @@
                 btnHeight     = 45;
                 titleFont     = 17;
                 leftEdge      = 60;
-                if (type == LLAlertViewTypeUpdate) {
+                if (type == WZMAlertViewTypeUpdate) {
                     messageFont   = 14;
                 }
                 else {
@@ -82,7 +82,7 @@
                 btnHeight     = 50;
                 titleFont     = 17;
                 leftEdge      = 70;
-                if (type == LLAlertViewTypeUpdate) {
+                if (type == WZMAlertViewTypeUpdate) {
                     messageFont   = 14;
                 }
                 else {
@@ -95,7 +95,7 @@
             btnHeight     = 50;
             titleFont     = 20;
             leftEdge      = (size.width-200)/2;
-            if (type == LLAlertViewTypeUpdate) {
+            if (type == WZMAlertViewTypeUpdate) {
                 messageFont   = 16;
             }
             else {
@@ -113,7 +113,7 @@
         CGFloat x             = (size.width-width)/2.0f;
         CGFloat y             = (size.height-height)/2.0f;
         
-        if (type == LLAlertViewTypeUpdate) {
+        if (type == WZMAlertViewTypeUpdate) {
             titleColor   = THEME_COLOR_UP;
             messageColor = [UIColor darkGrayColor];
         }
@@ -179,7 +179,7 @@
             [btn setBackgroundImage:[UIImage wzm_getImageByColor:[UIColor colorWithWhite:.8 alpha:.5]] forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_alertView addSubview:btn];
-            if (type == LLAlertViewTypeUpdate) {
+            if (type == WZMAlertViewTypeUpdate) {
                 if (i == 0) {
                     [btn setTitleColor:THEME_COLOR_UP forState:UIControlStateNormal];
                 }

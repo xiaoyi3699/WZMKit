@@ -1,16 +1,16 @@
 //
-//  LLCycleView.m
+//  WZMCycleView.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/21.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLCycleView.h"
+#import "WZMCycleView.h"
 #import "UIView+wzmcate.h"
 #import "WZMMacro.h"
 
-@implementation LLCycleView {
+@implementation WZMCycleView {
     NSTimer *_timer;
     UIView  *_aniView;  //动画View
     CGFloat _start;     //公转开始角度
@@ -22,7 +22,7 @@
     CGFloat _centerY;   //中心点y
     CGFloat _radiusX;   //x轴半径
     CGFloat _radiusY;   //y轴半径
-    LLBezierView *_bezierView;
+    WZMBezierView *_bezierView;
 }
 
 /**
@@ -53,7 +53,7 @@
         _centerY = self.wzm_height/2;
         if (line) {
             CGFloat radian = ANGLE_TO_RADIAN(start);
-            _bezierView = [[LLBezierView alloc] initWithFrame:self.bounds];
+            _bezierView = [[WZMBezierView alloc] initWithFrame:self.bounds];
             _bezierView.backgroundColor = [UIColor clearColor];
             _bezierView.start = CGPointMake(_centerX, _centerY);
             _bezierView.end   = CGPointMake(_centerX+x*cos(radian), _centerY-y*sin(radian));

@@ -1,5 +1,5 @@
 //
-//  LLCatchStore.h
+//  WZMCatchStore.h
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLCatchStore : NSObject
+@interface WZMCatchStore : NSObject
 
 + (instancetype)store;
 

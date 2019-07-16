@@ -1,14 +1,14 @@
 //
-//  LLDeviceUtil.m
+//  WZMDeviceUtil.m
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/17.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLDeviceUtil.h"
+#import "WZMDeviceUtil.h"
 #import "WZMLog.h"
-#import "LLAlertView.h"
+#import "WZMAlertView.h"
 #import <objc/runtime.h>
 //麦克风
 #import <AVFoundation/AVFoundation.h>
@@ -30,7 +30,7 @@
 #import "sys/utsname.h"
 
 
-@implementation LLDeviceUtil
+@implementation WZMDeviceUtil
 
 //是否为越狱
 char* printEnv(void){
@@ -349,11 +349,11 @@ char* printEnv(void){
 
 + (void)showAlertViewWithAuthorization:(NSString *)text{
     NSString *message = [NSString stringWithFormat:@"请允许应用获取%@权限",text];
-    LLAlertView *alertView = [[LLAlertView alloc] initWithTitle:@"提示"
+    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示"
                                                         message:message
                                                   OKButtonTitle:@"去设置"
                                               cancelButtonTitle:@"取消"
-                                                           type:LLAlertViewTypeNormal];
+                                                           type:WZMAlertViewTypeNormal];
     [alertView setOKBlock:^{
         [self openAPPSetting];
     }];
@@ -361,11 +361,11 @@ char* printEnv(void){
 }
 
 + (void)showAlertViewWithMessage:(NSString *)text{
-    LLAlertView *alertView = [[LLAlertView alloc] initWithTitle:@"提示"
+    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示"
                                                         message:text
                                                   OKButtonTitle:@"确定"
                                               cancelButtonTitle:nil
-                                                           type:LLAlertViewTypeNormal];
+                                                           type:WZMAlertViewTypeNormal];
     [alertView showAnimated:YES];
 }
 

@@ -1,22 +1,22 @@
 //
-//  LLCamera.m
+//  WZMCamera.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/12.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLCamera.h"
+#import "WZMCamera.h"
 #import "WZMLog.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface LLCamera (){
+@interface WZMCamera (){
     AVCaptureSession *_captureSession;
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;
 }
 @end
 
-@implementation LLCamera
+@implementation WZMCamera
 
 - (instancetype)initWithPosition:(LLCaptureDevicePosition)position {
     self = [super init];

@@ -1,15 +1,15 @@
 //
-//  LLAutoHeader.m
+//  WZMAutoHeader.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/17.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLAutoHeader.h"
+#import "WZMAutoHeader.h"
 
 #define LL_AUTO_CONTENT_OFF_SET @"contentOffset"
-@implementation LLAutoHeader {
+@implementation WZMAutoHeader {
     UIImageView  *_imageView;
     UIScrollView *_scrollView;
 }
@@ -45,7 +45,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.hidden) return;
-    if (self.headerAnimation == LLAutoHeaderAnimationNon) return;
+    if (self.headerAnimation == WZMAutoHeaderAnimationNon) return;
     
     if ([keyPath isEqualToString:LL_AUTO_CONTENT_OFF_SET]) {
         
@@ -59,7 +59,7 @@
             CGFloat oldW = self.bounds.size.width;
             CGFloat newW = oldW * scale;
             
-            if (self.headerAnimation == LLAutoHeaderAnimationScale) {
+            if (self.headerAnimation == WZMAutoHeaderAnimationScale) {
                 _imageView.frame = CGRectMake((oldW-newW)/2.0, y, newW, newH);
             }
             else {

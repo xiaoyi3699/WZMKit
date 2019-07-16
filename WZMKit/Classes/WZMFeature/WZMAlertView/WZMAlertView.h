@@ -1,5 +1,5 @@
 //
-//  LLAlertView.h
+//  WZMAlertView.h
 //  LLFoundation
 //
 //  Created by lhy on 16/8/17.
@@ -10,12 +10,12 @@
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 
-@interface LLAlertView : UIView
+@interface WZMAlertView : UIView
 
 @property (nonatomic, strong) UIColor *cancelColor;
 @property (nonatomic, strong) UIColor *OKColor;
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(LLAlertViewType)type;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type;
 
 - (void)showAnimated:(BOOL)animated;
 

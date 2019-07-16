@@ -7,7 +7,7 @@
 //
 
 #import "WZMLocationManager.h"
-#import "LLDeviceUtil.h"
+#import "WZMDeviceUtil.h"
 
 @interface WZMLocationManager ()
 
@@ -39,7 +39,7 @@
 
 #pragma mark - 定位
 - (void)starLocation {
-    if ([LLDeviceUtil checkLocationEnable]) {
+    if ([WZMDeviceUtil checkLocationEnable]) {
         if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
             [self.locationManager requestWhenInUseAuthorization];
         }

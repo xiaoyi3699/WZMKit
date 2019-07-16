@@ -1,5 +1,5 @@
 //
-//  LLDeviceUtil.h
+//  WZMDeviceUtil.h
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/17.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WZMBlock.h"
 
-@interface LLDeviceUtil : NSObject
+@interface WZMDeviceUtil : NSObject
 
 /**
  是否为越狱设备

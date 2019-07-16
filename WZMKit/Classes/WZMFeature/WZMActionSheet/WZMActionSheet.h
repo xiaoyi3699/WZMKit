@@ -1,5 +1,5 @@
 //
-//  LLActionSheet.h
+//  WZMActionSheet.h
 //  LLFoundation
 //
 //  Created by WangZhaomeng on 2017/7/11.
@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "WZMBlock.h"
 
-@protocol LLActionSheetDelegate;
+@protocol WZMActionSheetDelegate;
 
-@interface LLActionSheet : UIView
+@interface WZMActionSheet : UIView
 
-@property (nonatomic, weak) id<LLActionSheetDelegate> delegete;
+@property (nonatomic, weak) id<WZMActionSheetDelegate> delegete;
 
 - (instancetype)initWithMessage:(NSString *)message titles:(NSArray *)titles;
 - (void)showCompletion:(doBlock)completion;
@@ -22,9 +22,9 @@
 
 @end
 
-@protocol LLActionSheetDelegate <NSObject>
+@protocol WZMActionSheetDelegate <NSObject>
 
 @optional
-- (void)actionSheet:(LLActionSheet *)actionSheet didSelectedAtIndex:(NSInteger)index;
+- (void)actionSheet:(WZMActionSheet *)actionSheet didSelectedAtIndex:(NSInteger)index;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  LLAppJump.h
+//  WZMAppJump.h
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/18.
@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 
-@interface LLAppJump : NSObject
+@interface WZMAppJump : NSObject
 
-+ (LLAppJump *)shareInstance;
++ (WZMAppJump *)shareInstance;
 
 ///判断APP是否第一次启动
 + (BOOL)checkAppIsFirstLaunch:(NSString *)key;

@@ -1,26 +1,26 @@
 //
-//  LLCatchStore.m
+//  WZMCatchStore.m
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLCatchStore.h"
+#import "WZMCatchStore.h"
 
-@interface LLCatchStore ()
+@interface WZMCatchStore ()
 
 @property (strong, nonatomic) NSMutableDictionary *data;
 
 @end
 
-@implementation LLCatchStore
+@implementation WZMCatchStore
 
 + (instancetype)store {
-    static LLCatchStore *store;
+    static WZMCatchStore *store;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        store = [[LLCatchStore alloc] init];
+        store = [[WZMCatchStore alloc] init];
         store.data = [[NSMutableDictionary alloc] init];
     });
     return store;

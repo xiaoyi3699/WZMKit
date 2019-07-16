@@ -50,16 +50,16 @@ typedef enum : NSInteger {
 
 ///tableHeaderView动画
 typedef enum : NSInteger {
-    LLAutoHeaderAnimationNon   = -1, //无动画
-    LLAutoHeaderAnimationScale = 0,  //按比例缩放
-    LLAutoHeaderAnimationFill  = 1,  //拉伸填充
-}LLAutoHeaderAnimation;
+    WZMAutoHeaderAnimationNon   = -1, //无动画
+    WZMAutoHeaderAnimationScale = 0,  //按比例缩放
+    WZMAutoHeaderAnimationFill  = 1,  //拉伸填充
+}WZMAutoHeaderAnimation;
 
 ///弹框样式
 typedef enum : NSInteger {
-    LLAlertViewTypeNormal = 0,
-    LLAlertViewTypeUpdate,
-}LLAlertViewType;
+    WZMAlertViewTypeNormal = 0,
+    WZMAlertViewTypeUpdate,
+}WZMAlertViewType;
 
 ///弹出框动画
 typedef enum : NSInteger {

@@ -1,12 +1,12 @@
-#import "LLDrawView.h"
+#import "WZMDrawView.h"
 
-@interface LLDrawView ()
+@interface WZMDrawView ()
 
 @property (nonatomic,strong) NSMutableArray *lines;
 
 @end
 
-@implementation LLDrawView
+@implementation WZMDrawView
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

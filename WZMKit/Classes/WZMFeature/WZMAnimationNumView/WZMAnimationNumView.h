@@ -1,5 +1,5 @@
 //
-//  LLAnimationNumView.h
+//  WZMAnimationNumView.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/26.
@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLAnimationNumItemView.h"
+#import "WZMAnimationNumItemView.h"
 
 typedef enum : NSInteger {
     LLAnimationPlacehloderTypeFront     = 0, //占位符在前面
     LLStatusBarStyleLightContentEnd,         //占位符在结尾
 } LLAnimationPlacehloderType;
 
-@interface LLAnimationNumView : UIView
+@interface WZMAnimationNumView : UIView
 
 ///动画时长
 @property (nonatomic, assign) CGFloat duration;

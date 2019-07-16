@@ -1,5 +1,5 @@
 //
-//  LLBezierView.h
+//  WZMBezierView.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/21.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLBezierView : UIView
+@interface WZMBezierView : UIView
 
 @property (nonatomic, assign) CGPoint start;
 @property (nonatomic, assign) CGPoint end;

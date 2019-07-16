@@ -1,5 +1,5 @@
 //
-//  LLCycleView.h
+//  WZMCycleView.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/21.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLBezierView.h"
+#import "WZMBezierView.h"
 
-@interface LLCycleView : UIView
+@interface WZMCycleView : UIView
 
 /**
  初始化

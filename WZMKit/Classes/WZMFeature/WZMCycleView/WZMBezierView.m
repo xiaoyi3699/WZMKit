@@ -1,14 +1,14 @@
 //
-//  LLBezierView.m
+//  WZMBezierView.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/21.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBezierView.h"
+#import "WZMBezierView.h"
 
-@implementation LLBezierView
+@implementation WZMBezierView
 
 - (void)drawRect:(CGRect)rect {
     

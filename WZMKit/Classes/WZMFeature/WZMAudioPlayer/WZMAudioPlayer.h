@@ -1,5 +1,5 @@
 //
-//  LLAudioPlayer.h
+//  WZMAudioPlayer.h
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/25.
@@ -11,7 +11,7 @@
 /*
  使用时，必须创建全局变量
  */
-@interface LLAudioPlayer : AVAudioPlayer
+@interface WZMAudioPlayer : AVAudioPlayer
 
 - (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
 - (id)initWithData:(NSData *)data error:(NSError **)outError;

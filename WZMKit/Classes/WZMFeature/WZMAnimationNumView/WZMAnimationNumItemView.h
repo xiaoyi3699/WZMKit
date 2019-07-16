@@ -1,5 +1,5 @@
 //
-//  LLAnimationNumItemView.h
+//  WZMAnimationNumItemView.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/24.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLAnimationNumItemView : UIView
+@interface WZMAnimationNumItemView : UIView
 
 @property (nonatomic, assign) CGFloat duration;
 @property (nonatomic, strong) UIColor *textColor;

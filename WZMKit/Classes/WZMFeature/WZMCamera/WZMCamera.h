@@ -1,5 +1,5 @@
 //
-//  LLCamera.h
+//  WZMCamera.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/12.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 
-@interface LLCamera : NSObject
+@interface WZMCamera : NSObject
 
 - (instancetype)initWithPosition:(LLCaptureDevicePosition)position;
 

@@ -1,5 +1,5 @@
 //
-//  LLAutoHeader.h
+//  WZMAutoHeader.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/17.
@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 
-@interface LLAutoHeader : UIView
+@interface WZMAutoHeader : UIView
 
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) LLAutoHeaderAnimation headerAnimation;
+@property (nonatomic, assign) WZMAutoHeaderAnimation headerAnimation;
 
 @end
 

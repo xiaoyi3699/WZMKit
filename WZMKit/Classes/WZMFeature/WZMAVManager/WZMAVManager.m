@@ -1,15 +1,15 @@
 //
-//  LLAVManager.m
+//  WZMAVManager.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/10.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLAVManager.h"
+#import "WZMAVManager.h"
 #import "WZMLog.h"
 
-@implementation LLAVManager
+@implementation WZMAVManager
 
 //震动
 + (void)shake{

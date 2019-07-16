@@ -1,15 +1,15 @@
 //
-//  LLAnimationNumView.m
+//  WZMAnimationNumView.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLAnimationNumView.h"
+#import "WZMAnimationNumView.h"
 #import "WZMMacro.h"
 
-@implementation LLAnimationNumView {
+@implementation WZMAnimationNumView {
     NSArray *_aniViews;
 }
 
@@ -36,7 +36,7 @@
         CGFloat itemW = MIN(w, h);
         NSMutableArray *aniViews = [NSMutableArray arrayWithCapacity:count];
         for (NSInteger i = 0; i < count; i ++) {
-            LLAnimationNumItemView *itemView = [[LLAnimationNumItemView alloc] initWithFrame:CGRectMake(i%count*(spacing+itemW), 0, itemW, itemW) text:texts[i]];
+            WZMAnimationNumItemView *itemView = [[WZMAnimationNumItemView alloc] initWithFrame:CGRectMake(i%count*(spacing+itemW), 0, itemW, itemW) text:texts[i]];
             [self addSubview:itemView];
             [aniViews addObject:itemView];
         }
@@ -50,7 +50,7 @@
     if (_duration == duration) return;
     _duration = duration;
     if (self.superview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             itemView.duration = duration;
         }
     }
@@ -60,7 +60,7 @@
     if (_font == font) return;
     _font = font;
     if (self.superview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             itemView.font = font;
         }
     }
@@ -70,7 +70,7 @@
     if (_textColor == textColor) return;
     _textColor = textColor;
     if (self.superview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             itemView.textColor = textColor;
         }
     }
@@ -80,7 +80,7 @@
     if (_foreColor == foreColor) return;
     _foreColor = foreColor;
     if (self.superview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             itemView.backgroundColor = foreColor;
         }
     }
@@ -90,7 +90,7 @@
     if (_sameAnimetion == sameAnimetion) return;
     _sameAnimetion = sameAnimetion;
     if (self.superview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             itemView.sameAnimetion = sameAnimetion;
         }
     }
@@ -130,7 +130,7 @@
     }
     
     for (NSInteger i = 0; i < _aniViews.count; i ++) {
-        LLAnimationNumItemView *itemView = _aniViews[i];
+        WZMAnimationNumItemView *itemView = _aniViews[i];
         NSString *text;
         if (i < texts.count) {
             text = texts[i];
@@ -147,7 +147,7 @@
     [super willMoveToSuperview:newSuperview];
     
     if (newSuperview) {
-        for (LLAnimationNumItemView *itemView in _aniViews) {
+        for (WZMAnimationNumItemView *itemView in _aniViews) {
             _duration = arc4random()%5*1.0/10+0.5;
             itemView.duration = _duration;
             itemView.backgroundColor = _foreColor;

@@ -1,15 +1,15 @@
 //
-//  LLAnimationNumItemView.m
+//  WZMAnimationNumItemView.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/24.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLAnimationNumItemView.h"
+#import "WZMAnimationNumItemView.h"
 #import "UIView+wzmcate.h"
 
-@implementation LLAnimationNumItemView {
+@implementation WZMAnimationNumItemView {
     UILabel *_label_0;
     UILabel *_label_1;
     BOOL _isAnimation;
