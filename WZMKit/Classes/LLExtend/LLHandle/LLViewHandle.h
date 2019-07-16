@@ -11,9 +11,9 @@
 
 @interface LLViewHandle : UIView
 
-+ (void)showInfoMessage:(NSString *)message;
-+ (void)showProgressMessage:(NSString *)message;
-+ (void)dismiss;
++ (void)wzm_showInfoMessage:(NSString *)message;
++ (void)wzm_showProgressMessage:(NSString *)message;
++ (void)wzm_dismiss;
 
 /**
  在状态栏显示网络加载的齿轮图标

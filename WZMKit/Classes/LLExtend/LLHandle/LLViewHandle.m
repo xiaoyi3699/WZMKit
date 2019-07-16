@@ -12,15 +12,15 @@
 
 @implementation LLViewHandle
 
-+ (void)showInfoMessage:(NSString *)message{
++ (void)wzm_showInfoMessage:(NSString *)message{
     [LLProgressHUD showInfoMessage:message];
 }
 
-+ (void)showProgressMessage:(NSString *)message{
++ (void)wzm_showProgressMessage:(NSString *)message{
     [LLProgressHUD showProgressMessage:message];
 }
 
-+ (void)dismiss{
++ (void)wzm_dismiss{
     [LLProgressHUD dismiss];
 }
 

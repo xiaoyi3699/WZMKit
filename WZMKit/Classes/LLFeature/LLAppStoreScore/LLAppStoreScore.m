@@ -65,7 +65,7 @@
             [LLFileManager setObj:@(YES) forKey:LL_BAD_KEY];
         }
         LLDispatch_after(1, ^{
-            [LLViewHandle showInfoMessage:msg];
+            [LLViewHandle wzm_showInfoMessage:msg];
         });
     }
 }
