@@ -26,13 +26,4 @@
 ///提示音
 + (void)playEndSound;
 
-///mov格式转mp4格式
-+ (void)movTransformToMP4WithPath:(NSString *)path outputPath:(NSString *)outputPath;
-
-///视频剪辑
-+ (void)clippingVideoWithPath:(NSString *)path outputPath:(NSString *)outputPath start:(Float64)start end:(Float64)end;
-
-///视频合成
-+ (void)splicingVideoWithPaths:(NSArray<NSString *> *)paths outputPath:(NSString *)outputPath;
-
 @end
