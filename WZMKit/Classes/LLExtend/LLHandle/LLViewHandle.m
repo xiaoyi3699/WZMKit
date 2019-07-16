@@ -24,22 +24,22 @@
     [LLProgressHUD dismiss];
 }
 
-+ (void)setNetworkActivityIndicatorVisible:(BOOL)visible{
++ (void)wzm_setNetworkActivityIndicatorVisible:(BOOL)visible{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:visible];
 }
 
-+ (void)beginIgnoringInteractionEventsDuration:(NSTimeInterval)duration {
++ (void)wzm_beginIgnoringInteractionEventsDuration:(NSTimeInterval)duration {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     });
 }
 
-+ (void)setStatusBarHidden:(BOOL)hidden {
++ (void)wzm_setStatusBarHidden:(BOOL)hidden {
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
-+ (void)setStatusBarStyle:(LLStatusBarStyle)statusBarStyle{
++ (void)wzm_setStatusBarStyle:(LLStatusBarStyle)statusBarStyle{
     switch (statusBarStyle) {
         case LLStatusBarStyleDefault:
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];//黑色
@@ -52,7 +52,7 @@
     }
 }
 
-+ (UIViewController *)theTopViewControler {
++ (UIViewController *)wzm_theTopViewControler {
     UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
     UIViewController *parent = rootVC;
     while ((parent = rootVC.presentedViewController)) {
@@ -64,12 +64,12 @@
     return rootVC;
 }
 
-+ (UIImageView *)findShadowImageView:(UIView *)view {
++ (UIImageView *)wzm_findShadowImageView:(UIView *)view {
     if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
         return (UIImageView *)view;
     }
     for (UIView *subview in view.subviews) {
-        UIImageView *imageView = [self findShadowImageView:subview];
+        UIImageView *imageView = [self wzm_findShadowImageView:subview];
         if (imageView) {
             return imageView;
         }
