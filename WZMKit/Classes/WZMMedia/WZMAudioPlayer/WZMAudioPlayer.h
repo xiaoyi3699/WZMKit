@@ -1,22 +1,23 @@
 //
 //  WZMAudioPlayer.h
-//  WZMFoundation
+//  LLFoundation
 //
-//  Created by wangzhaomeng on 16/8/25.
-//  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
-//  本地音频播放器
+//  Created by WangZhaomeng on 2017/4/16.
+//  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
+//
 
-#import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 
-/*
- 使用时，必须创建全局变量
- */
-@interface WZMAudioPlayer : AVAudioPlayer
+@interface WZMAudioPlayer : NSObject
 
-- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outError;
-- (id)initWithData:(NSData *)data error:(NSError **)outError;
-- (void)startPlay;
-- (void)pausePlay;
-- (void)stopPlay;
+
+@property (nonatomic, readonly, assign) CGFloat   progress;                //播放进度
+@property (nonatomic, readonly, assign) CGFloat   duration;                //音频总时长
+@property (nonatomic, readonly, assign) NSInteger currentTime;             //当前播放时间
+@property (nonatomic, readonly, assign) NSInteger totalTime;               //播放总时长
+
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, assign, getter=isPlaying) BOOL playing;
+@property (nonatomic, assign, getter=isBackground) BOOL background;
 
 @end

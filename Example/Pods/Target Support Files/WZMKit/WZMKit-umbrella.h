@@ -43,6 +43,8 @@
 #import "WZMInline.h"
 #import "WZMKit.h"
 #import "WZMAudioPlayer.h"
+#import "WZMAudioPlayerItem.h"
+#import "WZMAudioPlayer.h"
 #import "WZMAVManager.h"
 #import "WZMCamera.h"
 #import "WZMAVPlayerItem.h"
