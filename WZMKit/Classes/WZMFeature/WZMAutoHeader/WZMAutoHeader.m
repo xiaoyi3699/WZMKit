@@ -1,6 +1,6 @@
 //
 //  WZMAutoHeader.m
-//  WZMFeature
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2017/10/17.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

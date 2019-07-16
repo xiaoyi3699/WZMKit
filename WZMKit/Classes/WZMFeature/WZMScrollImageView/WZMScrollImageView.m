@@ -1,6 +1,6 @@
 //
 //  WZMScrollImageView.m
-//  WZMCommonSDK
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2017/12/12.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

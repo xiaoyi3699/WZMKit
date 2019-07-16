@@ -1,6 +1,6 @@
 //
 //  WZMPhotoBrowser.h
-//  WZMCommonSDK
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2017/12/13.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

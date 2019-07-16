@@ -1,6 +1,6 @@
 //
 //  UIScrollView+wzmcate.h
-//  WZMFeatureStatic
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2018/3/15.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.

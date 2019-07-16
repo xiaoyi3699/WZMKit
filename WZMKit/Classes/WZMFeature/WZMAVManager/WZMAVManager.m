@@ -1,6 +1,6 @@
 //
 //  WZMAVManager.m
-//  WZMFeature
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2017/11/10.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

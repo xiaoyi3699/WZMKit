@@ -1,6 +1,6 @@
 //
 //  UINavigationBar+wzmcate.h
-//  WZMFeature
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2017/9/28.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

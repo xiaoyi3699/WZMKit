@@ -1,6 +1,6 @@
 //
 //  WAMPublic.m
-//  WZMFeatureStatic
+//  WZMKit
 //
 //  Created by WangZhaomeng on 2019/5/20.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
