@@ -173,6 +173,19 @@
     return fileNames;
 }
 
++ (NSInteger)getFileSizeAtPath:(NSString *)filePath {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:filePath]) return 0;
+    NSEnumerator *child = [[manager subpathsAtPath:filePath] objectEnumerator];
+    NSString *fileName;
+    NSInteger folderSize = 0;
+    while ((fileName = [child nextObject]) != nil) {
+        NSString *path = [filePath stringByAppendingPathComponent:fileName];
+        folderSize += [[manager attributesOfItemAtPath:path error:nil] fileSize];
+    }
+    return folderSize;
+}
+
 + (BOOL)setObj:(id)obj forKey:(NSString *)key{
     if (obj && key) {
         [WZM_USER_DEFAULTS setObject:obj forKey:key];

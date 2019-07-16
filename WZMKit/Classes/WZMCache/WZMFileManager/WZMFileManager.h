@@ -52,6 +52,11 @@
 + (NSMutableArray *)getFileNamesAtPath:(NSString *)filePath;
 
 /**
+ 获取指定路径下所有文件大小 byte
+ */
++ (NSInteger)getFileSizeAtPath:(NSString *)filePath;
+
+/**
   存储到info.plist
  */
 + (BOOL)setObj:(id)obj forKey:(NSString *)key;
