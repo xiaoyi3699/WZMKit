@@ -1,5 +1,5 @@
 //
-//  LLSegmentedView.h
+//  WZMSegmentedView.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/15.
@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLSegmentedCell.h"
+#import "WZMSegmentedCell.h"
 
-@protocol LLSegmentedViewDelegate;
+@protocol WZMSegmentedViewDelegate;
 
-@interface LLSegmentedView : UIView
+@interface WZMSegmentedView : UIView
 
 ///字体
 @property (nonatomic, strong) UIFont  *font;
@@ -26,13 +26,13 @@
 ///选项
 @property (nonatomic, strong) NSArray *titles;
 
-@property (nonatomic, weak) id<LLSegmentedViewDelegate> delegate;
+@property (nonatomic, weak) id<WZMSegmentedViewDelegate> delegate;
 
 @end
 
-@protocol LLSegmentedViewDelegate <NSObject>
+@protocol WZMSegmentedViewDelegate <NSObject>
 
 @optional
-- (void)segmentedView:(LLSegmentedView *)segmentedView selectedAtIndex:(NSInteger)index;
+- (void)segmentedView:(WZMSegmentedView *)segmentedView selectedAtIndex:(NSInteger)index;
 
 @end

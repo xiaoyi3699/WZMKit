@@ -10,8 +10,8 @@
 #import <objc/message.h>
 
 // 运行时objc_msgSend
-#define LLRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
-#define LLRefreshMsgTarget(target)  (__bridge void *)(target)
+#define WZMRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
+#define WZMRefreshMsgTarget(target)  (__bridge void *)(target)
 @implementation LLBaseFooterView {
     CGFloat _contentOffsetY;
     CGFloat _lastContentHeight;
@@ -21,7 +21,7 @@
     LLBaseFooterView *refreshFooter = [[self alloc] init];
     refreshFooter.refreshingTarget = target;
     refreshFooter.refreshingAction = action;
-    [[NSNotificationCenter defaultCenter] addObserver:refreshFooter selector:@selector(refreshMoreData:) name:LLRefreshMoreData object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:refreshFooter selector:@selector(refreshMoreData:) name:WZMRefreshMoreData object:nil];
     return refreshFooter;
 }
 
@@ -58,15 +58,15 @@
     [super scrollViewContentOffsetDidChange:change];
     if (self.scrollView.contentOffset.y <= 0) return;
     
-    if (_refreshState == LLRefreshStateNoMoreData) {
+    if (_refreshState == WZMRefreshStateNoMoreData) {
         //没有更多数据
     }
     else {
-        if (self.scrollView.contentOffset.y < LLRefreshFooterHeight+_contentOffsetY) {
+        if (self.scrollView.contentOffset.y < WZMRefreshFooterHeight+_contentOffsetY) {
             [self LL_RefreshNormal];
         }
         else {
-            [self LL_WillRefresh];
+            [self LL_WiWZMRefresh];
         }
     }
 }
@@ -88,7 +88,7 @@
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{
     [super scrollViewPanStateDidChange:change];
     if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (self.scrollView.contentOffset.y >= LLRefreshFooterHeight+_contentOffsetY) {
+        if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {
             [self LL_BeginRefresh];
         }
     }
@@ -102,11 +102,11 @@
         [super LL_BeginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
-                self.scrollView.contentInset = UIEdgeInsetsMake(-LLRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
+                self.scrollView.contentInset = UIEdgeInsetsMake(-WZMRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
                 _lastContentHeight = self.scrollView.contentSize.height;
             } completion:^(BOOL finished) {
                 if ([self.refreshingTarget respondsToSelector:self.refreshingAction]) {
-                    LLRefreshMsgSend(LLRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
+                    WZMRefreshMsgSend(WZMRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
                 }
             }];
         });
@@ -136,7 +136,7 @@
             else {
                 //[UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+LLRefreshFooterHeight);
+                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+WZMRefreshFooterHeight);
                 //}];
             }
         });
@@ -167,7 +167,7 @@
             else {
                 //[UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+LLRefreshFooterHeight);
+                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+WZMRefreshFooterHeight);
                 //}];
             }
         });

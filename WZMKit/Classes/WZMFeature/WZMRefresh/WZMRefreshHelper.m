@@ -1,20 +1,20 @@
 //
-//  LLRefreshHelper.m
+//  WZMRefreshHelper.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLRefreshHelper.h"
+#import "WZMRefreshHelper.h"
 
-NSString *const LLRefreshKeyPathContentOffset = @"contentOffset";
-NSString *const LLRefreshKeyPathContentSize   = @"contentSize";
-NSString *const LLRefreshKeyPathPanState      = @"state";
-NSString *const LLRefreshHeaderTime           = @"LLRefreshHeaderTime";
-NSString *const LLRefreshMoreData             = @"LLRefreshMoreData";
+NSString *const WZMRefreshKeyPathContentOffset = @"contentOffset";
+NSString *const WZMRefreshKeyPathContentSize   = @"contentSize";
+NSString *const WZMRefreshKeyPathPanState      = @"state";
+NSString *const WZMRefreshHeaderTime           = @"WZMRefreshHeaderTime";
+NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 
-@implementation LLRefreshHelper
+@implementation WZMRefreshHelper
 
 + (NSString *)LL_getRefreshTime:(NSString *)key {
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
@@ -43,12 +43,12 @@ NSString *const LLRefreshMoreData             = @"LLRefreshMoreData";
 
 //framework的bundle文件
 + (NSBundle *)LL_RefreshBundle_0 {
-    return [NSBundle bundleWithPath:[[NSBundle bundleForClass:[LLRefreshHelper class]] pathForResource:@"LLRefresh" ofType:@"bundle"]];
+    return [NSBundle bundleWithPath:[[NSBundle bundleForClass:[WZMRefreshHelper class]] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
 }
 
 //静态库的bundle文件
 + (NSBundle *)LL_RefreshBundle_1 {
-    return [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"LLRefresh" ofType:@"bundle"]];
+    return [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
 }
 
 + (UIImage *)LL_ArrowImage {

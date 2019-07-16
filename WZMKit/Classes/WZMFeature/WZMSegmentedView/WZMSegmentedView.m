@@ -1,19 +1,19 @@
 //
-//  LLSegmentedView.m
+//  WZMSegmentedView.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/15.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLSegmentedView.h"
+#import "WZMSegmentedView.h"
 #import "UIView+wzmcate.h"
 
-@interface LLSegmentedView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface WZMSegmentedView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @end
 
-@implementation LLSegmentedView {
+@implementation WZMSegmentedView {
     UIButton *_dropBtn;
     UIVisualEffectView *_dropMenu;
     NSArray *_titleWidths;
@@ -53,7 +53,7 @@
     _collectionView.showsHorizontalScrollIndicator = NO;
     
     [self addSubview:_collectionView];
-    [_collectionView registerClass:[LLSegmentedCell class] forCellWithReuseIdentifier:@"LLSegmentedCell"];
+    [_collectionView registerClass:[WZMSegmentedCell class] forCellWithReuseIdentifier:@"WZMSegmentedCell"];
 }
 
 #pragma mark - public method
@@ -170,7 +170,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    LLSegmentedCell *cell = (LLSegmentedCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"LLSegmentedCell"
+    WZMSegmentedCell *cell = (WZMSegmentedCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WZMSegmentedCell"
                                                                                          forIndexPath:indexPath];
     if (indexPath.item < _titles.count) {
         NSString *title = _titles[indexPath.item];

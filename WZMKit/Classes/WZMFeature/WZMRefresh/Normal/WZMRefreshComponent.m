@@ -1,22 +1,22 @@
 //
-//  LLRefreshComponent.m
+//  WZMRefreshComponent.m
 //  refresh
 //
 //  Created by zhaomengWang on 17/3/24.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLRefreshComponent.h"
-#import "LLRefreshHeaderView.h"
-#import "LLRefreshFooterView.h"
+#import "WZMRefreshComponent.h"
+#import "WZMRefreshHeaderView.h"
+#import "WZMRefreshFooterView.h"
 
-@interface LLRefreshComponent ()
+@interface WZMRefreshComponent ()
 
 @property (strong, nonatomic) UIPanGestureRecognizer *pan;
 
 @end
 
-@implementation LLRefreshComponent
+@implementation WZMRefreshComponent
 
 #pragma mark - 初始化
 - (instancetype)init
@@ -26,7 +26,7 @@
         [self prepare];
         
         // 默认是普通状态
-        _refreshState = LLRefreshStateNormal;
+        _refreshState = WZMRefreshStateNormal;
     }
     return self;
 }
@@ -69,9 +69,9 @@
 - (UIImageView *)arrowView {
     if (_arrowView == nil) {
         _arrowView = [[UIImageView alloc] init];
-        _arrowView.image = [LLRefreshHelper LL_ArrowImage];
+        _arrowView.image = [WZMRefreshHelper LL_ArrowImage];
         _arrowView.tintColor = LL_REFRESH_COLOR;
-        if ([self isKindOfClass:[LLRefreshFooterView class]]) {
+        if ([self isKindOfClass:[WZMRefreshFooterView class]]) {
             _arrowView.layer.transform = LL_TRANS_FORM;
         }
         [self addSubview:_arrowView];
@@ -92,56 +92,56 @@
 - (void)addObservers
 {
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
-    [self.scrollView addObserver:self forKeyPath:LLRefreshKeyPathContentOffset options:options context:nil];
-    [self.scrollView addObserver:self forKeyPath:LLRefreshKeyPathContentSize options:options context:nil];
+    [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentOffset options:options context:nil];
+    [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentSize options:options context:nil];
     self.pan = self.scrollView.panGestureRecognizer;
-    [self.pan addObserver:self forKeyPath:LLRefreshKeyPathPanState options:options context:nil];
+    [self.pan addObserver:self forKeyPath:WZMRefreshKeyPathPanState options:options context:nil];
 }
 
 - (void)removeObservers
 {
-    [self.superview removeObserver:self forKeyPath:LLRefreshKeyPathContentOffset];
-    [self.superview removeObserver:self forKeyPath:LLRefreshKeyPathContentSize];
-    [self.pan removeObserver:self forKeyPath:LLRefreshKeyPathPanState];
+    [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentOffset];
+    [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentSize];
+    [self.pan removeObserver:self forKeyPath:WZMRefreshKeyPathPanState];
     self.pan = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.isRefreshing) return;
-    if ([keyPath isEqualToString:LLRefreshKeyPathContentSize]) {
+    if ([keyPath isEqualToString:WZMRefreshKeyPathContentSize]) {
         [self scrollViewContentSizeDidChange:change];
     }
     
     if (self.hidden)       return;
-    if ([keyPath isEqualToString:LLRefreshKeyPathContentOffset]) {
+    if ([keyPath isEqualToString:WZMRefreshKeyPathContentOffset]) {
         [self scrollViewContentOffsetDidChange:change];
     }
-    else if ([keyPath isEqualToString:LLRefreshKeyPathPanState]) {
+    else if ([keyPath isEqualToString:WZMRefreshKeyPathPanState]) {
         [self scrollViewPanStateDidChange:change];
     }
 }
 
 /** 普通状态 */
 - (void)LL_RefreshNormal{
-    [self updateRefreshState:LLRefreshStateNormal];
+    [self updateRefreshState:WZMRefreshStateNormal];
 }
 
 /** 松开就刷新的状态 */
-- (void)LL_WillRefresh {
-    [self updateRefreshState:LLRefreshStateWillRefresh];
+- (void)LL_WiWZMRefresh {
+    [self updateRefreshState:WZMRefreshStateWiWZMRefresh];
 }
 
 /** 没有更多的数据 */
 - (void)LL_NoMoreData {
-    [self updateRefreshState:LLRefreshStateNoMoreData];
+    [self updateRefreshState:WZMRefreshStateNoMoreData];
 }
 
 /** 正在刷新中的状态 */
 - (void)LL_BeginRefresh{
     self.refreshing = YES;
     [self refreshUI:YES];
-    [self updateRefreshState:LLRefreshStateRefreshing];
+    [self updateRefreshState:WZMRefreshStateRefreshing];
 }
 
 /** 结束刷新 */
@@ -163,14 +163,14 @@
         [self.loadingView startAnimating];
     }
     else {
-        if ([self isKindOfClass:[LLRefreshHeaderView class]]) {
+        if ([self isKindOfClass:[WZMRefreshHeaderView class]]) {
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [LLRefreshHelper LL_setRefreshTime:LLRefreshHeaderTime];
-                NSString *value = [LLRefreshHelper LL_getRefreshTime:LLRefreshHeaderTime];
+                [WZMRefreshHelper LL_setRefreshTime:WZMRefreshHeaderTime];
+                NSString *value = [WZMRefreshHelper LL_getRefreshTime:WZMRefreshHeaderTime];
                 NSInteger w = ceil([value sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _laseTimeLabel.text = value;
-                    self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (LLRefreshHeaderHeight-40)/2.0, 15, 40);
+                    self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshHeaderHeight-40)/2.0, 15, 40);
                     self.arrowView.layer.transform = CATransform3DIdentity;
                     [self.loadingView stopAnimating];
                     self.loadingView.center = self.arrowView.center;
@@ -180,7 +180,7 @@
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
-                self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (LLRefreshFooterHeight-40)/2.0, 15, 40);
+                self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshFooterHeight-40)/2.0, 15, 40);
                 self.arrowView.layer.transform = LL_TRANS_FORM;
                 [self.loadingView stopAnimating];
                 self.loadingView.center = self.arrowView.center;
@@ -194,6 +194,6 @@
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change{}
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{}
-- (void)updateRefreshState:(LLRefreshState)refreshState{}
+- (void)updateRefreshState:(WZMRefreshState)refreshState{}
 
 @end

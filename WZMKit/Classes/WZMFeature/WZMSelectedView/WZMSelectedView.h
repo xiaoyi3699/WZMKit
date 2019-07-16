@@ -1,5 +1,5 @@
 //
-//  LLSelectedView.h
+//  WZMSelectedView.h
 //  LLRoundedImage
 //
 //  Created by WangZhaomeng on 2017/7/10.
@@ -7,9 +7,9 @@
 //  视图选择器
 
 #import <UIKit/UIKit.h>
-@protocol LLSelectedViewDelegate;
+@protocol WZMSelectedViewDelegate;
 
-@interface LLSelectedView : UIView
+@interface WZMSelectedView : UIView
 
 @property (nonatomic, assign) NSInteger selectedIndex;       //当前选中的索引值
 @property (nonatomic, strong) UIButton  *selectedBtn;        //当前选中的btn
@@ -17,15 +17,15 @@
 @property (nonatomic, strong) UIColor   *selectedTitleColor; //选中颜色
 @property (nonatomic, strong) UIColor   *lineColor;          //底部线条颜色
 @property (nonatomic, strong) UIColor   *selectedLineColor;  //选中时底部线条颜色
-@property (nonatomic, weak) id<LLSelectedViewDelegate> delegate;
+@property (nonatomic, weak) id<WZMSelectedViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles titleFont:(UIFont *)font index:(NSInteger)index;
 
 @end
 
-@protocol LLSelectedViewDelegate <NSObject>
+@protocol WZMSelectedViewDelegate <NSObject>
 
 @optional
-- (void)selectedView:(LLSelectedView *)selectedView selectedAtIndex:(NSInteger)index;
+- (void)selectedView:(WZMSelectedView *)selectedView selectedAtIndex:(NSInteger)index;
 
 @end

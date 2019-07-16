@@ -1,14 +1,14 @@
 //
-//  LLSelectedView.m
+//  WZMSelectedView.m
 //  LLRoundedImage
 //
 //  Created by WangZhaomeng on 2017/7/10.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLSelectedView.h"
+#import "WZMSelectedView.h"
 
-@implementation LLSelectedView {
+@implementation WZMSelectedView {
     NSMutableArray *_btns;
     NSMutableArray *_lineWidths;
     UIView         *_selectedLineView;

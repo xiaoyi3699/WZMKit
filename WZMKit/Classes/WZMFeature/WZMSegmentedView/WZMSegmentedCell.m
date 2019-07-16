@@ -1,15 +1,15 @@
 //
-//  LLSegmentedCell.m
+//  WZMSegmentedCell.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/15.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLSegmentedCell.h"
+#import "WZMSegmentedCell.h"
 #import "UIView+wzmcate.h"
 
-@implementation LLSegmentedCell {
+@implementation WZMSegmentedCell {
     UILabel *_titleLabel;
     UIView *_lineView;
 }

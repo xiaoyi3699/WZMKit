@@ -1,5 +1,5 @@
 //
-//  LLRefreshComponent.h
+//  WZMRefreshComponent.h
 //  refresh
 //
 //  Created by zhaomengWang on 17/3/24.
@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLRefreshHelper.h"
+#import "WZMRefreshHelper.h"
 
-@interface LLRefreshComponent : UIView{
-    LLRefreshState _refreshState;
+@interface WZMRefreshComponent : UIView{
+    WZMRefreshState _refreshState;
     UILabel *_messageLabel;
     UILabel *_laseTimeLabel;
 }
@@ -36,7 +36,7 @@
 - (void)LL_RefreshNormal NS_REQUIRES_SUPER;
 
 /** 松开就刷新的状态 */
-- (void)LL_WillRefresh NS_REQUIRES_SUPER;
+- (void)LL_WiWZMRefresh NS_REQUIRES_SUPER;
 
 /** 没有更多的数据 */
 - (void)LL_NoMoreData NS_REQUIRES_SUPER;
@@ -66,7 +66,7 @@
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change;
 
 /** 更新刷新控件的状态 */
-- (void)updateRefreshState:(LLRefreshState)refreshState;
+- (void)updateRefreshState:(WZMRefreshState)refreshState;
 
 /** 移除kvo监听 */
 - (void)removeObservers;

@@ -1,5 +1,5 @@
 //
-//  LLSegmentedCell.h
+//  WZMSegmentedCell.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLSegmentedCell : UICollectionViewCell
+@interface WZMSegmentedCell : UICollectionViewCell
 
 - (void)setConfigWithTitle:(NSString *)title
                 titleColor:(UIColor *)titleColor

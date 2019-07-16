@@ -24,7 +24,7 @@
         [self prepare];
         
         // 默认是普通状态
-        _refreshState = LLRefreshStateNormal;
+        _refreshState = WZMRefreshStateNormal;
     }
     return self;
 }
@@ -68,55 +68,55 @@
 - (void)addObservers
 {
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
-    [self.scrollView addObserver:self forKeyPath:LLRefreshKeyPathContentOffset options:options context:nil];
-    [self.scrollView addObserver:self forKeyPath:LLRefreshKeyPathContentSize options:options context:nil];
+    [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentOffset options:options context:nil];
+    [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentSize options:options context:nil];
     self.pan = self.scrollView.panGestureRecognizer;
-    [self.pan addObserver:self forKeyPath:LLRefreshKeyPathPanState options:options context:nil];
+    [self.pan addObserver:self forKeyPath:WZMRefreshKeyPathPanState options:options context:nil];
 }
 
 - (void)removeObservers
 {
-    [self.superview removeObserver:self forKeyPath:LLRefreshKeyPathContentOffset];
-    [self.superview removeObserver:self forKeyPath:LLRefreshKeyPathContentSize];
-    [self.pan removeObserver:self forKeyPath:LLRefreshKeyPathPanState];
+    [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentOffset];
+    [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentSize];
+    [self.pan removeObserver:self forKeyPath:WZMRefreshKeyPathPanState];
     self.pan = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.isRefreshing) return;
-    if ([keyPath isEqualToString:LLRefreshKeyPathContentSize]) {
+    if ([keyPath isEqualToString:WZMRefreshKeyPathContentSize]) {
         [self scrollViewContentSizeDidChange:change];
     }
     
     if (self.hidden)       return;
-    if ([keyPath isEqualToString:LLRefreshKeyPathContentOffset]) {
+    if ([keyPath isEqualToString:WZMRefreshKeyPathContentOffset]) {
         [self scrollViewContentOffsetDidChange:change];
     }
-    else if ([keyPath isEqualToString:LLRefreshKeyPathPanState]) {
+    else if ([keyPath isEqualToString:WZMRefreshKeyPathPanState]) {
         [self scrollViewPanStateDidChange:change];
     }
 }
 
 /** 普通状态 */
 - (void)LL_RefreshNormal{
-    [self updateRefreshState:LLRefreshStateNormal];
+    [self updateRefreshState:WZMRefreshStateNormal];
 }
 
 /** 松开就刷新的状态 */
-- (void)LL_WillRefresh {
-    [self updateRefreshState:LLRefreshStateWillRefresh];
+- (void)LL_WiWZMRefresh {
+    [self updateRefreshState:WZMRefreshStateWiWZMRefresh];
 }
 
 /** 没有更多的数据 */
 - (void)LL_NoMoreData {
-    [self updateRefreshState:LLRefreshStateNoMoreData];
+    [self updateRefreshState:WZMRefreshStateNoMoreData];
 }
 
 /** 正在刷新中的状态 */
 - (void)LL_BeginRefresh{
     self.refreshing = YES;
-    [self updateRefreshState:LLRefreshStateRefreshing];
+    [self updateRefreshState:WZMRefreshStateRefreshing];
 }
 
 /** 结束刷新 */
@@ -135,6 +135,6 @@
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change{}
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{}
-- (void)updateRefreshState:(LLRefreshState)refreshState{}
+- (void)updateRefreshState:(WZMRefreshState)refreshState{}
 
 @end

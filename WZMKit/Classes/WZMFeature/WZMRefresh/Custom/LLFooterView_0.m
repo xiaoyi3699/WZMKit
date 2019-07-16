@@ -10,17 +10,17 @@
 
 @implementation LLFooterView_0
 
-- (void)updateRefreshState:(LLRefreshState)refreshState {
+- (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;
     
     NSString *refreshText;
-    if (refreshState == LLRefreshStateNormal) {
+    if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"上拉可以加载更多";
     }
-    else if (refreshState == LLRefreshStateWillRefresh) {
+    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
         refreshText = @"松开立即加载更多";
     }
-    else if (refreshState == LLRefreshStateRefreshing) {
+    else if (refreshState == WZMRefreshStateRefreshing) {
         refreshText = @"正在加载数据...";
     }
     else {

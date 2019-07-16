@@ -1,27 +1,27 @@
 //
-//  LLRefreshFooterView.m
+//  WZMRefreshFooterView.m
 //  refresh
 //
 //  Created by zhaomengWang on 17/3/16.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLRefreshFooterView.h"
+#import "WZMRefreshFooterView.h"
 #import <objc/message.h>
 
 // 运行时objc_msgSend
-#define LLRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
-#define LLRefreshMsgTarget(target)  (__bridge void *)(target)
-@implementation LLRefreshFooterView{
+#define WZMRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
+#define WZMRefreshMsgTarget(target)  (__bridge void *)(target)
+@implementation WZMRefreshFooterView{
     CGFloat _contentOffsetY;
     CGFloat _lastContentHeight;
 }
 
 + (instancetype)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action {
-    LLRefreshFooterView *refreshFooter = [[self alloc] init];
+    WZMRefreshFooterView *refreshFooter = [[self alloc] init];
     refreshFooter.refreshingTarget = target;
     refreshFooter.refreshingAction = action;
-    [[NSNotificationCenter defaultCenter] addObserver:refreshFooter selector:@selector(refreshMoreData:) name:LLRefreshMoreData object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:refreshFooter selector:@selector(refreshMoreData:) name:WZMRefreshMoreData object:nil];
     return refreshFooter;
 }
 
@@ -54,7 +54,7 @@
     self.frame = frame;
     
     NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
-    self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (LLRefreshHeaderHeight-40)/2.0, 15, 40);
+    self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshHeaderHeight-40)/2.0, 15, 40);
     
     self.loadingView.center = self.arrowView.center;
     self.loadingView.color = LL_REFRESH_COLOR;
@@ -71,17 +71,17 @@
     [self addSubview:_messageLabel];
 }
 
-- (void)updateRefreshState:(LLRefreshState)refreshState {
+- (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;
     
     NSString *refreshText;
-    if (refreshState == LLRefreshStateNormal) {
+    if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"上拉可以加载更多";
     }
-    else if (refreshState == LLRefreshStateWillRefresh) {
+    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
         refreshText = @"松开立即加载更多";
     }
-    else if (refreshState == LLRefreshStateRefreshing) {
+    else if (refreshState == WZMRefreshStateRefreshing) {
         refreshText = @"正在加载数据...";
     }
     else {
@@ -97,17 +97,17 @@
     
     CATransform3D transform3D = LL_TRANS_FORM;
     
-    if (_refreshState == LLRefreshStateNoMoreData) {
-        if (self.scrollView.contentOffset.y >= LLRefreshFooterHeight+_contentOffsetY) {
+    if (_refreshState == WZMRefreshStateNoMoreData) {
+        if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {
             transform3D = CATransform3DIdentity;
         }
     }
     else {
-        if (self.scrollView.contentOffset.y < LLRefreshFooterHeight+_contentOffsetY) {
+        if (self.scrollView.contentOffset.y < WZMRefreshFooterHeight+_contentOffsetY) {
             [self LL_RefreshNormal];
         }
         else {
-            [self LL_WillRefresh];
+            [self LL_WiWZMRefresh];
             transform3D = CATransform3DIdentity;
         }
     }
@@ -133,7 +133,7 @@
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{
     [super scrollViewPanStateDidChange:change];
     if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        if (self.scrollView.contentOffset.y >= LLRefreshFooterHeight+_contentOffsetY) {
+        if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {
             [self LL_BeginRefresh];
         }
     }
@@ -147,11 +147,11 @@
         [super LL_BeginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
-                self.scrollView.contentInset = UIEdgeInsetsMake(-LLRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
+                self.scrollView.contentInset = UIEdgeInsetsMake(-WZMRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
                 _lastContentHeight = self.scrollView.contentSize.height;
             } completion:^(BOOL finished) {
                 if ([self.refreshingTarget respondsToSelector:self.refreshingAction]) {
-                    LLRefreshMsgSend(LLRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
+                    WZMRefreshMsgSend(WZMRefreshMsgTarget(self.refreshingTarget), self.refreshingAction, self);
                 }
             }];
         });
@@ -181,7 +181,7 @@
             else {
                 //[UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+LLRefreshFooterHeight);
+                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+WZMRefreshFooterHeight);
                 //}];
             }
         });
@@ -212,7 +212,7 @@
             else {
                 //[UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+LLRefreshFooterHeight);
+                self.scrollView.contentOffset = CGPointMake(0, _lastContentHeight-self.scrollView.bounds.size.height+WZMRefreshFooterHeight);
                 //}];
             }
         });

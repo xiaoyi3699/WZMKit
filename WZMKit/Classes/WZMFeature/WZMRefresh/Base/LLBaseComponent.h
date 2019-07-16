@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLRefreshHelper.h"
+#import "WZMRefreshHelper.h"
 
 @interface LLBaseComponent : UIView{
-    LLRefreshState _refreshState;
+    WZMRefreshState _refreshState;
 }
 
 /** 是否处于刷新状态 */
@@ -31,7 +31,7 @@
 - (void)LL_RefreshNormal NS_REQUIRES_SUPER;
 
 /** 松开就刷新的状态 */
-- (void)LL_WillRefresh NS_REQUIRES_SUPER;
+- (void)LL_WiWZMRefresh NS_REQUIRES_SUPER;
 
 /** 没有更多的数据 */
 - (void)LL_NoMoreData NS_REQUIRES_SUPER;
@@ -61,7 +61,7 @@
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change;
 
 /** 更新刷新控件的状态 */
-- (void)updateRefreshState:(LLRefreshState)refreshState;
+- (void)updateRefreshState:(WZMRefreshState)refreshState;
 
 /** 移除kvo监听 */
 - (void)removeObservers;

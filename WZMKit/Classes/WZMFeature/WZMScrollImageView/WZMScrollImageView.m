@@ -1,19 +1,19 @@
 //
-//  LLScrollImageView.m
+//  WZMScrollImageView.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/12.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLScrollImageView.h"
+#import "WZMScrollImageView.h"
 #import "UIView+wzmcate.h"
 
-@interface LLScrollImageView ()<UIScrollViewDelegate>
+@interface WZMScrollImageView ()<UIScrollViewDelegate>
 
 @end
 
-@implementation LLScrollImageView {
+@implementation WZMScrollImageView {
     NSArray<UIImage *> *_images;
     UIScrollView       *_scrollView;
     UIPageControl      *_pageControl;

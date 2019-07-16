@@ -10,17 +10,17 @@
 
 @implementation LLHeaderView_0
 
-- (void)updateRefreshState:(LLRefreshState)refreshState {
+- (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;
     
     NSString *refreshText;
-    if (refreshState == LLRefreshStateNormal) {
+    if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"下拉可以刷新";
     }
-    else if (refreshState == LLRefreshStateWillRefresh) {
+    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
         refreshText = @"松开立即刷新";
     }
-    else if (refreshState == LLRefreshStateRefreshing) {
+    else if (refreshState == WZMRefreshStateRefreshing) {
         refreshText = @"正在刷新数据...";
     }
     else {

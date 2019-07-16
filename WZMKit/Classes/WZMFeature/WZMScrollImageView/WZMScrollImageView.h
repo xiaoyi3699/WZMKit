@@ -1,5 +1,5 @@
 //
-//  LLScrollImageView.h
+//  WZMScrollImageView.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/12.
@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol LLScrollImageViewDelegage;
+@protocol WZMScrollImageViewDelegage;
 
-@interface LLScrollImageView : UIView
+@interface WZMScrollImageView : UIView
 
-@property (nonatomic, weak) id<LLScrollImageViewDelegage> delegate;
+@property (nonatomic, weak) id<WZMScrollImageViewDelegage> delegate;
 
 ///图片距边界距离(取正值，图片不可超出视图)
 @property (nonatomic, assign) UIEdgeInsets imageViewInset;
@@ -35,9 +35,9 @@
 
 @end
 
-@protocol LLScrollImageViewDelegage <NSObject>
+@protocol WZMScrollImageViewDelegage <NSObject>
 
 @optional
-- (void)scrollImageView:(LLScrollImageView *)scrollImageView didSelectedAtIndex:(NSInteger)index;
+- (void)scrollImageView:(WZMScrollImageView *)scrollImageView didSelectedAtIndex:(NSInteger)index;
 
 @end
