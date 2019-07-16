@@ -39,12 +39,12 @@
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
-+ (void)wzm_setStatusBarStyle:(LLStatusBarStyle)statusBarStyle{
++ (void)wzm_setStatusBarStyle: (WZMStatusBarStyle)statusBarStyle{
     switch (statusBarStyle) {
-        case LLStatusBarStyleDefault:
+        case WZMStatusBarStyleDefault:
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];//黑色
             break;
-        case LLStatusBarStyleLightContent:
+        case WZMStatusBarStyleLightContent:
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//白色
             break;
         default:

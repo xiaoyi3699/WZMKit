@@ -1,6 +1,6 @@
 //
 //  WZMBlock.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/10/24.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

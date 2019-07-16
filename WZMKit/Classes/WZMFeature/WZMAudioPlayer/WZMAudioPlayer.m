@@ -1,6 +1,6 @@
 //
 //  WZMAudioPlayer.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/8/25.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

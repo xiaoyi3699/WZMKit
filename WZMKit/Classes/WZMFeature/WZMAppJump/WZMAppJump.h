@@ -1,6 +1,6 @@
 //
 //  WZMAppJump.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/8/18.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -29,12 +29,12 @@
 + (BOOL)QQChatToUser:(NSString *)account;
 
 ///打开应用
-+ (BOOL)openAppWithAppType:(LLAPPType)type;
++ (BOOL)openAppWithAppType: (WZMAPPType)type;
 
 ///AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type:(LLAppStoreType)type;
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type;
 
 ///AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type:(LLAppStoreType)type;
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type;
 
 @end

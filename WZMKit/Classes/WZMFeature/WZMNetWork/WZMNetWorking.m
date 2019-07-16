@@ -1,6 +1,6 @@
 //
 //  WZMNetWorking.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by zhaomengWang on 17/3/23.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -35,7 +35,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
     self = [super init];
     if (self) {
         self.requestContentType = WZMNetRequestContentTypeForm;
-        self.resultContentType = LLNetResultContentTypeJson;
+        self.resultContentType = WZMNetResultContentTypeJson;
         self.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET",@"HEAD",@"DELETE",@"PATCH",nil];
     }
     return self;
@@ -110,7 +110,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
         //            NSLog(@"%ld",(long)httpResponse.statusCode);
         //        }
         if (callBack) {
-            if (self.resultContentType == LLNetResultContentTypeData) {
+            if (self.resultContentType == WZMNetResultContentTypeData) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     callBack(data,error);
                 });

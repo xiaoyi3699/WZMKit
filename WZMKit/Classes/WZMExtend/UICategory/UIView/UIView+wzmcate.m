@@ -292,23 +292,23 @@
     self.layer.shadowPath = path.CGPath;
 }
 
-- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType {
+- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType: (WZMShadowType)shadowType {
     
     self.layer.shadowColor = color.CGColor; //阴影颜色
     self.layer.shadowOpacity = opacity;     //不透明度
     self.layer.shadowRadius = 5;            //模糊半径
     
     //设置偏移距离
-    if (shadowType == LLShadowTypeAll) {
+    if (shadowType == WZMShadowTypeAll) {
         self.layer.shadowOffset = CGSizeMake(0, 0);
     }
-    else if (shadowType == LLShadowTypeTopLeft) {
+    else if (shadowType == WZMShadowTypeTopLeft) {
         self.layer.shadowOffset = CGSizeMake(-offset, -offset);
     }
-    else if (shadowType == LLShadowTypeTopRight) {
+    else if (shadowType == WZMShadowTypeTopRight) {
         self.layer.shadowOffset = CGSizeMake(offset, -offset);
     }
-    else if (shadowType == LLShadowTypeBottomLeft) {
+    else if (shadowType == WZMShadowTypeBottomLeft) {
         self.layer.shadowOffset = CGSizeMake(-offset, offset);
     }
     else {
@@ -327,7 +327,7 @@
     return [UIColor colorWithRed:pixel[0]/255.0 green:pixel[1]/255.0 blue:pixel[2]/255.0 alpha:pixel[3]/255.0];
 }
 
-- (void)wzm_gradientColorWithGradientType:(LLGradientType)type {
+- (void)wzm_gradientColorWithGradientType: (WZMGradientType)type {
     NSMutableArray *colorArray = [NSMutableArray new];
     for (NSInteger hue = 0; hue < 255; hue += 5) {
         UIColor *color = [UIColor colorWithHue:hue/255.0
@@ -339,7 +339,7 @@
     [self wzm_gradientColors:colorArray gradientType:type];
 }
 
-- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type {
+- (void)wzm_gradientColors:(NSArray *)colors gradientType: (WZMGradientType)type {
     
     NSMutableArray *CGColors = [NSMutableArray arrayWithCapacity:colors.count];
     
@@ -351,15 +351,15 @@
     gradient.frame = self.bounds;
     gradient.colors = CGColors;
     //    gradient.locations = @[@0.0, @1.0];
-    if (type == LLGradientTypeLeftToRight) {
+    if (type == WZMGradientTypeLeftToRight) {
         gradient.startPoint = CGPointMake(0.0, 0.0);
         gradient.endPoint = CGPointMake(1.0, 0.0);
     }
-    else if (type == LLGradientTypeTopToBottom) {
+    else if (type == WZMGradientTypeTopToBottom) {
         gradient.startPoint = CGPointMake(0.0, 0.0);
         gradient.endPoint = CGPointMake(0.0, 1.0);
     }
-    else if (type == LLGradientTypeUpleftToLowright) {
+    else if (type == WZMGradientTypeUpleftToLowright) {
         gradient.startPoint = CGPointMake(0.0, 0.0);
         gradient.endPoint = CGPointMake(1.0, 1.0);
     }

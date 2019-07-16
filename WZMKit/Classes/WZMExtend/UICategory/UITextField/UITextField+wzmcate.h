@@ -1,6 +1,6 @@
 //
 //  UITextField+wzmcate.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by WangZhaomeng on 2017/7/5.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -11,8 +11,8 @@
 
 @interface UITextField (wzmcate)
 
-- (void)setWzm_performActionType:(LLPerformActionType)wzm_performActionType;
-- (LLPerformActionType)wzm_performActionType;
+- (void)setWzm_performActionType: (WZMPerformActionType)wzm_performActionType;
+-  (WZMPerformActionType)wzm_performActionType;
 
 /**
  修改placeholder的字体颜色、大小
@@ -47,7 +47,7 @@
 - (void)wzm_setSelectedRange:(NSRange)range;
 
 ///工具框样式
-- (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message;
+- (void)wzm_inputAccessoryViewWithType: (WZMInputAccessoryType)type message:(NSString *)message;
 
 ///添加完成按钮
 - (void)wzm_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message;

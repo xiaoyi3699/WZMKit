@@ -1,6 +1,6 @@
 //
 //  NSData+wzmcate.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/9/8.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -70,37 +70,37 @@
     return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (LLImageType)wzm_contentType {
+-  (WZMImageType)wzm_contentType {
     uint8_t c;
     [self getBytes:&c length:1];
     switch (c)
     {
         case 0xFF:
-            return LLImageTypeJPEG;
+            return WZMImageTypeJPEG;
             
         case 0x89:
-            return LLImageTypePNG;
+            return WZMImageTypePNG;
             
         case 0x47:
-            return LLImageTypeGIF;
+            return WZMImageTypeGIF;
             
         case 0x49:
         case 0x4D:
-            return LLImageTypeTIFF;
+            return WZMImageTypeTIFF;
             
         case 0x52:
             if ([self length] < 12) {
-                return LLImageTypeUnknown;
+                return WZMImageTypeUnknown;
             }
             NSString *testString = [[NSString alloc] initWithData:[self subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
             if ([testString hasPrefix:@"RIFF"]
                 && [testString hasSuffix:@"WEBP"])
             {
-                return LLImageTypeWEBP;
+                return WZMImageTypeWEBP;
             }
-            return LLImageTypeUnknown;
+            return WZMImageTypeUnknown;
     }
-    return LLImageTypeUnknown;
+    return WZMImageTypeUnknown;
 }
 
 @end

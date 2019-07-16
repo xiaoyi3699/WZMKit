@@ -1,6 +1,6 @@
 //
 //  WZMEnum.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by WangZhaomeng on 2017/7/5.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -11,22 +11,22 @@
 
 ///导航栏颜色
 typedef enum : NSInteger {
-    LLStatusBarStyleDefault         = 0, //黑色
-    LLStatusBarStyleLightContent,        //白色
-} LLStatusBarStyle;
+    WZMStatusBarStyleDefault         = 0, //黑色
+    WZMStatusBarStyleLightContent,        //白色
+} WZMStatusBarStyle;
 
 ///打开AppStore的方式
 typedef enum : NSInteger {
-    LLAppStoreTypeOpen  = 0,//AppStore
-    LLAppStoreTypeInApp,    //应用内
-} LLAppStoreType;
+    WZMAppStoreTypeOpen  = 0,//AppStore
+    WZMAppStoreTypeInApp,    //应用内
+} WZMAppStoreType;
 
 ///手势类型
 typedef enum : NSInteger {
-    LLGestureRecognizerTypeSingle  = 0,
-    LLGestureRecognizerTypeDouble,
-    LLGestureRecognizerTypeLong,
-} LLGestureRecognizerType;
+    WZMGestureRecognizerTypeSingle  = 0,
+    WZMGestureRecognizerTypeDouble,
+    WZMGestureRecognizerTypeLong,
+} WZMGestureRecognizerType;
 
 ///转场动画
 typedef enum : NSInteger {
@@ -63,97 +63,97 @@ typedef enum : NSInteger {
 
 ///弹出框动画
 typedef enum : NSInteger {
-    LLAnimationStyleOutFromCenterNone = 0,  //从中心，由小到大弹出，无弹性动画
-    LLAnimationStyleOutFromCenterAnimation, //从中心，由小到大弹出，有弹性动画
-    LLAnimationStyleFromDownAnimation,      //从底部弹出
+    WZMAnimationStyleOutFromCenterNone = 0,  //从中心，由小到大弹出，无弹性动画
+    WZMAnimationStyleOutFromCenterAnimation, //从中心，由小到大弹出，有弹性动画
+    WZMAnimationStyleFromDownAnimation,      //从底部弹出
     
-} LLAnimationStyle;
+} WZMAnimationStyle;
 
 ///阴影样式
 typedef enum : NSInteger {
-    LLShadowTypeAll,         //四个边阴影
-    LLShadowTypeTopLeft,     //两个变阴影(左上角)
-    LLShadowTypeTopRight,    //两个变阴影(右上角)
-    LLShadowTypeBottomLeft,  //两个变阴影(左下角)
-    LLShadowTypeBottomRight  //两个变阴影(右下角)
-} LLShadowType;
+    WZMShadowTypeAll,         //四个边阴影
+    WZMShadowTypeTopLeft,     //两个变阴影(左上角)
+    WZMShadowTypeTopRight,    //两个变阴影(右上角)
+    WZMShadowTypeBottomLeft,  //两个变阴影(左下角)
+    WZMShadowTypeBottomRight  //两个变阴影(右下角)
+} WZMShadowType;
 
 ///屏幕方向
 typedef enum : NSInteger {
-    LLLaunchImageTypePortrait = 0, //竖屏
-    LLLaunchImageTypeLandscape     //横屏
-} LLLaunchImageType;
+    WZMLaunchImageTypePortrait = 0, //竖屏
+    WZMLaunchImageTypeLandscape     //横屏
+} WZMLaunchImageType;
 
 ///梯度方向
 typedef enum : NSInteger {
-    LLGradientTypeLeftToRight = 0,       //从左到右
-    LLGradientTypeTopToBottom = 1,       //从上到下
-    LLGradientTypeUpleftToLowright = 2,  //左上到右下
-    LLGradientTypeUprightToLowleft = 3,  //右上到左下
-} LLGradientType;
+    WZMGradientTypeLeftToRight = 0,       //从左到右
+    WZMGradientTypeTopToBottom = 1,       //从上到下
+    WZMGradientTypeUpleftToLowright = 2,  //左上到右下
+    WZMGradientTypeUprightToLowleft = 3,  //右上到左下
+} WZMGradientType;
 
 ///摄像头方向
 typedef enum : NSInteger {
-    LLCaptureDevicePositionUnspecified = 0,
-    LLCaptureDevicePositionBack        = 1,
-    LLCaptureDevicePositionFront       = 2,
-}LLCaptureDevicePosition;
+    WZMCaptureDevicePositionUnspecified = 0,
+    WZMCaptureDevicePositionBack        = 1,
+    WZMCaptureDevicePositionFront       = 2,
+} WZMCaptureDevicePosition;
 
 ///键盘上方工具栏样式
 typedef enum : NSInteger {
-    LLInputAccessoryTypeDone,
-    LLInputAccessoryTypeCancel,
-    LLInputAccessoryTypeAll,
-} LLInputAccessoryType;
+    WZMInputAccessoryTypeDone,
+    WZMInputAccessoryTypeCancel,
+    WZMInputAccessoryTypeAll,
+} WZMInputAccessoryType;
 
 ///输入框MenuItem样式
 typedef enum : NSInteger {
-    LLPerformActionTypeNormal,
-    LLPerformActionTypeNone,
-} LLPerformActionType;
+    WZMPerformActionTypeNormal,
+    WZMPerformActionTypeNone,
+} WZMPerformActionType;
 
 ///输入框事件
 typedef enum : NSUInteger {
-    LLTextInputTypeBegin = 0,
-    LLTextInputTypeChange,
-    LLTextInputTypeEnd,
-} LLTextInputType;
+    WZMTextInputTypeBegin = 0,
+    WZMTextInputTypeChange,
+    WZMTextInputTypeEnd,
+} WZMTextInputType;
 
 ///输入框事件
 typedef enum : NSUInteger {
-    LLTextShouldTypeBegin = 0,
-    LLTextShouldTypeEnd,
-    LLTextShouldTypeReturn,
-    LLTextShouldTypeClear, //textField
-} LLTextShouldType;
+    WZMTextShouldTypeBegin = 0,
+    WZMTextShouldTypeEnd,
+    WZMTextShouldTypeReturn,
+    WZMTextShouldTypeClear, //textField
+} WZMTextShouldType;
 
 ///取值方式
 typedef enum : NSInteger {
-    LLTakingValueStyleMin, //最小值
-    LLTakingValueStyleMax, //最大值
-    LLTakingValueStyleAvg, //平均值
-    LLTakingValueStyleSum, //求和
-} LLTakingValueStyle;
+    WZMTakingValueStyleMin, //最小值
+    WZMTakingValueStyleMax, //最大值
+    WZMTakingValueStyleAvg, //平均值
+    WZMTakingValueStyleSum, //求和
+} WZMTakingValueStyle;
 
 ///网络状态
 typedef enum : NSInteger {
-    LLNetWorkStatusUnknown,
-    LLNetWorkStatus2G,
-    LLNetWorkStatus3G,
-    LLNetWorkStatus4G,
-    LLNetWorkStatusWifi,
-} LLNetWorkStatus;
+    WZMNetWorkStatusUnknown,
+    WZMNetWorkStatus2G,
+    WZMNetWorkStatus3G,
+    WZMNetWorkStatus4G,
+    WZMNetWorkStatusWifi,
+} WZMNetWorkStatus;
 
 //数据返回格式
 typedef enum : NSInteger {
-    LLNetResultContentTypeJson = 0, //json
-    LLNetResultContentTypeData,    //源数据
-}LLNetResultContentType;
+    WZMNetResultContentTypeJson = 0, //json
+    WZMNetResultContentTypeData,    //源数据
+} WZMNetResultContentType;
 
 ///文件管理
 typedef enum : NSInteger {
-    LLNotFound          = 404, //路径未找到
-    LLIsNotDirectory           //不是文件夹
+    WZMNotFound          = 404, //路径未找到
+    WZMIsNotDirectory           //不是文件夹
 }WZMFileManagerError;
 
 ///应用类型
@@ -163,16 +163,16 @@ typedef enum : NSInteger {
     sinaweibo,         //新浪微博
     alipay,            //支付宝
     taobao,            //淘宝
-} LLAPPType;
+} WZMAPPType;
 
 ///图片格式
 typedef enum : NSInteger {
-    LLImageTypeUnknown  = -1,
-    LLImageTypePNG      = 0,
-    LLImageTypeJPEG,
-    LLImageTypeGIF,
-    LLImageTypeTIFF,
-    LLImageTypeWEBP,
-} LLImageType;
+    WZMImageTypeUnknown  = -1,
+    WZMImageTypePNG      = 0,
+    WZMImageTypeJPEG,
+    WZMImageTypeGIF,
+    WZMImageTypeTIFF,
+    WZMImageTypeWEBP,
+} WZMImageType;
 
 #endif /* WZMEnum_h */

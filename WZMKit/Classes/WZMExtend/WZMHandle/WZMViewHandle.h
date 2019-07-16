@@ -33,7 +33,7 @@
 /**
  设置状态栏颜色,需要在info.plist中，将View controller-based status bar appearance设为NO
  */
-+ (void)wzm_setStatusBarStyle:(LLStatusBarStyle)statusBarStyle;
++ (void)wzm_setStatusBarStyle: (WZMStatusBarStyle)statusBarStyle;
 
 /**
  当前展示的视图控制器

@@ -88,12 +88,12 @@
 - (void)wzm_setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color;
 ///设置阴影
 - (void)wzm_setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha;
-- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType;
+- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType: (WZMShadowType)shadowType;
 ///获取某一点的颜色
 - (UIColor *)wzm_colorWithPoint:(CGPoint)point;
 ///渐变
-- (void)wzm_gradientColorWithGradientType:(LLGradientType)type;
-- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
+- (void)wzm_gradientColorWithGradientType: (WZMGradientType)type;
+- (void)wzm_gradientColors:(NSArray *)colors gradientType: (WZMGradientType)type;
 ///将一个view保存为pdf格式
 - (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename;
 

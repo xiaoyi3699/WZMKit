@@ -1,6 +1,6 @@
 //
 //  UILabel+wzmcate.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by Mr.Wang on 16/12/21.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -12,9 +12,9 @@
 @interface UILabel (wzmcate)
 
 ///文字渐变
-- (void)wzm_textGradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
+- (void)wzm_textGradientColors:(NSArray *)colors gradientType: (WZMGradientType)type;
 
 ///文字渐变
-- (void)wzm_textGradientColorWithGradientType:(LLGradientType)type;
+- (void)wzm_textGradientColorWithGradientType: (WZMGradientType)type;
 
 @end

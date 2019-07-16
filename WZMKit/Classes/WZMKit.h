@@ -95,8 +95,8 @@
 #import "WZMVideoPlayerViewController.h"
 
 //时间差 CFAbsoluteTime
-#define LLStartTime CFAbsoluteTimeGetCurrent()
-#define LLEndTime   (CFAbsoluteTimeGetCurrent() - LLStartTime)
+#define WZMStartTime CFAbsoluteTimeGetCurrent()
+#define WZMEndTime   (CFAbsoluteTimeGetCurrent() - WZMStartTime)
 
 //当前时间
 #define WZM_TIME [[NSDateFormatter wzm_defaultDateFormatter] stringFromDate:[NSDate date]]

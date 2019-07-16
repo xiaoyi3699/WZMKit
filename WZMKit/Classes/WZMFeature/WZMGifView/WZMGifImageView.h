@@ -1,6 +1,6 @@
 //
 //  WZMGifImageView.h
-//  LLGifView
+//  WZMGifView
 //
 //  Created by WangZhaomeng on 2017/6/14.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.

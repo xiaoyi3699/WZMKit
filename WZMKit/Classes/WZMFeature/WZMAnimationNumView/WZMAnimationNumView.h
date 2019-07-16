@@ -1,6 +1,6 @@
 //
 //  WZMAnimationNumView.h
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
@@ -10,9 +10,9 @@
 #import "WZMAnimationNumItemView.h"
 
 typedef enum : NSInteger {
-    LLAnimationPlacehloderTypeFront     = 0, //占位符在前面
-    LLStatusBarStyleLightContentEnd,         //占位符在结尾
-} LLAnimationPlacehloderType;
+    WZMAnimationPlacehloderTypeFront     = 0, //占位符在前面
+    WZMStatusBarStyleLightContentEnd,         //占位符在结尾
+} WZMAnimationPlacehloderType;
 
 @interface WZMAnimationNumView : UIView
 
@@ -29,7 +29,7 @@ typedef enum : NSInteger {
 ///无数字时的占位符, 默认为空字符
 @property (nonatomic, strong) NSString *placeholder;
 ///占位符的位置
-@property (nonatomic, assign) LLAnimationPlacehloderType placeholderType;
+@property (nonatomic, assign) WZMAnimationPlacehloderType placeholderType;
 
 - (instancetype)initWithFrame:(CGRect)frame numText:(NSString *)numText spacing:(CGFloat)spacing;
 

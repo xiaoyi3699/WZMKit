@@ -1,6 +1,6 @@
 //
 //  WZMPhotoBrowser.m
-//  LLCommonSDK
+//  WZMCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/13.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
@@ -52,7 +52,7 @@
         clickAtIndexPath:(NSIndexPath *)indexPath
                  content:(id)content
                    isGif:(BOOL)isGif
-                    type:(LLGestureRecognizerType)type {
+                    type: (WZMGestureRecognizerType)type {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:content:isGif:type:)]) {
         [self.delegate photoBrowser:self clickAtIndex:indexPath.row content:content isGif:isGif type:type];
     }

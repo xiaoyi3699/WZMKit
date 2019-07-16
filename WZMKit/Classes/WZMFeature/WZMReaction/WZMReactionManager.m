@@ -1,6 +1,6 @@
 //
 //  WZMReactionManager.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
@@ -40,21 +40,21 @@
 }
 
 - (void)singleGestureRecognizer:(UITapGestureRecognizer *)gesture {
-    [self gestureView:gesture.view type:LLGestureRecognizerTypeSingle];
+    [self gestureView:gesture.view type:WZMGestureRecognizerTypeSingle];
 }
 
 - (void)doubleGestureRecognizer:(UITapGestureRecognizer *)gesture {
-    [self gestureView:gesture.view type:LLGestureRecognizerTypeDouble];
+    [self gestureView:gesture.view type:WZMGestureRecognizerTypeDouble];
 }
 
 - (void)longGestureRecognizer:(UILongPressGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        [self gestureView:gesture.view type:LLGestureRecognizerTypeLong];
+        [self gestureView:gesture.view type:WZMGestureRecognizerTypeLong];
     }
 }
 
 //private
-- (void)gestureView:(UIView *)view type:(LLGestureRecognizerType)type {
+- (void)gestureView:(UIView *)view type: (WZMGestureRecognizerType)type {
     if (self.gesture) {
         self.gesture(view,type);
     }
@@ -112,33 +112,33 @@
 
 #pragma mark - UITextField
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self textField:textField inputType:LLTextInputTypeBegin];
+    [self textField:textField inputType:WZMTextInputTypeBegin];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self textField:textField inputType:LLTextInputTypeEnd];
+    [self textField:textField inputType:WZMTextInputTypeEnd];
 }
 
 - (void)textFieldDidChange:(NSNotification *)notification {
     UITextField *textField = (UITextField *)notification.object;
     if (![textField isKindOfClass:[UITextField class]]) return;
-    [self textField:textField inputType:LLTextInputTypeChange];
+    [self textField:textField inputType:WZMTextInputTypeChange];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return [self textField:textField shouldType:LLTextShouldTypeBegin];
+    return [self textField:textField shouldType:WZMTextShouldTypeBegin];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    return [self textField:textField shouldType:LLTextShouldTypeEnd];
+    return [self textField:textField shouldType:WZMTextShouldTypeEnd];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    return [self textField:textField shouldType:LLTextShouldTypeClear];
+    return [self textField:textField shouldType:WZMTextShouldTypeClear];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    return [self textField:textField shouldType:LLTextShouldTypeReturn];
+    return [self textField:textField shouldType:WZMTextShouldTypeReturn];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -149,13 +149,13 @@
 }
 
 //private
-- (void)textField:(UITextField *)textField inputType:(LLTextInputType)type {
+- (void)textField:(UITextField *)textField inputType: (WZMTextInputType)type {
     if (self.textFieldInput) {
         self.textFieldInput(textField,type);
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldType:(LLTextShouldType)type {
+- (BOOL)textField:(UITextField *)textField shouldType: (WZMTextShouldType)type {
     if (self.textFieldShould) {
         return self.textFieldShould(textField,type);
     }
@@ -164,28 +164,28 @@
 
 #pragma mark - UITextView
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self textView:textView inputType:LLTextInputTypeBegin];
+    [self textView:textView inputType:WZMTextInputTypeBegin];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self textView:textView inputType:LLTextInputTypeEnd];
+    [self textView:textView inputType:WZMTextInputTypeEnd];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [self textView:textView inputType:LLTextInputTypeChange];
+    [self textView:textView inputType:WZMTextInputTypeChange];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    return [self textView:textView shouldType:LLTextShouldTypeBegin];
+    return [self textView:textView shouldType:WZMTextShouldTypeBegin];
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
-    return [self textView:textView shouldType:LLTextShouldTypeEnd];
+    return [self textView:textView shouldType:WZMTextShouldTypeEnd];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"] || [text isEqualToString:@"\r"]) {
-        return [self textView:textView shouldType:LLTextShouldTypeReturn];
+        return [self textView:textView shouldType:WZMTextShouldTypeReturn];
     }
     if (self.textViewShouldChange) {
         return self.textViewShouldChange(textView,range,text);
@@ -194,13 +194,13 @@
 }
 
 //private
-- (void)textView:(UITextView *)textView inputType:(LLTextInputType)type {
+- (void)textView:(UITextView *)textView inputType: (WZMTextInputType)type {
     if (self.textFieldInput) {
         self.textViewInput(textView,type);
     }
 }
 
-- (BOOL)textView:(UITextView *)textView shouldType:(LLTextShouldType)type {
+- (BOOL)textView:(UITextView *)textView shouldType: (WZMTextShouldType)type {
     if (self.textViewShould) {
         return self.textViewShould(textView,type);
     }

@@ -1,5 +1,5 @@
 //
-//  LLLocation.m
+//  WZMLocation.m
 //  dingwei
 //
 //  Created by wangzhaomeng on 16/8/4.

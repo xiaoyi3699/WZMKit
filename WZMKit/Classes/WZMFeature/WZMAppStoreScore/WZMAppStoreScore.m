@@ -1,6 +1,6 @@
 //
 //  WZMAppStoreScore.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/5/22.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
@@ -20,7 +20,7 @@
 @end
 
 @implementation WZMAppStoreScore {
-    LLAppStoreType _type;
+    WZMAppStoreType _type;
     NSString *_appId;
 }
 
@@ -41,7 +41,7 @@
     return self;
 }
 
-- (void)showScoreView:(LLAppStoreType)type isOnce:(BOOL)isOnce {
+- (void)showScoreView: (WZMAppStoreType)type isOnce:(BOOL)isOnce {
     _type = type;
     BOOL isStore = [[WZMFileManager objForKey:WZM_STORE_KEY] boolValue];
     if (isOnce && isStore) return;

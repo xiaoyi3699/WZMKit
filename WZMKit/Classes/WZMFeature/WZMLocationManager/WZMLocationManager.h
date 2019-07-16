@@ -1,5 +1,5 @@
 //
-//  LLLocation.h
+//  WZMLocation.h
 //  dingwei
 //
 //  Created by wangzhaomeng on 16/8/4.

@@ -1,6 +1,6 @@
 //
 //  WZMReactionManager.h
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
@@ -12,12 +12,12 @@
 typedef void(^nextAction)(id param_);
 typedef void(^alertAction)(UIAlertView *alert_, NSInteger index_);
 typedef void(^eventAction)(UIButton *button_, UIControlEvents event_);
-typedef void(^gestureAction)(UIView *view_, LLGestureRecognizerType gesture_);
-typedef void(^textFieldInputAction)(UITextField *textField_, LLTextInputType textInput_);
-typedef BOOL(^textFieldShouldAction)(UITextField *textField_, LLTextShouldType textShould_);
+typedef void(^gestureAction)(UIView *view_, WZMGestureRecognizerType gesture_);
+typedef void(^textFieldInputAction)(UITextField *textField_, WZMTextInputType textInput_);
+typedef BOOL(^textFieldShouldAction)(UITextField *textField_, WZMTextShouldType textShould_);
 typedef BOOL(^textFieldShouldChangeAction)(UITextField *textField_, NSRange range_, NSString *string_);
-typedef void(^textViewInputAction)(UITextView *textView_, LLTextInputType textInput_);
-typedef BOOL(^textViewShouldAction)(UITextView *textView_, LLTextShouldType textShould_);
+typedef void(^textViewInputAction)(UITextView *textView_, WZMTextInputType textInput_);
+typedef BOOL(^textViewShouldAction)(UITextView *textView_, WZMTextShouldType textShould_);
 typedef BOOL(^textViewShouldChangeAction)(UITextView *textView_, NSRange range_, NSString *string_);
 @interface WZMReactionManager : NSObject<UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
 

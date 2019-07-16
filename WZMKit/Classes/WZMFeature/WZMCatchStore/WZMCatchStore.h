@@ -1,6 +1,6 @@
 //
 //  WZMCatchStore.h
-//  LLFeatureStatic
+//  WZMFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.

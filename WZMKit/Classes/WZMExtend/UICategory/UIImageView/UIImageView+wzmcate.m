@@ -1,6 +1,6 @@
 //
 //  UIImageView+wzmcate.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/11/7.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

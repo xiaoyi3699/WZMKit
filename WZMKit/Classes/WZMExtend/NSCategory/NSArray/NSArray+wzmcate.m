@@ -1,6 +1,6 @@
 //
 //  NSArray+wzmcate.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/9/14.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -19,17 +19,17 @@
     return nil;
 }
 
-- (id)wzm_getResultWithStyle:(LLTakingValueStyle)style {
+- (id)wzm_getResultWithStyle: (WZMTakingValueStyle)style {
     NSString *keyPath;
-    if (style == LLTakingValueStyleMin) {
+    if (style == WZMTakingValueStyleMin) {
         //keyPath = @"@min.floatValue";
         keyPath = @"@min.self";
     }
-    else if (style == LLTakingValueStyleMax) {
+    else if (style == WZMTakingValueStyleMax) {
         //keyPath = @"@max.floatValue";
         keyPath = @"@max.self";
     }
-    else if (style == LLTakingValueStyleAvg) {
+    else if (style == WZMTakingValueStyleAvg) {
         //keyPath = @"@avg.floatValue";
         keyPath = @"@avg.self";
     }

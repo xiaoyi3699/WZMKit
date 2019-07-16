@@ -28,9 +28,9 @@
 ///创建一个动态图片，动态图片持续的时间为duration
 + (UIImage *)wzm_getGifByImages:(NSArray *)images duration:(NSTimeInterval)duration;
 ///获取launchImage
-+ (UIImage *)wzm_getLaunchImageByType:(LLLaunchImageType)type;
++ (UIImage *)wzm_getLaunchImageByType: (WZMLaunchImageType)type;
 ///梯度图
-+ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize;
++ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType: (WZMGradientType)gradientType imgSize:(CGSize)imgSize;
 ///绘制空心图片
 + (UIImage *)wzm_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
 ///保存图片到自定义相册

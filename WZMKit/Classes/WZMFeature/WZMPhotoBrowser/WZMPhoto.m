@@ -109,7 +109,7 @@
 //更新image
 - (void)setupImageData {
     if (_imageData) {
-        BOOL isGif = ([_imageData wzm_contentType] == LLImageTypeGIF);
+        BOOL isGif = ([_imageData wzm_contentType] == WZMImageTypeGIF);
         _currentImage = [UIImage imageWithData:_imageData];
         if (_currentImage) {
             [self layoutImageViewIsGif:isGif];
@@ -206,19 +206,19 @@
 #pragma mark - 手势交互
 //单击
 - (void)singleClick:(UITapGestureRecognizer *)gestureRecognizer {
-    [self setDelegeteType:LLGestureRecognizerTypeSingle];
+    [self setDelegeteType:WZMGestureRecognizerTypeSingle];
 }
 
 //长按
 - (void)longClick:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        [self setDelegeteType:LLGestureRecognizerTypeLong];
+        [self setDelegeteType:WZMGestureRecognizerTypeLong];
     }
 }
 
 //双击
 - (void)doubleClick:(UITapGestureRecognizer *)gestureRecognizer {
-    [self setDelegeteType:LLGestureRecognizerTypeDouble];
+    [self setDelegeteType:WZMGestureRecognizerTypeDouble];
     if (self.zoomScale > WZMPhotoMinScale) {
         [self setZoomScale:WZMPhotoMinScale animated:YES];
     } else {
@@ -230,7 +230,7 @@
     }
 }
 
-- (void)setDelegeteType:(LLGestureRecognizerType)type {
+- (void)setDelegeteType: (WZMGestureRecognizerType)type {
     if ([self.wzm_delegate respondsToSelector:@selector(clickAtPhoto:content:isGif:type:)]) {
         id content = (_isGif ? _imageData : _currentImage);
         [self.wzm_delegate clickAtPhoto:self content:content isGif:_isGif type:type];

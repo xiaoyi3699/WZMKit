@@ -1,6 +1,6 @@
 //
 //  WZMPopupAnimator.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by zhaomengWang on 17/3/3.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -12,7 +12,7 @@
 
 @implementation WZMPopupAnimator{
     __weak UIView    *_alertView;
-    LLAnimationStyle _animationStyle;
+    WZMAnimationStyle _animationStyle;
 }
 
 + (instancetype)animator {
@@ -32,7 +32,7 @@
     return self;
 }
 
-- (void)popUpView:(UIView *)view animationStyle:(LLAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion{
     
     if (_alertView.superview) {
         [_alertView removeFromSuperview];
@@ -44,10 +44,10 @@
     _alertView      = view;
     _animationStyle = animationStyle;
     
-    if (animationStyle == LLAnimationStyleOutFromCenterAnimation) {
+    if (animationStyle == WZMAnimationStyleOutFromCenterAnimation) {
         _alertView.center = self.center;
     }
-    else if (animationStyle == LLAnimationStyleFromDownAnimation) {
+    else if (animationStyle == WZMAnimationStyleFromDownAnimation) {
         _alertView.wzm_minY = self.wzm_maxY;
     }
     self.alpha = 0;
@@ -55,13 +55,13 @@
     [[UIApplication sharedApplication].delegate.window addSubview:self];
     [UIView animateWithDuration:duration animations:^{
         self.alpha = 1;
-        if (animationStyle == LLAnimationStyleOutFromCenterNone) {
+        if (animationStyle == WZMAnimationStyleOutFromCenterNone) {
             [_alertView wzm_outFromCenterNoneWithDuration:duration];
         }
-        else if (animationStyle == LLAnimationStyleOutFromCenterAnimation) {
+        else if (animationStyle == WZMAnimationStyleOutFromCenterAnimation) {
             [_alertView wzm_outFromCenterAnimationWithDuration:duration];
         }
-        else if (animationStyle == LLAnimationStyleFromDownAnimation) {
+        else if (animationStyle == WZMAnimationStyleFromDownAnimation) {
             _alertView.wzm_minY = self.wzm_height-_alertView.wzm_height;
         }
     } completion:^(BOOL finished) {
@@ -74,13 +74,13 @@
 - (void)dismiss:(BOOL)animated completion:(doBlock)completion{
     if (animated) {
         doBlock animation;
-        if (_animationStyle == LLAnimationStyleOutFromCenterNone) {
+        if (_animationStyle == WZMAnimationStyleOutFromCenterNone) {
             animation = ^(){
                 [_alertView wzm_dismissToCenterNoneWithDuration:.2];
                 self.alpha = 0;
             };
         }
-        else if (_animationStyle == LLAnimationStyleOutFromCenterAnimation) {
+        else if (_animationStyle == WZMAnimationStyleOutFromCenterAnimation) {
             animation = ^(){
                 [_alertView wzm_dismissToCenterAnimationWithDuration:.2];
                 self.alpha = 0;
@@ -116,7 +116,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    if (_animationStyle == LLAnimationStyleFromDownAnimation) {
+    if (_animationStyle == WZMAnimationStyleFromDownAnimation) {
         NSSet *allTouches = [event allTouches];
         UITouch *touch = [allTouches anyObject];
         if (touch.view == self) {

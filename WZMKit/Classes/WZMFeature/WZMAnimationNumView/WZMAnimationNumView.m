@@ -1,6 +1,6 @@
 //
 //  WZMAnimationNumView.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
@@ -112,7 +112,7 @@
         NSInteger dCount = (_aniViews.count-texts.count);
         
         for (NSInteger i = 0; i < dCount; i ++) {
-            if (_placeholderType == LLAnimationPlacehloderTypeFront) {
+            if (_placeholderType == WZMAnimationPlacehloderTypeFront) {
                 [texts insertObject:_placeholder atIndex:0];
             }
             else {

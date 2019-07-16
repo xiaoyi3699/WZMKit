@@ -1,6 +1,6 @@
 //
 //  UIView+WZMReaction.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
@@ -12,22 +12,22 @@
 @implementation UIView (WZMReaction)
 
 //view只添加一种手势
-- (void)wzm_executeGesture:(LLGestureRecognizerType)type action:(nextAction)action {
+- (void)wzm_executeGesture: (WZMGestureRecognizerType)type action:(nextAction)action {
     if (self.reaction == nil) {
         self.reaction = [[WZMReactionManager alloc] init];
     }
     self.reaction.next = action;
-    if (type == LLGestureRecognizerTypeSingle) {
+    if (type == WZMGestureRecognizerTypeSingle) {
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self.reaction action:@selector(gestureRecognizer:)];
         gesture.numberOfTapsRequired = 1;
         [self addGestureRecognizer:gesture];
     }
-    else if (type == LLGestureRecognizerTypeDouble) {
+    else if (type == WZMGestureRecognizerTypeDouble) {
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self.reaction action:@selector(gestureRecognizer:)];
         gesture.numberOfTapsRequired = 2;
         [self addGestureRecognizer:gesture];
     }
-    else if (type == LLGestureRecognizerTypeLong) {
+    else if (type == WZMGestureRecognizerTypeLong) {
         UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self.reaction action:@selector(gestureRecognizer:)];
         [self addGestureRecognizer:gesture];
     }

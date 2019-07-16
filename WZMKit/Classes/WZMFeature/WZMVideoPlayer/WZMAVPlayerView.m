@@ -1,6 +1,6 @@
 //
 //  PlayView.m
-//  LLAVPlayer
+//  WZMAVPlayer
 //
 //  Created by zhaomengWang on 2017/4/13.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -15,10 +15,10 @@
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
 
-typedef NS_ENUM(NSUInteger, LLDirection) {
-    LLDirectionNone = 0,
-    LLDirectionHrizontal,    //水平方向滑动
-    LLDirectionVertical,     //垂直方向滑动
+typedef NS_ENUM(NSUInteger, WZMDirection) {
+    WZMDirectionNone = 0,
+    WZMDirectionHrizontal,    //水平方向滑动
+    WZMDirectionVertical,     //垂直方向滑动
 };
 
 @interface WZMAVPlayerView (){
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
 @property (nonatomic, assign) CGFloat dur;
 
 //以下是滑动手势相关变量
-@property (nonatomic, assign) LLDirection direction;
+@property (nonatomic, assign) WZMDirection direction;
 @property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat startVB;
 @property (nonatomic, assign) CGFloat startVideoRate;
@@ -359,7 +359,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
-    self.direction = LLDirectionNone;
+    self.direction = WZMDirectionNone;
     
     //记录首次触摸坐标
     self.startPoint = point;
@@ -384,21 +384,21 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     CGPoint point = [touch locationInView:self];
     
     CGPoint panPoint = CGPointMake(point.x - self.startPoint.x, point.y - self.startPoint.y);
-    if (self.direction == LLDirectionNone) {
+    if (self.direction == WZMDirectionNone) {
         //分析出用户滑动的方向
         if (fabs(panPoint.x) >= 30) {
             [self pause];
-            self.direction = LLDirectionHrizontal;
+            self.direction = WZMDirectionHrizontal;
         }
         else if (fabs(panPoint.y) >= 30) {
-            self.direction = LLDirectionVertical;
+            self.direction = WZMDirectionVertical;
         }
         else {
             return;
         }
     }
     
-    if (self.direction == LLDirectionHrizontal) {
+    if (self.direction == WZMDirectionHrizontal) {
         CGFloat scale = (self.dur > 180 ? 180/self.dur : 1.0);
         CGFloat rate = self.startVideoRate+(panPoint.x/self.bounds.size.width)*scale;
         if (rate > 1) {
@@ -412,7 +412,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
         _currentTime.text = [self getTime:(NSInteger)(rate*self.dur)];
         [_player seekToTime:CMTimeMultiplyByFloat64(dur, rate)];
         
-    }else if (self.direction == LLDirectionVertical) {
+    }else if (self.direction == WZMDirectionVertical) {
         CGFloat value = self.startVB-(panPoint.y/self.bounds.size.height);
         if (value > 1) {
             value = 1;
@@ -437,10 +437,10 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
  */
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
-    if (self.direction == LLDirectionHrizontal) {
+    if (self.direction == WZMDirectionHrizontal) {
         [self play];
     }
-    else if (self.direction == LLDirectionVertical) {
+    else if (self.direction == WZMDirectionVertical) {
         self.volumeView.hidden = YES;
         self.brightnessSlider.hidden = YES;
     }
@@ -451,10 +451,10 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
  */
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesCancelled:touches withEvent:event];
-    if (self.direction == LLDirectionHrizontal) {
+    if (self.direction == WZMDirectionHrizontal) {
         [self play];
     }
-    else if (self.direction == LLDirectionVertical) {
+    else if (self.direction == WZMDirectionVertical) {
         self.volumeView.hidden = YES;
         self.brightnessSlider.hidden = YES;
     }

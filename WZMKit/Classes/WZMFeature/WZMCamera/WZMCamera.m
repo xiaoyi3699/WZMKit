@@ -1,6 +1,6 @@
 //
 //  WZMCamera.m
-//  LLFeature
+//  WZMFeature
 //
 //  Created by WangZhaomeng on 2017/10/12.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
@@ -18,17 +18,17 @@
 
 @implementation WZMCamera
 
-- (instancetype)initWithPosition:(LLCaptureDevicePosition)position {
+- (instancetype)initWithPosition: (WZMCaptureDevicePosition)position {
     self = [super init];
     if (self) {
         
-        if (position == LLCaptureDevicePositionBack) {
+        if (position == WZMCaptureDevicePositionBack) {
             if ([self isBackCameraAvailable] == NO) {
                 wzm_log(@"后摄像头不可用");
                 return self;
             }
         }
-        else if (position == LLCaptureDevicePositionFront) {
+        else if (position == WZMCaptureDevicePositionFront) {
             if ([self isFrontCameraAvailable] == NO) {
                 wzm_log(@"前摄像头不可用");
                 return self;

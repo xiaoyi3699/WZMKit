@@ -1,6 +1,6 @@
 //
 //  NSArray+wzmcate.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/9/14.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -14,7 +14,7 @@
 ///随机元素
 - (id)wzm_getRandomObject;
 ///数组运算
-- (id)wzm_getResultWithStyle:(LLTakingValueStyle)style;
+- (id)wzm_getResultWithStyle: (WZMTakingValueStyle)style;
 ///谓词搜索
 - (NSArray *)wzm_searchWithKey:(NSString *)key;
 

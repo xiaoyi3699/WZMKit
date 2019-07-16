@@ -1,6 +1,6 @@
 //
 //  WZMPopupAnimator.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by zhaomengWang on 17/3/3.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -17,7 +17,7 @@
 @property (nonatomic, weak) id<WZMPopupAnimatorDelegate> delegate;
 
 + (instancetype)animator;
-- (void)popUpView:(UIView *)view animationStyle:(LLAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion;
+- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion;
 - (void)dismiss:(BOOL)animated completion:(doBlock)completion;
 
 @end

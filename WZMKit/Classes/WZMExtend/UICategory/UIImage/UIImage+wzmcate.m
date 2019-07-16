@@ -175,9 +175,9 @@
     return  [UIImage animatedImageWithImages:images duration:duration];
 }
 
-+ (UIImage *)wzm_getLaunchImageByType:(LLLaunchImageType)type {
++ (UIImage *)wzm_getLaunchImageByType: (WZMLaunchImageType)type {
     NSString*viewOrientation;
-    if (type == LLLaunchImageTypePortrait) {
+    if (type == WZMLaunchImageTypePortrait) {
         viewOrientation = @"Portrait";
     }
     else {
@@ -196,7 +196,7 @@
     return nil;
 }
 
-+ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize {
++ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType: (WZMGradientType)gradientType imgSize:(CGSize)imgSize {
     NSMutableArray *ar = [NSMutableArray array];
     for(UIColor *c in colors) {
         [ar addObject:(id)c.CGColor];
@@ -209,19 +209,19 @@
     CGPoint start;
     CGPoint end;
     switch (gradientType) {
-        case LLGradientTypeTopToBottom:
+        case WZMGradientTypeTopToBottom:
             start = CGPointMake(0.0, 0.0);
             end = CGPointMake(0.0, imgSize.height);
             break;
-        case LLGradientTypeLeftToRight:
+        case WZMGradientTypeLeftToRight:
             start = CGPointMake(0.0, 0.0);
             end = CGPointMake(imgSize.width, 0.0);
             break;
-        case LLGradientTypeUpleftToLowright:
+        case WZMGradientTypeUpleftToLowright:
             start = CGPointMake(0.0, 0.0);
             end = CGPointMake(imgSize.width, imgSize.height);
             break;
-        case LLGradientTypeUprightToLowleft:
+        case WZMGradientTypeUprightToLowleft:
             start = CGPointMake(imgSize.width, 0.0);
             end = CGPointMake(0.0, imgSize.height);
             break;

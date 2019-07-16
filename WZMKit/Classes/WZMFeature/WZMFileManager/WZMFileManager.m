@@ -98,7 +98,7 @@
         else{
             NSString *errorMessage = [NSString stringWithFormat:@"\"%@\",is not a directory",filePath];
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey];
-            NSError *error = [NSError errorWithDomain:@"llwangzhaomeng" code:LLIsNotDirectory userInfo:userInfo];
+            NSError *error = [NSError errorWithDomain:@"llwangzhaomeng" code:WZMIsNotDirectory userInfo:userInfo];
             [errors addObject:error];
             if (completion) {
                 completion(errors);
@@ -108,7 +108,7 @@
     else{
         NSString *errorMessage = [NSString stringWithFormat:@"\"%@\",is not found",filePath];
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey];
-        NSError *error = [NSError errorWithDomain:@"llwangzhaomeng" code:LLNotFound userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:@"llwangzhaomeng" code:WZMNotFound userInfo:userInfo];
         [errors addObject:error];
         if (completion) {
             completion(errors);

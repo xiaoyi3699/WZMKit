@@ -1,6 +1,6 @@
 //
 //  NSData+wzmcate.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/9/8.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -19,7 +19,7 @@
 ///NSString转换成NSData
 + (NSData *)wzm_getDataByString:(NSString *)string;
 //获取图片扩展名
-- (LLImageType)wzm_contentType;
+-  (WZMImageType)wzm_contentType;
 
 @end
 

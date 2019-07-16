@@ -1,6 +1,6 @@
 //
 //  WZMAppJump.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/8/18.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
@@ -70,7 +70,7 @@
 }
 
 //打开应用
-+ (BOOL)openAppWithAppType:(LLAPPType)type{
++ (BOOL)openAppWithAppType: (WZMAPPType)type{
     NSString *APPSchemeName = [self getAPPSchemeName:type];
     if ([self checkIfAppInstalled:APPSchemeName]) {
         [self openAppWithAppScheme:APPSchemeName];
@@ -91,7 +91,7 @@
     return a;
 }
 
-+ (NSString *)getAPPSchemeName:(LLAPPType)type{
++ (NSString *)getAPPSchemeName: (WZMAPPType)type{
     switch (type) {
         case 0:  return @"mqq://";
         case 1:  return @"weixin://";
@@ -103,8 +103,8 @@
 }
 
 //AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type:(LLAppStoreType)type{
-    if (type == LLAppStoreTypeOpen) {
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type{
+    if (type == WZMAppStoreTypeOpen) {
         [self wzm_AppStoreScoreOpen:appId];
     }
     else {
@@ -130,9 +130,9 @@
 }
 
 //AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type:(LLAppStoreType)type{
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type{
     
-    if (type == LLAppStoreTypeOpen) {
+    if (type == WZMAppStoreTypeOpen) {
         [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
     else {

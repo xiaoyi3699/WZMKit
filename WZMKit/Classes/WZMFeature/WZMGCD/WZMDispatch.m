@@ -1,6 +1,6 @@
 //
 //  WZMDispatch.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by wangzhaomeng on 16/10/8.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

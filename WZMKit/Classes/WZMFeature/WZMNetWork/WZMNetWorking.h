@@ -1,6 +1,6 @@
 //
 //  WZMNetWorking.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by zhaomengWang on 17/3/23.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "WZMEnum.h"
 
-extern NSString * const LLNetRequestContentTypeForm;
-extern NSString * const LLNetRequestContentTypeJson;
+extern NSString * const WZMNetRequestContentTypeForm;
+extern NSString * const WZMNetRequestContentTypeJson;
 
 @interface WZMNetWorking : NSObject
 
 ///请求的参数格式
 @property (nonatomic, assign) NSString *requestContentType;
 ///返回的数据格式
-@property (nonatomic, assign) LLNetResultContentType resultContentType;
+@property (nonatomic, assign) WZMNetResultContentType resultContentType;
 
 + (instancetype)netWorking;
 

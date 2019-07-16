@@ -1,6 +1,6 @@
 //
 //  WZMSegmentedCell.h
-//  LLCommonSDK
+//  WZMCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/15.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

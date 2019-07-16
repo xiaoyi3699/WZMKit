@@ -1,6 +1,6 @@
 //
 //  WZMAlertView.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by lhy on 16/8/17.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

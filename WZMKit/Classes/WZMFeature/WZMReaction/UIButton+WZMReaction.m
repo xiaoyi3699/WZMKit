@@ -1,6 +1,6 @@
 //
 //  UIButton+WZMReaction.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.

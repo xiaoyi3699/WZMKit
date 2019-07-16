@@ -1,6 +1,6 @@
 //
 //  WZMRefreshHelper.h
-//  LLFeature
+//  WZMFeature
 //
 //  Created by WangZhaomeng on 2017/10/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

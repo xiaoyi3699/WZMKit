@@ -1,6 +1,6 @@
 //
 //  WZMSendEmail.m
-//  LLCommonSDK
+//  WZMCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/8.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.

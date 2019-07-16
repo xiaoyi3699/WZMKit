@@ -1,6 +1,6 @@
 //
 //  WZMSelectedView.m
-//  LLRoundedImage
+//  WZMRoundedImage
 //
 //  Created by WangZhaomeng on 2017/7/10.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.

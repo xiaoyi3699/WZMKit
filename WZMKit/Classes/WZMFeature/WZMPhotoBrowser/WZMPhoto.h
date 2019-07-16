@@ -29,6 +29,6 @@
 @protocol WZMPhotoDelegate <NSObject>
 
 @optional
-- (void)clickAtPhoto:(WZMPhoto *)photo content:(id)content isGif:(BOOL)isGif type:(LLGestureRecognizerType)type;
+- (void)clickAtPhoto:(WZMPhoto *)photo content:(id)content isGif:(BOOL)isGif type: (WZMGestureRecognizerType)type;
 
 @end

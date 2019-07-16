@@ -1,6 +1,6 @@
 //
 //  PlayView.h
-//  LLAVPlayer
+//  WZMAVPlayer
 //
 //  Created by zhaomengWang on 2017/4/13.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.

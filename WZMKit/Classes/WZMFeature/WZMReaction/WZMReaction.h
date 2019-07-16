@@ -1,13 +1,13 @@
 //
 //  WZMReaction.h
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#ifndef LLRection_h
-#define LLRection_h
+#ifndef WZMRection_h
+#define WZMRection_h
 
 #import "NSObject+WZMReaction.h"
 #import "UIView+WZMReaction.h"

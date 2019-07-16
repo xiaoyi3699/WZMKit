@@ -1,6 +1,6 @@
 //
 //  WZMBaseFooterView.h
-//  LLFeature
+//  WZMFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.

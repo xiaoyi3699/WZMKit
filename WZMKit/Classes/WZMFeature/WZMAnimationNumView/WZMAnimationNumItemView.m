@@ -1,6 +1,6 @@
 //
 //  WZMAnimationNumItemView.m
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/2/24.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.

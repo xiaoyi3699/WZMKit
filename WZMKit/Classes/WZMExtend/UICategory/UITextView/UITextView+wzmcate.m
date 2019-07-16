@@ -1,6 +1,6 @@
 //
 //  UITextView+wzmcate.m
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by WangZhaomeng on 2017/7/5.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
@@ -14,12 +14,12 @@
 @implementation UITextView (wzmcate)
 static NSString *_performActionKey = @"performAction";
 
-- (void)setWzm_performActionType:(LLPerformActionType)wzm_performActionType {
+- (void)setWzm_performActionType: (WZMPerformActionType)wzm_performActionType {
     objc_setAssociatedObject(self, &_performActionKey, @(wzm_performActionType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (LLPerformActionType)wzm_performActionType {
-    return (LLPerformActionType)[objc_getAssociatedObject(self, &_performActionKey) integerValue];
+-  (WZMPerformActionType)wzm_performActionType {
+    return  (WZMPerformActionType)[objc_getAssociatedObject(self, &_performActionKey) integerValue];
 }
 
 + (void)load {
@@ -41,7 +41,7 @@ static NSString *_performActionKey = @"performAction";
 
 - (BOOL)wzm_canPerformAction:(SEL)action withSender:(id)sender{
     
-    if (self.wzm_performActionType == LLPerformActionTypeNone) {
+    if (self.wzm_performActionType == WZMPerformActionTypeNone) {
         return NO;
     }
     return [self wzm_canPerformAction:action withSender:sender];
@@ -180,17 +180,17 @@ static NSString *_performActionKey = @"performAction";
 }
 
 //键盘样式
-- (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message {
+- (void)wzm_inputAccessoryViewWithType: (WZMInputAccessoryType)type message:(NSString *)message {
     
     UIVisualEffectView *toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     toolView.frame = CGRectMake(0, 0, TV_WZM_SCREEN_WIDTH, 40);
     toolView.backgroundColor = [UIColor colorWithWhite:.9 alpha:.9];
     
     NSArray *titles;
-    if (type == LLInputAccessoryTypeDone) {
+    if (type == WZMInputAccessoryTypeDone) {
         titles = @[@"完成"];
     }
-    else if (type == LLInputAccessoryTypeCancel) {
+    else if (type == WZMInputAccessoryTypeCancel) {
         titles = @[@"取消"];
     }
     else {

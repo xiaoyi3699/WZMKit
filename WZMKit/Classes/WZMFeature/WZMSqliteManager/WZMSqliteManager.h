@@ -1,6 +1,6 @@
 //
 //  WZMSqliteManager.h
-//  LLFoundation
+//  WZMFoundation
 //
 //  Created by Mr.Wang on 16/12/30.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.

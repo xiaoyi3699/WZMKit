@@ -1,6 +1,6 @@
 //
 //  WZMInline.h
-//  LLFeatureStatic
+//  WZMFeatureStatic
 //
 //  Created by WangZhaomeng on 2019/6/29.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.

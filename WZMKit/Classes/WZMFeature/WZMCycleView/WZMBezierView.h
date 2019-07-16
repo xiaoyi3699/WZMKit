@@ -1,6 +1,6 @@
 //
 //  WZMBezierView.h
-//  LLCommonStatic
+//  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/21.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
