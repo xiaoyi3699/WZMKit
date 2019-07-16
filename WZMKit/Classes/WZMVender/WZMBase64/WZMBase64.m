@@ -1,4 +1,4 @@
-#import "LLBase64.h"
+#import "WZMBase64.h"
 
 #pragma GCC diagnostic ignored "-Wselector"
 
@@ -7,9 +7,9 @@
 #error This library requires automatic reference counting
 #endif
 
-@implementation NSData (LLBase64)
+@implementation NSData (WZMBase64)
 
-+ (NSData *)dataWithBase64EncodedString:(NSString *)string {
++ (NSData *)wzm_dataWithBase64EncodedString:(NSString *)string {
     if (![string length]) return nil;
     NSData *decoded = nil;
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_9 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
@@ -25,7 +25,7 @@
     return [decoded length]? decoded: nil;
 }
 
-- (NSString *)base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth {
+- (NSString *)wzm_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth {
     if (![self length]) return nil;
     NSString *encoded = nil;
 #if __MAC_OS_X_VERSION_MIN_REQUIRED < __MAC_10_9 || __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
@@ -74,19 +74,19 @@
     return result;
 }
 
-- (NSString *)base64EncodedString
+- (NSString *)wzm_base64EncodedString
 {
-    return [self base64EncodedStringWithWrapWidth:0];
+    return [self wzm_base64EncodedStringWithWrapWidth:0];
 }
 
 @end
 
 
-@implementation NSString (LLBase64)
+@implementation NSString (WZMBase64)
 
-+ (NSString *)stringWithBase64EncodedString:(NSString *)string
++ (NSString *)wzm_stringWithBase64EncodedString:(NSString *)string
 {
-    NSData *data = [NSData dataWithBase64EncodedString:string];
+    NSData *data = [NSData wzm_dataWithBase64EncodedString:string];
     if (data)
     {
         return [[self alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -94,26 +94,26 @@
     return nil;
 }
 
-- (NSString *)base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
+- (NSString *)wzm_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
 {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    return [data base64EncodedStringWithWrapWidth:wrapWidth];
+    return [data wzm_base64EncodedStringWithWrapWidth:wrapWidth];
 }
 
-- (NSString *)base64EncodedString
+- (NSString *)wzm_base64EncodedString
 {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    return [data base64EncodedString];
+    return [data wzm_base64EncodedString];
 }
 
-- (NSString *)base64DecodedString
+- (NSString *)wzm_base64DecodedString
 {
-    return [NSString stringWithBase64EncodedString:self];
+    return [NSString wzm_stringWithBase64EncodedString:self];
 }
 
-- (NSData *)base64DecodedData
+- (NSData *)wzm_base64DecodedData
 {
-    return [NSData dataWithBase64EncodedString:self];
+    return [NSData wzm_dataWithBase64EncodedString:self];
 }
 
 @end

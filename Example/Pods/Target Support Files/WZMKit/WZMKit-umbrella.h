@@ -109,7 +109,7 @@
 #import "LLMacro.h"
 #import "LLTextInfo.h"
 #import "LLPublic.h"
-#import "LLBase64.h"
+#import "WZMBase64.h"
 #import "WZMKit.h"
 
 FOUNDATION_EXPORT double WZMKitVersionNumber;

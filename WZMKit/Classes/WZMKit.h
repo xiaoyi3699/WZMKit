@@ -17,7 +17,7 @@
 #import "LLTextInfo.h"
 
 //第三方
-#import "LLBase64.h"
+#import "WZMBase64.h"
 
 //扩展类
 #import "NSNull+wzmcate.h"

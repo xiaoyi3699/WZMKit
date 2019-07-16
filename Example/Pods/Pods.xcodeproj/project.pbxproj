@@ -118,7 +118,7 @@
 		8D83B3F9B92FB32B8471DC91001E96F9 /* NSObject+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CCBCA206424DD1C2D0D38A3919C1CAF /* NSObject+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F7866521C1C3C9A2440A3EF34FF8EF0 /* LLNSHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = D94ECC2F7AEB9351455F539A77722CD0 /* LLNSHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		909EB871AE4F825896E37730A1B98188 /* LLAVManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7150C1D40A586620F56BE22AE651FF9B /* LLAVManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		914E4F100893B8775E01C2EFAAE2E868 /* LLBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = B0499220D7A04FD62460D2E7227892FD /* LLBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		914E4F100893B8775E01C2EFAAE2E868 /* WZMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = B0499220D7A04FD62460D2E7227892FD /* WZMBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94845F1C351D56AD6DB5F85817E1A204 /* UIWebView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 85C83C95EA37D6C3B72F7A7AFD990A52 /* UIWebView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94C0F2DAC0043013821882BDCD2EEFD6 /* LLRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = E67419C4342849EBCDABCFB57195A2C2 /* LLRefreshComponent.m */; };
 		94DC4AE0F89CB4F842660CF7835A8199 /* LLBaseFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325D1310A03B2E0FFD94905D20EE456 /* LLBaseFooterView.m */; };
@@ -211,7 +211,7 @@
 		FA6A9B7AE67A597E7CD26F64777A74FC /* LLDeviceUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = F09358DD26C473DCA321B89E7A45E5A3 /* LLDeviceUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA99EB28DD3B653FA7850F2E023D89D6 /* UITextField+LLReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEB735475517EAF9D74037CBB889859 /* UITextField+LLReaction.m */; };
 		FB73E772C11B90EDACA958F1321FE232 /* LLAppJump.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE11BF0F5894903D72A9FC84C59C8EE /* LLAppJump.m */; };
-		FD5C64C62E66B3D2D81159DFA028BCD9 /* LLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A1C75BE241C21AEEED75DAB5112A73 /* LLBase64.m */; };
+		FD5C64C62E66B3D2D81159DFA028BCD9 /* WZMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A1C75BE241C21AEEED75DAB5112A73 /* WZMBase64.m */; };
 		FDDE6432809FDDD5E2539947450F8BAB /* LLSqliteManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 65D2E069F6E68ABCAFE15CABD0958D95 /* LLSqliteManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FF045B9CC07611FCAC127A53DFCA2C63 /* LLImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A559609630132972B58197B9AAA63F /* LLImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -336,7 +336,7 @@
 		72FE7A936E429007CF85BDD1AB78D685 /* LLPublic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLPublic.m; sourceTree = "<group>"; };
 		7467C3859450FBF7291EDC525B6CE92B /* UIScrollView+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+wzmcate.h"; sourceTree = "<group>"; };
 		786AD02BE2EE1E2A880C162805599EDA /* UILabel+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UILabel+wzmcate.h"; sourceTree = "<group>"; };
-		78A1C75BE241C21AEEED75DAB5112A73 /* LLBase64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLBase64.m; sourceTree = "<group>"; };
+		78A1C75BE241C21AEEED75DAB5112A73 /* WZMBase64.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMBase64.m; sourceTree = "<group>"; };
 		7999458157B79741EDE0630B34BD0E82 /* LLCatchStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLCatchStore.h; sourceTree = "<group>"; };
 		7C24025F7ECD0A12DA73940FEC9B4212 /* LLRefreshFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLRefreshFooterView.h; sourceTree = "<group>"; };
 		7CEF8C5BDFB2F53F5BF9B5E53F3C8718 /* LLAVPlayerItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLAVPlayerItem.h; sourceTree = "<group>"; };
@@ -387,7 +387,7 @@
 		AC8235A8C029078986D9A678866DF581 /* LLLogTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLLogTableViewCell.h; sourceTree = "<group>"; };
 		AE3A4F25EEE0835FD52761AEA68C85F6 /* LLBezierView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLBezierView.h; sourceTree = "<group>"; };
 		AF8B93287F698D2E61B5BE2B5EB4FDED /* LLDrawView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLDrawView.m; sourceTree = "<group>"; };
-		B0499220D7A04FD62460D2E7227892FD /* LLBase64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLBase64.h; sourceTree = "<group>"; };
+		B0499220D7A04FD62460D2E7227892FD /* WZMBase64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMBase64.h; sourceTree = "<group>"; };
 		B22A3B7AA01AD2D31DEC3EDFA2CA2AEA /* LLRefreshHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLRefreshHelper.h; sourceTree = "<group>"; };
 		B2B1D9EAB457F5EFD6C92BFBD6061CCC /* LLGifImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLGifImageView.m; sourceTree = "<group>"; };
 		B5CFD83017D1921A2C7B9001E7BC276B /* Pods-WZMKit_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WZMKit_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -1232,8 +1232,8 @@
 		CBB98809A77C41542F357A6CA742AAB6 /* WZMBase64 */ = {
 			isa = PBXGroup;
 			children = (
-				B0499220D7A04FD62460D2E7227892FD /* LLBase64.h */,
-				78A1C75BE241C21AEEED75DAB5112A73 /* LLBase64.m */,
+				B0499220D7A04FD62460D2E7227892FD /* WZMBase64.h */,
+				78A1C75BE241C21AEEED75DAB5112A73 /* WZMBase64.m */,
 			);
 			path = WZMBase64;
 			sourceTree = "<group>";
@@ -1450,7 +1450,7 @@
 				909EB871AE4F825896E37730A1B98188 /* LLAVManager.h in Headers */,
 				4B7DE48D26E7DF62DB671CD9F516919F /* LLAVPlayerItem.h in Headers */,
 				CD93082A8150CCD051A349A0DDA4CF6A /* LLAVPlayerView.h in Headers */,
-				914E4F100893B8775E01C2EFAAE2E868 /* LLBase64.h in Headers */,
+				914E4F100893B8775E01C2EFAAE2E868 /* WZMBase64.h in Headers */,
 				4C0CEF78066D2CB2F750819EB8FF2E84 /* LLBaseComponent.h in Headers */,
 				01DD59419D6BE24807A259B243C7BEFF /* LLBaseFooterView.h in Headers */,
 				28F09B0F693FE9361588D5F46351221F /* LLBaseHeaderView.h in Headers */,
@@ -1697,7 +1697,7 @@
 				9A737CBAC0E8BEB308741380FDBB6D38 /* LLAVManager.m in Sources */,
 				055E5B951E0FFD5E523D5E07E5957715 /* LLAVPlayerItem.m in Sources */,
 				A5202B2500CFFA6934C4E2EF4455AEBC /* LLAVPlayerView.m in Sources */,
-				FD5C64C62E66B3D2D81159DFA028BCD9 /* LLBase64.m in Sources */,
+				FD5C64C62E66B3D2D81159DFA028BCD9 /* WZMBase64.m in Sources */,
 				269FFC7BFB67B4D397B5987E7BBA7F33 /* LLBaseComponent.m in Sources */,
 				94DC4AE0F89CB4F842660CF7835A8199 /* LLBaseFooterView.m in Sources */,
 				3BCC4649F810FAB96A871275248F19DC /* LLBaseHeaderView.m in Sources */,
