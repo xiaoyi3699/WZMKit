@@ -1,5 +1,5 @@
 //
-//  LLReactionManager.h
+//  WZMReactionManager.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
@@ -19,7 +19,7 @@ typedef BOOL(^textFieldShouldChangeAction)(UITextField *textField_, NSRange rang
 typedef void(^textViewInputAction)(UITextView *textView_, LLTextInputType textInput_);
 typedef BOOL(^textViewShouldAction)(UITextView *textView_, LLTextShouldType textShould_);
 typedef BOOL(^textViewShouldChangeAction)(UITextView *textView_, NSRange range_, NSString *string_);
-@interface LLReactionManager : NSObject<UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
+@interface WZMReactionManager : NSObject<UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, copy) nextAction next;
 @property (nonatomic, copy) alertAction alert;

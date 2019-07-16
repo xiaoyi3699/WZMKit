@@ -1,21 +1,21 @@
 //
-//  LLReactionManager.m
+//  WZMReactionManager.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "LLReactionManager.h"
+#import "WZMReactionManager.h"
 #import "LLLog.h"
 
-@interface LLReactionManager ()
+@interface WZMReactionManager ()
 
 @property (nonatomic, strong) NSMutableArray *names;
 
 @end
 
-@implementation LLReactionManager
+@implementation WZMReactionManager
 
 - (instancetype)init {
     self = [super init];

@@ -1,29 +1,29 @@
 //
-//  UIButton+LLReaction.m
+//  UIButton+WZMReaction.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "UIButton+LLReaction.h"
-#import "NSObject+LLReaction.h"
+#import "UIButton+WZMReaction.h"
+#import "NSObject+WZMReaction.h"
 
-@implementation UIButton (LLReaction)
+@implementation UIButton (WZMReaction)
 
 //btn只添加一种点击事件
-- (void)ll_executeEvent:(UIControlEvents)event action:(nextAction)action {
+- (void)wzm_executeEvent:(UIControlEvents)event action:(nextAction)action {
     if (self.reaction == nil) {
-        self.reaction = [[LLReactionManager alloc] init];
+        self.reaction = [[WZMReactionManager alloc] init];
     }
     self.reaction.next = action;
     [self addTarget:self.reaction action:@selector(btnClick:) forControlEvents:event];
 }
 
 //btn添加多个点击事件, 在回调中判断事件类型
-- (void)ll_executeEvent:(eventAction)action {
+- (void)wzm_executeEvent:(eventAction)action {
     if (self.reaction == nil) {
-        self.reaction = [[LLReactionManager alloc] init];
+        self.reaction = [[WZMReactionManager alloc] init];
     }
     self.reaction.event = action;
     [self addTarget:self.reaction action:@selector(btnDown:) forControlEvents:UIControlEventTouchDown];

@@ -1,5 +1,5 @@
 //
-//  UIAlertView+LLReaction.h
+//  UIAlertView+WZMReaction.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/25.
@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLReactionManager.h"
+#import "WZMReactionManager.h"
 
-@interface UIAlertView (LLReaction)
+@interface UIAlertView (WZMReaction)
 
 ///alert事件
-- (void)ll_executeAlert:(alertAction)action;
+- (void)wzm_executeAlert:(alertAction)action;
 
 @end

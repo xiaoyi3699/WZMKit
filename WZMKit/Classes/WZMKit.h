@@ -67,7 +67,7 @@
 #import "LLCamera.h"
 #import "LLAppJump.h"
 #import "WZMRefresh.h"
-#import "LLReaction.h"
+#import "WZMReaction.h"
 #import "LLDispatch.h"
 #import "LLKeychain.h"
 #import "LLFontView.h"

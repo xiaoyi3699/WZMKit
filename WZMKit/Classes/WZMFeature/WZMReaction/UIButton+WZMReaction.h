@@ -1,5 +1,5 @@
 //
-//  UIButton+LLReaction.h
+//  UIButton+WZMReaction.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLReactionManager.h"
+#import "WZMReactionManager.h"
 
-@interface UIButton (LLReaction)
+@interface UIButton (WZMReaction)
 
 ///btn只添加一种点击事件
-- (void)ll_executeEvent:(UIControlEvents)event action:(nextAction)action;
+- (void)wzm_executeEvent:(UIControlEvents)event action:(nextAction)action;
 
 ///btn添加多个点击事件, 在回调中判断事件类型
-- (void)ll_executeEvent:(eventAction)action;
+- (void)wzm_executeEvent:(eventAction)action;
 
 @end

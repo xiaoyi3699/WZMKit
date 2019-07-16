@@ -1,20 +1,20 @@
 //
-//  UIView+LLReaction.m
+//  UIView+WZMReaction.m
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "UIView+LLReaction.h"
-#import "NSObject+LLReaction.h"
+#import "UIView+WZMReaction.h"
+#import "NSObject+WZMReaction.h"
 
-@implementation UIView (LLReaction)
+@implementation UIView (WZMReaction)
 
 //view只添加一种手势
-- (void)ll_executeGesture:(LLGestureRecognizerType)type action:(nextAction)action {
+- (void)wzm_executeGesture:(LLGestureRecognizerType)type action:(nextAction)action {
     if (self.reaction == nil) {
-        self.reaction = [[LLReactionManager alloc] init];
+        self.reaction = [[WZMReactionManager alloc] init];
     }
     self.reaction.next = action;
     if (type == LLGestureRecognizerTypeSingle) {
@@ -34,9 +34,9 @@
 }
 
 //view添加多种手势, 在回调中判断手势类型
-- (void)ll_executeGesture:(gestureAction)action {
+- (void)wzm_executeGesture:(gestureAction)action {
     if (self.reaction == nil) {
-        self.reaction = [[LLReactionManager alloc] init];
+        self.reaction = [[WZMReactionManager alloc] init];
     }
     self.reaction.gesture = action;
     UITapGestureRecognizer *singleGesture = [[UITapGestureRecognizer alloc] initWithTarget:self.reaction action:@selector(singleGestureRecognizer:)];

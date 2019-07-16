@@ -1,5 +1,5 @@
 //
-//  NSObject+LLReaction.h
+//  NSObject+WZMReaction.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LLReactionManager.h"
+#import "WZMReactionManager.h"
 
-@interface NSObject (LLReaction)
+@interface NSObject (WZMReaction)
 
-- (void)setReaction:(LLReactionManager *)reaction;
-- (LLReactionManager *)reaction;
+- (void)setReaction:(WZMReactionManager *)reaction;
+- (WZMReactionManager *)reaction;
 
 - (void)setNextAction:(nextAction)nextAction;
 - (nextAction)nextAction;
 
-- (void)ll_executeReaction:(id)param;
+- (void)wzm_executeReaction:(id)param;
 
 @end

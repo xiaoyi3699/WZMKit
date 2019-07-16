@@ -1,5 +1,5 @@
 //
-//  UIView+LLReaction.h
+//  UIView+WZMReaction.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2019/6/24.
@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLReactionManager.h"
+#import "WZMReactionManager.h"
 
-@interface UIView (LLReaction)
+@interface UIView (WZMReaction)
 
 ///view只添加一种手势
-- (void)ll_executeGesture:(LLGestureRecognizerType)type action:(nextAction)action;
+- (void)wzm_executeGesture:(LLGestureRecognizerType)type action:(nextAction)action;
 
 ///view添加多种手势, 在回调中判断手势类型
-- (void)ll_executeGesture:(gestureAction)action;
+- (void)wzm_executeGesture:(gestureAction)action;
 
 @end
