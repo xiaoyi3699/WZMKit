@@ -165,7 +165,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"wzm_back_white"] forState:UIControlStateNormal];
+    [backBtn setImage:[WZMVideoPlayerHelper wzm_imageNamed:@"wzm_back_white" ofType:@"png"] forState:UIControlStateNormal];
     [_topView addSubview:backBtn];
     
     UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
