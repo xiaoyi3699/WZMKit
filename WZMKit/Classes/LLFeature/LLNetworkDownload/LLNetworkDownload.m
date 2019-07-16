@@ -43,7 +43,7 @@
         }
         NSURL *URL = [NSURL URLWithString:_url];
         if (URL == nil) {
-            URL = [NSURL URLWithString:[_url ll_getURLEncoded]];
+            URL = [NSURL URLWithString:[_url wzm_getURLEncoded]];
         }
         if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             self.task = [self.session downloadTaskWithURL:URL];

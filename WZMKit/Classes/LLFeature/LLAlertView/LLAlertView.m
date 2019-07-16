@@ -108,7 +108,7 @@
         }
         
         CGFloat width         = size.width-leftEdge*2;
-        CGFloat messageHeight = [NSString ll_heightWithStr:message width:(width-20) font:[UIFont systemFontOfSize:messageFont]];
+        CGFloat messageHeight = [NSString wzm_heightWithStr:message width:(width-20) font:[UIFont systemFontOfSize:messageFont]];
         CGFloat height        = titleHeight+messageHeight+16+btnHeight;
         CGFloat x             = (size.width-width)/2.0f;
         CGFloat y             = (size.height-height)/2.0f;

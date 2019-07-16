@@ -78,7 +78,7 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
 - (NSURLSessionDataTask *)method:(NSString *)method url:(NSString *)url parameters:(id)parameters callBack:(void(^)(id responseObject,NSError *error))callBack {
     NSURL *URL = [NSURL URLWithString:url];
     if (URL == nil) {
-        URL = [NSURL URLWithString:[url ll_getURLEncoded]];
+        URL = [NSURL URLWithString:[url wzm_getURLEncoded]];
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = method;
@@ -89,7 +89,7 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
             NSString *formattUrl = [url stringByAppendingFormat:request.URL.query ? @"&%@" : @"?%@", params];
             NSURL *formattURL = [NSURL URLWithString:formattUrl];
             if (formattURL == nil) {
-                formattURL = [NSURL URLWithString:[formattUrl ll_getURLEncoded]];
+                formattURL = [NSURL URLWithString:[formattUrl wzm_getURLEncoded]];
             }
             request.URL = formattURL;
         }

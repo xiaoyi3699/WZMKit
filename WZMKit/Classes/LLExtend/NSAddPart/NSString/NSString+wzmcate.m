@@ -19,15 +19,15 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 @implementation NSString (wzmcate)
 
 #pragma mark - 进制转换
-+ (NSString *)ll_getHexByDecimal:(NSString *)decimal {
++ (NSString *)wzm_getHexByDecimal:(NSString *)decimal {
     return [NSString stringWithFormat:@"%@",[[NSString alloc] initWithFormat:@"%1lx",(long)[decimal integerValue]]];
 }
 
-+ (NSString *)ll_getDecimalByHex:(NSString *)hex {
++ (NSString *)wzm_getDecimalByHex:(NSString *)hex {
     return [NSString stringWithFormat:@"%lu",strtoul([hex UTF8String],0,16)];
 }
 
-+ (NSString *)ll_getBinaryByDecimal:(NSInteger)decimal {
++ (NSString *)wzm_getBinaryByDecimal:(NSInteger)decimal {
     NSString *binary = @"";
     while (decimal) {
         binary = [[NSString stringWithFormat:@"%ld", (long)(decimal%2)] stringByAppendingString:binary];
@@ -46,7 +46,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return binary;
 }
 
-+ (NSInteger)ll_getDecimalByBinary:(NSString *)binary {
++ (NSInteger)wzm_getDecimalByBinary:(NSString *)binary {
     
     NSInteger decimal = 0;
     for (int i=0; i<binary.length; i++) {
@@ -60,7 +60,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return decimal;
 }
 
-+ (NSString *)ll_getHexByBinary:(NSString *)binary {
++ (NSString *)wzm_getHexByBinary:(NSString *)binary {
     NSMutableDictionary *binaryDic = [[NSMutableDictionary alloc] initWithCapacity:16];
     [binaryDic setObject:@"0" forKey:@"0000"];
     [binaryDic setObject:@"1" forKey:@"0001"];
@@ -97,7 +97,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return hex;
 }
 
-+ (NSString *)ll_getBinaryByHex:(NSString *)hex {
++ (NSString *)wzm_getBinaryByHex:(NSString *)hex {
     NSMutableDictionary *hexDic = [[NSMutableDictionary alloc] initWithCapacity:16];
     [hexDic setObject:@"0000" forKey:@"0"];
     [hexDic setObject:@"0001" forKey:@"1"];
@@ -127,7 +127,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return binary;
 }
 
-+ (NSString *)ll_getHexByData:(NSData *)data {
++ (NSString *)wzm_getHexByData:(NSData *)data {
     if (!data || [data length] == 0) {
         return @"";
     }
@@ -148,8 +148,8 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 #pragma mark - 时间、日期
-+ (NSString *)ll_getAstroByBirthday:(NSDate *)birthday {
-    NSArray *dateArray = [self ll_dateArrayFromDate:birthday];
++ (NSString *)wzm_getAstroByBirthday:(NSDate *)birthday {
+    NSArray *dateArray = [self wzm_dateArrayFromDate:birthday];
     NSInteger m = [dateArray[1] integerValue];
     NSInteger d = [dateArray[2] integerValue];
     NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
@@ -169,15 +169,15 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return result;
 }
 
-+ (NSString *)ll_getAgeByBirthday:(NSDate *)birthday {
++ (NSString *)wzm_getAgeByBirthday:(NSDate *)birthday {
     //出生日期转换 年月日
-    NSArray *birthDay = [self ll_dateArrayFromDate:birthday];
+    NSArray *birthDay = [self wzm_dateArrayFromDate:birthday];
     NSInteger brithDateYear  = [birthDay[0] integerValue];
     NSInteger brithDateMonth = [birthDay[1] integerValue];
     NSInteger brithDateDay   = [birthDay[2] integerValue];
     
     //获取系统当前 年月日
-    NSArray *currentDate = [self ll_dateArrayFromDate:[NSDate date]];
+    NSArray *currentDate = [self wzm_dateArrayFromDate:[NSDate date]];
     NSInteger currentDateYear  = [currentDate[0] integerValue];
     NSInteger currentDateMonth = [currentDate[1] integerValue];
     NSInteger currentDateDay   = [currentDate[2] integerValue];
@@ -192,26 +192,26 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 //private
-+ (NSArray *)ll_dateArrayFromDate:(NSDate *)date {
++ (NSArray *)wzm_dateArrayFromDate:(NSDate *)date {
     NSDateFormatter *selectDateFormatter = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd"];
     NSString *dateAndTime = [selectDateFormatter stringFromDate:date];
     NSArray *dateArray = [dateAndTime componentsSeparatedByString:@"-"];
     return dateArray;
 }
 
-+ (NSString *)ll_getTimeStampByDate:(NSDate *)date {
++ (NSString *)wzm_getTimeStampByDate:(NSDate *)date {
     NSTimeInterval interval = [date timeIntervalSince1970]*1000;
     NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)interval];
     return timeStamp;
 }
 
-+ (NSString *)ll_getTimeStringByDate:(NSDate *)date {
++ (NSString *)wzm_getTimeStringByDate:(NSDate *)date {
     NSDateFormatter *dateFormatter = [NSDateFormatter wzm_defaultDateFormatter];
     NSString *timeString = [dateFormatter stringFromDate:date];
     return timeString;
 }
 
-+ (NSString *)ll_getDTimeByDate:(NSDate *)date {
++ (NSString *)wzm_getDTimeByDate:(NSDate *)date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     int unit = NSCalendarUnitDay | NSCalendarUnitMonth |  NSCalendarUnitYear;
     // 1.获得当前时间的年月日
@@ -236,7 +236,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 #pragma mark - 类方法
-+ (BOOL)ll_isBlankString:(NSString *)str {
++ (BOOL)wzm_isBlankString:(NSString *)str {
     if ([str isKindOfClass:[NSString class]] == NO) {
         return YES;
     }
@@ -251,7 +251,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return NO;
 }
 
-+ (BOOL)ll_isContainChinese:(NSString *)str {
++ (BOOL)wzm_isContainChinese:(NSString *)str {
     for(int i = 0; i < [str length];i ++){
         int a = [str characterAtIndex:i];
         if( a > 0x4e00 && a < 0x9fff)
@@ -260,7 +260,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return NO;
 }
 
-+ (NSString *)ll_getJsonByObj:(id)obj {
++ (NSString *)wzm_getJsonByObj:(id)obj {
     if ([obj isKindOfClass:[NSString class]]) {
         return (NSString *)obj;
     }
@@ -277,12 +277,12 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return @"";
 }
 
-+ (id)ll_getObjByJson:(NSString *)json {
++ (id)wzm_getObjByJson:(NSString *)json {
     NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
     return [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
 }
 
-+ (NSString *)ll_getHexByColor:(UIColor *)color {
++ (NSString *)wzm_getHexByColor:(UIColor *)color {
     if (CGColorGetNumberOfComponents(color.CGColor) < 4) {
         const CGFloat *components = CGColorGetComponents(color.CGColor);
         color = [UIColor colorWithRed:components[0]
@@ -298,13 +298,13 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
             (int)((CGColorGetComponents(color.CGColor))[2]*255.0)];
 }
 
-+ (NSString *)ll_getBase64ByImage:(UIImage *)image {
++ (NSString *)wzm_getBase64ByImage:(UIImage *)image {
     NSData *data = UIImageJPEGRepresentation(image, 1.0f);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     return encodedImageStr;
 }
 
-+ (NSString *)ll_getStringByFormat:(NSString *)value,... {
++ (NSString *)wzm_getStringByFormat:(NSString *)value,... {
     va_list list;
     va_start(list, value);
     NSMutableString* string = [NSMutableString stringWithString: value];
@@ -317,13 +317,13 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return string;
 }
 
-+ (NSString *)ll_getRandomWithConut:(int)count {
++ (NSString *)wzm_getRandomWithConut:(int)count {
     char data[count];
     for (int x=0;x<count;data[x++] = (char)('A' + (arc4random_uniform(26))));
     return [[NSString alloc] initWithBytes:data length:count encoding:NSUTF8StringEncoding];
 }
 
-+ (NSString *)ll_getUniqueString {
++ (NSString *)wzm_getUniqueString {
     CFUUIDRef uuidRef = CFUUIDCreate(NULL);
     CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
     CFRelease(uuidRef);
@@ -332,7 +332,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return uniqueId;
 }
 
-+ (NSString *)ll_getChineseByArebic:(NSString *)arebic {
++ (NSString *)wzm_getChineseByArebic:(NSString *)arebic {
     NSString *str = arebic;
     NSArray *arabic_numerals = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0"];
     NSArray *chinese_numerals = @[@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"零"];
@@ -372,7 +372,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return [chinese copy];
 }
 
-+ (NSString *)ll_getTimeBySecond:(NSInteger)second {
++ (NSString *)wzm_getTimeBySecond:(NSInteger)second {
     NSString *time;
     if (second < 60) {
         time = [NSString stringWithFormat:@"00:%02ld",(long)second];
@@ -388,7 +388,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return time;
 }
 
-+ (NSString *)ll_getLaunchImageName {
++ (NSString *)wzm_getLaunchImageName {
     CGSize viewSize = [UIApplication sharedApplication].delegate.window.bounds.size;
     //竖屏
     NSString *viewOrientation = @"Portrait";
@@ -403,26 +403,26 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return launchImageName;
 }
 
-+ (NSString *)ll_getStringByData:(NSData *)data {
++ (NSString *)wzm_getStringByData:(NSData *)data {
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];;
 }
 
-+ (NSString *)ll_getPasteboardString {
++ (NSString *)wzm_getPasteboardString {
     return [[UIPasteboard generalPasteboard] string];
 }
 
-+ (void)ll_setPasteboardString:(NSString *)string {
++ (void)wzm_setPasteboardString:(NSString *)string {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = string;
 }
 
 ///pragma mark - emoji表情
-+ (unsigned int)ll_emojiCodeToSymbol:(unsigned int)c {
++ (unsigned int)wzm_emojiCodeToSymbol:(unsigned int)c {
     return ((((0x808080F0|(c&0x3F000)>>4)|(c&0xFC0)<<10)|(c&0x1C000)<<18)|(c&0x3F)<<24);
 }
 
-+ (NSString *)ll_getEmojiByIntCode:(unsigned int)intCode {
-    unsigned int symbol = [self ll_emojiCodeToSymbol:intCode];
++ (NSString *)wzm_getEmojiByIntCode:(unsigned int)intCode {
+    unsigned int symbol = [self wzm_emojiCodeToSymbol:intCode];
     NSString *string = [[NSString alloc] initWithBytes:&symbol length:sizeof(symbol) encoding:NSUTF8StringEncoding];
     if (string == nil) {
         string = [NSString stringWithFormat:@"%C", (unichar)intCode];
@@ -430,14 +430,14 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return string;
 }
 
-+ (NSString *)ll_getEmojiByStringCode:(NSString *)stringCode {
++ (NSString *)wzm_getEmojiByStringCode:(NSString *)stringCode {
     NSScanner *scanner = [[NSScanner alloc] initWithString:stringCode];
     unsigned int intCode = 0;
     [scanner scanHexInt:&intCode];
-    return [self ll_getEmojiByIntCode:intCode];
+    return [self wzm_getEmojiByIntCode:intCode];
 }
 
-+ (CGFloat)ll_heightWithStr:(NSString *)string width:(CGFloat)width font:(UIFont *)font {
++ (CGFloat)wzm_heightWithStr:(NSString *)string width:(CGFloat)width font:(UIFont *)font {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineSpacing = 1;
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -449,7 +449,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 #pragma mark - 实例方法
-- (NSString *)ll_getMD5 {
+- (NSString *)wzm_getMD5 {
     const char *cStr = [self UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, (int)strlen(cStr), digest ); //This is the md5 call
@@ -460,7 +460,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 ///unicode编码
-- (NSString *)ll_getUniEncode {
+- (NSString *)wzm_getUniEncode {
     NSUInteger length = [self length];
     NSMutableString *muStr = [NSMutableString stringWithCapacity:0];
     for (int i = 0;i < length; i++) {
@@ -476,7 +476,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 ///unicode解码
-- (NSString *)ll_getUniDecode {
+- (NSString *)wzm_getUniDecode {
     NSString *tempStr1 = [self stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
     NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
     NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
@@ -489,14 +489,14 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 ///URLEnCode编码
-- (NSString *)ll_getURLEncoded {
+- (NSString *)wzm_getURLEncoded {
     if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
         return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     }
     return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)ll_getURLEncoded2 {
+- (NSString *)wzm_getURLEncoded2 {
     NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes
                                                             (kCFAllocatorDefault,
                                                              (CFStringRef)self,
@@ -506,7 +506,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return encodedString;
 }
 
-- (NSString *)ll_getURLDecoded {
+- (NSString *)wzm_getURLDecoded {
     if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
         return [self stringByRemovingPercentEncoding];
     }
@@ -514,7 +514,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 
-- (NSString *)ll_mstchStrWithRegular:(NSString *)regular {
+- (NSString *)wzm_mstchStrWithRegular:(NSString *)regular {
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression
                                   regularExpressionWithPattern:regular
@@ -532,7 +532,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return nil;
 }
 
-- (NSString *)ll_mstchStrBetweenStr1:(NSString *)str1 str2:(NSString *)str2 {
+- (NSString *)wzm_mstchStrBetweenStr1:(NSString *)str1 str2:(NSString *)str2 {
     NSError *error;
     NSString *regular = [NSString stringWithFormat:@"%@(.*)%@",str1,str2];
     NSRegularExpression *regex = [NSRegularExpression
@@ -551,12 +551,12 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return self;
 }
 
-- (NSArray *)ll_componentsByStringSet:(NSString *)stringSet {
+- (NSArray *)wzm_componentsByStringSet:(NSString *)stringSet {
     NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:stringSet];
     return [self componentsSeparatedByCharactersInSet:characterSet];
 }
 
-- (NSArray *)ll_specifiedWithStartASC:(int)start endASC:(int)end unnecessaries:(NSArray **)unnecessaries {
+- (NSArray *)wzm_specifiedWithStartASC:(int)start endASC:(int)end unnecessaries:(NSArray **)unnecessaries {
     NSString *result = @"";
     NSString *other = @"";
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:0];
@@ -595,7 +595,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return [results copy];
 }
 
-- (NSString *)ll_getPinyin {
+- (NSString *)wzm_getPinyin {
     NSMutableString *pinyin = [self mutableCopy];
     CFStringTransform((__bridge CFMutableStringRef)pinyin,NULL,kCFStringTransformMandarinLatin,NO);//带音标的拼音
     CFStringTransform((__bridge CFMutableStringRef)pinyin,NULL,kCFStringTransformStripCombiningMarks,NO);//去除音标
@@ -603,11 +603,11 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return pinyin;
 }
 
-- (NSString *)ll_getLowercase {
+- (NSString *)wzm_getLowercase {
     return [self lowercaseString];
 }
 
-- (NSString *)ll_getUppercase {
+- (NSString *)wzm_getUppercase {
     return [self uppercaseString];
 }
 
@@ -616,20 +616,20 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
  NSArray *myary = [ary sortedArrayUsingSelector:@selector(compareOtherString:)];
  ll_log(@"array=%@",myary);
  */
-- (NSComparisonResult)ll_compareOtherString:(NSString *)otherString {
-    return [[self ll_getPinyin] localizedCompare:[otherString ll_getPinyin]];
+- (NSComparisonResult)wzm_compareOtherString:(NSString *)otherString {
+    return [[self wzm_getPinyin] localizedCompare:[otherString wzm_getPinyin]];
 }
 
-- (NSString *)ll_deleteSpecialCharacter {
+- (NSString *)wzm_deleteSpecialCharacter {
     NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"[` ~!@#$%^&*()_\\-+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]"];
     return [[self componentsSeparatedByCharactersInSet:set] componentsJoinedByString: @""];
 }
 
-- (NSString *)ll_deleteAllWhitespace {
+- (NSString *)wzm_deleteAllWhitespace {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
-- (NSString *)ll_deleteHeadAndTailWhitespace {
+- (NSString *)wzm_deleteHeadAndTailWhitespace {
     return [self stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 

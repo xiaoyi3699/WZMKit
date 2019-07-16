@@ -53,7 +53,7 @@
 + (NSMutableArray *)wzm_getEmojis {
     NSMutableArray *emojis = [[NSMutableArray alloc] initWithCapacity:0];
     for (unsigned int i = 0x1f600; i < 0x1f64f; i ++) {
-        NSString *emjio = [NSString ll_getEmojiByIntCode:i];
+        NSString *emjio = [NSString wzm_getEmojiByIntCode:i];
         [emojis addObject:emjio];
     }
     return emojis;
@@ -62,7 +62,7 @@
 + (NSMutableArray *)wzm_getEmojisBeginCode:(unsigned int)code1 endCode:(unsigned int)code2 {
     NSMutableArray *emojis = [[NSMutableArray alloc] initWithCapacity:0];
     for (unsigned int i = code1; i < code2; i ++) {
-        NSString *emjio = [NSString ll_getEmojiByIntCode:i];
+        NSString *emjio = [NSString wzm_getEmojiByIntCode:i];
         [emojis addObject:emjio];
     }
     return emojis;

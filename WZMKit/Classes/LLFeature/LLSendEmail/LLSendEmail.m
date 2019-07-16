@@ -21,7 +21,7 @@
         
         NSURL *URL = [NSURL URLWithString:mailUrl];
         if (URL == nil) {
-            URL = [NSURL URLWithString:[mailUrl ll_getURLEncoded]];
+            URL = [NSURL URLWithString:[mailUrl wzm_getURLEncoded]];
         }
         [[UIApplication sharedApplication]openURL:URL];
     }

@@ -82,7 +82,7 @@
     else {
         NSURL *URL = [NSURL URLWithString:path];
         if (URL == nil) {
-            URL = [NSURL URLWithString:[path ll_getURLEncoded]];
+            URL = [NSURL URLWithString:[path wzm_getURLEncoded]];
         }
         BOOL isNetImage = [[UIApplication sharedApplication] canOpenURL:URL];
         if (isNetImage) {

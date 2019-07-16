@@ -21,7 +21,7 @@
 
 - (NSInteger)setConfigWithWidth:(NSInteger)width font:(UIFont *)font {
     if (self.height == -1) {
-        self.height = MAX(ceil([NSString ll_heightWithStr:self.text width:width font:font]), 44);
+        self.height = MAX(ceil([NSString wzm_heightWithStr:self.text width:width font:font]), 44);
     }
     return self.height;
 }

@@ -13,7 +13,7 @@
 
 - (void)ll_loadUrl:(NSString *)url {
     if (url.length == 0) return;
-    NSString *codeUrl = [url ll_getURLEncoded];
+    NSString *codeUrl = [url wzm_getURLEncoded];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:codeUrl]];
     [self loadRequest:request];
 }
