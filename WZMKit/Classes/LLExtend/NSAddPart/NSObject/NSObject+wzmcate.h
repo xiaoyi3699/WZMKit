@@ -10,14 +10,10 @@
 
 @interface NSObject (wzmcate)
 
-#pragma mark - 为系统类追加属性
-- (void)setStrFlag:(NSString *)strFlag;
-- (NSString *)strFlag;
+- (void)setWzm_tag:(int)wzm_tag;
+- (int)wzm_tag;
 
-- (void)setIntFlag:(int)intFlag;
-- (int)intFlag;
-
-- (NSString *)className;
-+ (NSString *)className;
+- (NSString *)wzm_className;
++ (NSString *)wzm_className;
 
 @end

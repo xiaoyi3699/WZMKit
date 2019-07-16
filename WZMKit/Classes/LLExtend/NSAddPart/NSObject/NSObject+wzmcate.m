@@ -11,33 +11,23 @@
 
 @implementation NSObject (wzmcate)
 
-#pragma mark - 为系统类追加属性
-static NSString *_intFlagKey = @"intFlag";
-static NSString *_strFlagKey = @"strFlag";
+static NSString *_tag = @"wzm_tag";
 
-- (void)setStrFlag:(NSString *)flag {
-    objc_setAssociatedObject(self, &_strFlagKey, flag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setWzm_tag:(int)wzm_tag {
+    NSNumber *t = @(wzm_tag);
+    objc_setAssociatedObject(self, &_tag, t, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSString *)strFlag {
-    return objc_getAssociatedObject(self, &_strFlagKey);
-}
-
-- (void)setIntFlag:(int)intFlag {
-    NSNumber *t = @(intFlag);
-    objc_setAssociatedObject(self, &_intFlagKey, t, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (int)intFlag {
-    NSNumber *t = objc_getAssociatedObject(self, &_intFlagKey);
+- (int)wzm_tag {
+    NSNumber *t = objc_getAssociatedObject(self, &_tag);
     return (int)[t integerValue];
 }
 
-- (NSString *)className {
+- (NSString *)wzm_className {
     return NSStringFromClass([self class]);
 }
 
-+ (NSString *)className {
++ (NSString *)wzm_className {
     return NSStringFromClass([self class]);
 }
 
