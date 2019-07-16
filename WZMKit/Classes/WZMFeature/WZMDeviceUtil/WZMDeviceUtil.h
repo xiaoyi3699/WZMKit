@@ -57,31 +57,31 @@
 + (void)isLockScreenDisabled:(BOOL)disabled;
 
 ///CPU使用量
-+ (CGFloat)ll_cpuUsage;
++ (CGFloat)cpuUsage;
 
 /**
  手机机型
  */
-+ (NSString *)ll_deviceString;
++ (NSString *)deviceString;
 
 /**
  获取mac地址
  */
-+ (NSString *)ll_macAddress;
++ (NSString *)macAddress;
 
 /**
  获取手机IP,如:192.168.1.133,需连网
  */
-+ (NSString *)ll_IPAddress;
++ (NSString *)IPAddress;
 
 /**
  获取当前连接的WIFI名称
  */
-+ (NSString *)ll_wifiSSID;
++ (NSString *)wifiSSID;
 
 /**
  获取当前网络状态
  */
-+ (NSString *)ll_netStatus;
++ (NSString *)netStatus;
 
 @end

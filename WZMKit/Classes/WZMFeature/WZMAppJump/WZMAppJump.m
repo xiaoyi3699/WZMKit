@@ -105,19 +105,19 @@
 //AppStore评论
 + (void)openAppStoreScore:(NSString *)appId type:(LLAppStoreType)type{
     if (type == LLAppStoreTypeOpen) {
-        [self ll_AppStoreScoreOpen:appId];
+        [self wzm_AppStoreScoreOpen:appId];
     }
     else {
-        [self ll_AppStoreScoreInApp:appId];
+        [self wzm_AppStoreScoreInApp:appId];
     }
 }
 
-+ (void)ll_AppStoreScoreOpen:(NSString *)appId {
++ (void)wzm_AppStoreScoreOpen:(NSString *)appId {
     NSString *store = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review",appId];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:store]];
 }
 
-+ (void)ll_AppStoreScoreInApp:(NSString *)appId {
++ (void)wzm_AppStoreScoreInApp:(NSString *)appId {
     if (@available(iOS 10.3, *)) {
         if([SKStoreReviewController respondsToSelector:@selector(requestReview)]) {
             [[UIApplication sharedApplication].keyWindow endEditing:YES];
@@ -125,7 +125,7 @@
         }
     }
     else {
-        [self ll_AppStoreScoreOpen:appId];
+        [self wzm_AppStoreScoreOpen:appId];
     }
 }
 

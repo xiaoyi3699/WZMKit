@@ -10,12 +10,12 @@
 #import "WZMLog.h"
 #import "WZMEnum.h"
 
-#define LL_FILE_MANAGER    [NSFileManager defaultManager]
-#define LL_USER_DEFAULTS   [NSUserDefaults standardUserDefaults]
+#define WZM_FILE_MANAGER    [NSFileManager defaultManager]
+#define WZM_USER_DEFAULTS   [NSUserDefaults standardUserDefaults]
 @implementation WZMFileManager
 
 + (BOOL)fileExistsAtPath:(NSString *)filePath{
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]) {
         return YES;
     }
     wzm_log(@"fileExistsAtPath:文件未找到");
@@ -23,7 +23,7 @@
 }
 
 + (BOOL)fileExistsAtPath:(NSString *)filePath isDirectory:(BOOL *)result{
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath isDirectory:result]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath isDirectory:result]) {
         return YES;
     }
     wzm_log(@"fileExistsAtPath:isDirectory:文件未找到");
@@ -32,14 +32,14 @@
 
 + (BOOL)createDirectoryAtPath:(NSString *)path{
     BOOL isDirectory;
-    BOOL isExists = [LL_FILE_MANAGER fileExistsAtPath:path isDirectory:&isDirectory];
+    BOOL isExists = [WZM_FILE_MANAGER fileExistsAtPath:path isDirectory:&isDirectory];
     if (isExists) {
         if (isDirectory) {
             return YES;
         }
         else{
             NSError *error = nil;
-            BOOL result = [LL_FILE_MANAGER createDirectoryAtPath:path
+            BOOL result = [WZM_FILE_MANAGER createDirectoryAtPath:path
                                      withIntermediateDirectories:YES
                                                       attributes:nil
                                                            error:&error];
@@ -51,7 +51,7 @@
     }
     else{
         NSError *error = nil;
-        BOOL result = [LL_FILE_MANAGER createDirectoryAtPath:path
+        BOOL result = [WZM_FILE_MANAGER createDirectoryAtPath:path
                                  withIntermediateDirectories:YES
                                                   attributes:nil
                                                        error:&error];
@@ -63,8 +63,8 @@
 }
 
 + (BOOL)deleteFileAtPath:(NSString *)filePath error:(NSError **)error{
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath]){
-        return [LL_FILE_MANAGER removeItemAtPath:filePath error:error];
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]){
+        return [WZM_FILE_MANAGER removeItemAtPath:filePath error:error];
     }
     wzm_log(@"deleteFileAtPath:error:路径未找到");
     return YES;
@@ -73,16 +73,16 @@
 + (void)deleteFileInPath:(NSString *)filePath ofExtension:(NSString *)extension completion:(void(^)(NSArray<NSError *> *errors))completion{
     BOOL isDirectory = NO;
     NSMutableArray *errors = [[NSMutableArray alloc] initWithCapacity:0];
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath isDirectory:&isDirectory]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath isDirectory:&isDirectory]) {
         if (isDirectory) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^{
-                NSArray *subFilePaths = [LL_FILE_MANAGER subpathsAtPath:filePath];
+                NSArray *subFilePaths = [WZM_FILE_MANAGER subpathsAtPath:filePath];
                 for (NSString *subFilePath in subFilePaths) {
                     NSError *error = nil;
                     NSString *path = [filePath stringByAppendingPathComponent:subFilePath];
                     if ([path.pathExtension isEqualToString:extension]) {
-                        [LL_FILE_MANAGER removeItemAtPath:path error:&error];
+                        [WZM_FILE_MANAGER removeItemAtPath:path error:&error];
                         if (error) {
                             [errors addObject:error];
                         }
@@ -117,10 +117,10 @@
 }
 
 + (void)deleteFileInPath:(NSString *)filePath completion:(doBlock)completion{
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [LL_FILE_MANAGER removeItemAtPath:filePath error:nil];
-            [LL_FILE_MANAGER createDirectoryAtPath:filePath
+            [WZM_FILE_MANAGER removeItemAtPath:filePath error:nil];
+            [WZM_FILE_MANAGER createDirectoryAtPath:filePath
                        withIntermediateDirectories:YES
                                         attributes:nil
                                              error:nil];
@@ -141,9 +141,9 @@
 + (float)cacheSizeAtPath:(NSString *)cachePath{
     float totalSize = 0;
     BOOL isDirectory = NO;
-    if ([LL_FILE_MANAGER fileExistsAtPath:cachePath isDirectory:&isDirectory]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:cachePath isDirectory:&isDirectory]) {
         if (isDirectory) {
-            NSDirectoryEnumerator *fileEnumerator = [LL_FILE_MANAGER enumeratorAtPath:cachePath];
+            NSDirectoryEnumerator *fileEnumerator = [WZM_FILE_MANAGER enumeratorAtPath:cachePath];
             for (NSString *fileName in fileEnumerator){
                 NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
                 NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
@@ -152,7 +152,7 @@
             }
         }
         else{
-            totalSize = [[LL_FILE_MANAGER attributesOfItemAtPath:cachePath error:nil] fileSize];;
+            totalSize = [[WZM_FILE_MANAGER attributesOfItemAtPath:cachePath error:nil] fileSize];;
         }
         
     }
@@ -162,9 +162,9 @@
 + (NSMutableArray *)getFileNamesAtPath:(NSString *)filePath {
     NSMutableArray *fileNames = [NSMutableArray arrayWithCapacity:0];
     BOOL isDirectory = NO;
-    if ([LL_FILE_MANAGER fileExistsAtPath:filePath isDirectory:&isDirectory]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:filePath isDirectory:&isDirectory]) {
         if (isDirectory) {
-            NSDirectoryEnumerator *fileEnumerator = [LL_FILE_MANAGER enumeratorAtPath:filePath];
+            NSDirectoryEnumerator *fileEnumerator = [WZM_FILE_MANAGER enumeratorAtPath:filePath];
             for (NSString *fileName in fileEnumerator){
                 [fileNames addObject:fileName];
             }
@@ -175,8 +175,8 @@
 
 + (BOOL)setObj:(id)obj forKey:(NSString *)key{
     if (obj && key) {
-        [LL_USER_DEFAULTS setObject:obj forKey:key];
-        return [LL_USER_DEFAULTS synchronize];
+        [WZM_USER_DEFAULTS setObject:obj forKey:key];
+        return [WZM_USER_DEFAULTS synchronize];
     }
     wzm_log(@"数据存储到沙盒失败：key/obj不能为空");
     return NO;
@@ -184,7 +184,7 @@
 
 + (id)objForKey:(NSString *)key{
     if (key) {
-        return [LL_USER_DEFAULTS objectForKey:key];
+        return [WZM_USER_DEFAULTS objectForKey:key];
     }
     wzm_log(@"从沙盒中取出数据失败：key不能为空");
     return nil;
@@ -210,12 +210,12 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
     //方法二
-//    NSDictionary * dic = [LL_USER_DEFAULTS dictionaryRepresentation];
+//    NSDictionary * dic = [WZM_USER_DEFAULTS dictionaryRepresentation];
 //    for (id key in dic)
 //    {
-//        [LL_USER_DEFAULTS removeObjectForKey:key];
+//        [WZM_USER_DEFAULTS removeObjectForKey:key];
 //    }
-//    [LL_USER_DEFAULTS synchronize];
+//    [WZM_USER_DEFAULTS synchronize];
 }
 
 #pragma mark - widget数据共享

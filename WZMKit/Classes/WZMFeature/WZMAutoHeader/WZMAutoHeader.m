@@ -8,7 +8,7 @@
 
 #import "WZMAutoHeader.h"
 
-#define LL_AUTO_CONTENT_OFF_SET @"contentOffset"
+#define WZM_AUTO_CONTENT_OFF_SET @"contentOffset"
 @implementation WZMAutoHeader {
     UIImageView  *_imageView;
     UIScrollView *_scrollView;
@@ -36,7 +36,7 @@
         if (self.image) {
             _imageView.image = self.image;
         }
-        [_scrollView addObserver:self forKeyPath:LL_AUTO_CONTENT_OFF_SET options:NSKeyValueObservingOptionNew context:nil];
+        [_scrollView addObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET options:NSKeyValueObservingOptionNew context:nil];
     }
     
     [super willMoveToSuperview:newSuperview];
@@ -47,7 +47,7 @@
     if (self.hidden) return;
     if (self.headerAnimation == WZMAutoHeaderAnimationNon) return;
     
-    if ([keyPath isEqualToString:LL_AUTO_CONTENT_OFF_SET]) {
+    if ([keyPath isEqualToString:WZM_AUTO_CONTENT_OFF_SET]) {
         
         CGFloat y = _scrollView.contentOffset.y;
         
@@ -71,7 +71,7 @@
 
 - (void)removeFromSuperview {
     if (_scrollView) {
-        [_scrollView removeObserver:self forKeyPath:LL_AUTO_CONTENT_OFF_SET];
+        [_scrollView removeObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET];
         _scrollView = nil;
     }
     [super removeFromSuperview];

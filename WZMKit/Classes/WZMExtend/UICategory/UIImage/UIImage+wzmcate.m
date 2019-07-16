@@ -491,26 +491,26 @@
     return image;
 }
 
-#define LL_M (1000*1000)
+#define WZM_M (1000*1000)
 - (UIImage *)wzm_getScaleImage {
     NSData *imageData = UIImagePNGRepresentation(self);
     
     UIImage *image = self;
-    while (imageData.length > 10*LL_M) {
+    while (imageData.length > 10*WZM_M) {
         image = [image wzm_getImageWithScale:.1];
         imageData = UIImagePNGRepresentation(image);
     }
-    if (imageData.length > 5*LL_M) {
+    if (imageData.length > 5*WZM_M) {
         image = [image wzm_getImageWithScale:.2];
         imageData = UIImagePNGRepresentation(image);
     }
-    while (imageData.length > 1*LL_M) {
+    while (imageData.length > 1*WZM_M) {
         image = [image wzm_getImageWithScale:.5];
         imageData = UIImagePNGRepresentation(image);
     }
     return image;
 }
-#undef LL_M
+#undef WZM_M
 
 - (UIImage *)wzm_getImageWithScale:(CGFloat)scale {
     UIGraphicsBeginImageContext(CGSizeMake(self.size.width*scale,self.size.height*scale));

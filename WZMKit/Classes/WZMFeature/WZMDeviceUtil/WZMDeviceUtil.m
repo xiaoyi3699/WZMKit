@@ -175,7 +175,7 @@ char* printEnv(void){
 }
 
 ///CPU使用量
-+ (CGFloat)ll_cpuUsage {
++ (CGFloat)cpuUsage {
     kern_return_t kr;
     task_info_data_t tinfo;
     mach_msg_type_number_t task_info_count;
@@ -237,7 +237,7 @@ char* printEnv(void){
 /**
  机型
  */
-+ (NSString *)ll_deviceString{
++ (NSString *)deviceString{
     struct utsname systemInfo;
     uname(&systemInfo);
     return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
@@ -246,7 +246,7 @@ char* printEnv(void){
 /**
  获取mac地址
  */
-+ (NSString *)ll_macAddress {
++ (NSString *)macAddress {
     NSString *macAddress = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     macAddress = [[macAddress componentsSeparatedByString:@"-"] componentsJoinedByString:@""];
     return macAddress;
@@ -255,7 +255,7 @@ char* printEnv(void){
 /**
  获取手机IP,如:192.168.1.133,需连网
  */
-+ (NSString *)ll_IPAddress {
++ (NSString *)IPAddress {
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = nil;
@@ -284,7 +284,7 @@ char* printEnv(void){
 /**
  获取当前连接的WIFI名称
  */
-+ (NSString *)ll_wifiSSID {
++ (NSString *)wifiSSID {
     CFArrayRef arrayRef = CNCopySupportedInterfaces();
     NSArray *ifs = (__bridge id)arrayRef;
     if (arrayRef) {
@@ -309,9 +309,9 @@ char* printEnv(void){
 /**
  获取当前网络状态
  */
-+ (NSString *)ll_netStatus {
++ (NSString *)netStatus {
     
-    NSArray *subviews = [[self ll_value:[UIApplication sharedApplication]] subviews];
+    NSArray *subviews = [[self value:[UIApplication sharedApplication]] subviews];
     
     int type = 0;
     for (id view in subviews) {
@@ -328,7 +328,7 @@ char* printEnv(void){
     }
 }
 
-+ (id)ll_value:(id)value {
++ (id)value:(id)value {
     unsigned int count = 0;
     Ivar *ivarLists = class_copyIvarList([value class], &count);
     for (int i = 0; i < count; i ++) {
@@ -337,7 +337,7 @@ char* printEnv(void){
         
         if ([strName isEqualToString:@"_statusBar"]) {
             id statusBar = [value valueForKey:strName];
-            return [self ll_value:statusBar];
+            return [self value:statusBar];
         }
         if ([strName isEqualToString:@"_foregroundView"]) {
             return [value valueForKey:strName];

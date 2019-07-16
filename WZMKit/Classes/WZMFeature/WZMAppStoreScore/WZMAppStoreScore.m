@@ -13,8 +13,8 @@
 #import "WZMViewHandle.h"
 
 //评分
-#define LL_STORE_KEY @"llStoreKey"
-#define LL_BAD_KEY   @"llBadKey"
+#define WZM_STORE_KEY @"wzmStoreKey"
+#define WZM_BAD_KEY   @"wzmBadKey"
 @interface WZMAppStoreScore ()<UIAlertViewDelegate>
 
 @end
@@ -43,11 +43,11 @@
 
 - (void)showScoreView:(LLAppStoreType)type isOnce:(BOOL)isOnce {
     _type = type;
-    BOOL isStore = [[WZMFileManager objForKey:LL_STORE_KEY] boolValue];
+    BOOL isStore = [[WZMFileManager objForKey:WZM_STORE_KEY] boolValue];
     if (isOnce && isStore) return;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的每一次反馈都非常重要" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"五星好评",@"我要吐槽", nil];
     [alertView show];
-    [WZMFileManager setObj:@(YES) forKey:LL_STORE_KEY];
+    [WZMFileManager setObj:@(YES) forKey:WZM_STORE_KEY];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -56,13 +56,13 @@
     }
     else if (buttonIndex == 2) {
         NSString *msg;
-        BOOL isBad = [[WZMFileManager objForKey:LL_BAD_KEY] boolValue];
+        BOOL isBad = [[WZMFileManager objForKey:WZM_BAD_KEY] boolValue];
         if (isBad) {
             msg = @"您已经吐槽过了^_^";
         }
         else {
             msg = @"感谢您的反馈，我们会继续努力^_^";
-            [WZMFileManager setObj:@(YES) forKey:LL_BAD_KEY];
+            [WZMFileManager setObj:@(YES) forKey:WZM_BAD_KEY];
         }
         WZMDispatch_after(1, ^{
             [WZMViewHandle wzm_showInfoMessage:msg];

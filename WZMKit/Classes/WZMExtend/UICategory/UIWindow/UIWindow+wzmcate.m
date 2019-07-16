@@ -55,10 +55,10 @@ static NSString *_cpuKey = @"cpu";
         [self addSubview:self.cpuLabel];
     }
     
-    [[CADisplayLink displayLinkWithTarget:self selector:@selector(ll_refreshFps:)] addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    [[CADisplayLink displayLinkWithTarget:self selector:@selector(wzm_refreshFps:)] addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
-- (void)ll_refreshFps:(CADisplayLink *)link {
+- (void)wzm_refreshFps:(CADisplayLink *)link {
     static NSTimeInterval lastTime = 0;
     static int frameCount = 0;
     if (lastTime == 0) {
@@ -78,12 +78,12 @@ static NSString *_cpuKey = @"cpu";
         frameCount = 0;
         
         self.fpsLabel.text = [NSString stringWithFormat:@"%d",fps];
-        self.cpuLabel.text = [NSString stringWithFormat:@"%d%%",[self ll_cpuUsage]];
+        self.cpuLabel.text = [NSString stringWithFormat:@"%d%%",[self wzm_cpuUsage]];
     }
 }
 
 ///CPU使用量
-- (int)ll_cpuUsage
+- (int)wzm_cpuUsage
 {
     kern_return_t kr;
     task_info_data_t tinfo;
