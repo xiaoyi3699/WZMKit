@@ -48,8 +48,8 @@
 #import "UIWindow+wzmcate.h"
 #import "WZMSingleRotationGestureRecognizer.h"
 
-#import "LLNSHandle.h"
-#import "LLViewHandle.h"
+#import "WZMNSHandle.h"
+#import "WZMViewHandle.h"
 
 //视图类
 #import "WZMAlertView.h"

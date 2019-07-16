@@ -10,8 +10,8 @@
 #endif
 #endif
 
-#import "LLNSHandle.h"
-#import "LLViewHandle.h"
+#import "WZMNSHandle.h"
+#import "WZMViewHandle.h"
 #import "LLInline.h"
 #import "NSArray+wzmcate.h"
 #import "NSAttributedString+wzmcate.h"

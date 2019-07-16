@@ -1,5 +1,5 @@
 //
-//  LLNSHandle.h
+//  WZMNSHandle.h
 //  test
 //
 //  Created by wangzhaomeng on 16/8/10.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLNSHandle : NSObject
+@interface WZMNSHandle : NSObject
 
 ///email是否有效
 + (BOOL)wzm_checkEmail:(NSString *)email;

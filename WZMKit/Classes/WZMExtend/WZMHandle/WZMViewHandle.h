@@ -1,5 +1,5 @@
 //
-//  LLViewHandle.h
+//  WZMViewHandle.h
 //  test
 //
 //  Created by XHL on 16/8/16.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 
-@interface LLViewHandle : UIView
+@interface WZMViewHandle : UIView
 
 + (void)wzm_showInfoMessage:(NSString *)message;
 + (void)wzm_showProgressMessage:(NSString *)message;

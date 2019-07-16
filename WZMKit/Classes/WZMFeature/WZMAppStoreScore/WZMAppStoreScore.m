@@ -10,7 +10,7 @@
 #import "WZMFileManager.h"
 #import "WZMAppJump.h"
 #import "WZMDispatch.h"
-#import "LLViewHandle.h"
+#import "WZMViewHandle.h"
 
 //评分
 #define LL_STORE_KEY @"llStoreKey"
@@ -65,7 +65,7 @@
             [WZMFileManager setObj:@(YES) forKey:LL_BAD_KEY];
         }
         WZMDispatch_after(1, ^{
-            [LLViewHandle wzm_showInfoMessage:msg];
+            [WZMViewHandle wzm_showInfoMessage:msg];
         });
     }
 }

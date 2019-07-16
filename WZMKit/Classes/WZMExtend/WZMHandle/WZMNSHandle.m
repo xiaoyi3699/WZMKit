@@ -1,15 +1,15 @@
 //
-//  LLNSHandle.m
+//  WZMNSHandle.m
 //  test
 //
 //  Created by wangzhaomeng on 16/8/10.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLNSHandle.h"
+#import "WZMNSHandle.h"
 #import "NSDateFormatter+wzmcate.h"
 
-@implementation LLNSHandle
+@implementation WZMNSHandle
 
 + (BOOL)wzm_checkEmail:(NSString *)email{
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";

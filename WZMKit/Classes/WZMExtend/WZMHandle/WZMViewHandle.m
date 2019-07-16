@@ -1,16 +1,16 @@
 //
-//  LLViewHandle.m
+//  WZMViewHandle.m
 //  test
 //
 //  Created by XHL on 16/8/16.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLViewHandle.h"
+#import "WZMViewHandle.h"
 #import "WZMProgressHUD.h"
 #import "WZMEnum.h"
 
-@implementation LLViewHandle
+@implementation WZMViewHandle
 
 + (void)wzm_showInfoMessage:(NSString *)message{
     [WZMProgressHUD showInfoMessage:message];
