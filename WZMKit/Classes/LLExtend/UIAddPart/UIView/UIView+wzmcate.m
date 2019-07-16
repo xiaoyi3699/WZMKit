@@ -26,7 +26,6 @@
     return [self isDescendantOfView:otherView];
 }
 
-#pragma - mark 自定义适配
 //设置位置(宽和高保持不变)
 - (CGFloat)wzm_minX {
     return CGRectGetMinX(self.frame);
@@ -235,14 +234,24 @@
     self.layer.borderColor = [wzm_borderColor CGColor];
 }
 
-- (void)setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color {
+- (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                   byRoundingCorners:corner
+                                                         cornerRadii:CGSizeMake(radius, radius)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+
+- (void)wzm_setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color {
     self.layer.masksToBounds = YES;
     self.layer.cornerRadius = radius;
     self.layer.borderWidth = width;
     self.layer.borderColor = [color CGColor];
 }
 
-- (void)setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha {
+- (void)wzm_setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha {
     self.layer.shadowColor = color.CGColor;
     self.layer.shadowOffset = CGSizeMake(0,0);
     self.layer.shadowOpacity = alpha;
@@ -283,7 +292,7 @@
     self.layer.shadowPath = path.CGPath;
 }
 
-- (void)setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType {
+- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType {
     
     self.layer.shadowColor = color.CGColor; //阴影颜色
     self.layer.shadowOpacity = opacity;     //不透明度
@@ -307,31 +316,149 @@
     }
 }
 
-- (void)wzm_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration {
-    LLDispatch_create_main_queue_timer(@"transform", duration, ^{
-        static float degree = 0;
-        //起始值
-        CATransform3D fromValue = CATransform3DIdentity;
-        
-        fromValue.m34 = -1.f/600;
-        fromValue     = CATransform3DRotate(fromValue, degree, 0, 1, 0);
-        
-        // 结束值
-        CATransform3D toValue = CATransform3DIdentity;
-        
-        toValue.m34 = -1.f/600;
-        toValue     = CATransform3DRotate(toValue, degree += 45.f, 0, 1, 0);
-        
-        // 添加3D动画
-        CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
-        
-        transform3D.duration  = duration;
-        transform3D.fromValue = [NSValue valueWithCATransform3D:fromValue];
-        transform3D.toValue   = [NSValue valueWithCATransform3D:toValue];
-        self.layer.transform  = toValue;
-        
-        [self.layer addAnimation:transform3D forKey:@"transform3D"];
-    });
+- (UIColor *)wzm_colorWithPoint:(CGPoint)point {
+    unsigned char pixel[4] = {0};
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+    CGContextTranslateCTM(context, -point.x, -point.y);
+    [self.layer renderInContext:context];
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    return [UIColor colorWithRed:pixel[0]/255.0 green:pixel[1]/255.0 blue:pixel[2]/255.0 alpha:pixel[3]/255.0];
+}
+
+- (void)wzm_gradientColorWithGradientType:(LLGradientType)type {
+    NSMutableArray *colorArray = [NSMutableArray new];
+    for (NSInteger hue = 0; hue < 255; hue += 5) {
+        UIColor *color = [UIColor colorWithHue:hue/255.0
+                                    saturation:1.0
+                                    brightness:1.0
+                                         alpha:1.0];
+        [colorArray addObject:color];
+    }
+    [self wzm_gradientColors:colorArray gradientType:type];
+}
+
+- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type {
+    
+    NSMutableArray *CGColors = [NSMutableArray arrayWithCapacity:colors.count];
+    
+    for (UIColor *color in colors) {
+        [CGColors addObject:(id)color.CGColor];
+    }
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.bounds;
+    gradient.colors = CGColors;
+    //    gradient.locations = @[@0.0, @1.0];
+    if (type == LLGradientTypeLeftToRight) {
+        gradient.startPoint = CGPointMake(0.0, 0.0);
+        gradient.endPoint = CGPointMake(1.0, 0.0);
+    }
+    else if (type == LLGradientTypeTopToBottom) {
+        gradient.startPoint = CGPointMake(0.0, 0.0);
+        gradient.endPoint = CGPointMake(0.0, 1.0);
+    }
+    else if (type == LLGradientTypeUpleftToLowright) {
+        gradient.startPoint = CGPointMake(0.0, 0.0);
+        gradient.endPoint = CGPointMake(1.0, 1.0);
+    }
+    else {
+        gradient.startPoint = CGPointMake(1.0, 0.0);
+        gradient.endPoint = CGPointMake(0.0, 1.0);
+    }
+    [self.layer insertSublayer:gradient atIndex:0];
+}
+
+- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename {
+    NSMutableData *pdfData = [NSMutableData data];
+    UIGraphicsBeginPDFContextToData(pdfData, self.bounds, nil);
+    UIGraphicsBeginPDFPage();
+    CGContextRef pdfContext = UIGraphicsGetCurrentContext();
+    [self.layer renderInContext:pdfContext];
+    UIGraphicsEndPDFContext();
+    
+    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *documentDirectoryFilename = [document stringByAppendingPathComponent:aFilename];
+    return [pdfData writeToFile:documentDirectoryFilename atomically:YES];
+}
+
+- (void)wzm_outFromCenterNoneWithDuration:(NSTimeInterval)duration{
+    CAKeyframeAnimation * animation;
+    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    animation.duration = duration;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    
+    NSMutableArray *values = [NSMutableArray array];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    animation.values = values;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+    
+    [self.layer addAnimation:animation forKey:@"wzm_no_appear"];
+}
+
+- (void)wzm_outFromCenterAnimationWithDuration:(NSTimeInterval)duration{
+    
+    CAKeyframeAnimation * animation;
+    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    animation.duration = duration;
+    animation.removedOnCompletion = NO;
+    
+    animation.fillMode = kCAFillModeForwards;
+    
+    NSMutableArray *values = [NSMutableArray array];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    
+    animation.values = values;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+    
+    [self.layer addAnimation:animation forKey:@"wzm_appear"];
+}
+
+- (void)wzm_dismissToCenterNoneWithDuration:(NSTimeInterval)duration {
+    
+    CAKeyframeAnimation * animation;
+    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    animation.duration = duration;
+    animation.removedOnCompletion = NO;
+    
+    animation.fillMode = kCAFillModeForwards;
+    
+    NSMutableArray *values = [NSMutableArray array];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.7, 0.7, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.4, 0.4, 1.0)]];
+    
+    animation.values = values;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+    
+    [self.layer addAnimation:animation forKey:@"wzm_no_dismiss"];
+}
+
+- (void)wzm_dismissToCenterAnimationWithDuration:(NSTimeInterval)duration {
+    
+    CAKeyframeAnimation * animation;
+    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    animation.duration = duration;
+    animation.removedOnCompletion = NO;
+    
+    animation.fillMode = kCAFillModeForwards;
+    
+    NSMutableArray *values = [NSMutableArray array];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
+    
+    animation.values = values;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+    
+    [self.layer addAnimation:animation forKey:@"wzm_dismiss"];
 }
 
 - (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration {
@@ -362,7 +489,7 @@
     [self.layer addAnimation:transform3D forKey:@"transform3D"];
 }
 
-- (void)startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount{
+- (void)wzm_startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount{
     NSString *transformName = [NSString stringWithFormat:@"transform.rotation.%@",axis];
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:transformName];
@@ -377,7 +504,7 @@
     [self.layer addAnimation:rotationAnimation forKey:@"Rotation"];
 }
 
-- (void)transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ {
+- (void)wzm_transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ {
     
     CATransform3D transform3D = CATransform3DIdentity;
     if (angleX != 0) {
@@ -392,121 +519,11 @@
     self.layer.transform = transform3D;
 }
 
-- (void)transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z {
-    
+- (void)wzm_transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z {
     self.layer.transform = CATransform3DMakeScale(x, y, z);
 }
 
-- (void)outFromCenterNoneWithDuration:(NSTimeInterval)duration{
-    
-    CAKeyframeAnimation * animation;
-    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    animation.duration = duration;
-    animation.removedOnCompletion = NO;
-    
-    animation.fillMode = kCAFillModeForwards;
-    
-    NSMutableArray *values = [NSMutableArray array];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-    
-    animation.values = values;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
-    
-    [self.layer addAnimation:animation forKey:@"LLAlertNone_appear"];
-}
-
-- (void)dismissToCenterNoneWithDuration:(NSTimeInterval)duration {
-    
-    CAKeyframeAnimation * animation;
-    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    animation.duration = duration;
-    animation.removedOnCompletion = NO;
-    
-    animation.fillMode = kCAFillModeForwards;
-    
-    NSMutableArray *values = [NSMutableArray array];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.7, 0.7, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.4, 0.4, 1.0)]];
-    
-    animation.values = values;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
-    
-    [self.layer addAnimation:animation forKey:@"LLAlertNone_dismiss"];
-}
-
-- (void)outFromCenterAnimationWithDuration:(NSTimeInterval)duration{
-    
-    CAKeyframeAnimation * animation;
-    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    animation.duration = duration;
-    animation.removedOnCompletion = NO;
-    
-    animation.fillMode = kCAFillModeForwards;
-    
-    NSMutableArray *values = [NSMutableArray array];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-    
-    animation.values = values;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
-    
-    [self.layer addAnimation:animation forKey:@"LLAlertAnimation_appear"];
-}
-
-- (void)dismissToCenterAnimationWithDuration:(NSTimeInterval)duration {
-    
-    CAKeyframeAnimation * animation;
-    animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    animation.duration = duration;
-    animation.removedOnCompletion = NO;
-    
-    animation.fillMode = kCAFillModeForwards;
-    
-    NSMutableArray *values = [NSMutableArray array];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1, 1.1, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
-    
-    animation.values = values;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
-    
-    [self.layer addAnimation:animation forKey:@"LLAlertAnimation_dismiss"];
-}
-
-- (void)outAnimation{
-    [UIView animateWithDuration:1.0 animations:^{
-        CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-        animation.values = @[@(0.1),@(1.0),@(1.5)];
-        animation.keyTimes = @[@(0.0),@(0.5),@(0.8),@(1.0)];
-        animation.calculationMode = kCAAnimationLinear;
-        [self.layer addAnimation:animation forKey:@"SHOW"];
-    } completion:^(BOOL finished){
-    }];
-}
-
-- (void)insideAnimation{
-    [UIView animateWithDuration:0.1 animations:
-     ^(void){
-         self.transform = CGAffineTransformScale(CGAffineTransformIdentity,0.5, 0.5);
-     } completion:^(BOOL finished){//do other thing
-         [UIView animateWithDuration:0.2 animations:
-          ^(void){
-              self.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.2, 1.2);
-          } completion:^(BOOL finished){//do other thing
-              [UIView animateWithDuration:0.1 animations:
-               ^(void){
-                   self.transform = CGAffineTransformScale(CGAffineTransformIdentity,1,1);
-               } completion:^(BOOL finished){//do other thing
-               }];
-          }];
-     }];
-}
-
-- (void)transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -522,7 +539,7 @@
     }];
 }
 
-- (void)transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -538,7 +555,7 @@
     }];
 }
 
-- (void)transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -554,7 +571,7 @@
     }];
 }
 
-- (void)transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -568,129 +585,6 @@
             completion();
         }
     }];
-}
-
-//旋转180°缩小到最小,然后再从小到大推出
-- (void)transform0:(doBlock)transform completion:(doBlock)completion{
-    [UIView animateWithDuration:0.35f animations:^  {
-        self.transform = CGAffineTransformMakeScale(0.001, 0.001);
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-        animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI, 0.1, 0.2, 0.2)];
-        animation.duration = 0.35f;
-        animation.repeatCount = 1;
-        [self.layer addAnimation:animation forKey:nil];
-    }completion:^(BOOL finished){
-        [UIView animateWithDuration:0.35f animations:^  {
-            self.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            if (transform) {
-                transform();
-            }
-        }completion:^(BOOL finished) {
-            if (completion) {
-                completion();
-            }
-        }];
-    }];
-}
-
-//向右旋转45°缩小到最小,然后再从小到大推出
-- (void)transform1:(doBlock)transform completion:(doBlock)completion{
-    [UIView animateWithDuration:0.35f animations:^  {
-         self.transform = CGAffineTransformMakeScale(0.001, 0.001);
-         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-         animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(M_PI, 0.70, 0.40, 0.80)];
-         animation.duration = 0.35f;
-         animation.repeatCount = 1;  
-         [self.layer addAnimation:animation forKey:nil];
-     }completion:^(BOOL finished){
-         [UIView animateWithDuration:0.35f animations:^  {
-              self.transform = CGAffineTransformMakeScale(1.0, 1.0);
-             if (transform) {
-                 transform();
-             }
-          }completion:^(BOOL finished) {
-              if (completion) {
-                  completion();
-              }
-          }];
-     }];
-}
-
-- (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                   byRoundingCorners:corner
-                                                         cornerRadii:CGSizeMake(radius, radius)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.frame = self.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.layer.mask = maskLayer;
-}
-
-- (UIColor *)wzm_colorWithPoint:(CGPoint)point {
-    unsigned char pixel[4] = {0};
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
-    CGContextTranslateCTM(context, -point.x, -point.y);
-    [self.layer renderInContext:context];
-    CGContextRelease(context);
-    CGColorSpaceRelease(colorSpace);
-    return [UIColor colorWithRed:pixel[0]/255.0 green:pixel[1]/255.0 blue:pixel[2]/255.0 alpha:pixel[3]/255.0];
-}
-
-- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type {
-    
-    NSMutableArray *CGColors = [NSMutableArray arrayWithCapacity:colors.count];
-    
-    for (UIColor *color in colors) {
-        [CGColors addObject:(id)color.CGColor];
-    }
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.bounds;
-    gradient.colors = CGColors;
-//    gradient.locations = @[@0.0, @1.0];
-    if (type == LLGradientTypeLeftToRight) {
-        gradient.startPoint = CGPointMake(0.0, 0.0);
-        gradient.endPoint = CGPointMake(1.0, 0.0);
-    }
-    else if (type == LLGradientTypeTopToBottom) {
-        gradient.startPoint = CGPointMake(0.0, 0.0);
-        gradient.endPoint = CGPointMake(0.0, 1.0);
-    }
-    else if (type == LLGradientTypeUpleftToLowright) {
-        gradient.startPoint = CGPointMake(0.0, 0.0);
-        gradient.endPoint = CGPointMake(1.0, 1.0);
-    }
-    else {
-        gradient.startPoint = CGPointMake(1.0, 0.0);
-        gradient.endPoint = CGPointMake(0.0, 1.0);
-    }
-    [self.layer insertSublayer:gradient atIndex:0];
-}
-
-- (void)wzm_gradientColorWithGradientType:(LLGradientType)type {
-    NSMutableArray *colorArray = [NSMutableArray new];
-    for (NSInteger hue = 0; hue < 255; hue += 5) {
-        UIColor *color = [UIColor colorWithHue:hue/255.0
-                                    saturation:1.0
-                                    brightness:1.0
-                                         alpha:1.0];
-        [colorArray addObject:color];
-    }
-    [self wzm_gradientColors:colorArray gradientType:type];
-}
-
-- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename {
-    NSMutableData *pdfData = [NSMutableData data];
-    UIGraphicsBeginPDFContextToData(pdfData, self.bounds, nil);
-    UIGraphicsBeginPDFPage();
-    CGContextRef pdfContext = UIGraphicsGetCurrentContext();
-    [self.layer renderInContext:pdfContext];
-    UIGraphicsEndPDFContext();
-    
-    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *documentDirectoryFilename = [document stringByAppendingPathComponent:aFilename];
-    return [pdfData writeToFile:documentDirectoryFilename atomically:YES];
 }
 
 /**

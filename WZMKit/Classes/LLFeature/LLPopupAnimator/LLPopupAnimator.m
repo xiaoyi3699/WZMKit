@@ -56,10 +56,10 @@
     [UIView animateWithDuration:duration animations:^{
         self.alpha = 1;
         if (animationStyle == LLAnimationStyleOutFromCenterNone) {
-            [_alertView outFromCenterNoneWithDuration:duration];
+            [_alertView wzm_outFromCenterNoneWithDuration:duration];
         }
         else if (animationStyle == LLAnimationStyleOutFromCenterAnimation) {
-            [_alertView outFromCenterAnimationWithDuration:duration];
+            [_alertView wzm_outFromCenterAnimationWithDuration:duration];
         }
         else if (animationStyle == LLAnimationStyleFromDownAnimation) {
             _alertView.wzm_minY = self.wzm_height-_alertView.wzm_height;
@@ -76,13 +76,13 @@
         doBlock animation;
         if (_animationStyle == LLAnimationStyleOutFromCenterNone) {
             animation = ^(){
-                [_alertView dismissToCenterNoneWithDuration:.2];
+                [_alertView wzm_dismissToCenterNoneWithDuration:.2];
                 self.alpha = 0;
             };
         }
         else if (_animationStyle == LLAnimationStyleOutFromCenterAnimation) {
             animation = ^(){
-                [_alertView dismissToCenterAnimationWithDuration:.2];
+                [_alertView wzm_dismissToCenterAnimationWithDuration:.2];
                 self.alpha = 0;
             };
         }

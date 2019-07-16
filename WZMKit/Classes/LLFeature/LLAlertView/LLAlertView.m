@@ -206,7 +206,7 @@
 - (void)showAnimated:(BOOL)animated{
     [[UIApplication sharedApplication].delegate.window addSubview:self];
     if (animated) {
-        [_alertView outFromCenterAnimationWithDuration:.35];
+        [_alertView wzm_outFromCenterAnimationWithDuration:.35];
     }
 }
 
@@ -258,7 +258,7 @@
 #pragma mark - 消失动画
 - (void)dismiss{
     [UIView animateWithDuration:.2 animations:^{
-        [_alertView dismissToCenterAnimationWithDuration:.2];
+        [_alertView wzm_dismissToCenterAnimationWithDuration:.2];
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];

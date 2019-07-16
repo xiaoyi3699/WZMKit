@@ -95,7 +95,7 @@
         [_bezierView setNeedsDisplay];
     }
     if (_rate != 0) {
-        [_aniView transform3DMakeRotationX:0 Y:0 Z:(90-_rStart)];
+        [_aniView wzm_transform3DMakeRotationX:0 Y:0 Z:(90-_rStart)];
         _rStart += _rSpeed;
     }
     _start += _speed;

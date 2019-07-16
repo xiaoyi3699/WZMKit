@@ -12,17 +12,11 @@
 
 @interface UIView (wzmcate)
 
-/**
- 获取view所在的ViewController
- */
+///获取view所在的ViewController
 - (UIViewController *)wzm_viewController;
-
-/**
- 判断view是不是指定视图的子视图
- */
+///判断view是不是指定视图的子视图
 - (BOOL)wzm_isDescendantOfView:(UIView *)otherView;
 
-#pragma mark - 自定义适配
 //设置位置(宽和高保持不变)
 - (CGFloat)wzm_minX;
 - (void)setWzm_minX:(CGFloat)wzm_minX;
@@ -88,123 +82,48 @@
 - (UIColor *)wzm_borderColor;
 - (void)setWzm_borderColor:(UIColor *)wzm_borderColor;
 
-/**
- 设置圆角、边框
- */
-- (void)setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color;
-
-/**
- 设置阴影
- */
-- (void)setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha;
-
-/**
- 设置阴影
- */
-- (void)setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType;
-
-/**
- 有3d效果的旋转背景动画(定时器自动旋转)
- */
-- (void)wzm_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration;
-
-/**
- 有3d效果的旋转背景动画
- */
-- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration;
-
-/**
- 旋转动画(参数axis:坐标轴(x,y或z,小写))
- */
-- (void)startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount;
-
-/**
- 旋转角度(x、y、z)
- */
-- (void)transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ;
-
-/**
- 放大系数(x、y、z)
- */
-- (void)transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
-
-/**
- alertView弹出动画
- */
-- (void)outFromCenterNoneWithDuration:(NSTimeInterval)duration;
-
-/**
- alertView消失动画
- */
-- (void)dismissToCenterNoneWithDuration:(NSTimeInterval)duration;
-
-/**
- alertView弹出动画
- */
-- (void)outFromCenterAnimationWithDuration:(NSTimeInterval)duration;
-
-/**
- alertView消失动画
- */
-- (void)dismissToCenterAnimationWithDuration:(NSTimeInterval)duration;
-
-/**
- 先放大后缩小的动画
- */
-- (void)outAnimation;
-
-/**
- 先缩小后放大的动画
- */
-- (void)insideAnimation;
-
-#pragma mark - 转场动画
-- (void)transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-
-- (void)transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-
-- (void)transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-
-- (void)transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-
-/**
- 旋转180°缩小到最小,然后再从小到大推出
- */
-- (void)transform0:(doBlock)transform completion:(doBlock)completion;
-
-/**
- 向右旋转45°缩小到最小,然后再从小到大推出
- */
-- (void)transform1:(doBlock)transform completion:(doBlock)completion;
-
-/**
- 添加任意圆角
- */
+///添加任意圆角
 - (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius;
-
-///渐变
-- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
-
-- (void)wzm_gradientColorWithGradientType:(LLGradientType)type;
-
+///设置圆角、边框
+- (void)wzm_setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color;
+///设置阴影
+- (void)wzm_setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha;
+- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType:(LLShadowType)shadowType;
 ///获取某一点的颜色
 - (UIColor *)wzm_colorWithPoint:(CGPoint)point;
-
+///渐变
+- (void)wzm_gradientColorWithGradientType:(LLGradientType)type;
+- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
 ///将一个view保存为pdf格式
 - (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename;
 
-/**
- 绘制虚线
- **/
+///alertView弹出动画
+- (void)wzm_outFromCenterNoneWithDuration:(NSTimeInterval)duration;
+- (void)wzm_outFromCenterAnimationWithDuration:(NSTimeInterval)duration;
+///alertView消失动画
+- (void)wzm_dismissToCenterNoneWithDuration:(NSTimeInterval)duration;
+- (void)wzm_dismissToCenterAnimationWithDuration:(NSTimeInterval)duration;
+///有3d效果的旋转背景动画
+- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration;
+///旋转动画(参数axis:坐标轴x,y,z 小写)
+- (void)wzm_startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount;
+///旋转角度(x、y、z)
+- (void)wzm_transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ;
+///放大系数(x、y、z)
+- (void)wzm_transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
+///转场动画
+- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
+- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
+- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
+- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
+
+///绘制虚线
 - (void)wzm_drawlineInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
                  lineColor:(UIColor *)lineColor
               isHorizontal:(BOOL)isHorizontal;
-
-/**
- 绘制网格
- **/
+///绘制网格
 - (void)wzm_drawGridInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
