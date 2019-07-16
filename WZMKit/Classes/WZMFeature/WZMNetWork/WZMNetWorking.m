@@ -10,8 +10,8 @@
 #import "WZMLog.h"
 #import "NSString+wzmcate.h"
 
-NSString * const LLNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
-NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8";
+NSString * const WZMNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
+NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8";
 
 @interface WZMNetWorking ()
 
@@ -34,7 +34,7 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.requestContentType = LLNetRequestContentTypeForm;
+        self.requestContentType = WZMNetRequestContentTypeForm;
         self.resultContentType = LLNetResultContentTypeJson;
         self.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET",@"HEAD",@"DELETE",@"PATCH",nil];
     }
@@ -84,7 +84,7 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
     request.HTTPMethod = method;
     
     if (parameters) {
-        NSString *params = [self ll_parameters:parameters];
+        NSString *params = [self parameters:parameters];
         if ([self.HTTPMethodsEncodingParametersInURI containsObject:[method uppercaseString]]) {
             NSString *formattUrl = [url stringByAppendingFormat:request.URL.query ? @"&%@" : @"?%@", params];
             NSURL *formattURL = [NSURL URLWithString:formattUrl];
@@ -145,7 +145,7 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
 }
 
 ///参数解析
-- (NSString *)ll_parameters:(id)parameters {
+- (NSString *)parameters:(id)parameters {
     if ([parameters isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)parameters;
         if (dic.allKeys.count) {
@@ -153,10 +153,10 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
             for (NSString *key in dic.allKeys) {
                 id value = [dic objectForKey:key];
                 if (result == nil) {
-                    result = [NSString stringWithFormat:@"%@=%@",key,[self ll_parameters:value]];
+                    result = [NSString stringWithFormat:@"%@=%@",key,[self parameters:value]];
                 }
                 else {
-                    result = [NSString stringWithFormat:@"%@&%@=%@",result,key,[self ll_parameters:value]];
+                    result = [NSString stringWithFormat:@"%@&%@=%@",result,key,[self parameters:value]];
                 }
             }
             return result;
