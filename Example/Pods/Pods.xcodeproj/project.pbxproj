@@ -171,7 +171,7 @@
 		CCFA42A60603B9C81DE896ED2D13A6EF /* LLAnimationNumItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = F2D49DCE17C29C9B00B5AEBAFC115219 /* LLAnimationNumItemView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3DC3A6BD36C3E00BE0B0D2B6E5A79D /* UITextView+LLReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = F43B53B9DDC137DD39FCCD7D580B7AA9 /* UITextView+LLReaction.m */; };
 		CD93082A8150CCD051A349A0DDA4CF6A /* WZMAVPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = D3C60A686FD36464658531F212E1530B /* WZMAVPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE19690E46F25B590845411BE21FE324 /* ll_arrow.png in Sources */ = {isa = PBXBuildFile; fileRef = BD77F0D0E84A79384735C2242DCFE367 /* ll_arrow.png */; };
+		CE19690E46F25B590845411BE21FE324 /* wzm_arrow.png in Sources */ = {isa = PBXBuildFile; fileRef = BD77F0D0E84A79384735C2242DCFE367 /* wzm_arrow.png */; };
 		D0F67CABE9F70568631457B08797799B /* LLBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = F487FC9AF1B73C485665FA76293AA4DE /* LLBezierView.m */; };
 		D13470A45A7D46635E013385B7AF8BAB /* WAMPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C4A6286479CA3C7A814D75DDF5D792 /* WAMPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D49165D28C7E4D52FC2CFA5CA96D3B8D /* UIView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 877C6AF5785EC59F1BD1436331B93F84 /* UIView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -398,7 +398,7 @@
 		B804F949CFCBE3CF730D1BBBF7D5789E /* LLReactionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLReactionManager.m; sourceTree = "<group>"; };
 		B8E4ED1E4ABCF4360B8BF0BC24B9C241 /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB148A16D4D30D21CAF8B38AF9E4DB46 /* LLAudioPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLAudioPlayer.m; sourceTree = "<group>"; };
-		BD77F0D0E84A79384735C2242DCFE367 /* ll_arrow.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = ll_arrow.png; sourceTree = "<group>"; };
+		BD77F0D0E84A79384735C2242DCFE367 /* wzm_arrow.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = wzm_arrow.png; sourceTree = "<group>"; };
 		C092AA4BE4B162ED75F97CCADE3453FE /* WZMBaseFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMBaseFooterView.h; sourceTree = "<group>"; };
 		C123EF01711D19C8264D9D272E31B253 /* WZMAVPlayerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMAVPlayerView.m; sourceTree = "<group>"; };
 		C263D09F7E60365B64D76B5C6BFA72DF /* Pods-WZMKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WZMKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -1012,7 +1012,7 @@
 		998F0E873E7CFA5411E57D64E541AD65 /* WZMRefresh.bundle */ = {
 			isa = PBXGroup;
 			children = (
-				BD77F0D0E84A79384735C2242DCFE367 /* ll_arrow.png */,
+				BD77F0D0E84A79384735C2242DCFE367 /* wzm_arrow.png */,
 			);
 			path = WZMRefresh.bundle;
 			sourceTree = "<group>";
@@ -1685,7 +1685,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51E2C9C2BD6C279E6D83F23AFBEBF5C3 /* back_white_small.png in Sources */,
-				CE19690E46F25B590845411BE21FE324 /* ll_arrow.png in Sources */,
+				CE19690E46F25B590845411BE21FE324 /* wzm_arrow.png in Sources */,
 				0A6F7E3240EDC09CFC759CA0AAB42A20 /* LLActionSheet.m in Sources */,
 				7C0EEC312B725AD6BCF66087CB8C8819 /* LLAlertView.m in Sources */,
 				1474641BF510EB89A0012CBD0637FE77 /* LLAnimationNumItemView.m in Sources */,

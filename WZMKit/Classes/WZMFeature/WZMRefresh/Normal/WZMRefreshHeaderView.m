@@ -28,11 +28,11 @@
     rect.origin.y = -WZMRefreshHeaderHeight;
     self.frame = rect;
     
-    NSInteger w = ceil([_laseTimeLabel.text sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
+    NSInteger w = ceil([_laseTimeLabel.text sizeWithAttributes:@{NSFontAttributeName:WZM_TIME_FONT}].width);
     self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshHeaderHeight-40)/2.0, 15, 40);
     
     self.loadingView.center = self.arrowView.center;
-    self.loadingView.color = LL_REFRESH_COLOR;
+    self.loadingView.color = WZM_REFRESH_COLOR;
 }
 
 - (void)createViews {
@@ -40,19 +40,19 @@
     CGFloat labelH = (WZMRefreshHeaderHeight-10)/2;
     _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, self.bounds.size.width, labelH)];
     _messageLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _messageLabel.font = LL_REFRESH_FONT;
+    _messageLabel.font = WZM_REFRESH_FONT;
     _messageLabel.text = @"下拉可以刷新";
     _messageLabel.textAlignment = NSTextAlignmentCenter;
-    _messageLabel.textColor = LL_REFRESH_COLOR;
+    _messageLabel.textColor = WZM_REFRESH_COLOR;
     [self addSubview:_messageLabel];
     
-    NSString *lastTime = [WZMRefreshHelper LL_getRefreshTime:WZMRefreshHeaderTime];
+    NSString *lastTime = [WZMRefreshHelper WZM_getRefreshTime:WZMRefreshHeaderTime];
     _laseTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_messageLabel.frame), self.bounds.size.width, labelH)];
     _laseTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _laseTimeLabel.font = LL_TIME_FONT;
+    _laseTimeLabel.font = WZM_TIME_FONT;
     _laseTimeLabel.text = lastTime;
     _laseTimeLabel.textAlignment = NSTextAlignmentCenter;
-    _laseTimeLabel.textColor = LL_TIME_COLOR;
+    _laseTimeLabel.textColor = WZM_TIME_COLOR;
     [self addSubview:_laseTimeLabel];
 }
 
@@ -87,7 +87,7 @@
     }
     else {
         [self LL_WiWZMRefresh];
-        transform3D = LL_TRANS_FORM;
+        transform3D = WZM_TRANS_FORM;
     }
     [UIView animateWithDuration:.3 animations:^{
         self.arrowView.layer.transform = transform3D;

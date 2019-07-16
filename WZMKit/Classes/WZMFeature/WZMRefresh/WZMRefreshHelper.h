@@ -11,11 +11,11 @@
 
 #define WZMRefreshHeaderHeight 60
 #define WZMRefreshFooterHeight 60
-#define LL_REFRESH_COLOR      R_G_B(50, 50, 50)
-#define LL_TIME_COLOR         R_G_B(50, 50, 50)
-#define LL_REFRESH_FONT       [UIFont boldSystemFontOfSize:13]
-#define LL_TIME_FONT          [UIFont boldSystemFontOfSize:13]
-#define LL_TRANS_FORM CATransform3DConcat(CATransform3DIdentity, CATransform3DMakeRotation(M_PI+0.000001, 0, 0, 1))
+#define WZM_REFRESH_COLOR      R_G_B(50, 50, 50)
+#define WZM_TIME_COLOR         R_G_B(50, 50, 50)
+#define WZM_REFRESH_FONT       [UIFont boldSystemFontOfSize:13]
+#define WZM_TIME_FONT          [UIFont boldSystemFontOfSize:13]
+#define WZM_TRANS_FORM CATransform3DConcat(CATransform3DIdentity, CATransform3DMakeRotation(M_PI+0.000001, 0, 0, 1))
 
 extern NSString *const WZMRefreshMoreData;
 extern NSString *const WZMRefreshHeaderTime;
@@ -35,12 +35,12 @@ typedef NS_ENUM(NSInteger, WZMRefreshState) {
 @interface WZMRefreshHelper : NSObject
 
 /** 获取上次更新时间 */
-+ (NSString *)LL_getRefreshTime:(NSString *)key;
++ (NSString *)WZM_getRefreshTime:(NSString *)key;
 
 /** 重置更新时间 */
-+ (void)LL_setRefreshTime:(NSString *)key;
++ (void)WZM_setRefreshTime:(NSString *)key;
 
 /** 箭头 */
-+ (UIImage *)LL_ArrowImage;
++ (UIImage *)WZM_ArrowImage;
 
 @end

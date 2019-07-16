@@ -16,7 +16,7 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 
 @implementation WZMRefreshHelper
 
-+ (NSString *)LL_getRefreshTime:(NSString *)key {
++ (NSString *)WZM_getRefreshTime:(NSString *)key {
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     if (value) {
         NSArray *times = [value componentsSeparatedByString:@" "];
@@ -34,7 +34,7 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
     return [NSString stringWithFormat:@"最后更新：无记录"];
 }
 
-+ (void)LL_setRefreshTime:(NSString *)key {
++ (void)WZM_setRefreshTime:(NSString *)key {
     NSDateFormatter *dateFormatter = [self dateFormatter];
     NSString *value = [dateFormatter stringFromDate:[NSDate date]];
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
@@ -42,19 +42,19 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 }
 
 //framework的bundle文件
-+ (NSBundle *)LL_RefreshBundle_0 {
++ (NSBundle *)WZM_RefreshBundle_0 {
     return [NSBundle bundleWithPath:[[NSBundle bundleForClass:[WZMRefreshHelper class]] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
 }
 
 //静态库的bundle文件
-+ (NSBundle *)LL_RefreshBundle_1 {
++ (NSBundle *)WZM_RefreshBundle_1 {
     return [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
 }
 
-+ (UIImage *)LL_ArrowImage {
-    UIImage *image = [UIImage imageWithContentsOfFile:[[self LL_RefreshBundle_0] pathForResource:@"ll_arrow" ofType:@"png"]];
++ (UIImage *)WZM_ArrowImage {
+    UIImage *image = [UIImage imageWithContentsOfFile:[[self WZM_RefreshBundle_0] pathForResource:@"wzm_arrow" ofType:@"png"]];
     if (image == nil) {
-        image = [UIImage imageWithContentsOfFile:[[self LL_RefreshBundle_1] pathForResource:@"ll_arrow" ofType:@"png"]];
+        image = [UIImage imageWithContentsOfFile:[[self WZM_RefreshBundle_1] pathForResource:@"wzm_arrow" ofType:@"png"]];
     }
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }

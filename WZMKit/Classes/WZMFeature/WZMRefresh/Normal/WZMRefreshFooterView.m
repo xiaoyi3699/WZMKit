@@ -53,21 +53,21 @@
     frame.origin.y = self.scrollView.bounds.size.height+_contentOffsetY;
     self.frame = frame;
     
-    NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
+    NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:WZM_TIME_FONT}].width);
     self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshHeaderHeight-40)/2.0, 15, 40);
     
     self.loadingView.center = self.arrowView.center;
-    self.loadingView.color = LL_REFRESH_COLOR;
+    self.loadingView.color = WZM_REFRESH_COLOR;
 }
 
 - (void)createViews {
     [super createViews];
     _messageLabel = [[UILabel alloc] initWithFrame:self.bounds];
     _messageLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _messageLabel.font = LL_REFRESH_FONT;
+    _messageLabel.font = WZM_REFRESH_FONT;
     _messageLabel.text = @"上拉可以加载更多";
     _messageLabel.textAlignment = NSTextAlignmentCenter;
-    _messageLabel.textColor = LL_REFRESH_COLOR;
+    _messageLabel.textColor = WZM_REFRESH_COLOR;
     [self addSubview:_messageLabel];
 }
 
@@ -95,7 +95,7 @@
     [super scrollViewContentOffsetDidChange:change];
     if (self.scrollView.contentOffset.y <= 0) return;
     
-    CATransform3D transform3D = LL_TRANS_FORM;
+    CATransform3D transform3D = WZM_TRANS_FORM;
     
     if (_refreshState == WZMRefreshStateNoMoreData) {
         if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {

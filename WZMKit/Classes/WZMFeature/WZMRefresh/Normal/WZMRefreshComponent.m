@@ -69,10 +69,10 @@
 - (UIImageView *)arrowView {
     if (_arrowView == nil) {
         _arrowView = [[UIImageView alloc] init];
-        _arrowView.image = [WZMRefreshHelper LL_ArrowImage];
-        _arrowView.tintColor = LL_REFRESH_COLOR;
+        _arrowView.image = [WZMRefreshHelper WZM_ArrowImage];
+        _arrowView.tintColor = WZM_REFRESH_COLOR;
         if ([self isKindOfClass:[WZMRefreshFooterView class]]) {
-            _arrowView.layer.transform = LL_TRANS_FORM;
+            _arrowView.layer.transform = WZM_TRANS_FORM;
         }
         [self addSubview:_arrowView];
     }
@@ -165,9 +165,9 @@
     else {
         if ([self isKindOfClass:[WZMRefreshHeaderView class]]) {
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [WZMRefreshHelper LL_setRefreshTime:WZMRefreshHeaderTime];
-                NSString *value = [WZMRefreshHelper LL_getRefreshTime:WZMRefreshHeaderTime];
-                NSInteger w = ceil([value sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
+                [WZMRefreshHelper WZM_setRefreshTime:WZMRefreshHeaderTime];
+                NSString *value = [WZMRefreshHelper WZM_getRefreshTime:WZMRefreshHeaderTime];
+                NSInteger w = ceil([value sizeWithAttributes:@{NSFontAttributeName:WZM_TIME_FONT}].width);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _laseTimeLabel.text = value;
                     self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshHeaderHeight-40)/2.0, 15, 40);
@@ -179,9 +179,9 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:LL_TIME_FONT}].width);
+                NSInteger w = ceil([_messageLabel.text sizeWithAttributes:@{NSFontAttributeName:WZM_TIME_FONT}].width);
                 self.arrowView.frame = CGRectMake((self.bounds.size.width-w)/2-35, (WZMRefreshFooterHeight-40)/2.0, 15, 40);
-                self.arrowView.layer.transform = LL_TRANS_FORM;
+                self.arrowView.layer.transform = WZM_TRANS_FORM;
                 [self.loadingView stopAnimating];
                 self.loadingView.center = self.arrowView.center;
             });
