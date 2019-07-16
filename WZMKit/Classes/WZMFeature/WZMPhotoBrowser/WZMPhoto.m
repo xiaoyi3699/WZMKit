@@ -1,12 +1,12 @@
 //
-//  LLPhoto.m
-//  LLPhotoBrowser
+//  WZMPhoto.m
+//  WZMPhotoBrowser
 //
 //  Created by zhaomengWang on 17/2/6.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLPhoto.h"
+#import "WZMPhoto.h"
 #import <ImageIO/ImageIO.h>
 #import "NSString+wzmcate.h"
 #import "LLGifImageView.h"
@@ -15,9 +15,9 @@
 #import "NSData+wzmcate.h"
 #import "UIImage+wzmcate.h"
 
-#define LLPhotoMaxSCale 3.0  //最大缩放比例
-#define LLPhotoMinScale 1.0  //最小缩放比例
-@interface LLPhoto ()<UIScrollViewDelegate>{
+#define WZMPhotoMaxSCale 3.0  //最大缩放比例
+#define WZMPhotoMinScale 1.0  //最小缩放比例
+@interface WZMPhoto ()<UIScrollViewDelegate>{
     LLGifImageView *_imageView;
     NSData         *_imageData;
     UIImage        *_currentImage;
@@ -25,14 +25,14 @@
 }
 @end
 
-@implementation LLPhoto
+@implementation WZMPhoto
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.delegate = self;
-        self.minimumZoomScale = LLPhotoMinScale;
-        self.maximumZoomScale = LLPhotoMaxSCale;
+        self.minimumZoomScale = WZMPhotoMinScale;
+        self.maximumZoomScale = WZMPhotoMaxSCale;
         self.backgroundColor  = [UIColor clearColor];
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
@@ -219,8 +219,8 @@
 //双击
 - (void)doubleClick:(UITapGestureRecognizer *)gestureRecognizer {
     [self setDelegeteType:LLGestureRecognizerTypeDouble];
-    if (self.zoomScale > LLPhotoMinScale) {
-        [self setZoomScale:LLPhotoMinScale animated:YES];
+    if (self.zoomScale > WZMPhotoMinScale) {
+        [self setZoomScale:WZMPhotoMinScale animated:YES];
     } else {
         CGPoint touchPoint = [gestureRecognizer locationInView:_imageView];
         CGFloat newZoomScale = self.maximumZoomScale;

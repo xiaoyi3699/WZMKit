@@ -1,5 +1,5 @@
 //
-//  LLProgressHUD.h
+//  WZMProgressHUD.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/26.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLProgressView : UIView
+@interface WZMProgressView : UIView
 
 @end
 
-@interface LLProgressConfig : NSObject
+@interface WZMProgressConfig : NSObject
 
 ///背景色
 @property (nonatomic, strong) UIColor *backgroundColor;
@@ -27,7 +27,7 @@
 
 @end
 
-@interface LLProgressHUD : UIView
+@interface WZMProgressHUD : UIView
 
 ///是否正在显示
 @property (nonatomic, assign, getter=isShow) BOOL show;
@@ -35,7 +35,7 @@
 @property (nonatomic, assign,getter=isUserEnabled) BOOL userEnabled;
 
 + (instancetype)defaultHUD;
-+ (void)setProgressConfig:(LLProgressConfig *)config;
++ (void)setProgressConfig:(WZMProgressConfig *)config;
 + (void)showInfoMessage:(NSString *)message;
 + (void)showProgressMessage:(NSString *)message;
 + (void)dismiss;

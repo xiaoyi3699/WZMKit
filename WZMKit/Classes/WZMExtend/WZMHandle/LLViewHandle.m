@@ -7,21 +7,21 @@
 //
 
 #import "LLViewHandle.h"
-#import "LLProgressHUD.h"
+#import "WZMProgressHUD.h"
 #import "WZMEnum.h"
 
 @implementation LLViewHandle
 
 + (void)wzm_showInfoMessage:(NSString *)message{
-    [LLProgressHUD showInfoMessage:message];
+    [WZMProgressHUD showInfoMessage:message];
 }
 
 + (void)wzm_showProgressMessage:(NSString *)message{
-    [LLProgressHUD showProgressMessage:message];
+    [WZMProgressHUD showProgressMessage:message];
 }
 
 + (void)wzm_dismiss{
-    [LLProgressHUD dismiss];
+    [WZMProgressHUD dismiss];
 }
 
 + (void)wzm_setNetworkActivityIndicatorVisible:(BOOL)visible{

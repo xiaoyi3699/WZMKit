@@ -1,5 +1,5 @@
 //
-//  LLPhotoBrowser.h
+//  WZMPhotoBrowser.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/13.
@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLPhotoBrowserCell.h"
+#import "WZMPhotoBrowserCell.h"
 
-@protocol LLPhotoBrowserDelegate;
+@protocol WZMPhotoBrowserDelegate;
 
-@interface LLPhotoBrowser : UIViewController
+@interface WZMPhotoBrowser : UIViewController
 
-@property (nonatomic, weak) id<LLPhotoBrowserDelegate> delegate;
+@property (nonatomic, weak) id<WZMPhotoBrowserDelegate> delegate;
 
 ///images内的元素，可以是UIImage对象、NSData对象、路径、图片网址，并且支持gif
 @property (nonatomic, strong) NSArray *images;
@@ -22,10 +22,10 @@
 
 @end
 
-@protocol LLPhotoBrowserDelegate <NSObject>
+@protocol WZMPhotoBrowserDelegate <NSObject>
 
 @optional
-- (void)photoBrowser:(LLPhotoBrowser *)photoBrowser
+- (void)photoBrowser:(WZMPhotoBrowser *)photoBrowser
         clickAtIndex:(NSInteger)index
              content:(id)content
                isGif:(BOOL)isGif

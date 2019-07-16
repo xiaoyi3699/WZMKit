@@ -1,21 +1,21 @@
 //
-//  LLPhotoBrowser.m
+//  WZMPhotoBrowser.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/13.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLPhotoBrowser.h"
+#import "WZMPhotoBrowser.h"
 #import "WZMMacro.h"
 
-@interface LLPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,LLPhotoBrowserCellDelegate>
+@interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
-@implementation LLPhotoBrowser
+@implementation WZMPhotoBrowser
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,12 +43,12 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 #endif
     [self.view addSubview:_collectionView];
-    [_collectionView registerClass:[LLPhotoBrowserCell class] forCellWithReuseIdentifier:@"LLPhotoCell"];
+    [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
 }
 
-#pragma mark - LLPhotoBrowserCellDelegate
-- (void)photoBrowserCell:(LLPhotoBrowserCell *)photoBrowserCell
+#pragma mark - WZMPhotoBrowserCellDelegate
+- (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
                  content:(id)content
                    isGif:(BOOL)isGif
@@ -64,7 +64,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    LLPhotoBrowserCell *cell = (LLPhotoBrowserCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"LLPhotoCell"
+    WZMPhotoBrowserCell *cell = (WZMPhotoBrowserCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WZMPhotoCell"
                                                                                                forIndexPath:indexPath];
     cell.indexPath = indexPath;
     cell.delegate = self;
@@ -75,15 +75,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[LLPhotoBrowserCell class]]) {
-        LLPhotoBrowserCell *photoCell = (LLPhotoBrowserCell *)cell;
+    if ([cell isKindOfClass:[WZMPhotoBrowserCell class]]) {
+        WZMPhotoBrowserCell *photoCell = (WZMPhotoBrowserCell *)cell;
         [photoCell didEndDisplay];
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([cell isKindOfClass:[LLPhotoBrowserCell class]]) {
-        LLPhotoBrowserCell *photoCell = (LLPhotoBrowserCell *)cell;
+    if ([cell isKindOfClass:[WZMPhotoBrowserCell class]]) {
+        WZMPhotoBrowserCell *photoCell = (WZMPhotoBrowserCell *)cell;
         [photoCell willDisplay];
     }
 }

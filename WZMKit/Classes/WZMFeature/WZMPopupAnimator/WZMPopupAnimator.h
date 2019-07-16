@@ -1,5 +1,5 @@
 //
-//  LLPopupAnimator.h
+//  WZMPopupAnimator.h
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/3.
@@ -10,11 +10,11 @@
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 
-@protocol LLPopupAnimatorDelegate;
+@protocol WZMPopupAnimatorDelegate;
 
-@interface LLPopupAnimator : UIView
+@interface WZMPopupAnimator : UIView
 
-@property (nonatomic, weak) id<LLPopupAnimatorDelegate> delegate;
+@property (nonatomic, weak) id<WZMPopupAnimatorDelegate> delegate;
 
 + (instancetype)animator;
 - (void)popUpView:(UIView *)view animationStyle:(LLAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion;
@@ -22,7 +22,7 @@
 
 @end
 
-@protocol LLPopupAnimatorDelegate <NSObject>
+@protocol WZMPopupAnimatorDelegate <NSObject>
 
 @optional
 - (void)dismissAnimationCompletion;

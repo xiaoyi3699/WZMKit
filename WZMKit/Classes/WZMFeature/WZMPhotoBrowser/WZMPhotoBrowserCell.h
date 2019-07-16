@@ -1,5 +1,5 @@
 //
-//  LLPhotoBrowserCell.h
+//  WZMPhotoBrowserCell.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/13.
@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLPhoto.h"
+#import "WZMPhoto.h"
 
-@protocol LLPhotoBrowserCellDelegate;
+@protocol WZMPhotoBrowserCellDelegate;
 
-@interface LLPhotoBrowserCell : UICollectionViewCell
+@interface WZMPhotoBrowserCell : UICollectionViewCell
 
-@property (nonatomic, weak) id<LLPhotoBrowserCellDelegate> delegate;
+@property (nonatomic, weak) id<WZMPhotoBrowserCellDelegate> delegate;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
@@ -24,10 +24,10 @@
 
 @end
 
-@protocol LLPhotoBrowserCellDelegate <NSObject>
+@protocol WZMPhotoBrowserCellDelegate <NSObject>
 
 @optional
-- (void)photoBrowserCell:(LLPhotoBrowserCell *)photoBrowserCell
+- (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
                  content:(id)content
                    isGif:(BOOL)isGif

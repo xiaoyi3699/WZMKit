@@ -1,25 +1,25 @@
 //
-//  LLPopupAnimator.m
+//  WZMPopupAnimator.m
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/3.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLPopupAnimator.h"
+#import "WZMPopupAnimator.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 
-@implementation LLPopupAnimator{
+@implementation WZMPopupAnimator{
     __weak UIView    *_alertView;
     LLAnimationStyle _animationStyle;
 }
 
 + (instancetype)animator {
     static dispatch_once_t onceToken;
-    static LLPopupAnimator *animator;
+    static WZMPopupAnimator *animator;
     dispatch_once(&onceToken, ^{
-        animator = [[LLPopupAnimator alloc] init];
+        animator = [[WZMPopupAnimator alloc] init];
     });
     return animator;
 }

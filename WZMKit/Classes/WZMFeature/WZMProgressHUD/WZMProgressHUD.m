@@ -1,22 +1,22 @@
 //
-//  LLProgressHUD.m
+//  WZMProgressHUD.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/10/26.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLProgressHUD.h"
+#import "WZMProgressHUD.h"
 #import "WZMMacro.h"
 
-@interface LLProgressView ()
+@interface WZMProgressView ()
 
 @property (nonatomic, strong) UIColor *progressColor;
 @property (nonatomic, strong) UILabel *messageLabel;
 
 @end
 
-@implementation LLProgressView
+@implementation WZMProgressView
 
 - (instancetype)init {
     self = [super init];
@@ -108,13 +108,13 @@
 
 @end
 
-@implementation LLProgressConfig
+@implementation WZMProgressConfig
 
 + (instancetype)defaultConfig {
-    static LLProgressConfig *config;
+    static WZMProgressConfig *config;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        config = [[LLProgressConfig alloc] init];
+        config = [[WZMProgressConfig alloc] init];
     });
     return config;
 }
@@ -132,21 +132,21 @@
 
 @end
 
-@interface LLProgressHUD ()
+@interface WZMProgressHUD ()
 
-@property (nonatomic, strong) LLProgressConfig *config;
-@property (nonatomic, strong) LLProgressView *progressView;
+@property (nonatomic, strong) WZMProgressConfig *config;
+@property (nonatomic, strong) WZMProgressView *progressView;
 @property (nonatomic, strong) UILabel *messageView;
 
 @end
 
-@implementation LLProgressHUD
+@implementation WZMProgressHUD
 
 + (instancetype)defaultHUD {
-    static LLProgressHUD *hud;
+    static WZMProgressHUD *hud;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        hud = [[LLProgressHUD alloc] init];
+        hud = [[WZMProgressHUD alloc] init];
     });
     return hud;
 }
@@ -156,20 +156,20 @@
     if (self) {
         self.show = NO;
         self.userEnabled = YES;
-        self.config = [LLProgressConfig defaultConfig];
+        self.config = [WZMProgressConfig defaultConfig];
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
-+ (void)setProgressConfig:(LLProgressConfig *)config {
-    LLProgressHUD *hud = [self defaultHUD];
++ (void)setProgressConfig:(WZMProgressConfig *)config {
+    WZMProgressHUD *hud = [self defaultHUD];
     hud.config = config;
 }
 
 + (void)showInfoMessage:(NSString *)message {
     [self dismiss];
-    LLProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self defaultHUD];
     hud.show = YES;
     CGRect rect; CGFloat w = 30, h = 30;
     if (message.length > 0) {
@@ -198,7 +198,7 @@
 
 + (void)showProgressMessage:(NSString *)message {
     [self dismiss];
-    LLProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self defaultHUD];
     hud.show = YES;
     CGFloat w = 100, h = 100;
     if (message.length > 0) {
@@ -232,12 +232,12 @@
 }
 
 + (void)dismiss {
-    LLProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self defaultHUD];
     if (hud.isShow) {
         hud.show = NO;
         for (UIView *view in hud.subviews) {
-            if ([view isKindOfClass:[LLProgressView class]]) {
-                [(LLProgressView *)view stopAnimation];
+            if ([view isKindOfClass:[WZMProgressView class]]) {
+                [(WZMProgressView *)view stopAnimation];
             }
             [view removeFromSuperview];
         }
@@ -246,9 +246,9 @@
 }
 
 #define mark - 懒加载
-- (LLProgressView *)progressView {
+- (WZMProgressView *)progressView {
     if (_progressView == nil) {
-        _progressView = [[LLProgressView alloc] init];
+        _progressView = [[WZMProgressView alloc] init];
         _progressView.layer.masksToBounds = YES;
         _progressView.layer.cornerRadius = 5;
     }
