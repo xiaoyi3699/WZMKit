@@ -34,11 +34,11 @@
             messageLabel.font = [UIFont systemFontOfSize:13];
             [_messageView addSubview:messageLabel];
             
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, messageLabel.maxY, self.bounds.size.width, 0.5)];
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, messageLabel.wzm_maxY, self.bounds.size.width, 0.5)];
             lineView.backgroundColor = lineColor;
             [_messageView addSubview:lineView];
             
-            btnBeginY = lineView.maxY;
+            btnBeginY = lineView.wzm_maxY;
         }
         else {
             _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+1)*44+LL_BOTTOM_HEIGHT);
@@ -55,7 +55,7 @@
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_messageView addSubview:btn];
             
-            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, btn.maxY, self.bounds.size.width, 0.5)];
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, btn.wzm_maxY, self.bounds.size.width, 0.5)];
             lineView.backgroundColor = lineColor;
             [_messageView addSubview:lineView];
         }
@@ -83,7 +83,7 @@
 #pragma mark - public method
 - (void)dismiss {
     [UIView animateWithDuration:.15 animations:^{
-        _messageView.minY = self.bounds.size.height;
+        _messageView.wzm_minY = self.bounds.size.height;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
@@ -102,10 +102,10 @@
     [aView addSubview:self];
     if(!CGRectEqualToRect(aView.bounds, self.bounds)) {
         self.frame = aView.bounds;
-        _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, _messageView.LLHeight);
+        _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, _messageView.wzm_height);
     }
     [UIView animateWithDuration:.3 animations:^{
-        _messageView.minY = self.bounds.size.height - _messageView.LLHeight;
+        _messageView.wzm_minY = self.bounds.size.height - _messageView.wzm_height;
     } completion:^(BOOL finished) {
         if (completion) {
             completion();

@@ -173,7 +173,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     
     //全屏按钮
     _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_fullBtn setFrame:CGRectMake(_topView.LLWidth-50, 10, 40, 25)];
+    [_fullBtn setFrame:CGRectMake(_topView.wzm_width-50, 10, 40, 25)];
     _fullBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     _fullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _fullBtn.layer.masksToBounds = YES;
@@ -187,7 +187,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     [_topView addSubview:_fullBtn];
     
     UIButton *tureFullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [tureFullBtn setFrame:CGRectMake(_topView.LLWidth-60, 0, 60, 44)];
+    [tureFullBtn setFrame:CGRectMake(_topView.wzm_width-60, 0, 60, 44)];
     tureFullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [tureFullBtn addTarget:self action:@selector(fullBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_topView addSubview:tureFullBtn];

@@ -58,7 +58,7 @@
     if (_isAnimation) return;
     
     UILabel *label_0, *label_1;
-    if (_label_0.minY == 0) {
+    if (_label_0.wzm_minY == 0) {
         label_0 = _label_0;
         label_1 = _label_1;
     }
@@ -71,13 +71,13 @@
     }
     label_1.text = text;
     [UIView animateWithDuration:_duration animations:^{
-        label_0.minY = -label_0.LLHeight;
-        label_1.minY = 0;
+        label_0.wzm_minY = -label_0.wzm_height;
+        label_1.wzm_minY = 0;
         _isAnimation = YES;
         label_0.alpha = 0;
         label_1.alpha = 1;
     } completion:^(BOOL finished) {
-        label_0.minY = label_0.LLHeight;
+        label_0.wzm_minY = label_0.wzm_height;
         _isAnimation = NO;
     }];
 }

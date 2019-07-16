@@ -187,7 +187,7 @@
 
 - (UIImage *)placeholderImage {
     if (_placeholderImage == nil) {
-        _placeholderImage = [UIImage wzm_getRectImageByColor:[UIColor whiteColor] size:CGSizeMake(self.LLWidth, self.LLWidth)];
+        _placeholderImage = [UIImage wzm_getRectImageByColor:[UIColor whiteColor] size:CGSizeMake(self.wzm_width, self.wzm_width)];
     }
     return _placeholderImage;
 }

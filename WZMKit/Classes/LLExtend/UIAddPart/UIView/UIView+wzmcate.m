@@ -28,213 +28,211 @@
 
 #pragma - mark 自定义适配
 //设置位置(宽和高保持不变)
-- (CGFloat)minX{
+- (CGFloat)wzm_minX {
     return CGRectGetMinX(self.frame);
 }
 
-- (void)setMinX:(CGFloat)minX{
+- (void)setWzm_minX:(CGFloat)wzm_minX {
     CGRect rect = self.frame;
-    rect.origin.x = minX;
+    rect.origin.x = wzm_minX;
     self.frame = rect;
 }
 
-- (CGFloat)maxX{
+- (CGFloat)wzm_maxX {
     return CGRectGetMaxX(self.frame);
 }
 
-- (void)setMaxX:(CGFloat)maxX{
+- (void)setWzm_maxX:(CGFloat)wzm_maxX {
     CGRect rect = self.frame;
-    rect.origin.x = maxX-CGRectGetWidth(rect);
+    rect.origin.x = wzm_maxX-CGRectGetWidth(rect);
     self.frame = rect;
 }
 
-- (CGFloat)minY{
+- (CGFloat)wzm_minY {
     return CGRectGetMinY(self.frame);
 }
 
-- (void)setMinY:(CGFloat)minY{
+- (void)setWzm_minY:(CGFloat)wzm_minY {
     CGRect rect = self.frame;
-    rect.origin.y = minY;
+    rect.origin.y = wzm_minY;
     self.frame = rect;
 }
 
-- (CGFloat)maxY{
+- (CGFloat)wzm_maxY {
     return CGRectGetMaxY(self.frame);
 }
 
-- (void)setMaxY:(CGFloat)maxY{
+- (void)setWzm_maxY:(CGFloat)wzm_maxY {
     CGRect rect = self.frame;
-    rect.origin.y = maxY-CGRectGetHeight(rect);
+    rect.origin.y = wzm_maxY-CGRectGetHeight(rect);
     self.frame = rect;
 }
 
-- (CGFloat)LLCenterX{
+- (CGFloat)wzm_centerX {
     return CGRectGetMidX(self.frame);
 }
 
-- (void)setLLCenterX:(CGFloat)LLCenterX{
-    self.center = CGPointMake(LLCenterX, CGRectGetMidY(self.frame));
+- (void)setWzm_centerX:(CGFloat)wzm_centerX {
+    self.center = CGPointMake(wzm_centerX, CGRectGetMidY(self.frame));
 }
 
-- (CGFloat)LLCenterY{
+- (CGFloat)wzm_centerY {
     return CGRectGetMidY(self.frame);
 }
 
-- (void)setLLCenterY:(CGFloat)LLCenterY{
-    self.center = CGPointMake(CGRectGetMidX(self.frame), LLCenterY);
+- (void)setWzm_centerY:(CGFloat)wzm_centerY {
+    self.center = CGPointMake(CGRectGetMidX(self.frame), wzm_centerY);
 }
 
-- (CGPoint)LLPostion{
-    return CGPointMake(self.minX, self.minY);
+- (CGPoint)wzm_postion {
+    return CGPointMake(self.wzm_minX, self.wzm_minY);
 }
 
-- (void)setLLPostion:(CGPoint)LLPostion{
+- (void)setWzm_postion:(CGPoint)wzm_postion {
     CGRect rect = self.frame;
-    rect.origin.x = LLPostion.x;
-    rect.origin.y = LLPostion.y;
+    rect.origin.x = wzm_postion.x;
+    rect.origin.y = wzm_postion.y;
     self.frame = rect;
 }
 
 //设置位置(其他顶点保持不变)
-- (CGFloat)mutableMinX{
-    return self.minX;
+- (CGFloat)wzm_mutableMinX {
+    return self.wzm_minX;
 }
 
-- (void)setMutableMinX:(CGFloat)mutableMinX{
+- (void)setWzm_mutableMinX:(CGFloat)wzm_mutableMinX {
     CGRect rect = self.frame;
-    rect.origin.x = mutableMinX;
-    rect.size.width = self.maxX-mutableMinX;
+    rect.origin.x = wzm_mutableMinX;
+    rect.size.width = self.wzm_maxX-wzm_mutableMinX;
     self.frame = rect;
 }
 
-- (CGFloat)mutableMaxX{
-    return self.maxX;
+- (CGFloat)wzm_mutableMaxX {
+    return self.wzm_maxX;
 }
 
-- (void)setMutableMaxX:(CGFloat)mutableMaxX{
+- (void)setWzm_mutableMaxX:(CGFloat)wzm_mutableMaxX {
     CGRect rect = self.frame;
-    rect.size.width = mutableMaxX-self.minX;
+    rect.size.width = wzm_mutableMaxX-self.wzm_minX;
     self.frame = rect;
 }
 
-- (CGFloat)mutableMinY{
-    return self.minY;
+- (CGFloat)wzm_mutableMinY {
+    return self.wzm_minY;
 }
 
-- (void)setMutableMinY:(CGFloat)mutableMinY{
+- (void)setWzm_mutableMinY:(CGFloat)wzm_mutableMinY {
     CGRect rect = self.frame;
-    rect.origin.y = mutableMinY;
-    rect.size.height = self.maxY-mutableMinY;
+    rect.origin.y = wzm_mutableMinY;
+    rect.size.height = self.wzm_maxY-wzm_mutableMinY;
     self.frame = rect;
 }
 
-- (CGFloat)mutableMaxY{
-    return self.maxY;
+- (CGFloat)wzm_mutableMaxY {
+    return self.wzm_maxY;
 }
 
-- (void)setMutableMaxY:(CGFloat)mutableMaxY{
+- (void)setWzm_mutableMaxY:(CGFloat)wzm_mutableMaxY {
     CGRect rect = self.frame;
-    rect.size.height = mutableMaxY-self.minY;
+    rect.size.height = wzm_mutableMaxY-self.wzm_minY;
     self.frame = rect;
 }
 
 //设置宽和高(位置不变)
-- (CGFloat)LLWidth{
+- (CGFloat)wzm_width {
     return CGRectGetWidth(self.frame);
 }
 
-- (void)setLLWidth:(CGFloat)LLWidth{
+- (void)setWzm_width:(CGFloat)wzm_width {
     CGRect rect = self.frame;
-    rect.size.width = LLWidth;
+    rect.size.width = wzm_width;
     self.frame = rect;
 }
 
-- (CGFloat)LLHeight{
+- (CGFloat)wzm_height {
     return CGRectGetHeight(self.frame);
 }
 
-- (void)setLLHeight:(CGFloat)LLHeight{
+- (void)setWzm_height:(CGFloat)wzm_height {
     CGRect rect = self.frame;
-    rect.size.height = LLHeight;
+    rect.size.height = wzm_height;
     self.frame = rect;
 }
 
-- (CGSize)LLSize{
-    return CGSizeMake(self.LLWidth, self.LLHeight);
+- (CGSize)wzm_size {
+    return CGSizeMake(self.wzm_width, self.wzm_height);
 }
 
-- (void)setLLSize:(CGSize)LLSize{
+- (void)setWzm_size:(CGSize)wzm_size {
     CGRect rect = self.frame;
-    rect.size.width = LLSize.width;
-    rect.size.height = LLSize.height;
+    rect.size.width = wzm_size.width;
+    rect.size.height = wzm_size.height;
     self.frame = rect;
 }
 
 //设置宽和高(中心点不变)
-- (CGFloat)center_width{
+- (CGFloat)wzm_center_width {
     return CGRectGetWidth(self.frame);
 }
 
-- (void)setCenter_width:(CGFloat)center_width{
+- (void)setWzm_center_width:(CGFloat)wzm_center_width {
     CGRect rect = self.frame;
-    CGFloat dx = (center_width-CGRectGetWidth(rect))/2.0;
+    CGFloat dx = (wzm_center_width-CGRectGetWidth(rect))/2.0;
     rect.origin.x -= dx;
-    rect.size.width = center_width;
+    rect.size.width = wzm_center_width;
     self.frame = rect;
 }
 
-- (CGFloat)center_height{
+- (CGFloat)wzm_center_height {
     return CGRectGetHeight(self.frame);
 }
 
-- (void)setCenter_height:(CGFloat)center_height{
+- (void)setWzm_center_height:(CGFloat)wzm_center_height {
     CGRect rect = self.frame;
-    CGFloat dy = (center_height-CGRectGetHeight(rect))/2.0;
+    CGFloat dy = (wzm_center_height-CGRectGetHeight(rect))/2.0;
     rect.origin.y -= dy;
-    rect.size.height = center_height;
+    rect.size.height = wzm_center_height;
     self.frame = rect;
 }
 
-- (CGSize)center_size{
-    return CGSizeMake(self.LLWidth, self.LLHeight);
+- (CGSize)wzm_center_size {
+    return CGSizeMake(self.wzm_width, self.wzm_height);
 }
 
-- (void)setCenter_size:(CGSize)center_size{
+- (void)setWzm_center_size:(CGSize)wzm_center_size {
     CGRect rect = self.frame;
-    CGFloat dx = (center_size.width-CGRectGetWidth(rect))/2.0;
-    CGFloat dy = (center_size.height-CGRectGetHeight(rect))/2.0;
+    CGFloat dx = (wzm_center_size.width-CGRectGetWidth(rect))/2.0;
+    CGFloat dy = (wzm_center_size.height-CGRectGetHeight(rect))/2.0;
     rect.origin.x -= dx;
     rect.origin.y -= dy;
-    rect.size.width = center_size.width;
-    rect.size.height = center_size.height;
+    rect.size.width = wzm_center_size.width;
+    rect.size.height = wzm_center_size.height;
     self.frame = rect;
 }
 
-//设置宽高比例
-- (CGFloat)LLScale{
-    if (self.LLHeight != 0) {
-        return self.LLWidth/self.LLHeight;
-    }
-    return -404;
-}
-
-- (void)setScale:(CGFloat)scale x:(CGFloat)x y:(CGFloat)y maxWidth:(CGFloat)maxWidth maxHeight:(CGFloat)maxHeight{
-    CGFloat width = maxWidth;
-    CGFloat height = width/scale;
-    if (height > maxHeight) {
-        height = maxHeight;
-        width = height*scale;
-    }
-    self.frame = CGRectMake(x, y, width, height);
-}
-
-- (void)setLLCornerRadius:(CGFloat)LLCornerRadius{
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = LLCornerRadius;
-}
-
-- (CGFloat)LLCornerRadius{
+- (CGFloat)wzm_cornerRadius {
     return self.layer.cornerRadius;
+}
+
+- (void)setWzm_cornerRadius:(CGFloat)wzm_cornerRadius {
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = wzm_cornerRadius;
+}
+
+- (CGFloat)wzm_borderWidth {
+    return self.layer.borderWidth;
+}
+
+- (void)setWzm_borderWidth:(CGFloat)wzm_borderWidth {
+    self.layer.borderWidth = wzm_borderWidth;
+}
+
+- (UIColor *)wzm_borderColor {
+    return [UIColor colorWithCGColor:self.layer.borderColor];
+}
+
+- (void)setWzm_borderColor:(UIColor *)wzm_borderColor {
+    self.layer.borderColor = [wzm_borderColor CGColor];
 }
 
 - (void)setCornerRadius:(CGFloat)radius borderWidth:(CGFloat)width borderColor:(UIColor *)color {

@@ -48,7 +48,7 @@
         _alertView.center = self.center;
     }
     else if (animationStyle == LLAnimationStyleFromDownAnimation) {
-        _alertView.minY = self.maxY;
+        _alertView.wzm_minY = self.wzm_maxY;
     }
     self.alpha = 0;
     [self addSubview:view];
@@ -62,7 +62,7 @@
             [_alertView outFromCenterAnimationWithDuration:duration];
         }
         else if (animationStyle == LLAnimationStyleFromDownAnimation) {
-            _alertView.minY = self.LLHeight-_alertView.LLHeight;
+            _alertView.wzm_minY = self.wzm_height-_alertView.wzm_height;
         }
     } completion:^(BOOL finished) {
         if (completion) {
@@ -88,7 +88,7 @@
         }
         else {
             animation = ^(){
-                _alertView.minY = self.maxY;
+                _alertView.wzm_minY = self.wzm_maxY;
                 self.alpha = 0;
             };
         }

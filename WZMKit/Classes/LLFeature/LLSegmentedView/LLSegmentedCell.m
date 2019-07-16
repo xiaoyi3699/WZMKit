@@ -26,7 +26,7 @@
         _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_titleLabel];
         
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _titleLabel.maxY, self.LLWidth, 2)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _titleLabel.wzm_maxY, self.wzm_width, 2)];
         _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_lineView];
     }

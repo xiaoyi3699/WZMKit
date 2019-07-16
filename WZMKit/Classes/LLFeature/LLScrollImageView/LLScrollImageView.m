@@ -37,13 +37,13 @@
         _scrollView.delegate = self;
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.contentSize = CGSizeMake(num*self.LLWidth, self.LLHeight);
+        _scrollView.contentSize = CGSizeMake(num*self.wzm_width, self.wzm_height);
         [self addSubview:_scrollView];
         
-        CGFloat pageControlH = self.LLHeight/4;
+        CGFloat pageControlH = self.wzm_height/4;
         _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0,
-                                                                       self.LLHeight-pageControlH,
-                                                                       self.LLWidth,
+                                                                       self.wzm_height-pageControlH,
+                                                                       self.wzm_width,
                                                                        pageControlH)];
         _pageControl.numberOfPages = images.count;
         _pageControl.userInteractionEnabled = NO;
@@ -54,7 +54,7 @@
         for (NSInteger i = 0; i < num; i ++) {
             
             CGRect rect = _scrollView.bounds;
-            rect.origin.x = i%num*_scrollView.LLWidth;
+            rect.origin.x = i%num*_scrollView.wzm_width;
             
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
             imageView.tag = i;
@@ -71,7 +71,7 @@
         }
         _imageViews = [imageViews copy];
         
-        _scrollView.contentOffset = CGPointMake(_scrollView.LLWidth, 0);
+        _scrollView.contentOffset = CGPointMake(_scrollView.wzm_width, 0);
     }
     return self;
 }
@@ -85,7 +85,7 @@
 
 //- (void)pageControlValueChanged:(UIPageControl *)pageControl {
 //    _currentPage = pageControl.currentPage;
-//    CGPoint point = CGPointMake((_currentPage+1)*_scrollView.LLWidth, 0);
+//    CGPoint point = CGPointMake((_currentPage+1)*_scrollView.wzm_width, 0);
 //    [_scrollView setContentOffset:point animated:YES];
 //}
 
@@ -93,14 +93,14 @@
     CGFloat offsetX = scrollView.contentOffset.x;
     if (offsetX <= 0) {
         _currentPage = 0;
-        scrollView.contentOffset = CGPointMake(scrollView.LLWidth*(_images.count-2), 0);
+        scrollView.contentOffset = CGPointMake(scrollView.wzm_width*(_images.count-2), 0);
     }
-    else if (offsetX >= scrollView.LLWidth*(_images.count-1)) {
+    else if (offsetX >= scrollView.wzm_width*(_images.count-1)) {
         _currentPage = _images.count-3;
-        scrollView.contentOffset = CGPointMake(scrollView.LLWidth, 0);
+        scrollView.contentOffset = CGPointMake(scrollView.wzm_width, 0);
     }
     else {
-        _currentPage = scrollView.contentOffset.x/scrollView.LLWidth-1;
+        _currentPage = scrollView.contentOffset.x/scrollView.wzm_width-1;
     }
     [_pageControl setCurrentPage:_currentPage];
 }
@@ -149,7 +149,7 @@
     _currentPage = currentPage;
     _pageControl.currentPage = currentPage;
     
-    CGPoint point = CGPointMake((currentPage+1)*_scrollView.LLWidth, 0);
+    CGPoint point = CGPointMake((currentPage+1)*_scrollView.wzm_width, 0);
     [_scrollView setContentOffset:point animated:YES];
 }
 
@@ -175,7 +175,7 @@
 
 - (void)timerRun:(NSTimer *)timer {
     NSInteger index = ((_currentPage+1)+1)%_images.count;
-    CGPoint point = CGPointMake(index*_scrollView.LLWidth, 0);
+    CGPoint point = CGPointMake(index*_scrollView.wzm_width, 0);
     [_scrollView setContentOffset:point animated:YES];
 }
 

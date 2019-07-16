@@ -114,7 +114,7 @@
     
     LLLogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logCell"];
     if (cell == nil) {
-        cell = [[LLLogTableViewCell alloc] initWithWidth:_tableView.LLWidth-10 style:UITableViewCellStyleDefault reuseIdentifier:@"logCell"];
+        cell = [[LLLogTableViewCell alloc] initWithWidth:_tableView.wzm_width-10 style:UITableViewCellStyleDefault reuseIdentifier:@"logCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if (indexPath.row < self.dataList.count) {
@@ -187,7 +187,7 @@
     LLLogModel *model = [[LLLogModel alloc] init];
     model.text = string;
     model.attributedText = [muAttStr copy];
-    [model setConfigWithWidth:_tableView.LLWidth-10 font:[UIFont systemFontOfSize:8]];
+    [model setConfigWithWidth:_tableView.wzm_width-10 font:[UIFont systemFontOfSize:8]];
     [self.dataList addObject:model];
     
     if (self.superview) {

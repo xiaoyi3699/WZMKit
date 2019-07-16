@@ -24,67 +24,69 @@
 
 #pragma mark - 自定义适配
 //设置位置(宽和高保持不变)
-- (CGFloat)minX;
-- (void)setMinX:(CGFloat)minX;
+- (CGFloat)wzm_minX;
+- (void)setWzm_minX:(CGFloat)wzm_minX;
 
-- (CGFloat)maxX;
-- (void)setMaxX:(CGFloat)maxX;
+- (CGFloat)wzm_maxX;
+- (void)setWzm_maxX:(CGFloat)wzm_maxX;
 
-- (CGFloat)minY;
-- (void)setMinY:(CGFloat)minY;
+- (CGFloat)wzm_minY;
+- (void)setWzm_minY:(CGFloat)wzm_minY;
 
-- (CGFloat)maxY;
-- (void)setMaxY:(CGFloat)maxY;
+- (CGFloat)wzm_maxY;
+- (void)setWzm_maxY:(CGFloat)wzm_maxY;
 
-- (CGFloat)LLCenterX;
-- (void)setLLCenterX:(CGFloat)LLCenterX;
+- (CGFloat)wzm_centerX;
+- (void)setWzm_centerX:(CGFloat)wzm_centerX;
 
-- (CGFloat)LLCenterY;
-- (void)setLLCenterY:(CGFloat)LLCenterY;
+- (CGFloat)wzm_centerY;
+- (void)setWzm_centerY:(CGFloat)wzm_centerY;
 
-- (CGPoint)LLPostion;
-- (void)setLLPostion:(CGPoint)LLPostion;
+- (CGPoint)wzm_postion;
+- (void)setWzm_postion:(CGPoint)wzm_postion;
 
 //设置位置(其他顶点保持不变)
-- (CGFloat)mutableMinX;
-- (void)setMutableMinX:(CGFloat)mutableMinX;
+- (CGFloat)wzm_mutableMinX;
+- (void)setWzm_mutableMinX:(CGFloat)wzm_mutableMinX;
 
-- (CGFloat)mutableMaxX;
-- (void)setMutableMaxX:(CGFloat)mutableMaxX;
+- (CGFloat)wzm_mutableMaxX;
+- (void)setWzm_mutableMaxX:(CGFloat)wzm_mutableMaxX;
 
-- (CGFloat)mutableMinY;
-- (void)setMutableMinY:(CGFloat)mutableMinY;
+- (CGFloat)wzm_mutableMinY;
+- (void)setWzm_mutableMinY:(CGFloat)wzm_mutableMinY;
 
-- (CGFloat)mutableMaxY;
-- (void)setMutableMaxY:(CGFloat)mutableMaxY;
+- (CGFloat)wzm_mutableMaxY;
+- (void)setWzm_mutableMaxY:(CGFloat)wzm_mutableMaxY;
 
-//设置宽和高((位置不变))
-- (CGFloat)LLWidth;
-- (void)setLLWidth:(CGFloat)LLWidth;
+//设置宽和高(顶点位置不变)
+- (CGFloat)wzm_width;
+- (void)setWzm_width:(CGFloat)wzm_width;
 
-- (CGFloat)LLHeight;
-- (void)setLLHeight:(CGFloat)LLHeight;
+- (CGFloat)wzm_height;
+- (void)setWzm_height:(CGFloat)wzm_height;
 
-- (CGSize)LLSize;
-- (void)setLLSize:(CGSize)LLSize;
+- (CGSize)wzm_size;
+- (void)setWzm_size:(CGSize)wzm_size;
 
 //设置宽和高(中心点不变)
-- (CGFloat)center_width;
-- (void)setCenter_width:(CGFloat)center_width;
+- (CGFloat)wzm_center_width;
+- (void)setWzm_center_width:(CGFloat)wzm_center_width;
 
-- (CGFloat)center_height;
-- (void)setCenter_height:(CGFloat)center_height;
+- (CGFloat)wzm_center_height;
+- (void)setWzm_center_height:(CGFloat)wzm_center_height;
 
-- (CGSize)center_size;
-- (void)setCenter_size:(CGSize)center_size;
-
-//设置宽高比例
-- (CGFloat)LLScale;
-- (void)setScale:(CGFloat)scale x:(CGFloat)x y:(CGFloat)y maxWidth:(CGFloat)maxWidth maxHeight:(CGFloat)maxHeight;
+- (CGSize)wzm_center_size;
+- (void)setWzm_center_size:(CGSize)wzm_center_size;
 
 //设置圆角
-- (void)setLLCornerRadius:(CGFloat)LLCornerRadius;
-- (CGFloat)LLCornerRadius;
+- (CGFloat)wzm_cornerRadius;
+- (void)setWzm_cornerRadius:(CGFloat)wzm_cornerRadius;
+
+- (CGFloat)wzm_borderWidth;
+- (void)setWzm_borderWidth:(CGFloat)wzm_borderWidth;
+
+- (UIColor *)wzm_borderColor;
+- (void)setWzm_borderColor:(UIColor *)wzm_borderColor;
 
 /**
  设置圆角、边框

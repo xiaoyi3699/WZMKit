@@ -49,8 +49,8 @@
         _rSpeed = rate*speed;
         _radiusX = x;
         _radiusY = y;
-        _centerX = self.LLWidth/2;
-        _centerY = self.LLHeight/2;
+        _centerX = self.wzm_width/2;
+        _centerY = self.wzm_height/2;
         if (line) {
             CGFloat radian = ANGLE_TO_RADIAN(start);
             _bezierView = [[LLBezierView alloc] initWithFrame:self.bounds];
