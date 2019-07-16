@@ -11,13 +11,13 @@
 
 @implementation LLNSHandle
 
-+ (BOOL)checkEmail:(NSString *)email{
++ (BOOL)wzm_checkEmail:(NSString *)email{
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:email];
 }
 
-+ (BOOL)checkUrl:(NSString *)candidate{
++ (BOOL)wzm_checkUrl:(NSString *)candidate{
     NSString *urlRegEx =
     @"(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
@@ -28,7 +28,7 @@
     return isVaild;
 }
 
-+ (BOOL)checkPhoneNum:(NSString *)phoneNum{
++ (BOOL)wzm_checkPhoneNum:(NSString *)phoneNum{
     if (phoneNum.length != 11) {
         return NO;
     }
@@ -37,7 +37,7 @@
     return [phoneTest evaluateWithObject:phoneNum];
 }
 
-+ (BOOL)isInTime:(NSString *)time days:(NSInteger)days{
++ (BOOL)wzm_isInTime:(NSString *)time days:(NSInteger)days{
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [NSDateFormatter ll_defaultDateFormatter];
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
@@ -56,14 +56,14 @@
     return YES;
 }
 
-+ (NSInteger)ll_getTotaldaysFromDate:(NSDate *)date{
++ (NSInteger)wzm_getTotaldaysByDate:(NSDate *)date{
     NSRange totaldaysInMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay
                                                                   inUnit:NSCalendarUnitMonth
                                                                  forDate:date];
     return totaldaysInMonth.length;
 }
 
-+ (NSInteger)ll_getFirstWeekdayFromDate:(NSDate *)date{
++ (NSInteger)wzm_getFirstWeekdayByDate:(NSDate *)date{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
     NSDateComponents *comp = [calendar components:(NSCalendarUnitYear |

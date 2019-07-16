@@ -11,21 +11,21 @@
 @interface LLNSHandle : NSObject
 
 ///email是否有效
-+ (BOOL)checkEmail:(NSString *)email;
++ (BOOL)wzm_checkEmail:(NSString *)email;
 
 ///url是否合法
-+ (BOOL)checkUrl:(NSString *)candidate;
++ (BOOL)wzm_checkUrl:(NSString *)candidate;
 
 ///判断手机号是否存在
-+ (BOOL)checkPhoneNum:(NSString *)phoneNum;
++ (BOOL)wzm_checkPhoneNum:(NSString *)phoneNum;
 
 ///是否在指定时间内
-+ (BOOL)isInTime:(NSString *)time days:(NSInteger)days;
++ (BOOL)wzm_isInTime:(NSString *)time days:(NSInteger)days;
 
 ///这个月有几天
-+ (NSInteger)ll_getTotaldaysFromDate:(NSDate *)date;
++ (NSInteger)wzm_getTotaldaysByDate:(NSDate *)date;
 
 ///第一天是周几
-+ (NSInteger)ll_getFirstWeekdayFromDate:(NSDate *)date;
++ (NSInteger)wzm_getFirstWeekdayByDate:(NSDate *)date;
 
 @end
