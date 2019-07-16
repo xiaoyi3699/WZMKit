@@ -1,5 +1,5 @@
 //
-//  WAMPublic.h
+//  WZMPublic.h
 //  WZMKit
 //
 //  Created by WangZhaomeng on 2019/5/20.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WAMPublic : NSObject
+@interface WZMPublic : NSObject
 
 + (instancetype)Public;
 
@@ -51,5 +51,7 @@
 - (NSString *)cache;
 ///document
 - (NSString *)document;
+///资源文件
++ (NSBundle *)wzm_resourceBundle;
 
 @end

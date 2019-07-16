@@ -600,7 +600,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 - (void)dealloc
 {
-    wzm_log(@"%@释放了...",NSStringFromClass(self.class));
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
     [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

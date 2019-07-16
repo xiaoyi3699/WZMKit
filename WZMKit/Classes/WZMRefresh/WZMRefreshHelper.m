@@ -41,22 +41,9 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-//framework的bundle文件
-+ (NSBundle *)WZM_RefreshBundle_0 {
-    return [NSBundle bundleWithPath:[[NSBundle bundleForClass:[WZMRefreshHelper class]] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
-}
-
-//静态库的bundle文件
-+ (NSBundle *)WZM_RefreshBundle_1 {
-    return [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"WZMRefresh" ofType:@"bundle"]];
-}
-
 + (UIImage *)WZM_ArrowImage {
-    UIImage *image = [UIImage imageWithContentsOfFile:[[self WZM_RefreshBundle_0] pathForResource:@"wzm_arrow" ofType:@"png"]];
-    if (image == nil) {
-        image = [UIImage imageWithContentsOfFile:[[self WZM_RefreshBundle_1] pathForResource:@"wzm_arrow" ofType:@"png"]];
-    }
-    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    NSBundle *bundle = [WZMPublic wzm_resourceBundle];
+    return [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wzm_arrow" ofType:@"png"]];
 }
 
 #pragma mark - private method

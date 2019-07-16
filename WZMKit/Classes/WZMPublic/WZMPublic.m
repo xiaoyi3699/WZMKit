@@ -1,14 +1,14 @@
 //
-//  WAMPublic.m
+//  WZMPublic.m
 //  WZMKit
 //
 //  Created by WangZhaomeng on 2019/5/20.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "WAMPublic.h"
+#import "WZMPublic.h"
 
-@implementation WAMPublic {
+@implementation WZMPublic {
     NSInteger _iPad;
     NSInteger _iPhone;
     NSInteger _iPhoneX;
@@ -34,10 +34,10 @@
 }
 
 + (instancetype)Public {
-    static WAMPublic *instance;
+    static WZMPublic *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[WAMPublic alloc] init];
+        instance = [[WZMPublic alloc] init];
     });
     return instance;
 }
@@ -213,6 +213,17 @@
         _document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     }
     return _document;
+}
+
++ (NSBundle *)wzm_resourceBundle {
+    NSString *mainBundlePath = [NSBundle mainBundle].bundlePath;
+    NSString *bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"WZMKit.bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    if (bundle == nil) {
+        bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"Frameworks/WZMKit.framework/WZMKit.bundle"];
+        bundle = [NSBundle bundleWithPath:bundlePath];
+    }
+    return bundle;
 }
 
 @end
