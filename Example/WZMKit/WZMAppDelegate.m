@@ -8,6 +8,8 @@
 
 #import "WZMAppDelegate.h"
 #import <WZMKit/WZMKit.h>
+#import "WZMSignalException.h"
+#import "WZMUncaughtException.h"
 #import "WZMViewController.h"
 
 @implementation WZMAppDelegate
@@ -28,14 +30,16 @@
     wzm_openLogEnable(YES);
     [WZMLogView startLog];
     [self.window wzm_startObserveFpsAndCpu];
-    WZMInstallUncaughtExceptionHandler();
     WZMInstallSignalHandler();
+    WZMInstallUncaughtExceptionHandler();
 #endif
     
     NSLog(@"哈哈哈哈");
     
     return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

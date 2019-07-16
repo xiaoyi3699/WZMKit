@@ -8,8 +8,10 @@
 
 #import "WZMSignalException.h"
 #include <execinfo.h>
-#import "WZMMacro.h"
-#import "WZMSendEmail.h"
+//#import "WZMMacro.h"
+//#import "WZMSendEmail.h"
+#import <WZMKit/WZMMacro.h>
+#import <WZMKit/WZMSendEmail.h>
 
 @implementation WZMSignalException
 

@@ -7,8 +7,10 @@
 //
 
 #import "WZMUncaughtException.h"
-#import "WZMMacro.h"
-#import "WZMSendEmail.h"
+//#import "WZMMacro.h"
+//#import "WZMSendEmail.h"
+#import <WZMKit/WZMMacro.h>
+#import <WZMKit/WZMSendEmail.h>
 
 static NSUncaughtExceptionHandler WZMUncaughtExceptionHandler;
 static NSUncaughtExceptionHandler *oldhandler;
@@ -39,7 +41,7 @@ void WZMUncaughtExceptionHandler(NSException *exception) {
     [mstr appendFormat:@"<b>Build：</b>%@\n", WZM_APP_BUILD];
     [mstr appendFormat:@"<b>iOS版本：</b>%@\n\n", [UIDevice currentDevice].systemVersion];
     [mstr appendFormat:@"%@", content];
-    
+
     WZMSendEmail *email = [[WZMSendEmail alloc] init];
     email.recipients = @"122589615@qq.com";
     email.subject = @"SDK程序异常崩溃";
