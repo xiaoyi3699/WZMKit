@@ -10,10 +10,10 @@
 
 @interface UIColor (wzmcate)
 
-+ (UIColor *)ll_colorWithImage:(UIImage *)image;
-+ (UIColor *)ll_colorWithHex:(NSInteger)hexValue;
-+ (UIColor *)ll_colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alpha;
-+ (UIColor *)ll_colorWithHexString:(NSString *)hexString;
-+ (UIColor *)ll_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
++ (UIColor *)wzm_colorWithImage:(UIImage *)image;
++ (UIColor *)wzm_colorWithHex:(NSInteger)hexValue;
++ (UIColor *)wzm_colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alpha;
++ (UIColor *)wzm_colorWithHexString:(NSString *)hexString;
++ (UIColor *)wzm_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
 
 @end

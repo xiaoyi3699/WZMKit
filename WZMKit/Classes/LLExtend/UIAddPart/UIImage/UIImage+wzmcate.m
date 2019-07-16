@@ -20,7 +20,7 @@
 @implementation UIImage (wzmcate)
 
 #pragma mark - 类方法
-+ (UIImage *)ll_getImageByColor:(UIColor *)color {
++ (UIImage *)wzm_getImageByColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -31,7 +31,7 @@
     return theImage;
 }
 
-+ (UIImage *)ll_getRoundImageByColor:(UIColor *)color size:(CGSize)size {
++ (UIImage *)wzm_getRoundImageByColor:(UIColor *)color size:(CGSize)size {
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -42,7 +42,7 @@
     return theImage;
 }
 
-+ (UIImage *)ll_getRectImageByColor:(UIColor *)color size:(CGSize)size {
++ (UIImage *)wzm_getRectImageByColor:(UIColor *)color size:(CGSize)size {
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -53,7 +53,7 @@
     return theImage;
 }
 
-+ (UIImage *)ll_getScreenImageByView:(UIView *)view {
++ (UIImage *)wzm_getScreenImageByView:(UIView *)view {
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -61,8 +61,8 @@
     return image;
 }
 
-+ (void)ll_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion {
-    [self ll_getOriginalPhotoWithAsset:asset newCompletion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
++ (void)wzm_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion {
+    [self wzm_getOriginalPhotoWithAsset:asset newCompletion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if (completion) {
             completion(photo,info);
         }
@@ -70,7 +70,7 @@
 }
 
 //private
-+ (void)ll_getOriginalPhotoWithAsset:(id)asset newCompletion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
++ (void)wzm_getOriginalPhotoWithAsset:(id)asset newCompletion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
     if ([asset isKindOfClass:[PHAsset class]]) {
         PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
         option.networkAccessAllowed = YES;
@@ -78,7 +78,7 @@
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:option resultHandler:^(UIImage *result, NSDictionary *info) {
             BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
             if (downloadFinined && result) {
-                result = [self ll_fixOrientation:result];
+                result = [self wzm_fixOrientation:result];
                 BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
                 if (completion) completion(result,info,isDegraded);
             }
@@ -101,7 +101,7 @@
 }
 
 //private修正图片转向
-+ (UIImage *)ll_fixOrientation:(UIImage *)aImage {
++ (UIImage *)wzm_fixOrientation:(UIImage *)aImage {
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
     CGAffineTransform transform = CGAffineTransformIdentity;
@@ -166,16 +166,16 @@
     return img;
 }
 
-+ (UIImage *)ll_getImageByBase64:(NSString *)str {
++ (UIImage *)wzm_getImageByBase64:(NSString *)str {
     NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
     return [UIImage imageWithData:data];
 }
 
-+ (UIImage *)ll_getGifByImages:(NSArray *)images duration:(NSTimeInterval)duration {
++ (UIImage *)wzm_getGifByImages:(NSArray *)images duration:(NSTimeInterval)duration {
     return  [UIImage animatedImageWithImages:images duration:duration];
 }
 
-+ (UIImage *)ll_getLaunchImageByType:(LLLaunchImageType)type {
++ (UIImage *)wzm_getLaunchImageByType:(LLLaunchImageType)type {
     NSString*viewOrientation;
     if (type == LLLaunchImageTypePortrait) {
         viewOrientation = @"Portrait";
@@ -196,7 +196,7 @@
     return nil;
 }
 
-+ (UIImage *)ll_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize {
++ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize {
     NSMutableArray *ar = [NSMutableArray array];
     for(UIColor *c in colors) {
         [ar addObject:(id)c.CGColor];
@@ -237,7 +237,7 @@
     return image;
 }
 
-+ (UIImage *)ll_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor {
++ (UIImage *)wzm_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor {
     UIGraphicsBeginImageContextWithOptions(shadowFrame.size, NO, 1);
     CGContextRef con = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(con, shadowColor.CGColor);
@@ -264,7 +264,7 @@
      */
 }
 
-+ (void)ll_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
++ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     NSMutableArray *groups=[[NSMutableArray alloc]init];
     ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
@@ -292,7 +292,7 @@
     };
     //创建相簿
     [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
-    [self ll_saveToAlbumWithMetadata:nil
+    [self wzm_saveToAlbumWithMetadata:nil
                            imageData:data
                      customAlbumName:albumName
                      completionBlock:^{
@@ -313,7 +313,7 @@
                         }];
 }
 
-+ (void)ll_saveToAlbumWithMetadata:(NSDictionary *)metadata
++ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
                          imageData:(NSData *)imageData
                    customAlbumName:(NSString *)customAlbumName
                    completionBlock:(void (^)(void))completionBlock
@@ -371,7 +371,7 @@
     }];
 }
 
-+ (UIImage *)ll_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage {
++ (UIImage *)wzm_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage {
     CGImageRef firstImageRef = firstImage.CGImage;
     CGFloat firstWidth = CGImageGetWidth(firstImageRef);
     CGFloat firstHeight = CGImageGetHeight(firstImageRef);
@@ -388,7 +388,7 @@
 }
 
 #pragma mark - 二维码
-+ (UIImage *)ll_getQRCodeByString:(NSString *)string size:(CGFloat)size {
++ (UIImage *)wzm_getQRCodeByString:(NSString *)string size:(CGFloat)size {
     
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [filter setDefaults];
@@ -430,7 +430,7 @@
     return [UIImage imageWithCGImage:scaledImage];
 }
 
-- (UIImage *)ll_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize {
+- (UIImage *)wzm_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize {
     //给二维码加 logo 图
     UIGraphicsBeginImageContextWithOptions(self.size, NO, [[UIScreen mainScreen] scale]);
     [self drawInRect:CGRectMake(0, 0 , self.size.width, self.size.height)];
@@ -441,7 +441,7 @@
     return newPic;
 }
 
-- (UIImage *)ll_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
+- (UIImage *)wzm_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
     const int imageWidth = self.size.width;
     const int imageHeight = self.size.height;
     size_t bytesPerRow = imageWidth * 4;
@@ -476,11 +476,11 @@
 }
 
 #pragma mark - 实例方法
-- (void)ll_savedToAlbum {
+- (void)wzm_savedToAlbum {
     UIImageWriteToSavedPhotosAlbum(self, nil, nil, nil);
 }
 
-- (UIImage *)ll_clipImageWithRect:(CGRect)rect {
+- (UIImage *)wzm_clipImageWithRect:(CGRect)rect {
     rect.origin.x *= LL_SCREEN_SCALE;
     rect.origin.y *= LL_SCREEN_SCALE;
     rect.size.width *= LL_SCREEN_SCALE;
@@ -492,27 +492,27 @@
 }
 
 #define LL_M (1000*1000)
-- (UIImage *)ll_getScaleImage {
+- (UIImage *)wzm_getScaleImage {
     NSData *imageData = UIImagePNGRepresentation(self);
     
     UIImage *image = self;
     while (imageData.length > 10*LL_M) {
-        image = [image ll_getImageWithScale:.1];
+        image = [image wzm_getImageWithScale:.1];
         imageData = UIImagePNGRepresentation(image);
     }
     if (imageData.length > 5*LL_M) {
-        image = [image ll_getImageWithScale:.2];
+        image = [image wzm_getImageWithScale:.2];
         imageData = UIImagePNGRepresentation(image);
     }
     while (imageData.length > 1*LL_M) {
-        image = [image ll_getImageWithScale:.5];
+        image = [image wzm_getImageWithScale:.5];
         imageData = UIImagePNGRepresentation(image);
     }
     return image;
 }
 #undef LL_M
 
-- (UIImage *)ll_getImageWithScale:(CGFloat)scale {
+- (UIImage *)wzm_getImageWithScale:(CGFloat)scale {
     UIGraphicsBeginImageContext(CGSizeMake(self.size.width*scale,self.size.height*scale));
     [self drawInRect:CGRectMake(0, 0, self.size.width*scale, self.size.height*scale)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -520,7 +520,7 @@
     return scaledImage;
 }
 
-- (UIImage *)ll_getRoundImageWithRadius:(CGFloat)radius {
+- (UIImage *)wzm_getRoundImageWithRadius:(CGFloat)radius {
     int w = self.size.width;
     int h = self.size.height;
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -565,7 +565,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     CGContextRestoreGState(context);
 }
 
-- (UIImage *)ll_getImageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize {
+- (UIImage *)wzm_getImageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize {
     //画布大小
     CGSize size=CGSizeMake(self.size.width,self.size.height);
     //创建一个基于位图的上下文
@@ -593,7 +593,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return newImage;
 }
 
-- (UIImage *)ll_resizableImage {
+- (UIImage *)wzm_resizableImage {
     // 获取原有图片的宽高的一半
     CGFloat w = self.size.width * 0.4;
     CGFloat h = self.size.width * 0.6;
@@ -602,11 +602,11 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return newImage;
 }
 
-- (UIImage *)ll_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top {
+- (UIImage *)wzm_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top {
     return [self stretchableImageWithLeftCapWidth:left topCapHeight:top];
 }
 
-- (UIColor *)ll_getColorAtPixel:(CGPoint)point {
+- (UIColor *)wzm_getColorAtPixel:(CGPoint)point {
     if (!CGRectContainsPoint(CGRectMake(0.0f, 0.0f, self.size.width, self.size.height), point))
     {
         return nil;
@@ -643,7 +643,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
-- (BOOL)ll_isHasAlphaChannel {
+- (BOOL)wzm_isHasAlphaChannel {
     CGImageAlphaInfo alpha = CGImageGetAlphaInfo(self.CGImage);
     return (alpha == kCGImageAlphaFirst ||
             alpha == kCGImageAlphaLast ||
@@ -651,7 +651,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
             alpha == kCGImageAlphaPremultipliedLast);
 }
 
-- (UIImage *)ll_getBlurImageWithScale:(CGFloat)scale {
+- (UIImage *)wzm_getBlurImageWithScale:(CGFloat)scale {
     if (scale < 0.f || scale > 1.f) {
         scale = 0.5f;
     }
@@ -694,7 +694,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return returnImage;
 }
 
-- (UIImage *)ll_getGrayImage {
+- (UIImage *)wzm_getGrayImage {
     int width = self.size.width;
     int height = self.size.height;
     
@@ -715,7 +715,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return grayImage;
 }
 
-- (UIImage*)ll_getRotateImage:(UIImageOrientation)orient {
+- (UIImage*)wzm_getRotateImage:(UIImageOrientation)orient {
     CGRect bnds = CGRectZero;
     UIImage* copy = nil;
     CGContextRef ctxt = nil;
@@ -817,12 +817,12 @@ static CGRect swapWidthAndHeight(CGRect rect) {
     return rect;
 }
 
-- (UIImage *)ll_getVerticalImage {
-    return [self ll_getRotateImage:UIImageOrientationDownMirrored];
+- (UIImage *)wzm_getVerticalImage {
+    return [self wzm_getRotateImage:UIImageOrientationDownMirrored];
 }
 
-- (UIImage *)ll_getHorizontalImage {
-    return [self ll_getRotateImage:UIImageOrientationUpMirrored];
+- (UIImage *)wzm_getHorizontalImage {
+    return [self wzm_getRotateImage:UIImageOrientationUpMirrored];
 }
 
 @end

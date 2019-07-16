@@ -221,7 +221,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     [_progressSlider addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
     [_progressSlider addTarget:self action:@selector(touchChange:) forControlEvents:UIControlEventValueChanged];
     [_progressSlider addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside|UIControlEventTouchCancel];
-    [_progressSlider setThumbImage:[UIImage ll_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
+    [_progressSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
     _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_toolView addSubview:_progressSlider];
     
@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
         for (UIView *view in [_volumeView subviews]){
             if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
                 self.volumeViewSlider = (UISlider*)view;
-                [self.volumeViewSlider setThumbImage:[UIImage ll_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
+                [self.volumeViewSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
                 break;
             }
         }
@@ -257,7 +257,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     if (_brightnessSlider == nil) {
         _brightnessSlider  = [[UISlider alloc] init];
         _brightnessSlider.transform = CGAffineTransformMakeRotation(M_PI*(-0.5));
-        [_brightnessSlider setThumbImage:[UIImage ll_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
+        [_brightnessSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
     }
     return _brightnessSlider;
 }

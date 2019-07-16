@@ -11,19 +11,19 @@
 
 @interface UITextView (wzmcate)
 
-- (void)setPerformActionType:(LLPerformActionType)performActionType;
-- (LLPerformActionType)performActionType;
+- (void)setWzm_performActionType:(LLPerformActionType)wzm_performActionType;
+- (LLPerformActionType)wzm_performActionType;
 
-- (BOOL)ll_shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text limitNums:(NSInteger)limitNums;
-- (BOOL)ll_shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text pointNums:(NSInteger)pointNums;
-- (void)ll_limitTextFieldLength:(NSInteger)length;
-- (void)ll_selectAllText;
-- (void)ll_setSelectedRange:(NSRange)range;
+- (BOOL)wzm_shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text limitNums:(NSInteger)limitNums;
+- (BOOL)wzm_shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text pointNums:(NSInteger)pointNums;
+- (void)wzm_limitTextFieldLength:(NSInteger)length;
+- (void)wzm_selectAllText;
+- (void)wzm_setSelectedRange:(NSRange)range;
 
 ///工具框样式
-- (void)ll_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message;
+- (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message;
 
 ///添加完成按钮
-- (void)ll_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message;
+- (void)wzm_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message;
 
 @end

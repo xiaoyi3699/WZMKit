@@ -14,11 +14,11 @@
 @implementation UITextField (wzmcate)
 static NSString *_performActionKey = @"performAction";
 
-- (void)setPerformActionType:(LLPerformActionType)performActionType {
-    objc_setAssociatedObject(self, &_performActionKey, @(performActionType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setWzm_performActionType:(LLPerformActionType)wzm_performActionType {
+    objc_setAssociatedObject(self, &_performActionKey, @(wzm_performActionType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (LLPerformActionType)performActionType {
+- (LLPerformActionType)wzm_performActionType {
     return (LLPerformActionType)[objc_getAssociatedObject(self, &_performActionKey) integerValue];
 }
 
@@ -27,7 +27,7 @@ static NSString *_performActionKey = @"performAction";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         SEL systemSel = @selector(canPerformAction:withSender:);
-        SEL swizzSel = @selector(ll_canPerformAction:withSender:);
+        SEL swizzSel = @selector(wzm_canPerformAction:withSender:);
         Method systemMethod = class_getInstanceMethod([self class], systemSel);
         Method swizzMethod = class_getInstanceMethod([self class], swizzSel);
         BOOL isAdd = class_addMethod(self, systemSel, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));
@@ -39,14 +39,14 @@ static NSString *_performActionKey = @"performAction";
     });
 }
 
-- (BOOL)ll_canPerformAction:(SEL)action withSender:(id)sender{
-    if (self.performActionType == LLPerformActionTypeNone) {
+- (BOOL)wzm_canPerformAction:(SEL)action withSender:(id)sender{
+    if (self.wzm_performActionType == LLPerformActionTypeNone) {
         return NO;
     }
-    return [self ll_canPerformAction:action withSender:sender];
+    return [self wzm_canPerformAction:action withSender:sender];
 }
 
-- (void)ll_setPlaceholderColor:(UIColor *)color font:(UIFont *)font {
+- (void)wzm_setPlaceholderColor:(UIColor *)color font:(UIFont *)font {
     if (color) {
         [self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     }
@@ -55,7 +55,7 @@ static NSString *_performActionKey = @"performAction";
     }
 }
 
-- (void)ll_contentMargin:(CGFloat)value {
+- (void)wzm_contentMargin:(CGFloat)value {
     
     CGRect frame = [self bounds];
     frame.size.width = value;
@@ -64,7 +64,7 @@ static NSString *_performActionKey = @"performAction";
     self.leftView = leftview;
 }
 
-- (void)ll_inputErrorForShake{
+- (void)wzm_inputErrorForShake{
     CAKeyframeAnimation *keyAn = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     [keyAn setDuration:0.5f];
     NSArray *array = [[NSArray alloc] initWithObjects:
@@ -97,7 +97,7 @@ static NSString *_performActionKey = @"performAction";
     [self.layer addAnimation:keyAn forKey:@"Shark"];
 }
 
-- (BOOL)ll_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string limitNums:(NSInteger)limitNums {
+- (BOOL)wzm_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string limitNums:(NSInteger)limitNums {
     if ([string isEqualToString:@""]) {
         return YES;
     }
@@ -120,7 +120,7 @@ static NSString *_performActionKey = @"performAction";
     return NO;
 }
 
-- (BOOL)ll_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string pointNums:(NSInteger)pointNums{
+- (BOOL)wzm_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string pointNums:(NSInteger)pointNums{
     if (pointNums <= 0) {//整型
         if ([string rangeOfString:@"."].location != NSNotFound) {
             return NO;
@@ -210,18 +210,18 @@ static NSString *_performActionKey = @"performAction";
     return YES;
 }
 
-- (void)ll_limitTextFieldLength:(NSInteger)length{
+- (void)wzm_limitTextFieldLength:(NSInteger)length{
     if (self.text.length > length) {
         self.text = [self.text substringToIndex:length];
     }
 }
 
-- (void)ll_selectAllText {
+- (void)wzm_selectAllText {
     UITextRange *range = [self textRangeFromPosition:self.beginningOfDocument toPosition:self.endOfDocument];
     [self setSelectedTextRange:range];
 }
 
-- (void)ll_setSelectedRange:(NSRange)range {
+- (void)wzm_setSelectedRange:(NSRange)range {
     UITextPosition *beginning = self.beginningOfDocument;
     UITextPosition *startPosition = [self positionFromPosition:beginning offset:range.location];
     UITextPosition *endPosition = [self positionFromPosition:beginning offset:NSMaxRange(range)];
@@ -230,7 +230,7 @@ static NSString *_performActionKey = @"performAction";
 }
 
 ///工具框样式
-- (void)ll_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message {
+- (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message {
     
     UIVisualEffectView *toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     toolView.frame = CGRectMake(0, 0, TF_LL_SCREEN_WIDTH, 40);
@@ -277,7 +277,7 @@ static NSString *_performActionKey = @"performAction";
     [self setAutocapitalizationType:UITextAutocapitalizationTypeNone];
 }
 
-- (void)ll_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message {
+- (void)wzm_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message {
     UIVisualEffectView *toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     toolView.frame = CGRectMake(0, 0, TF_LL_SCREEN_WIDTH, 40);
     

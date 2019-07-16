@@ -11,9 +11,9 @@
 @interface UIImageView (wzmcate)
 
 ///添加倒影
-- (void)ll_reflection;
+- (void)wzm_reflection;
 
 ///画水印
-- (void)setImage:(UIImage *)image withWaterMark:(UIImage *)mark inRect:(CGRect)rect;
+- (void)wzm_setImage:(UIImage *)image withWaterMark:(UIImage *)mark inRect:(CGRect)rect;
 
 @end

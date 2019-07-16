@@ -10,7 +10,7 @@
 
 @implementation UIImageView (wzmcate)
 
-- (void)ll_reflection {
+- (void)wzm_reflection {
     CGRect frame = self.frame;
     frame.origin.y += (frame.size.height + 1);
     
@@ -36,7 +36,7 @@
     [self.superview addSubview:reflectionImageView];
 }
 
-- (void)setImage:(UIImage *)image withWaterMark:(UIImage *)mark inRect:(CGRect)rect
+- (void)wzm_setImage:(UIImage *)image withWaterMark:(UIImage *)mark inRect:(CGRect)rect
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 4.0)
     {

@@ -24,7 +24,7 @@
 }
 @end
 
-#define THEME_COLOR_UP [UIColor ll_colorWithHex:0xa031ed]
+#define THEME_COLOR_UP [UIColor wzm_colorWithHex:0xa031ed]
 @implementation LLAlertView
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(LLAlertViewType)type {
@@ -176,7 +176,7 @@
             btn.frame                  = CGRectMake(i%2*(btnWidth+1), btnY, btnWidth, btnHeight);
             btn.titleLabel.font        = [UIFont systemFontOfSize:titleFont];
             [btn setTitle:btnTitles[i] forState:UIControlStateNormal];
-            [btn setBackgroundImage:[UIImage ll_getImageByColor:[UIColor colorWithWhite:.8 alpha:.5]] forState:UIControlStateHighlighted];
+            [btn setBackgroundImage:[UIImage wzm_getImageByColor:[UIColor colorWithWhite:.8 alpha:.5]] forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_alertView addSubview:btn];
             if (type == LLAlertViewTypeUpdate) {

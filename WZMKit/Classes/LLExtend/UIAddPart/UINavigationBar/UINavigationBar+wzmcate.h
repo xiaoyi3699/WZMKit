@@ -10,9 +10,9 @@
 
 @interface UINavigationBar (wzmcate)
 
-- (void)ll_setBackgroundColor:(UIColor *)backgroundColor;
-- (void)ll_setElementsAlpha:(CGFloat)alpha;
-- (void)ll_setTranslationY:(CGFloat)translationY;
-- (void)ll_reset;
+- (void)wzm_setBackgroundColor:(UIColor *)backgroundColor;
+- (void)wzm_setElementsAlpha:(CGFloat)alpha;
+- (void)wzm_setTranslationY:(CGFloat)translationY;
+- (void)wzm_reset;
 
 @end

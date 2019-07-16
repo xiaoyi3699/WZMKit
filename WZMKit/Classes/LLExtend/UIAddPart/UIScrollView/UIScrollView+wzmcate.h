@@ -10,8 +10,8 @@
 
 @interface UIScrollView (wzmcate)
 
-- (void)ll_scrollsToTopAnimated:(BOOL)animated;
+- (void)wzm_scrollsToTopAnimated:(BOOL)animated;
 
-- (void)ll_scrollsToBottomAnimated:(BOOL)animated;
+- (void)wzm_scrollsToBottomAnimated:(BOOL)animated;
 
 @end

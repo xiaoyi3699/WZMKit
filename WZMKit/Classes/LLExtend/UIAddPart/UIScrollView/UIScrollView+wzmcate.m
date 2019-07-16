@@ -10,11 +10,11 @@
 
 @implementation UIScrollView (wzmcate)
 
-- (void)ll_scrollsToTopAnimated:(BOOL)animated {
+- (void)wzm_scrollsToTopAnimated:(BOOL)animated {
     [self setContentOffset:CGPointMake(0, 0) animated:animated];
 }
 
-- (void)ll_scrollsToBottomAnimated:(BOOL)animated {
+- (void)wzm_scrollsToBottomAnimated:(BOOL)animated {
     CGFloat offset = self.contentSize.height - self.bounds.size.height;
     if (offset > 0) {
         [self setContentOffset:CGPointMake(0, offset) animated:animated];

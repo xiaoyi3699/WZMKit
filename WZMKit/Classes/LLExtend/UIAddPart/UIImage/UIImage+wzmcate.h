@@ -14,68 +14,68 @@
 
 #pragma mark - 类方法
 ///根据颜色创建image
-+ (UIImage *)ll_getImageByColor:(UIColor *)color;
++ (UIImage *)wzm_getImageByColor:(UIColor *)color;
 ///根据颜色创建image<圆形>
-+ (UIImage *)ll_getRoundImageByColor:(UIColor *)color size:(CGSize)size;
++ (UIImage *)wzm_getRoundImageByColor:(UIColor *)color size:(CGSize)size;
 ///根据颜色创建image<矩形>
-+ (UIImage *)ll_getRectImageByColor:(UIColor *)color size:(CGSize)size;
++ (UIImage *)wzm_getRectImageByColor:(UIColor *)color size:(CGSize)size;
 ///截屏
-+ (UIImage *)ll_getScreenImageByView:(UIView *)view;
++ (UIImage *)wzm_getScreenImageByView:(UIView *)view;
 ///根据ALAsset/PHAsset获取image
-+ (void)ll_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
++ (void)wzm_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
 ///base64编码转换为图片
-+ (UIImage *)ll_getImageByBase64:(NSString *)str;
++ (UIImage *)wzm_getImageByBase64:(NSString *)str;
 ///创建一个动态图片，动态图片持续的时间为duration
-+ (UIImage *)ll_getGifByImages:(NSArray *)images duration:(NSTimeInterval)duration;
++ (UIImage *)wzm_getGifByImages:(NSArray *)images duration:(NSTimeInterval)duration;
 ///获取launchImage
-+ (UIImage *)ll_getLaunchImageByType:(LLLaunchImageType)type;
++ (UIImage *)wzm_getLaunchImageByType:(LLLaunchImageType)type;
 ///梯度图
-+ (UIImage *)ll_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize;
++ (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType:(LLGradientType)gradientType imgSize:(CGSize)imgSize;
 ///绘制空心图片
-+ (UIImage *)ll_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
++ (UIImage *)wzm_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
 ///保存图片到自定义相册
-+ (void)ll_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion;
++ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion;
 ///合并图片
-+ (UIImage *)ll_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage;
++ (UIImage *)wzm_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage;
 
 #pragma mark - 二维码
 ///生成二维码图片
-+ (UIImage *)ll_getQRCodeByString:(NSString *)string size:(CGFloat)size;
++ (UIImage *)wzm_getQRCodeByString:(NSString *)string size:(CGFloat)size;
 ///二维码图片添加logo
-- (UIImage *)ll_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize;
+- (UIImage *)wzm_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize;
 ///改变二维码图片的颜色
-- (UIImage *)ll_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
+- (UIImage *)wzm_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
 
 #pragma mark - 实例方法
 ///保存到相册
-- (void)ll_savedToAlbum;
+- (void)wzm_savedToAlbum;
 ///剪裁图片
-- (UIImage *)ll_clipImageWithRect:(CGRect)rect;
+- (UIImage *)wzm_clipImageWithRect:(CGRect)rect;
 ///压缩图片所占的物理内存大小 100M以内的图片经过三层压缩，<= 1M
-- (UIImage *)ll_getScaleImage;
+- (UIImage *)wzm_getScaleImage;
 ///按比例压缩image
-- (UIImage *)ll_getImageWithScale:(CGFloat)scale;
+- (UIImage *)wzm_getImageWithScale:(CGFloat)scale;
 ///圆角图片
-- (UIImage *)ll_getRoundImageWithRadius:(CGFloat)radius ;
+- (UIImage *)wzm_getRoundImageWithRadius:(CGFloat)radius ;
 ///图片上绘制文字
-- (UIImage *)ll_getImageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize;
+- (UIImage *)wzm_getImageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize;
 ///拉伸图片
-- (UIImage *)ll_resizableImage;
+- (UIImage *)wzm_resizableImage;
 ///聊天气泡拉伸
-- (UIImage *)ll_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top;
+- (UIImage *)wzm_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top;
 ///取图片某一像素的颜色
-- (UIColor *)ll_getColorAtPixel:(CGPoint)point;
+- (UIColor *)wzm_getColorAtPixel:(CGPoint)point;
 ///判断该图片是否有Alpha通道
-- (BOOL)ll_isHasAlphaChannel;
+- (BOOL)wzm_isHasAlphaChannel;
 ///模糊图片
-- (UIImage *)ll_getBlurImageWithScale:(CGFloat)scale;
+- (UIImage *)wzm_getBlurImageWithScale:(CGFloat)scale;
 ///灰度图
-- (UIImage *)ll_getGrayImage;
+- (UIImage *)wzm_getGrayImage;
 ///按给定的方向旋转图片
-- (UIImage*)ll_getRotateImage:(UIImageOrientation)orient;
+- (UIImage*)wzm_getRotateImage:(UIImageOrientation)orient;
 ///垂直翻转
-- (UIImage *)ll_getVerticalImage;
+- (UIImage *)wzm_getVerticalImage;
 ///水平翻转
-- (UIImage *)ll_getHorizontalImage;
+- (UIImage *)wzm_getHorizontalImage;
 
 @end

@@ -11,45 +11,45 @@
 
 @interface UITextField (wzmcate)
 
-- (void)setPerformActionType:(LLPerformActionType)performActionType;
-- (LLPerformActionType)performActionType;
+- (void)setWzm_performActionType:(LLPerformActionType)wzm_performActionType;
+- (LLPerformActionType)wzm_performActionType;
 
 /**
  修改placeholder的字体颜色、大小
  */
-- (void)ll_setPlaceholderColor:(UIColor *)color font:(UIFont *)font;
+- (void)wzm_setPlaceholderColor:(UIColor *)color font:(UIFont *)font;
 
 ///设置文本框内容区边距
--(void)ll_contentMargin:(CGFloat)value;
+-(void)wzm_contentMargin:(CGFloat)value;
 
 /**
  输入错误，文本框摇一摇
  */
-- (void)ll_inputErrorForShake;
+- (void)wzm_inputErrorForShake;
 
 /**
  限制文本长度
  */
-- (BOOL)ll_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string limitNums:(NSInteger)limitNums;
+- (BOOL)wzm_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string limitNums:(NSInteger)limitNums;
 
 /**
  限制小数点位数
  */
-- (BOOL)ll_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string pointNums:(NSInteger)pointNums;
+- (BOOL)wzm_shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string pointNums:(NSInteger)pointNums;
 
 /**
  限制输入文本长度
  */
-- (void)ll_limitTextFieldLength:(NSInteger)length;
+- (void)wzm_limitTextFieldLength:(NSInteger)length;
 
-- (void)ll_selectAllText;
+- (void)wzm_selectAllText;
 
-- (void)ll_setSelectedRange:(NSRange)range;
+- (void)wzm_setSelectedRange:(NSRange)range;
 
 ///工具框样式
-- (void)ll_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message;
+- (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message;
 
 ///添加完成按钮
-- (void)ll_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message;
+- (void)wzm_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message;
 
 @end

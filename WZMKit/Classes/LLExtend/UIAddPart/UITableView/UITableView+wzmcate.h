@@ -13,12 +13,12 @@
 /**
  清除tableView上多余的分割线
  */
-- (void)ll_cleraExtraLine;
+- (void)wzm_cleraExtraLine;
 
 ///完全出现
-- (BOOL)ll_isCompletelyAppearWithIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)wzm_isCompletelyAppearWithIndexPath:(NSIndexPath *)indexPath;
 
 ///出现
-- (BOOL)ll_isAppearWithIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)wzm_isAppearWithIndexPath:(NSIndexPath *)indexPath;
 
 @end
