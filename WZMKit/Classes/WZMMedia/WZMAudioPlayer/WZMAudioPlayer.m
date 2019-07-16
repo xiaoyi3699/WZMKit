@@ -14,13 +14,16 @@
 
 @interface WZMAudioPlayer ()<AVAudioPlayerDelegate>
 
-@property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;       //后台播放id
-@property (nonatomic, strong) AVPlayer          *audioPlayer;            //音频播放器
-@property (nonatomic, assign) CGFloat           progress;                //播放进度
-@property (nonatomic, assign) CGFloat           duration;                //音频总时长
-@property (nonatomic, assign) NSInteger         currentTime;             //当前播放时间
-@property (nonatomic, assign) NSInteger         totalTime;               //播放总时长
-@property (nonatomic, assign) id                playTimeObserver;
+
+@property (nonatomic, strong) AVPlayer  *audioPlayer;   //音频播放器
+@property (nonatomic, assign) CGFloat   playProgress;   //播放进度
+@property (nonatomic, assign) CGFloat   bufferProgress; //缓冲进度
+@property (nonatomic, assign) CGFloat   duration;       //音频总时长
+@property (nonatomic, assign) NSInteger currentTime;    //当前播放时间
+@property (nonatomic, assign) NSInteger totalTime;      //播放总时长
+@property (nonatomic, assign) id playTimeObserver;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
+
 
 @end
 
@@ -45,8 +48,18 @@
         
         //允许应用程序接收远程控制
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        
+        [self resetConfig];
     }
     return self;
+}
+
+- (void)resetConfig {
+    self.duration = 0;
+    self.totalTime = 0;
+    self.currentTime = 0;
+    self.playProgress = 0;
+    self.bufferProgress = 0;
 }
 
 //url：文件路径或文件网络地址
@@ -77,6 +90,7 @@
             else {
                 _audioPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
             }
+            [self resetConfig];
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             
@@ -87,13 +101,14 @@
                 self.currentTime = CMTimeGetSeconds(self.audioPlayer.currentItem.currentTime);
                 float pro = self.currentTime/self.duration;
                 if (pro >= 0.0 && pro <= 1.0) {
-                    self.progress = pro;
+                    self.playProgress = pro;
                 }
+                [self wzm_playing];
             }];
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self showErrorMessage];
+                [self loadFailed:@"未识别的音频文件"];
             });
         }
     }];
@@ -108,24 +123,24 @@
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
+            //将要开始播放
+            if (self.currentTime == 0) {
+                [self wzm_loadSuccess];
+                [self wzm_beginPlaying];
+            }
             //获取当前播放时间
             self.currentTime = CMTimeGetSeconds(item.currentTime);
             //总时间
             self.duration = CMTimeGetSeconds(item.duration);
-            
             float pro = self.currentTime*1.0/self.duration;
             if (pro >= 0.0 && pro <= 1.0) {
-                self.progress  = pro;
+                self.playProgress  = pro;
             }
             [self play];
         }
         else if (item.status == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
+            [self loadFailed:@"未识别的音频文件"];
         }
-        else {
-            NSLog(@"AVPlayerStatusUnknown");
-        }
-        
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSTimeInterval timeInterval = [self availableDuration];
         float pro = timeInterval/self.duration;
@@ -147,8 +162,7 @@
     }
 }
 
-#pragma mark - 播放完成、中断、后台中的处理
-//程序退到后台
+//监听程序退到后台
 - (void)applicationWillResignActive:(NSNotification *)notification {
     if (self.isBackground) {
         //注册后台播放,如果需要后台播放网络歌曲，必须注册taskId
@@ -160,7 +174,7 @@
     }
 }
 
-//音频播放中断
+//监听音频播放中断
 - (void)movieInterruption:(NSNotification *)notification {
     NSDictionary *interuptionDict = notification.userInfo;
     NSInteger interuptionType = [[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
@@ -185,12 +199,49 @@
     }
 }
 
-//音频播放完成时
+//监听音频播放完成
 - (void)moviePlayDidEnd:(NSNotification *)notification {
-    
+    [self wzm_endPlaying];
 }
 
 #pragma mark - private method
+//播放状态
+- (void)wzm_changeStatus {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerChangeStatus:)]) {
+        [self.delegate audioPlayerChangeStatus:self];
+    }
+}
+
+- (void)wzm_beginPlaying {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerBeginPlaying:)]) {
+        [self.delegate audioPlayerBeginPlaying:self];
+    }
+}
+
+- (void)wzm_playing {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerPlaying:)]) {
+        [self.delegate audioPlayerPlaying:self];
+    }
+}
+
+- (void)wzm_endPlaying {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerEndPlaying:)]) {
+        [self.delegate audioPlayerEndPlaying:self];
+    }
+}
+
+- (void)wzm_loadSuccess {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadSuccess:)]) {
+        [self.delegate audioPlayerLoadSuccess:self];
+    }
+}
+
+- (void)loadFailed:(NSString *)error {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadFailed:error:)]) {
+        [self.delegate audioPlayerLoadFailed:self error:error];
+    }
+}
+
 - (CGFloat)availableDuration {//计算缓冲时间
     NSArray *loadedTimeRanges = [_audioPlayer.currentItem loadedTimeRanges];
     CMTimeRange range = [loadedTimeRanges.firstObject CMTimeRangeValue];
@@ -199,26 +250,20 @@
     return (start + duration);
 }
 
-- (void)play {//播放<动画恢复>
+- (void)play {
     if (_audioPlayer) {
         self.playing = YES;
         [_audioPlayer play];
-    }
-    else {
-        [self showErrorMessage];
+        [self wzm_changeStatus];
     }
 }
 
-- (void)pause {//暂停
+- (void)pause {
     if (_audioPlayer) {
         self.playing = NO;
         [_audioPlayer pause];
+        [self wzm_changeStatus];
     }
-}
-
-//音频文件错误提示
-- (void)showErrorMessage {
-    
 }
 
 //注册taskId
@@ -234,27 +279,12 @@
     return newTaskId;
 }
 
-//将秒数换算成具体时长
-- (NSString *)getTime:(NSInteger)second
-{
-    NSString *time;
-    if (second < 60) {
-        time = [NSString stringWithFormat:@"00:%02ld",(long)second];
-    }
-    else {
-        if (second < 3600) {
-            time = [NSString stringWithFormat:@"%02ld:%02ld",second/60,second%60];
-        }
-        else {
-            time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",second/3600,(second-second/3600*3600)/60,second%60];
-        }
-    }
-    return time;
-}
-
 - (void)setUrl:(NSString *)url {
-    if (url == nil || [_url isEqualToString:url]) return;
+    if (url == nil || [_url isEqualToString:url]) {
+        
+    }
     _url = url;
+    [self pause];
     NSURL *webUrl = [NSURL URLWithString:url];
     if (webUrl) {
         if ([[UIApplication sharedApplication] canOpenURL:webUrl]) {
@@ -266,6 +296,7 @@
             [self playWithURL:[NSURL fileURLWithPath:url]];
         }
     }
+    
 }
 
 - (void)setCurrentTime:(NSInteger)currentTime {
