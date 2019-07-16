@@ -531,17 +531,17 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
             [_player play];
         }
         else if (item.status == AVPlayerStatusFailed) {
-            ll_log(@"AVPlayerStatusFailed");
+            wzm_log(@"AVPlayerStatusFailed");
         }
         else {
-            ll_log(@"AVPlayerStatusUnknown");
+            wzm_log(@"AVPlayerStatusUnknown");
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSTimeInterval timeInterval = [self availableDuration];
         float pro = timeInterval/self.dur;
         if (pro >= 0.0 && pro <= 1.0) {
-            ll_log(@"缓冲进度：%f",pro);
+            wzm_log(@"缓冲进度：%f",pro);
         }
     }
 }
@@ -587,7 +587,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
 {
     _playBtn.selected = NO;
     _progressSlider.value = 1.0;
-    ll_log(@"视频播放完毕！");
+    wzm_log(@"视频播放完毕！");
 }
 
 #pragma mark - super method
@@ -598,7 +598,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
 
 - (void)dealloc
 {
-    ll_log(@"%@释放了",NSStringFromClass(self.class));
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
     [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

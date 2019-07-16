@@ -8,7 +8,7 @@
 
 #import "WZMLog.h"
 
-#define LL_LOG(format, ...) printf("[LLFeatureLog]: %s\n\n", [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
+#define WZM_LOG(format, ...) printf("[LLFeatureLog]: %s\n\n", [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 @interface WZMLog ()
 
 @property (nonatomic, assign) BOOL enable;
@@ -26,17 +26,17 @@
     return log;
 }
 
-void ll_openLogEnable(BOOL enable) {
+void wzm_openLogEnable(BOOL enable) {
     WZMLog *log = [WZMLog log];
     log.enable = enable;
 }
 
-void ll_log(NSString *format, ...) {
+void wzm_log(NSString *format, ...) {
     if ([WZMLog log].enable) {
         va_list args;
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
-        LL_LOG(@"%@",str);
+        WZM_LOG(@"%@",str);
         va_end(args);
     }
 }

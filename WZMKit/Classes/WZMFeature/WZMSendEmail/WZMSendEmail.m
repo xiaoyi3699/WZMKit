@@ -49,19 +49,19 @@
     switch (result)
     {
         case MFMailComposeResultCancelled: {
-            ll_log(@"用户取消编辑");
+            wzm_log(@"用户取消编辑");
         }
             break;
         case MFMailComposeResultSaved: {
-            ll_log(@"用户保存邮件");
+            wzm_log(@"用户保存邮件");
         }
             break;
         case MFMailComposeResultSent: {
-            ll_log(@"用户点击发送");
+            wzm_log(@"用户点击发送");
         }
             break;
         case MFMailComposeResultFailed: {
-            ll_log(@"用户尝试保存或发送邮件失败: %@", [error localizedDescription]);
+            wzm_log(@"用户尝试保存或发送邮件失败: %@", [error localizedDescription]);
         }break;
     }
     [controller dismissViewControllerAnimated:YES completion:nil];

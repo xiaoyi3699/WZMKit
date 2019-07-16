@@ -81,7 +81,7 @@ static NSString *_performActionKey = @"performAction";
                 //首字母不能为0
                 if([self.text length] == 0){
                     if (single == '0') {
-                        ll_log(@"亲，第一个数字不能为0");
+                        wzm_log(@"亲，第一个数字不能为0");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -89,7 +89,7 @@ static NSString *_performActionKey = @"performAction";
                 return YES;
             }
             else{//输入的数据格式不正确
-                ll_log(@"亲，您输入的格式不正确");
+                wzm_log(@"亲，您输入的格式不正确");
                 [self.text stringByReplacingCharactersInRange:range withString:@""];
                 return NO;
             }
@@ -117,7 +117,7 @@ static NSString *_performActionKey = @"performAction";
                 //首字母不能为小数点
                 if([self.text length] == 0){
                     if(single == '.') {
-                        ll_log(@"亲，第一个数字不能为小数点");
+                        wzm_log(@"亲，第一个数字不能为小数点");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -128,7 +128,7 @@ static NSString *_performActionKey = @"performAction";
                         return YES;
                     }
                     else{
-                        ll_log(@"亲，您已经输入过小数点了");
+                        wzm_log(@"亲，您已经输入过小数点了");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -141,7 +141,7 @@ static NSString *_performActionKey = @"performAction";
                             return YES;
                         }
                         else{
-                            ll_log(@"%@",[NSString stringWithFormat:@"亲，您最多输入%ld位小数",(long)pointNums]);
+                            wzm_log(@"%@",[NSString stringWithFormat:@"亲，您最多输入%ld位小数",(long)pointNums]);
                             return NO;
                         }
                     }
@@ -151,7 +151,7 @@ static NSString *_performActionKey = @"performAction";
                 }
             }
             else{//输入的数据格式不正确
-                ll_log(@"亲，您输入的格式不正确");
+                wzm_log(@"亲，您输入的格式不正确");
                 [self.text stringByReplacingCharactersInRange:range withString:@""];
                 return NO;
             }
@@ -258,10 +258,10 @@ static NSString *_performActionKey = @"performAction";
 
 - (void)dealKeyboardHide:(UIButton *)btn {
     if (btn.tag == 0) {
-        ll_log(@"取消");
+        wzm_log(@"取消");
     }
     else {
-        ll_log(@"完成");
+        wzm_log(@"完成");
     }
     [self resignFirstResponder];
 }

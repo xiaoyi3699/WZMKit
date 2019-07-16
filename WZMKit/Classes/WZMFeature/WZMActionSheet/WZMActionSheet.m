@@ -15,7 +15,7 @@
 }
 
 - (instancetype)initWithMessage:(NSString *)message titles:(NSArray *)titles {
-    self = [super initWithFrame:LL_SCREEN_BOUNDS];
+    self = [super initWithFrame:WZM_SCREEN_BOUNDS];
     if (self) {
         self.backgroundColor = CUSTOM_ALERT_BG_COLOR;
         

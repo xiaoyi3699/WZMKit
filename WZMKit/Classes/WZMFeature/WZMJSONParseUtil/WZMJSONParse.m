@@ -17,7 +17,7 @@
         tmp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (tmp == nil) {
         return 0;
@@ -34,7 +34,7 @@
         tmp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (tmp == nil) {
         return 0;
@@ -51,7 +51,7 @@
         tmp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (tmp == nil) {
         return NO;
@@ -68,7 +68,7 @@
         tmp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (tmp == nil) {
         return 0.0f;
@@ -85,7 +85,7 @@
         temp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (temp == nil) {
         return @"";
@@ -121,7 +121,7 @@
         temp = [dict objectForKey:key];
     }
     @catch (NSException *exception) {
-        ll_log(@"很遗憾的跟你说，程序出错了：%@",exception);
+        wzm_log(@"很遗憾的跟你说，程序出错了：%@",exception);
     }
     if (temp == nil) {
         return nil;

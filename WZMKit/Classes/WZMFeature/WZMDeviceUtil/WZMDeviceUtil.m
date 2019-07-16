@@ -35,16 +35,16 @@
 //是否为越狱
 char* printEnv(void){
     char *env = getenv("DYLD_INSERT_LIBRARIES");
-    ll_log(@"%s", env);
+    wzm_log(@"%s", env);
     return env;
 }
 
 + (BOOL)isPrisonBreakEquipment{
     if (printEnv()) {
-        ll_log(@"The device is jail broken!");
+        wzm_log(@"The device is jail broken!");
         return YES;
     }
-    ll_log(@"The device is NOT jail broken!");
+    wzm_log(@"The device is NOT jail broken!");
     return NO;
 }
 
@@ -298,7 +298,7 @@ char* printEnv(void){
             if ([info count]) {
                 NSString *ssid  = [info objectForKey:(__bridge NSString *)kCNNetworkInfoKeySSID];
                 NSString *bssid = [info objectForKey:(__bridge NSString *)kCNNetworkInfoKeyBSSID];
-                ll_log(@"interfaceName:%@ ssid:%@ bssid:%@",ifnam,ssid,bssid);
+                wzm_log(@"interfaceName:%@ ssid:%@ bssid:%@",ifnam,ssid,bssid);
                 return ssid;
             }
         }

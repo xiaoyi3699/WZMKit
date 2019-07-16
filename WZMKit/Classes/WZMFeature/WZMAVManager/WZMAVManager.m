@@ -63,22 +63,22 @@
         [exportSession exportAsynchronouslyWithCompletionHandler:^(void) {
             switch (exportSession.status) {
                 case AVAssetExportSessionStatusUnknown:
-                    ll_log(@"视频格式转换：Unknown");
+                    wzm_log(@"视频格式转换：Unknown");
                     break;
                 case AVAssetExportSessionStatusWaiting:
-                    ll_log(@"视频格式转换：Waiting");
+                    wzm_log(@"视频格式转换：Waiting");
                     break;
                 case AVAssetExportSessionStatusExporting:
-                    ll_log(@"视频格式转换：Exporting");
+                    wzm_log(@"视频格式转换：Exporting");
                     break;
                 case AVAssetExportSessionStatusCompleted:
-                    ll_log(@"文件大小:%lfM",[NSData dataWithContentsOfURL:exportSession.outputURL].length/1024.f/1024.f);
+                    wzm_log(@"文件大小:%lfM",[NSData dataWithContentsOfURL:exportSession.outputURL].length/1024.f/1024.f);
                     break;
                 case AVAssetExportSessionStatusFailed:
-                    ll_log(@"视频格式转换：Failed");
+                    wzm_log(@"视频格式转换：Failed");
                     break;
                 case AVAssetExportSessionStatusCancelled:
-                    ll_log(@"视频格式转换：Cancelled");
+                    wzm_log(@"视频格式转换：Cancelled");
                     break;
             }
         }];
@@ -121,16 +121,16 @@
         
         switch ([exportSession status]) {
             case AVAssetExportSessionStatusFailed:
-                ll_log(@"Export failed: %@", [[exportSession error] localizedDescription]);
+                wzm_log(@"Export failed: %@", [[exportSession error] localizedDescription]);
                 break;
             case AVAssetExportSessionStatusCancelled:
-                ll_log(@"Export canceled");
+                wzm_log(@"Export canceled");
                 break;
             case AVAssetExportSessionStatusExporting:
-                ll_log(@"Exporting");
+                wzm_log(@"Exporting");
                 break;
             case AVAssetExportSessionStatusCompleted:
-                ll_log(@"Export completed");
+                wzm_log(@"Export completed");
                 break;
             default:
                 break;
@@ -151,7 +151,7 @@
             [assetArray addObject:asset];
         }
         else {
-            ll_log(@"音频文件不存在");
+            wzm_log(@"音频文件不存在");
         }
     }
     
@@ -192,10 +192,10 @@
         //如果转换成功
         if (exporter.status == AVAssetExportSessionStatusCompleted)
         {
-            ll_log(@"合成成功");
+            wzm_log(@"合成成功");
         }
         else {
-            ll_log(@"失败");
+            wzm_log(@"失败");
         }
     }];
 }

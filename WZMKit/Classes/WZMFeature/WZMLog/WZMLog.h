@@ -10,8 +10,8 @@
 
 @interface WZMLog : NSObject
 
-void ll_openLogEnable(BOOL enable);
+void wzm_openLogEnable(BOOL enable);
 
-void ll_log(NSString *format, ...);
+void wzm_log(NSString *format, ...);
 
 @end

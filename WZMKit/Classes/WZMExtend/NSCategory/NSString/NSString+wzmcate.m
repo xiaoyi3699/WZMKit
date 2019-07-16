@@ -367,8 +367,8 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     if ([chinese hasPrefix:@"一十"]) {
         [chinese deleteCharactersInRange:NSMakeRange(0, 1)];
     }
-    ll_log(@"%@",str);
-    ll_log(@"%@",chinese);
+    wzm_log(@"%@",str);
+    wzm_log(@"%@",chinese);
     return [chinese copy];
 }
 
@@ -614,7 +614,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 /*
  NSArray *ary = @[@"1a我",@"_b是",@"王",@"f照",@"D猛"];
  NSArray *myary = [ary sortedArrayUsingSelector:@selector(compareOtherString:)];
- ll_log(@"array=%@",myary);
+ wzm_log(@"array=%@",myary);
  */
 - (NSComparisonResult)wzm_compareOtherString:(NSString *)otherString {
     return [[self wzm_getPinyin] localizedCompare:[otherString wzm_getPinyin]];

@@ -672,7 +672,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
     pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
     if(pixelBuffer == NULL) {
-        ll_log(@"No pixelbuffer");
+        wzm_log(@"No pixelbuffer");
     }
     outBuffer.data = pixelBuffer;
     outBuffer.width = CGImageGetWidth(img);
@@ -680,7 +680,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     outBuffer.rowBytes = CGImageGetBytesPerRow(img);
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        ll_log(@"error from convolution %ld", error);
+        wzm_log(@"error from convolution %ld", error);
     }
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef ctx = CGBitmapContextCreate(outBuffer.data, outBuffer.width, outBuffer.height, 8, outBuffer.rowBytes, colorSpace, kCGImageAlphaNoneSkipLast);

@@ -122,11 +122,11 @@ NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8"
                                                                 options:kNilOptions//返回不可变对象
                                                                   error:&jsonError];
                     if (jsonError) {
-                        ll_log(@"网络请求成功，数据解析失败：%@",jsonError);
+                        wzm_log(@"网络请求成功，数据解析失败：%@",jsonError);
                     }
                 }
                 else {
-                    ll_log(@"请求数据失败：%@",error);
+                    wzm_log(@"请求数据失败：%@",error);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     callBack(resultObj,error);

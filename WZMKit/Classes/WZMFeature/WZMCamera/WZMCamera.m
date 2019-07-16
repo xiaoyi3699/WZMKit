@@ -24,19 +24,19 @@
         
         if (position == LLCaptureDevicePositionBack) {
             if ([self isBackCameraAvailable] == NO) {
-                ll_log(@"后摄像头不可用");
+                wzm_log(@"后摄像头不可用");
                 return self;
             }
         }
         else if (position == LLCaptureDevicePositionFront) {
             if ([self isFrontCameraAvailable] == NO) {
-                ll_log(@"前摄像头不可用");
+                wzm_log(@"前摄像头不可用");
                 return self;
             }
         }
         else {
             if ([self isCameraAvailable] == NO) {
-                ll_log(@"摄像头不可用");
+                wzm_log(@"摄像头不可用");
                 return self;
             }
         }
@@ -45,7 +45,7 @@
         AVCaptureDevice *camera = [self cameraWithPosition:(AVCaptureDevicePosition)position];
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:camera error:&error];
         if (error) {
-            ll_log(@"%@",[error localizedDescription]);
+            wzm_log(@"%@",[error localizedDescription]);
         }
         else {
             if (_captureSession == nil) {

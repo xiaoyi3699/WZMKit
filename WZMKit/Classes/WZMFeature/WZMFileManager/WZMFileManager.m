@@ -18,7 +18,7 @@
     if ([LL_FILE_MANAGER fileExistsAtPath:filePath]) {
         return YES;
     }
-    ll_log(@"fileExistsAtPath:文件未找到");
+    wzm_log(@"fileExistsAtPath:文件未找到");
     return NO;
 }
 
@@ -26,7 +26,7 @@
     if ([LL_FILE_MANAGER fileExistsAtPath:filePath isDirectory:result]) {
         return YES;
     }
-    ll_log(@"fileExistsAtPath:isDirectory:文件未找到");
+    wzm_log(@"fileExistsAtPath:isDirectory:文件未找到");
     return NO;;
 }
 
@@ -44,7 +44,7 @@
                                                       attributes:nil
                                                            error:&error];
             if (error) {
-                ll_log(@"创建文件夹失败:%@",error);
+                wzm_log(@"创建文件夹失败:%@",error);
             }
             return result;
         }
@@ -56,7 +56,7 @@
                                                   attributes:nil
                                                        error:&error];
         if (error) {
-            ll_log(@"创建文件夹失败:%@",error);
+            wzm_log(@"创建文件夹失败:%@",error);
         }
         return result;
     }
@@ -66,7 +66,7 @@
     if ([LL_FILE_MANAGER fileExistsAtPath:filePath]){
         return [LL_FILE_MANAGER removeItemAtPath:filePath error:error];
     }
-    ll_log(@"deleteFileAtPath:error:路径未找到");
+    wzm_log(@"deleteFileAtPath:error:路径未找到");
     return YES;
 }
 
@@ -178,7 +178,7 @@
         [LL_USER_DEFAULTS setObject:obj forKey:key];
         return [LL_USER_DEFAULTS synchronize];
     }
-    ll_log(@"数据存储到沙盒失败：key/obj不能为空");
+    wzm_log(@"数据存储到沙盒失败：key/obj不能为空");
     return NO;
 }
 
@@ -186,13 +186,13 @@
     if (key) {
         return [LL_USER_DEFAULTS objectForKey:key];
     }
-    ll_log(@"从沙盒中取出数据失败：key不能为空");
+    wzm_log(@"从沙盒中取出数据失败：key不能为空");
     return nil;
 }
 
 + (BOOL)writeFile:(id)file toPath:(NSString *)path{
     BOOL isOK = [file writeToFile:path atomically:YES];
-    ll_log(@"文件存储路径为:%@",path);
+    wzm_log(@"文件存储路径为:%@",path);
     return isOK;
 }
 
@@ -201,7 +201,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
         return [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    ll_log(@"从沙盒中删除数据失败：key不能为空");
+    wzm_log(@"从沙盒中删除数据失败：key不能为空");
     return NO;
 }
 
@@ -250,10 +250,10 @@
                          encoding:NSUTF8StringEncoding
                             error:&error];
     if (error) {
-        ll_log(@"widget数据共享(存)失败：%@",error);
+        wzm_log(@"widget数据共享(存)失败：%@",error);
     }
     else {
-        ll_log(@"widget数据共享(存)成功：%@",obj);
+        wzm_log(@"widget数据共享(存)成功：%@",obj);
     }
     return result;
 }

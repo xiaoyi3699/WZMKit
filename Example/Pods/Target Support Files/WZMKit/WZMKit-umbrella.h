@@ -12,7 +12,7 @@
 
 #import "WZMNSHandle.h"
 #import "WZMViewHandle.h"
-#import "LLInline.h"
+#import "WZMInline.h"
 #import "NSArray+wzmcate.h"
 #import "NSAttributedString+wzmcate.h"
 #import "NSData+wzmcate.h"

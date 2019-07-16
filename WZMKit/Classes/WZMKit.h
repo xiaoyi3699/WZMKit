@@ -13,7 +13,7 @@
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 #import "WZMMacro.h"
-#import "LLInline.h"
+#import "WZMInline.h"
 #import "WZMTextInfo.h"
 
 //第三方
@@ -99,15 +99,15 @@
 #define LLEndTime   (CFAbsoluteTimeGetCurrent() - LLStartTime)
 
 //当前时间
-#define LL_TIME [[NSDateFormatter ll_defaultDateFormatter] stringFromDate:[NSDate date]]
+#define WZM_TIME [[NSDateFormatter wzm_defaultDateFormatter] stringFromDate:[NSDate date]]
 
 //日志打印
 #ifdef DEBUG
-#define __LLFILE__ [[NSString stringWithFormat:@"%s",__FILE__] lastPathComponent]
-#define __LLTIME__ [[LL_TIME componentsSeparatedByString:@" "] lastObject]
-#define MyLog(format, ...) printf("[%s][%s]: %s\n\n", [__LLFILE__ UTF8String], [__LLTIME__ UTF8String], [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
+#define __WZMFILE__ [[NSString stringWithFormat:@"%s",__FILE__] lastPathComponent]
+#define __WZMTIME__ [[WZM_TIME componentsSeparatedByString:@" "] lastObject]
+#define MyLog(format, ...) printf("[%s][%s]: %s\n\n", [__WZMFILE__ UTF8String], [__WZMTIME__ UTF8String], [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 
-#define NSLog(format, ...) printf("%s\n\n",[[WZMLogView outputString:[NSString stringWithFormat:@"时间：%@\n文件：%@\n行数：第%d行\n方法：%@\n输出：%@",LL_TIME,[[NSString stringWithUTF8String:__FILE__] lastPathComponent],__LINE__,[NSString stringWithUTF8String:__FUNCTION__],[NSString stringWithFormat:format, ## __VA_ARGS__]]] UTF8String])
+#define NSLog(format, ...) printf("%s\n\n",[[WZMLogView outputString:[NSString stringWithFormat:@"时间：%@\n文件：%@\n行数：第%d行\n方法：%@\n输出：%@",WZM_TIME,[[NSString stringWithUTF8String:__FILE__] lastPathComponent],__LINE__,[NSString stringWithUTF8String:__FUNCTION__],[NSString stringWithFormat:format, ## __VA_ARGS__]]] UTF8String])
 #else
 #define MyLog(format, ...)
 #define NSLog(format, ...)

@@ -15,7 +15,7 @@
 #define CURRENT_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 #define LL_WINDOW          [UIApplication sharedApplication].delegate.window
-#define LL_SCREEN_BOUNDS   [[WAMPublic Public] screenBounds]
+#define WZM_SCREEN_BOUNDS   [[WAMPublic Public] screenBounds]
 #define LL_SCREEN_SCALE    [[WAMPublic Public] screenScale]
 #define LL_SCREEN_WIDTH    [[WAMPublic Public] screenW]
 #define LL_SCREEN_HEIGHT   [[WAMPublic Public] screenH]

@@ -295,7 +295,7 @@
 
 - (NSString *)storeImage:(UIImage *)image forKey:(NSString *)key {
     if (image == nil || key.length == 0) {
-        ll_log(@"键值不能为空");
+        wzm_log(@"键值不能为空");
         return @"";
     }
     NSString *tureKey = [key wzm_base64EncodedString];
@@ -325,7 +325,7 @@
 
 - (NSString *)storeData:(NSData *)data forKey:(NSString *)key {
     if (data == nil || key.length == 0) {
-        ll_log(@"键值不能为空");
+        wzm_log(@"键值不能为空");
         return @"";
     }
     NSString *tureKey = [key wzm_base64EncodedString];
@@ -381,7 +381,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return YES;
     }
-    ll_log(@"fileExistsAtPath:文件未找到");
+    wzm_log(@"fileExistsAtPath:文件未找到");
     return NO;
 }
 
@@ -404,7 +404,7 @@
 
 - (BOOL)writeFile:(id)file toPath:(NSString *)path{
     BOOL isOK = [file writeToFile:path atomically:YES];
-    ll_log(@"文件存储路径为:%@",path);
+    wzm_log(@"文件存储路径为:%@",path);
     return isOK;
 }
 
@@ -412,7 +412,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
         return [[NSFileManager defaultManager] removeItemAtPath:filePath error:error];
     }
-    ll_log(@"deleteFileAtPath:error:路径未找到");
+    wzm_log(@"deleteFileAtPath:error:路径未找到");
     return YES;
 }
 

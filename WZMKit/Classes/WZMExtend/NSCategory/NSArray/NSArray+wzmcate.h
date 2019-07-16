@@ -58,7 +58,7 @@
  3、打印排序结果
  for (NSInteger i = 0; i < 20; i ++) {
  LLBaseModel *model = array[i];
- ll_log(@"age=%ld",(long)model.age);
+ wzm_log(@"age=%ld",(long)model.age);
  }
  */
 

@@ -180,7 +180,7 @@
         rect = hud.bounds;
     }
     else {
-        hud.frame = LL_SCREEN_BOUNDS;
+        hud.frame = WZM_SCREEN_BOUNDS;
         rect = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-150), w, h);
     }
     hud.messageView.frame = rect;
@@ -213,7 +213,7 @@
         rect = hud.bounds;
     }
     else {
-        hud.frame = LL_SCREEN_BOUNDS;
+        hud.frame = WZM_SCREEN_BOUNDS;
         rect = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-h)/2.0, w, h);
     }
     hud.progressView.frame = rect;

@@ -115,7 +115,7 @@
     NSInteger row = indexPath.row;
     NSString* fontName = [[_fonts objectAtIndex:section] objectAtIndex:row];
     
-    ll_log(@"字体名称为：%@",fontName);
+    wzm_log(@"字体名称为：%@",fontName);
 }
 
 @end

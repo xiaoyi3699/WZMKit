@@ -39,7 +39,7 @@
     }
     else {
         if (_url.length == 0) {
-            ll_log(@"网址不能为空");
+            wzm_log(@"网址不能为空");
         }
         NSURL *URL = [NSURL URLWithString:_url];
         if (URL == nil) {
@@ -50,7 +50,7 @@
             [self.task resume];
         }
         else {
-            ll_log(@"无效网址");
+            wzm_log(@"无效网址");
         }
     }
 }
@@ -70,11 +70,11 @@
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     
-    ll_log(@"%.2f",(double)totalBytesWritten/totalBytesExpectedToWrite);
+    wzm_log(@"%.2f",(double)totalBytesWritten/totalBytesExpectedToWrite);
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-    ll_log(@"下载完成==%@",location.path);
+    wzm_log(@"下载完成==%@",location.path);
     
     NSString *filePath = nil;
     if (_filePath.length) {

@@ -227,7 +227,7 @@
 }
 
 - (void)dealloc {
-    ll_log(@"%@释放了",NSStringFromClass(self.class));
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
     [self removeObserver];
 }
 
