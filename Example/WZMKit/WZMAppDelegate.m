@@ -27,11 +27,11 @@
     });
     
 #if DEBUG
-    wzm_openLogEnable(YES);
     [WZMLogView startLog];
-    [self.window wzm_startObserveFpsAndCpu];
+    wzm_openLogEnable(YES);
     WZMInstallSignalHandler();
     WZMInstallUncaughtExceptionHandler();
+    [self.window wzm_startObserveFpsAndCpu];
 #endif
     
     NSLog(@"哈哈哈哈");
