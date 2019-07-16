@@ -8,7 +8,7 @@
 
 #import "WZMLog.h"
 
-#define WZM_LOG(format, ...) printf("[LLFeatureLog]: %s\n\n", [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
+#define WZM_LOG(format, ...) printf("[WZNKitLog]: %s\n\n", [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 @interface WZMLog ()
 
 @property (nonatomic, assign) BOOL enable;
