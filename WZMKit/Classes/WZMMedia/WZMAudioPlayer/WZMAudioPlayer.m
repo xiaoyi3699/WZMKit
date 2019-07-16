@@ -15,12 +15,12 @@
 @interface WZMAudioPlayer ()<AVAudioPlayerDelegate>
 
 
-@property (nonatomic, strong) AVPlayer  *audioPlayer;   //音频播放器
-@property (nonatomic, assign) CGFloat   playProgress;   //播放进度
-@property (nonatomic, assign) CGFloat   bufferProgress; //缓冲进度
-@property (nonatomic, assign) CGFloat   duration;       //音频总时长
-@property (nonatomic, assign) NSInteger currentTime;    //当前播放时间
-@property (nonatomic, assign) NSInteger totalTime;      //播放总时长
+@property (nonatomic, strong) AVPlayer  *audioPlayer; //音频播放器
+@property (nonatomic, assign) CGFloat   playProgress; //播放进度
+@property (nonatomic, assign) CGFloat   loadProgress; //缓冲进度
+@property (nonatomic, assign) CGFloat   duration;     //音频总时长
+@property (nonatomic, assign) NSInteger currentTime;  //当前播放时间
+@property (nonatomic, assign) NSInteger totalTime;    //播放总时长
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 
@@ -59,7 +59,7 @@
     self.totalTime = 0;
     self.currentTime = 0;
     self.playProgress = 0;
-    self.bufferProgress = 0;
+    self.loadProgress = 0;
 }
 
 //url：文件路径或文件网络地址
@@ -145,7 +145,8 @@
         NSTimeInterval timeInterval = [self availableDuration];
         float pro = timeInterval/self.duration;
         if (pro >= 0.0 && pro <= 1.0) {
-            NSLog(@"缓冲进度：%f",pro);
+            self.loadProgress = pro;
+            [self wzm_loadProgress];
         }
     }
 }
@@ -206,9 +207,21 @@
 
 #pragma mark - private method
 //播放状态
-- (void)wzm_changeStatus {
-    if ([self.delegate respondsToSelector:@selector(audioPlayerChangeStatus:)]) {
-        [self.delegate audioPlayerChangeStatus:self];
+- (void)wzm_loadSuccess {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadSuccess:)]) {
+        [self.delegate audioPlayerLoadSuccess:self];
+    }
+}
+
+- (void)loadFailed:(NSString *)error {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadFailed:error:)]) {
+        [self.delegate audioPlayerLoadFailed:self error:error];
+    }
+}
+
+- (void)wzm_loadProgress {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadProgress:)]) {
+        [self.delegate audioPlayerLoadProgress:self];
     }
 }
 
@@ -230,15 +243,9 @@
     }
 }
 
-- (void)wzm_loadSuccess {
-    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadSuccess:)]) {
-        [self.delegate audioPlayerLoadSuccess:self];
-    }
-}
-
-- (void)loadFailed:(NSString *)error {
-    if ([self.delegate respondsToSelector:@selector(audioPlayerLoadFailed:error:)]) {
-        [self.delegate audioPlayerLoadFailed:self error:error];
+- (void)wzm_changeStatus {
+    if ([self.delegate respondsToSelector:@selector(audioPlayerChangeStatus:)]) {
+        [self.delegate audioPlayerChangeStatus:self];
     }
 }
 
