@@ -267,36 +267,35 @@
 }
 
 //注册taskId
-- (UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId
-{
+- (UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId {
     //设置后台任务ID
     UIBackgroundTaskIdentifier newTaskId=UIBackgroundTaskInvalid;
     newTaskId=[[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-    if(newTaskId!=UIBackgroundTaskInvalid&&backTaskId!=UIBackgroundTaskInvalid)
-    {
+    if(newTaskId!=UIBackgroundTaskInvalid&&backTaskId!=UIBackgroundTaskInvalid) {
         [[UIApplication sharedApplication] endBackgroundTask:backTaskId];
     }
     return newTaskId;
 }
 
 - (void)setUrl:(NSString *)url {
-    if (url == nil || [_url isEqualToString:url]) {
-        
-    }
-    _url = url;
-    [self pause];
-    NSURL *webUrl = [NSURL URLWithString:url];
-    if (webUrl) {
-        if ([[UIApplication sharedApplication] canOpenURL:webUrl]) {
-            [self playWithURL:webUrl];
-        }
+    if (url == nil) {
+        [self loadFailed:@"url不能为空"];
     }
     else {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-            [self playWithURL:[NSURL fileURLWithPath:url]];
+        _url = url;
+        [self pause];
+        NSURL *webUrl = [NSURL URLWithString:url];
+        if (webUrl) {
+            if ([[UIApplication sharedApplication] canOpenURL:webUrl]) {
+                [self playWithURL:webUrl];
+            }
+        }
+        else {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+                [self playWithURL:[NSURL fileURLWithPath:url]];
+            }
         }
     }
-    
 }
 
 - (void)setCurrentTime:(NSInteger)currentTime {
