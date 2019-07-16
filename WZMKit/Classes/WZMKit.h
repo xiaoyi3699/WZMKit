@@ -86,6 +86,8 @@
 #import "WZMJSONParse.h"
 #import "WZMAppStore.h"
 #import "WZMLocationManager.h"
+#import "WZMSignalException.h"
+#import "WZMUncaughtException.h"
 #import "WZMVideoPlayerViewController.h"
 
 //时间差 CFAbsoluteTime

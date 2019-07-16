@@ -8,8 +8,6 @@
 
 #import "WZMAppDelegate.h"
 #import <WZMKit/WZMKit.h>
-#import "WZMSignalException.h"
-#import "WZMUncaughtException.h"
 #import "WZMViewController.h"
 
 @implementation WZMAppDelegate
