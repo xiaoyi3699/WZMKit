@@ -10,7 +10,6 @@
 
 @interface WZMAudioPlayer : NSObject
 
-
 @property (nonatomic, readonly, assign) CGFloat   progress;                //播放进度
 @property (nonatomic, readonly, assign) CGFloat   duration;                //音频总时长
 @property (nonatomic, readonly, assign) NSInteger currentTime;             //当前播放时间

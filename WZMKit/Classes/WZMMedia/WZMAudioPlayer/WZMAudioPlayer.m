@@ -1,69 +1,287 @@
 //
 //  WZMAudioPlayer.m
-//  WZMFoundation
+//  LLFoundation
 //
-//  Created by wangzhaomeng on 16/8/25.
-//  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
+//  Created by WangZhaomeng on 2017/4/16.
+//  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
 #import "WZMAudioPlayer.h"
+#import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "WZMAudioPlayerItem.h"
+#import "WZMMacro.h"
 
-@interface WZMAudioPlayer ()
+@interface WZMAudioPlayer ()<AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVAudioSession *audioSession;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;       //后台播放id
+@property (nonatomic, strong) AVPlayer          *audioPlayer;            //音频播放器
+@property (nonatomic, assign) CGFloat           progress;                //播放进度
+@property (nonatomic, assign) CGFloat           duration;                //音频总时长
+@property (nonatomic, assign) NSInteger         currentTime;             //当前播放时间
+@property (nonatomic, assign) NSInteger         totalTime;               //播放总时长
+@property (nonatomic, assign) id                playTimeObserver;
 
 @end
 
 @implementation WZMAudioPlayer
 
-- (id)initWithContentsOfURL:(NSURL *)url error:(NSError * _Nullable __autoreleasing *)outError{
-    self = [super initWithContentsOfURL:url error:outError];
+- (instancetype)init {
+    self = [super init];
     if (self) {
-        [self setConfig];
+        //监听音频播放结束
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+        
+        //监听程序退到后台
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
+        
+        //监听音频播放中断
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieInterruption:) name:AVAudioSessionInterruptionNotification object:nil];
+        
+        //设置并激活后台播放
+        AVAudioSession *session=[AVAudioSession sharedInstance];
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [session setActive:YES error:nil];
+        
+        //允许应用程序接收远程控制
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     }
     return self;
 }
 
-- (id)initWithData:(NSData *)data error:(NSError * _Nullable __autoreleasing *)outError{
-    self = [super initWithData:data error:outError];
-    if (self) {
-        [self setConfig];
+//url：文件路径或文件网络地址
+- (void)playWithURL:(NSURL *)fileURL {
+    //加载视频资源的类
+    AVURLAsset *asset = [AVURLAsset assetWithURL:fileURL];
+    //AVURLAsset 通过tracks关键字会将资源异步加载在程序的一个临时内存缓冲区中
+    [asset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:@"tracks"] completionHandler:^{
+        //能够得到资源被加载的状态
+        NSError *error;
+        AVKeyValueStatus status = [asset statusOfValueForKey:@"tracks" error:&error];
+        //如果资源加载完成,开始进行播放
+        if (status == AVKeyValueStatusLoaded) {
+            //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
+            WZMAudioPlayerItem *item = [WZMAudioPlayerItem playerItemWithAsset:asset];
+            item.observer = self;
+            
+            //观察播放状态
+            [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+            
+            //观察缓冲进度
+            [item addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+            
+            if (_audioPlayer) {
+                [_audioPlayer removeTimeObserver:_playTimeObserver];
+                [_audioPlayer replaceCurrentItemWithPlayerItem:item];
+            }
+            else {
+                _audioPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
+            }
+            //需要时时显示播放的进度
+            //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
+            
+            @wzm_weakify(self);
+            _playTimeObserver = [_audioPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+                @wzm_strongify(self);
+                //获取当前播放时间
+                self.currentTime = CMTimeGetSeconds(self.audioPlayer.currentItem.currentTime);
+                float pro = self.currentTime/self.duration;
+                if (pro >= 0.0 && pro <= 1.0) {
+                    self.progress = pro;
+                }
+            }];
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showErrorMessage];
+            });
+        }
+    }];
+}
+
+//监听播放开始
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSString *,id> *)change
+                       context:(void *)context {
+    
+    AVPlayerItem *item = (AVPlayerItem *)object;
+    if ([keyPath isEqualToString:@"status"]) {
+        if (item.status == AVPlayerStatusReadyToPlay) {
+            //获取当前播放时间
+            self.currentTime = CMTimeGetSeconds(item.currentTime);
+            //总时间
+            self.duration = CMTimeGetSeconds(item.duration);
+            
+            float pro = self.currentTime*1.0/self.duration;
+            if (pro >= 0.0 && pro <= 1.0) {
+                self.progress  = pro;
+            }
+            [self play];
+        }
+        else if (item.status == AVPlayerStatusFailed) {
+            NSLog(@"AVPlayerStatusFailed");
+        }
+        else {
+            NSLog(@"AVPlayerStatusUnknown");
+        }
+        
+    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        NSTimeInterval timeInterval = [self availableDuration];
+        float pro = timeInterval/self.duration;
+        if (pro >= 0.0 && pro <= 1.0) {
+            NSLog(@"缓冲进度：%f",pro);
+        }
     }
-    return self;
 }
 
-- (void)setConfig {
-    //音量 0.0-1.0之间
-    self.volume = 1.0;
-    //循环次数 默认只播放一次
-    self.numberOfLoops = 0;
-    //播放位置 可以指定从任意位置开始播放
-    self.currentTime = 0.0;
-}
-
-- (AVAudioSession *)audioSession {
-    if (_audioSession == nil) {
-        _audioSession = [AVAudioSession sharedInstance];
+//锁屏界面的用户交互
+- (void)remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        if (receivedEvent.subtype == UIEventSubtypeRemoteControlPlay) {//播放
+            [self play];
+        }
+        else if (receivedEvent.subtype == UIEventSubtypeRemoteControlPause) {//暂停
+            [self pause];
+        }
     }
-    return _audioSession;
 }
 
-- (void)startPlay{//播放
-    [self.audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    [self.audioSession setActive:YES error:nil];
-    [self prepareToPlay];//分配播放所需的资源，并将其加入内部播放队列
-    [self play];
+#pragma mark - 播放完成、中断、后台中的处理
+//程序退到后台
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    if (self.isBackground) {
+        //注册后台播放,如果需要后台播放网络歌曲，必须注册taskId
+        _bgTaskId = [self backgroundPlayerID:_bgTaskId];
+        [self play];
+    }
+    else {
+        [self pause];
+    }
 }
 
-- (void)pausePlay{//暂停
-    [self pause];
-    [self.audioSession setActive:NO error:nil];
+//音频播放中断
+- (void)movieInterruption:(NSNotification *)notification {
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSInteger interuptionType = [[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
+    NSNumber  *seccondReason  = [[notification userInfo] objectForKey:AVAudioSessionInterruptionOptionKey] ;
+    switch (interuptionType) {
+        case AVAudioSessionInterruptionTypeBegan: {
+            //收到中断，停止音频播放
+            [self pause];
+            break;
+        }
+        case AVAudioSessionInterruptionTypeEnded:
+            //系统中断结束
+            break;
+    }
+    switch ([seccondReason integerValue]) {
+        case AVAudioSessionInterruptionOptionShouldResume:
+            //恢复音频播放
+            [self play];
+            break;
+        default:
+            break;
+    }
 }
 
-- (void)stopPlay{//停止
-    [self stop];
-    [self.audioSession setActive:NO error:nil];
+//音频播放完成时
+- (void)moviePlayDidEnd:(NSNotification *)notification {
+    
+}
+
+#pragma mark - private method
+- (CGFloat)availableDuration {//计算缓冲时间
+    NSArray *loadedTimeRanges = [_audioPlayer.currentItem loadedTimeRanges];
+    CMTimeRange range = [loadedTimeRanges.firstObject CMTimeRangeValue];
+    CGFloat start = CMTimeGetSeconds(range.start);
+    CGFloat duration = CMTimeGetSeconds(range.duration);
+    return (start + duration);
+}
+
+- (void)play {//播放<动画恢复>
+    if (_audioPlayer) {
+        self.playing = YES;
+        [_audioPlayer play];
+    }
+    else {
+        [self showErrorMessage];
+    }
+}
+
+- (void)pause {//暂停
+    if (_audioPlayer) {
+        self.playing = NO;
+        [_audioPlayer pause];
+    }
+}
+
+//音频文件错误提示
+- (void)showErrorMessage {
+    
+}
+
+//注册taskId
+- (UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId
+{
+    //设置后台任务ID
+    UIBackgroundTaskIdentifier newTaskId=UIBackgroundTaskInvalid;
+    newTaskId=[[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+    if(newTaskId!=UIBackgroundTaskInvalid&&backTaskId!=UIBackgroundTaskInvalid)
+    {
+        [[UIApplication sharedApplication] endBackgroundTask:backTaskId];
+    }
+    return newTaskId;
+}
+
+//将秒数换算成具体时长
+- (NSString *)getTime:(NSInteger)second
+{
+    NSString *time;
+    if (second < 60) {
+        time = [NSString stringWithFormat:@"00:%02ld",(long)second];
+    }
+    else {
+        if (second < 3600) {
+            time = [NSString stringWithFormat:@"%02ld:%02ld",second/60,second%60];
+        }
+        else {
+            time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",second/3600,(second-second/3600*3600)/60,second%60];
+        }
+    }
+    return time;
+}
+
+- (void)setUrl:(NSString *)url {
+    if (url == nil || [_url isEqualToString:url]) return;
+    _url = url;
+    NSURL *webUrl = [NSURL URLWithString:url];
+    if (webUrl) {
+        if ([[UIApplication sharedApplication] canOpenURL:webUrl]) {
+            [self playWithURL:webUrl];
+        }
+    }
+    else {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
+            [self playWithURL:[NSURL fileURLWithPath:url]];
+        }
+    }
+}
+
+- (void)setCurrentTime:(NSInteger)currentTime {
+    if (_currentTime == currentTime || currentTime > self.duration) return;
+    _currentTime = currentTime;
+    CMTime dur = self.audioPlayer.currentItem.duration;
+    [self.audioPlayer seekToTime:CMTimeMultiplyByFloat64(dur, _currentTime)];
+}
+
+//移除相关监听
+- (void)dealloc {
+    NSLog(@"音乐播放器释放");
+    [_audioPlayer removeTimeObserver:_playTimeObserver];
+    [_audioPlayer.currentItem removeObserver:self forKeyPath:@"status"];
+    [_audioPlayer.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
