@@ -7,7 +7,7 @@
 //
 
 #import "LLPhotoBrowser.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 @interface LLPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,LLPhotoBrowserCellDelegate>
 

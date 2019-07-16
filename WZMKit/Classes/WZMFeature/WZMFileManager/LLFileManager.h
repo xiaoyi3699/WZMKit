@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LLBlock.h"
+#import "WZMBlock.h"
 
 @interface LLFileManager : NSObject
 

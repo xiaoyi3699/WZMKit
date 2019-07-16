@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 @interface NSData (wzmcate)
 

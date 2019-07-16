@@ -8,7 +8,7 @@
 
 #import "LLSignalException.h"
 #include <execinfo.h>
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "LLSendEmail.h"
 
 @implementation LLSignalException

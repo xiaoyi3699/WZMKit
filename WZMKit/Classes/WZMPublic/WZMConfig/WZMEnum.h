@@ -1,13 +1,13 @@
 //
-//  LLEnum.h
+//  WZMEnum.h
 //  LLFoundation
 //
 //  Created by WangZhaomeng on 2017/7/5.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#ifndef LLEnum_h
-#define LLEnum_h
+#ifndef WZMEnum_h
+#define WZMEnum_h
 
 ///导航栏颜色
 typedef enum : NSInteger {
@@ -175,4 +175,4 @@ typedef enum : NSInteger {
     LLImageTypeWEBP,
 } LLImageType;
 
-#endif /* LLEnum_h */
+#endif /* WZMEnum_h */

@@ -7,7 +7,7 @@
 //
 
 #import "LLLogView.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 
 @interface LHYMessageView : UIView<UITableViewDelegate,UITableViewDataSource> {

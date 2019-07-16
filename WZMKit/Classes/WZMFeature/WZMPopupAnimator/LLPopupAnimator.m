@@ -7,7 +7,7 @@
 //
 
 #import "LLPopupAnimator.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 
 @implementation LLPopupAnimator{

@@ -1,5 +1,5 @@
 //
-//  LLVideoPlayerHelper.h
+//  WZMVideoPlayerHelper.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/23.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLVideoPlayerHelper : NSObject
+@interface WZMVideoPlayerHelper : NSObject
 
-+ (UIImage *)ll_imageNamed:(NSString *)imageName ofType:(NSString *)type;
++ (UIImage *)wzm_imageNamed:(NSString *)imageName ofType:(NSString *)type;
 
 @end

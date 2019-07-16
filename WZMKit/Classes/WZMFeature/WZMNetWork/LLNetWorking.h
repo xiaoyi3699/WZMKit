@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 extern NSString * const LLNetRequestContentTypeForm;
 extern NSString * const LLNetRequestContentTypeJson;

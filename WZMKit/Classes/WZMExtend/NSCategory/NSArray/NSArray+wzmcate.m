@@ -8,7 +8,7 @@
 
 #import "NSArray+wzmcate.h"
 #import "NSString+wzmcate.h"
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 @implementation NSArray (wzmcate)
 

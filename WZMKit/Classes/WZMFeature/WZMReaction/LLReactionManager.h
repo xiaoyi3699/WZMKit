@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 typedef void(^nextAction)(id param_);
 typedef void(^alertAction)(UIAlertView *alert_, NSInteger index_);

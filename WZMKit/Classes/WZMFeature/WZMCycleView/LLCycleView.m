@@ -8,7 +8,7 @@
 
 #import "LLCycleView.h"
 #import "UIView+wzmcate.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 @implementation LLCycleView {
     NSTimer *_timer;

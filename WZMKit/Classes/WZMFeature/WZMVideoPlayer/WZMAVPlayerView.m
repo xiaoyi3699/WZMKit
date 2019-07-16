@@ -6,11 +6,11 @@
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLAVPlayerView.h"
+#import "WZMAVPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "LLLog.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     LLDirectionVertical,     //垂直方向滑动
 };
 
-@interface LLAVPlayerView (){
+@interface WZMAVPlayerView (){
     UIView   *_topView;
     UIView   *_toolView;
     AVPlayer *_player;
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
 
 @end
 
-@implementation LLAVPlayerView
+@implementation WZMAVPlayerView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
         //如果资源加载完成,开始进行播放
         if (status == AVKeyValueStatusLoaded) {
             //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
-            LLAVPlayerItem *item = [LLAVPlayerItem playerItemWithAsset:asset];
+            WZMAVPlayerItem *item = [WZMAVPlayerItem playerItemWithAsset:asset];
             item.observer = self;
             
             //观察播放状态
@@ -163,7 +163,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setImage:[LLVideoPlayerHelper ll_imageNamed:@"back_white_small" ofType:@"png"] forState:UIControlStateNormal];
+    [backBtn setImage:[WZMVideoPlayerHelper wzm_imageNamed:@"back_white_small" ofType:@"png"] forState:UIControlStateNormal];
     [_topView addSubview:backBtn];
     
     UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -202,8 +202,8 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playBtn setFrame:CGRectMake(5,10,20,20)];
     _playBtn.selected=YES;
-    [_playBtn setBackgroundImage:[LLVideoPlayerHelper ll_imageNamed:@"player_play" ofType:@"png"] forState:UIControlStateNormal];
-    [_playBtn setBackgroundImage:[LLVideoPlayerHelper ll_imageNamed:@"player_pause" ofType:@"png"] forState:UIControlStateSelected];
+    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"player_play" ofType:@"png"] forState:UIControlStateNormal];
+    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"player_pause" ofType:@"png"] forState:UIControlStateSelected];
     [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_toolView addSubview:_playBtn];
     

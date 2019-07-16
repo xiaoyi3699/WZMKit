@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 UIKIT_STATIC_INLINE CGFloat WZMDistanceBetweenPoints(CGPoint point1, CGPoint point2) {
     CGFloat dx = point2.x - point1.x;

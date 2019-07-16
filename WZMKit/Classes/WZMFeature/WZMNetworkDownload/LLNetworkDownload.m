@@ -8,7 +8,7 @@
 
 #import "LLNetworkDownload.h"
 #import "LLLog.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "NSString+wzmcate.h"
 
 @interface LLNetworkDownload ()<NSURLSessionDownloadDelegate>

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 #define LLRefreshHeaderHeight 60
 #define LLRefreshFooterHeight 60

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLAVPlayerItem.h"
-#import "LLVideoPlayerHelper.h"
+#import "WZMAVPlayerItem.h"
+#import "WZMVideoPlayerHelper.h"
 
-@interface LLAVPlayerView : UIView
+@interface WZMAVPlayerView : UIView
 
 /**
  播放视屏

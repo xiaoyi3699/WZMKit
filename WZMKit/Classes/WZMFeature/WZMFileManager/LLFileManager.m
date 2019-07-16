@@ -8,7 +8,7 @@
 
 #import "LLFileManager.h"
 #import "LLLog.h"
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 #define LL_FILE_MANAGER    [NSFileManager defaultManager]
 #define LL_USER_DEFAULTS   [NSUserDefaults standardUserDefaults]

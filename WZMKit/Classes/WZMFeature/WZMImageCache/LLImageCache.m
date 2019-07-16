@@ -8,7 +8,7 @@
 
 #import "LLImageCache.h"
 #import "LLLog.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "WZMBase64.h"
 
 @implementation LLImageCache {

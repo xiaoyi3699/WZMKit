@@ -7,7 +7,7 @@
 //
 
 #import "LLProgressHUD.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 @interface LLProgressView ()
 

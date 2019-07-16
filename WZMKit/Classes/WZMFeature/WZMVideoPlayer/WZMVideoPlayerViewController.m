@@ -1,21 +1,21 @@
 //
-//  LLVideoPlayerViewController.m
+//  WZMVideoPlayerViewController.m
 //  LLFoundation
 //
 //  Created by zhaomengWang on 2017/4/14.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLVideoPlayerViewController.h"
+#import "WZMVideoPlayerViewController.h"
 
-@interface LLVideoPlayerViewController (){
+@interface WZMVideoPlayerViewController (){
     NSURL          *_videoUrl;
-    LLAVPlayerView *_playerView;
+    WZMAVPlayerView *_playerView;
 }
 
 @end
 
-@implementation LLVideoPlayerViewController
+@implementation WZMVideoPlayerViewController
 
 - (instancetype)initWithVideoUrl:(NSURL *)videoUrl {
     self = [super init];
@@ -31,7 +31,7 @@
 }
 
 - (void)createViews {
-    _playerView = [[LLAVPlayerView alloc] initWithFrame:self.view.bounds];
+    _playerView = [[WZMAVPlayerView alloc] initWithFrame:self.view.bounds];
     [_playerView playWith:_videoUrl];
     [self.view addSubview:_playerView];
 }

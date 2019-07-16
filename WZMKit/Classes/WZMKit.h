@@ -10,11 +10,11 @@
 
 //全局类
 #import "LLLog.h"
-#import "LLEnum.h"
-#import "LLBlock.h"
-#import "LLMacro.h"
+#import "WZMEnum.h"
+#import "WZMBlock.h"
+#import "WZMMacro.h"
 #import "LLInline.h"
-#import "LLTextInfo.h"
+#import "WZMTextInfo.h"
 
 //第三方
 #import "WZMBase64.h"
@@ -92,7 +92,7 @@
 #import "LLSignalException.h"
 #import "LLLogTableViewCell.h"
 #import "LLUncaughtException.h"
-#import "LLVideoPlayerViewController.h"
+#import "WZMVideoPlayerViewController.h"
 
 //时间差 CFAbsoluteTime
 #define LLStartTime CFAbsoluteTimeGetCurrent()

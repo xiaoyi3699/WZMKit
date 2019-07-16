@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 @interface LLCamera : NSObject
 

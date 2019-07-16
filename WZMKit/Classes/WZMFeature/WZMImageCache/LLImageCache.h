@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLBlock.h"
+#import "WZMBlock.h"
 
 @interface LLImageCache : NSObject
 

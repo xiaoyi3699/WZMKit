@@ -8,7 +8,7 @@
 
 #import "LLViewHandle.h"
 #import "LLProgressHUD.h"
-#import "LLEnum.h"
+#import "WZMEnum.h"
 
 @implementation LLViewHandle
 

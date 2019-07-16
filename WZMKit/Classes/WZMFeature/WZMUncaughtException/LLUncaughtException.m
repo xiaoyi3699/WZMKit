@@ -7,7 +7,7 @@
 //
 
 #import "LLUncaughtException.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "LLSendEmail.h"
 
 static NSUncaughtExceptionHandler LLUncaughtExceptionHandler;

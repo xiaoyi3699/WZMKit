@@ -7,9 +7,9 @@
 //
 
 #import "UIImage+wzmcate.h"
-#import "LLEnum.h"
-#import "LLBlock.h"
-#import "LLMacro.h"
+#import "WZMEnum.h"
+#import "WZMBlock.h"
+#import "WZMMacro.h"
 #import "LLLog.h"
 #import <Photos/Photos.h>
 #import <ImageIO/ImageIO.h>

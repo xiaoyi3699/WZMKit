@@ -7,7 +7,7 @@
 //
 
 #import "LLActionSheet.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 
 @implementation LLActionSheet {

@@ -1,5 +1,5 @@
 //
-//  LLVideoPlayerViewController.h
+//  WZMVideoPlayerViewController.h
 //  LLFoundation
 //
 //  Created by zhaomengWang on 2017/4/14.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLAVPlayerView.h"
+#import "WZMAVPlayerView.h"
 
-@interface LLVideoPlayerViewController : UIViewController
+@interface WZMVideoPlayerViewController : UIViewController
 
 - (instancetype)initWithVideoUrl:(NSURL *)videoUrl;
 

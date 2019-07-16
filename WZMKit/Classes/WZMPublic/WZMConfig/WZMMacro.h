@@ -1,51 +1,51 @@
 //
-//  LLMacro.h
+//  WZMMacro.h
 //  Pods
 //
 //  Created by WangZhaomeng on 2019/7/15.
 //
 
-#ifndef LLMacro_h
-#define LLMacro_h
+#ifndef WZMMacro_h
+#define WZMMacro_h
 
 /*  *****系统相关*****  */
-#import "LLPublic.h"
-#define IS_iPad   [[LLPublic Public] iPad]
-#define IS_iPhone [[LLPublic Public] iPhone]
+#import "WAMPublic.h"
+#define IS_iPad   [[WAMPublic Public] iPad]
+#define IS_iPhone [[WAMPublic Public] iPhone]
 #define CURRENT_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 #define LL_WINDOW          [UIApplication sharedApplication].delegate.window
-#define LL_SCREEN_BOUNDS   [[LLPublic Public] screenBounds]
-#define LL_SCREEN_SCALE    [[LLPublic Public] screenScale]
-#define LL_SCREEN_WIDTH    [[LLPublic Public] screenW]
-#define LL_SCREEN_HEIGHT   [[LLPublic Public] screenH]
-#define LL_STATUS_HEIGHT   [[LLPublic Public] statusH]
-#define LL_NAVBAR_HEIGHT   [[LLPublic Public] navBarH]
-#define LL_TABBAR_HEIGHT   [[LLPublic Public] tabBarH]
-#define LL_BOTTOM_HEIGHT   [[LLPublic Public] iPhoneXBottomH]
+#define LL_SCREEN_BOUNDS   [[WAMPublic Public] screenBounds]
+#define LL_SCREEN_SCALE    [[WAMPublic Public] screenScale]
+#define LL_SCREEN_WIDTH    [[WAMPublic Public] screenW]
+#define LL_SCREEN_HEIGHT   [[WAMPublic Public] screenH]
+#define LL_STATUS_HEIGHT   [[WAMPublic Public] statusH]
+#define LL_NAVBAR_HEIGHT   [[WAMPublic Public] navBarH]
+#define LL_TABBAR_HEIGHT   [[WAMPublic Public] tabBarH]
+#define LL_BOTTOM_HEIGHT   [[WAMPublic Public] iPhoneXBottomH]
 #define LL_TOPBAR_HEIGHT   44
 #define LL_BOTBAR_HEIGHT   49
 
 //iOS系统版本
-#define LL_DEVICE     [[LLPublic Public] systemV]
+#define LL_DEVICE     [[WAMPublic Public] systemV]
 
 //APP名字
-#define LLAppName     [[LLPublic Public] appName]
+#define LLAppName     [[WAMPublic Public] appName]
 
 //APP Build
-#define LLAppBuild    [[LLPublic Public] buildV]
+#define LLAppBuild    [[WAMPublic Public] buildV]
 
 //APP版本
-#define LLAppVersion  [[LLPublic Public] shortV]
+#define LLAppVersion  [[WAMPublic Public] shortV]
 
 //获取沙盒Document路径
-#define APP_DocumentPath [[LLPublic Public] document]
+#define APP_DocumentPath [[WAMPublic Public] document]
 
 //获取沙盒temp路径
-#define APP_TempPath [[LLPublic Public] temp]
+#define APP_TempPath [[WAMPublic Public] temp]
 
 //获取沙盒Cache路径
-#define APP_CachePath [[LLPublic Public] cache]
+#define APP_CachePath [[WAMPublic Public] cache]
 
 #define IS_IOS11_ABOVE    (LL_DEVICE >= 12) //是否是iOS12以上系统
 #define IS_IOS12_ABOVE    (LL_DEVICE >= 11) //是否是iOS11以上系统
@@ -118,4 +118,4 @@
 #endif
 
 
-#endif /* LLMacro_h */
+#endif /* WZMMacro_h */

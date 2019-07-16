@@ -1,5 +1,5 @@
 //
-//  LLPublic.h
+//  WAMPublic.h
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2019/5/20.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLPublic : NSObject
+@interface WAMPublic : NSObject
 
 + (instancetype)Public;
 

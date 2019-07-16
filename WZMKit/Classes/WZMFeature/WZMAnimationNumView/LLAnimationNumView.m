@@ -7,7 +7,7 @@
 //
 
 #import "LLAnimationNumView.h"
-#import "LLMacro.h"
+#import "WZMMacro.h"
 
 @implementation LLAnimationNumView {
     NSArray *_aniViews;

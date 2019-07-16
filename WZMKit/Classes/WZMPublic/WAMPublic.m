@@ -1,14 +1,14 @@
 //
-//  LLPublic.m
+//  WAMPublic.m
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2019/5/20.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "LLPublic.h"
+#import "WAMPublic.h"
 
-@implementation LLPublic {
+@implementation WAMPublic {
     NSInteger _iPad;
     NSInteger _iPhone;
     NSInteger _iPhoneX;
@@ -34,10 +34,10 @@
 }
 
 + (instancetype)Public {
-    static LLPublic *instance;
+    static WAMPublic *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[LLPublic alloc] init];
+        instance = [[WAMPublic alloc] init];
     });
     return instance;
 }

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLEnum.h"
-#import "LLBlock.h"
+#import "WZMEnum.h"
+#import "WZMBlock.h"
 
 @protocol LLPopupAnimatorDelegate;
 
