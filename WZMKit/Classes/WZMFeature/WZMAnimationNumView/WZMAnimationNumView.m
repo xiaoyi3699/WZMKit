@@ -18,7 +18,7 @@
     if (self) {
         
         _duration = 0.5;
-        _foreColor = R_G_B(72, 181, 248);
+        _foreColor = WZM_R_G_B(72, 181, 248);
         _textColor = [UIColor whiteColor];
         _font = [UIFont systemFontOfSize:17];
         _sameAnimetion = NO;

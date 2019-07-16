@@ -17,7 +17,7 @@ UIKIT_STATIC_INLINE CGFloat WZMDistanceBetweenPoints(CGPoint point1, CGPoint poi
 
 UIKIT_STATIC_INLINE CGRect WZMRectMiddleArea() {
     CGRect rect = WZM_SCREEN_BOUNDS;
-    if (IS_iPhoneX) {
+    if (WZM_IS_iPhoneX) {
         rect.origin.y = 88;
         rect.size.height = rect.size.height-171;
     }
@@ -31,7 +31,7 @@ UIKIT_STATIC_INLINE CGRect WZMRectMiddleArea() {
 UIKIT_STATIC_INLINE CGRect WZMRectTopArea() {
     CGRect rect = WZM_SCREEN_BOUNDS;
     rect.origin.y = 0;
-    if (IS_iPhoneX) {
+    if (WZM_IS_iPhoneX) {
         rect.size.height = rect.size.height-83;
     }
     else {
@@ -42,7 +42,7 @@ UIKIT_STATIC_INLINE CGRect WZMRectTopArea() {
 
 UIKIT_STATIC_INLINE CGRect WZMRectBottomArea() {
     CGRect rect = WZM_SCREEN_BOUNDS;
-    if (IS_iPhoneX) {
+    if (WZM_IS_iPhoneX) {
         rect.origin.y = 88;
         rect.size.height = rect.size.height-88;
     }
@@ -55,7 +55,7 @@ UIKIT_STATIC_INLINE CGRect WZMRectBottomArea() {
 
 UIKIT_STATIC_INLINE CGRect WZMRectSafeArea() {
     CGRect rect = WZM_SCREEN_BOUNDS;
-    if (IS_iPhoneX) {
+    if (WZM_IS_iPhoneX) {
         rect.origin.y = 44;
         rect.size.height = rect.size.height-78;
     }

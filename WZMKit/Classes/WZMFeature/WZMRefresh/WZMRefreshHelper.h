@@ -11,8 +11,8 @@
 
 #define WZMRefreshHeaderHeight 60
 #define WZMRefreshFooterHeight 60
-#define WZM_REFRESH_COLOR      R_G_B(50, 50, 50)
-#define WZM_TIME_COLOR         R_G_B(50, 50, 50)
+#define WZM_REFRESH_COLOR      WZM_R_G_B(50, 50, 50)
+#define WZM_TIME_COLOR         WZM_R_G_B(50, 50, 50)
 #define WZM_REFRESH_FONT       [UIFont boldSystemFontOfSize:13]
 #define WZM_TIME_FONT          [UIFont boldSystemFontOfSize:13]
 #define WZM_TRANS_FORM CATransform3DConcat(CATransform3DIdentity, CATransform3DMakeRotation(M_PI+0.000001, 0, 0, 1))

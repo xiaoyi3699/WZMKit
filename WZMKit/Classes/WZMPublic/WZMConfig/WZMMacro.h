@@ -10,9 +10,9 @@
 
 /*  *****系统相关*****  */
 #import "WAMPublic.h"
-#define IS_iPad   [[WAMPublic Public] iPad]
-#define IS_iPhone [[WAMPublic Public] iPhone]
-#define CURRENT_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
+#define WZM_IS_iPad   [[WAMPublic Public] iPad]
+#define WZM_IS_iPhone [[WAMPublic Public] iPhone]
+#define WZM_LANGUAGE  ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 #define WZM_WINDOW          [UIApplication sharedApplication].delegate.window
 #define WZM_SCREEN_BOUNDS   [[WAMPublic Public] screenBounds]
@@ -47,72 +47,72 @@
 //获取沙盒Cache路径
 #define WZM_CACHE_PATH [[WAMPublic Public] cache]
 
-#define IS_IOS11_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统
-#define IS_IOS12_ABOVE    (WZM_DEVICE >= 11) //是否是iOS11以上系统
-#define IS_IOS10_ABOVE    (WZM_DEVICE >= 10) //是否是iOS10以上系统
-#define IS_IOS9_ABOVE     (WZM_DEVICE >= 9)  //是否是iOS9以上系统
-#define IS_IOS8_ABOVE     (WZM_DEVICE >= 8)  //是否是iOS8以上系统
+#define WZM_IS_IOS11_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统
+#define WZM_IS_IOS12_ABOVE    (WZM_DEVICE >= 11) //是否是iOS11以上系统
+#define WZM_IS_IOS10_ABOVE    (WZM_DEVICE >= 10) //是否是iOS10以上系统
+#define WZM_IS_IOS9_ABOVE     (WZM_DEVICE >= 9)  //是否是iOS9以上系统
+#define WZM_IS_IOS8_ABOVE     (WZM_DEVICE >= 8)  //是否是iOS8以上系统
 
-#define IS_IOS12_ONLY     (WZM_DEVICE >= 12 && WZM_DEVICE < 13) //是否是iOS12系统
-#define IS_IOS11_ONLY     (WZM_DEVICE >= 11 && WZM_DEVICE < 12) //是否是iOS11系统
-#define IS_IOS10_ONLY     (WZM_DEVICE >= 10 && WZM_DEVICE < 11) //是否是iOS10系统
-#define IS_IOS8_AND_IOS9  (WZM_DEVICE >= 8 && WZM_DEVICE < 10)  //是否是iOS8和iOS9
-#define IS_IOS9_ONLY      (WZM_DEVICE >= 9 && WZM_DEVICE < 10)  //是否是iOS9系统
-#define IS_IOS8_ONLY      (WZM_DEVICE >= 8 && WZM_DEVICE < 9)   //是否是iOS8系统
+#define WZM_IS_IOS12_ONLY     (WZM_DEVICE >= 12 && WZM_DEVICE < 13) //是否是iOS12系统
+#define WZM_IS_IOS11_ONLY     (WZM_DEVICE >= 11 && WZM_DEVICE < 12) //是否是iOS11系统
+#define WZM_IS_IOS10_ONLY     (WZM_DEVICE >= 10 && WZM_DEVICE < 11) //是否是iOS10系统
+#define WZM_IS_IOS8_AND_IOS9  (WZM_DEVICE >= 8 && WZM_DEVICE < 10)  //是否是iOS8和iOS9
+#define WZM_IS_IOS9_ONLY      (WZM_DEVICE >= 9 && WZM_DEVICE < 10)  //是否是iOS9系统
+#define WZM_IS_IOS8_ONLY      (WZM_DEVICE >= 8 && WZM_DEVICE < 9)   //是否是iOS8系统
 
-#define IS_iPhone_4_0 (IS_iPhone && WZM_SCREEN_HEIGHT==568)  //4.0寸
-#define IS_iPhone_4_7 (IS_iPhone && WZM_SCREEN_HEIGHT==667)  //4.7寸
-#define IS_iPhone_5_5 (IS_iPhone && WZM_SCREEN_HEIGHT==736)  //5.5寸
-#define IS_iPhoneX    (IS_iPhone && WZM_SCREEN_HEIGHT>=812)  //iPhoneX系列
-#define IS_iPhone_5_8 (IS_iPhone && WZM_SCREEN_HEIGHT==812)  //5.8寸
-#define IS_iPhone_6_1 (IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)  //6.1寸
-#define IS_iPhone_6_5 (IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)  //6.5寸
+#define WZM_IS_iPhone_4_0 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==568)  //4.0寸
+#define WZM_IS_iPhone_4_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==667)  //4.7寸
+#define WZM_IS_iPhone_5_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==736)  //5.5寸
+#define WZM_IS_iPhoneX    (WZM_IS_iPhone && WZM_SCREEN_HEIGHT>=812)  //iPhoneX系列
+#define WZM_IS_iPhone_5_8 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)  //5.8寸
+#define WZM_IS_iPhone_6_1 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)  //6.1寸
+#define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)  //6.5寸
 
 /*  *****自定义*****  */
-#define R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]
-#define R_G_B_A(_r_,_g_,_b_,_a_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:_a_]
+#define WZM_R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]
+#define WZM_R_G_B_A(_r_,_g_,_b_,_a_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:_a_]
 
-#define COLOR_VALUE(_value_) [UIColor ll_colorWithHex:_value_]
-#define COLOR_VALUE_A(_value_,_a_) [UIColor ll_colorWithHex:_value_ alpha:_a_]
+#define WZM_COLOR_VALUE(_value_) [UIColor ll_colorWithHex:_value_]
+#define WZM_COLOR_VALUE_A(_value_,_a_) [UIColor ll_colorWithHex:_value_ alpha:_a_]
 
 #define ANGLE_TO_RADIAN(_x_)       (M_PI*_x_/180.0)       //由角度获取弧度
 #define RADIAN_TO_ANGLE(_radian_)  (_radian_*180.0/M_PI)  //由弧度获取角度
 
 //程序的本地化,引用国际化的文件
-#define MyLocal(_x_) NSLocalizedString(_x_, nil)
+#define WZM_LOCAL(_x_) NSLocalizedString(_x_, nil)
 
 //自定义弹出框的默认蒙版颜色
-#define CUSTOM_ALERT_BG_COLOR R_G_B_A(20,20,20,.5)
+#define WZM_ALERT_BG_COLOR WZM_R_G_B_A(20,20,20,.5)
 
 //强弱引用
-#ifndef ll_weakify
+#ifndef wzm_weakify
 #if DEBUG
 #if __has_feature(objc_arc)
-#define ll_weakify(object) autoreleasepool{} __weak __typeof__(object) weak##_##object = object;
+#define wzm_weakify(object) autoreleasepool{} __weak __typeof__(object) weak##_##object = object;
 #else
-#define ll_weakify(object) autoreleasepool{} __block __typeof__(object) block##_##object = object;
+#define wzm_weakify(object) autoreleasepool{} __block __typeof__(object) block##_##object = object;
 #endif
 #else
 #if __has_feature(objc_arc)
-#define ll_weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
+#define wzm_weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
 #else
-#define ll_weakify(object) try{} @finally{} {} __block __typeof__(object) block##_##object = object;
+#define wzm_weakify(object) try{} @finally{} {} __block __typeof__(object) block##_##object = object;
 #endif
 #endif
 #endif
 
-#ifndef ll_strongify
+#ifndef wzm_strongify
 #if DEBUG
 #if __has_feature(objc_arc)
-#define ll_strongify(object) autoreleasepool{} __typeof__(object) object = weak##_##object;
+#define wzm_strongify(object) autoreleasepool{} __typeof__(object) object = weak##_##object;
 #else
-#define ll_strongify(object) autoreleasepool{} __typeof__(object) object = block##_##object;
+#define wzm_strongify(object) autoreleasepool{} __typeof__(object) object = block##_##object;
 #endif
 #else
 #if __has_feature(objc_arc)
-#define ll_strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
+#define wzm_strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
 #else
-#define ll_strongify(object) try{} @finally{} __typeof__(object) object = block##_##object;
+#define wzm_strongify(object) try{} @finally{} __typeof__(object) object = block##_##object;
 #endif
 #endif
 #endif

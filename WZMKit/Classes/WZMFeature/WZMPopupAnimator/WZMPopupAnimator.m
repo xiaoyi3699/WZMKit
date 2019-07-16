@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super initWithFrame:WZM_SCREEN_BOUNDS];
     if (self) {
-        self.backgroundColor = CUSTOM_ALERT_BG_COLOR;
+        self.backgroundColor = WZM_ALERT_BG_COLOR;
     }
     return self;
 }

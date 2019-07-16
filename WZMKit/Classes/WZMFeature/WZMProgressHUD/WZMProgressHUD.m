@@ -122,9 +122,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.backgroundColor = R_G_B_A(50, 50, 50, .5);
-        self.textColor = R_G_B_A(250, 250, 250, 1);
-        self.progressColor = R_G_B_A(180, 180, 180, 1);
+        self.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
+        self.textColor = WZM_R_G_B_A(250, 250, 250, 1);
+        self.progressColor = WZM_R_G_B_A(180, 180, 180, 1);
         self.font = [UIFont systemFontOfSize:14];
     }
     return self;

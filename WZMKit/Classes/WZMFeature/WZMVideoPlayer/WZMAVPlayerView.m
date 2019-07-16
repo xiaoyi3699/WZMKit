@@ -153,7 +153,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     
     //顶部view
     _topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-    _topView.backgroundColor = R_G_B_A(50, 50, 50, .5);
+    _topView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
     _topView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
     [self addSubview:_topView];
     
@@ -178,7 +178,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     _fullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _fullBtn.layer.masksToBounds = YES;
     _fullBtn.layer.cornerRadius = 5;
-    _fullBtn.layer.borderColor = R_G_B(230, 230, 230).CGColor;
+    _fullBtn.layer.borderColor = WZM_R_G_B(230, 230, 230).CGColor;
     _fullBtn.layer.borderWidth = 0.8;
     [_fullBtn setTitle:@"全屏" forState:UIControlStateNormal];
     [_fullBtn setTitle:@"还原" forState:UIControlStateSelected];
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     
     //底部view
     _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
-    _toolView.backgroundColor = R_G_B_A(50, 50, 50, .5);
+    _toolView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
     _toolView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     [self addSubview:_toolView];
     

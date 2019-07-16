@@ -17,19 +17,19 @@
 - (instancetype)initWithMessage:(NSString *)message titles:(NSArray *)titles {
     self = [super initWithFrame:WZM_SCREEN_BOUNDS];
     if (self) {
-        self.backgroundColor = CUSTOM_ALERT_BG_COLOR;
+        self.backgroundColor = WZM_ALERT_BG_COLOR;
         
         _messageView = [[UIView alloc] init];
         _messageView.backgroundColor = [UIColor whiteColor];
         
-        UIColor *lineColor = R_G_B_A(200, 200, 200, .5);
+        UIColor *lineColor = WZM_R_G_B_A(200, 200, 200, .5);
         CGFloat btnBeginY = 0;
         if (message.length > 0) {
             _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+2)*44+WZM_BOTTOM_HEIGHT);
             
             UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 43.5)];
             messageLabel.text = message;
-            messageLabel.textColor = R_G_B(100, 100, 100);
+            messageLabel.textColor = WZM_R_G_B(100, 100, 100);
             messageLabel.textAlignment = NSTextAlignmentCenter;
             messageLabel.font = [UIFont systemFontOfSize:13];
             [_messageView addSubview:messageLabel];
@@ -51,7 +51,7 @@
             btn.frame = CGRectMake(0, btnBeginY+i%titles.count*44, self.bounds.size.width, 43.5);
             btn.titleLabel.font = [UIFont systemFontOfSize:16];
             [btn setTitle:titles[i] forState:UIControlStateNormal];
-            [btn setTitleColor:R_G_B(50, 50, 50) forState:UIControlStateNormal];
+            [btn setTitleColor:WZM_R_G_B(50, 50, 50) forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_messageView addSubview:btn];
             

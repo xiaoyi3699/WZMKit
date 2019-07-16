@@ -34,13 +34,13 @@
         CGSize size           = rect.size;
         
         self.frame            = rect;
-        self.backgroundColor  = CUSTOM_ALERT_BG_COLOR;
+        self.backgroundColor  = WZM_ALERT_BG_COLOR;
         
         /** 根据屏幕尺寸，需要变化的值 */
         CGFloat btnHeight,titleFont,messageFont,titleHeight,leftEdge = 0.0;
         UIColor *titleColor, *messageColor;
         
-        if (IS_iPhone) {
+        if (WZM_IS_iPhone) {
             if (size.height <= 480){//4/4S
                 titleHeight   = 40;
                 btnHeight     = 40;
