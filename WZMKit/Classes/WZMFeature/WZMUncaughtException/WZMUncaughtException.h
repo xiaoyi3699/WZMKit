@@ -10,7 +10,7 @@
 
 @interface WZMUncaughtException : NSObject
 
-void WZMInstaWZMUncaughtExceptionHandler(void);
+void WZMInstallUncaughtExceptionHandler(void);
 
 void WZMUninstall(void);
 

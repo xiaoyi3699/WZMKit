@@ -19,18 +19,21 @@
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [WZMViewController new];
     
-    
-    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"恭喜你，集成成功！" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
-    [alertView showAnimated:YES];
-    
+    WZMDispatch_after(2, ^{
+        WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"恭喜你，集成成功！" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+        [alertView showAnimated:YES];
+    });
     
 #if DEBUG
-//    wzm_openLogEnable(YES);
-//    [WZMLogView startLog];
-//    [self.window wzm_startObserveFpsAndCpu];
-//    WZMInstallUncaughtExceptionHandler();
-//    WZMInstallSignalHandler();
+    wzm_openLogEnable(YES);
+    [WZMLogView startLog];
+    [self.window wzm_startObserveFpsAndCpu];
+    WZMInstallUncaughtExceptionHandler();
+    WZMInstallSignalHandler();
 #endif
+    
+    NSLog(@"哈哈哈哈");
+    
     return YES;
 }
 

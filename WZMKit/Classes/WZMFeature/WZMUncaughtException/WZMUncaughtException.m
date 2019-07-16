@@ -14,7 +14,7 @@ static NSUncaughtExceptionHandler WZMUncaughtExceptionHandler;
 static NSUncaughtExceptionHandler *oldhandler;
 @implementation WZMUncaughtException
 
-void WZMInstaWZMUncaughtExceptionHandler(void) {
+void WZMInstallUncaughtExceptionHandler(void) {
     if(NSGetUncaughtExceptionHandler() != WZMUncaughtExceptionHandler) {
         oldhandler = NSGetUncaughtExceptionHandler();
     }
@@ -26,7 +26,6 @@ void WZMUninstall(void) {
 }
 
 void WZMUncaughtExceptionHandler(NSException *exception) {
-    
     //获取异常崩溃信息
     NSArray *callStack = [exception callStackSymbols];
     NSString *reason = [exception reason];
