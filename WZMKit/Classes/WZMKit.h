@@ -9,7 +9,7 @@
 #define WZMKit_h
 
 //全局类
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 #import "WZMMacro.h"
@@ -71,8 +71,8 @@
 #import "LLDispatch.h"
 #import "LLKeychain.h"
 #import "LLFontView.h"
-#import "LLLogView.h"
-#import "LLLogModel.h"
+#import "WZMLogView.h"
+#import "WZMLogModel.h"
 #import "LLDrawView.h"
 #import "WZMSendEmail.h"
 #import "LLAVManager.h"
@@ -90,7 +90,7 @@
 #import "LLLocationManager.h"
 #import "WZMNetworkDownload.h"
 #import "WZMSignalException.h"
-#import "LLLogTableViewCell.h"
+#import "WZMLogTableViewCell.h"
 #import "WZMUncaughtException.h"
 #import "WZMVideoPlayerViewController.h"
 
@@ -107,7 +107,7 @@
 #define __LLTIME__ [[LL_TIME componentsSeparatedByString:@" "] lastObject]
 #define MyLog(format, ...) printf("[%s][%s]: %s\n\n", [__LLFILE__ UTF8String], [__LLTIME__ UTF8String], [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 
-#define NSLog(format, ...) printf("%s\n\n",[[LLLogView outputString:[NSString stringWithFormat:@"时间：%@\n文件：%@\n行数：第%d行\n方法：%@\n输出：%@",LL_TIME,[[NSString stringWithUTF8String:__FILE__] lastPathComponent],__LINE__,[NSString stringWithUTF8String:__FUNCTION__],[NSString stringWithFormat:format, ## __VA_ARGS__]]] UTF8String])
+#define NSLog(format, ...) printf("%s\n\n",[[WZMLogView outputString:[NSString stringWithFormat:@"时间：%@\n文件：%@\n行数：第%d行\n方法：%@\n输出：%@",LL_TIME,[[NSString stringWithUTF8String:__FILE__] lastPathComponent],__LINE__,[NSString stringWithUTF8String:__FUNCTION__],[NSString stringWithFormat:format, ## __VA_ARGS__]]] UTF8String])
 #else
 #define MyLog(format, ...)
 #define NSLog(format, ...)

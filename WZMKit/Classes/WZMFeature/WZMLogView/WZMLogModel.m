@@ -1,15 +1,15 @@
 //
-//  LLLogModel.m
+//  WZMLogModel.m
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLLogModel.h"
+#import "WZMLogModel.h"
 #import "NSString+wzmcate.h"
 
-@implementation LLLogModel
+@implementation WZMLogModel
 
 - (instancetype)init {
     self = [super init];

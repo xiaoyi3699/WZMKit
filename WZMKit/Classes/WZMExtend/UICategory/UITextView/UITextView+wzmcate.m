@@ -8,7 +8,7 @@
 
 #import "UITextView+wzmcate.h"
 #import <objc/runtime.h>
-#import "LLLog.h"
+#import "WZMLog.h"
 
 #define TV_LL_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 @implementation UITextView (wzmcate)

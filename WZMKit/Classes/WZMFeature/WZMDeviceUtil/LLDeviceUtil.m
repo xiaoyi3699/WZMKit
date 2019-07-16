@@ -7,7 +7,7 @@
 //
 
 #import "LLDeviceUtil.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "LLAlertView.h"
 #import <objc/runtime.h>
 //麦克风

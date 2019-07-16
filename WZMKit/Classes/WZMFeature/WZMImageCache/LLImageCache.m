@@ -7,7 +7,7 @@
 //
 
 #import "LLImageCache.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "WZMMacro.h"
 #import "WZMBase64.h"
 

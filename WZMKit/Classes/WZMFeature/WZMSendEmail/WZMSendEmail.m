@@ -7,7 +7,7 @@
 //
 
 #import "WZMSendEmail.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "NSString+wzmcate.h"
 
 @implementation WZMSendEmail

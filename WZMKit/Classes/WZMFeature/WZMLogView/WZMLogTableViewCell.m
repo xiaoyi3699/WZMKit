@@ -1,14 +1,14 @@
 //
-//  LLLogTableViewCell.m
+//  WZMLogTableViewCell.m
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLLogTableViewCell.h"
+#import "WZMLogTableViewCell.h"
 
-@implementation LLLogTableViewCell {
+@implementation WZMLogTableViewCell {
     UILabel *_contentLabel;
     CGFloat _width;
 }
@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)setConfig:(LLLogModel *)model {
+- (void)setConfig:(WZMLogModel *)model {
     _contentLabel.frame = CGRectMake(5, 0, _width-10, model.height+20);
     _contentLabel.attributedText = model.attributedText;
 }

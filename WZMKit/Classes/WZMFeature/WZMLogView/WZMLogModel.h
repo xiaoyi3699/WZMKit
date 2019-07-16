@@ -1,5 +1,5 @@
 //
-//  LLLogModel.h
+//  WZMLogModel.h
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLLogModel : NSObject
+@interface WZMLogModel : NSObject
 
 @property (strong, nonatomic) NSString *text;
 @property (strong, nonatomic) NSAttributedString *attributedText;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLLog : NSObject
+@interface WZMLog : NSObject
 
 void ll_openLogEnable(BOOL enable);
 

@@ -1,12 +1,12 @@
 //
-//  LLLogView.m
+//  WZMLogView.m
 //  lhy_test
 //
 //  Created by WangZhaomeng on 2018/1/29.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLLogView.h"
+#import "WZMLogView.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 
@@ -100,7 +100,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < self.dataList.count) {
-        LLLogModel *model = [self.dataList objectAtIndex:indexPath.row];
+        WZMLogModel *model = [self.dataList objectAtIndex:indexPath.row];
         return model.height+20;
     }
     return 44;
@@ -112,13 +112,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    LLLogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logCell"];
+    WZMLogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logCell"];
     if (cell == nil) {
-        cell = [[LLLogTableViewCell alloc] initWithWidth:_tableView.wzm_width-10 style:UITableViewCellStyleDefault reuseIdentifier:@"logCell"];
+        cell = [[WZMLogTableViewCell alloc] initWithWidth:_tableView.wzm_width-10 style:UITableViewCellStyleDefault reuseIdentifier:@"logCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if (indexPath.row < self.dataList.count) {
-        LLLogModel *model = [self.dataList objectAtIndex:indexPath.row];
+        WZMLogModel *model = [self.dataList objectAtIndex:indexPath.row];
         [cell setConfig:model];
     }
     
@@ -184,7 +184,7 @@
     [muAttStr addAttributes:@{NSForegroundColorAttributeName:color,NSFontAttributeName:[UIFont systemFontOfSize:8]}
                     range:NSMakeRange(0, muAttStr.length)];
     
-    LLLogModel *model = [[LLLogModel alloc] init];
+    WZMLogModel *model = [[WZMLogModel alloc] init];
     model.text = string;
     model.attributedText = [muAttStr copy];
     [model setConfigWithWidth:_tableView.wzm_width-10 font:[UIFont systemFontOfSize:8]];
@@ -207,17 +207,17 @@
 
 @end
 
-@interface LLLogView ()
+@interface WZMLogView ()
 
 @property (nonatomic, assign, getter=isStart) BOOL start;
 
 @end
 
-@implementation LLLogView
+@implementation WZMLogView
 
 + (void)startLog {
     dispatch_async(dispatch_get_main_queue(), ^{
-        LLLogView *logView = [LLLogView logView];
+        WZMLogView *logView = [WZMLogView logView];
         logView.start = YES;
         if (logView.superview == nil) {
             [[UIApplication sharedApplication].delegate.window addSubview:logView];
@@ -227,7 +227,7 @@
 
 + (NSString *)outputString:(NSString *)string {
     dispatch_async(dispatch_get_main_queue(), ^{
-        LLLogView *logView = [LLLogView logView];
+        WZMLogView *logView = [WZMLogView logView];
         if (logView.isStart) {
             if (string) {
                 LHYMessageView *messageView = [LHYMessageView messageView];
@@ -239,10 +239,10 @@
 }
 
 + (instancetype)logView {
-    static LLLogView *logView;
+    static WZMLogView *logView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        logView = [[LLLogView alloc] initWithFrame:CGRectMake(0, LL_NAVBAR_HEIGHT, 40, 40)];
+        logView = [[WZMLogView alloc] initWithFrame:CGRectMake(0, LL_NAVBAR_HEIGHT, 40, 40)];
         logView.layer.masksToBounds = YES;
         logView.layer.cornerRadius = 20;
         logView.start = NO;

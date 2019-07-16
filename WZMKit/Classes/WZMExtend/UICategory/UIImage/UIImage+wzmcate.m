@@ -10,7 +10,7 @@
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 #import "WZMMacro.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import <Photos/Photos.h>
 #import <ImageIO/ImageIO.h>
 #import <Accelerate/Accelerate.h>

@@ -7,7 +7,7 @@
 //
 
 #import "LLAVManager.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 
 @implementation LLAVManager
 

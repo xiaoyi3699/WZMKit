@@ -7,7 +7,7 @@
 //
 
 #import "LLFileManager.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "WZMEnum.h"
 
 #define LL_FILE_MANAGER    [NSFileManager defaultManager]

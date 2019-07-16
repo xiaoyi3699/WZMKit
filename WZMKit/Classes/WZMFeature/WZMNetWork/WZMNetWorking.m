@@ -7,7 +7,7 @@
 //
 
 #import "WZMNetWorking.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "NSString+wzmcate.h"
 
 NSString * const LLNetRequestContentTypeForm = @"application/x-www-form-urlencoded";

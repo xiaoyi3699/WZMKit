@@ -7,7 +7,7 @@
 //
 
 #import "WZMNetworkDownload.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import "WZMMacro.h"
 #import "NSString+wzmcate.h"
 

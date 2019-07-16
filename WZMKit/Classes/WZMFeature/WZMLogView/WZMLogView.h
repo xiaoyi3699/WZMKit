@@ -1,5 +1,5 @@
 //
-//  LLLogView.h
+//  WZMLogView.h
 //  lhy_test
 //
 //  Created by WangZhaomeng on 2018/1/29.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLLogTableViewCell.h"
+#import "WZMLogTableViewCell.h"
 
-@interface LLLogView : UIView
+@interface WZMLogView : UIView
 
 + (void)startLog;
 + (NSString *)outputString:(NSString *)string;

@@ -9,7 +9,7 @@
 #import "WZMSqliteManager.h"
 #import <objc/runtime.h>
 #import <sqlite3.h>
-#import "LLLog.h"
+#import "WZMLog.h"
 
 @interface WZMSqliteManager (){
     NSString *_dataBasePath;

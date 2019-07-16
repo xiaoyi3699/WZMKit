@@ -7,7 +7,7 @@
 //
 
 #import "LLFontView.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 
 @interface LLFontView ()<UITableViewDelegate,UITableViewDataSource>
 

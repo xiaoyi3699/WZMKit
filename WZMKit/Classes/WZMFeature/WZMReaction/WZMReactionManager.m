@@ -7,7 +7,7 @@
 //
 
 #import "WZMReactionManager.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 
 @interface WZMReactionManager ()
 

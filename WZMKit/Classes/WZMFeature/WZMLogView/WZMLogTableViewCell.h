@@ -1,5 +1,5 @@
 //
-//  LLLogTableViewCell.h
+//  WZMLogTableViewCell.h
 //  LLFeatureStatic
 //
 //  Created by WangZhaomeng on 2018/9/26.
@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLLogModel.h"
+#import "WZMLogModel.h"
 
-@interface LLLogTableViewCell : UITableViewCell
+@interface WZMLogTableViewCell : UITableViewCell
 
 - (instancetype)initWithWidth:(CGFloat)width style:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
-- (void)setConfig:(LLLogModel *)model;
+- (void)setConfig:(WZMLogModel *)model;
 
 @end

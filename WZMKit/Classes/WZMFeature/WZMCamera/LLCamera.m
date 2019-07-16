@@ -7,7 +7,7 @@
 //
 
 #import "LLCamera.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface LLCamera (){

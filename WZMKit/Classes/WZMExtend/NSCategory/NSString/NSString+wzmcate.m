@@ -8,7 +8,7 @@
 
 #import "NSString+wzmcate.h"
 #import "NSDateFormatter+wzmcate.h"
-#import "LLLog.h"
+#import "WZMLog.h"
 //MD5加密
 #import <CommonCrypto/CommonCrypto.h>
 

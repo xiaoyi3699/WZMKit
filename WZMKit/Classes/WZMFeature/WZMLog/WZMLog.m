@@ -6,33 +6,33 @@
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLLog.h"
+#import "WZMLog.h"
 
 #define LL_LOG(format, ...) printf("[LLFeatureLog]: %s\n\n", [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
-@interface LLLog ()
+@interface WZMLog ()
 
 @property (nonatomic, assign) BOOL enable;
 
 @end
 
-@implementation LLLog
+@implementation WZMLog
 
 + (instancetype)log {
-    static LLLog *log;
+    static WZMLog *log;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        log = [[LLLog alloc] init];
+        log = [[WZMLog alloc] init];
     });
     return log;
 }
 
 void ll_openLogEnable(BOOL enable) {
-    LLLog *log = [LLLog log];
+    WZMLog *log = [WZMLog log];
     log.enable = enable;
 }
 
 void ll_log(NSString *format, ...) {
-    if ([LLLog log].enable) {
+    if ([WZMLog log].enable) {
         va_list args;
         va_start(args, format);
         NSString *str = [[NSString alloc] initWithFormat:format arguments:args];
