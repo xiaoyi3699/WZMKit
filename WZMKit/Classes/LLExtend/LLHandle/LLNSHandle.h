@@ -19,13 +19,4 @@
 ///判断手机号是否存在
 + (BOOL)wzm_checkPhoneNum:(NSString *)phoneNum;
 
-///是否在指定时间内
-+ (BOOL)wzm_isInTime:(NSString *)time days:(NSInteger)days;
-
-///这个月有几天
-+ (NSInteger)wzm_getTotaldaysByDate:(NSDate *)date;
-
-///第一天是周几
-+ (NSInteger)wzm_getFirstWeekdayByDate:(NSDate *)date;
-
 @end

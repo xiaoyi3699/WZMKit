@@ -12,17 +12,17 @@
 @interface NSData (wzmcate)
 
 ///16进制转NSData
-+ (NSData *)ll_getDataByHex1:(NSString *)hex;
-+ (NSData *)ll_getDataByHex2:(NSString *)hex;
++ (NSData *)wzm_getDataByHex1:(NSString *)hex;
++ (NSData *)wzm_getDataByHex2:(NSString *)hex;
 
 ///字典/数组转换为NSData
-+ (NSData *)ll_getDataByObj:(id)obj;
++ (NSData *)wzm_getDataByObj:(id)obj;
 
 ///NSString转换成NSData
-+ (NSData *)ll_getDataByString:(NSString *)string;
++ (NSData *)wzm_getDataByString:(NSString *)string;
 
 //获取图片扩展名
-- (LLImageType)ll_contentType;
+- (LLImageType)wzm_contentType;
 
 @end
 

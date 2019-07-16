@@ -37,45 +37,4 @@
     return [phoneTest evaluateWithObject:phoneNum];
 }
 
-+ (BOOL)wzm_isInTime:(NSString *)time days:(NSInteger)days{
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [NSDateFormatter ll_defaultDateFormatter];
-    NSString *dateString = [dateFormatter stringFromDate:currentDate];
-    
-    NSDate *nowDate=[dateFormatter dateFromString:dateString];
-    NSTimeInterval lateNow=[nowDate timeIntervalSince1970]*1;
-    
-    NSDate * sinceDate = [dateFormatter dateFromString:time];
-    NSTimeInterval lateSince = [sinceDate timeIntervalSince1970]*1;
-    
-    NSTimeInterval cha = lateNow - lateSince;
-    
-    if (cha >= days*24*3600) {
-        return NO;
-    }
-    return YES;
-}
-
-+ (NSInteger)wzm_getTotaldaysByDate:(NSDate *)date{
-    NSRange totaldaysInMonth = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay
-                                                                  inUnit:NSCalendarUnitMonth
-                                                                 forDate:date];
-    return totaldaysInMonth.length;
-}
-
-+ (NSInteger)wzm_getFirstWeekdayByDate:(NSDate *)date{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-    NSDateComponents *comp = [calendar components:(NSCalendarUnitYear |
-                                                   NSCalendarUnitMonth |
-                                                   NSCalendarUnitDay)
-                                         fromDate:date];
-    [comp setDay:1];
-    NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
-    NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday
-                                                  inUnit:NSCalendarUnitWeekOfMonth
-                                                 forDate:firstDayOfMonthDate];
-    return firstWeekday - 1;
-}
-
 @end

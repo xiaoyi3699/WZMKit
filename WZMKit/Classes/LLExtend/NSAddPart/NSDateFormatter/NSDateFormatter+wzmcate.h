@@ -10,8 +10,8 @@
 
 @interface NSDateFormatter (wzmcate)
 
-+ (NSDateFormatter *)ll_defaultDateFormatter;
-+ (NSDateFormatter *)ll_detailDateFormatter;
-+ (NSDateFormatter *)ll_dateFormatter:(NSString *)f;
++ (NSDateFormatter *)wzm_defaultDateFormatter;
++ (NSDateFormatter *)wzm_detailDateFormatter;
++ (NSDateFormatter *)wzm_dateFormatter:(NSString *)f;
 
 @end

@@ -193,7 +193,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 
 //private
 + (NSArray *)ll_dateArrayFromDate:(NSDate *)date {
-    NSDateFormatter *selectDateFormatter = [NSDateFormatter ll_dateFormatter:@"yyyy-MM-dd"];
+    NSDateFormatter *selectDateFormatter = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd"];
     NSString *dateAndTime = [selectDateFormatter stringFromDate:date];
     NSArray *dateArray = [dateAndTime componentsSeparatedByString:@"-"];
     return dateArray;
@@ -206,7 +206,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 + (NSString *)ll_getTimeStringByDate:(NSDate *)date {
-    NSDateFormatter *dateFormatter = [NSDateFormatter ll_defaultDateFormatter];
+    NSDateFormatter *dateFormatter = [NSDateFormatter wzm_defaultDateFormatter];
     NSString *timeString = [dateFormatter stringFromDate:date];
     return timeString;
 }
@@ -220,7 +220,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     // 2.获得指定日期的年月日
     NSDateComponents *sinceCmps = [calendar components:unit fromDate:date];
     
-    NSDateFormatter *dateFormatter = [NSDateFormatter ll_dateFormatter:@"yyyy年MM月dd日 HH:mm"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter wzm_dateFormatter:@"yyyy年MM月dd日 HH:mm"];
     NSString *time = [dateFormatter stringFromDate:date];
     if ((sinceCmps.year == nowCmps.year) && (sinceCmps.month == nowCmps.month)) {
         if (nowCmps.day - sinceCmps.day == 0) {

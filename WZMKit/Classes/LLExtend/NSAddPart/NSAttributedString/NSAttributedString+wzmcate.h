@@ -23,56 +23,56 @@
 /**
  给富文本添加图片
  */
-- (void)ll_setImage:(UIImage *)image rect:(CGRect)rect range:(NSRange)range;
+- (void)wzm_setImage:(UIImage *)image rect:(CGRect)rect range:(NSRange)range;
 
 /**
  给富文本添加图片
  */
-- (void)ll_insertImage:(UIImage *)image rect:(CGRect)rect index:(NSInteger)index;
+- (void)wzm_insertImage:(UIImage *)image rect:(CGRect)rect index:(NSInteger)index;
 
 /**
  给富文本添加段落样式
  */
-- (void)ll_addParagraphStyle:(NSParagraphStyle *)style;
+- (void)wzm_addParagraphStyle:(NSParagraphStyle *)style;
 
 /**
  给富文本添加链接
  */
-- (void)ll_addLink:(NSString *)link range:(NSRange)range;
+- (void)wzm_addLink:(NSString *)link range:(NSRange)range;
 
 /**
  给富文本添加文字颜色
  */
-- (void)ll_addForegroundColor:(UIColor *)color range:(NSRange)range;
+- (void)wzm_addForegroundColor:(UIColor *)color range:(NSRange)range;
 
 /**
  给富文本添加字体
  */
-- (void)ll_addFont:(UIFont *)font range:(NSRange)range;
+- (void)wzm_addFont:(UIFont *)font range:(NSRange)range;
 
 /**
  给富文本添加删除线
  */
-- (void)ll_addSingleDeletelineColor:(UIColor *)color range:(NSRange)range;
+- (void)wzm_addSingleDeletelineColor:(UIColor *)color range:(NSRange)range;
 
 /**
  给富文本添加单下划线
  */
-- (void)ll_addSingleUnderlineColor:(UIColor *)color range:(NSRange)range;
+- (void)wzm_addSingleUnderlineColor:(UIColor *)color range:(NSRange)range;
 
 /**
  给富文本添加双下划线
  */
-- (void)ll_addDoubleUnderlineColor:(UIColor *)color range:(NSRange)range;
+- (void)wzm_addDoubleUnderlineColor:(UIColor *)color range:(NSRange)range;
 
 /**
  给富文本添加空心字
  */
-- (void)ll_addStrokeWidth:(CGFloat)width range:(NSRange)range;
+- (void)wzm_addStrokeWidth:(CGFloat)width range:(NSRange)range;
 
 /**
  凸版印刷效果
  */
-- (void)ll_addTextEffectWithRange:(NSRange)range;
+- (void)wzm_addTextEffectWithRange:(NSRange)range;
 
 @end

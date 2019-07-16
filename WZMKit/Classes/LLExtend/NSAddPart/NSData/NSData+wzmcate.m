@@ -11,7 +11,7 @@
 @implementation NSData (wzmcate)
 
 ///16进制转NSData
-+ (NSData *)ll_getDataByHex1:(NSString *)hex {
++ (NSData *)wzm_getDataByHex1:(NSString *)hex {
     if (!hex || [hex length] == 0) {
         return nil;
     }
@@ -37,7 +37,7 @@
     return hexData;
 }
 
-+ (NSData *)ll_getDataByHex2:(NSString *)hex {
++ (NSData *)wzm_getDataByHex2:(NSString *)hex {
     const char *chars = [hex UTF8String];
     NSUInteger i = 0, len = hex.length;
     
@@ -54,7 +54,7 @@
     return data;
 }
 
-+ (NSData *)ll_getDataByObj:(id)obj{
++ (NSData *)wzm_getDataByObj:(id)obj{
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
                                                        options:NSJSONWritingPrettyPrinted
@@ -66,11 +66,11 @@
     }
 }
 
-+ (NSData *)ll_getDataByString:(NSString *)string{
++ (NSData *)wzm_getDataByString:(NSString *)string{
     return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (LLImageType)ll_contentType {
+- (LLImageType)wzm_contentType {
     uint8_t c;
     [self getBytes:&c length:1];
     switch (c)

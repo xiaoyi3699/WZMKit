@@ -109,7 +109,7 @@
 //更新image
 - (void)setupImageData {
     if (_imageData) {
-        BOOL isGif = ([_imageData ll_contentType] == LLImageTypeGIF);
+        BOOL isGif = ([_imageData wzm_contentType] == LLImageTypeGIF);
         _currentImage = [UIImage imageWithData:_imageData];
         if (_currentImage) {
             [self layoutImageViewIsGif:isGif];

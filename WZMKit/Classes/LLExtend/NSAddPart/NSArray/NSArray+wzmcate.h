@@ -12,24 +12,24 @@
 @interface NSArray (wzmcate)
 
 ///随机元素
-- (id)ll_getRandomObject;
+- (id)wzm_getRandomObject;
 ///数组运算
-- (id)ll_getResultWithStyle:(LLTakingValueStyle)style;
+- (id)wzm_getResultWithStyle:(LLTakingValueStyle)style;
 ///谓词搜索
-- (NSArray *)ll_searchWithKey:(NSString *)key;
+- (NSArray *)wzm_searchWithKey:(NSString *)key;
 
 @end
 
 @interface NSMutableArray (wzmcate)
 
 ///emoji表情
-+ (NSMutableArray *)ll_getEmojis;
-+ (NSMutableArray *)ll_getEmojisBeginCode:(unsigned int)code1 endCode:(unsigned int)code2;
++ (NSMutableArray *)wzm_getEmojis;
++ (NSMutableArray *)wzm_getEmojisBeginCode:(unsigned int)code1 endCode:(unsigned int)code2;
 
 ///倒序
-- (void)ll_reverse;
+- (void)wzm_reverse;
 ///随机排序
-- (void)ll_shuffle;
+- (void)wzm_shuffle;
 
 /* 数组排序
  1、创建随机数组
