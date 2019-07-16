@@ -7,22 +7,20 @@
 //
 
 #import "WZMVideoPlayerHelper.h"
+#import "WZMLog.h"
 
 @implementation WZMVideoPlayerHelper
 
-+ (UIImage *)wzm_imageNamed:(NSString *)imageName ofType:(NSString *)type {
-    NSString *imagePath = [[self wzm_bundleWithName:@"WZMVideoPlayer"] pathForResource:imageName ofType:type];
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    if (image == nil) {
-        imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:type];
-        image = [UIImage imageWithContentsOfFile:imagePath];
++ (UIImage *)wzm_imageNamed:(NSString *)name ofType:(NSString *)type {
+    NSString *mainBundlePath = [NSBundle mainBundle].bundlePath;
+    NSString *bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"WZMKit.bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    if (bundle == nil) {
+        bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"Frameworks/WZMKit.framework/WZMKit.bundle"];
+        bundle = [NSBundle bundleWithPath:bundlePath];
     }
-    return image;
-}
-
-+ (NSBundle *)wzm_bundleWithName:(NSString *)bundleName {
-    return [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:bundleName ofType:@"bundle"]];
+    wzm_log(@"调用了一哈");
+    return [UIImage imageWithContentsOfFile:[bundle pathForResource:name ofType:type]];
 }
 
 @end

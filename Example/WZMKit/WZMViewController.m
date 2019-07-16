@@ -7,6 +7,7 @@
 //
 
 #import "WZMViewController.h"
+#import <WZMKit/WZMKit.h>
 
 @interface WZMViewController ()
 
@@ -20,10 +21,12 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_qnyn" ofType:@"mp4"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end

@@ -10,6 +10,6 @@
 
 @interface WZMVideoPlayerHelper : NSObject
 
-+ (UIImage *)wzm_imageNamed:(NSString *)imageName ofType:(NSString *)type;
++ (UIImage *)wzm_imageNamed:(NSString *)name ofType:(NSString *)type;
 
 @end

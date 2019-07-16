@@ -19,11 +19,6 @@
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [WZMViewController new];
     
-    WZMDispatch_after(2, ^{
-        WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"恭喜你，集成成功！" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
-        [alertView showAnimated:YES];
-    });
-    
 #if DEBUG
     [WZMLogView startLog];
     wzm_openLogEnable(YES);

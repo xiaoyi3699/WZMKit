@@ -9,6 +9,8 @@
 #import "WZMAVPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "WZMAVPlayerItem.h"
+#import "WZMVideoPlayerHelper.h"
 #import "WZMLog.h"
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
@@ -163,7 +165,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
     [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setImage:[WZMVideoPlayerHelper wzm_imageNamed:@"back_white_small" ofType:@"png"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"wzm_back_white"] forState:UIControlStateNormal];
     [_topView addSubview:backBtn];
     
     UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -202,8 +204,8 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playBtn setFrame:CGRectMake(5,10,20,20)];
     _playBtn.selected=YES;
-    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"player_play" ofType:@"png"] forState:UIControlStateNormal];
-    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"player_pause" ofType:@"png"] forState:UIControlStateSelected];
+    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"wzm_player_play" ofType:@"png"] forState:UIControlStateNormal];
+    [_playBtn setBackgroundImage:[WZMVideoPlayerHelper wzm_imageNamed:@"wzm_player_pause" ofType:@"png"] forState:UIControlStateSelected];
     [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_toolView addSubview:_playBtn];
     
@@ -598,7 +600,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 - (void)dealloc
 {
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    wzm_log(@"%@释放了...",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
     [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

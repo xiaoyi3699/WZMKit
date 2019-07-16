@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "WZMKit/Classes/**/*"
+  "source_files": "WZMKit/Classes/**/*",
+  "resource_bundles": {
+    "WZMKit": [
+      "WZMKit/Assets/*.*"
+    ]
+  }
 }

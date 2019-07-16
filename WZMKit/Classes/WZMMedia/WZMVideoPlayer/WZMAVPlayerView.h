@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMAVPlayerItem.h"
-#import "WZMVideoPlayerHelper.h"
 
 @interface WZMAVPlayerView : UIView
 
