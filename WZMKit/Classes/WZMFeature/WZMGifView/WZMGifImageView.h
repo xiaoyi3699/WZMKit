@@ -1,5 +1,5 @@
 //
-//  LLGifImageView.h
+//  WZMGifImageView.h
 //  LLGifView
 //
 //  Created by WangZhaomeng on 2017/6/14.
@@ -14,7 +14,7 @@
  帧与帧的间隔越小CPU占用越大。
  另外还实现了gif动画的暂停、快进、慢放功能。
  */
-@interface LLGifImageView : UIImageView
+@interface WZMGifImageView : UIImageView
 
 ///无效初始化
 - (instancetype)initWithImage:(UIImage *)image UNAVAILABLE_ATTRIBUTE;

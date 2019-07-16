@@ -1,15 +1,15 @@
 //
-//  LLGifImageView.m
+//  WZMGifImageView.m
 //  LLGifView
 //
 //  Created by WangZhaomeng on 2017/6/14.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLGifImageView.h"
+#import "WZMGifImageView.h"
 #import <ImageIO/ImageIO.h>
 
-@interface LLGifImageView ()
+@interface WZMGifImageView ()
 
 @property (nonatomic, assign) BOOL playing;
 @property (nonatomic, assign) NSInteger imageIndex;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation LLGifImageView
+@implementation WZMGifImageView
 
 - (instancetype)init {
     self = [super init];
@@ -104,7 +104,7 @@
                 src = CGImageSourceCreateWithData((__bridge CFDataRef)weakSelf.gifData, NULL);
                 if (src) {
                     frameCount = CGImageSourceGetCount(src);
-                    frameDelayArray = [LLGifImageView durationArrayWithSource:src];
+                    frameDelayArray = [WZMGifImageView durationArrayWithSource:src];
                     imageCache = [NSMutableDictionary dictionary];
                     if (weakSelf.frameCacheInterval != NSUIntegerMax) {
                         frameCacheInterval = weakSelf.frameCacheInterval + 1;
@@ -128,7 +128,7 @@
             }
             UIImage *image = imageCache[@(weakSelf.imageIndex)];
             if (image == nil && src) {
-                image = [LLGifImageView imageWithSource:src andIndex:weakSelf.imageIndex];
+                image = [WZMGifImageView imageWithSource:src andIndex:weakSelf.imageIndex];
                 if (frameCacheInterval < frameCount
                     && weakSelf.imageIndex % frameCacheInterval == 0) {
                     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -170,7 +170,7 @@
     NSMutableArray *array = [NSMutableArray array];
     size_t frameCount = CGImageSourceGetCount(src);
     for (size_t i = 0; i < frameCount; i++) {
-        NSTimeInterval delay = [LLGifImageView durationTimeWithSource:src andIndex:i];
+        NSTimeInterval delay = [WZMGifImageView durationTimeWithSource:src andIndex:i];
         [array addObject:@(delay)];
     }
     return array;
@@ -180,7 +180,7 @@
 + (NSTimeInterval)durationTimeWithGifData:(NSData *)gifData andIndex:(size_t)index {
     CGImageSourceRef src = CGImageSourceCreateWithData((__bridge CFDataRef)gifData, NULL);
     if (src) {
-        NSTimeInterval delay = [LLGifImageView durationTimeWithSource:src andIndex:index];
+        NSTimeInterval delay = [WZMGifImageView durationTimeWithSource:src andIndex:index];
         CFRelease(src);
         return delay;
     }
@@ -192,7 +192,7 @@
 + (NSArray<NSNumber*> *)durationArrayWithGifData:(NSData *)gifData {
     CGImageSourceRef src = CGImageSourceCreateWithData((__bridge CFDataRef)gifData, NULL);
     if (src) {
-        NSArray *array = [LLGifImageView durationArrayWithSource:src];
+        NSArray *array = [WZMGifImageView durationArrayWithSource:src];
         CFRelease(src);
         return array;
     }
@@ -204,7 +204,7 @@
 + (UIImage *)imageWithGifData:(NSData *)gifData andIndex:(size_t)index {
     CGImageSourceRef src = CGImageSourceCreateWithData((__bridge CFDataRef)gifData, NULL);
     if (src) {
-        UIImage *image = [LLGifImageView imageWithSource:src andIndex:index];
+        UIImage *image = [WZMGifImageView imageWithSource:src andIndex:index];
         CFRelease(src);
         return image;
     }
@@ -219,7 +219,7 @@
         NSMutableArray *array = [NSMutableArray array];
         size_t frameCount = CGImageSourceGetCount(src);
         for (size_t i = 0; i < frameCount; i++) {
-            UIImage *image = [LLGifImageView imageWithSource:src andIndex:i];
+            UIImage *image = [WZMGifImageView imageWithSource:src andIndex:i];
             [array addObject:image];
         }
         CFRelease(src);

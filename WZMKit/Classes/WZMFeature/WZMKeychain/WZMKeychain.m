@@ -1,20 +1,20 @@
 //
-//  LLKeychain.m
+//  WZMKeychain.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/9/22.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLKeychain.h"
+#import "WZMKeychain.h"
 
-static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain";
-@implementation LLKeychain
+static NSString *const WZMKeychainUtilsErrorDomain = @"WZMKeychainUtilsErrorDomain";
+@implementation WZMKeychain
 
 + (NSString *)getPasswordForUsername:(NSString *)username andServiceName:(NSString *)serviceName error:(NSError **)error {
     if (!username || !serviceName) {
         if (error != nil) {
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-2000 userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-2000 userInfo:nil];
         }
         return nil;
     }
@@ -44,7 +44,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
         // No existing item found--simply return nil for the password
         if (error != nil && status != errSecItemNotFound) {
             //Only return an error if a real exception happened--not simply for "not found."
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:status userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:status userInfo:nil];
         }
         
         return nil;
@@ -67,13 +67,13 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
             // the old, incorrect entry will be deleted and a new one with a properly encrypted
             // password will be added.
             if (error != nil) {
-                *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-1999 userInfo:nil];
+                *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-1999 userInfo:nil];
             }
         }
         else {
             // Something else went wrong. Simply return the normal Keychain API error code.
             if (error != nil) {
-                *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:status userInfo:nil];
+                *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:status userInfo:nil];
             }
         }
         
@@ -90,7 +90,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
         // Possibly as a result of an item being incorrectly entered by the previous code.
         // Set the -1999 error so the code above us can prompt the user again.
         if (error != nil) {
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-1999 userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-1999 userInfo:nil];
         }
     }
     
@@ -103,14 +103,14 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     {
         if (error != nil)
         {
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-2000 userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-2000 userInfo:nil];
         }
         return NO;
     }
     
     // See if we already have a password entered for these credentials.
     NSError *getError = nil;
-    NSString *existingPassword = [LLKeychain getPasswordForUsername:username andServiceName:serviceName error:&getError];
+    NSString *existingPassword = [WZMKeychain getPasswordForUsername:username andServiceName:serviceName error:&getError];
     
     if ([getError code] == -1999)
     {
@@ -199,7 +199,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     if (error != nil && status != noErr)
     {
         // Something went wrong with adding the new item. Return the Keychain error code.
-        *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:status userInfo:nil];
+        *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:status userInfo:nil];
         
         return NO;
     }
@@ -213,7 +213,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     {
         if (error != nil)
         {
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-2000 userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-2000 userInfo:nil];
         }
         return NO;
     }
@@ -232,7 +232,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     
     if (error != nil && status != noErr)
     {
-        *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:status userInfo:nil];
+        *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:status userInfo:nil];
         
         return NO;
     }
@@ -245,7 +245,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     {
         if (error != nil)
         {
-            *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:-2000 userInfo:nil];
+            *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:-2000 userInfo:nil];
         }
         return NO;
     }
@@ -263,7 +263,7 @@ static NSString *const LLKeychainUtilsErrorDomain = @"LLKeychainUtilsErrorDomain
     
     if (error != nil && status != noErr)
     {
-        *error = [NSError errorWithDomain:LLKeychainUtilsErrorDomain code:status userInfo:nil];
+        *error = [NSError errorWithDomain:WZMKeychainUtilsErrorDomain code:status userInfo:nil];
         
         return NO;
     }

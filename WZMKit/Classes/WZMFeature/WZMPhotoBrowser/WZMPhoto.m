@@ -9,8 +9,8 @@
 #import "WZMPhoto.h"
 #import <ImageIO/ImageIO.h>
 #import "NSString+wzmcate.h"
-#import "LLGifImageView.h"
-#import "LLImageCache.h"
+#import "WZMGifImageView.h"
+#import "WZMImageCache.h"
 #import "UIView+wzmcate.h"
 #import "NSData+wzmcate.h"
 #import "UIImage+wzmcate.h"
@@ -18,7 +18,7 @@
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
 @interface WZMPhoto ()<UIScrollViewDelegate>{
-    LLGifImageView *_imageView;
+    WZMGifImageView *_imageView;
     NSData         *_imageData;
     UIImage        *_currentImage;
     BOOL           _isGif;
@@ -52,7 +52,7 @@
                                                                                                 action:@selector(longClick:)];
         [self addGestureRecognizer:longClick];
         
-        _imageView = [[LLGifImageView alloc] init];
+        _imageView = [[WZMGifImageView alloc] init];
         [self addSubview:_imageView];
         [self showPlaceholderImage];
     }
@@ -86,11 +86,11 @@
         }
         BOOL isNetImage = [[UIApplication sharedApplication] canOpenURL:URL];
         if (isNetImage) {
-            _imageData = [[LLImageCache imageCache] dataForKey:path];
+            _imageData = [[WZMImageCache imageCache] dataForKey:path];
             if (_imageData == nil) {
                 [self showPlaceholderImage];
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    _imageData = [[LLImageCache imageCache] getDataWithUrl:path isUseCatch:YES];
+                    _imageData = [[WZMImageCache imageCache] getDataWithUrl:path isUseCatch:YES];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self setupImageData];
                     });

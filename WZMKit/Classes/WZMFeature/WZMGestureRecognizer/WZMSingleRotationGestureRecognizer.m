@@ -1,10 +1,10 @@
-#import "LLSingleRotationGestureRecognizer.h"
+#import "WZMSingleRotationGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 /*
  单手实现视图的旋转功能。
  apple提供了UIRotationGestureRecognizer可供用户实现双手旋转视图的效果，这里利用toch
  */
-@implementation LLSingleRotationGestureRecognizer
+@implementation WZMSingleRotationGestureRecognizer
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action {
     self = [super initWithTarget:target action:action];

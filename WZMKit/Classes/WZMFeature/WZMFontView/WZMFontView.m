@@ -1,15 +1,15 @@
 //
-//  LLFontView.m
+//  WZMFontView.m
 //  JLChat
 //
 //  Created by WangZhaomeng on 2019/6/26.
 //  Copyright © 2019 AiZhe. All rights reserved.
 //
 
-#import "LLFontView.h"
+#import "WZMFontView.h"
 #import "WZMLog.h"
 
-@interface LLFontView ()<UITableViewDelegate,UITableViewDataSource>
+@interface WZMFontView ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *fonts;
 @property (nonatomic, strong) NSMutableArray *familys;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation LLFontView 
+@implementation WZMFontView 
 
 - (instancetype)init {
     self = [super init];

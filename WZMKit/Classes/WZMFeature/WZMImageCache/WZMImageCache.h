@@ -1,5 +1,5 @@
 //
-//  LLImageCache.h
+//  WZMImageCache.h
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/14.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WZMBlock.h"
 
-@interface LLImageCache : NSObject
+@interface WZMImageCache : NSObject
 
 + (instancetype)imageCache;
 

@@ -1,5 +1,5 @@
 //
-//  LLJSONParseUtil.h
+//  WZMJSONParse.h
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/17.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLJSONParseUtil : NSObject
+@interface WZMJSONParse : NSObject
 
 + (long long)getLongValueInDict:(NSDictionary *)dict withKey:(NSString *)key;
 

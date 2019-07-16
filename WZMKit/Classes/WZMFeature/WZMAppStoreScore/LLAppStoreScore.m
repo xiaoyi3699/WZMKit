@@ -7,9 +7,9 @@
 //
 
 #import "LLAppStoreScore.h"
-#import "LLFileManager.h"
+#import "WZMFileManager.h"
 #import "LLAppJump.h"
-#import "LLDispatch.h"
+#import "WZMDispatch.h"
 #import "LLViewHandle.h"
 
 //评分
@@ -43,11 +43,11 @@
 
 - (void)showScoreView:(LLAppStoreType)type isOnce:(BOOL)isOnce {
     _type = type;
-    BOOL isStore = [[LLFileManager objForKey:LL_STORE_KEY] boolValue];
+    BOOL isStore = [[WZMFileManager objForKey:LL_STORE_KEY] boolValue];
     if (isOnce && isStore) return;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的每一次反馈都非常重要" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"五星好评",@"我要吐槽", nil];
     [alertView show];
-    [LLFileManager setObj:@(YES) forKey:LL_STORE_KEY];
+    [WZMFileManager setObj:@(YES) forKey:LL_STORE_KEY];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -56,15 +56,15 @@
     }
     else if (buttonIndex == 2) {
         NSString *msg;
-        BOOL isBad = [[LLFileManager objForKey:LL_BAD_KEY] boolValue];
+        BOOL isBad = [[WZMFileManager objForKey:LL_BAD_KEY] boolValue];
         if (isBad) {
             msg = @"您已经吐槽过了^_^";
         }
         else {
             msg = @"感谢您的反馈，我们会继续努力^_^";
-            [LLFileManager setObj:@(YES) forKey:LL_BAD_KEY];
+            [WZMFileManager setObj:@(YES) forKey:LL_BAD_KEY];
         }
-        LLDispatch_after(1, ^{
+        WZMDispatch_after(1, ^{
             [LLViewHandle wzm_showInfoMessage:msg];
         });
     }

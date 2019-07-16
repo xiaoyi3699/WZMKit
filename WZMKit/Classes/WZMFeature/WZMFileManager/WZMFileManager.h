@@ -1,5 +1,5 @@
 //
-//  LLFileManager.h
+//  WZMFileManager.h
 //  test
 //
 //  Created by wangzhaomeng on 16/8/23.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WZMBlock.h"
 
-@interface LLFileManager : NSObject
+@interface WZMFileManager : NSObject
 
 /**
  文件是否存在

@@ -6,17 +6,17 @@
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLLocationManager.h"
+#import "WZMLocationManager.h"
 #import "LLDeviceUtil.h"
 
-@interface LLLocationManager ()
+@interface WZMLocationManager ()
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSError *error;
 
 @end
 
-@implementation LLLocationManager
+@implementation WZMLocationManager
 
 - (CLLocationManager *)locationManager {
     if (_locationManager == nil) {

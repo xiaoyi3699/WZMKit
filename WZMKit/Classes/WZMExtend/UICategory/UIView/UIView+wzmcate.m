@@ -7,7 +7,7 @@
 //
 
 #import "UIView+wzmcate.h"
-#import "LLDispatch.h"
+#import "WZMDispatch.h"
 
 @implementation UIView (wzmcate)
 

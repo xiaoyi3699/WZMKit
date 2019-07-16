@@ -1,26 +1,26 @@
 //
-//  LLImageCache.m
+//  WZMImageCache.m
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/14.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLImageCache.h"
+#import "WZMImageCache.h"
 #import "WZMLog.h"
 #import "WZMMacro.h"
 #import "WZMBase64.h"
 
-@implementation LLImageCache {
+@implementation WZMImageCache {
     NSString *_cachePath;
     NSMutableDictionary *_memoryCache;
 }
 
 + (instancetype)imageCache {
-    static LLImageCache *imageCache;
+    static WZMImageCache *imageCache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        imageCache = [[LLImageCache alloc] init];
+        imageCache = [[WZMImageCache alloc] init];
     });
     return imageCache;
 }
@@ -28,7 +28,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _cachePath = [APP_CachePath stringByAppendingPathComponent:@"LLImageCache"];
+        _cachePath = [APP_CachePath stringByAppendingPathComponent:@"WZMImageCache"];
         _memoryCache = [[NSMutableDictionary alloc] initWithCapacity:0];
         [self createDirectoryAtPath:_cachePath];
     }

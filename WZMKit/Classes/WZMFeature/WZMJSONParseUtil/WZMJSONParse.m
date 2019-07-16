@@ -1,15 +1,15 @@
 //
-//  LLJSONParseUtil.m
+//  WZMJSONParse.m
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/17.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLJSONParseUtil.h"
+#import "WZMJSONParse.h"
 #import "WZMLog.h"
 
-@implementation LLJSONParseUtil
+@implementation WZMJSONParse
 
 + (long long)getLongValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
     id tmp = nil;
@@ -100,19 +100,19 @@
 }
 
 + (NSNumber *)getNumberValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [LLJSONParseUtil getDataInDict:dict withKey:key ofClass:[NSNumber class]];
+    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSNumber class]];
 }
 
 + (NSDictionary *)getDictionaryValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [LLJSONParseUtil getDataInDict:dict withKey:key ofClass:[NSDictionary class]];
+    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSDictionary class]];
 }
 
 + (NSArray *)getArrayValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [LLJSONParseUtil getDataInDict:dict withKey:key ofClass:[NSArray class]];
+    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSArray class]];
 }
 
 + (NSMutableArray *)getMutableArrayValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [[LLJSONParseUtil getArrayValueInDict:dict withKey:key] mutableCopy];
+    return [[WZMJSONParse getArrayValueInDict:dict withKey:key] mutableCopy];
 }
 
 + (id)getDataInDict:(NSDictionary *)dict withKey:(NSString *)key ofClass:(Class)class {

@@ -1,18 +1,18 @@
 //
-//  LLFileManager.m
+//  WZMFileManager.m
 //  test
 //
 //  Created by wangzhaomeng on 16/8/23.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLFileManager.h"
+#import "WZMFileManager.h"
 #import "WZMLog.h"
 #import "WZMEnum.h"
 
 #define LL_FILE_MANAGER    [NSFileManager defaultManager]
 #define LL_USER_DEFAULTS   [NSUserDefaults standardUserDefaults]
-@implementation LLFileManager
+@implementation WZMFileManager
 
 + (BOOL)fileExistsAtPath:(NSString *)filePath{
     if ([LL_FILE_MANAGER fileExistsAtPath:filePath]) {

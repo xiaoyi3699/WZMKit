@@ -154,7 +154,7 @@ typedef enum : NSInteger {
 typedef enum : NSInteger {
     LLNotFound          = 404, //路径未找到
     LLIsNotDirectory           //不是文件夹
-}LLFileManagerError;
+}WZMFileManagerError;
 
 ///应用类型
 typedef enum : NSInteger {

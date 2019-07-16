@@ -1,5 +1,5 @@
 //
-//  LLFontView.h
+//  WZMFontView.h
 //  JLChat
 //
 //  Created by WangZhaomeng on 2019/6/26.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLFontView : UIView
+@interface WZMFontView : UIView
 
 @end

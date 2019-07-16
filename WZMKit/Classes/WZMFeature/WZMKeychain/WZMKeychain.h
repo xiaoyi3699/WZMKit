@@ -1,5 +1,5 @@
 //
-//  LLKeychain.h
+//  WZMKeychain.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/9/22.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLKeychain : NSObject
+@interface WZMKeychain : NSObject
 
 + (NSString *)getPasswordForUsername:(NSString *)username
                       andServiceName:(NSString *)serviceName
