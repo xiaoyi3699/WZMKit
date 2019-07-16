@@ -15,12 +15,12 @@
 /**
  获取view所在的ViewController
  */
-- (UIViewController *)viewController;
+- (UIViewController *)wzm_viewController;
 
 /**
  判断view是不是指定视图的子视图
  */
-- (BOOL)ll_isDescendantOfView:(UIView *)otherView;
+- (BOOL)wzm_isDescendantOfView:(UIView *)otherView;
 
 #pragma mark - 自定义适配
 //设置位置(宽和高保持不变)
@@ -104,12 +104,12 @@
 /**
  有3d效果的旋转背景动画(定时器自动旋转)
  */
-- (void)ll_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration;
+- (void)wzm_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration;
 
 /**
  有3d效果的旋转背景动画
  */
-- (void)ll_3dAlertBackgroundAnimation:(NSTimeInterval)duration;
+- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration;
 
 /**
  旋转动画(参数axis:坐标轴(x,y或z,小写))
@@ -178,23 +178,23 @@
 /**
  添加任意圆角
  */
-- (void)ll_addCorners:(UIRectCorner)corner radius:(CGFloat)radius;
+- (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius;
 
 ///渐变
-- (void)ll_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
+- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type;
 
-- (void)ll_gradientColorWithGradientType:(LLGradientType)type;
+- (void)wzm_gradientColorWithGradientType:(LLGradientType)type;
 
 ///获取某一点的颜色
-- (UIColor *)ll_colorWithPoint:(CGPoint)point;
+- (UIColor *)wzm_colorWithPoint:(CGPoint)point;
 
 ///将一个view保存为pdf格式
-- (BOOL)ll_savePDFToDocumentsWithFileName:(NSString *)aFilename;
+- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename;
 
 /**
  绘制虚线
  **/
-- (void)ll_drawlineInFrame:(CGRect)frame
+- (void)wzm_drawlineInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
                  lineColor:(UIColor *)lineColor
@@ -203,7 +203,7 @@
 /**
  绘制网格
  **/
-- (void)ll_drawGridInFrame:(CGRect)frame
+- (void)wzm_drawGridInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
                  lineColor:(UIColor *)lineColor;

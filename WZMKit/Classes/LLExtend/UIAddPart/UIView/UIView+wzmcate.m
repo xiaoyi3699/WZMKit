@@ -11,7 +11,7 @@
 
 @implementation UIView (wzmcate)
 
-- (UIViewController *)viewController{
+- (UIViewController *)wzm_viewController{
     UIResponder *next = [self nextResponder];
     do{
         if ([next isKindOfClass:[UIViewController class]]) {
@@ -22,7 +22,7 @@
     return nil;
 }
 
-- (BOOL)ll_isDescendantOfView:(UIView *)otherView {
+- (BOOL)wzm_isDescendantOfView:(UIView *)otherView {
     return [self isDescendantOfView:otherView];
 }
 
@@ -309,7 +309,7 @@
     }
 }
 
-- (void)ll_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration {
+- (void)wzm_3dAlertBackgroundAnimationAuto:(NSTimeInterval)duration {
     LLDispatch_create_main_queue_timer(@"transform", duration, ^{
         static float degree = 0;
         //起始值
@@ -336,7 +336,7 @@
     });
 }
 
-- (void)ll_3dAlertBackgroundAnimation:(NSTimeInterval)duration {
+- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration {
     
     CGFloat x = self.center.x;
     CGFloat y = self.frame.origin.y;
@@ -618,7 +618,7 @@
      }];
 }
 
-- (void)ll_addCorners:(UIRectCorner)corner radius:(CGFloat)radius{
+- (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius{
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                    byRoundingCorners:corner
                                                          cornerRadii:CGSizeMake(radius, radius)];
@@ -628,7 +628,7 @@
     self.layer.mask = maskLayer;
 }
 
-- (UIColor *)ll_colorWithPoint:(CGPoint)point {
+- (UIColor *)wzm_colorWithPoint:(CGPoint)point {
     unsigned char pixel[4] = {0};
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
@@ -639,7 +639,7 @@
     return [UIColor colorWithRed:pixel[0]/255.0 green:pixel[1]/255.0 blue:pixel[2]/255.0 alpha:pixel[3]/255.0];
 }
 
-- (void)ll_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type {
+- (void)wzm_gradientColors:(NSArray *)colors gradientType:(LLGradientType)type {
     
     NSMutableArray *CGColors = [NSMutableArray arrayWithCapacity:colors.count];
     
@@ -670,7 +670,7 @@
     [self.layer insertSublayer:gradient atIndex:0];
 }
 
-- (void)ll_gradientColorWithGradientType:(LLGradientType)type {
+- (void)wzm_gradientColorWithGradientType:(LLGradientType)type {
     NSMutableArray *colorArray = [NSMutableArray new];
     for (NSInteger hue = 0; hue < 255; hue += 5) {
         UIColor *color = [UIColor colorWithHue:hue/255.0
@@ -679,10 +679,10 @@
                                          alpha:1.0];
         [colorArray addObject:color];
     }
-    [self ll_gradientColors:colorArray gradientType:type];
+    [self wzm_gradientColors:colorArray gradientType:type];
 }
 
-- (BOOL)ll_savePDFToDocumentsWithFileName:(NSString *)aFilename {
+- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename {
     NSMutableData *pdfData = [NSMutableData data];
     UIGraphicsBeginPDFContextToData(pdfData, self.bounds, nil);
     UIGraphicsBeginPDFPage();
@@ -698,7 +698,7 @@
 /**
  绘制虚线
  **/
-- (void)ll_drawlineInFrame:(CGRect)frame
+- (void)wzm_drawlineInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
                  lineColor:(UIColor *)lineColor
@@ -745,13 +745,13 @@
 /**
  绘制网格
  **/
-- (void)ll_drawGridInFrame:(CGRect)frame
+- (void)wzm_drawGridInFrame:(CGRect)frame
                     length:(CGFloat)lineLength
                lineSpacing:(CGFloat)lineSpacing
                  lineColor:(UIColor *)lineColor
 {
-    [self ll_drawlineInFrame:frame length:lineLength lineSpacing:lineSpacing lineColor:lineColor isHorizontal:YES];
-    [self ll_drawlineInFrame:frame length:lineLength lineSpacing:lineSpacing lineColor:lineColor isHorizontal:NO];
+    [self wzm_drawlineInFrame:frame length:lineLength lineSpacing:lineSpacing lineColor:lineColor isHorizontal:YES];
+    [self wzm_drawlineInFrame:frame length:lineLength lineSpacing:lineSpacing lineColor:lineColor isHorizontal:NO];
 }
 
 #pragma mark - private

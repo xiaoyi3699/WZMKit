@@ -296,11 +296,11 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
         [self fullBtnClick];
     }
     else {
-        if (self.viewController.navigationController.topViewController == self.viewController) {
-            [self.viewController.navigationController popViewControllerAnimated:YES];
+        if (self.wzm_viewController.navigationController.topViewController == self.wzm_viewController) {
+            [self.wzm_viewController.navigationController popViewControllerAnimated:YES];
         }
         else {
-            [self.viewController dismissViewControllerAnimated:YES completion:nil];
+            [self.wzm_viewController dismissViewControllerAnimated:YES completion:nil];
         }
     }
 }
@@ -315,7 +315,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     else {
         orientation = UIInterfaceOrientationLandscapeRight;
     }
-    [self.viewController ll_interfaceOrientation:orientation];
+    [self.wzm_viewController ll_interfaceOrientation:orientation];
 }
 
 #pragma mark - 底部view相关事件

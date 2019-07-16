@@ -204,10 +204,10 @@
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         else {
-            newSuperview.viewController.automaticallyAdjustsScrollViewInsets = NO;
+            newSuperview.wzm_viewController.automaticallyAdjustsScrollViewInsets = NO;
         }
 #else
-        newSuperview.viewController.automaticallyAdjustsScrollViewInsets = NO;
+        newSuperview.wzm_viewController.automaticallyAdjustsScrollViewInsets = NO;
 #endif
     }
 }
