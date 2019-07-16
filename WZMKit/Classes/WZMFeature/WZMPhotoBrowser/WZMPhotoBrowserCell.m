@@ -23,7 +23,7 @@
         rect.size.width -= 10;
         rect.origin.x = 5;
         _photo = [[WZMPhoto alloc] initWithFrame:rect];
-        _photo.ll_delegate = self;
+        _photo.wzm_delegate = self;
         _photo.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self addSubview:_photo];
     }
@@ -38,7 +38,7 @@
 
 - (void)setImage:(id)image {
     _photo.zoomScale = 1.0;
-    _photo.ll_image = image;
+    _photo.wzm_image = image;
 }
 
 - (void)willDisplay {

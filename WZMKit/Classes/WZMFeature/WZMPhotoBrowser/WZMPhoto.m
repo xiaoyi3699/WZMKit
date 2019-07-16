@@ -167,17 +167,17 @@
 }
 
 #pragma mark - setter getter
-- (void)setLl_image:(id)ll_image {
-    if (_ll_image == ll_image) return;
-    if ([ll_image isKindOfClass:[UIImage class]]) {
-        _currentImage = (UIImage *)ll_image;
+- (void)setWzm_image:(id)wzm_image {
+    if (_wzm_image == wzm_image) return;
+    if ([wzm_image isKindOfClass:[UIImage class]]) {
+        _currentImage = (UIImage *)wzm_image;
         [self layoutImageViewIsGif:NO];
     }
-    else if ([ll_image isKindOfClass:[NSString class]]) {
-        [self setPath:(NSString *)ll_image];
+    else if ([wzm_image isKindOfClass:[NSString class]]) {
+        [self setPath:(NSString *)wzm_image];
     }
-    else if ([ll_image isKindOfClass:[NSData class]]) {
-        _imageData = (NSData *)ll_image;
+    else if ([wzm_image isKindOfClass:[NSData class]]) {
+        _imageData = (NSData *)wzm_image;
         [self setupImageData];
     }
     else {
@@ -231,9 +231,9 @@
 }
 
 - (void)setDelegeteType:(LLGestureRecognizerType)type {
-    if ([self.ll_delegate respondsToSelector:@selector(clickAtPhoto:content:isGif:type:)]) {
+    if ([self.wzm_delegate respondsToSelector:@selector(clickAtPhoto:content:isGif:type:)]) {
         id content = (_isGif ? _imageData : _currentImage);
-        [self.ll_delegate clickAtPhoto:self content:content isGif:_isGif type:type];
+        [self.wzm_delegate clickAtPhoto:self content:content isGif:_isGif type:type];
     }
 }
 

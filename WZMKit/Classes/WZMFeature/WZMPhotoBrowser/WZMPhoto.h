@@ -14,12 +14,12 @@
 @interface WZMPhoto : UIScrollView
 
 ///当前显示的图片
-@property (nonatomic, strong) id ll_image;
+@property (nonatomic, strong) id wzm_image;
 
 ///设置占位图
 @property (nonatomic, strong) UIImage *placeholderImage;
 
-@property (nonatomic, weak)   id<WZMPhotoDelegate> ll_delegate;
+@property (nonatomic, weak)   id<WZMPhotoDelegate> wzm_delegate;
 
 - (void)startGif;
 - (void)stopGif;
