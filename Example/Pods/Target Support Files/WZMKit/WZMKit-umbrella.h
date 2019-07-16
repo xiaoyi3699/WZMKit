@@ -84,6 +84,8 @@
 #import "WZMLog.h"
 #import "WZMNetWorking.h"
 #import "WZMSendEmail.h"
+#import "WZMSignalException.h"
+#import "WZMUncaughtException.h"
 #import "WZMBase64.h"
 #import "WZMActionSheet.h"
 #import "WZMAlertView.h"

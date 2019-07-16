@@ -20,8 +20,6 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		75F9978C22DDB54B00A7CF53 /* WZMUncaughtException.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9978822DDB54B00A7CF53 /* WZMUncaughtException.m */; };
-		75F9978D22DDB54B00A7CF53 /* WZMSignalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9978B22DDB54B00A7CF53 /* WZMSignalException.m */; };
 		798C54C9081AA1D93BF6DA40 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24577D3193730A25885D169D /* Pods_WZMKit_Tests.framework */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 /* End PBXBuildFile section */
@@ -60,10 +58,6 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		75F9978822DDB54B00A7CF53 /* WZMUncaughtException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMUncaughtException.m; sourceTree = "<group>"; };
-		75F9978922DDB54B00A7CF53 /* WZMSignalException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMSignalException.h; sourceTree = "<group>"; };
-		75F9978A22DDB54B00A7CF53 /* WZMUncaughtException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMUncaughtException.h; sourceTree = "<group>"; };
-		75F9978B22DDB54B00A7CF53 /* WZMSignalException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMSignalException.m; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF91485E0336DB80B22F793 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -145,7 +139,6 @@
 		6003F593195388D20070C39A /* Example for WZMKit */ = {
 			isa = PBXGroup;
 			children = (
-				75F9978722DDB54B00A7CF53 /* WZMUncaughtException */,
 				6003F59C195388D20070C39A /* WZMAppDelegate.h */,
 				6003F59D195388D20070C39A /* WZMAppDelegate.m */,
 				6003F5A5195388D20070C39A /* WZMViewController.h */,
@@ -195,17 +188,6 @@
 				0EE2092771CDE724AD1E5C17 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		75F9978722DDB54B00A7CF53 /* WZMUncaughtException */ = {
-			isa = PBXGroup;
-			children = (
-				75F9978922DDB54B00A7CF53 /* WZMSignalException.h */,
-				75F9978B22DDB54B00A7CF53 /* WZMSignalException.m */,
-				75F9978A22DDB54B00A7CF53 /* WZMUncaughtException.h */,
-				75F9978822DDB54B00A7CF53 /* WZMUncaughtException.m */,
-			);
-			path = WZMUncaughtException;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,10 +360,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
-				75F9978C22DDB54B00A7CF53 /* WZMUncaughtException.m in Sources */,
 				6003F5A7195388D20070C39A /* WZMViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				75F9978D22DDB54B00A7CF53 /* WZMSignalException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
