@@ -1,32 +1,32 @@
 //
-//  LLSqliteManager.m
+//  WZMSqliteManager.m
 //  LLFoundation
 //
 //  Created by Mr.Wang on 16/12/30.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLSqliteManager.h"
+#import "WZMSqliteManager.h"
 #import <objc/runtime.h>
 #import <sqlite3.h>
 #import "LLLog.h"
 
-@interface LLSqliteManager (){
+@interface WZMSqliteManager (){
     NSString *_dataBasePath;
     sqlite3 *_sql3;
 }
 @end
 
-@implementation LLSqliteManager
+@implementation WZMSqliteManager
 
 /**
  数据库操纵单例
  */
 + (instancetype)defaultManager{
     static dispatch_once_t onceToken;
-    static LLSqliteManager *manager;
+    static WZMSqliteManager *manager;
     dispatch_once(&onceToken, ^{
-        manager = [[LLSqliteManager alloc] init];
+        manager = [[WZMSqliteManager alloc] init];
     });
     return manager;
 }

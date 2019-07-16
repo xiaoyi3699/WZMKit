@@ -1,19 +1,19 @@
 //
-//  LLSignalException.m
+//  WZMSignalException.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/11.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLSignalException.h"
+#import "WZMSignalException.h"
 #include <execinfo.h>
 #import "WZMMacro.h"
-#import "LLSendEmail.h"
+#import "WZMSendEmail.h"
 
-@implementation LLSignalException
+@implementation WZMSignalException
 
-void LLInstallSignalHandler(void) {
+void WZMInstallSignalHandler(void) {
     signal(SIGHUP , SignalExceptionHandler);
     signal(SIGINT , SignalExceptionHandler);
     signal(SIGQUIT, SignalExceptionHandler);
@@ -42,7 +42,7 @@ void SignalExceptionHandler(int signal) {
         [mstr appendFormat:@"%s\n", strs[i]];
     }
     
-    LLSendEmail *email = [[LLSendEmail alloc] init];
+    WZMSendEmail *email = [[WZMSendEmail alloc] init];
     email.recipients = @"122589615@qq.com";
     email.subject = @"SDK程序异常崩溃";
     email.body = [mstr copy];

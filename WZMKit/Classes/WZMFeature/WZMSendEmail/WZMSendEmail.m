@@ -1,16 +1,16 @@
 //
-//  LLSendEmail.m
+//  WZMSendEmail.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/8.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLSendEmail.h"
+#import "WZMSendEmail.h"
 #import "LLLog.h"
 #import "NSString+wzmcate.h"
 
-@implementation LLSendEmail
+@implementation WZMSendEmail
 
 - (void)send {
     if ([MFMailComposeViewController canSendMail]) {
@@ -29,9 +29,9 @@
 
 @end
 
-@implementation UIViewController (LLSendEmail)
+@implementation UIViewController (WZMSendEmail)
 
-- (void)sendEmail:(LLSendEmail *)email {
+- (void)sendEmail:(WZMSendEmail *)email {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailCompose = [[MFMailComposeViewController alloc] init];
         [mailCompose setMailComposeDelegate:self];

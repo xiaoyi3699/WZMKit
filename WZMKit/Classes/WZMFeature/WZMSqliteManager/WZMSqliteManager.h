@@ -1,5 +1,5 @@
 //
-//  LLSqliteManager.h
+//  WZMSqliteManager.h
 //  LLFoundation
 //
 //  Created by Mr.Wang on 16/12/30.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLSqliteManager : NSObject
+@interface WZMSqliteManager : NSObject
 
 + (instancetype)defaultManager;
 - (BOOL)createTableName:(NSString *)tableName modelClass:(Class)modelClass;

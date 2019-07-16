@@ -1,31 +1,31 @@
 //
-//  LLUncaughtException.m
+//  WZMUncaughtException.m
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/11.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLUncaughtException.h"
+#import "WZMUncaughtException.h"
 #import "WZMMacro.h"
-#import "LLSendEmail.h"
+#import "WZMSendEmail.h"
 
-static NSUncaughtExceptionHandler LLUncaughtExceptionHandler;
+static NSUncaughtExceptionHandler WZMUncaughtExceptionHandler;
 static NSUncaughtExceptionHandler *oldhandler;
-@implementation LLUncaughtException
+@implementation WZMUncaughtException
 
-void LLInstallUncaughtExceptionHandler(void) {
-    if(NSGetUncaughtExceptionHandler() != LLUncaughtExceptionHandler) {
+void WZMInstaWZMUncaughtExceptionHandler(void) {
+    if(NSGetUncaughtExceptionHandler() != WZMUncaughtExceptionHandler) {
         oldhandler = NSGetUncaughtExceptionHandler();
     }
-    NSSetUncaughtExceptionHandler(&LLUncaughtExceptionHandler);
+    NSSetUncaughtExceptionHandler(&WZMUncaughtExceptionHandler);
 }
 
-void LLUninstall(void) {
+void WZMUninstall(void) {
     NSSetUncaughtExceptionHandler(oldhandler);
 }
 
-void LLUncaughtExceptionHandler(NSException *exception) {
+void WZMUncaughtExceptionHandler(NSException *exception) {
     
     //获取异常崩溃信息
     NSArray *callStack = [exception callStackSymbols];
@@ -41,7 +41,7 @@ void LLUncaughtExceptionHandler(NSException *exception) {
     [mstr appendFormat:@"<b>iOS版本：</b>%@\n\n", [UIDevice currentDevice].systemVersion];
     [mstr appendFormat:@"%@", content];
     
-    LLSendEmail *email = [[LLSendEmail alloc] init];
+    WZMSendEmail *email = [[WZMSendEmail alloc] init];
     email.recipients = @"122589615@qq.com";
     email.subject = @"SDK程序异常崩溃";
     email.body = [mstr copy];

@@ -1,5 +1,5 @@
 //
-//  LLUncaughtException.h
+//  WZMUncaughtException.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/11.
@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLUncaughtException : NSObject
+@interface WZMUncaughtException : NSObject
 
-void LLInstallUncaughtExceptionHandler(void);
+void WZMInstaWZMUncaughtExceptionHandler(void);
 
-void LLUninstall(void);
+void WZMUninstall(void);
 
 @end

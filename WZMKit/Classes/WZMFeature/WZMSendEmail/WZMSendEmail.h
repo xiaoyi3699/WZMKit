@@ -1,5 +1,5 @@
 //
-//  LLSendEmail.h
+//  WZMSendEmail.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/8.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-@interface LLSendEmail : NSObject
+@interface WZMSendEmail : NSObject
 
 ///多个收件人以“,”隔开
 @property (nonatomic, strong) NSString *recipients;
@@ -22,8 +22,8 @@
 
 @end
 
-@interface UIViewController (LLSendEmail)<MFMailComposeViewControllerDelegate>
+@interface UIViewController (WZMSendEmail)<MFMailComposeViewControllerDelegate>
 
-- (void)sendEmail:(LLSendEmail *)email;
+- (void)sendEmail:(WZMSendEmail *)email;
 
 @end

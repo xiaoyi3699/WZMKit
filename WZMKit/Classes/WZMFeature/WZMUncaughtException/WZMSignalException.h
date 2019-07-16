@@ -1,5 +1,5 @@
 //
-//  LLSignalException.h
+//  WZMSignalException.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2018/2/11.
@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLSignalException : NSObject
+@interface WZMSignalException : NSObject
 
-void LLInstallSignalHandler(void);
+void WZMInstallSignalHandler(void);
 
 @end
