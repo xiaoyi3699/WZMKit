@@ -17,10 +17,15 @@
 @property (nonatomic, readonly, assign) NSInteger currentTime;  //当前播放时间
 @property (nonatomic, readonly, assign) NSInteger totalTime;    //播放总时长
 
-@property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isBackground) BOOL background;
 @property (nonatomic, weak) id<WZMAudioPlayerDelegate> delegate;
+
+- (void)playWithURL:(NSURL *)fileURL;
+
+- (void)play;
+- (void)pause;
+- (void)seekToTime:(NSInteger)time;
 
 @end
 

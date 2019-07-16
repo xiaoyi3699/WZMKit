@@ -284,30 +284,9 @@
     return newTaskId;
 }
 
-- (void)setUrl:(NSString *)url {
-    if (url == nil) {
-        [self loadFailed:@"url不能为空"];
-    }
-    else {
-        _url = url;
-        [self pause];
-        NSURL *webUrl = [NSURL URLWithString:url];
-        if (webUrl) {
-            if ([[UIApplication sharedApplication] canOpenURL:webUrl]) {
-                [self playWithURL:webUrl];
-            }
-        }
-        else {
-            if ([[NSFileManager defaultManager] fileExistsAtPath:url]) {
-                [self playWithURL:[NSURL fileURLWithPath:url]];
-            }
-        }
-    }
-}
-
-- (void)setCurrentTime:(NSInteger)currentTime {
-    if (_currentTime == currentTime || currentTime > self.duration) return;
-    _currentTime = currentTime;
+- (void)seekToTime:(NSInteger)time {
+    if (_currentTime == time || time > self.duration) return;
+    _currentTime = time;
     CMTime dur = self.audioPlayer.currentItem.duration;
     [self.audioPlayer seekToTime:CMTimeMultiplyByFloat64(dur, _currentTime)];
 }

@@ -9,7 +9,9 @@
 #import "WZMViewController.h"
 #import <WZMKit/WZMKit.h>
 
-@interface WZMViewController ()
+@interface WZMViewController () {
+    WZMAudioPlayer *player;
+}
 
 @end
 
@@ -18,15 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    
+    player = [[WZMAudioPlayer alloc] init];
 }
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_qnyn" ofType:@"mp4"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_snow" ofType:@"mp3"];
     NSURL *url = [NSURL fileURLWithPath:path];
-    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
-    [self presentViewController:vc animated:YES completion:nil];
+    [player playWithURL:url];
 }
 
 @end
