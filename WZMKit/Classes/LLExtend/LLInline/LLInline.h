@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "LLMacro.h"
 
-UIKIT_STATIC_INLINE CGFloat LLDistanceBetweenPoints(CGPoint point1, CGPoint point2) {
+UIKIT_STATIC_INLINE CGFloat WZMDistanceBetweenPoints(CGPoint point1, CGPoint point2) {
     CGFloat dx = point2.x - point1.x;
     CGFloat dy = point2.y - point1.y;
     return sqrt(dx*dx + dy*dy);
 }
 
-UIKIT_STATIC_INLINE CGRect LLRectMiddleArea() {
+UIKIT_STATIC_INLINE CGRect WZMRectMiddleArea() {
     CGRect rect = LL_SCREEN_BOUNDS;
     if (IS_iPhoneX) {
         rect.origin.y = 88;
@@ -28,7 +28,7 @@ UIKIT_STATIC_INLINE CGRect LLRectMiddleArea() {
     return rect;
 }
 
-UIKIT_STATIC_INLINE CGRect LLRectTopArea() {
+UIKIT_STATIC_INLINE CGRect WZMRectTopArea() {
     CGRect rect = LL_SCREEN_BOUNDS;
     rect.origin.y = 0;
     if (IS_iPhoneX) {
@@ -40,7 +40,7 @@ UIKIT_STATIC_INLINE CGRect LLRectTopArea() {
     return rect;
 }
 
-UIKIT_STATIC_INLINE CGRect LLRectBottomArea() {
+UIKIT_STATIC_INLINE CGRect WZMRectBottomArea() {
     CGRect rect = LL_SCREEN_BOUNDS;
     if (IS_iPhoneX) {
         rect.origin.y = 88;
@@ -53,7 +53,7 @@ UIKIT_STATIC_INLINE CGRect LLRectBottomArea() {
     return rect;
 }
 
-UIKIT_STATIC_INLINE CGRect LLRectSafeArea() {
+UIKIT_STATIC_INLINE CGRect WZMRectSafeArea() {
     CGRect rect = LL_SCREEN_BOUNDS;
     if (IS_iPhoneX) {
         rect.origin.y = 44;
@@ -66,19 +66,19 @@ UIKIT_STATIC_INLINE CGRect LLRectSafeArea() {
     return rect;
 }
 
-UIKIT_STATIC_INLINE CGSize LLSizeRatioToMaxWidth (CGSize size, CGFloat maxWidth) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxWidth (CGSize size, CGFloat maxWidth) {
     return CGSizeMake(maxWidth, size.height*maxWidth/size.width);
 }
 
-UIKIT_STATIC_INLINE CGSize LLSizeRatioToMaxHeight (CGSize size, CGFloat MaxHeight) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxHeight (CGSize size, CGFloat MaxHeight) {
     return CGSizeMake(size.width*MaxHeight/size.height, MaxHeight);
 }
 
-UIKIT_STATIC_INLINE CGSize LLSizeRatioToMaxSize (CGSize size, CGSize maxSize) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxSize (CGSize size, CGSize maxSize) {
     if (size.width/size.height >= maxSize.width/maxSize.height) {
-        return LLSizeRatioToMaxWidth(size, maxSize.width);
+        return WZMSizeRatioToMaxWidth(size, maxSize.width);
     }
     else {
-        return LLSizeRatioToMaxHeight(size, maxSize.height);
+        return WZMSizeRatioToMaxHeight(size, maxSize.height);
     }
 }
