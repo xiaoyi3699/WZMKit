@@ -1,12 +1,12 @@
 //
-//  WZMAppStoreScore.m
+//  WZMAppStore.m
 //  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/5/22.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "WZMAppStoreScore.h"
+#import "WZMAppStore.h"
 #import "WZMFileManager.h"
 #import "WZMAppJump.h"
 #import "WZMDispatch.h"
@@ -15,20 +15,20 @@
 //评分
 #define WZM_STORE_KEY @"wzmStoreKey"
 #define WZM_BAD_KEY   @"wzmBadKey"
-@interface WZMAppStoreScore ()<UIAlertViewDelegate>
+@interface WZMAppStore ()<UIAlertViewDelegate>
 
 @end
 
-@implementation WZMAppStoreScore {
+@implementation WZMAppStore {
     WZMAppStoreType _type;
     NSString *_appId;
 }
 
 + (instancetype)shareScore {
-    static WZMAppStoreScore *score;
+    static WZMAppStore *score;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        score = [[WZMAppStoreScore alloc] initWithAppId:@""];
+        score = [[WZMAppStore alloc] initWithAppId:@""];
     });
     return score;
 }
