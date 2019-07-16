@@ -33,22 +33,22 @@
 
 #pragma mark - 交给子类们去实现
 /** 普通状态 */
-- (void)LL_RefreshNormal NS_REQUIRES_SUPER;
+- (void)WZM_RefreshNormal NS_REQUIRES_SUPER;
 
 /** 松开就刷新的状态 */
-- (void)LL_WiWZMRefresh NS_REQUIRES_SUPER;
+- (void)WZM_WiWZMRefresh NS_REQUIRES_SUPER;
 
 /** 没有更多的数据 */
-- (void)LL_NoMoreData NS_REQUIRES_SUPER;
+- (void)WZM_NoMoreData NS_REQUIRES_SUPER;
 
 /** 正在刷新中的状态 */
-- (void)LL_BeginRefresh NS_REQUIRES_SUPER;
+- (void)WZM_BeginRefresh NS_REQUIRES_SUPER;
 
 /** 刷新结束 */
-- (void)LL_EndRefresh:(BOOL)more NS_REQUIRES_SUPER;
+- (void)WZM_EndRefresh:(BOOL)more NS_REQUIRES_SUPER;
 
 /** 刷新结束 */
-- (void)LL_EndRefresh;
+- (void)WZM_EndRefresh;
 
 /** 初始化 */
 - (void)prepare NS_REQUIRES_SUPER;

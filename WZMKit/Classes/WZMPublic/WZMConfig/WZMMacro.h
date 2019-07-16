@@ -72,8 +72,8 @@
 #define WZM_R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]
 #define WZM_R_G_B_A(_r_,_g_,_b_,_a_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:_a_]
 
-#define WZM_COLOR_VALUE(_value_) [UIColor ll_colorWithHex:_value_]
-#define WZM_COLOR_VALUE_A(_value_,_a_) [UIColor ll_colorWithHex:_value_ alpha:_a_]
+#define WZM_COLOR_VALUE(_value_) [UIColor wzm_getColorByHex:_value_]
+#define WZM_COLOR_VALUE_A(_value_,_a_) [UIColor wzm_getColorByHex:_value_ alpha:_a_]
 
 #define ANGLE_TO_RADIAN(_x_)       (M_PI*_x_/180.0)       //由角度获取弧度
 #define RADIAN_TO_ANGLE(_radian_)  (_radian_*180.0/M_PI)  //由弧度获取角度

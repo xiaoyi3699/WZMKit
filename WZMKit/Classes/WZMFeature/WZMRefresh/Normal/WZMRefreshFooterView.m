@@ -29,10 +29,10 @@
     
     BOOL moreData = [notification.object boolValue];
     if (moreData) {
-        [self LL_RefreshNormal];
+        [self WZM_RefreshNormal];
     }
     else {
-        [self LL_NoMoreData];
+        [self WZM_NoMoreData];
     }
 }
 
@@ -104,10 +104,10 @@
     }
     else {
         if (self.scrollView.contentOffset.y < WZMRefreshFooterHeight+_contentOffsetY) {
-            [self LL_RefreshNormal];
+            [self WZM_RefreshNormal];
         }
         else {
-            [self LL_WiWZMRefresh];
+            [self WZM_WiWZMRefresh];
             transform3D = CATransform3DIdentity;
         }
     }
@@ -134,7 +134,7 @@
     [super scrollViewPanStateDidChange:change];
     if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {
-            [self LL_BeginRefresh];
+            [self WZM_BeginRefresh];
         }
     }
     else if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -142,9 +142,9 @@
     }
 }
 
-- (void)LL_BeginRefresh {
+- (void)WZM_BeginRefresh {
     if (self.isRefreshing == NO) {
-        [super LL_BeginRefresh];
+        [super WZM_BeginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(-WZMRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
@@ -158,9 +158,9 @@
     }
 }
 
-- (void)LL_EndRefresh:(BOOL)more {
+- (void)WZM_EndRefresh:(BOOL)more {
     if (self.isRefreshing) {
-        [super LL_EndRefresh:more];
+        [super WZM_EndRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
                 [UIView animateWithDuration:.35 animations:^{
@@ -188,10 +188,10 @@
     }
 }
 
-- (void)LL_EndRefresh {
+- (void)WZM_EndRefresh {
     if (self.isRefreshing) {
         BOOL more = !(_lastContentHeight == self.scrollView.contentSize.height);
-        [super LL_EndRefresh:more];
+        [super WZM_EndRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
                 [UIView animateWithDuration:.35 animations:^{

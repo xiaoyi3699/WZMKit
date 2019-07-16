@@ -36,13 +36,13 @@
  NSMutableArray *nums = [[NSMutableArray alloc] initWithCapacity:20];
  for (NSInteger i = 0; i < 20; i ++) {
  NSInteger j = arc4random()%100;
- LLBaseModel *model = [[LLBaseModel alloc] init];
+ WZMBaseModel *model = [[WZMBaseModel alloc] init];
  model.age = j;
  [nums addObject:model];
  }
  
  2、排序(可变数组可自身排序)
- NSArray *array = [nums sortedArrayUsingComparator:^NSComparisonResult(LLBaseModel *obj1, LLBaseModel *obj2) {
+ NSArray *array = [nums sortedArrayUsingComparator:^NSComparisonResult(WZMBaseModel *obj1, WZMBaseModel *obj2) {
  //按照升续排列
  if (obj1.age > obj2.age){
  return NSOrderedDescending;
@@ -57,7 +57,7 @@
  
  3、打印排序结果
  for (NSInteger i = 0; i < 20; i ++) {
- LLBaseModel *model = array[i];
+ WZMBaseModel *model = array[i];
  wzm_log(@"age=%ld",(long)model.age);
  }
  */

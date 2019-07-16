@@ -123,35 +123,35 @@
 }
 
 /** 普通状态 */
-- (void)LL_RefreshNormal{
+- (void)WZM_RefreshNormal{
     [self updateRefreshState:WZMRefreshStateNormal];
 }
 
 /** 松开就刷新的状态 */
-- (void)LL_WiWZMRefresh {
+- (void)WZM_WiWZMRefresh {
     [self updateRefreshState:WZMRefreshStateWiWZMRefresh];
 }
 
 /** 没有更多的数据 */
-- (void)LL_NoMoreData {
+- (void)WZM_NoMoreData {
     [self updateRefreshState:WZMRefreshStateNoMoreData];
 }
 
 /** 正在刷新中的状态 */
-- (void)LL_BeginRefresh{
+- (void)WZM_BeginRefresh{
     self.refreshing = YES;
     [self refreshUI:YES];
     [self updateRefreshState:WZMRefreshStateRefreshing];
 }
 
 /** 结束刷新 */
-- (void)LL_EndRefresh:(BOOL)more{
+- (void)WZM_EndRefresh:(BOOL)more{
     self.refreshing = NO;
     if (more) {
-        [self LL_RefreshNormal];
+        [self WZM_RefreshNormal];
     }
     else {
-        [self LL_NoMoreData];
+        [self WZM_NoMoreData];
     }
     [self refreshUI:NO];
 }
@@ -189,7 +189,7 @@
     }
 }
 
-- (void)LL_EndRefresh{};
+- (void)WZM_EndRefresh{};
 - (void)createViews{};
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change{}

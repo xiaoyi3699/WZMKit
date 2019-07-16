@@ -36,7 +36,7 @@
     [self.view addSubview:_playerView];
 }
 
-- (UIInterfaceOrientationMask)ll_supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait|
     UIInterfaceOrientationMaskLandscapeLeft|
     UIInterfaceOrientationMaskLandscapeRight;
