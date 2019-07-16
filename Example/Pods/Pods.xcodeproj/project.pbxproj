@@ -512,13 +512,13 @@
 			path = UITextView;
 			sourceTree = "<group>";
 		};
-		084B308E568FAABF8E1D7F042A11442E /* LLCamera */ = {
+		084B308E568FAABF8E1D7F042A11442E /* WZMCamera */ = {
 			isa = PBXGroup;
 			children = (
 				56634F4BBF973DB2CA30D7DD348FE2C6 /* LLCamera.h */,
 				DE99C06A0EAC525DC5DC9C69C39BB5F1 /* LLCamera.m */,
 			);
-			path = LLCamera;
+			path = WZMCamera;
 			sourceTree = "<group>";
 		};
 		0B32A7FEE5722A74B43F3798342BE95C /* UIWebView */ = {
@@ -530,31 +530,31 @@
 			path = UIWebView;
 			sourceTree = "<group>";
 		};
-		0C02D879333801B3CA164227C140A412 /* LLScrollImageView */ = {
+		0C02D879333801B3CA164227C140A412 /* WZMScrollImageView */ = {
 			isa = PBXGroup;
 			children = (
 				7FE4B74FFC6B80E4457D533A6C9EF3E9 /* LLScrollImageView.h */,
 				A94630D9106CDF296D6C2C421552D0B7 /* LLScrollImageView.m */,
 			);
-			path = LLScrollImageView;
+			path = WZMScrollImageView;
 			sourceTree = "<group>";
 		};
-		0C24F63FFFC65F53F68F0D5386941B04 /* LLCatchStore */ = {
+		0C24F63FFFC65F53F68F0D5386941B04 /* WZMCatchStore */ = {
 			isa = PBXGroup;
 			children = (
 				7999458157B79741EDE0630B34BD0E82 /* LLCatchStore.h */,
 				D6DEAE9BEEC9EA554C4688DC047A892A /* LLCatchStore.m */,
 			);
-			path = LLCatchStore;
+			path = WZMCatchStore;
 			sourceTree = "<group>";
 		};
-		0DB5E1F2C869BCAB255AE81D0C89F1C6 /* LLSqliteManager */ = {
+		0DB5E1F2C869BCAB255AE81D0C89F1C6 /* WZMSqliteManager */ = {
 			isa = PBXGroup;
 			children = (
 				65D2E069F6E68ABCAFE15CABD0958D95 /* LLSqliteManager.h */,
 				6A54502D9D6BD6B0CEBBEE3F19E99008 /* LLSqliteManager.m */,
 			);
-			path = LLSqliteManager;
+			path = WZMSqliteManager;
 			sourceTree = "<group>";
 		};
 		144169E95E04D8F5E8EBED700CE988DA /* Development Pods */ = {
@@ -623,10 +623,10 @@
 			isa = PBXGroup;
 			children = (
 				F6DB95B3ABF9534EC2E7BA71B6F65984 /* WZMKit.h */,
-				D4F067F45C285CF55597B2311FE38492 /* LLExtend */,
-				CB7D9380E79B3C41611F87AD37C5978C /* LLFeature */,
-				FD64917999BA57A6EDE3C7D462941E3C /* LLPublic */,
-				9651F962BF85876DCAF9FA71E5A21311 /* LLVender */,
+				D4F067F45C285CF55597B2311FE38492 /* WZMExtend */,
+				CB7D9380E79B3C41611F87AD37C5978C /* WZMFeature */,
+				FD64917999BA57A6EDE3C7D462941E3C /* WZMPublic */,
+				9651F962BF85876DCAF9FA71E5A21311 /* WZMVender */,
 				024D0E33BC575D0588FFFA43B44435FC /* Pod */,
 				2E65F0B9465EFD8D6F93C30BCFD38F1F /* Support Files */,
 			);
@@ -651,25 +651,25 @@
 			path = "Target Support Files/Pods-WZMKit_Example";
 			sourceTree = "<group>";
 		};
-		31EC91AC50D4811AD195AE10003F8D62 /* LLPopupAnimator */ = {
+		31EC91AC50D4811AD195AE10003F8D62 /* WZMPopupAnimator */ = {
 			isa = PBXGroup;
 			children = (
 				44DB0CA879FF0B63922FBE8439AFD1C3 /* LLPopupAnimator.h */,
 				6342E84BD0C1D91D49199553682A4FB0 /* LLPopupAnimator.m */,
 			);
-			path = LLPopupAnimator;
+			path = WZMPopupAnimator;
 			sourceTree = "<group>";
 		};
-		39FC831D9CA2103BD3529A93F0CF8628 /* LLAudioPlayer */ = {
+		39FC831D9CA2103BD3529A93F0CF8628 /* WZMAudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				4C262554E507CDCE48E943D7B83A04A8 /* LLAudioPlayer.h */,
 				BB148A16D4D30D21CAF8B38AF9E4DB46 /* LLAudioPlayer.m */,
 			);
-			path = LLAudioPlayer;
+			path = WZMAudioPlayer;
 			sourceTree = "<group>";
 		};
-		3B9B60261CE7F8DD70D241F3E1E85A8D /* LLVideoPlayer */ = {
+		3B9B60261CE7F8DD70D241F3E1E85A8D /* WZMVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				7CEF8C5BDFB2F53F5BF9B5E53F3C8718 /* LLAVPlayerItem.h */,
@@ -682,10 +682,10 @@
 				842E7308A043B21345F984F6292A4302 /* LLVideoPlayerViewController.m */,
 				91A83847745E452931A7830A7FA5A5E1 /* LLVideoPlayer.bundle */,
 			);
-			path = LLVideoPlayer;
+			path = WZMVideoPlayer;
 			sourceTree = "<group>";
 		};
-		402B94463397F0B59A247E8F6A9C166A /* LLLogView */ = {
+		402B94463397F0B59A247E8F6A9C166A /* WZMLogView */ = {
 			isa = PBXGroup;
 			children = (
 				681C2FC9036D0C73F792B1DFC494F5C5 /* LLLogModel.h */,
@@ -695,16 +695,16 @@
 				4B3EA46EEBED8D23D988F5A7A8C9D129 /* LLLogView.h */,
 				E90295C7A2E9E2DD5FE672D29042ABF4 /* LLLogView.m */,
 			);
-			path = LLLogView;
+			path = WZMLogView;
 			sourceTree = "<group>";
 		};
-		47BF8CC5225E8754C4B5123B5AC76CF6 /* LLAVManager */ = {
+		47BF8CC5225E8754C4B5123B5AC76CF6 /* WZMAVManager */ = {
 			isa = PBXGroup;
 			children = (
 				7150C1D40A586620F56BE22AE651FF9B /* LLAVManager.h */,
 				1539B59B7367E04DFFABA77CED4F8DA7 /* LLAVManager.m */,
 			);
-			path = LLAVManager;
+			path = WZMAVManager;
 			sourceTree = "<group>";
 		};
 		48F7260E3D9F808A627F36AB6349C24F /* Custom */ = {
@@ -738,25 +738,25 @@
 			path = NSArray;
 			sourceTree = "<group>";
 		};
-		565D09D9F809BE301A370506DB56102C /* LLSendEmail */ = {
+		565D09D9F809BE301A370506DB56102C /* WZMSendEmail */ = {
 			isa = PBXGroup;
 			children = (
 				B651F7D2607A0CE49AA4FF1EFE08EDCA /* LLSendEmail.h */,
 				12477EA343BA8A9D3E01E18D635AAAFB /* LLSendEmail.m */,
 			);
-			path = LLSendEmail;
+			path = WZMSendEmail;
 			sourceTree = "<group>";
 		};
-		571708FE339E4267944F7EADC2D7861A /* LLAutoHeader */ = {
+		571708FE339E4267944F7EADC2D7861A /* WZMAutoHeader */ = {
 			isa = PBXGroup;
 			children = (
 				E10D699015ED492F6BEEB9234732D906 /* LLAutoHeader.h */,
 				279328910F397405EB18DC6229A56009 /* LLAutoHeader.m */,
 			);
-			path = LLAutoHeader;
+			path = WZMAutoHeader;
 			sourceTree = "<group>";
 		};
-		574B811FAC403A3913628DA3146EB1F8 /* LLConfig */ = {
+		574B811FAC403A3913628DA3146EB1F8 /* WZMConfig */ = {
 			isa = PBXGroup;
 			children = (
 				3C725316B830683C5E99B392F887DF9C /* LLBlock.h */,
@@ -764,7 +764,7 @@
 				016846F5F96CFFC8E9CF9A06DF138F96 /* LLMacro.h */,
 				CD0094E7F24A52A07EC3D316D16FC692 /* LLTextInfo.h */,
 			);
-			path = LLConfig;
+			path = WZMConfig;
 			sourceTree = "<group>";
 		};
 		57B80DB56ADC953856F2498CAE6A2C4C /* UIWindow */ = {
@@ -800,22 +800,22 @@
 			path = Normal;
 			sourceTree = "<group>";
 		};
-		6384204D27598E1A6BA4F4DA8727C524 /* LLLocationManager */ = {
+		6384204D27598E1A6BA4F4DA8727C524 /* WZMLocationManager */ = {
 			isa = PBXGroup;
 			children = (
 				C5AC3611573C67ADCDACC66C08E843C6 /* LLLocationManager.h */,
 				702806375C3D0BB0A04388F8B50C479C /* LLLocationManager.m */,
 			);
-			path = LLLocationManager;
+			path = WZMLocationManager;
 			sourceTree = "<group>";
 		};
-		68254DD4D0531B56E2B57937B49822AC /* LLDeviceUtil */ = {
+		68254DD4D0531B56E2B57937B49822AC /* WZMDeviceUtil */ = {
 			isa = PBXGroup;
 			children = (
 				F09358DD26C473DCA321B89E7A45E5A3 /* LLDeviceUtil.h */,
 				66E798816E3C423E4066EDE7C3073104 /* LLDeviceUtil.m */,
 			);
-			path = LLDeviceUtil;
+			path = WZMDeviceUtil;
 			sourceTree = "<group>";
 		};
 		697DB2C09DE406862E477843AF0385AD /* UILabel */ = {
@@ -845,13 +845,13 @@
 			path = UIColor;
 			sourceTree = "<group>";
 		};
-		71E39D0A8B4DA0FC5D42BD7594947855 /* LLNetworkDownload */ = {
+		71E39D0A8B4DA0FC5D42BD7594947855 /* WZMNetworkDownload */ = {
 			isa = PBXGroup;
 			children = (
 				69BDB7AC942C4E6C60DB2B4756EA1535 /* LLNetworkDownload.h */,
 				D60C2C873718CC473E09EC26EF9D8195 /* LLNetworkDownload.m */,
 			);
-			path = LLNetworkDownload;
+			path = WZMNetworkDownload;
 			sourceTree = "<group>";
 		};
 		72FFFF562AA1DC0227C59EB48A96BBA5 /* Products */ = {
@@ -882,15 +882,15 @@
 			path = UIButton;
 			sourceTree = "<group>";
 		};
-		7CE47567D460415B95EF97C52B1649CD /* LLInline */ = {
+		7CE47567D460415B95EF97C52B1649CD /* WZMInline */ = {
 			isa = PBXGroup;
 			children = (
 				41F2008C62096B2ED5769DD5ACCB60C5 /* LLInline.h */,
 			);
-			path = LLInline;
+			path = WZMInline;
 			sourceTree = "<group>";
 		};
-		84CCD436ACB25642B2B6985315281D4F /* LLSegmentedView */ = {
+		84CCD436ACB25642B2B6985315281D4F /* WZMSegmentedView */ = {
 			isa = PBXGroup;
 			children = (
 				A98F75625520A1492F790A15C09AFB3B /* LLSegmentedCell.h */,
@@ -898,19 +898,19 @@
 				CA2AB8180BE5C0577F508EF246728693 /* LLSegmentedView.h */,
 				13EB666B62279BF00C009AE2427BAB0A /* LLSegmentedView.m */,
 			);
-			path = LLSegmentedView;
+			path = WZMSegmentedView;
 			sourceTree = "<group>";
 		};
-		84D194B13526B7D1F9176BB6AB00DCB2 /* LLGifView */ = {
+		84D194B13526B7D1F9176BB6AB00DCB2 /* WZMGifView */ = {
 			isa = PBXGroup;
 			children = (
 				EBFF7DB1A75D18FC64E5A8AF78DE310B /* LLGifImageView.h */,
 				B2B1D9EAB457F5EFD6C92BFBD6061CCC /* LLGifImageView.m */,
 			);
-			path = LLGifView;
+			path = WZMGifView;
 			sourceTree = "<group>";
 		};
-		84E5BAB0CCC63584038D2E5851AF2392 /* LLReaction */ = {
+		84E5BAB0CCC63584038D2E5851AF2392 /* WZMReaction */ = {
 			isa = PBXGroup;
 			children = (
 				CA4BB6C1936C72D55BB3B55065192750 /* LLReaction.h */,
@@ -929,16 +929,16 @@
 				DA1BF516293ABFC64743C1B4FD5EC9F8 /* UIView+LLReaction.h */,
 				2C2B9A4C43DF72BE80A7331FD171BCAB /* UIView+LLReaction.m */,
 			);
-			path = LLReaction;
+			path = WZMReaction;
 			sourceTree = "<group>";
 		};
-		8EA65A1D5B4B51D77DA7EE3DC6AEF1D6 /* LLGCD */ = {
+		8EA65A1D5B4B51D77DA7EE3DC6AEF1D6 /* WZMGCD */ = {
 			isa = PBXGroup;
 			children = (
 				8284491EE92667FD3052030C05B4030A /* LLDispatch.h */,
 				8A8FF8691706D1ACC9F2B72A8BF13C5D /* LLDispatch.m */,
 			);
-			path = LLGCD;
+			path = WZMGCD;
 			sourceTree = "<group>";
 		};
 		91A83847745E452931A7830A7FA5A5E1 /* LLVideoPlayer.bundle */ = {
@@ -951,7 +951,7 @@
 			path = LLVideoPlayer.bundle;
 			sourceTree = "<group>";
 		};
-		94BFF7694C508AFA3132B720701BFC60 /* UIAddPart */ = {
+		94BFF7694C508AFA3132B720701BFC60 /* UICategory */ = {
 			isa = PBXGroup;
 			children = (
 				7BC32504C7F0DF629DE16F4FDDA9EC59 /* UIButton */,
@@ -970,25 +970,25 @@
 				0B32A7FEE5722A74B43F3798342BE95C /* UIWebView */,
 				57B80DB56ADC953856F2498CAE6A2C4C /* UIWindow */,
 			);
-			path = UIAddPart;
+			path = UICategory;
 			sourceTree = "<group>";
 		};
-		9651F962BF85876DCAF9FA71E5A21311 /* LLVender */ = {
+		9651F962BF85876DCAF9FA71E5A21311 /* WZMVender */ = {
 			isa = PBXGroup;
 			children = (
-				CBB98809A77C41542F357A6CA742AAB6 /* LLBase64 */,
+				CBB98809A77C41542F357A6CA742AAB6 /* WZMBase64 */,
 			);
-			name = LLVender;
-			path = WZMKit/Classes/LLVender;
+			name = WZMVender;
+			path = WZMKit/Classes/WZMVender;
 			sourceTree = "<group>";
 		};
-		966B166BAE197636D55EDD50F59436F2 /* LLActionSheet */ = {
+		966B166BAE197636D55EDD50F59436F2 /* WZMActionSheet */ = {
 			isa = PBXGroup;
 			children = (
 				9F02BCECB116D86408D7BDC86233B9E9 /* LLActionSheet.h */,
 				FE6CF3333094122E419294B1F92C3146 /* LLActionSheet.m */,
 			);
-			path = LLActionSheet;
+			path = WZMActionSheet;
 			sourceTree = "<group>";
 		};
 		98F845B94A30C8B228A4664EF7DFBB4B /* UIScrollView */ = {
@@ -1017,25 +1017,25 @@
 			path = LLRefresh.bundle;
 			sourceTree = "<group>";
 		};
-		9B4A0697A6656201B6C369BFE88FE6B3 /* LLKeychain */ = {
+		9B4A0697A6656201B6C369BFE88FE6B3 /* WZMKeychain */ = {
 			isa = PBXGroup;
 			children = (
 				FF1634819630215C9B22EDCF6437377B /* LLKeychain.h */,
 				677808BD0B327838E6CDD08BDAEE87A7 /* LLKeychain.m */,
 			);
-			path = LLKeychain;
+			path = WZMKeychain;
 			sourceTree = "<group>";
 		};
-		9D4C1174E5DDDB20387F1CB7B080B975 /* LLProgressHUD */ = {
+		9D4C1174E5DDDB20387F1CB7B080B975 /* WZMProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
 				DBBDE3DF34AD35997F2A2F9414E9D83B /* LLProgressHUD.h */,
 				50C1FC898FC4CDEC97CE1F99A078C273 /* LLProgressHUD.m */,
 			);
-			path = LLProgressHUD;
+			path = WZMProgressHUD;
 			sourceTree = "<group>";
 		};
-		9DA0B5CCB093A8644663704FA91F7FD6 /* LLUncaughtException */ = {
+		9DA0B5CCB093A8644663704FA91F7FD6 /* WZMUncaughtException */ = {
 			isa = PBXGroup;
 			children = (
 				3FAAFAFECCC07C178D6AC103CE917B99 /* LLSignalException.h */,
@@ -1043,19 +1043,19 @@
 				02FC79AA511FBB9E71B610BC15168404 /* LLUncaughtException.h */,
 				44BC8BEFDAA060FFD0DB905D683A22AE /* LLUncaughtException.m */,
 			);
-			path = LLUncaughtException;
+			path = WZMUncaughtException;
 			sourceTree = "<group>";
 		};
-		A48E22D894F243B3E4CA78E3C155DD5F /* LLGestureRecognizer */ = {
+		A48E22D894F243B3E4CA78E3C155DD5F /* WZMGestureRecognizer */ = {
 			isa = PBXGroup;
 			children = (
 				E9071251733DA65378641CB441995428 /* LLSingleRotationGestureRecognizer.h */,
 				371265F396801E7C2DECFCDB02DC2E48 /* LLSingleRotationGestureRecognizer.m */,
 			);
-			path = LLGestureRecognizer;
+			path = WZMGestureRecognizer;
 			sourceTree = "<group>";
 		};
-		A5FE4D4FFF8C1B3D3EC3EAD830082C22 /* LLRefresh */ = {
+		A5FE4D4FFF8C1B3D3EC3EAD830082C22 /* WZMRefresh */ = {
 			isa = PBXGroup;
 			children = (
 				DDAFF0A23E7417C7F6192A0D305D5BDB /* LLRefresh.h */,
@@ -1066,10 +1066,10 @@
 				998F0E873E7CFA5411E57D64E541AD65 /* LLRefresh.bundle */,
 				5A2B59F12E0DCE720BB4437BED88242E /* Normal */,
 			);
-			path = LLRefresh;
+			path = WZMRefresh;
 			sourceTree = "<group>";
 		};
-		A7395F29546FBCE1EE3D842845BD504A /* NSAddPart */ = {
+		A7395F29546FBCE1EE3D842845BD504A /* NSCategory */ = {
 			isa = PBXGroup;
 			children = (
 				540DD923B836DC73E5DCAF4AE0C072F4 /* NSArray */,
@@ -1082,7 +1082,7 @@
 				DCF97D087B488B2DF6A0E9D657F47270 /* NSObject */,
 				F160A562D7F3B3AD893F09FA7F63F9AC /* NSString */,
 			);
-			path = NSAddPart;
+			path = NSCategory;
 			sourceTree = "<group>";
 		};
 		ACA5536E5061C480F3F8BA2EF6003AC2 /* Pods-WZMKit_Tests */ = {
@@ -1110,31 +1110,31 @@
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
-		B35245548B16A02243D39BBB824052CC /* LLAppStoreScore */ = {
+		B35245548B16A02243D39BBB824052CC /* WZMAppStoreScore */ = {
 			isa = PBXGroup;
 			children = (
 				F6ACDFF4DAFC387455C3773DFFB380DB /* LLAppStoreScore.h */,
 				4D7ED8009C74C24D8890F90015E01211 /* LLAppStoreScore.m */,
 			);
-			path = LLAppStoreScore;
+			path = WZMAppStoreScore;
 			sourceTree = "<group>";
 		};
-		B41AF6F1FC16CA8A5A88BEE6031F3B52 /* LLAppJump */ = {
+		B41AF6F1FC16CA8A5A88BEE6031F3B52 /* WZMAppJump */ = {
 			isa = PBXGroup;
 			children = (
 				CF29694FCEDC57A774EEBB72784F2E5E /* LLAppJump.h */,
 				CCE11BF0F5894903D72A9FC84C59C8EE /* LLAppJump.m */,
 			);
-			path = LLAppJump;
+			path = WZMAppJump;
 			sourceTree = "<group>";
 		};
-		B43EDF69A094FE89080C17E1CF518AC0 /* LLAlertView */ = {
+		B43EDF69A094FE89080C17E1CF518AC0 /* WZMAlertView */ = {
 			isa = PBXGroup;
 			children = (
 				9A16BB30DE2A7A7B8C0AAC010003C62F /* LLAlertView.h */,
 				A235841DDDDB83CBBC2E1E1B7DF146B0 /* LLAlertView.m */,
 			);
-			path = LLAlertView;
+			path = WZMAlertView;
 			sourceTree = "<group>";
 		};
 		B853F51AB7E696DB0D796FDD46FAA528 /* NSNull */ = {
@@ -1146,7 +1146,7 @@
 			path = NSNull;
 			sourceTree = "<group>";
 		};
-		B9B482FD23AA65602C275E84122C3A89 /* LLCycleView */ = {
+		B9B482FD23AA65602C275E84122C3A89 /* WZMCycleView */ = {
 			isa = PBXGroup;
 			children = (
 				AE3A4F25EEE0835FD52761AEA68C85F6 /* LLBezierView.h */,
@@ -1154,16 +1154,16 @@
 				E3B1A5B6BDE184C769179964EE1E8023 /* LLCycleView.h */,
 				724C53E4AAEC713B15671BBE01CA2A9A /* LLCycleView.m */,
 			);
-			path = LLCycleView;
+			path = WZMCycleView;
 			sourceTree = "<group>";
 		};
-		C034A429169CE4746C77E89DCC12D61C /* LLFileManager */ = {
+		C034A429169CE4746C77E89DCC12D61C /* WZMFileManager */ = {
 			isa = PBXGroup;
 			children = (
 				4E63942C5517C65919E41CB444D3D655 /* LLFileManager.h */,
 				F64046FC2AF152C204D6C9CD53996DFA /* LLFileManager.m */,
 			);
-			path = LLFileManager;
+			path = WZMFileManager;
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -1174,68 +1174,68 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		C7502887928D86FF79574F4E1A3E7759 /* LLJSONParseUtil */ = {
+		C7502887928D86FF79574F4E1A3E7759 /* WZMJSONParseUtil */ = {
 			isa = PBXGroup;
 			children = (
 				C73C1F700EC57DCA32DD653111771DED /* LLJSONParseUtil.h */,
 				5D40E86DD5C915EBECECC4A24B5CFE7B /* LLJSONParseUtil.m */,
 			);
-			path = LLJSONParseUtil;
+			path = WZMJSONParseUtil;
 			sourceTree = "<group>";
 		};
-		CB7D9380E79B3C41611F87AD37C5978C /* LLFeature */ = {
+		CB7D9380E79B3C41611F87AD37C5978C /* WZMFeature */ = {
 			isa = PBXGroup;
 			children = (
-				966B166BAE197636D55EDD50F59436F2 /* LLActionSheet */,
-				B43EDF69A094FE89080C17E1CF518AC0 /* LLAlertView */,
-				DD09F38470F80A802BA68ED75FA35585 /* LLAnimationNumView */,
-				B41AF6F1FC16CA8A5A88BEE6031F3B52 /* LLAppJump */,
-				B35245548B16A02243D39BBB824052CC /* LLAppStoreScore */,
-				39FC831D9CA2103BD3529A93F0CF8628 /* LLAudioPlayer */,
-				571708FE339E4267944F7EADC2D7861A /* LLAutoHeader */,
-				47BF8CC5225E8754C4B5123B5AC76CF6 /* LLAVManager */,
-				084B308E568FAABF8E1D7F042A11442E /* LLCamera */,
-				0C24F63FFFC65F53F68F0D5386941B04 /* LLCatchStore */,
-				B9B482FD23AA65602C275E84122C3A89 /* LLCycleView */,
-				68254DD4D0531B56E2B57937B49822AC /* LLDeviceUtil */,
-				EA5219D05F2007B8B9F0E6DBBE84B71D /* LLDrawView */,
-				C034A429169CE4746C77E89DCC12D61C /* LLFileManager */,
-				DD076B9155B5CF9215746F1C93352A46 /* LLFontView */,
-				8EA65A1D5B4B51D77DA7EE3DC6AEF1D6 /* LLGCD */,
-				A48E22D894F243B3E4CA78E3C155DD5F /* LLGestureRecognizer */,
-				84D194B13526B7D1F9176BB6AB00DCB2 /* LLGifView */,
-				FE120311C53610978DF0EE1ADAEBC5F2 /* LLImageCache */,
-				C7502887928D86FF79574F4E1A3E7759 /* LLJSONParseUtil */,
-				9B4A0697A6656201B6C369BFE88FE6B3 /* LLKeychain */,
-				6384204D27598E1A6BA4F4DA8727C524 /* LLLocationManager */,
-				EE22EB7481276FB4BD0511242088360C /* LLLog */,
-				402B94463397F0B59A247E8F6A9C166A /* LLLogView */,
-				D9F83D8FADC85B798BF0DEDA336591BD /* LLNetWork */,
-				71E39D0A8B4DA0FC5D42BD7594947855 /* LLNetworkDownload */,
-				F135F714E4E5D495A24E36738501A059 /* LLPhotoBrowser */,
-				31EC91AC50D4811AD195AE10003F8D62 /* LLPopupAnimator */,
-				9D4C1174E5DDDB20387F1CB7B080B975 /* LLProgressHUD */,
-				84E5BAB0CCC63584038D2E5851AF2392 /* LLReaction */,
-				A5FE4D4FFF8C1B3D3EC3EAD830082C22 /* LLRefresh */,
-				0C02D879333801B3CA164227C140A412 /* LLScrollImageView */,
-				84CCD436ACB25642B2B6985315281D4F /* LLSegmentedView */,
-				EC27CFD8139479D3CCDEC55B07569CAF /* LLSelectedView */,
-				565D09D9F809BE301A370506DB56102C /* LLSendEmail */,
-				0DB5E1F2C869BCAB255AE81D0C89F1C6 /* LLSqliteManager */,
-				9DA0B5CCB093A8644663704FA91F7FD6 /* LLUncaughtException */,
-				3B9B60261CE7F8DD70D241F3E1E85A8D /* LLVideoPlayer */,
+				966B166BAE197636D55EDD50F59436F2 /* WZMActionSheet */,
+				B43EDF69A094FE89080C17E1CF518AC0 /* WZMAlertView */,
+				DD09F38470F80A802BA68ED75FA35585 /* WZMAnimationNumView */,
+				B41AF6F1FC16CA8A5A88BEE6031F3B52 /* WZMAppJump */,
+				B35245548B16A02243D39BBB824052CC /* WZMAppStoreScore */,
+				39FC831D9CA2103BD3529A93F0CF8628 /* WZMAudioPlayer */,
+				571708FE339E4267944F7EADC2D7861A /* WZMAutoHeader */,
+				47BF8CC5225E8754C4B5123B5AC76CF6 /* WZMAVManager */,
+				084B308E568FAABF8E1D7F042A11442E /* WZMCamera */,
+				0C24F63FFFC65F53F68F0D5386941B04 /* WZMCatchStore */,
+				B9B482FD23AA65602C275E84122C3A89 /* WZMCycleView */,
+				68254DD4D0531B56E2B57937B49822AC /* WZMDeviceUtil */,
+				EA5219D05F2007B8B9F0E6DBBE84B71D /* WZMDrawView */,
+				C034A429169CE4746C77E89DCC12D61C /* WZMFileManager */,
+				DD076B9155B5CF9215746F1C93352A46 /* WZMFontView */,
+				8EA65A1D5B4B51D77DA7EE3DC6AEF1D6 /* WZMGCD */,
+				A48E22D894F243B3E4CA78E3C155DD5F /* WZMGestureRecognizer */,
+				84D194B13526B7D1F9176BB6AB00DCB2 /* WZMGifView */,
+				FE120311C53610978DF0EE1ADAEBC5F2 /* WZMImageCache */,
+				C7502887928D86FF79574F4E1A3E7759 /* WZMJSONParseUtil */,
+				9B4A0697A6656201B6C369BFE88FE6B3 /* WZMKeychain */,
+				6384204D27598E1A6BA4F4DA8727C524 /* WZMLocationManager */,
+				EE22EB7481276FB4BD0511242088360C /* WZMLog */,
+				402B94463397F0B59A247E8F6A9C166A /* WZMLogView */,
+				D9F83D8FADC85B798BF0DEDA336591BD /* WZMNetWork */,
+				71E39D0A8B4DA0FC5D42BD7594947855 /* WZMNetworkDownload */,
+				F135F714E4E5D495A24E36738501A059 /* WZMPhotoBrowser */,
+				31EC91AC50D4811AD195AE10003F8D62 /* WZMPopupAnimator */,
+				9D4C1174E5DDDB20387F1CB7B080B975 /* WZMProgressHUD */,
+				84E5BAB0CCC63584038D2E5851AF2392 /* WZMReaction */,
+				A5FE4D4FFF8C1B3D3EC3EAD830082C22 /* WZMRefresh */,
+				0C02D879333801B3CA164227C140A412 /* WZMScrollImageView */,
+				84CCD436ACB25642B2B6985315281D4F /* WZMSegmentedView */,
+				EC27CFD8139479D3CCDEC55B07569CAF /* WZMSelectedView */,
+				565D09D9F809BE301A370506DB56102C /* WZMSendEmail */,
+				0DB5E1F2C869BCAB255AE81D0C89F1C6 /* WZMSqliteManager */,
+				9DA0B5CCB093A8644663704FA91F7FD6 /* WZMUncaughtException */,
+				3B9B60261CE7F8DD70D241F3E1E85A8D /* WZMVideoPlayer */,
 			);
-			name = LLFeature;
-			path = WZMKit/Classes/LLFeature;
+			name = WZMFeature;
+			path = WZMKit/Classes/WZMFeature;
 			sourceTree = "<group>";
 		};
-		CBB98809A77C41542F357A6CA742AAB6 /* LLBase64 */ = {
+		CBB98809A77C41542F357A6CA742AAB6 /* WZMBase64 */ = {
 			isa = PBXGroup;
 			children = (
 				B0499220D7A04FD62460D2E7227892FD /* LLBase64.h */,
 				78A1C75BE241C21AEEED75DAB5112A73 /* LLBase64.m */,
 			);
-			path = LLBase64;
+			path = WZMBase64;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -1266,7 +1266,7 @@
 			path = UITextField;
 			sourceTree = "<group>";
 		};
-		D42622A5303B1ECD8860E25836F71195 /* LLHandle */ = {
+		D42622A5303B1ECD8860E25836F71195 /* WZMHandle */ = {
 			isa = PBXGroup;
 			children = (
 				D94ECC2F7AEB9351455F539A77722CD0 /* LLNSHandle.h */,
@@ -1274,28 +1274,28 @@
 				63D781794B2CBA7DD6C3478B4B27AC10 /* LLViewHandle.h */,
 				3E8A6D40F9A852910904A4CA282A6DC8 /* LLViewHandle.m */,
 			);
-			path = LLHandle;
+			path = WZMHandle;
 			sourceTree = "<group>";
 		};
-		D4F067F45C285CF55597B2311FE38492 /* LLExtend */ = {
+		D4F067F45C285CF55597B2311FE38492 /* WZMExtend */ = {
 			isa = PBXGroup;
 			children = (
-				D42622A5303B1ECD8860E25836F71195 /* LLHandle */,
-				7CE47567D460415B95EF97C52B1649CD /* LLInline */,
-				A7395F29546FBCE1EE3D842845BD504A /* NSAddPart */,
-				94BFF7694C508AFA3132B720701BFC60 /* UIAddPart */,
+				7CE47567D460415B95EF97C52B1649CD /* WZMInline */,
+				D42622A5303B1ECD8860E25836F71195 /* WZMHandle */,
+				A7395F29546FBCE1EE3D842845BD504A /* NSCategory */,
+				94BFF7694C508AFA3132B720701BFC60 /* UICategory */,
 			);
-			name = LLExtend;
-			path = WZMKit/Classes/LLExtend;
+			name = WZMExtend;
+			path = WZMKit/Classes/WZMExtend;
 			sourceTree = "<group>";
 		};
-		D9F83D8FADC85B798BF0DEDA336591BD /* LLNetWork */ = {
+		D9F83D8FADC85B798BF0DEDA336591BD /* WZMNetWork */ = {
 			isa = PBXGroup;
 			children = (
 				A40BB39D91E98E53C916EA3BE9F38BC6 /* LLNetWorking.h */,
 				8CEDF37DDE6D3BDA6AFA471145B6FE7F /* LLNetWorking.m */,
 			);
-			path = LLNetWork;
+			path = WZMNetWork;
 			sourceTree = "<group>";
 		};
 		DCF97D087B488B2DF6A0E9D657F47270 /* NSObject */ = {
@@ -1307,16 +1307,16 @@
 			path = NSObject;
 			sourceTree = "<group>";
 		};
-		DD076B9155B5CF9215746F1C93352A46 /* LLFontView */ = {
+		DD076B9155B5CF9215746F1C93352A46 /* WZMFontView */ = {
 			isa = PBXGroup;
 			children = (
 				6941708868B298789B95585C2784F8E8 /* LLFontView.h */,
 				486526B86FD31A8FCE36A48F4B88383D /* LLFontView.m */,
 			);
-			path = LLFontView;
+			path = WZMFontView;
 			sourceTree = "<group>";
 		};
-		DD09F38470F80A802BA68ED75FA35585 /* LLAnimationNumView */ = {
+		DD09F38470F80A802BA68ED75FA35585 /* WZMAnimationNumView */ = {
 			isa = PBXGroup;
 			children = (
 				F2D49DCE17C29C9B00B5AEBAFC115219 /* LLAnimationNumItemView.h */,
@@ -1324,7 +1324,7 @@
 				0E194F5AAB7C53EE396EA6690643DA72 /* LLAnimationNumView.h */,
 				D1EB6F3F7A3C6D73B8D362B68AD590EF /* LLAnimationNumView.m */,
 			);
-			path = LLAnimationNumView;
+			path = WZMAnimationNumView;
 			sourceTree = "<group>";
 		};
 		DD9BA842762CFDFBAE34FBABA8B7608E /* NSAttributedString */ = {
@@ -1363,34 +1363,34 @@
 			path = UINavigationBar;
 			sourceTree = "<group>";
 		};
-		EA5219D05F2007B8B9F0E6DBBE84B71D /* LLDrawView */ = {
+		EA5219D05F2007B8B9F0E6DBBE84B71D /* WZMDrawView */ = {
 			isa = PBXGroup;
 			children = (
 				940B378FB6E1F23CFC30952A3DAB943A /* LLDrawView.h */,
 				AF8B93287F698D2E61B5BE2B5EB4FDED /* LLDrawView.m */,
 			);
-			path = LLDrawView;
+			path = WZMDrawView;
 			sourceTree = "<group>";
 		};
-		EC27CFD8139479D3CCDEC55B07569CAF /* LLSelectedView */ = {
+		EC27CFD8139479D3CCDEC55B07569CAF /* WZMSelectedView */ = {
 			isa = PBXGroup;
 			children = (
 				D1B9A0A7751E82B4B1E00793A56F65CE /* LLSelectedView.h */,
 				6D9BE328DD6F0BAD90C0B17C5F9BBE0A /* LLSelectedView.m */,
 			);
-			path = LLSelectedView;
+			path = WZMSelectedView;
 			sourceTree = "<group>";
 		};
-		EE22EB7481276FB4BD0511242088360C /* LLLog */ = {
+		EE22EB7481276FB4BD0511242088360C /* WZMLog */ = {
 			isa = PBXGroup;
 			children = (
 				00E9C1E10ACA196905162BF6335D8195 /* LLLog.h */,
 				A28A78D1DFC57802117D97AEBA362B2A /* LLLog.m */,
 			);
-			path = LLLog;
+			path = WZMLog;
 			sourceTree = "<group>";
 		};
-		F135F714E4E5D495A24E36738501A059 /* LLPhotoBrowser */ = {
+		F135F714E4E5D495A24E36738501A059 /* WZMPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				EFD0BC3D173DE3D75F703EFBAED9E278 /* LLPhoto.h */,
@@ -1400,7 +1400,7 @@
 				4B32904F8B27BD211C64195D50653BE7 /* LLPhotoBrowserCell.h */,
 				65C1B78BD48572A2F87907497692A150 /* LLPhotoBrowserCell.m */,
 			);
-			path = LLPhotoBrowser;
+			path = WZMPhotoBrowser;
 			sourceTree = "<group>";
 		};
 		F160A562D7F3B3AD893F09FA7F63F9AC /* NSString */ = {
@@ -1412,24 +1412,24 @@
 			path = NSString;
 			sourceTree = "<group>";
 		};
-		FD64917999BA57A6EDE3C7D462941E3C /* LLPublic */ = {
+		FD64917999BA57A6EDE3C7D462941E3C /* WZMPublic */ = {
 			isa = PBXGroup;
 			children = (
 				E6C4A6286479CA3C7A814D75DDF5D792 /* LLPublic.h */,
 				72FE7A936E429007CF85BDD1AB78D685 /* LLPublic.m */,
-				574B811FAC403A3913628DA3146EB1F8 /* LLConfig */,
+				574B811FAC403A3913628DA3146EB1F8 /* WZMConfig */,
 			);
-			name = LLPublic;
-			path = WZMKit/Classes/LLPublic;
+			name = WZMPublic;
+			path = WZMKit/Classes/WZMPublic;
 			sourceTree = "<group>";
 		};
-		FE120311C53610978DF0EE1ADAEBC5F2 /* LLImageCache */ = {
+		FE120311C53610978DF0EE1ADAEBC5F2 /* WZMImageCache */ = {
 			isa = PBXGroup;
 			children = (
 				82A559609630132972B58197B9AAA63F /* LLImageCache.h */,
 				89CAA2C62A595636B5ABA7AB1DFBF1BC /* LLImageCache.m */,
 			);
-			path = LLImageCache;
+			path = WZMImageCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
