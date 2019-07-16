@@ -10,25 +10,25 @@
 
 @implementation UIColor (wzmcate)
 
-+ (UIColor *)wzm_colorWithImage:(UIImage *)image {
++ (UIColor *)wzm_getColorByImage:(UIImage *)image {
     return [UIColor colorWithPatternImage:image];
 }
 
-+ (UIColor *)wzm_colorWithHex:(NSInteger)hexValue {
-    return [self wzm_colorWithHex:hexValue alpha:1.0];
++ (UIColor *)wzm_getColorByHex:(NSInteger)hexValue {
+    return [self wzm_getColorByHex:hexValue alpha:1.0];
 }
 
-+ (UIColor *)wzm_colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alpha {
++ (UIColor *)wzm_getColorByHex:(NSInteger)hexValue alpha:(CGFloat)alpha {
     return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0
                            green:((float)((hexValue & 0xFF00) >> 8))/255.0
                             blue:((float)(hexValue & 0xFF))/255.0 alpha:alpha];
 }
 
-+ (UIColor *)wzm_colorWithHexString:(NSString *)hexString {
-    return [self wzm_colorWithHexString:hexString alpha:1.0];
++ (UIColor *)wzm_getColorByHexString:(NSString *)hexString {
+    return [self wzm_getColorByHexString:hexString alpha:1.0];
 }
 
-+ (UIColor *)wzm_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha {
++ (UIColor *)wzm_getColorByHexString:(NSString *)hexString alpha:(CGFloat)alpha {
     NSString *cString = [[hexString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     // String should be 6 or 8 characters
     if ([cString length] < 6) {

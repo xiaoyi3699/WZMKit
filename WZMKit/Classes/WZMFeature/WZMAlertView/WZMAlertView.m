@@ -24,7 +24,7 @@
 }
 @end
 
-#define THEME_COLOR_UP [UIColor wzm_colorWithHex:0xa031ed]
+#define THEME_COLOR_UP [UIColor wzm_getColorByHex:0xa031ed]
 @implementation WZMAlertView
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type {
