@@ -8,12 +8,29 @@
 
 #import "WZMAppDelegate.h"
 #import <WZMKit/WZMKit.h>
+#import "WZMViewController.h"
 
 @implementation WZMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    self.window.rootViewController = [WZMViewController new];
+    
+    
+    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"恭喜你，集成成功！" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+    [alertView showAnimated:YES];
+    
+    
+#if DEBUG
+//    wzm_openLogEnable(YES);
+//    [WZMLogView startLog];
+//    [self.window wzm_startObserveFpsAndCpu];
+//    WZMInstallUncaughtExceptionHandler();
+//    WZMInstallSignalHandler();
+#endif
     return YES;
 }
 
