@@ -1,32 +1,32 @@
 //
-//  LLNetWorking.m
+//  WZMNetWorking.m
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/23.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLNetWorking.h"
+#import "WZMNetWorking.h"
 #import "LLLog.h"
 #import "NSString+wzmcate.h"
 
 NSString * const LLNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
 NSString * const LLNetRequestContentTypeJson = @"application/json;charset=utf-8";
 
-@interface LLNetWorking ()
+@interface WZMNetWorking ()
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSSet *HTTPMethodsEncodingParametersInURI;
 
 @end
 
-@implementation LLNetWorking
+@implementation WZMNetWorking
 
 + (instancetype)netWorking {
-    static LLNetWorking *netWorking;
+    static WZMNetWorking *netWorking;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        netWorking = [[LLNetWorking alloc] init];
+        netWorking = [[WZMNetWorking alloc] init];
     });
     return netWorking;
 }

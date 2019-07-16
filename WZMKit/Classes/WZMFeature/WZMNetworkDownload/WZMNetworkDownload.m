@@ -1,17 +1,17 @@
 //
-//  LLNetworkDownload.m
+//  WZMNetworkDownload.m
 //  LLFoundation
 //
 //  Created by WangZhaomeng on 2017/4/28.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLNetworkDownload.h"
+#import "WZMNetworkDownload.h"
 #import "LLLog.h"
 #import "WZMMacro.h"
 #import "NSString+wzmcate.h"
 
-@interface LLNetworkDownload ()<NSURLSessionDownloadDelegate>
+@interface WZMNetworkDownload ()<NSURLSessionDownloadDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation LLNetworkDownload
+@implementation WZMNetworkDownload
 
 - (NSURLSession *)session {
     if (_session == nil) {

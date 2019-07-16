@@ -1,5 +1,5 @@
 //
-//  LLNetWorking.h
+//  WZMNetWorking.h
 //  LLFoundation
 //
 //  Created by zhaomengWang on 17/3/23.
@@ -12,7 +12,7 @@
 extern NSString * const LLNetRequestContentTypeForm;
 extern NSString * const LLNetRequestContentTypeJson;
 
-@interface LLNetWorking : NSObject
+@interface WZMNetWorking : NSObject
 
 ///请求的参数格式
 @property (nonatomic, assign) NSString *requestContentType;

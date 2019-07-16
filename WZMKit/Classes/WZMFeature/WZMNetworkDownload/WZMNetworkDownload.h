@@ -1,5 +1,5 @@
 //
-//  LLNetworkDownload.h
+//  WZMNetworkDownload.h
 //  LLFoundation
 //
 //  Created by WangZhaomeng on 2017/4/28.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLNetworkDownload : NSObject
+@interface WZMNetworkDownload : NSObject
 
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *filePath;

@@ -85,7 +85,7 @@
 		5CCE96A69BA1A22F76338A9653C79B9D /* UIImageView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9666954D4FF21C0B694149671802D6F /* UIImageView+wzmcate.m */; };
 		5D15CC72D7277BC5C900608D095E6818 /* WZMPhotoBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 30D7BF656404C58E73A01202EA25FA64 /* WZMPhotoBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EB2AAD3530055B89ED246D0A4005490 /* UIScrollView+WZMRefresh_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 036B9D9C0212BBDB641822E620E5AEFA /* UIScrollView+WZMRefresh_0.m */; };
-		5F9672CF37C4E05F1CC177FB5362AB67 /* LLNetWorking.h in Headers */ = {isa = PBXBuildFile; fileRef = A40BB39D91E98E53C916EA3BE9F38BC6 /* LLNetWorking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F9672CF37C4E05F1CC177FB5362AB67 /* WZMNetWorking.h in Headers */ = {isa = PBXBuildFile; fileRef = A40BB39D91E98E53C916EA3BE9F38BC6 /* WZMNetWorking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6045E6C0AA799A12E4B771B4BEFB371B /* UINavigationBar+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C93A9389BF0BDF1309EBB0961F2A93 /* UINavigationBar+wzmcate.m */; };
 		607B17F71FE50C7233C8A2F0651ADB10 /* LLGifImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = EBFF7DB1A75D18FC64E5A8AF78DE310B /* LLGifImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6091B1FF92346E3C8D7C347DD4922886 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -114,7 +114,7 @@
 		862076308880D802C6DF5103C568E39A /* WZMRefreshHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B6CE29B5A433C900ACCEAB56C2BF5C46 /* WZMRefreshHelper.m */; };
 		863DC49491514FD897DFC74150E214EB /* WZMRefreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6EB21CB444A0EA8983463557D00F1D /* WZMRefreshHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871FD01648B2F06F1FB75A0A36740784 /* UIColor+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC56C987D0ADE5A3074A24F98318AE8 /* UIColor+wzmcate.m */; };
-		8B23793989758844A5B12C64C333951C /* LLNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEDF37DDE6D3BDA6AFA471145B6FE7F /* LLNetWorking.m */; };
+		8B23793989758844A5B12C64C333951C /* WZMNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CEDF37DDE6D3BDA6AFA471145B6FE7F /* WZMNetWorking.m */; };
 		8D83B3F9B92FB32B8471DC91001E96F9 /* NSObject+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CCBCA206424DD1C2D0D38A3919C1CAF /* NSObject+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8F7866521C1C3C9A2440A3EF34FF8EF0 /* LLNSHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = D94ECC2F7AEB9351455F539A77722CD0 /* LLNSHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		909EB871AE4F825896E37730A1B98188 /* LLAVManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7150C1D40A586620F56BE22AE651FF9B /* LLAVManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -131,7 +131,7 @@
 		9AAA9E9D176C13A505E166E50B3C8FFE /* NSDictionary+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = A138CB0725C5736996534EA17FA45E9A /* NSDictionary+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AE2EC5FE7C88F156D6CF0C2CF4D3E9A /* NSDate+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 51A533B1A71EC82F1FC6FB0A6361BC5E /* NSDate+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B6CD884F46A4D2D3D4EEEDBBF7914A6 /* UIImage+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = C620021128D2D2A63BEFEA5ACE1EB462 /* UIImage+wzmcate.m */; };
-		9D3807A04FAA18403979B598EA8B8CA9 /* LLNetworkDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BDB7AC942C4E6C60DB2B4756EA1535 /* LLNetworkDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D3807A04FAA18403979B598EA8B8CA9 /* WZMNetworkDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BDB7AC942C4E6C60DB2B4756EA1535 /* WZMNetworkDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D6DD8F4D48189FC1B60C0389041BB46 /* LLAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A16BB30DE2A7A7B8C0AAC010003C62F /* LLAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DE0796CD71AE240CF3C83E576073F01 /* UITextView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 092C279AD7DD08E1244AD4702BDECF44 /* UITextView+wzmcate.m */; };
 		9E40524260614E29A97EF4F280C32F7E /* WZMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = DDAFF0A23E7417C7F6192A0D305D5BDB /* WZMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -199,7 +199,7 @@
 		EE14A69B14580636B8EB03C617A3C2F9 /* LLDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8FF8691706D1ACC9F2B72A8BF13C5D /* LLDispatch.m */; };
 		EE2FA8FBFF2278B12199B6DB7A70C328 /* WZMHeaderView_0.h in Headers */ = {isa = PBXBuildFile; fileRef = CB2A2D373890F9AD22F240C05B0C5CD2 /* WZMHeaderView_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEA70E06E75E353E11A44D5DDCDC6518 /* LLAppStoreScore.h in Headers */ = {isa = PBXBuildFile; fileRef = F6ACDFF4DAFC387455C3773DFFB380DB /* LLAppStoreScore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF936FB1294AE90574466AB90F81BEC7 /* LLNetworkDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = D60C2C873718CC473E09EC26EF9D8195 /* LLNetworkDownload.m */; };
+		EF936FB1294AE90574466AB90F81BEC7 /* WZMNetworkDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = D60C2C873718CC473E09EC26EF9D8195 /* WZMNetworkDownload.m */; };
 		F1B5847066CC9D344E77221675EFE741 /* WZMPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C1B78BD48572A2F87907497692A150 /* WZMPhotoBrowserCell.m */; };
 		F29754F9863B1AE9BED9726F2255B3D1 /* UIWindow+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = D25BA34914FB46DF484BD4FE818B9681 /* UIWindow+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F30AA1AC0B4FD5F45F122E875B9E3FE5 /* LLDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B93287F698D2E61B5BE2B5EB4FDED /* LLDrawView.m */; };
@@ -322,7 +322,7 @@
 		677808BD0B327838E6CDD08BDAEE87A7 /* LLKeychain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLKeychain.m; sourceTree = "<group>"; };
 		681C2FC9036D0C73F792B1DFC494F5C5 /* LLLogModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLLogModel.h; sourceTree = "<group>"; };
 		6941708868B298789B95585C2784F8E8 /* LLFontView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLFontView.h; sourceTree = "<group>"; };
-		69BDB7AC942C4E6C60DB2B4756EA1535 /* LLNetworkDownload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLNetworkDownload.h; sourceTree = "<group>"; };
+		69BDB7AC942C4E6C60DB2B4756EA1535 /* WZMNetworkDownload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMNetworkDownload.h; sourceTree = "<group>"; };
 		6A54502D9D6BD6B0CEBBEE3F19E99008 /* WZMSqliteManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMSqliteManager.m; sourceTree = "<group>"; };
 		6C57CF8F61242392C9FFC15CEA39C1DE /* NSNull+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSNull+wzmcate.m"; sourceTree = "<group>"; };
 		6D6781D6FDEA3B46AB5EA51D58F90ED0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -355,7 +355,7 @@
 		8A8FF8691706D1ACC9F2B72A8BF13C5D /* LLDispatch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLDispatch.m; sourceTree = "<group>"; };
 		8C7B8F7B01C4E9CEF665533ACCBCED5F /* UIAlertView+WZMReaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+WZMReaction.m"; sourceTree = "<group>"; };
 		8C960A78271D82A19F37BD4B5B563CF3 /* Pods-WZMKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WZMKit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		8CEDF37DDE6D3BDA6AFA471145B6FE7F /* LLNetWorking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLNetWorking.m; sourceTree = "<group>"; };
+		8CEDF37DDE6D3BDA6AFA471145B6FE7F /* WZMNetWorking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMNetWorking.m; sourceTree = "<group>"; };
 		8D3D30DD9D83FA66B3DDCD251CB31BF3 /* NSArray+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSArray+wzmcate.m"; sourceTree = "<group>"; };
 		8F49751D55BB6D5B66EFBBCF2001615D /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8FEB735475517EAF9D74037CBB889859 /* UITextField+WZMReaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WZMReaction.m"; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 		A235841DDDDB83CBBC2E1E1B7DF146B0 /* LLAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLAlertView.m; sourceTree = "<group>"; };
 		A28A78D1DFC57802117D97AEBA362B2A /* LLLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLLog.m; sourceTree = "<group>"; };
 		A3696C6084637CFA5EB5B86F54014EF6 /* Pods-WZMKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WZMKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		A40BB39D91E98E53C916EA3BE9F38BC6 /* LLNetWorking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LLNetWorking.h; sourceTree = "<group>"; };
+		A40BB39D91E98E53C916EA3BE9F38BC6 /* WZMNetWorking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMNetWorking.h; sourceTree = "<group>"; };
 		A92E94C3C9ECE605D745A8EECDFDCFF7 /* NSDictionary+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+wzmcate.m"; sourceTree = "<group>"; };
 		A94630D9106CDF296D6C2C421552D0B7 /* WZMScrollImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMScrollImageView.m; sourceTree = "<group>"; };
 		A9666954D4FF21C0B694149671802D6F /* UIImageView+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+wzmcate.m"; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 		D37707F6A98E995AD8B21B2A53E72942 /* UIScrollView+WZMRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WZMRefresh.m"; sourceTree = "<group>"; };
 		D3C60A686FD36464658531F212E1530B /* WZMAVPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAVPlayerView.h; sourceTree = "<group>"; };
 		D4A4FBD65C3C4CBFC86C674F1ED05F0B /* Pods-WZMKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WZMKit_Example-dummy.m"; sourceTree = "<group>"; };
-		D60C2C873718CC473E09EC26EF9D8195 /* LLNetworkDownload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLNetworkDownload.m; sourceTree = "<group>"; };
+		D60C2C873718CC473E09EC26EF9D8195 /* WZMNetworkDownload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMNetworkDownload.m; sourceTree = "<group>"; };
 		D69B8EC53215103C643187865D7456DB /* WZMPhotoBrowser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPhotoBrowser.m; sourceTree = "<group>"; };
 		D6DEAE9BEEC9EA554C4688DC047A892A /* LLCatchStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LLCatchStore.m; sourceTree = "<group>"; };
 		D8F2EB385D0AEDA5858BE19E32D324D8 /* WZMVideoPlayerHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMVideoPlayerHelper.h; sourceTree = "<group>"; };
@@ -848,8 +848,8 @@
 		71E39D0A8B4DA0FC5D42BD7594947855 /* WZMNetworkDownload */ = {
 			isa = PBXGroup;
 			children = (
-				69BDB7AC942C4E6C60DB2B4756EA1535 /* LLNetworkDownload.h */,
-				D60C2C873718CC473E09EC26EF9D8195 /* LLNetworkDownload.m */,
+				69BDB7AC942C4E6C60DB2B4756EA1535 /* WZMNetworkDownload.h */,
+				D60C2C873718CC473E09EC26EF9D8195 /* WZMNetworkDownload.m */,
 			);
 			path = WZMNetworkDownload;
 			sourceTree = "<group>";
@@ -1292,8 +1292,8 @@
 		D9F83D8FADC85B798BF0DEDA336591BD /* WZMNetWork */ = {
 			isa = PBXGroup;
 			children = (
-				A40BB39D91E98E53C916EA3BE9F38BC6 /* LLNetWorking.h */,
-				8CEDF37DDE6D3BDA6AFA471145B6FE7F /* LLNetWorking.m */,
+				A40BB39D91E98E53C916EA3BE9F38BC6 /* WZMNetWorking.h */,
+				8CEDF37DDE6D3BDA6AFA471145B6FE7F /* WZMNetWorking.m */,
 			);
 			path = WZMNetWork;
 			sourceTree = "<group>";
@@ -1478,8 +1478,8 @@
 				55ADE7CC658B31209D4F22D6565E1380 /* LLLogTableViewCell.h in Headers */,
 				0A2C38BC9FB9F631E20679D8C8C1EA51 /* LLLogView.h in Headers */,
 				9545926C18CDC57E7018460B63521BB8 /* WZMMacro.h in Headers */,
-				9D3807A04FAA18403979B598EA8B8CA9 /* LLNetworkDownload.h in Headers */,
-				5F9672CF37C4E05F1CC177FB5362AB67 /* LLNetWorking.h in Headers */,
+				9D3807A04FAA18403979B598EA8B8CA9 /* WZMNetworkDownload.h in Headers */,
+				5F9672CF37C4E05F1CC177FB5362AB67 /* WZMNetWorking.h in Headers */,
 				8F7866521C1C3C9A2440A3EF34FF8EF0 /* LLNSHandle.h in Headers */,
 				8385AC89CA2646ACC5DED8CC535C96A4 /* WZMPhoto.h in Headers */,
 				5D15CC72D7277BC5C900608D095E6818 /* WZMPhotoBrowser.h in Headers */,
@@ -1721,8 +1721,8 @@
 				131E5310B1D9B5B02BD2AEE67E743ED8 /* LLLogModel.m in Sources */,
 				C10F3EFC8F657BCAACDBBC4E5A7F5B0A /* LLLogTableViewCell.m in Sources */,
 				EB1CAE9F3A6E8D69EF3A049430CA22C1 /* LLLogView.m in Sources */,
-				EF936FB1294AE90574466AB90F81BEC7 /* LLNetworkDownload.m in Sources */,
-				8B23793989758844A5B12C64C333951C /* LLNetWorking.m in Sources */,
+				EF936FB1294AE90574466AB90F81BEC7 /* WZMNetworkDownload.m in Sources */,
+				8B23793989758844A5B12C64C333951C /* WZMNetWorking.m in Sources */,
 				73AE1F5C0950416DFDD514D7A16D3DB3 /* LLNSHandle.m in Sources */,
 				950B062F681F8581403F34CE1355D3A1 /* WZMPhoto.m in Sources */,
 				D557986876DCF5777B8C5FB0E0C08ECC /* WZMPhotoBrowser.m in Sources */,
