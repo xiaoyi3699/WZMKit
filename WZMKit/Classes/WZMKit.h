@@ -69,7 +69,6 @@
 #import "WZMRefresh.h"
 #import "WZMReaction.h"
 #import "WZMDispatch.h"
-#import "WZMKeychain.h"
 #import "WZMFontView.h"
 #import "WZMLogView.h"
 #import "WZMDrawView.h"
@@ -85,9 +84,8 @@
 #import "WZMSelectedView.h"
 #import "WZMSqliteManager.h"
 #import "WZMJSONParse.h"
-#import "WZMAppStoreScore.h"
+#import "WZMAppStore.h"
 #import "WZMLocationManager.h"
-#import "WZMNetworkDownload.h"
 #import "WZMVideoPlayerViewController.h"
 
 //时间差 CFAbsoluteTime
