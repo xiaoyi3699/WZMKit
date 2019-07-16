@@ -10,8 +10,8 @@
 
 @interface UIWebView (wzmcate)
 
-- (void)ll_loadUrl:(NSString *)url;
+- (void)wzm_loadUrl:(NSString *)url;
 
-- (void)ll_loadURL:(NSURL *)URL;
+- (void)wzm_loadURL:(NSURL *)URL;
 
 @end

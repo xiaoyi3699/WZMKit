@@ -10,6 +10,6 @@
 
 @interface UIWindow (wzmcate)
 
-- (void)startObserveFpsAndCpu;
+- (void)wzm_startObserveFpsAndCpu;
 
 @end

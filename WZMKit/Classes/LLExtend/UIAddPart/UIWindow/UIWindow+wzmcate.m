@@ -35,7 +35,7 @@ static NSString *_cpuKey = @"cpu";
     objc_setAssociatedObject(self, &_cpuKey, cpuLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)startObserveFpsAndCpu {
+- (void)wzm_startObserveFpsAndCpu {
     
     CGFloat centerX = self.bounds.size.width/2;
     

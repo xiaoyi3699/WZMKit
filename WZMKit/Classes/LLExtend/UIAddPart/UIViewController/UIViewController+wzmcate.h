@@ -11,15 +11,15 @@
 @interface UIViewController (wzmcate)
 
 ///返回
-- (void)ll_goBack;
+- (void)wzm_goBack;
 
 ///当前正在显示的控制器
-- (UIViewController *)ll_visibleViewController;
+- (UIViewController *)wzm_visibleViewController;
 
 ///当前vc的view是否处于屏幕上
-- (BOOL)ll_isVisible;
+- (BOOL)wzm_isVisible;
 
 ///强制转换屏幕方向
-- (void)ll_interfaceOrientation:(UIInterfaceOrientation)orientation;
+- (void)wzm_interfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end

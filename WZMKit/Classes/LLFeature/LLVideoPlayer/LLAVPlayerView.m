@@ -315,7 +315,7 @@ typedef NS_ENUM(NSUInteger, LLDirection) {
     else {
         orientation = UIInterfaceOrientationLandscapeRight;
     }
-    [self.wzm_viewController ll_interfaceOrientation:orientation];
+    [self.wzm_viewController wzm_interfaceOrientation:orientation];
 }
 
 #pragma mark - 底部view相关事件

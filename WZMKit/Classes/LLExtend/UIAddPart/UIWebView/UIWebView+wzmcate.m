@@ -11,14 +11,14 @@
 
 @implementation UIWebView (wzmcate)
 
-- (void)ll_loadUrl:(NSString *)url {
+- (void)wzm_loadUrl:(NSString *)url {
     if (url.length == 0) return;
     NSString *codeUrl = [url wzm_getURLEncoded];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:codeUrl]];
     [self loadRequest:request];
 }
 
-- (void)ll_loadURL:(NSURL *)URL {
+- (void)wzm_loadURL:(NSURL *)URL {
     if (URL == nil) return;
     [self loadRequest:[NSURLRequest requestWithURL:URL]];
 }

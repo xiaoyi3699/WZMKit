@@ -10,7 +10,7 @@
 
 @implementation UIViewController (wzmcate)
 
-- (void)ll_goBack{
+- (void)wzm_goBack{
     if (self.navigationController.topViewController == self) {
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -19,32 +19,31 @@
     }
 }
 
-- (UIViewController *)ll_visibleViewController {
+- (UIViewController *)wzm_visibleViewController {
     if ([self isKindOfClass:[UINavigationController class]]) {
-        return [[((UINavigationController*) self) visibleViewController] ll_visibleViewController];
+        return [[((UINavigationController*) self) visibleViewController] wzm_visibleViewController];
     }
     else if ([self isKindOfClass:[UITabBarController class]]){
-        return [[((UITabBarController*) self) selectedViewController] ll_visibleViewController];
+        return [[((UITabBarController*) self) selectedViewController] wzm_visibleViewController];
     }
     else {
         if (self.presentedViewController) {
-            return [self.presentedViewController ll_visibleViewController];
+            return [self.presentedViewController wzm_visibleViewController];
         } else {
             return self;
         }
     }
 }
 
-- (BOOL)ll_isVisible {
+- (BOOL)wzm_isVisible {
     if (self.isViewLoaded && (self.view.window || self.view.superview)) {
         return YES;
     }
     return NO;
 }
 
-- (void)ll_interfaceOrientation:(UIInterfaceOrientation)orientation {
+- (void)wzm_interfaceOrientation:(UIInterfaceOrientation)orientation {
     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        
         SEL selector = NSSelectorFromString(@"setOrientation:");
         NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
         [invocation setSelector:selector];
