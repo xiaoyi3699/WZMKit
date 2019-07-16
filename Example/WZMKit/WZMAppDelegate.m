@@ -34,7 +34,7 @@
     [self.window wzm_startObserveFpsAndCpu];
 #endif
     
-    NSLog(@"哈哈哈哈");
+    NSLog(@"恭喜你，成功打印日志！");
     
     return YES;
 }
