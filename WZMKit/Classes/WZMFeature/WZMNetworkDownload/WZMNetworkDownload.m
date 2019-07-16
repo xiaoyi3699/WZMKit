@@ -81,7 +81,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
         filePath = [_filePath stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
     }
     else {
-        filePath = [APP_DocumentPath stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
+        filePath = [WZM_DOCUMENT_PATH stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
     }
     
     //移动文件到指定路径

@@ -16,7 +16,7 @@
 #import <Accelerate/Accelerate.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#define IMG_LL_SCREEN_SCALE   [UIScreen mainScreen].scale
+#define IMG_WZM_SCREEN_SCALE   [UIScreen mainScreen].scale
 @implementation UIImage (wzmcate)
 
 #pragma mark - 类方法
@@ -481,10 +481,10 @@
 }
 
 - (UIImage *)wzm_clipImageWithRect:(CGRect)rect {
-    rect.origin.x *= LL_SCREEN_SCALE;
-    rect.origin.y *= LL_SCREEN_SCALE;
-    rect.size.width *= LL_SCREEN_SCALE;
-    rect.size.height *= LL_SCREEN_SCALE;
+    rect.origin.x *= WZM_SCREEN_SCALE;
+    rect.origin.y *= WZM_SCREEN_SCALE;
+    rect.size.width *= WZM_SCREEN_SCALE;
+    rect.size.height *= WZM_SCREEN_SCALE;
     CGImageRef refImage = CGImageCreateWithImageInRect(self.CGImage, rect);
     UIImage *image = [UIImage imageWithCGImage:refImage];
     CGImageRelease(refImage);

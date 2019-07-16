@@ -176,12 +176,12 @@
         w = [message sizeWithAttributes:@{NSFontAttributeName:hud.config.font}].width+30;
     }
     if (hud.isUserEnabled) {
-        hud.frame = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-150), w, h);
+        hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-150), w, h);
         rect = hud.bounds;
     }
     else {
         hud.frame = WZM_SCREEN_BOUNDS;
-        rect = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-150), w, h);
+        rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-150), w, h);
     }
     hud.messageView.frame = rect;
     hud.messageView.text = message;
@@ -190,7 +190,7 @@
     hud.messageView.textAlignment = NSTextAlignmentCenter;
     hud.messageView.backgroundColor = hud.config.backgroundColor;
     [hud addSubview:hud.messageView];
-    [LL_WINDOW addSubview:hud];
+    [WZM_WINDOW addSubview:hud];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
@@ -209,12 +209,12 @@
     }
     CGRect rect;
     if (hud.isUserEnabled) {
-        hud.frame = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-h)/2.0, w, h);
+        hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
         rect = hud.bounds;
     }
     else {
         hud.frame = WZM_SCREEN_BOUNDS;
-        rect = CGRectMake((LL_SCREEN_WIDTH-w)/2.0, (LL_SCREEN_HEIGHT-h)/2.0, w, h);
+        rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
     }
     hud.progressView.frame = rect;
     hud.progressView.backgroundColor = hud.config.backgroundColor;
@@ -225,7 +225,7 @@
     hud.progressView.messageLabel.textColor = hud.config.textColor;
     hud.progressView.messageLabel.textAlignment = NSTextAlignmentCenter;
     [hud addSubview:hud.progressView];
-    [LL_WINDOW addSubview:hud];
+    [WZM_WINDOW addSubview:hud];
     [hud.progressView startAnimation];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];

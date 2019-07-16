@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 #import "WZMLog.h"
 
-#define TV_LL_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define TV_WZM_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 @implementation UITextView (wzmcate)
 static NSString *_performActionKey = @"performAction";
 
@@ -183,7 +183,7 @@ static NSString *_performActionKey = @"performAction";
 - (void)wzm_inputAccessoryViewWithType:(LLInputAccessoryType)type message:(NSString *)message {
     
     UIVisualEffectView *toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    toolView.frame = CGRectMake(0, 0, TV_LL_SCREEN_WIDTH, 40);
+    toolView.frame = CGRectMake(0, 0, TV_WZM_SCREEN_WIDTH, 40);
     toolView.backgroundColor = [UIColor colorWithWhite:.9 alpha:.9];
     
     NSArray *titles;
@@ -200,7 +200,7 @@ static NSString *_performActionKey = @"performAction";
     for (NSInteger i = 0; i < titles.count; i ++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         if (i == titles.count-1) {
-            btn.frame = CGRectMake(TV_LL_SCREEN_WIDTH-50, 5, 40, 30);
+            btn.frame = CGRectMake(TV_WZM_SCREEN_WIDTH-50, 5, 40, 30);
             [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         }
         else {
@@ -214,7 +214,7 @@ static NSString *_performActionKey = @"performAction";
     }
     
     if (message.length) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, TV_LL_SCREEN_WIDTH-100, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, TV_WZM_SCREEN_WIDTH-100, 30)];
         label.text = message;
         label.font = [UIFont systemFontOfSize:15];
         label.textColor = [UIColor darkTextColor];
@@ -229,7 +229,7 @@ static NSString *_performActionKey = @"performAction";
 
 - (void)wzm_inputAccessoryViewWithDoneTitle:(NSString *)title message:(NSString *)message {
     UIVisualEffectView *toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    toolView.frame = CGRectMake(0, 0, TV_LL_SCREEN_WIDTH, 40);
+    toolView.frame = CGRectMake(0, 0, TV_WZM_SCREEN_WIDTH, 40);
     
     if (title.length == 0) {
         title = @"完成";
@@ -238,12 +238,12 @@ static NSString *_performActionKey = @"performAction";
     doneBtn.tag = 0;
     [doneBtn setTitle:title forState:UIControlStateNormal];
     [doneBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    doneBtn.frame = CGRectMake(TV_LL_SCREEN_WIDTH-50, 5, 40, 30);
+    doneBtn.frame = CGRectMake(TV_WZM_SCREEN_WIDTH-50, 5, 40, 30);
     [doneBtn addTarget:self action:@selector(dealKeyboardHide:) forControlEvents:UIControlEventTouchUpInside];
     [toolView.contentView addSubview:doneBtn];
     
     if (message.length) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, TV_LL_SCREEN_WIDTH-100, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(50, 5, TV_WZM_SCREEN_WIDTH-100, 30)];
         label.text = message;
         label.font = [UIFont systemFontOfSize:15];
         label.textColor = [UIColor darkTextColor];

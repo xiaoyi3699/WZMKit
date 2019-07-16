@@ -29,9 +29,9 @@ void WZMInstallSignalHandler(void) {
 void SignalExceptionHandler(int signal) {
     NSMutableString *mstr = [[NSMutableString alloc] init];
     [mstr appendFormat:@"<b>发送异常错误报告\n\n</b>"];
-    [mstr appendFormat:@"<b>应用名称：</b>%@\n", LLAppName];
-    [mstr appendFormat:@"<b>Version：</b>%@\n", LLAppVersion];
-    [mstr appendFormat:@"<b>Build：</b>%@\n", LLAppBuild];
+    [mstr appendFormat:@"<b>应用名称：</b>%@\n", WZM_APP_NAME];
+    [mstr appendFormat:@"<b>Version：</b>%@\n", WZM_APP_VERSION];
+    [mstr appendFormat:@"<b>Build：</b>%@\n", WZM_APP_BUILD];
     [mstr appendFormat:@"<b>iOS版本：</b>%@\n\n", [UIDevice currentDevice].systemVersion];
     
     [mstr appendString:@"<b>callStackSymbols</b>:\n"];

@@ -242,7 +242,7 @@
     static WZMLogView *logView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        logView = [[WZMLogView alloc] initWithFrame:CGRectMake(0, LL_NAVBAR_HEIGHT, 40, 40)];
+        logView = [[WZMLogView alloc] initWithFrame:CGRectMake(0, WZM_NAVBAR_HEIGHT, 40, 40)];
         logView.layer.masksToBounds = YES;
         logView.layer.cornerRadius = 20;
         logView.start = NO;
@@ -298,10 +298,10 @@
         CGFloat x = rect.origin.x+point_0.x;
         CGFloat y = rect.origin.y+point_0.y;
         
-        if (x < 0 || x > LL_SCREEN_WIDTH-tapView.frame.size.width) {
+        if (x < 0 || x > WZM_SCREEN_WIDTH-tapView.frame.size.width) {
             x = tapView.frame.origin.x;
         }
-        if (y < LL_NAVBAR_HEIGHT || y > LL_SCREEN_HEIGHT-LL_TABBAR_HEIGHT-tapView.frame.size.height) {
+        if (y < WZM_NAVBAR_HEIGHT || y > WZM_SCREEN_HEIGHT-WZM_TABBAR_HEIGHT-tapView.frame.size.height) {
             y = tapView.frame.origin.y;
         }
         
@@ -310,11 +310,11 @@
     else if (recognizer.state == UIGestureRecognizerStateEnded ||
              recognizer.state == UIGestureRecognizerStateCancelled) {
         CGRect rect = self.frame;
-        if (self.center.x <= LL_SCREEN_WIDTH/2) {
+        if (self.center.x <= WZM_SCREEN_WIDTH/2) {
             rect.origin.x = 0.0;
         }
         else {
-            rect.origin.x = LL_SCREEN_WIDTH-rect.size.width;
+            rect.origin.x = WZM_SCREEN_WIDTH-rect.size.width;
         }
         [UIView animateWithDuration:.2 animations:^{
             self.frame = rect;

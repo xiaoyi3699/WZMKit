@@ -14,59 +14,59 @@
 #define IS_iPhone [[WAMPublic Public] iPhone]
 #define CURRENT_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 
-#define LL_WINDOW          [UIApplication sharedApplication].delegate.window
+#define WZM_WINDOW          [UIApplication sharedApplication].delegate.window
 #define WZM_SCREEN_BOUNDS   [[WAMPublic Public] screenBounds]
-#define LL_SCREEN_SCALE    [[WAMPublic Public] screenScale]
-#define LL_SCREEN_WIDTH    [[WAMPublic Public] screenW]
-#define LL_SCREEN_HEIGHT   [[WAMPublic Public] screenH]
-#define LL_STATUS_HEIGHT   [[WAMPublic Public] statusH]
-#define LL_NAVBAR_HEIGHT   [[WAMPublic Public] navBarH]
-#define LL_TABBAR_HEIGHT   [[WAMPublic Public] tabBarH]
-#define LL_BOTTOM_HEIGHT   [[WAMPublic Public] iPhoneXBottomH]
-#define LL_TOPBAR_HEIGHT   44
-#define LL_BOTBAR_HEIGHT   49
+#define WZM_SCREEN_SCALE    [[WAMPublic Public] screenScale]
+#define WZM_SCREEN_WIDTH    [[WAMPublic Public] screenW]
+#define WZM_SCREEN_HEIGHT   [[WAMPublic Public] screenH]
+#define WZM_STATUS_HEIGHT   [[WAMPublic Public] statusH]
+#define WZM_NAVBAR_HEIGHT   [[WAMPublic Public] navBarH]
+#define WZM_TABBAR_HEIGHT   [[WAMPublic Public] tabBarH]
+#define WZM_BOTTOM_HEIGHT   [[WAMPublic Public] iPhoneXBottomH]
+#define WZM_TOPBAR_HEIGHT   44
+#define WZM_BOTBAR_HEIGHT   49
 
 //iOS系统版本
-#define LL_DEVICE     [[WAMPublic Public] systemV]
+#define WZM_DEVICE     [[WAMPublic Public] systemV]
 
 //APP名字
-#define LLAppName     [[WAMPublic Public] appName]
+#define WZM_APP_NAME     [[WAMPublic Public] appName]
 
 //APP Build
-#define LLAppBuild    [[WAMPublic Public] buildV]
+#define WZM_APP_BUILD    [[WAMPublic Public] buildV]
 
 //APP版本
-#define LLAppVersion  [[WAMPublic Public] shortV]
+#define WZM_APP_VERSION  [[WAMPublic Public] shortV]
 
 //获取沙盒Document路径
-#define APP_DocumentPath [[WAMPublic Public] document]
+#define WZM_DOCUMENT_PATH [[WAMPublic Public] document]
 
 //获取沙盒temp路径
-#define APP_TempPath [[WAMPublic Public] temp]
+#define WZM_TEMP_PATH [[WAMPublic Public] temp]
 
 //获取沙盒Cache路径
-#define APP_CachePath [[WAMPublic Public] cache]
+#define WZM_CACHE_PATH [[WAMPublic Public] cache]
 
-#define IS_IOS11_ABOVE    (LL_DEVICE >= 12) //是否是iOS12以上系统
-#define IS_IOS12_ABOVE    (LL_DEVICE >= 11) //是否是iOS11以上系统
-#define IS_IOS10_ABOVE    (LL_DEVICE >= 10) //是否是iOS10以上系统
-#define IS_IOS9_ABOVE     (LL_DEVICE >= 9)  //是否是iOS9以上系统
-#define IS_IOS8_ABOVE     (LL_DEVICE >= 8)  //是否是iOS8以上系统
+#define IS_IOS11_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统
+#define IS_IOS12_ABOVE    (WZM_DEVICE >= 11) //是否是iOS11以上系统
+#define IS_IOS10_ABOVE    (WZM_DEVICE >= 10) //是否是iOS10以上系统
+#define IS_IOS9_ABOVE     (WZM_DEVICE >= 9)  //是否是iOS9以上系统
+#define IS_IOS8_ABOVE     (WZM_DEVICE >= 8)  //是否是iOS8以上系统
 
-#define IS_IOS12_ONLY     (LL_DEVICE >= 12 && LL_DEVICE < 13) //是否是iOS12系统
-#define IS_IOS11_ONLY     (LL_DEVICE >= 11 && LL_DEVICE < 12) //是否是iOS11系统
-#define IS_IOS10_ONLY     (LL_DEVICE >= 10 && LL_DEVICE < 11) //是否是iOS10系统
-#define IS_IOS8_AND_IOS9  (LL_DEVICE >= 8 && LL_DEVICE < 10)  //是否是iOS8和iOS9
-#define IS_IOS9_ONLY      (LL_DEVICE >= 9 && LL_DEVICE < 10)  //是否是iOS9系统
-#define IS_IOS8_ONLY      (LL_DEVICE >= 8 && LL_DEVICE < 9)   //是否是iOS8系统
+#define IS_IOS12_ONLY     (WZM_DEVICE >= 12 && WZM_DEVICE < 13) //是否是iOS12系统
+#define IS_IOS11_ONLY     (WZM_DEVICE >= 11 && WZM_DEVICE < 12) //是否是iOS11系统
+#define IS_IOS10_ONLY     (WZM_DEVICE >= 10 && WZM_DEVICE < 11) //是否是iOS10系统
+#define IS_IOS8_AND_IOS9  (WZM_DEVICE >= 8 && WZM_DEVICE < 10)  //是否是iOS8和iOS9
+#define IS_IOS9_ONLY      (WZM_DEVICE >= 9 && WZM_DEVICE < 10)  //是否是iOS9系统
+#define IS_IOS8_ONLY      (WZM_DEVICE >= 8 && WZM_DEVICE < 9)   //是否是iOS8系统
 
-#define IS_iPhone_4_0 (IS_iPhone && LL_SCREEN_HEIGHT==568)  //4.0寸
-#define IS_iPhone_4_7 (IS_iPhone && LL_SCREEN_HEIGHT==667)  //4.7寸
-#define IS_iPhone_5_5 (IS_iPhone && LL_SCREEN_HEIGHT==736)  //5.5寸
-#define IS_iPhoneX    (IS_iPhone && LL_SCREEN_HEIGHT>=812)  //iPhoneX系列
-#define IS_iPhone_5_8 (IS_iPhone && LL_SCREEN_HEIGHT==812)  //5.8寸
-#define IS_iPhone_6_1 (IS_iPhone && LL_SCREEN_HEIGHT==896 && LL_SCREEN_SCALE==2.0)  //6.1寸
-#define IS_iPhone_6_5 (IS_iPhone && LL_SCREEN_HEIGHT==896 && LL_SCREEN_SCALE==3.0)  //6.5寸
+#define IS_iPhone_4_0 (IS_iPhone && WZM_SCREEN_HEIGHT==568)  //4.0寸
+#define IS_iPhone_4_7 (IS_iPhone && WZM_SCREEN_HEIGHT==667)  //4.7寸
+#define IS_iPhone_5_5 (IS_iPhone && WZM_SCREEN_HEIGHT==736)  //5.5寸
+#define IS_iPhoneX    (IS_iPhone && WZM_SCREEN_HEIGHT>=812)  //iPhoneX系列
+#define IS_iPhone_5_8 (IS_iPhone && WZM_SCREEN_HEIGHT==812)  //5.8寸
+#define IS_iPhone_6_1 (IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)  //6.1寸
+#define IS_iPhone_6_5 (IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)  //6.5寸
 
 /*  *****自定义*****  */
 #define R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]

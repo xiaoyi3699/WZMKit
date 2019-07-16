@@ -104,7 +104,7 @@
 //偏移
 - (void)scrollToIndex:(NSInteger)index {
     if (index < _images.count) {
-        [_collectionView setContentOffset:CGPointMake(LL_SCREEN_WIDTH*index, 0)];
+        [_collectionView setContentOffset:CGPointMake(WZM_SCREEN_WIDTH*index, 0)];
     }
 }
 

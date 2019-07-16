@@ -28,7 +28,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _cachePath = [APP_CachePath stringByAppendingPathComponent:@"WZMImageCache"];
+        _cachePath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMImageCache"];
         _memoryCache = [[NSMutableDictionary alloc] initWithCapacity:0];
         [self createDirectoryAtPath:_cachePath];
     }
