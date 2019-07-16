@@ -1,5 +1,5 @@
 //
-//  LLBaseComponent.h
+//  WZMBaseComponent.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WZMRefreshHelper.h"
 
-@interface LLBaseComponent : UIView{
+@interface WZMBaseComponent : UIView{
     WZMRefreshState _refreshState;
 }
 

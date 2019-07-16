@@ -1,14 +1,14 @@
 //
-//  LLBaseFooterView.h
+//  WZMBaseFooterView.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBaseComponent.h"
+#import "WZMBaseComponent.h"
 
-@interface LLBaseFooterView : LLBaseComponent
+@interface WZMBaseFooterView : WZMBaseComponent
 
 + (instancetype)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action;
 

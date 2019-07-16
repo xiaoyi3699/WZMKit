@@ -1,14 +1,14 @@
 //
-//  LLFooterView_0.m
+//  WZMFooterView_0.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLFooterView_0.h"
+#import "WZMFooterView_0.h"
 
-@implementation LLFooterView_0
+@implementation WZMFooterView_0
 
 - (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;

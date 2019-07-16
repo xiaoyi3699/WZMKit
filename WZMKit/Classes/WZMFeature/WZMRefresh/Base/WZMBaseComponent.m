@@ -1,20 +1,20 @@
 //
-//  LLBaseComponent.m
+//  WZMBaseComponent.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBaseComponent.h"
+#import "WZMBaseComponent.h"
 
-@interface LLBaseComponent ()
+@interface WZMBaseComponent ()
 
 @property (strong, nonatomic) UIPanGestureRecognizer *pan;
 
 @end
 
-@implementation LLBaseComponent
+@implementation WZMBaseComponent
 
 #pragma mark - 初始化
 - (instancetype)init

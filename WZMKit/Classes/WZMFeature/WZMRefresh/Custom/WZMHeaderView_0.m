@@ -1,14 +1,14 @@
 //
-//  LLHeaderView_0.m
+//  WZMHeaderView_0.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLHeaderView_0.h"
+#import "WZMHeaderView_0.h"
 
-@implementation LLHeaderView_0
+@implementation WZMHeaderView_0
 
 - (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;

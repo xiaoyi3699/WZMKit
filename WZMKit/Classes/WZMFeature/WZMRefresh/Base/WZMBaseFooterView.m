@@ -1,24 +1,24 @@
 //
-//  LLBaseFooterView.m
+//  WZMBaseFooterView.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBaseFooterView.h"
+#import "WZMBaseFooterView.h"
 #import <objc/message.h>
 
 // 运行时objc_msgSend
 #define WZMRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
 #define WZMRefreshMsgTarget(target)  (__bridge void *)(target)
-@implementation LLBaseFooterView {
+@implementation WZMBaseFooterView {
     CGFloat _contentOffsetY;
     CGFloat _lastContentHeight;
 }
 
 + (instancetype)footerWithRefreshingTarget:(id)target refreshingAction:(SEL)action {
-    LLBaseFooterView *refreshFooter = [[self alloc] init];
+    WZMBaseFooterView *refreshFooter = [[self alloc] init];
     refreshFooter.refreshingTarget = target;
     refreshFooter.refreshingAction = action;
     [[NSNotificationCenter defaultCenter] addObserver:refreshFooter selector:@selector(refreshMoreData:) name:WZMRefreshMoreData object:nil];

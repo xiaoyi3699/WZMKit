@@ -1,14 +1,14 @@
 //
-//  LLBaseHeaderView.h
+//  WZMBaseHeaderView.h
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBaseComponent.h"
+#import "WZMBaseComponent.h"
 
-@interface LLBaseHeaderView : LLBaseComponent
+@interface WZMBaseHeaderView : WZMBaseComponent
 
 + (instancetype)headerWithRefreshingTarget:(id)target refreshingAction:(SEL)action;
 

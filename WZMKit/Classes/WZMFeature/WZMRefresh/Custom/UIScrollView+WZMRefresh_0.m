@@ -14,7 +14,7 @@
 static NSString *_aRefreshHeaderKey = @"header";
 static NSString *_aRefreshFooterKey = @"footer";
 
-- (void)setWZMRefreshHeader_0:(LLHeaderView_0 *)aRefreshHeader {
+- (void)setWZMRefreshHeader_0:(WZMHeaderView_0 *)aRefreshHeader {
     if (aRefreshHeader != self.WZMRefreshHeader_0) {
         //移除旧的
         [self.WZMRefreshHeader_0 removeFromSuperview];
@@ -32,11 +32,11 @@ static NSString *_aRefreshFooterKey = @"footer";
     }
 }
 
-- (LLHeaderView_0 *)WZMRefreshHeader_0 {
+- (WZMHeaderView_0 *)WZMRefreshHeader_0 {
     return objc_getAssociatedObject(self, &_aRefreshHeaderKey);
 }
 
-- (void)setWZMRefreshFooter_0:(LLFooterView_0 *)aRefreshFooter {
+- (void)setWZMRefreshFooter_0:(WZMFooterView_0 *)aRefreshFooter {
     if (aRefreshFooter != self.WZMRefreshFooter_0) {
         //移除旧的
         [self.WZMRefreshFooter_0 removeFromSuperview];
@@ -55,7 +55,7 @@ static NSString *_aRefreshFooterKey = @"footer";
     }
 }
 
-- (LLFooterView_0 *)WZMRefreshFooter_0 {
+- (WZMFooterView_0 *)WZMRefreshFooter_0 {
     return objc_getAssociatedObject(self, &_aRefreshFooterKey);
 }
 

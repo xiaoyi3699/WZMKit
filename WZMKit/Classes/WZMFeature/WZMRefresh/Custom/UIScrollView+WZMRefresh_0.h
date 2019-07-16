@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LLHeaderView_0.h"
-#import "LLFooterView_0.h"
+#import "WZMHeaderView_0.h"
+#import "WZMFooterView_0.h"
 
 @interface UIScrollView (WZMRefresh_0)
 
-- (void)setWZMRefreshHeader_0:(LLHeaderView_0 *)aRefreshHeader;
-- (LLHeaderView_0 *)WZMRefreshHeader_0;
+- (void)setWZMRefreshHeader_0:(WZMHeaderView_0 *)aRefreshHeader;
+- (WZMHeaderView_0 *)WZMRefreshHeader_0;
 
-- (void)setWZMRefreshFooter_0:(LLFooterView_0 *)aRefreshFooter;
-- (LLFooterView_0 *)WZMRefreshFooter_0;
+- (void)setWZMRefreshFooter_0:(WZMFooterView_0 *)aRefreshFooter;
+- (WZMFooterView_0 *)WZMRefreshFooter_0;
 
 @end

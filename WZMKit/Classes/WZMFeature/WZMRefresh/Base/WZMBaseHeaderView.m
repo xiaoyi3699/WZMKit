@@ -1,21 +1,21 @@
 //
-//  LLBaseHeaderView.m
+//  WZMBaseHeaderView.m
 //  LLFeature
 //
 //  Created by WangZhaomeng on 2017/11/25.
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import "LLBaseHeaderView.h"
+#import "WZMBaseHeaderView.h"
 #import <objc/message.h>
 
 // 运行时objc_msgSend
 #define WZMRefreshMsgSend(...)       ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
 #define WZMRefreshMsgTarget(target)  (__bridge void *)(target)
-@implementation LLBaseHeaderView
+@implementation WZMBaseHeaderView
 
 + (instancetype)headerWithRefreshingTarget:(id)target refreshingAction:(SEL)action {
-    LLBaseHeaderView *refreshHeader = [[self alloc] init];
+    WZMBaseHeaderView *refreshHeader = [[self alloc] init];
     refreshHeader.refreshingTarget = target;
     refreshHeader.refreshingAction = action;
     return refreshHeader;
