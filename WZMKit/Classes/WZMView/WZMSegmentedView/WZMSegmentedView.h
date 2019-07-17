@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMSegmentedCell.h"
 
 @protocol WZMSegmentedViewDelegate;
 

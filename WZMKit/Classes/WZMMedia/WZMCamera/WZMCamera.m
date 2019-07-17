@@ -7,8 +7,8 @@
 //
 
 #import "WZMCamera.h"
-#import "WZMLog.h"
 #import <AVFoundation/AVFoundation.h>
+#import "WZMLog.h"
 
 @interface WZMCamera (){
     AVCaptureSession *_captureSession;

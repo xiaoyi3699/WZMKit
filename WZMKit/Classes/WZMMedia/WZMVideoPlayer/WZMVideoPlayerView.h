@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WZMAVPlayerView : UIView
+@interface WZMVideoPlayerView : UIView
 
 /**
  播放视屏

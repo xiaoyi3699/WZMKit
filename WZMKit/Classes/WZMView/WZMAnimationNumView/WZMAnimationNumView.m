@@ -7,6 +7,7 @@
 //
 
 #import "WZMAnimationNumView.h"
+#import "WZMAnimationNumItemView.h"
 #import "WZMMacro.h"
 
 @implementation WZMAnimationNumView {

@@ -9,6 +9,7 @@
 #import "WZMLogView.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
+#import "WZMLogTableViewCell.h"
 
 @interface LHYMessageView : UIView<UITableViewDelegate,UITableViewDataSource> {
     BOOL _color;

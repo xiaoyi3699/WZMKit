@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMPhoto.h"
+#import "WZMEnum.h"
 
 @protocol WZMPhotoBrowserCellDelegate;
 

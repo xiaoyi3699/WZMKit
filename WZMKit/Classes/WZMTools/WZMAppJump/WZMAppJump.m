@@ -7,8 +7,8 @@
 //
 
 #import "WZMAppJump.h"
-#import "WZMAlertView.h"
 #import <StoreKit/StoreKit.h>
+#import "WZMAlertView.h"
 
 @interface WZMAppJump ()<SKStoreProductViewControllerDelegate>
 

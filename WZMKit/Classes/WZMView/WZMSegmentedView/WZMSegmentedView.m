@@ -8,6 +8,7 @@
 
 #import "WZMSegmentedView.h"
 #import "UIView+wzmcate.h"
+#import "WZMSegmentedCell.h"
 
 @interface WZMSegmentedView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 

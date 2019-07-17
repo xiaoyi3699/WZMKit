@@ -92,7 +92,7 @@
 
 //一个功能齐全的视频播放器
 //实现了左边上下滑动调节亮度、右边上下滑动调节音量、横向滑动调节进度等等
-#import "WZMAVPlayerView.h"
+#import "WZMVideoPlayerView.h"
 #import "WZMVideoPlayerViewController.h"
 
 //简单相机

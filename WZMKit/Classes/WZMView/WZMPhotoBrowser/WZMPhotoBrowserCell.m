@@ -7,6 +7,7 @@
 //
 
 #import "WZMPhotoBrowserCell.h"
+#import "WZMPhoto.h"
 
 @interface WZMPhotoBrowserCell ()<WZMPhotoDelegate>
 

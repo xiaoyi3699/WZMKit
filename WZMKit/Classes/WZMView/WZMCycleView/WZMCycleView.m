@@ -9,6 +9,7 @@
 #import "WZMCycleView.h"
 #import "UIView+wzmcate.h"
 #import "WZMMacro.h"
+#import "WZMBezierView.h"
 
 @implementation WZMCycleView {
     NSTimer *_timer;

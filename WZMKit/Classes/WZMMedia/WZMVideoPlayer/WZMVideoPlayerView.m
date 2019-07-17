@@ -6,10 +6,10 @@
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "WZMAVPlayerView.h"
+#import "WZMVideoPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "WZMAVPlayerItem.h"
+#import "WZMVideoPlayerItem.h"
 #import "WZMLog.h"
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     WZMDirectionVertical,     //垂直方向滑动
 };
 
-@interface WZMAVPlayerView ()
+@interface WZMVideoPlayerView ()
 
 //滑动手势
 @property (nonatomic, assign) CGPoint startPoint;
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 @end
 
-@implementation WZMAVPlayerView
+@implementation WZMVideoPlayerView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         //如果资源加载完成,开始进行播放
         if (status == AVKeyValueStatusLoaded) {
             //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
-            WZMAVPlayerItem *item = [WZMAVPlayerItem playerItemWithAsset:asset];
+            WZMVideoPlayerItem *item = [WZMVideoPlayerItem playerItemWithAsset:asset];
             item.observer = self;
             
             //观察播放状态

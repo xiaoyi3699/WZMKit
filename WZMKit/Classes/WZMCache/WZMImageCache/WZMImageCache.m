@@ -397,7 +397,7 @@
                                                              attributes:nil
                                                                   error:&error];
     if (error) {
-        NSLog(@"创建文件夹失败:%@",error);
+        wzm_log(@"创建文件夹失败:%@",error);
     }
     return result;
 }

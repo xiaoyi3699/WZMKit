@@ -12,4 +12,5 @@
 typedef void(^doBlock)(void);
 typedef void(^doBlock1)(id obj);
 typedef id(^doBlock2)(id obj);
+
 #endif /* WZMBlock_h */

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMLogTableViewCell.h"
 
 @interface WZMLogView : UIView
 

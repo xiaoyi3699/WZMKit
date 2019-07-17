@@ -7,6 +7,7 @@
 //
 
 #import "WZMPhotoBrowser.h"
+#import "WZMPhotoBrowserCell.h"
 #import "WZMMacro.h"
 
 @interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>

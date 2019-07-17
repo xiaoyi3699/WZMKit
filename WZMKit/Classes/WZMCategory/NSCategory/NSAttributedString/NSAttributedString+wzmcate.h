@@ -6,7 +6,6 @@
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #define COLOR_NAME(_color_)   NSForegroundColorAttributeName:_color_

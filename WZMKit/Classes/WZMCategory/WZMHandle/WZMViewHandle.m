@@ -8,7 +8,6 @@
 
 #import "WZMViewHandle.h"
 #import "WZMProgressHUD.h"
-#import "WZMEnum.h"
 
 @implementation WZMViewHandle
 

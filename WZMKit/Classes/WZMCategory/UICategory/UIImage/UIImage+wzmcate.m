@@ -7,8 +7,6 @@
 //
 
 #import "UIImage+wzmcate.h"
-#import "WZMEnum.h"
-#import "WZMBlock.h"
 #import "WZMMacro.h"
 #import "WZMLog.h"
 #import <Photos/Photos.h>

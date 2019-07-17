@@ -8,7 +8,6 @@
 
 #import "WZMAlertView.h"
 #import "WZMMacro.h"
-#import "WZMBlock.h"
 #import "UIView+wzmcate.h"
 #import "NSString+wzmcate.h"
 #import "UIColor+wzmcate.h"

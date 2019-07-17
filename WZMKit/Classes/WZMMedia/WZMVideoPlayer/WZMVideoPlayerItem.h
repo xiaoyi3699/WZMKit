@@ -1,5 +1,5 @@
 //
-//  WZMAVPlayerItem.h
+//  WZMVideoPlayerItem.h
 //  WZMVideoPlayer
 //
 //  Created by WangZhaomeng on 2017/4/18.
@@ -8,7 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface WZMAVPlayerItem : AVPlayerItem
+@interface WZMVideoPlayerItem : AVPlayerItem
 
 @property (nonatomic, weak) id observer;
 

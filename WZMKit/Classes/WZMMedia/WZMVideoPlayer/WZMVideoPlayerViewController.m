@@ -7,10 +7,11 @@
 //
 
 #import "WZMVideoPlayerViewController.h"
+#import "WZMVideoPlayerView.h"
 
 @interface WZMVideoPlayerViewController (){
     NSURL          *_videoUrl;
-    WZMAVPlayerView *_playerView;
+    WZMVideoPlayerView *_playerView;
 }
 
 @end
@@ -31,7 +32,7 @@
 }
 
 - (void)createViews {
-    _playerView = [[WZMAVPlayerView alloc] initWithFrame:self.view.bounds];
+    _playerView = [[WZMVideoPlayerView alloc] initWithFrame:self.view.bounds];
     [_playerView playWithUrl:_videoUrl];
     [self.view addSubview:_playerView];
 }

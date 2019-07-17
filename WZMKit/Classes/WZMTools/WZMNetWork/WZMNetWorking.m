@@ -107,7 +107,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
     NSURLSessionDataTask *task = [[self session] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         //            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        //            NSLog(@"%ld",(long)httpResponse.statusCode);
+        //            wzm_log(@"%ld",(long)httpResponse.statusCode);
         //        }
         if (callBack) {
             if (self.resultContentType == WZMNetResultContentTypeData) {

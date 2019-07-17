@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMAnimationNumItemView.h"
 
 typedef enum : NSInteger {
     WZMAnimationPlacehloderTypeFront     = 0, //占位符在前面
