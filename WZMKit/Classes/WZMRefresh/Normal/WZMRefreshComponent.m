@@ -9,10 +9,12 @@
 #import "WZMRefreshComponent.h"
 #import "WZMRefreshHeaderView.h"
 #import "WZMRefreshFooterView.h"
+#import "WZMLog.h"
 
 @interface WZMRefreshComponent ()
 
-@property (strong, nonatomic) UIPanGestureRecognizer *pan;
+@property (weak, nonatomic) UIPanGestureRecognizer *pan;
+@property (nonatomic, assign, getter=isObserving) BOOL observing;
 
 @end
 
@@ -22,11 +24,11 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        // 准备工作
         [self prepare];
-        
+        self.observing = NO;
         // 默认是普通状态
         _refreshState = WZMRefreshStateNormal;
+        
     }
     return self;
 }
@@ -91,6 +93,8 @@
 #pragma mark - KVO监听
 - (void)addObservers
 {
+    if (self.isObserving) return;
+    self.observing = YES;
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentOffset options:options context:nil];
     [self.scrollView addObserver:self forKeyPath:WZMRefreshKeyPathContentSize options:options context:nil];
@@ -100,6 +104,8 @@
 
 - (void)removeObservers
 {
+    if (self.isObserving == NO) return;
+    self.observing = NO;
     [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentOffset];
     [self.superview removeObserver:self forKeyPath:WZMRefreshKeyPathContentSize];
     [self.pan removeObserver:self forKeyPath:WZMRefreshKeyPathPanState];
@@ -195,5 +201,10 @@
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change{}
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{}
 - (void)updateRefreshState:(WZMRefreshState)refreshState{}
+
+- (void)dealloc {
+    [self removeObservers];
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+}
 
 @end
