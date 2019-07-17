@@ -22,20 +22,10 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     WZMDirectionVertical,     //垂直方向滑动
 };
 
-@interface WZMAVPlayerView (){
-    UIView   *_topView;
-    UIView   *_toolView;
-    AVPlayer *_player;
-    UISlider *_progressSlider; //控制播放进度
-    UILabel  *_currentTime;
-    UILabel  *_totalTime;
-    UIButton *_playBtn;        //播放按钮
-    UIButton *_fullBtn;        //全屏按钮
-    id _playTimeObserver;
-}
+@interface WZMAVPlayerView ()
 
 //视屏总时长
-@property (nonatomic, assign) CGFloat dur;
+@property (nonatomic, assign) CGFloat duration;
 
 //以下是滑动手势相关变量
 @property (nonatomic, assign) WZMDirection direction;
@@ -45,6 +35,16 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 @property (nonatomic, strong) MPVolumeView *volumeView;
 @property (nonatomic, strong) UISlider *volumeViewSlider;  //控制音量
 @property (nonatomic, strong) UISlider *brightnessSlider;  //控制亮度
+
+@property (nonatomic, strong) UIView   *topView;
+@property (nonatomic, strong) UIView   *toolView;
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) UISlider *progressSlider; //控制播放进度
+@property (nonatomic, strong) UILabel  *currentTimeLabel;
+@property (nonatomic, strong) UILabel  *totalTimeLabel;
+@property (nonatomic, strong) UIButton *playBtn;        //播放按钮
+@property (nonatomic, strong) UIButton *fullBtn;        //全屏按钮
+@property (nonatomic, assign) id playTimeObserver;
 
 @end
 
@@ -112,18 +112,16 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
             
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
-            __weak AVPlayer *weakPlayer     = _player;
-            __weak UISlider *weakSlider     = _progressSlider;
-            __weak UILabel *weakCurrentTime = _currentTime;
-            __weak typeof(self) weakSelf    = self;
+            @wzm_weakify(self);
             _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+                @wzm_strongify(self);
                 //获取当前播放时间
-                NSInteger current = CMTimeGetSeconds(weakPlayer.currentItem.currentTime);
+                NSInteger current = CMTimeGetSeconds(self.player.currentItem.currentTime);
                 
-                float pro = current*1.0/weakSelf.dur;
+                float pro = current*1.0/self.duration;
                 if (pro >= 0.0 && pro <= 1.0) {
-                    weakSlider.value     = pro;
-                    weakCurrentTime.text = [weakSelf getTime:current];
+                    self.progressSlider.value  = pro;
+                    self.currentTimeLabel.text = [self getTime:current];
                 }
             }];
         }
@@ -208,15 +206,15 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [_toolView addSubview:_playBtn];
     
-    _currentTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_playBtn.frame), 10, 40, 20)];
-    _currentTime.text = @"00:00";
-    _currentTime.textColor = [UIColor whiteColor];
-    _currentTime.font = [UIFont systemFontOfSize:8];
-    _currentTime.textAlignment = NSTextAlignmentCenter;
-    [_toolView addSubview:_currentTime];
+    _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_playBtn.frame), 10, 40, 20)];
+    _currentTimeLabel.text = @"00:00";
+    _currentTimeLabel.textColor = [UIColor whiteColor];
+    _currentTimeLabel.font = [UIFont systemFontOfSize:8];
+    _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+    [_toolView addSubview:_currentTimeLabel];
     
     //播放进度条
-    _progressSlider= [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_currentTime.frame),12.5,frame.size.width-CGRectGetMaxX(_currentTime.frame)-40,15)];
+    _progressSlider= [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_currentTimeLabel.frame),12.5,frame.size.width-CGRectGetMaxX(_currentTimeLabel.frame)-40,15)];
     _progressSlider.minimumValue = 0.0;
     _progressSlider.maximumValue = 1.0;
     [_progressSlider addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
@@ -226,13 +224,13 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [_toolView addSubview:_progressSlider];
     
-    _totalTime = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_progressSlider.frame), 10, 40, 20)];
-    _totalTime.text = @"00:00";
-    _totalTime.textColor = [UIColor whiteColor];
-    _totalTime.font = [UIFont systemFontOfSize:8];
-    _totalTime.textAlignment = NSTextAlignmentCenter;
-    _totalTime.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [_toolView addSubview:_totalTime];
+    _totalTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_progressSlider.frame), 10, 40, 20)];
+    _totalTimeLabel.text = @"00:00";
+    _totalTimeLabel.textColor = [UIColor whiteColor];
+    _totalTimeLabel.font = [UIFont systemFontOfSize:8];
+    _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+    _totalTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [_toolView addSubview:_totalTimeLabel];
 }
 
 //音量调节
@@ -269,7 +267,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 }
 
 //每个视图都对应一个层，改变视图的形状、动画效果\与播放器的关联等，都可以在层上操作
-- (void)setPlayer:(AVPlayer *)myPlayer
+- (void)relatePlayer:(AVPlayer *)myPlayer
 {
     AVPlayerLayer *playerLayer=(AVPlayerLayer *)self.layer;
     [playerLayer setPlayer:myPlayer];
@@ -339,7 +337,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     if (_player) {
         CMTime dur = _player.currentItem.duration;
         float current = _progressSlider.value;
-        _currentTime.text = [self getTime:(NSInteger)(current*self.dur)];
+        _currentTimeLabel.text = [self getTime:(NSInteger)(current*self.duration)];
         //跳转到指定的时间
         [_player seekToTime:CMTimeMultiplyByFloat64(dur, current)];
     }
@@ -373,7 +371,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         self.startVB = self.volumeViewSlider.value;
     }
     CMTime ctime = _player.currentTime;
-    self.startVideoRate = ctime.value /ctime.timescale/self.dur;
+    self.startVideoRate = ctime.value /ctime.timescale/self.duration;
 }
 
 /**
@@ -400,7 +398,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     }
     
     if (self.direction == WZMDirectionHrizontal) {
-        CGFloat scale = (self.dur > 180 ? 180/self.dur : 1.0);
+        CGFloat scale = (self.duration > 180 ? 180/self.duration : 1.0);
         CGFloat rate = self.startVideoRate+(panPoint.x/self.bounds.size.width)*scale;
         if (rate > 1) {
             rate = 1;
@@ -410,7 +408,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         }
         _progressSlider.value = rate;
         CMTime dur = _player.currentItem.duration;
-        _currentTime.text = [self getTime:(NSInteger)(rate*self.dur)];
+        _currentTimeLabel.text = [self getTime:(NSInteger)(rate*self.duration)];
         [_player seekToTime:CMTimeMultiplyByFloat64(dur, rate)];
         
     }else if (self.direction == WZMDirectionVertical) {
@@ -511,24 +509,22 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
                       ofObject:(id)object
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
-    
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
-            
             //获取当前播放时间
             NSInteger current = CMTimeGetSeconds(item.currentTime);
             //总时间
-            self.dur = CMTimeGetSeconds(item.duration);
+            self.duration = CMTimeGetSeconds(item.duration);
             
-            float pro = current*1.0/self.dur;
+            float pro = current*1.0/self.duration;
             if (pro >= 0.0 && pro <= 1.0) {
                 _progressSlider.value  = pro;
-                _currentTime.text      = [self getTime:current];
-                _totalTime.text        = [self getTime:self.dur];
+                _currentTimeLabel.text      = [self getTime:current];
+                _totalTimeLabel.text        = [self getTime:self.duration];
             }
             //将播放器与播放视图关联
-            [self setPlayer:_player];
+            [self relatePlayer:_player];
             [_player play];
         }
         else if (item.status == AVPlayerStatusFailed) {
@@ -540,7 +536,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSTimeInterval timeInterval = [self availableDuration];
-        float pro = timeInterval/self.dur;
+        float pro = timeInterval/self.duration;
         if (pro >= 0.0 && pro <= 1.0) {
             wzm_log(@"缓冲进度：%f",pro);
         }

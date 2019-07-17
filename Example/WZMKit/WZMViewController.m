@@ -9,9 +9,8 @@
 #import "WZMViewController.h"
 #import <WZMKit/WZMKit.h>
 
-@interface WZMViewController ()<WZMAudioPlayerDelegate,UITableViewDelegate,UITableViewDataSource> {
+@interface WZMViewController ()<WZMAudioPlayerDelegate> {
     WZMAudioPlayer *player;
-    UITableView *tableView;
 }
 
 @end
@@ -22,34 +21,20 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    player = [[WZMAudioPlayer alloc] init];
+    player.delegate = self;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_snow" ofType:@"mp3"];
+//    NSURL *url = [NSURL fileURLWithPath:path];
+//    [player playWithURL:url];
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_qnyn" ofType:@"mp4"];
     NSURL *url = [NSURL fileURLWithPath:path];
     WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
     [self presentViewController:vc animated:YES completion:nil];
-}
-
-#pragma mark - UITableViewDelegate && UITableViewDataSource
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self presentViewController:[WZMViewController new] animated:YES completion:nil];
-    
-    WZMDispatch_after(5, ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-    }
-    return cell;
 }
 
 - (void)audioPlayerLoadSuccess:(WZMAudioPlayer *)audioPlayer {
