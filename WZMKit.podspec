@@ -32,6 +32,10 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'WZMKit/Classes/**/*'
   
+  #s.subspec 'WZMCache' do |a|
+  #    a.source_files = 'WZMKit/Classes/WZMCache/**/*'
+  #end
+  
   s.resource_bundles = {
     'WZMKit' => ['WZMKit/Assets/*.*']
   }
