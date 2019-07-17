@@ -60,10 +60,14 @@
     self.window.rootViewController = tabBarController;
     
 #if DEBUG
+    //开启手机端日志悬浮图标
     [WZMLogView startLog];
+    //开启framework内部日志打印
     wzm_openLogEnable(YES);
+    //开启异常采集
     WZMInstallSignalHandler();
     WZMInstallUncaughtExceptionHandler();
+    //监听CPU使用量和FPS(页面帧率)
     [self.window wzm_startObserveFpsAndCpu];
 #endif
     
