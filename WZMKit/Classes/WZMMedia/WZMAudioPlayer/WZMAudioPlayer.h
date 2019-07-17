@@ -13,9 +13,8 @@
 
 @property (nonatomic, readonly, assign) CGFloat   playProgress; //播放进度
 @property (nonatomic, readonly, assign) CGFloat   loadProgress; //缓冲进度
-@property (nonatomic, readonly, assign) CGFloat   duration;     //音频总时长
+@property (nonatomic, readonly, assign) NSInteger duration;     //音频总时长
 @property (nonatomic, readonly, assign) NSInteger currentTime;  //当前播放时间
-@property (nonatomic, readonly, assign) NSInteger totalTime;    //播放总时长
 
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isBackground) BOOL background;

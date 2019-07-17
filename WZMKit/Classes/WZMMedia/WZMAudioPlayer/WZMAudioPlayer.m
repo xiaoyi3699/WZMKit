@@ -11,6 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "WZMAudioPlayerItem.h"
 #import "WZMMacro.h"
+#import "WZMLog.h"
 
 @interface WZMAudioPlayer ()<AVAudioPlayerDelegate>
 
@@ -18,9 +19,8 @@
 @property (nonatomic, strong) AVPlayer  *audioPlayer; //音频播放器
 @property (nonatomic, assign) CGFloat   playProgress; //播放进度
 @property (nonatomic, assign) CGFloat   loadProgress; //缓冲进度
-@property (nonatomic, assign) CGFloat   duration;     //音频总时长
+@property (nonatomic, assign) NSInteger duration;     //音频总时长
 @property (nonatomic, assign) NSInteger currentTime;  //当前播放时间
-@property (nonatomic, assign) NSInteger totalTime;    //播放总时长
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 
@@ -56,7 +56,6 @@
 
 - (void)resetConfig {
     self.duration = 0;
-    self.totalTime = 0;
     self.currentTime = 0;
     self.playProgress = 0;
     self.loadProgress = 0;
@@ -99,7 +98,7 @@
                 @wzm_strongify(self);
                 //获取当前播放时间
                 self.currentTime = CMTimeGetSeconds(self.audioPlayer.currentItem.currentTime);
-                float pro = self.currentTime/self.duration;
+                float pro = self.currentTime*1.0/self.duration;
                 if (pro >= 0.0 && pro <= 1.0) {
                     self.playProgress = pro;
                 }
@@ -119,19 +118,18 @@
                       ofObject:(id)object
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
-    
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
+            //获取当前播放时间
+            self.currentTime = CMTimeGetSeconds(item.currentTime);
+            //总时间
+            self.duration = CMTimeGetSeconds(item.duration);
             //将要开始播放
             if (self.currentTime == 0) {
                 [self wzm_loadSuccess];
                 [self wzm_beginPlaying];
             }
-            //获取当前播放时间
-            self.currentTime = CMTimeGetSeconds(item.currentTime);
-            //总时间
-            self.duration = CMTimeGetSeconds(item.duration);
             float pro = self.currentTime*1.0/self.duration;
             if (pro >= 0.0 && pro <= 1.0) {
                 self.playProgress  = pro;
@@ -142,8 +140,8 @@
             [self loadFailed:@"未识别的音频文件"];
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSTimeInterval timeInterval = [self availableDuration];
-        float pro = timeInterval/self.duration;
+        NSInteger timeInterval = [self availableDuration];
+        float pro = timeInterval*1.0/self.duration;
         if (pro >= 0.0 && pro <= 1.0) {
             self.loadProgress = pro;
             [self wzm_loadProgress];
@@ -249,11 +247,11 @@
     }
 }
 
-- (CGFloat)availableDuration {//计算缓冲时间
+- (NSInteger)availableDuration {//计算缓冲时间
     NSArray *loadedTimeRanges = [_audioPlayer.currentItem loadedTimeRanges];
     CMTimeRange range = [loadedTimeRanges.firstObject CMTimeRangeValue];
-    CGFloat start = CMTimeGetSeconds(range.start);
-    CGFloat duration = CMTimeGetSeconds(range.duration);
+    NSInteger start = CMTimeGetSeconds(range.start);
+    NSInteger duration = CMTimeGetSeconds(range.duration);
     return (start + duration);
 }
 
@@ -293,7 +291,7 @@
 
 //移除相关监听
 - (void)dealloc {
-    NSLog(@"音乐播放器释放");
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
     [_audioPlayer removeTimeObserver:_playTimeObserver];
     [_audioPlayer.currentItem removeObserver:self forKeyPath:@"status"];
     [_audioPlayer.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

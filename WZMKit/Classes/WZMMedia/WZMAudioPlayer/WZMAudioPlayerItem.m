@@ -7,6 +7,7 @@
 //
 
 #import "WZMAudioPlayerItem.h"
+#import "WZMLog.h"
 
 @implementation WZMAudioPlayerItem
 
@@ -16,6 +17,7 @@
         [self removeObserver:self.observer forKeyPath:@"status"];
         [self removeObserver:self.observer forKeyPath:@"loadedTimeRanges"];
     }
+    wzm_log(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

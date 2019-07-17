@@ -598,8 +598,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     _fullBtn.selected = ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height);
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     wzm_log(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
