@@ -19,6 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    view.backgroundColor = [UIColor redColor];
+    [self.view addSubview:view];
 	
     player = [[WZMAudioPlayer alloc] init];
     player.delegate = self;
@@ -28,12 +32,14 @@
         [player playWithURL:url];
     });
     
-    [self .view wzm_executeGesture:^(UIView *view_, WZMGestureRecognizerType gesture_) {
+    @wzm_weakify(player);
+    [self.view wzm_executeGesture:^(UIView *view_, WZMGestureRecognizerType gesture_) {
+        @wzm_strongify(player);
         if (gesture_ == WZMGestureRecognizerTypeSingle) {
-            
+            [player seekToProgress:0.9];
         }
         else {
-            
+            [player play];
         }
     }];
 }

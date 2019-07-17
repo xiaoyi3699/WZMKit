@@ -283,10 +283,24 @@
 }
 
 - (void)seekToTime:(NSInteger)time {
-    if (_currentTime == time || time > self.duration) return;
-    _currentTime = time;
-    CMTime dur = self.audioPlayer.currentItem.duration;
-    [self.audioPlayer seekToTime:CMTimeMultiplyByFloat64(dur, _currentTime)];
+    if (self.currentTime == time) return;
+    if (time >= 0 && time < self.duration) {
+        self.currentTime = time;
+        self.playProgress = self.currentTime*1.0/self.duration;
+        CMTime dur = self.audioPlayer.currentItem.duration;
+        [self.audioPlayer seekToTime:CMTimeMultiplyByFloat64(dur, self.playProgress)];
+    }
+}
+
+- (void)seekToProgress:(CGFloat)progress {
+    if (self.playProgress == progress) return;
+    if (progress >= 0 && progress <= 1) {
+        NSInteger time = self.duration*progress;
+        self.currentTime = time;
+        self.playProgress = progress;
+        CMTime dur = self.audioPlayer.currentItem.duration;
+        [self.audioPlayer seekToTime:CMTimeMultiplyByFloat64(dur, progress)];
+    }
 }
 
 //移除相关监听

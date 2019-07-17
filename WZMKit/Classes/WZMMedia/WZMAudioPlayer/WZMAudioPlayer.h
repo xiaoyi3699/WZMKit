@@ -21,10 +21,10 @@
 @property (nonatomic, weak) id<WZMAudioPlayerDelegate> delegate;
 
 - (void)playWithURL:(NSURL *)fileURL;
-
 - (void)play;
 - (void)pause;
 - (void)seekToTime:(NSInteger)time;
+- (void)seekToProgress:(CGFloat)progress;
 
 @end
 
