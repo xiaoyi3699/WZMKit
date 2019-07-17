@@ -16,7 +16,7 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 
 @implementation WZMRefreshHelper
 
-+ (NSString *)WZM_getRefreshTime:(NSString *)key {
++ (NSString *)getRefreshTime:(NSString *)key {
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     if (value) {
         NSArray *times = [value componentsSeparatedByString:@" "];
@@ -34,15 +34,15 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
     return [NSString stringWithFormat:@"最后更新：无记录"];
 }
 
-+ (void)WZM_setRefreshTime:(NSString *)key {
++ (void)setRefreshTime:(NSString *)key {
     NSDateFormatter *dateFormatter = [self dateFormatter];
     NSString *value = [dateFormatter stringFromDate:[NSDate date]];
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (UIImage *)WZM_ArrowImage {
-    NSBundle *bundle = [WZMPublic wzm_resourceBundle];
++ (UIImage *)arrowImage {
+    NSBundle *bundle = [WZMPublic resourceBundle];
     return [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wzm_arrow" ofType:@"png"]];
 }
 

@@ -215,7 +215,7 @@
     return _document;
 }
 
-+ (NSBundle *)wzm_resourceBundle {
++ (NSBundle *)resourceBundle {
     NSString *mainBundlePath = [NSBundle mainBundle].bundlePath;
     NSString *bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"WZMKit.bundle"];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
@@ -224,6 +224,11 @@
         bundle = [NSBundle bundleWithPath:bundlePath];
     }
     return bundle;
+}
+
++ (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type {
+    NSBundle *bundle = [self resourceBundle];
+    return [UIImage imageWithContentsOfFile:[bundle pathForResource:name ofType:type]];
 }
 
 @end

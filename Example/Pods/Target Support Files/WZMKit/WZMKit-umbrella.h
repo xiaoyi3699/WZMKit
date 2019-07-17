@@ -48,7 +48,6 @@
 #import "WZMCamera.h"
 #import "WZMAVPlayerItem.h"
 #import "WZMAVPlayerView.h"
-#import "WZMVideoPlayerHelper.h"
 #import "WZMVideoPlayerViewController.h"
 #import "WZMBlock.h"
 #import "WZMEnum.h"

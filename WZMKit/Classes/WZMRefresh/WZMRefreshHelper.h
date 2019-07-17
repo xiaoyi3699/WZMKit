@@ -25,22 +25,21 @@ extern NSString *const WZMRefreshKeyPathContentOffset;
 
 /** 刷新控件的状态 */
 typedef NS_ENUM(NSInteger, WZMRefreshState) {
-    
-    WZMRefreshStateNormal          = 0, //普通状态
-    WZMRefreshStateWiWZMRefresh,         //松开就刷新的状态
-    WZMRefreshStateRefreshing,          //正在刷新中的状态
-    WZMRefreshStateNoMoreData           //没有更多的数据
+    WZMRefreshStateNormal = 0,   //普通状态
+    WZMRefreshStateWiWZMRefresh, //松开就刷新的状态
+    WZMRefreshStateRefreshing,   //正在刷新中的状态
+    WZMRefreshStateNoMoreData    //没有更多的数据
 };
 
 @interface WZMRefreshHelper : NSObject
 
 /** 获取上次更新时间 */
-+ (NSString *)WZM_getRefreshTime:(NSString *)key;
++ (NSString *)getRefreshTime:(NSString *)key;
 
 /** 重置更新时间 */
-+ (void)WZM_setRefreshTime:(NSString *)key;
++ (void)setRefreshTime:(NSString *)key;
 
 /** 箭头 */
-+ (UIImage *)WZM_ArrowImage;
++ (UIImage *)arrowImage;
 
 @end

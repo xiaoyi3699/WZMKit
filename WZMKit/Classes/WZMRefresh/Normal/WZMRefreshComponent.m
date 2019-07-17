@@ -69,7 +69,7 @@
 - (UIImageView *)arrowView {
     if (_arrowView == nil) {
         _arrowView = [[UIImageView alloc] init];
-        _arrowView.image = [WZMRefreshHelper WZM_ArrowImage];
+        _arrowView.image = [WZMRefreshHelper arrowImage];
         _arrowView.tintColor = WZM_REFRESH_COLOR;
         if ([self isKindOfClass:[WZMRefreshFooterView class]]) {
             _arrowView.layer.transform = WZM_TRANS_FORM;
@@ -165,8 +165,8 @@
     else {
         if ([self isKindOfClass:[WZMRefreshHeaderView class]]) {
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [WZMRefreshHelper WZM_setRefreshTime:WZMRefreshHeaderTime];
-                NSString *value = [WZMRefreshHelper WZM_getRefreshTime:WZMRefreshHeaderTime];
+                [WZMRefreshHelper setRefreshTime:WZMRefreshHeaderTime];
+                NSString *value = [WZMRefreshHelper getRefreshTime:WZMRefreshHeaderTime];
                 NSInteger w = ceil([value sizeWithAttributes:@{NSFontAttributeName:WZM_TIME_FONT}].width);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _laseTimeLabel.text = value;

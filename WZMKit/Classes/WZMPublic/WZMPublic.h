@@ -52,6 +52,7 @@
 ///document
 - (NSString *)document;
 ///资源文件
-+ (NSBundle *)wzm_resourceBundle;
++ (NSBundle *)resourceBundle;
++ (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type;
 
 @end

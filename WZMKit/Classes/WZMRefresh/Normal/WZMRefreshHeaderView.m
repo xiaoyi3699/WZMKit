@@ -46,7 +46,7 @@
     _messageLabel.textColor = WZM_REFRESH_COLOR;
     [self addSubview:_messageLabel];
     
-    NSString *lastTime = [WZMRefreshHelper WZM_getRefreshTime:WZMRefreshHeaderTime];
+    NSString *lastTime = [WZMRefreshHelper getRefreshTime:WZMRefreshHeaderTime];
     _laseTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_messageLabel.frame), self.bounds.size.width, labelH)];
     _laseTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _laseTimeLabel.font = WZM_TIME_FONT;
