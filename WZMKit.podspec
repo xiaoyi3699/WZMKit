@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'WZMKit'
   s.version          = '0.1.2'
-  s.summary          = 'A short description of WZMKit.'
+  s.summary          = '↓ 做个简单的介绍 ↓'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  📂 WZMNetWorking: 网络请求(包含GET POST PUT DELETE等等)
+  📂 WZMRefresh: 轻量级上拉加载、下拉刷新
+  📂 WZMImageCache: 网络图片缓存
+  📂 WZMGifImageView: GIF展示, 优化了GIF图片的内存占用
+  📂 WZMPhotoBrowser: 图片浏览器, 支持网络或本地, 支持GIF
+  📂 WZMPlayer: 高度自定义音/视频播放, 支持播放状态回调
+  📂 WZMVideoPlayerView: 一个功能齐全的视频播放器
+  📂 WZMReaction: 仿rac, 响应式交互, 使用block方式回调
                        DESC
 
   s.homepage         = 'https://github.com/wangzhaomeng/WZMKit'
