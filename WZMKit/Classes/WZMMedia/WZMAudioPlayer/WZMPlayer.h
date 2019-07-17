@@ -1,5 +1,5 @@
 //
-//  WZMAudioPlayer.h
+//  WZMPlayer.h
 //  LLFoundation
 //
 //  Created by WangZhaomeng on 2017/4/16.
@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-@protocol WZMAudioPlayerDelegate;
+#import "WZMPlayerView.h"
+@protocol WZMPlayerDelegate;
 
-@interface WZMAudioPlayer : NSObject
+@interface WZMPlayer : NSObject
 
 @property (nonatomic, readonly, assign) CGFloat   playProgress; //播放进度
 @property (nonatomic, readonly, assign) CGFloat   loadProgress; //缓冲进度
@@ -18,7 +19,8 @@
 
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isBackground) BOOL background;
-@property (nonatomic, weak) id<WZMAudioPlayerDelegate> delegate;
+@property (nonatomic, weak) id<WZMPlayerDelegate> delegate;
+@property (nonatomic, strong) WZMPlayerView *playerView;
 
 - (void)playWithURL:(NSURL *)url;
 - (void)play;
@@ -28,15 +30,15 @@
 
 @end
 
-@protocol WZMAudioPlayerDelegate <NSObject>
+@protocol WZMPlayerDelegate <NSObject>
 
 @optional
-- (void)audioPlayerLoadSuccess:(WZMAudioPlayer *)audioPlayer;
-- (void)audioPlayerLoadFailed:(WZMAudioPlayer *)audioPlayer error:(NSString *)error;
-- (void)audioPlayerLoadProgress:(WZMAudioPlayer *)audioPlayer;
-- (void)audioPlayerBeginPlaying:(WZMAudioPlayer *)audioPlayer;
-- (void)audioPlayerPlaying:(WZMAudioPlayer *)audioPlayer;
-- (void)audioPlayerEndPlaying:(WZMAudioPlayer *)audioPlayer;
-- (void)audioPlayerChangeStatus:(WZMAudioPlayer *)audioPlayer;
+- (void)playerLoadSuccess:(WZMPlayer *)player;
+- (void)playerLoadFailed:(WZMPlayer *)player error:(NSString *)error;
+- (void)playerLoadProgress:(WZMPlayer *)player;
+- (void)playerBeginPlaying:(WZMPlayer *)player;
+- (void)playerPlaying:(WZMPlayer *)player;
+- (void)playerEndPlaying:(WZMPlayer *)player;
+- (void)playerChangeStatus:(WZMPlayer *)player;
 
 @end
