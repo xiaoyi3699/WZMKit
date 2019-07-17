@@ -26,7 +26,7 @@ extern NSString *const WZMRefreshKeyPathContentOffset;
 /** 刷新控件的状态 */
 typedef NS_ENUM(NSInteger, WZMRefreshState) {
     WZMRefreshStateNormal = 0,   //普通状态
-    WZMRefreshStateWiWZMRefresh, //松开就刷新的状态
+    WZMRefreshStateWillRefresh,  //松开就刷新的状态
     WZMRefreshStateRefreshing,   //正在刷新中的状态
     WZMRefreshStateNoMoreData    //没有更多的数据
 };

@@ -17,7 +17,7 @@
     if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"上拉可以加载更多";
     }
-    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
+    else if (refreshState == WZMRefreshStateWillRefresh) {
         refreshText = @"松开立即加载更多";
     }
     else if (refreshState == WZMRefreshStateRefreshing) {

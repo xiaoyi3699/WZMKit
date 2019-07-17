@@ -12,10 +12,10 @@
 
 @interface UIScrollView (WZMRefresh_0)
 
-- (void)setWZMRefreshHeader_0:(WZMHeaderView_0 *)aRefreshHeader;
-- (WZMHeaderView_0 *)WZMRefreshHeader_0;
+- (void)setWzm_header_0:(WZMHeaderView_0 *)wzm_header_0;
+- (WZMHeaderView_0 *)wzm_header_0;
 
-- (void)setWZMRefreshFooter_0:(WZMFooterView_0 *)aRefreshFooter;
-- (WZMFooterView_0 *)WZMRefreshFooter_0;
+- (void)setWzm_footer_0:(WZMFooterView_0 *)wzm_footer_0;
+- (WZMFooterView_0 *)wzm_footer_0;
 
 @end

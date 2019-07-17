@@ -29,10 +29,10 @@
     
     BOOL moreData = [notification.object boolValue];
     if (moreData) {
-        [self WZM_RefreshNormal];
+        [self refreshNormal];
     }
     else {
-        [self WZM_NoMoreData];
+        [self noMoreData];
     }
 }
 
@@ -78,7 +78,7 @@
     if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"上拉可以加载更多";
     }
-    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
+    else if (refreshState == WZMRefreshStateWillRefresh) {
         refreshText = @"松开立即加载更多";
     }
     else if (refreshState == WZMRefreshStateRefreshing) {
@@ -104,10 +104,10 @@
     }
     else {
         if (self.scrollView.contentOffset.y < WZMRefreshFooterHeight+_contentOffsetY) {
-            [self WZM_RefreshNormal];
+            [self refreshNormal];
         }
         else {
-            [self WZM_WiWZMRefresh];
+            [self willRefresh];
             transform3D = CATransform3DIdentity;
         }
     }
@@ -134,7 +134,7 @@
     [super scrollViewPanStateDidChange:change];
     if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.scrollView.contentOffset.y >= WZMRefreshFooterHeight+_contentOffsetY) {
-            [self WZM_BeginRefresh];
+            [self beginRefresh];
         }
     }
     else if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -142,9 +142,9 @@
     }
 }
 
-- (void)WZM_BeginRefresh {
+- (void)beginRefresh {
     if (self.isRefreshing == NO) {
-        [super WZM_BeginRefresh];
+        [super beginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(-WZMRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
@@ -158,9 +158,9 @@
     }
 }
 
-- (void)WZM_EndRefresh:(BOOL)more {
+- (void)endRefresh:(BOOL)more {
     if (self.isRefreshing) {
-        [super WZM_EndRefresh:more];
+        [super endRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
                 [UIView animateWithDuration:.35 animations:^{
@@ -188,10 +188,10 @@
     }
 }
 
-- (void)WZM_EndRefresh {
+- (void)endRefresh {
     if (self.isRefreshing) {
         BOOL more = !(_lastContentHeight == self.scrollView.contentSize.height);
-        [super WZM_EndRefresh:more];
+        [super endRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
                 [UIView animateWithDuration:.35 animations:^{

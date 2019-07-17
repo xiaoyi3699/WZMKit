@@ -33,8 +33,8 @@
     }
     [self.view addSubview:tableView];
     
-    tableView.WZMRefreshHeader = [WZMRefreshHeaderView headerWithRefreshingTarget:self refreshingAction:@selector(header)];
-    tableView.WZMRefreshFooter = [WZMRefreshFooterView footerWithRefreshingTarget:self refreshingAction:@selector(footer)];
+    tableView.wzm_header = [WZMRefreshHeaderView headerWithRefreshingTarget:self refreshingAction:@selector(header)];
+    tableView.wzm_footer = [WZMRefreshFooterView footerWithRefreshingTarget:self refreshingAction:@selector(footer)];
     
     
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
@@ -63,15 +63,15 @@
 
 - (void)header {
     WZMDispatch_after(1, ^{
-        [tableView.WZMRefreshHeader WZM_EndRefresh];
-        [tableView.WZMRefreshFooter WZM_EndRefresh];
+        [tableView.wzm_header endRefresh];
+        [tableView.wzm_footer endRefresh];
     });
 }
 
 - (void)footer {
     WZMDispatch_after(1, ^{
-        [tableView.WZMRefreshHeader WZM_EndRefresh];
-        [tableView.WZMRefreshFooter WZM_EndRefresh];
+        [tableView.wzm_header endRefresh];
+        [tableView.wzm_footer endRefresh];
     });
 }
 

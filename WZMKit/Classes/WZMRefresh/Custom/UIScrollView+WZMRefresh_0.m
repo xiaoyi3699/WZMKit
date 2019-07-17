@@ -11,52 +11,52 @@
 
 @implementation UIScrollView (WZMRefresh_0)
 
-static NSString *_aRefreshHeaderKey = @"header";
-static NSString *_aRefreshFooterKey = @"footer";
+static NSString *_headerKey = @"header";
+static NSString *_footerKey = @"footer";
 
-- (void)setWZMRefreshHeader_0:(WZMHeaderView_0 *)aRefreshHeader {
-    if (aRefreshHeader != self.WZMRefreshHeader_0) {
+- (void)setWzm_header_0:(WZMHeaderView_0 *)wzm_header_0 {
+    if (wzm_header_0 != self.wzm_header_0) {
         //移除旧的
-        [self.WZMRefreshHeader_0 removeFromSuperview];
+        [self.wzm_header_0 removeFromSuperview];
         //添加新的
-        [self insertSubview:aRefreshHeader atIndex:0];
+        [self insertSubview:wzm_header_0 atIndex:0];
         //设置frame
-        aRefreshHeader.frame = CGRectMake(0, -WZMRefreshHeaderHeight, self.bounds.size.width, WZMRefreshHeaderHeight);
-        if ([aRefreshHeader respondsToSelector:@selector(createViews)]) {
-            [aRefreshHeader createViews];
+        wzm_header_0.frame = CGRectMake(0, -WZMRefreshHeaderHeight, self.bounds.size.width, WZMRefreshHeaderHeight);
+        if ([wzm_header_0 respondsToSelector:@selector(createViews)]) {
+            [wzm_header_0 createViews];
         }
         // 存储新的
         [self willChangeValueForKey:@"WZMRefreshHeader_0"]; // KVO
-        objc_setAssociatedObject(self, &_aRefreshHeaderKey, aRefreshHeader, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &_headerKey, wzm_header_0, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self didChangeValueForKey:@"WZMRefreshHeader_0"];  // KVO
     }
 }
 
-- (WZMHeaderView_0 *)WZMRefreshHeader_0 {
-    return objc_getAssociatedObject(self, &_aRefreshHeaderKey);
+- (WZMHeaderView_0 *)wzm_header_0 {
+    return objc_getAssociatedObject(self, &_headerKey);
 }
 
-- (void)setWZMRefreshFooter_0:(WZMFooterView_0 *)aRefreshFooter {
-    if (aRefreshFooter != self.WZMRefreshFooter_0) {
+- (void)setWzm_footer_0:(WZMFooterView_0 *)wzm_footer_0 {
+    if (wzm_footer_0 != self.wzm_footer_0) {
         //移除旧的
-        [self.WZMRefreshFooter_0 removeFromSuperview];
+        [self.wzm_footer_0 removeFromSuperview];
         //添加新的
-        [self insertSubview:aRefreshFooter atIndex:0];
+        [self insertSubview:wzm_footer_0 atIndex:0];
         //设置frame
-        aRefreshFooter.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, WZMRefreshFooterHeight);
-        if ([aRefreshFooter respondsToSelector:@selector(createViews)]) {
-            [aRefreshFooter createViews];
+        wzm_footer_0.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, WZMRefreshFooterHeight);
+        if ([wzm_footer_0 respondsToSelector:@selector(createViews)]) {
+            [wzm_footer_0 createViews];
         }
         
         // 存储新的
         [self willChangeValueForKey:@"WZMRefreshFooter_0"]; // KVO
-        objc_setAssociatedObject(self, &_aRefreshFooterKey, aRefreshFooter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &_footerKey, wzm_footer_0, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self didChangeValueForKey:@"WZMRefreshFooter_0"];  // KVO
     }
 }
 
-- (WZMFooterView_0 *)WZMRefreshFooter_0 {
-    return objc_getAssociatedObject(self, &_aRefreshFooterKey);
+- (WZMFooterView_0 *)wzm_footer_0 {
+    return objc_getAssociatedObject(self, &_footerKey);
 }
 
 @end

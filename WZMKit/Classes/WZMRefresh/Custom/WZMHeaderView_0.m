@@ -17,7 +17,7 @@
     if (refreshState == WZMRefreshStateNormal) {
         refreshText = @"下拉可以刷新";
     }
-    else if (refreshState == WZMRefreshStateWiWZMRefresh) {
+    else if (refreshState == WZMRefreshStateWillRefresh) {
         refreshText = @"松开立即刷新";
     }
     else if (refreshState == WZMRefreshStateRefreshing) {

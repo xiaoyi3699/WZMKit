@@ -35,10 +35,10 @@
     if (self.scrollView.contentOffset.y >= 0) return;
     
     if (self.scrollView.contentOffset.y > -WZMRefreshHeaderHeight) {
-        [self WZM_RefreshNormal];
+        [self refreshNormal];
     }
     else {
-        [self WZM_WiWZMRefresh];
+        [self willRefresh];
     }
 }
 
@@ -46,7 +46,7 @@
     [super scrollViewPanStateDidChange:change];
     if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (self.scrollView.contentOffset.y <= -WZMRefreshHeaderHeight) {
-            [self WZM_BeginRefresh];
+            [self beginRefresh];
         }
     }
     else if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
@@ -54,9 +54,9 @@
     }
 }
 
-- (void)WZM_BeginRefresh {
+- (void)beginRefresh {
     if (self.isRefreshing == NO) {
-        [super WZM_BeginRefresh];
+        [super beginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(WZMRefreshHeaderHeight, 0, 0, 0);
@@ -69,9 +69,9 @@
     }
 }
 
-- (void)WZM_EndRefresh:(BOOL)more {
+- (void)endRefresh:(BOOL)more {
     if (self.isRefreshing) {
-        [super WZM_EndRefresh:more];
+        [super endRefresh:more];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(more)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{
@@ -81,9 +81,9 @@
     }
 }
 
-- (void)WZM_EndRefresh {
+- (void)endRefresh {
     if (self.isRefreshing) {
-        [super WZM_EndRefresh:YES];
+        [super endRefresh:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(YES)];
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:.35 animations:^{

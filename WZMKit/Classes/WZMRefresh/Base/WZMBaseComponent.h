@@ -15,54 +15,38 @@
 
 /** 是否处于刷新状态 */
 @property (nonatomic, assign, getter=isRefreshing) BOOL refreshing;
-
 /** 回调对象 */
 @property (nonatomic, weak) id refreshingTarget;
-
 /** 回调方法 */
 @property (nonatomic, assign) SEL refreshingAction;
-
-#pragma mark - 交给子类去访问
 /** 父控件 */
 @property (weak,   nonatomic, readonly) UIScrollView *scrollView;
 
-#pragma mark - 交给子类们去实现
+/** 开始刷新 */
+- (void)beginRefresh;
+/** 结束刷新 */
+- (void)endRefresh;
+
 /** 普通状态 */
-- (void)WZM_RefreshNormal NS_REQUIRES_SUPER;
-
+- (void)refreshNormal;
 /** 松开就刷新的状态 */
-- (void)WZM_WiWZMRefresh NS_REQUIRES_SUPER;
-
+- (void)willRefresh;
 /** 没有更多的数据 */
-- (void)WZM_NoMoreData NS_REQUIRES_SUPER;
-
-/** 正在刷新中的状态 */
-- (void)WZM_BeginRefresh NS_REQUIRES_SUPER;
-
+- (void)noMoreData;
 /** 刷新结束 */
-- (void)WZM_EndRefresh:(BOOL)more NS_REQUIRES_SUPER;
-
-/** 刷新结束 */
-- (void)WZM_EndRefresh;
-
+- (void)endRefresh:(BOOL)more;
 /** 初始化 */
-- (void)prepare NS_REQUIRES_SUPER;
-
+- (void)prepare;
 /** 创建子视图 */
 - (void)createViews;
-
 /** 当scrollView的contentOffset发生改变的时候调用 */
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change;
-
 /** 当scrollView的contentSize发生改变的时候调用 */
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change;
-
 /** 当scrollView的拖拽状态发生改变的时候调用 */
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change;
-
 /** 更新刷新控件的状态 */
 - (void)updateRefreshState:(WZMRefreshState)refreshState;
-
 /** 移除kvo监听 */
 - (void)removeObservers;
 
