@@ -24,26 +24,27 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 @interface WZMAVPlayerView ()
 
-//视屏总时长
-@property (nonatomic, assign) CGFloat duration;
-
-//以下是滑动手势相关变量
-@property (nonatomic, assign) WZMDirection direction;
+//滑动手势
 @property (nonatomic, assign) CGPoint startPoint;
-@property (nonatomic, assign) CGFloat startVB;
+@property (nonatomic, assign) CGFloat startBright;
 @property (nonatomic, assign) CGFloat startVideoRate;
-@property (nonatomic, strong) MPVolumeView *volumeView;
-@property (nonatomic, strong) UISlider *volumeViewSlider;  //控制音量
-@property (nonatomic, strong) UISlider *brightnessSlider;  //控制亮度
+@property (nonatomic, assign) WZMDirection direction;
 
+//音量、亮度、进度
+@property (nonatomic, strong) MPVolumeView *volumeView;
+@property (nonatomic, strong) UISlider *volumeViewSlider;
+@property (nonatomic, strong) UISlider *brightnessSlider;
+@property (nonatomic, strong) UISlider *progressSlider;
+
+//视图
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) UIButton *playBtn;
+@property (nonatomic, strong) UIButton *fullBtn;
 @property (nonatomic, strong) UIView   *topView;
 @property (nonatomic, strong) UIView   *toolView;
-@property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic, strong) UISlider *progressSlider; //控制播放进度
-@property (nonatomic, strong) UILabel  *currentTimeLabel;
+@property (nonatomic, assign) CGFloat  duration;
 @property (nonatomic, strong) UILabel  *totalTimeLabel;
-@property (nonatomic, strong) UIButton *playBtn;        //播放按钮
-@property (nonatomic, strong) UIButton *fullBtn;        //全屏按钮
+@property (nonatomic, strong) UILabel  *currentTimeLabel;
 @property (nonatomic, assign) id playTimeObserver;
 
 @end
@@ -365,10 +366,10 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     //检测用户是触摸屏幕的左边还是右边，以此判断用户是要调节音量还是亮度，左边是亮度，右边是音量
     if (self.startPoint.x <= self.bounds.size.width/2.0) {
         //亮度
-        self.startVB = [UIScreen mainScreen].brightness;
+        self.startBright = [UIScreen mainScreen].brightness;
     } else {
         //音量
-        self.startVB = self.volumeViewSlider.value;
+        self.startBright = self.volumeViewSlider.value;
     }
     CMTime ctime = _player.currentTime;
     self.startVideoRate = ctime.value /ctime.timescale/self.duration;
@@ -412,7 +413,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         [_player seekToTime:CMTimeMultiplyByFloat64(dur, rate)];
         
     }else if (self.direction == WZMDirectionVertical) {
-        CGFloat value = self.startVB-(panPoint.y/self.bounds.size.height);
+        CGFloat value = self.startBright-(panPoint.y/self.bounds.size.height);
         if (value > 1) {
             value = 1;
         }
@@ -520,8 +521,8 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
             float pro = current*1.0/self.duration;
             if (pro >= 0.0 && pro <= 1.0) {
                 _progressSlider.value  = pro;
-                _currentTimeLabel.text      = [self getTime:current];
-                _totalTimeLabel.text        = [self getTime:self.duration];
+                _currentTimeLabel.text = [self getTime:current];
+                _totalTimeLabel.text   = [self getTime:self.duration];
             }
             //将播放器与播放视图关联
             [self relatePlayer:_player];
@@ -545,27 +546,15 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 //音频播放中断
 - (void)movieInterruption:(NSNotification *)notification {
-    NSDictionary *interuptionDict = notification.userInfo;
-    NSInteger interuptionType = [[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-    NSNumber  *seccondReason  = [[notification userInfo] objectForKey:AVAudioSessionInterruptionOptionKey] ;
-    switch (interuptionType) {
-        case AVAudioSessionInterruptionTypeBegan:
-        {
-            //收到中断，停止音频播放
-            [self pause];
-            break;
-        }
-        case AVAudioSessionInterruptionTypeEnded:
-            //系统中断结束
-            break;
+    NSDictionary *dic = notification.userInfo;
+    NSInteger type = [[dic valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        //收到中断，停止音频播放
+        [self pause];
     }
-    switch ([seccondReason integerValue]) {
-        case AVAudioSessionInterruptionOptionShouldResume:
-            //恢复音频播放
-            [self play];
-            break;
-        default:
-            break;
+    else {
+        //系统中断结束，恢复音频播放
+        [self play];
     }
 }
 

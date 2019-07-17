@@ -30,8 +30,13 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.background = NO;
+        
         //监听音频播放结束
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+        
+        //监听程序进入前台
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
         
         //监听程序退到后台
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
@@ -162,6 +167,11 @@
     }
 }
 
+//程序进入前台
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self play];//恢复播放
+}
+
 //监听程序退到后台
 - (void)applicationWillResignActive:(NSNotification *)notification {
     if (self.isBackground) {
@@ -176,26 +186,15 @@
 
 //监听音频播放中断
 - (void)movieInterruption:(NSNotification *)notification {
-    NSDictionary *interuptionDict = notification.userInfo;
-    NSInteger interuptionType = [[interuptionDict valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-    NSNumber  *seccondReason  = [[notification userInfo] objectForKey:AVAudioSessionInterruptionOptionKey] ;
-    switch (interuptionType) {
-        case AVAudioSessionInterruptionTypeBegan: {
-            //收到中断，停止音频播放
-            [self pause];
-            break;
-        }
-        case AVAudioSessionInterruptionTypeEnded:
-            //系统中断结束
-            break;
+    NSDictionary *dic = notification.userInfo;
+    NSInteger type = [[dic valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        //收到中断，停止音频播放
+        [self pause];
     }
-    switch ([seccondReason integerValue]) {
-        case AVAudioSessionInterruptionOptionShouldResume:
-            //恢复音频播放
-            [self play];
-            break;
-        default:
-            break;
+    else {
+        //系统中断结束，恢复音频播放
+        [self play];
     }
 }
 

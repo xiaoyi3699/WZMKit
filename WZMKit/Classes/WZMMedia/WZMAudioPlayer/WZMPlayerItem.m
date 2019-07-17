@@ -13,10 +13,10 @@
 
 //实现kvo自动释放
 - (void)dealloc {
-//    if (self.observer) {
-//        [self removeObserver:self.observer forKeyPath:@"status"];
-//        [self removeObserver:self.observer forKeyPath:@"loadedTimeRanges"];
-//    }
+    if (self.observer) {
+        [self removeObserver:self.observer forKeyPath:@"status"];
+        [self removeObserver:self.observer forKeyPath:@"loadedTimeRanges"];
+    }
     wzm_log(@"%@释放了",NSStringFromClass(self.class));
 }
 
