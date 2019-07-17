@@ -13,14 +13,14 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* WZMAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* WZMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* WZMViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		75A23A6B22DE047B00C1DD5D /* wzm_qnyn.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 75A23A6922DE047A00C1DD5D /* wzm_qnyn.mp4 */; };
-		75A23A6C22DE047B00C1DD5D /* wzm_snow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75A23A6A22DE047B00C1DD5D /* wzm_snow.mp3 */; };
+		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
+		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
+		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 		DE012CDCE7AE8D032B2B7FB0 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C63DD93959D398BDB5C6D81 /* Pods_WZMKit_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -49,16 +49,18 @@
 		6003F59B195388D20070C39A /* WZMKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WZMKit-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* WZMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* WZMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* WZMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* WZMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* WZMKit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WZMKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		75A23A6922DE047A00C1DD5D /* wzm_qnyn.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = wzm_qnyn.mp4; sourceTree = "<group>"; };
-		75A23A6A22DE047B00C1DD5D /* wzm_snow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wzm_snow.mp3; sourceTree = "<group>"; };
+		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		7558CBC222DF50D30043651C /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		7558CBC422DF50E60043651C /* ThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		7558CBC522DF50E60043651C /* ThirdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF91485E0336DB80B22F793 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -139,13 +141,11 @@
 		6003F593195388D20070C39A /* Example for WZMKit */ = {
 			isa = PBXGroup;
 			children = (
-				75A23A6922DE047A00C1DD5D /* wzm_qnyn.mp4 */,
-				75A23A6A22DE047B00C1DD5D /* wzm_snow.mp3 */,
 				6003F59C195388D20070C39A /* WZMAppDelegate.h */,
 				6003F59D195388D20070C39A /* WZMAppDelegate.m */,
-				6003F5A5195388D20070C39A /* WZMViewController.h */,
-				6003F5A6195388D20070C39A /* WZMViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				7558CBBB22DF4FB80043651C /* Resource */,
+				7558CBB822DF4FB80043651C /* DemoClass */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for WZMKit";
@@ -190,6 +190,26 @@
 				0EE2092771CDE724AD1E5C17 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		7558CBB822DF4FB80043651C /* DemoClass */ = {
+			isa = PBXGroup;
+			children = (
+				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
+				7558CBB922DF4FB80043651C /* FirstViewController.m */,
+				7558CBC122DF50D30043651C /* SecondViewController.h */,
+				7558CBC222DF50D30043651C /* SecondViewController.m */,
+				7558CBC422DF50E60043651C /* ThirdViewController.h */,
+				7558CBC522DF50E60043651C /* ThirdViewController.m */,
+			);
+			path = DemoClass;
+			sourceTree = "<group>";
+		};
+		7558CBBB22DF4FB80043651C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,8 +298,6 @@
 			files = (
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
-				75A23A6C22DE047B00C1DD5D /* wzm_snow.mp3 in Resources */,
-				75A23A6B22DE047B00C1DD5D /* wzm_qnyn.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,9 +381,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
+				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* WZMViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

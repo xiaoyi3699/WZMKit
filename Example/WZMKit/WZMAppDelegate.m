@@ -7,8 +7,9 @@
 //
 
 #import "WZMAppDelegate.h"
-#import <WZMKit/WZMKit.h>
-#import "WZMViewController.h"
+#import "FirstViewController.h"
+#import "SecondViewController.h"
+#import "ThirdViewController.h"
 
 @implementation WZMAppDelegate
 
@@ -17,7 +18,22 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    self.window.rootViewController = [WZMViewController new];
+    
+    FirstViewController *firstVC = [[FirstViewController alloc] init];
+    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    
+    SecondViewController *secondVC = [[SecondViewController alloc] init];
+    UINavigationController *secondNav = [[UINavigationController alloc] initWithRootViewController:secondVC];
+    
+    ThirdViewController *thirdVC = [[ThirdViewController alloc] init];
+    UINavigationController *thirdNav = [[UINavigationController alloc] initWithRootViewController:thirdVC];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    [tabBarController addChildViewController:firstNav];
+    [tabBarController addChildViewController:secondNav];
+    [tabBarController addChildViewController:thirdNav];
+    [self setTabBarConfig:tabBarController];
+    self.window.rootViewController = tabBarController;
     
 #if DEBUG
     [WZMLogView startLog];
@@ -32,7 +48,28 @@
     return YES;
 }
 
-
+- (void)setTabBarConfig:(UITabBarController *)tabBarController {
+    NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
+    NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
+    NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
+    
+    for (NSInteger i = 0; i < tabBarController.viewControllers.count; i ++) {
+        
+        UIViewController *viewController = tabBarController.viewControllers[i];
+        
+        NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
+        NSDictionary *selAtts = @{NSForegroundColorAttributeName:THEME_COLOR,NSFontAttributeName:[UIFont systemFontOfSize:12]};
+        
+        UIImage *img = [[UIImage imageNamed:normalImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        viewController.tabBarItem.title = titles[i];
+        viewController.tabBarItem.image = img;
+        viewController.tabBarItem.selectedImage = selImg;
+        [viewController.tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
+        [viewController.tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
+    }
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
