@@ -13,7 +13,7 @@
 /**
  播放视屏
  */
-- (void)playWith:(NSURL *)url;
+- (void)playWithUrl:(NSURL *)url;
 
 /**
  暂停视屏

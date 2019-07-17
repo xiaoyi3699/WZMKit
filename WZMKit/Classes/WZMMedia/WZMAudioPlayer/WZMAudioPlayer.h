@@ -20,7 +20,7 @@
 @property (nonatomic, assign, getter=isBackground) BOOL background;
 @property (nonatomic, weak) id<WZMAudioPlayerDelegate> delegate;
 
-- (void)playWithURL:(NSURL *)fileURL;
+- (void)playWithURL:(NSURL *)url;
 - (void)play;
 - (void)pause;
 - (void)seekToTime:(NSInteger)time;

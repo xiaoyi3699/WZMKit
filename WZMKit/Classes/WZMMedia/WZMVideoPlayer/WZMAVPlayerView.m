@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     return self;
 }
 
-- (void)playWith:(NSURL *)url
+- (void)playWithUrl:(NSURL *)url
 {
     //加载视频资源的类
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];

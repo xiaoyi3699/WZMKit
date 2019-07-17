@@ -32,7 +32,7 @@
 
 - (void)createViews {
     _playerView = [[WZMAVPlayerView alloc] initWithFrame:self.view.bounds];
-    [_playerView playWith:_videoUrl];
+    [_playerView playWithUrl:_videoUrl];
     [self.view addSubview:_playerView];
 }
 

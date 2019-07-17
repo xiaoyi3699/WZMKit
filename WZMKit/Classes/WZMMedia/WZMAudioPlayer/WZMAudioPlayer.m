@@ -62,9 +62,9 @@
 }
 
 //url：文件路径或文件网络地址
-- (void)playWithURL:(NSURL *)fileURL {
+- (void)playWithURL:(NSURL *)url {
     //加载视频资源的类
-    AVURLAsset *asset = [AVURLAsset assetWithURL:fileURL];
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
     //AVURLAsset 通过tracks关键字会将资源异步加载在程序的一个临时内存缓冲区中
     [asset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:@"tracks"] completionHandler:^{
         //能够得到资源被加载的状态

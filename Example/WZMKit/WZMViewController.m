@@ -22,57 +22,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    if (@available(iOS 11.0, *)) {
-        tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    [self.view addSubview:tableView];
-    
-    tableView.wzm_header = [WZMRefreshHeaderView headerWithRefreshingTarget:self refreshingAction:@selector(header)];
-    tableView.wzm_footer = [WZMRefreshFooterView footerWithRefreshingTarget:self refreshingAction:@selector(footer)];
-    
-    
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-//    view.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:view];
-//
-//    player = [[WZMAudioPlayer alloc] init];
-//    player.delegate = self;
-//    WZMDispatch_after(1, ^{
-//        NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_snow" ofType:@"mp3"];
-//        NSURL *url = [NSURL fileURLWithPath:path];
-//        [player playWithURL:url];
-//    });
-//
-//    @wzm_weakify(player);
-//    [self.view wzm_executeGesture:^(UIView *view_, WZMGestureRecognizerType gesture_) {
-//        @wzm_strongify(player);
-//        if (gesture_ == WZMGestureRecognizerTypeSingle) {
-//            [player seekToProgress:0.9];
-//        }
-//        else {
-//            [player play];
-//        }
-//    }];
 }
 
-- (void)header {
-    WZMDispatch_after(1, ^{
-        [tableView.wzm_header endRefresh];
-        [tableView.wzm_footer endRefresh];
-    });
-}
-
-- (void)footer {
-    WZMDispatch_after(1, ^{
-        [tableView.wzm_header endRefresh];
-        [tableView.wzm_footer endRefresh];
-    });
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_qnyn" ofType:@"mp4"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
@@ -117,11 +73,6 @@
 - (void)audioPlayerChangeStatus:(WZMAudioPlayer *)audioPlayer {
     NSLog(@"音频播放状态改变:%@",(audioPlayer.isPlaying ? @"播放" : @"暂停"));
 }
-
-//NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_qnyn" ofType:@"mp4"];
-//NSURL *url = [NSURL fileURLWithPath:path];
-//WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
-//[self presentViewController:vc animated:YES completion:nil];
 
 //NSString *path = [[NSBundle mainBundle] pathForResource:@"wzm_snow" ofType:@"mp3"];
 //NSURL *url = [NSURL fileURLWithPath:path];
