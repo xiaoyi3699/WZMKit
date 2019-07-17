@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WZMKit'
-  s.version          = '0.1.5'
-  s.summary          = '------------------------------------------------------\n====================↓ 常用类库举例 ↓====================\n------------------------------------------------------\n📂 WZMImageCache: 网络图片缓存\n📂 WZMRefresh: 上拉加载、下拉刷新\n📂 WZMNetWorking: 网络请求(GET POST PUT DELETE等等)\n📂 WZMGifImageView: GIF展示, 优化了GIF图片的内存占用\n📂 WZMPhotoBrowser: 图片浏览器, 支持网络或本地, 支持GIF\n📂 WZMPlayer: 高度自定义音/视频播放, 支持播放状态回调\n📂 WZMVideoPlayerView: 一个功能齐全的视频播放器\n📂 WZMReaction: 仿rac, 响应式交互, 使用block方式回调\n------------------------------------------------------\n====================↓ 常用方法举例 ↓====================\n------------------------------------------------------\n@wzm_weakify(self)、@wzm_strongify(self)\n[UIImage wzm_imageByColor]、WZM_R_G_B(50,50,50)\nview.wzm_width、.wzm_height、.wzm_minX、.wzm_minY\n...等等扩展类便捷方法、宏定义、自定义\n------------------------------------------------------\n======================== 结束 =========================\n------------------------------------------------------'
+  s.version          = '0.1.6'
+  s.summary          = 'A delightful iOS framework.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
