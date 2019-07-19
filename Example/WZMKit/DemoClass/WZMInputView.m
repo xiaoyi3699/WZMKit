@@ -90,7 +90,7 @@
 - (void)btnClick:(UIButton *)btn {
     if (btn.tag == 0) {
         if (self.isEditing) {
-            [self resignFirstResponder];
+            [self dismissKeyboard];
         }
         else {
             [self showSystemKeyboard];

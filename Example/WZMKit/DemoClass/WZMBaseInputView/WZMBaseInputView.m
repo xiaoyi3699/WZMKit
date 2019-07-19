@@ -198,6 +198,19 @@
     }
 }
 
+- (void)dismissKeyboard {
+    if (self.type == WZMBaseInputViewTypeIdle) return;
+    if (self.type == WZMBaseInputViewTypeSystem) {
+        [self endEditing:YES];
+    }
+    else {
+        for (UIView *view in self.keyboards) {
+            view.hidden = YES;
+        }
+        [self minYWillChange:self.startY duration:0.25 isFinishEditing:YES];
+    }
+}
+
 //直接弹出自定义键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
     if (self.type == WZMBaseInputViewTypeIdle) {
@@ -209,32 +222,6 @@
     k.hidden = NO;
     CGFloat minY = self.startY-k.bounds.size.height;
     [self minYWillChange:minY duration:duration isFinishEditing:NO];
-}
-
-- (void)dismissKeyboard {
-    if (self.type == WZMBaseInputViewTypeIdle) return;
-    if (self.type == WZMBaseInputViewTypeSystem) {
-        //系统键盘收回
-        [self endEditing:YES];
-    }
-    else {
-        //自定义键盘收回
-        [self minYWillChange:self.startY duration:0.3 isFinishEditing:YES];
-    }
-    self.keyboardIndex = -1;
-    self.type = WZMBaseInputViewTypeIdle;
-}
-
-- (void)resignFirstResponder {
-    if (self.type == WZMBaseInputViewTypeSystem) {
-        [self endEditing:YES];
-    }
-    else {
-        for (UIView *view in self.keyboards) {
-            view.hidden = YES;
-        }
-        [self minYWillChange:self.startY duration:0.25 isFinishEditing:YES];
-    }
 }
 
 //重设frame

@@ -27,7 +27,7 @@ typedef enum : NSUInteger {
 ///显示自定义键盘
 - (void)showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration;
 ///结束编辑
-- (void)resignFirstResponder;
+- (void)dismissKeyboard;
 
 #pragma mark - 子类中回调的方法
 ///创建视图
