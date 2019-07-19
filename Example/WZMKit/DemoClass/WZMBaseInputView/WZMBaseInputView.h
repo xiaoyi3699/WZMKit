@@ -1,5 +1,5 @@
 //
-//  WZMInputView.h
+//  WZMBaseInputView.h
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
-    WZMInputViewTypeIdle = 0, //闲置状态
-    WZMInputViewTypeSystem,   //系统键盘
-    WZMInputViewTypeOther,    //自定义键盘
-} WZMInputViewType;
+    WZMBaseInputViewTypeIdle = 0, //闲置状态
+    WZMBaseInputViewTypeSystem,   //系统键盘
+    WZMBaseInputViewTypeOther,    //自定义键盘
+} WZMBaseInputViewType;
 
-@interface WZMInputView : UIView
+@interface WZMBaseInputView : UIView
 
 ///当前键盘类型
-@property (nonatomic, assign, readonly) WZMInputViewType type;
+@property (nonatomic, assign, readonly) WZMBaseInputViewType type;
 ///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
 @property (nonatomic, assign, readonly, getter=isEditing) BOOL editing;
 

@@ -7,7 +7,7 @@
 //
 
 #import "SecondViewController.h"
-#import "InputView.h"
+#import "WZMInputView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    InputView *v = [[InputView alloc] init];
+    WZMInputView *v = [[WZMInputView alloc] init];
     [self.view addSubview:v];
     
     WZMDispatch_after(19, ^{

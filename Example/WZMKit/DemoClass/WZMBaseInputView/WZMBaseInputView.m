@@ -1,15 +1,15 @@
 //
-//  WZMInputView.m
+//  WZMBaseInputView.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMInputView.h"
-#import "WZMChatBtn.h"
+#import "WZMBaseInputView.h"
+#import "WZMInputBtn.h"
 
-@interface WZMInputView ()
+@interface WZMBaseInputView ()
 
 ///初始y值
 @property (nonatomic, assign) CGFloat startY;
@@ -23,7 +23,7 @@
 ///自定义键盘, 须子类使用方法传入
 @property (nonatomic, strong) NSArray<UIView *> *keyboards;
 ///当前键盘类型
-@property (nonatomic, assign) WZMInputViewType type;
+@property (nonatomic, assign) WZMBaseInputViewType type;
 ///当前键盘索引, -1为z系统键盘
 @property (nonatomic, assign) NSInteger keyboardIndex;
 ///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation WZMInputView
+@implementation WZMBaseInputView
 
 - (instancetype)init {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
@@ -55,7 +55,7 @@
     self.startY = -1;
     self.editing = NO;
     self.keyboardIndex = -1;
-    self.type = WZMInputViewTypeIdle;
+    self.type = WZMBaseInputViewTypeIdle;
     self.keyboards = [[NSMutableArray alloc] initWithCapacity:0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardValueChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -102,16 +102,16 @@
     }
     else {
         //系统键盘弹出
-        if (self.type == WZMInputViewTypeIdle) {
+        if (self.type == WZMBaseInputViewTypeIdle) {
             [self willBeginEditing];
         }
-        if (self.type == WZMInputViewTypeOther) {
+        if (self.type == WZMBaseInputViewTypeOther) {
             //隐藏之前的keyboard
             UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
             k.hidden = YES;
         }
         self.keyboardIndex = -1;
-        self.type = WZMInputViewTypeSystem;
+        self.type = WZMBaseInputViewTypeSystem;
         CGFloat minY = endFrame.origin.y-self.toolView.bounds.size.height;
         [self minYWillChange:minY duration:duration isFinishEditing:NO];
     }
@@ -121,7 +121,7 @@
     self.editing = !isFinishEditing;
     if (isFinishEditing) {
         self.keyboardIndex = -1;
-        self.type = WZMInputViewTypeIdle;
+        self.type = WZMBaseInputViewTypeIdle;
         [self willEndEditing];
     }
     CGRect endFrame = self.frame;
@@ -166,8 +166,8 @@
 
 #pragma mark - 键盘事件处理
 - (void)showSystemKeyboard {
-    if (self.type != WZMInputViewTypeSystem) {
-        self.type = WZMInputViewTypeSystem;
+    if (self.type != WZMBaseInputViewTypeSystem) {
+        self.type = WZMBaseInputViewTypeSystem;
         if (self.inputView1) {
             [self.inputView1 becomeFirstResponder];
         }
@@ -180,14 +180,14 @@
 //判断是否直接弹出自定义键盘
 - (void)showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
     if (index < 0 || index >= self.keyboards.count || self.keyboardIndex == index) return;
-    if (self.type == WZMInputViewTypeSystem) {
+    if (self.type == WZMBaseInputViewTypeSystem) {
         //由系统键盘弹出自定义键盘
         //系统键盘收回, 在键盘监听事件中弹出自定义键盘
         self.keyboardIndex = index;
         [self endEditing:YES];
     }
     else {
-        if (self.type == WZMInputViewTypeOther) {
+        if (self.type == WZMBaseInputViewTypeOther) {
             //隐藏之前的keyboard
             UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
             k.hidden = YES;
@@ -200,11 +200,11 @@
 
 //直接弹出自定义键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
-    if (self.type == WZMInputViewTypeIdle) {
+    if (self.type == WZMBaseInputViewTypeIdle) {
         [self willBeginEditing];
     }
     //直接弹出自定义键盘
-    self.type = WZMInputViewTypeOther;
+    self.type = WZMBaseInputViewTypeOther;
     UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
     k.hidden = NO;
     CGFloat minY = self.startY-k.bounds.size.height;
@@ -212,8 +212,8 @@
 }
 
 - (void)dismissKeyboard {
-    if (self.type == WZMInputViewTypeIdle) return;
-    if (self.type == WZMInputViewTypeSystem) {
+    if (self.type == WZMBaseInputViewTypeIdle) return;
+    if (self.type == WZMBaseInputViewTypeSystem) {
         //系统键盘收回
         [self endEditing:YES];
     }
@@ -222,11 +222,11 @@
         [self minYWillChange:self.startY duration:0.3 isFinishEditing:YES];
     }
     self.keyboardIndex = -1;
-    self.type = WZMInputViewTypeIdle;
+    self.type = WZMBaseInputViewTypeIdle;
 }
 
 - (void)resignFirstResponder {
-    if (self.type == WZMInputViewTypeSystem) {
+    if (self.type == WZMBaseInputViewTypeSystem) {
         [self endEditing:YES];
     }
     else {
