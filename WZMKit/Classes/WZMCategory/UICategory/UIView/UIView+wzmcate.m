@@ -461,8 +461,7 @@
     [self.layer addAnimation:animation forKey:@"wzm_dismiss"];
 }
 
-- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration {
-    
+- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration {
     CGFloat x = self.center.x;
     CGFloat y = self.frame.origin.y;
     self.layer.anchorPoint = CGPointMake(0.5, 0);
@@ -470,22 +469,28 @@
     
     //起始值
     CATransform3D fromValue = CATransform3DIdentity;
-    fromValue.m34 = -1.f / 300;
-    fromValue     = CATransform3DRotate(fromValue, 0, 1, 0, 0);
-    
     // 结束值
     CATransform3D toValue = CATransform3DIdentity;
-    toValue.m34 = -1.f / 300;
-    toValue     = CATransform3DRotate(toValue, 25.f, 1, 0, 0);
-    
+    if (show) {
+        fromValue.m34 = -1.f / 300;
+        fromValue = CATransform3DRotate(fromValue, 0, 1, 0, 0);
+        
+        toValue.m34 = -1.f / 300;
+        toValue = CATransform3DRotate(toValue, 25.f, 1, 0, 0);
+    }
+    else {
+        fromValue.m34 = -1.f / 300;
+        fromValue = CATransform3DRotate(toValue, 25.f, 1, 0, 0);
+        
+        toValue.m34 = -1.f / 300;
+        toValue = CATransform3DRotate(fromValue, 0, 1, 0, 0);
+    }
     // 添加3D动画
     CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
-    
     transform3D.duration  = duration;
     transform3D.fromValue = [NSValue valueWithCATransform3D:fromValue];
     transform3D.toValue   = [NSValue valueWithCATransform3D:toValue];
     self.layer.transform  = toValue;
-    
     [self.layer addAnimation:transform3D forKey:@"transform3D"];
 }
 

@@ -18,6 +18,8 @@
 
 @property (nonatomic, weak) id<WZMInputViewDelegate> delegate;
 
+- (void)createViews;
+
 @end
 
 @protocol WZMInputViewDelegate <NSObject>

@@ -57,21 +57,6 @@ typedef enum : NSUInteger {
 
 - (void)createViews {
     self.backgroundColor = [UIColor whiteColor];
-    
-    [self addSubview:self.toolView];
-    
-    UIView *keyboard1 = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolView.bounds.size.height, self.bounds.size.width, 200)];
-    keyboard1.backgroundColor = [UIColor blueColor];
-    keyboard1.hidden = YES;
-    [self addSubview:keyboard1];
-    
-    UIView *keyboard2 = [[UIView alloc] initWithFrame:CGRectMake(0, self.toolView.bounds.size.height, self.bounds.size.width, 150)];
-    keyboard2.backgroundColor = [UIColor redColor];
-    keyboard2.hidden = YES;
-    [self addSubview:keyboard2];
-    
-    [self.keyboards addObject:keyboard1];
-    [self.keyboards addObject:keyboard2];
 }
 
 - (void)wzm_resignFirstResponder {

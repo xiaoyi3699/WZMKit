@@ -30,6 +30,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    
+    [self.view wzm_executeGesture:^(UIView *view_, WZMGestureRecognizerType gesture_) {
+        if (gesture_ == WZMGestureRecognizerTypeSingle) {
+            [self.view wzm_3dBackgroundAnimation:YES duration:0.25];
+        }
+        else {
+            [self.view wzm_3dBackgroundAnimation:NO duration:0.25];
+        }
+    }];
 }
+
+
 
 @end

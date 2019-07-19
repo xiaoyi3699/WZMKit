@@ -104,7 +104,7 @@
 - (void)wzm_dismissToCenterNoneWithDuration:(NSTimeInterval)duration;
 - (void)wzm_dismissToCenterAnimationWithDuration:(NSTimeInterval)duration;
 ///有3d效果的旋转背景动画
-- (void)wzm_3dAlertBackgroundAnimation:(NSTimeInterval)duration;
+- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration;
 ///旋转动画(参数axis:坐标轴x,y,z 小写)
 - (void)wzm_startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount;
 ///旋转角度(x、y、z)
