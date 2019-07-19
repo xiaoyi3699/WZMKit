@@ -18,6 +18,12 @@
     NSArray *_keyboards;
 }
 
+#pragma mark - 实现以下三个数据源方法, 供父类调用
+///视图的初始y值
+- (CGFloat)startYOfInputView {
+    return [UIScreen mainScreen].bounds.size.height-50-49;
+}
+
 //子类设置toolView和keyboards
 - (UIView *)toolViewOfInputView {
     if (_toolView == nil) {
@@ -80,7 +86,7 @@
     return _keyboards;
 }
 
-//tool按钮交互
+#pragma mark - toolView按钮交互
 - (void)btnClick:(UIButton *)btn {
     if (btn.tag == 0) {
         if (self.isEditing) {
@@ -98,6 +104,7 @@
     }
 }
 
+#pragma mark - 回调事件
 ///开始编辑
 - (void)willBeginEditing {
     

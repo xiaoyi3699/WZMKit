@@ -11,6 +11,9 @@
 
 @interface WZMInputView ()
 
+///初始y值
+@property (nonatomic, assign) CGFloat startY;
+
 ///保存子类实现的输入框, 用来弹出系统键盘
 @property (nonatomic, strong) UITextView *inputView1;
 @property (nonatomic, strong) UITextField *inputView2;
@@ -59,6 +62,7 @@
 
 - (void)createViews {
     self.backgroundColor = [UIColor whiteColor];
+    self.startY = [self startYOfInputView];
     self.toolView = [self toolViewOfInputView];
     for (UIView *view in self.toolView.subviews) {
         if ([view isKindOfClass:[UITextView class]]) {
@@ -126,6 +130,14 @@
         self.frame = endFrame;
     }];
     [self willChangeFrameWithDuration:duration];
+}
+
+///视图的初始y值
+- (CGFloat)startYOfInputView {
+    if (self.startY == -1) {
+        self.startY = self.bounds.size.height;
+    }
+    return self.startY;
 }
 
 ///子类设置toolView和keyboards
@@ -235,9 +247,6 @@
 #pragma mark - super method
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (newSuperview) {
-        if (self.startY == -1) {
-            self.startY = self.bounds.size.height;
-        }
         [self reset:self y:self.startY];
     }
     [super willMoveToSuperview:newSuperview];

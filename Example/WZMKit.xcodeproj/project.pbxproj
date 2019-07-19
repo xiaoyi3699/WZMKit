@@ -212,12 +212,6 @@
 		754A1E5422E1526E005A0585 /* WZMInputView */ = {
 			isa = PBXGroup;
 			children = (
-				754A1E5C22E16459005A0585 /* wzm_chat_board.png */,
-				754A1E5D22E16459005A0585 /* wzm_chat_emotion.png */,
-				754A1E5B22E16458005A0585 /* wzm_chat_more.png */,
-				754A1E5E22E16459005A0585 /* wzm_chat_voice.png */,
-				754A1E5922E1639A005A0585 /* WZMChatBtn.h */,
-				754A1E5822E1639A005A0585 /* WZMChatBtn.m */,
 				754A1E5522E15290005A0585 /* WZMInputView.h */,
 				754A1E5622E15290005A0585 /* WZMInputView.m */,
 			);
@@ -227,8 +221,14 @@
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
+				754A1E5C22E16459005A0585 /* wzm_chat_board.png */,
+				754A1E5D22E16459005A0585 /* wzm_chat_emotion.png */,
+				754A1E5B22E16458005A0585 /* wzm_chat_more.png */,
+				754A1E5E22E16459005A0585 /* wzm_chat_voice.png */,
 				754A1E6322E17609005A0585 /* InputView.h */,
 				754A1E6422E17609005A0585 /* InputView.m */,
+				754A1E5922E1639A005A0585 /* WZMChatBtn.h */,
+				754A1E5822E1639A005A0585 /* WZMChatBtn.m */,
 				754A1E5422E1526E005A0585 /* WZMInputView */,
 				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
 				7558CBB922DF4FB80043651C /* FirstViewController.m */,

@@ -16,8 +16,6 @@ typedef enum : NSUInteger {
 
 @interface WZMInputView : UIView
 
-///初始y值
-@property (nonatomic, assign) CGFloat startY;
 ///当前键盘类型
 @property (nonatomic, assign, readonly) WZMInputViewType type;
 ///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
@@ -42,6 +40,8 @@ typedef enum : NSUInteger {
 - (void)willChangeFrameWithDuration:(CGFloat)duration;
 
 #pragma mark - 子类中需要实现的数据源
+///视图的初始y值
+- (CGFloat)startYOfInputView;
 ///自定义toolView和keyboards
 - (UIView *)toolViewOfInputView;
 - (NSArray<UIView *> *)keyboardsOfInputView;
