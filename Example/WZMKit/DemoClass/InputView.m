@@ -98,4 +98,19 @@
     }
 }
 
+///开始编辑
+- (void)willBeginEditing {
+    
+}
+
+///结束编辑
+- (void)willEndEditing {
+    
+}
+
+///视图frameb改变
+- (void)willChangeFrameWithDuration:(CGFloat)duration {
+    
+}
+
 @end

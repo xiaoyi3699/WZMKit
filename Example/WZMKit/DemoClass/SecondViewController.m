@@ -33,9 +33,9 @@
     v.startY = self.view.bounds.size.height-50-49;
     [self.view addSubview:v];
     
-    WZMDispatch_after(19, ^{
-        [v removeFromSuperview];
-    });
+//    WZMDispatch_after(19, ^{
+//        [v removeFromSuperview];
+//    });
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

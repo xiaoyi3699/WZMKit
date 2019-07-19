@@ -9,7 +9,7 @@
 #import "WZMInputView.h"
 #import "WZMChatBtn.h"
 
-@interface WZMInputView ()<UITextViewDelegate>
+@interface WZMInputView ()
 
 ///保存子类实现的输入框, 用来弹出系统键盘
 @property (nonatomic, strong) UITextView *inputView1;
@@ -83,9 +83,10 @@
 - (void)keyboardValueChange:(NSNotification *)notification {
     NSDictionary *dic = notification.userInfo;
     CGFloat duration = [dic[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
+    CGRect beginFrame = [dic[@"UIKeyboardFrameBeginUserInfoKey"] CGRectValue];
     CGRect endFrame = [dic[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
     
-    if (endFrame.origin.y == self.bounds.size.height) {
+    if (beginFrame.origin.y < endFrame.origin.y) {
         if (self.keyboardIndex == -1) {
             //系统键盘收回
             [self minYWillChange:self.startY duration:duration isFinishEditing:YES];
@@ -97,6 +98,9 @@
     }
     else {
         //系统键盘弹出
+        if (self.type == WZMInputViewTypeIdle) {
+            [self willBeginEditing];
+        }
         if (self.type == WZMInputViewTypeOther) {
             //隐藏之前的keyboard
             UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
@@ -182,7 +186,7 @@
     }
 }
 
-//直接弹出系统键盘
+//直接弹出自定义键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
     if (self.type == WZMInputViewTypeIdle) {
         [self willBeginEditing];
