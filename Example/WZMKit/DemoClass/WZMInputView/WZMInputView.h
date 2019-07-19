@@ -7,25 +7,43 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol WZMInputViewDelegate;
+
+typedef enum : NSUInteger {
+    WZMInputViewTypeIdle = 0, //闲置状态
+    WZMInputViewTypeSystem,   //系统键盘
+    WZMInputViewTypeOther,    //自定义键盘
+} WZMInputViewType;
 
 @interface WZMInputView : UIView
 
+///初始y值
 @property (nonatomic, assign) CGFloat startY;
+///当前键盘类型
+@property (nonatomic, assign, readonly) WZMInputViewType type;
+///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
+@property (nonatomic, assign, readonly, getter=isEditing) BOOL editing;
 
-@property (nonatomic, strong) UIView *toolView;
-@property (nonatomic, strong) NSMutableArray *keyboards;
+#pragma mark - 主动调用的方法
+///显示系统键盘
+- (void)showSystemKeyboard;
+///显示自定义键盘
+- (void)showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration;
+///结束编辑
+- (void)resignFirstResponder;
 
-@property (nonatomic, weak) id<WZMInputViewDelegate> delegate;
+#pragma mark - 子类中回调的方法
+///创建视图
+- (void)createViews NS_REQUIRES_SUPER;
+///开始编辑
+- (void)willBeginEditing;
+///结束编辑
+- (void)willEndEditing;
+///视图frameb改变
+- (void)willChangeFrameWithDuration:(CGFloat)duration;
 
-- (void)createViews;
-
-@end
-
-@protocol WZMInputViewDelegate <NSObject>
-
-@optional
-///输入框frame改变
-- (void)inputView:(WZMInputView *)inputView willChangeFrameWithDuration:(CGFloat)duration isEditing:(BOOL)isEditing;
+#pragma mark - 子类中需要实现的数据源
+///自定义toolView和keyboards
+- (UIView *)toolViewOfInputView;
+- (NSArray<UIView *> *)keyboardsOfInputView;
 
 @end

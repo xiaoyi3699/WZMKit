@@ -9,24 +9,26 @@
 #import "WZMInputView.h"
 #import "WZMChatBtn.h"
 
-typedef enum : NSUInteger {
-    WZMInputViewTypeIdle = 0, //闲置状态
-    WZMInputViewTypeSystem,   //系统键盘
-    WZMInputViewTypeOther,    //自定义键盘
-} WZMInputViewType;
-
 @interface WZMInputView ()<UITextViewDelegate>
 
-@property (nonatomic, strong) UITextView *textView;
+///保存子类实现的输入框, 用来弹出系统键盘
+@property (nonatomic, strong) UITextView *inputView1;
+@property (nonatomic, strong) UITextField *inputView2;
+
+///顶部toolView, 输入框就在这个view上
+@property (nonatomic, strong) UIView *toolView;
+///自定义键盘, 须子类使用方法传入
+@property (nonatomic, strong) NSArray<UIView *> *keyboards;
+///当前键盘类型
 @property (nonatomic, assign) WZMInputViewType type;
+///当前键盘索引, -1为z系统键盘
 @property (nonatomic, assign) NSInteger keyboardIndex;
+///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
 @property (nonatomic, assign, getter=isEditing) BOOL editing;
 
 @end
 
-@implementation WZMInputView {
-    
-}
+@implementation WZMInputView
 
 - (instancetype)init {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
@@ -57,23 +59,28 @@ typedef enum : NSUInteger {
 
 - (void)createViews {
     self.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)wzm_resignFirstResponder {
-    if (self.type == WZMInputViewTypeSystem) {
-        [self endEditing:YES];
-    }
-    else {
-        for (UIView *view in self.keyboards) {
-            view.hidden = YES;
+    self.toolView = [self toolViewOfInputView];
+    for (UIView *view in self.toolView.subviews) {
+        if ([view isKindOfClass:[UITextView class]]) {
+            self.inputView1 = (UITextView *)view;
+            break;
         }
-        [self minYWillChange:self.startY duration:0.25 isFinishEditing:YES];
+        if ([view isKindOfClass:[UITextField class]]) {
+            self.inputView2 = (UITextField *)view;
+            break;
+        }
+    }
+    [self addSubview:self.toolView];
+    
+    self.keyboards = [self keyboardsOfInputView];
+    for (UIView *keyboard in self.keyboards) {
+        keyboard.hidden = YES;
+        [self addSubview:keyboard];
     }
 }
 
 #pragma mark - 监听键盘变化
 - (void)keyboardValueChange:(NSNotification *)notification {
-    if (_textView.isFirstResponder == NO) return;
     NSDictionary *dic = notification.userInfo;
     CGFloat duration = [dic[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];
     CGRect endFrame = [dic[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
@@ -105,38 +112,53 @@ typedef enum : NSUInteger {
 - (void)minYWillChange:(CGFloat)minY duration:(CGFloat)duration isFinishEditing:(BOOL)isFinishEditing {
     self.editing = !isFinishEditing;
     if (isFinishEditing) {
+        self.keyboardIndex = -1;
         self.type = WZMInputViewTypeIdle;
+        [self willEndEditing];
     }
     CGRect endFrame = self.frame;
     endFrame.origin.y = minY;
     [UIView animateWithDuration:duration animations:^{
         self.frame = endFrame;
     }];
-    if ([self.delegate respondsToSelector:@selector(inputView:willChangeFrameWithDuration:isEditing:)]) {
-        [self.delegate inputView:self willChangeFrameWithDuration:duration isEditing:self.isEditing];
-    }
+    [self willChangeFrameWithDuration:duration];
+}
+
+///子类设置toolView和keyboards
+- (UIView *)toolViewOfInputView {
+    return nil;
+}
+
+- (NSArray<UIView *> *)keyboardsOfInputView {
+    return nil;
+}
+
+///开始编辑
+- (void)willBeginEditing {
+    
+}
+
+///结束编辑
+- (void)willEndEditing {
+    
+}
+
+///视图frameb改变
+- (void)willChangeFrameWithDuration:(CGFloat)duration {
+    
 }
 
 #pragma mark - 键盘事件处理
 - (void)showSystemKeyboard {
     if (self.type != WZMInputViewTypeSystem) {
         self.type = WZMInputViewTypeSystem;
-        [self.textView becomeFirstResponder];
+        if (self.inputView1) {
+            [self.inputView1 becomeFirstResponder];
+        }
+        else if (self.inputView2) {
+            [self.inputView2 becomeFirstResponder];
+        }
     }
-}
-
-- (void)dismissKeyboard {
-    if (self.type == WZMInputViewTypeIdle) return;
-    if (self.type == WZMInputViewTypeSystem) {
-        //系统键盘收回
-        [self endEditing:YES];
-    }
-    else {
-        //自定义键盘收回
-        [self minYWillChange:self.startY duration:0.3 isFinishEditing:YES];
-    }
-    self.keyboardIndex = -1;
-    self.type = WZMInputViewTypeIdle;
 }
 
 //判断是否直接弹出自定义键盘
@@ -162,6 +184,9 @@ typedef enum : NSUInteger {
 
 //直接弹出系统键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
+    if (self.type == WZMInputViewTypeIdle) {
+        [self willBeginEditing];
+    }
     //直接弹出自定义键盘
     self.type = WZMInputViewTypeOther;
     UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
@@ -170,17 +195,29 @@ typedef enum : NSUInteger {
     [self minYWillChange:minY duration:duration isFinishEditing:NO];
 }
 
-#pragma mark - private method
-//tool按钮交互
-- (void)btnClick:(UIButton *)btn {
-    if (btn.tag == 0) {
-        [self wzm_resignFirstResponder];
-    }
-    else if (btn.tag == 1) {
-        [self showKeyboardAtIndex:0 duration:0.3];
+- (void)dismissKeyboard {
+    if (self.type == WZMInputViewTypeIdle) return;
+    if (self.type == WZMInputViewTypeSystem) {
+        //系统键盘收回
+        [self endEditing:YES];
     }
     else {
-        [self showKeyboardAtIndex:1 duration:0.3];
+        //自定义键盘收回
+        [self minYWillChange:self.startY duration:0.3 isFinishEditing:YES];
+    }
+    self.keyboardIndex = -1;
+    self.type = WZMInputViewTypeIdle;
+}
+
+- (void)resignFirstResponder {
+    if (self.type == WZMInputViewTypeSystem) {
+        [self endEditing:YES];
+    }
+    else {
+        for (UIView *view in self.keyboards) {
+            view.hidden = YES;
+        }
+        [self minYWillChange:self.startY duration:0.25 isFinishEditing:YES];
     }
 }
 
@@ -200,49 +237,6 @@ typedef enum : NSUInteger {
         [self reset:self y:self.startY];
     }
     [super willMoveToSuperview:newSuperview];
-}
-
-#pragma mark - getter setter
-- (UIView *)toolView {
-    if (_toolView == nil) {
-        CGFloat toolW = self.bounds.size.width;
-        _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, toolW, 50)];
-        _toolView.backgroundColor = [UIColor colorWithRed:240/255. green:240/255. blue:240/255. alpha:1];
-        
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(40, 7, toolW-120, 35)];
-        _textView.font = [UIFont systemFontOfSize:13];
-        _textView.textColor = [UIColor darkTextColor];
-        _textView.returnKeyType = UIReturnKeySend;
-        _textView.delegate = self;
-        _textView.layer.masksToBounds = YES;
-        _textView.layer.cornerRadius = 2;
-        _textView.layer.borderWidth = 0.5;
-        _textView.layer.borderColor = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1].CGColor;
-        [_toolView addSubview:_textView];
-        
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:3];
-        NSArray *images = @[@"wzm_chat_voice",@"wzm_chat_emotion",@"wzm_chat_more"];//ll_chat_board
-        UIImage *keyboardImg = [UIImage imageNamed:@"wzm_chat_board"];
-        for (NSInteger i = 0; i < 3; i ++) {
-            WZMChatBtn *btn = [WZMChatBtn chatButtonWithType:WZMChatButtonTypeInput];
-            if (i == 0) {
-                btn.frame = CGRectMake(0, 4.5, 40, 40);
-            }
-            else if (i == 1) {
-                btn.frame = CGRectMake(toolW-80, 4.5, 40, 40);
-            }
-            else {
-                btn.frame = CGRectMake(toolW-40, 4.5, 40, 40);
-            }
-            btn.tag = i;
-            [btn setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
-            [btn setImage:keyboardImg forState:UIControlStateSelected];
-            [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [_toolView addSubview:btn];
-            [array addObject:btn];
-        }
-    }
-    return _toolView;
 }
 
 - (void)dealloc {
