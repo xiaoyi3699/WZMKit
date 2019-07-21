@@ -1,19 +1,19 @@
 //
-//  WZMInputView.m
+//  WZMDefaultInputView.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMInputView.h"
-#import "WZMInputBtn.h"
+#import "WZMDefaultInputView.h"
+#import "WZMDefaultInputBtn.h"
 
-@interface WZMInputView ()<UITextViewDelegate>
+@interface WZMDefaultInputView ()<UITextViewDelegate>
 
 @end
 
-@implementation WZMInputView {
+@implementation WZMDefaultInputView {
     UIView *_toolView;
     NSArray *_keyboards;
 }
@@ -47,7 +47,7 @@
         NSArray *images = @[@"wzm_chat_voice",@"wzm_chat_emotion",@"wzm_chat_more"];//ll_chat_board
         UIImage *keyboardImg = [UIImage imageNamed:@"wzm_chat_board"];
         for (NSInteger i = 0; i < 3; i ++) {
-            WZMInputBtn *btn = [WZMInputBtn chatButtonWithType:WZMInputBtnTypeTool];
+            WZMDefaultInputBtn *btn = [WZMDefaultInputBtn chatButtonWithType:WZMDefaultInputBtnTypeTool];
             if (i == 0) {
                 btn.frame = CGRectMake(0, 4.5, 40, 40);
             }

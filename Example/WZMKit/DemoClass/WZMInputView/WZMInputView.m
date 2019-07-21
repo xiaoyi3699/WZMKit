@@ -1,15 +1,15 @@
 //
-//  WZMBaseInputView.m
+//  WZMInputView.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMBaseInputView.h"
-#import "WZMInputBtn.h"
+#import "WZMInputView.h"
+#import "WZMDefaultInputBtn.h"
 
-@interface WZMBaseInputView ()
+@interface WZMInputView ()
 
 ///初始y值
 @property (nonatomic, assign) CGFloat startY;
@@ -23,7 +23,7 @@
 ///自定义键盘, 须子类使用方法传入
 @property (nonatomic, strong) NSArray<UIView *> *keyboards;
 ///当前键盘类型
-@property (nonatomic, assign) WZMBaseInputViewType type;
+@property (nonatomic, assign) WZMInputViewType type;
 ///当前键盘索引, -1为z系统键盘
 @property (nonatomic, assign) NSInteger keyboardIndex;
 ///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation WZMBaseInputView
+@implementation WZMInputView
 
 - (instancetype)init {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
@@ -55,7 +55,7 @@
     self.startY = -1;
     self.editing = NO;
     self.keyboardIndex = -1;
-    self.type = WZMBaseInputViewTypeIdle;
+    self.type = WZMInputViewTypeIdle;
     self.keyboards = [[NSMutableArray alloc] initWithCapacity:0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardValueChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -102,16 +102,16 @@
     }
     else {
         //系统键盘弹出
-        if (self.type == WZMBaseInputViewTypeIdle) {
+        if (self.type == WZMInputViewTypeIdle) {
             [self willBeginEditing];
         }
-        if (self.type == WZMBaseInputViewTypeOther) {
+        if (self.type == WZMInputViewTypeOther) {
             //隐藏之前的keyboard
             UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
             k.hidden = YES;
         }
         self.keyboardIndex = -1;
-        self.type = WZMBaseInputViewTypeSystem;
+        self.type = WZMInputViewTypeSystem;
         CGFloat minY = endFrame.origin.y-self.toolView.bounds.size.height;
         [self minYWillChange:minY duration:duration isFinishEditing:NO];
     }
@@ -121,7 +121,7 @@
     self.editing = !isFinishEditing;
     if (isFinishEditing) {
         self.keyboardIndex = -1;
-        self.type = WZMBaseInputViewTypeIdle;
+        self.type = WZMInputViewTypeIdle;
         [self willEndEditing];
     }
     CGRect endFrame = self.frame;
@@ -166,8 +166,8 @@
 
 #pragma mark - 键盘事件处理
 - (void)showSystemKeyboard {
-    if (self.type != WZMBaseInputViewTypeSystem) {
-        self.type = WZMBaseInputViewTypeSystem;
+    if (self.type != WZMInputViewTypeSystem) {
+        self.type = WZMInputViewTypeSystem;
         if (self.inputView1) {
             [self.inputView1 becomeFirstResponder];
         }
@@ -180,14 +180,14 @@
 //判断是否直接弹出自定义键盘
 - (void)showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
     if (index < 0 || index >= self.keyboards.count || self.keyboardIndex == index) return;
-    if (self.type == WZMBaseInputViewTypeSystem) {
+    if (self.type == WZMInputViewTypeSystem) {
         //由系统键盘弹出自定义键盘
         //系统键盘收回, 在键盘监听事件中弹出自定义键盘
         self.keyboardIndex = index;
         [self endEditing:YES];
     }
     else {
-        if (self.type == WZMBaseInputViewTypeOther) {
+        if (self.type == WZMInputViewTypeOther) {
             //隐藏之前的keyboard
             UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
             k.hidden = YES;
@@ -199,8 +199,8 @@
 }
 
 - (void)dismissKeyboard {
-    if (self.type == WZMBaseInputViewTypeIdle) return;
-    if (self.type == WZMBaseInputViewTypeSystem) {
+    if (self.type == WZMInputViewTypeIdle) return;
+    if (self.type == WZMInputViewTypeSystem) {
         [self endEditing:YES];
     }
     else {
@@ -213,11 +213,11 @@
 
 //直接弹出自定义键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
-    if (self.type == WZMBaseInputViewTypeIdle) {
+    if (self.type == WZMInputViewTypeIdle) {
         [self willBeginEditing];
     }
     //直接弹出自定义键盘
-    self.type = WZMBaseInputViewTypeOther;
+    self.type = WZMInputViewTypeOther;
     UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
     k.hidden = NO;
     CGFloat minY = self.startY-k.bounds.size.height;
