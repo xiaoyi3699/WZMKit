@@ -182,10 +182,10 @@
 #pragma mark - super method
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
-    
     if (newSuperview) {
-        [self timerInvalidate];
-        [self timerFire];
+        if (self.isAutoScroll) {
+            [self timerFire];
+        }
     }
 }
 
