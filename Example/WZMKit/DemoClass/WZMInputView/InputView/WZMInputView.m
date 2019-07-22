@@ -87,11 +87,9 @@
 
 #pragma mark - 回调事件
 ///开始编辑
-- (void)didBeginEditing:(BOOL)systemKeyboard {
+- (void)didBeginEditing {
     NSLog(@"开始编辑");
-    if (systemKeyboard) {
-        [self.inputToolView resetStatus];
-    }
+    [self.inputToolView resetStatus];
 }
 
 ///结束编辑
