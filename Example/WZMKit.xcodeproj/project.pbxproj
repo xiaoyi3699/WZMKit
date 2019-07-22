@@ -379,13 +379,13 @@
 			path = WZMMoreKeyboard;
 			sourceTree = "<group>";
 		};
-		7582F7C722E556A300F1CCFB /* WZMInputToolView */ = {
+		7582F7C722E556A300F1CCFB /* ToolView */ = {
 			isa = PBXGroup;
 			children = (
 				7582F7C822E556D100F1CCFB /* WZMInputToolView.h */,
 				7582F7C922E556D100F1CCFB /* WZMInputToolView.m */,
 			);
-			path = WZMInputToolView;
+			path = ToolView;
 			sourceTree = "<group>";
 		};
 		7582F7CB22E5653000F1CCFB /* WZMInputView */ = {
@@ -397,7 +397,7 @@
 				7582F7CD22E5658300F1CCFB /* Helper */,
 				7582F7B422E54EF000F1CCFB /* Resource */,
 				7582F7CC22E5654900F1CCFB /* Keyboard */,
-				7582F7C722E556A300F1CCFB /* WZMInputToolView */,
+				7582F7C722E556A300F1CCFB /* ToolView */,
 			);
 			path = WZMInputView;
 			sourceTree = "<group>";
