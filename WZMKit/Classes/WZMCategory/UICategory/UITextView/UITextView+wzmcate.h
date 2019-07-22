@@ -19,6 +19,7 @@
 - (void)wzm_limitTextFieldLength:(NSInteger)length;
 - (void)wzm_selectAllText;
 - (void)wzm_setSelectedRange:(NSRange)range;
+- (NSRange)wzm_selectedRange;
 
 ///工具框样式
 - (void)wzm_inputAccessoryViewWithType: (WZMInputAccessoryType)type message:(NSString *)message;

@@ -229,6 +229,16 @@ static NSString *_performActionKey = @"performAction";
     [self setSelectedTextRange:selectionRange];
 }
 
+- (NSRange)wzm_selectedRange {
+    UITextPosition *beginning = self.beginningOfDocument;
+    UITextRange *selectedRange = self.selectedTextRange;
+    UITextPosition *selectionStart = selectedRange.start;
+    UITextPosition *selectionEnd = selectedRange.end;
+    NSInteger location = [self offsetFromPosition:beginning toPosition:selectionStart];
+    NSInteger length = [self offsetFromPosition:selectionStart toPosition:selectionEnd];
+    return NSMakeRange(location, length);
+}
+
 ///工具框样式
 - (void)wzm_inputAccessoryViewWithType: (WZMInputAccessoryType)type message:(NSString *)message {
     
