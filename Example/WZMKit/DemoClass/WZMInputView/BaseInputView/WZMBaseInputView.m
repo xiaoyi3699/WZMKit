@@ -392,6 +392,17 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@""]) {
+        NSString *language = textField.textInputMode.primaryLanguage;
+        if ([language isEqualToString:@"zh-Hans"]) {
+            UITextRange *selectedRange = [textField markedTextRange];
+            if (selectedRange) {
+                return YES;
+            }
+        }
+        [self deleteSelectedText];
+        return NO;
+    }
     return [self shouldChangeTextInRange:range replacementText:string];
 }
 
@@ -419,6 +430,17 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@""]) {
+        NSString *language = textView.textInputMode.primaryLanguage;
+        if ([language isEqualToString:@"zh-Hans"]) {
+            UITextRange *selectedRange = [textView markedTextRange];
+            if (selectedRange) {
+                return YES;
+            }
+        }
+        [self deleteSelectedText];
+        return NO;
+    }
     if ([text isEqualToString:@"\n"] || [text isEqualToString:@"\r"]) {
         return [self shouldReturn];
     }
