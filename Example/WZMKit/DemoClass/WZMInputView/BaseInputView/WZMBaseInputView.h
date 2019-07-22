@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *text;
 ///当前键盘类型
 @property (nonatomic, assign, readonly) WZMInputViewType type;
-///是否处于编辑状态, 自定义键盘模式也认定为编辑状态
+///是否处于编辑状态, 自定义键盘模式为非编辑状态
 @property (nonatomic, assign, readonly, getter=isEditing) BOOL editing;
 
 ///创建视图

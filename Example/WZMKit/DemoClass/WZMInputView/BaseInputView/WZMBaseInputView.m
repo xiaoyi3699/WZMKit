@@ -113,7 +113,6 @@
 }
 
 - (void)minYWillChange:(CGFloat)minY duration:(CGFloat)duration isFinishEditing:(BOOL)isFinishEditing {
-    self.editing = !isFinishEditing;
     if (isFinishEditing) {
         self.keyboardIndex = -1;
         self.type = WZMInputViewTypeIdle;
@@ -353,10 +352,12 @@
 
 #pragma mark - UITextField
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.editing = YES;
     [self didBeginEditing];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    self.editing = NO;
     [self didEndEditing];
 }
 
@@ -384,10 +385,12 @@
 
 #pragma mark - UITextView
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    self.editing = YES;
     [self didBeginEditing];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    self.editing = NO;
     [self didEndEditing];
 }
 
