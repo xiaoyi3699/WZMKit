@@ -9,12 +9,17 @@
 #import "WZMToolView.h"
 #import "WZMInputBtn.h"
 #import "WZMInputHelper.h"
+#import "WZMRecordAnimation.h"
 
 @interface WZMToolView ()
 
+@property (nonatomic, strong) WZMRecordAnimation *recordAnimation;
+
 @end
 
-@implementation WZMToolView
+@implementation WZMToolView {
+    UIButton *_recordBtn;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -31,6 +36,25 @@
         textView.layer.borderWidth = 0.5;
         textView.layer.borderColor = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1].CGColor;
         [self addSubview:textView];
+        
+        _recordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _recordBtn.frame = textView.frame;
+        _recordBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        _recordBtn.backgroundColor = [UIColor whiteColor];
+        _recordBtn.layer.masksToBounds = YES;
+        _recordBtn.layer.cornerRadius = 2;
+        _recordBtn.layer.borderWidth = 0.5;
+        _recordBtn.layer.borderColor = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1].CGColor;
+        [_recordBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
+        [_recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [_recordBtn addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
+        [_recordBtn addTarget:self action:@selector(touchCancel:) forControlEvents:UIControlEventTouchCancel];
+        [_recordBtn addTarget:self action:@selector(touchCancel:) forControlEvents:UIControlEventTouchUpOutside];
+        [_recordBtn addTarget:self action:@selector(touchFinish:) forControlEvents:UIControlEventTouchUpInside];
+        [_recordBtn addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+        [_recordBtn addTarget:self action:@selector(touchDragOutside:) forControlEvents:UIControlEventTouchDragOutside];
+//        _recordBtn.hidden = YES;
+        [self addSubview:_recordBtn];
         
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:3];
         NSArray *images = @[@"wzm_chat_voice",@"wzm_chat_emotion",@"wzm_chat_more"];//ll_chat_board
@@ -58,9 +82,79 @@
 }
 
 - (void)btnClick:(UIButton *)btn {
-    if ([self.delegate respondsToSelector:@selector(inputToolView:DidSelectAtIndex:)]) {
-        [self.delegate inputToolView:self DidSelectAtIndex:btn.tag];
+    if ([self.delegate respondsToSelector:@selector(toolView:didSelectAtIndex:)]) {
+        [self.delegate toolView:self didSelectAtIndex:btn.tag];
     }
+}
+
+#pragma mark - 录音状态变化
+- (void)touchDown:(UIButton *)btn {
+    [_recordBtn setTitle:@"松开 结束" forState:UIControlStateNormal];
+    [_recordBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+    [self didChangeRecordType:UIControlEventTouchDown];
+    //开始录音
+    [self.recordAnimation beginRecord];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.recordAnimation.volume = 1.0;
+    });
+}
+
+- (void)touchCancel:(UIButton *)btn {
+    [_recordBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
+    [_recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self didChangeRecordType:UIControlEventTouchCancel];
+    //取消录音
+    [self.recordAnimation cancelRecord];
+}
+
+- (void)touchFinish:(UIButton *)btn {
+    [_recordBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
+    [_recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+    if ([self.recordAnimation endRecord]) {
+        //结束录音
+        [self didChangeRecordType:UIControlEventTouchUpInside];
+    }
+    else {
+        //录音时长小于1秒, 取消录音
+        [self didChangeRecordType:UIControlEventTouchCancel];
+    }
+}
+
+- (void)touchDragOutside:(UIButton *)btn {
+    [_recordBtn setTitle:@"松开 结束" forState:UIControlStateNormal];
+    [_recordBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+    [self.recordAnimation showVoiceCancel];
+}
+
+- (void)touchDragInside:(UIButton *)btn {
+    [_recordBtn setTitle:@"松开 结束" forState:UIControlStateNormal];
+    [_recordBtn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+    [self.recordAnimation showVoiceAnimation];
+}
+
+- (void)didChangeRecordType:(UIControlEvents)touchEvent {
+    WZMChatRecordType type;
+    if (touchEvent == UIControlEventTouchDown) {
+        type = WZMChatRecordTypeBegin;
+    }
+    else if (touchEvent == UIControlEventTouchUpInside) {
+        type = WZMChatRecordTypeFinish;
+    }
+    else {
+        type = WZMChatRecordTypeCancel;
+    }
+    if ([self.delegate respondsToSelector:@selector(toolView:didChangeRecordType:)]) {
+        [self.delegate toolView:self didChangeRecordType:type];
+    }
+}
+
+- (WZMRecordAnimation *)recordAnimation {
+    if (_recordAnimation == nil) {
+        _recordAnimation = [[WZMRecordAnimation alloc] init];
+    }
+    return _recordAnimation;
 }
 
 @end

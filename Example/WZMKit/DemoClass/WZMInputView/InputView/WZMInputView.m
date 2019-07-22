@@ -48,7 +48,7 @@
 
 #pragma mark - 代理事件
 //toolView
-- (void)inputToolView:(WZMToolView *)inputToolView DidSelectAtIndex:(NSInteger)index {
+- (void)toolView:(WZMToolView *)toolView didSelectAtIndex:(NSInteger)index {
     if (index == 0) {
         if (self.isEditing) {
             [self dismissKeyboard];

@@ -9,9 +9,17 @@
 #import "WZMRecordAnimation.h"
 #import "WZMInputHelper.h"
 
+@interface WZMRecordAnimation ()
+
+///录音时长
+@property (nonatomic, assign) CGFloat duration;
+@property (nonatomic, assign, getter=isBegin) BOOL begin;
+
+@end
+
 @implementation WZMRecordAnimation {
     NSArray *_images;
-    BOOL _isPause;
+    CGFloat _nowTime;
 }
 
 - (instancetype)init {
@@ -24,48 +32,74 @@
                     [WZMInputHelper otherImageNamed:@"wzm_voice_4"],
                     [WZMInputHelper otherImageNamed:@"wzm_voice_5"],
                     [WZMInputHelper otherImageNamed:@"wzm_voice_6"]];
-        _isPause = YES;
+        self.begin = NO;
+        self.volume = 0.0;
     }
     return self;
 }
 
+- (BOOL)beginRecord {
+    if (self.isBegin) return NO;
+    self.begin = YES;
+    _nowTime = [self nowTimestamp];
+    if (self.superview == nil) {
+        [[UIApplication sharedApplication].delegate.window addSubview:self];
+        [self showVoiceAnimation];
+    }
+    return YES;
+}
+
+- (BOOL)endRecord {
+    if (self.isBegin == NO) return NO;
+    self.begin = NO;
+    self.duration = ([self nowTimestamp]-_nowTime);
+    if (self.duration > 1000) {
+        //录音完成
+        if (self.superview) {
+            [self removeFromSuperview];
+        }
+        return YES;
+    }
+    else {
+        [self showVoiceShort];
+        //录音时间太短
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.superview) {
+                [self removeFromSuperview];
+            }
+        });
+        return NO;
+    }
+}
+
+///录音取消
+- (BOOL)cancelRecord {
+    if (self.isBegin == NO) return NO;
+    self.begin = NO;
+    if (self.superview) {
+        [self removeFromSuperview];
+    }
+    return YES;
+}
+
+//获取当前时间戳
+- (NSTimeInterval)nowTimestamp {
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval time = [date timeIntervalSince1970]*1000;
+    return time;
+}
+
 - (void)showVoiceCancel {
-    if (_isPause) return;
-    _isPause = YES;
     [self stopAnimating];
     self.image = [WZMInputHelper otherImageNamed:@"voice_cancel"];
 }
 
 - (void)showVoiceShort {
-    if (_isPause) return;
-    _isPause = YES;
     [self stopAnimating];
     self.image = [WZMInputHelper otherImageNamed:@"voice_short"];
 }
 
 - (void)showVoiceAnimation {
-    if (_isPause == NO) return;
-    _isPause = NO;
-    [self updateImages];
-}
-
-- (void)setVolume:(CGFloat)volume {
-    if (_volume == volume) {
-        if (self.isAnimating) return;
-    }
-    else {
-        _volume = MIN(MAX(volume, 0.f),1.f);
-    }
-    [self updateImages];
-}
-
-- (void)updateImages {
-    if (_isPause) return;
-    if (_volume == 0) {
-        [self stopAnimating];
-        self.animationImages = nil;
-        return;
-    }
     if (_volume >= 0.8 ) {
         self.animationImages = @[_images[4],_images[5]];
     }
@@ -84,8 +118,13 @@
     [self startAnimating];
 }
 
+- (void)setVolume:(CGFloat)volume {
+    if (_volume == volume) return;
+    _volume = MIN(MAX(volume, 0.f),1.f);
+    [self showVoiceAnimation];
+}
+
 - (void)removeFromSuperview {
-    _isPause = YES;
     self.image = nil;
     [self stopAnimating];
     self.animationImages = nil;

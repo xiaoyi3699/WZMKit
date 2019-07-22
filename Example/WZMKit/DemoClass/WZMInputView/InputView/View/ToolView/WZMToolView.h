@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 @protocol WZMToolViewDelegate;
 
+typedef enum : NSInteger {
+    WZMChatRecordTypeBegin = 0,
+    WZMChatRecordTypeCancel,
+    WZMChatRecordTypeFinish,
+} WZMChatRecordType;
+
 @interface WZMToolView : UIView
 
 @property (nonatomic, weak) id<WZMToolViewDelegate> delegate;
@@ -18,6 +24,7 @@
 @protocol WZMToolViewDelegate <NSObject>
 
 @optional
-- (void)inputToolView:(WZMToolView *)inputToolView DidSelectAtIndex:(NSInteger)index;
+- (void)toolView:(WZMToolView *)toolView didSelectAtIndex:(NSInteger)index;
+- (void)toolView:(WZMToolView *)toolView didChangeRecordType:(WZMChatRecordType)type;
 
 @end

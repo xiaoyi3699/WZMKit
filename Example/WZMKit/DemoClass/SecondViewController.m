@@ -32,9 +32,9 @@
     WZMInputView *v = [[WZMInputView alloc] init];
     [self.view addSubview:v];
     
-    WZMDispatch_after(19, ^{
-        [v removeFromSuperview];
-    });
+//    WZMDispatch_after(19, ^{
+//        [v removeFromSuperview];
+//    });
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
