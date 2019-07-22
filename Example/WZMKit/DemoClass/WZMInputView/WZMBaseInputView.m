@@ -1,15 +1,15 @@
 //
-//  WZMInputView.m
+//  WZMBaseInputView.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMInputView.h"
-#import "WZMDefaultInputBtn.h"
+#import "WZMBaseInputView.h"
+#import "WZMInputBtn.h"
 
-@interface WZMInputView ()
+@interface WZMBaseInputView ()
 
 ///初始y值
 @property (nonatomic, assign) CGFloat startY;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation WZMInputView
+@implementation WZMBaseInputView
 
 - (instancetype)init {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];

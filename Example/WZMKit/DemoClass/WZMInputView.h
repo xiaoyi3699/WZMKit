@@ -1,13 +1,13 @@
 //
-//  WZMDefaultInputView.h
+//  WZMInputView.h
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMInputView.h"
+#import "WZMBaseInputView.h"
 
-@interface WZMDefaultInputView : WZMInputView
+@interface WZMInputView : WZMBaseInputView
 
 @end

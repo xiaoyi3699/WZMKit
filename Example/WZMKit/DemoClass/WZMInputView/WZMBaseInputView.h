@@ -1,5 +1,5 @@
 //
-//  WZMInputView.h
+//  WZMBaseInputView.h
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/19.
@@ -14,7 +14,7 @@ typedef enum : NSUInteger {
     WZMInputViewTypeOther,    //自定义键盘
 } WZMInputViewType;
 
-@interface WZMInputView : UIView
+@interface WZMBaseInputView : UIView
 
 ///当前键盘类型
 @property (nonatomic, assign, readonly) WZMInputViewType type;
