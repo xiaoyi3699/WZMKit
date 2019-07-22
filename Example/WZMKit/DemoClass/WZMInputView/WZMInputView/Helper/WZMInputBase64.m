@@ -1,4 +1,4 @@
-#import "ChatBase64.h"
+#import "WZMInputBase64.h"
 
 #pragma GCC diagnostic ignored "-Wselector"
 
@@ -10,7 +10,7 @@
 
 @implementation NSData (ChatBase64)
 
-+ (NSData *)chat_dataWithBase64EncodedString:(NSString *)string
++ (NSData *)input_dataWithBase64EncodedString:(NSString *)string
 {
     if (![string length]) return nil;
     
@@ -33,7 +33,7 @@
     return [decoded length]? decoded: nil;
 }
 
-- (NSString *)chat_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
+- (NSString *)input_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
 {
     if (![self length]) return nil;
     
@@ -88,9 +88,9 @@
     return result;
 }
 
-- (NSString *)chat_base64EncodedString
+- (NSString *)input_base64EncodedString
 {
-    return [self chat_base64EncodedStringWithWrapWidth:0];
+    return [self input_base64EncodedStringWithWrapWidth:0];
 }
 
 @end
@@ -98,9 +98,9 @@
 
 @implementation NSString (ChatBase64)
 
-+ (NSString *)chat_stringWithBase64EncodedString:(NSString *)string
++ (NSString *)input_stringWithBase64EncodedString:(NSString *)string
 {
-    NSData *data = [NSData chat_dataWithBase64EncodedString:string];
+    NSData *data = [NSData input_dataWithBase64EncodedString:string];
     if (data)
     {
         return [[self alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -108,26 +108,26 @@
     return nil;
 }
 
-- (NSString *)chat_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
+- (NSString *)input_base64EncodedStringWithWrapWidth:(NSUInteger)wrapWidth
 {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    return [data chat_base64EncodedStringWithWrapWidth:wrapWidth];
+    return [data input_base64EncodedStringWithWrapWidth:wrapWidth];
 }
 
-- (NSString *)chat_base64EncodedString
+- (NSString *)input_base64EncodedString
 {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    return [data chat_base64EncodedString];
+    return [data input_base64EncodedString];
 }
 
-- (NSString *)chat_base64DecodedString
+- (NSString *)input_base64DecodedString
 {
-    return [NSString chat_stringWithBase64EncodedString:self];
+    return [NSString input_stringWithBase64EncodedString:self];
 }
 
-- (NSData *)chat_base64DecodedData
+- (NSData *)input_base64DecodedData
 {
-    return [NSData chat_dataWithBase64EncodedString:self];
+    return [NSData input_dataWithBase64EncodedString:self];
 }
 
 @end

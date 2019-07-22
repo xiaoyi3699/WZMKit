@@ -13,7 +13,8 @@
 @property (nonatomic, strong) NSString *lxhPath;
 @property (nonatomic, strong) NSString *otherPath;
 @property (nonatomic, strong) NSString *defaultPath;
-@property (nonatomic, strong) NSMutableDictionary *imageCache;
+@property (nonatomic, strong) NSMutableDictionary *otherCache;
+@property (nonatomic, strong) NSMutableDictionary *emoticonCache;
 
 @end
 
@@ -50,7 +51,8 @@
         _iPhone  = -1;
         _iPhoneX = -1;
         [self reset];
-        self.imageCache = [[NSMutableDictionary alloc] initWithCapacity:0];
+        self.otherCache = [[NSMutableDictionary alloc] initWithCapacity:0];
+        self.emoticonCache = [[NSMutableDictionary alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -160,13 +162,13 @@
         name = [name stringByAppendingString:@".png"];
     }
     WZMInputHelper *helper = [WZMInputHelper helper];
-    UIImage *image = [helper.imageCache objectForKey:name];
+    UIImage *image = [helper.otherCache objectForKey:name];
     if (image == nil) {
         NSString *path = [NSString stringWithFormat:@"%@/%@",helper.otherPath,name];
         image = [UIImage imageWithContentsOfFile:path];
     }
     if (image) {
-        [helper.imageCache setObject:image forKey:name];
+        [helper.otherCache setObject:image forKey:name];
     }
     return image;
 }
@@ -177,11 +179,17 @@
         name = [name stringByAppendingString:@".png"];
     }
     WZMInputHelper *helper = [WZMInputHelper helper];
-    NSString *path = [NSString stringWithFormat:@"%@/%@",helper.defaultPath,name];
-    UIImage *image = [UIImage imageWithContentsOfFile:path];
+    UIImage *image = [helper.emoticonCache objectForKey:name];
     if (image == nil) {
         NSString *path = [NSString stringWithFormat:@"%@/%@",helper.lxhPath,name];
         image = [UIImage imageWithContentsOfFile:path];
+    }
+    if (image == nil) {
+        NSString *path = [NSString stringWithFormat:@"%@/%@",helper.defaultPath,name];
+        image = [UIImage imageWithContentsOfFile:path];
+    }
+    if (image) {
+        [helper.emoticonCache setObject:image forKey:name];
     }
     return image;
 }

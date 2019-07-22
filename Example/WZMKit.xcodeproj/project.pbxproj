@@ -42,7 +42,7 @@
 		7582F7BC22E54EF000F1CCFB /* WZMEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7582F7B822E54EF000F1CCFB /* WZMEmoticon.bundle */; };
 		7582F7C022E54F4100F1CCFB /* WZMChatMoreKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7BE22E54F4100F1CCFB /* WZMChatMoreKeyboard.m */; };
 		7582F7C322E54FFD00F1CCFB /* WZMInputHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */; };
-		7582F7C622E551C900F1CCFB /* ChatBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C522E551C900F1CCFB /* ChatBase64.m */; };
+		7582F7C622E551C900F1CCFB /* WZMInputBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C522E551C900F1CCFB /* WZMInputBase64.m */; };
 		7582F7CA22E556D100F1CCFB /* WZMInputToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C922E556D100F1CCFB /* WZMInputToolView.m */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 		DE012CDCE7AE8D032B2B7FB0 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C63DD93959D398BDB5C6D81 /* Pods_WZMKit_Tests.framework */; };
@@ -118,8 +118,8 @@
 		7582F7BF22E54F4100F1CCFB /* WZMChatMoreKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMChatMoreKeyboard.h; sourceTree = "<group>"; };
 		7582F7C122E54FFD00F1CCFB /* WZMInputHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMInputHelper.h; sourceTree = "<group>"; };
 		7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMInputHelper.m; sourceTree = "<group>"; };
-		7582F7C422E551C900F1CCFB /* ChatBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBase64.h; sourceTree = "<group>"; };
-		7582F7C522E551C900F1CCFB /* ChatBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBase64.m; sourceTree = "<group>"; };
+		7582F7C422E551C900F1CCFB /* WZMInputBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMInputBase64.h; sourceTree = "<group>"; };
+		7582F7C522E551C900F1CCFB /* WZMInputBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputBase64.m; sourceTree = "<group>"; };
 		7582F7C822E556D100F1CCFB /* WZMInputToolView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMInputToolView.h; sourceTree = "<group>"; };
 		7582F7C922E556D100F1CCFB /* WZMInputToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMInputToolView.m; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -256,19 +256,8 @@
 		754A1E5422E1526E005A0585 /* WZMInputView */ = {
 			isa = PBXGroup;
 			children = (
-				7582F7C722E556A300F1CCFB /* WZMInputToolView */,
-				7582F7B422E54EF000F1CCFB /* Resource */,
+				7582F7CB22E5653000F1CCFB /* WZMInputView */,
 				7582F79522E54E8E00F1CCFB /* WZMBaseInputView */,
-				7582F7BD22E54F4100F1CCFB /* WZMMoreKeyboard */,
-				7582F79622E54EE900F1CCFB /* WZMEmojisKeyboard */,
-				754A1E6322E17609005A0585 /* WZMInputView.h */,
-				754A1E6422E17609005A0585 /* WZMInputView.m */,
-				754A1E5922E1639A005A0585 /* WZMInputBtn.h */,
-				754A1E5822E1639A005A0585 /* WZMInputBtn.m */,
-				7582F7C122E54FFD00F1CCFB /* WZMInputHelper.h */,
-				7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */,
-				7582F7C422E551C900F1CCFB /* ChatBase64.h */,
-				7582F7C522E551C900F1CCFB /* ChatBase64.m */,
 			);
 			path = WZMInputView;
 			sourceTree = "<group>";
@@ -397,6 +386,49 @@
 				7582F7C922E556D100F1CCFB /* WZMInputToolView.m */,
 			);
 			path = WZMInputToolView;
+			sourceTree = "<group>";
+		};
+		7582F7CB22E5653000F1CCFB /* WZMInputView */ = {
+			isa = PBXGroup;
+			children = (
+				754A1E6322E17609005A0585 /* WZMInputView.h */,
+				754A1E6422E17609005A0585 /* WZMInputView.m */,
+				7582F7CE22E565F200F1CCFB /* View */,
+				7582F7CD22E5658300F1CCFB /* Helper */,
+				7582F7B422E54EF000F1CCFB /* Resource */,
+				7582F7CC22E5654900F1CCFB /* Keyboard */,
+				7582F7C722E556A300F1CCFB /* WZMInputToolView */,
+			);
+			path = WZMInputView;
+			sourceTree = "<group>";
+		};
+		7582F7CC22E5654900F1CCFB /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				7582F7BD22E54F4100F1CCFB /* WZMMoreKeyboard */,
+				7582F79622E54EE900F1CCFB /* WZMEmojisKeyboard */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		7582F7CD22E5658300F1CCFB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				7582F7C122E54FFD00F1CCFB /* WZMInputHelper.h */,
+				7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */,
+				7582F7C422E551C900F1CCFB /* WZMInputBase64.h */,
+				7582F7C522E551C900F1CCFB /* WZMInputBase64.m */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		7582F7CE22E565F200F1CCFB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				754A1E5922E1639A005A0585 /* WZMInputBtn.h */,
+				754A1E5822E1639A005A0585 /* WZMInputBtn.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -585,7 +617,7 @@
 				754A1E6522E17609005A0585 /* WZMInputView.m in Sources */,
 				7582F7C322E54FFD00F1CCFB /* WZMInputHelper.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
-				7582F7C622E551C900F1CCFB /* ChatBase64.m in Sources */,
+				7582F7C622E551C900F1CCFB /* WZMInputBase64.m in Sources */,
 				7582F7C022E54F4100F1CCFB /* WZMChatMoreKeyboard.m in Sources */,
 				7582F7B122E54EEA00F1CCFB /* WZMDeleteCell.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,

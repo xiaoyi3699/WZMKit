@@ -7,6 +7,7 @@
 //
 
 #import "WZMChatMoreKeyboard.h"
+#import "WZMInputBtn.h"
 #import "WZMInputHelper.h"
 
 @implementation WZMChatMoreKeyboard
