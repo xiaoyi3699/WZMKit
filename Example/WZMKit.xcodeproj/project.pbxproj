@@ -18,6 +18,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		7505DDB922E56CB90012A2E9 /* WZMRecordAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7505DDB722E56CB90012A2E9 /* WZMRecordAnimation.m */; };
 		754A1E5722E15290005A0585 /* WZMBaseInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754A1E5622E15290005A0585 /* WZMBaseInputView.m */; };
 		754A1E5A22E1639B005A0585 /* WZMInputBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 754A1E5822E1639A005A0585 /* WZMInputBtn.m */; };
 		754A1E5F22E16459005A0585 /* wzm_chat_more.png in Resources */ = {isa = PBXBuildFile; fileRef = 754A1E5B22E16458005A0585 /* wzm_chat_more.png */; };
@@ -77,6 +78,8 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		7505DDB722E56CB90012A2E9 /* WZMRecordAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRecordAnimation.m; sourceTree = "<group>"; };
+		7505DDB822E56CB90012A2E9 /* WZMRecordAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRecordAnimation.h; sourceTree = "<group>"; };
 		754A1E5522E15290005A0585 /* WZMBaseInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseInputView.h; sourceTree = "<group>"; };
 		754A1E5622E15290005A0585 /* WZMBaseInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMBaseInputView.m; sourceTree = "<group>"; };
 		754A1E5822E1639A005A0585 /* WZMInputBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputBtn.m; sourceTree = "<group>"; };
@@ -250,6 +253,15 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		7505DDB622E56CB90012A2E9 /* RecordAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				7505DDB822E56CB90012A2E9 /* WZMRecordAnimation.h */,
+				7505DDB722E56CB90012A2E9 /* WZMRecordAnimation.m */,
+			);
+			path = RecordAnimation;
+			sourceTree = "<group>";
+		};
 		754A1E5422E1526E005A0585 /* WZMInputView */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +330,7 @@
 			children = (
 				7582F7A222E54EE900F1CCFB /* Cell */,
 				7582F79C22E54EE900F1CCFB /* Layout */,
+				7505DDB622E56CB90012A2E9 /* RecordAnimation */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -599,6 +612,7 @@
 				7582F7AD22E54EEA00F1CCFB /* WZMHorizontalLayout.m in Sources */,
 				7582F7AC22E54EEA00F1CCFB /* WZMEmoticonManager.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
+				7505DDB922E56CB90012A2E9 /* WZMRecordAnimation.m in Sources */,
 				7582F7B322E54EEA00F1CCFB /* WZMEmojisKeyboard.m in Sources */,
 				7582F7B022E54EEA00F1CCFB /* WZMBlankCell.m in Sources */,
 				754A1E6522E17609005A0585 /* WZMInputView.m in Sources */,
