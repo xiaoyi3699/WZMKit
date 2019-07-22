@@ -69,23 +69,26 @@
 
 //表情键盘
 - (void)emojisKeyboardDidSelectSend:(WZMEmojisKeyboard *)emojisKeyboard {
-    
+    //发送按钮
 }
 
 - (void)emojisKeyboardDidSelectDelete:(WZMEmojisKeyboard *)emojisKeyboard {
+    //删除键
     [self deleteSelectedText];
 }
 
 - (void)emojisKeyboard:(WZMEmojisKeyboard *)emojisKeyboard didSelectText:(NSString *)text {
+    //选择表情
     [self replaceSelectedTextWithText:text];
 }
 
 //more键盘
 - (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type {
+    //点击按钮类型
     
 }
 
-#pragma mark - 回调事件
+#pragma mark - 父类回调事件
 ///开始编辑
 - (void)didBeginEditing {
     NSLog(@"开始编辑");
