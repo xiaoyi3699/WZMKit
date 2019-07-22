@@ -12,7 +12,7 @@
 #import "WZMEmojisKeyboard.h"
 #import "WZMMoreKeyboard.h"
 
-@interface WZMInputView ()<UITextViewDelegate,WZMToolViewDelegate,WZMEmojisKeyboardDelegate,WZMMoreKeyboardDelegate>
+@interface WZMInputView ()<WZMToolViewDelegate,WZMEmojisKeyboardDelegate,WZMMoreKeyboardDelegate>
 
 @property (nonatomic, strong) WZMToolView *inputToolView;
 @property (nonatomic, strong) WZMMoreKeyboard *moreKeyboard;
@@ -49,20 +49,7 @@
 #pragma mark - 代理事件
 //toolView
 - (void)toolView:(WZMToolView *)toolView didSelectAtIndex:(NSInteger)index {
-//    if (index == 0) {
-//        if (self.isEditing) {
-//            [self dismissKeyboard];
-//        }
-//        else {
-//            [self showSystemKeyboard];
-//        }
-//    }
-//    else if (index == 1) {
-//        [self showKeyboardAtIndex:0 duration:0.3];
-//    }
-//    else {
-//        [self showKeyboardAtIndex:1 duration:0.3];
-//    }
+    
 }
 
 - (void)toolView:(WZMToolView *)toolView showKeyboardType:(WZMKeyboardType)type {
@@ -100,12 +87,15 @@
 
 #pragma mark - 回调事件
 ///开始编辑
-- (void)willBeginEditing {
+- (void)didBeginEditing:(BOOL)systemKeyboard {
     NSLog(@"开始编辑");
+    if (systemKeyboard) {
+        [self.inputToolView resetStatus];
+    }
 }
 
 ///结束编辑
-- (void)willEndEditing {
+- (void)didEndEditing {
     NSLog(@"结束编辑");
 }
 

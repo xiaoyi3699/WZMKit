@@ -26,6 +26,9 @@ typedef enum : NSInteger {
 
 @property (nonatomic, weak) id<WZMToolViewDelegate> delegate;
 
+///还原btn状态
+- (void)resetStatus;
+
 @end
 
 @protocol WZMToolViewDelegate <NSObject>

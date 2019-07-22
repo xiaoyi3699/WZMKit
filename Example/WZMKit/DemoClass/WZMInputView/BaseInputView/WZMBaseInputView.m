@@ -105,7 +105,7 @@
     else {
         //系统键盘弹出
         if (self.type == WZMInputViewTypeIdle) {
-            [self didBeginEditing];
+            [self didBeginEditing:YES];
         }
         self.keyboardIndex = -1;
         self.type = WZMInputViewTypeSystem;
@@ -147,7 +147,7 @@
 }
 
 ///开始编辑
-- (void)didBeginEditing {
+- (void)didBeginEditing:(BOOL)systemKeyboard {
     
 }
 
@@ -231,7 +231,7 @@
 //直接弹出自定义键盘
 - (void)wzm_showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration {
     if (self.type == WZMInputViewTypeIdle) {
-        [self didBeginEditing];
+        [self didBeginEditing:NO];
     }
     //直接弹出自定义键盘
     self.type = WZMInputViewTypeOther;
@@ -288,7 +288,7 @@
 
 #pragma mark - UITextField
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self didBeginEditing];
+    [self didBeginEditing:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -319,7 +319,7 @@
 
 #pragma mark - UITextView
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self didBeginEditing];
+    [self didBeginEditing:YES];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {

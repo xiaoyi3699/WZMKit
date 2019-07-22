@@ -116,6 +116,7 @@
             type = WZMKeyboardTypeMore;
         }
     }
+    //设置btn状态
     for (UIButton *button in _toolBtns) {
         if (button.tag == btn.tag) {
             button.selected = !button.isSelected;
@@ -124,11 +125,19 @@
             button.selected = NO;
         }
     }
+    //调用代理
     if ([self.delegate respondsToSelector:@selector(toolView:didSelectAtIndex:)]) {
         [self.delegate toolView:self didSelectAtIndex:btn.tag];
     }
     if ([self.delegate respondsToSelector:@selector(toolView:showKeyboardType:)]) {
         [self.delegate toolView:self showKeyboardType:type];
+    }
+}
+
+- (void)resetStatus {
+    _recordBtn.hidden = YES;
+    for (UIButton *button in _toolBtns) {
+        button.selected = NO;
     }
 }
 

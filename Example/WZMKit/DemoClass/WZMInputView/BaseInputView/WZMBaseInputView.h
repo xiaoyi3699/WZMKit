@@ -34,8 +34,8 @@ typedef enum : NSUInteger {
 - (void)dismissKeyboard;
 
 #pragma mark - 子类中回调的方法
-///开始编辑
-- (void)didBeginEditing;
+///开始编辑, 是否是系统键盘
+- (void)didBeginEditing:(BOOL)systemKeyboard;
 ///结束编辑
 - (void)didEndEditing;
 ///输入框值改变
