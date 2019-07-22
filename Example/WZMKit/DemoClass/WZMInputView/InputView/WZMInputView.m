@@ -92,7 +92,7 @@
 ///开始编辑
 - (void)didBeginEditing {
     NSLog(@"开始编辑");
-    [self.inputToolView resetStatus];
+    [self willResetConfig];
 }
 
 ///结束编辑
@@ -103,6 +103,11 @@
 ///输入框值改变
 - (void)valueDidChange {
     NSLog(@"输入框值改变：%@",self.text);
+}
+
+///还原视图
+- (void)willResetConfig {
+    [self.inputToolView resetStatus];
 }
 
 ///视图frameb改变

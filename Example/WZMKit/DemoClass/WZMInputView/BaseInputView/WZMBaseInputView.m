@@ -86,6 +86,16 @@
     }
 }
 
+#pragma mark - 公开的方法
+//使用时只需要调用这两个方法即可
+- (void)becomeFirstResponder {
+    [self showSystemKeyboard];
+}
+- (void)resignFirstResponder {
+    [self willResetConfig];
+    [self dismissKeyboard];
+}
+
 #pragma mark - 监听键盘变化
 - (void)keyboardValueChange:(NSNotification *)notification {
     NSDictionary *dic = notification.userInfo;
@@ -177,6 +187,11 @@
     return YES;
 }
 
+///还原视图
+- (void)willResetConfig {
+    
+}
+
 ///视图frameb改变
 - (void)willChangeFrameWithDuration:(CGFloat)duration {
     
@@ -245,13 +260,7 @@
     }
 }
 
-//重设frame
-- (void)reset:(UIView *)view y:(CGFloat)y {
-    CGRect frame = view.frame;
-    frame.origin.y = y;
-    view.frame = frame;
-}
-
+//获取/设置输入框字符串
 - (NSString *)text {
     if (self.inputView1) {
         return self.inputView1.text;
@@ -271,6 +280,7 @@
     }
 }
 
+///输入框字符串处理
 - (void)replaceSelectedTextWithText:(NSString *)text {
     if (self.inputView1) {
         [self.inputView1 replaceRange:self.inputView1.selectedTextRange withText:text];
@@ -345,7 +355,9 @@
 #pragma mark - super method
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (newSuperview) {
-        [self reset:self y:self.startY];
+        CGRect frame = self.frame;
+        frame.origin.y = self.startY;
+        self.frame = frame;
     }
     [super willMoveToSuperview:newSuperview];
 }

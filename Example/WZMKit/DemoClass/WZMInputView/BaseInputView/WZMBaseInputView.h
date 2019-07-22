@@ -25,7 +25,12 @@ typedef enum : NSUInteger {
 ///创建视图
 - (void)createViews NS_REQUIRES_SUPER;
 
-#pragma mark - 主动调用的方法
+#pragma mark - 公开的方法
+//使用时只需要调用这两个方法即可
+- (void)becomeFirstResponder;
+- (void)resignFirstResponder;
+
+#pragma mark - 内部以及子类内部调用的方法
 ///显示系统键盘
 - (void)showSystemKeyboard;
 ///显示自定义键盘
@@ -53,6 +58,8 @@ typedef enum : NSUInteger {
 ///是否允许编辑
 - (BOOL)shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
+///还原视图
+- (void)willResetConfig;
 ///视图frame改变
 - (void)willChangeFrameWithDuration:(CGFloat)duration;
 

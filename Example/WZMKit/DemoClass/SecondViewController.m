@@ -15,7 +15,9 @@
 
 @end
 
-@implementation SecondViewController
+@implementation SecondViewController {
+    WZMInputView *inputView;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -29,18 +31,18 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    WZMInputView *v = [[WZMInputView alloc] init];
-    [self.view addSubview:v];
+    inputView = [[WZMInputView alloc] init];
+    [self.view addSubview:inputView];
     
 //    WZMDispatch_after(19, ^{
-//        [v removeFromSuperview];
+//        [inputView removeFromSuperview];
 //    });
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    [self.view endEditing:YES];
+    [inputView resignFirstResponder];
 }
 
 @end
