@@ -1,19 +1,19 @@
 //
-//  WZMInputToolView.m
+//  WZMToolView.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/7/22.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMInputToolView.h"
+#import "WZMToolView.h"
 #import "WZMInputBtn.h"
 
-@interface WZMInputToolView ()
+@interface WZMToolView ()
 
 @end
 
-@implementation WZMInputToolView
+@implementation WZMToolView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

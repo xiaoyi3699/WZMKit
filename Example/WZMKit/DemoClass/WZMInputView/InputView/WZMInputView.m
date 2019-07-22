@@ -8,13 +8,13 @@
 
 #import "WZMInputView.h"
 #import "WZMInputHelper.h"
-#import "WZMInputToolView.h"
+#import "WZMToolView.h"
 #import "WZMEmojisKeyboard.h"
 #import "WZMMoreKeyboard.h"
 
-@interface WZMInputView ()<UITextViewDelegate,WZMInputToolViewDelegate,WZMEmojisKeyboardDelegate,WZMMoreKeyboardDelegate>
+@interface WZMInputView ()<UITextViewDelegate,WZMToolViewDelegate,WZMEmojisKeyboardDelegate,WZMMoreKeyboardDelegate>
 
-@property (nonatomic, strong) WZMInputToolView *inputToolView;
+@property (nonatomic, strong) WZMToolView *inputToolView;
 @property (nonatomic, strong) WZMMoreKeyboard *moreKeyboard;
 @property (nonatomic, strong) WZMEmojisKeyboard *emojisKeyboard;
 
@@ -48,7 +48,7 @@
 
 #pragma mark - 代理事件
 //toolView
-- (void)inputToolView:(WZMInputToolView *)inputToolView DidSelectAtIndex:(NSInteger)index {
+- (void)inputToolView:(WZMToolView *)inputToolView DidSelectAtIndex:(NSInteger)index {
     if (index == 0) {
         if (self.isEditing) {
             [self dismissKeyboard];
@@ -105,9 +105,9 @@
 }
 
 #pragma mark - getter
-- (WZMInputToolView *)inputToolView {
+- (WZMToolView *)inputToolView {
     if (_inputToolView == nil) {
-        _inputToolView = [[WZMInputToolView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
+        _inputToolView = [[WZMToolView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 50)];
         _inputToolView.delegate = self;
         _inputToolView.backgroundColor = [UIColor colorWithRed:240/255. green:240/255. blue:240/255. alpha:1];
     }
