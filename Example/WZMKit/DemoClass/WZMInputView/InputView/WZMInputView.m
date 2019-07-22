@@ -73,11 +73,11 @@
 }
 
 - (void)emojisKeyboardDidSelectDelete:(WZMEmojisKeyboard *)emojisKeyboard {
-    
+    [self deleteSelectedText];
 }
 
 - (void)emojisKeyboard:(WZMEmojisKeyboard *)emojisKeyboard didSelectText:(NSString *)text {
-    
+    [self replaceSelectedTextWithText:text];
 }
 
 //more键盘

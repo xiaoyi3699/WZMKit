@@ -32,6 +32,9 @@ typedef enum : NSUInteger {
 - (void)showKeyboardAtIndex:(NSInteger)index duration:(CGFloat)duration;
 ///结束编辑
 - (void)dismissKeyboard;
+///输入框字符串处理
+- (void)deleteSelectedText;
+- (void)replaceSelectedTextWithText:(NSString *)text;
 
 #pragma mark - 子类中回调的方法
 ///开始编辑, 是否是系统键盘

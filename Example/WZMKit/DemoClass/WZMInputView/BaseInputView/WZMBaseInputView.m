@@ -7,6 +7,7 @@
 //
 
 #import "WZMBaseInputView.h"
+#import "WZMEmoticonManager.h"
 
 @interface WZMBaseInputView ()<UITextViewDelegate,UITextFieldDelegate>
 
@@ -275,6 +276,77 @@
     }
     if (self.inputView2) {
         self.inputView2.text = text;
+    }
+}
+
+- (void)replaceSelectedTextWithText:(NSString *)text {
+    if (self.inputView1) {
+        [self.inputView1 replaceRange:self.inputView1.selectedTextRange withText:text];
+    }
+    if (self.inputView2) {
+        [self.inputView2 replaceRange:self.inputView2.selectedTextRange withText:text];
+    }
+}
+
+- (void)deleteSelectedText {
+    if (self.inputView1) {
+        if (self.inputView1.text.length > 0) {
+            NSRange range = self.inputView1.selectedRange;
+            NSUInteger location = range.location;
+            NSUInteger length = range.length;
+            if (location == 0 && length == 0) return;
+            if (length > 0) {
+                [self.inputView1 deleteBackward];
+            }
+            else {
+                NSString *subString = [self.inputView1.text substringToIndex:location];
+                NSString *emoticon = [[WZMEmoticonManager manager] willDeleteEmoticon:subString];
+                if ([[WZMEmoticonManager manager].chs containsObject:emoticon]) {
+                    NSUInteger newLocation = location-emoticon.length;
+                    self.inputView1.text = [self.inputView1.text stringByReplacingCharactersInRange:NSMakeRange(newLocation, emoticon.length) withString:@""];
+                    self.inputView1.selectedRange = NSMakeRange(newLocation, 0);
+                    [self valueDidChange];
+                }
+                else {
+                    [self.inputView1 deleteBackward];
+                }
+            }
+        }
+    }
+    if (self.inputView2) {
+        if (self.inputView2.text.length > 0) {
+            UITextRange *textRange = self.inputView2.selectedTextRange;
+            UITextPosition *start = textRange.start;
+            UITextPosition *end = textRange.end;
+            
+            UITextPosition *beginning = self.inputView2.beginningOfDocument;
+            NSInteger location = [self.inputView2 offsetFromPosition:beginning toPosition:start];
+            NSInteger length = [self.inputView2 offsetFromPosition:start toPosition:end];
+            
+            if (location == 0 && length == 0) return;
+            if (length > 0) {
+                [self.inputView2 deleteBackward];
+            }
+            else {
+                NSString *subString = [self.inputView2.text substringToIndex:location];
+                NSString *emoticon = [[WZMEmoticonManager manager] willDeleteEmoticon:subString];
+                if ([[WZMEmoticonManager manager].chs containsObject:emoticon]) {
+                    NSUInteger newLocation = location-emoticon.length;
+                    self.inputView2.text = [self.inputView2.text stringByReplacingCharactersInRange:NSMakeRange(newLocation, emoticon.length) withString:@""];
+                    
+                    UITextPosition *beginning = self.inputView2.beginningOfDocument;
+                    UITextPosition *start = [self.inputView2 positionFromPosition:beginning offset:newLocation];
+                    UITextPosition *end = [self.inputView2 positionFromPosition:start offset:length];
+                    UITextRange *textRange = [self.inputView2 textRangeFromPosition:start toPosition:end];
+                    
+                    self.inputView2.selectedTextRange = textRange;
+                    [self valueDidChange];
+                }
+                else {
+                    [self.inputView2 deleteBackward];
+                }
+            }
+        }
     }
 }
 
