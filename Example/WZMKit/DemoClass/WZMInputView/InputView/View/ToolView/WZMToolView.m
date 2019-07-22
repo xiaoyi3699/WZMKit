@@ -94,10 +94,6 @@
     [self didChangeRecordType:UIControlEventTouchDown];
     //开始录音
     [self.recordAnimation beginRecord];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.recordAnimation.volume = 1.0;
-    });
 }
 
 - (void)touchCancel:(UIButton *)btn {
