@@ -1,15 +1,15 @@
 //
-//  WZMChatRecordAnimation.m
+//  WZMRecordAnimation.m
 //  WZMChat
 //
 //  Created by WangZhaomeng on 2019/5/23.
 //  Copyright © 2019 WangZhaomeng. All rights reserved.
 //
 
-#import "WZMChatRecordAnimation.h"
+#import "WZMRecordAnimation.h"
 #import "WZMInputHelper.h"
 
-@implementation WZMChatRecordAnimation {
+@implementation WZMRecordAnimation {
     NSArray *_images;
     BOOL _isPause;
 }

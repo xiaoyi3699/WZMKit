@@ -30,7 +30,7 @@
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
 		7582F7AC22E54EEA00F1CCFB /* WZMEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F79922E54EE900F1CCFB /* WZMEmoticonManager.m */; };
 		7582F7AD22E54EEA00F1CCFB /* WZMHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F79E22E54EE900F1CCFB /* WZMHorizontalLayout.m */; };
-		7582F7AE22E54EEA00F1CCFB /* WZMChatRecordAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7A022E54EE900F1CCFB /* WZMChatRecordAnimation.m */; };
+		7582F7AE22E54EEA00F1CCFB /* WZMRecordAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7A022E54EE900F1CCFB /* WZMRecordAnimation.m */; };
 		7582F7AF22E54EEA00F1CCFB /* WZMEmoticonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7A622E54EE900F1CCFB /* WZMEmoticonCell.m */; };
 		7582F7B022E54EEA00F1CCFB /* WZMBlankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7A722E54EE900F1CCFB /* WZMBlankCell.m */; };
 		7582F7B122E54EEA00F1CCFB /* WZMDeleteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7A922E54EE900F1CCFB /* WZMDeleteCell.m */; };
@@ -40,7 +40,7 @@
 		7582F7BA22E54EF000F1CCFB /* WZMEmoticon1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7582F7B622E54EF000F1CCFB /* WZMEmoticon1.plist */; };
 		7582F7BB22E54EF000F1CCFB /* WZMEmojis.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7582F7B722E54EF000F1CCFB /* WZMEmojis.plist */; };
 		7582F7BC22E54EF000F1CCFB /* WZMEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7582F7B822E54EF000F1CCFB /* WZMEmoticon.bundle */; };
-		7582F7C022E54F4100F1CCFB /* WZMChatMoreKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7BE22E54F4100F1CCFB /* WZMChatMoreKeyboard.m */; };
+		7582F7C022E54F4100F1CCFB /* WZMMoreKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7BE22E54F4100F1CCFB /* WZMMoreKeyboard.m */; };
 		7582F7C322E54FFD00F1CCFB /* WZMInputHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */; };
 		7582F7C622E551C900F1CCFB /* WZMInputBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C522E551C900F1CCFB /* WZMInputBase64.m */; };
 		7582F7CA22E556D100F1CCFB /* WZMInputToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7582F7C922E556D100F1CCFB /* WZMInputToolView.m */; };
@@ -99,8 +99,8 @@
 		7582F79A22E54EE900F1CCFB /* WZMEmoticonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMEmoticonManager.h; sourceTree = "<group>"; };
 		7582F79D22E54EE900F1CCFB /* WZMHorizontalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMHorizontalLayout.h; sourceTree = "<group>"; };
 		7582F79E22E54EE900F1CCFB /* WZMHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMHorizontalLayout.m; sourceTree = "<group>"; };
-		7582F7A022E54EE900F1CCFB /* WZMChatRecordAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMChatRecordAnimation.m; sourceTree = "<group>"; };
-		7582F7A122E54EE900F1CCFB /* WZMChatRecordAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMChatRecordAnimation.h; sourceTree = "<group>"; };
+		7582F7A022E54EE900F1CCFB /* WZMRecordAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRecordAnimation.m; sourceTree = "<group>"; };
+		7582F7A122E54EE900F1CCFB /* WZMRecordAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRecordAnimation.h; sourceTree = "<group>"; };
 		7582F7A322E54EE900F1CCFB /* WZMBlankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMBlankCell.h; sourceTree = "<group>"; };
 		7582F7A422E54EE900F1CCFB /* WZMEmojisCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMEmojisCell.h; sourceTree = "<group>"; };
 		7582F7A522E54EE900F1CCFB /* WZMDeleteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMDeleteCell.h; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 		7582F7B622E54EF000F1CCFB /* WZMEmoticon1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WZMEmoticon1.plist; sourceTree = "<group>"; };
 		7582F7B722E54EF000F1CCFB /* WZMEmojis.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = WZMEmojis.plist; sourceTree = "<group>"; };
 		7582F7B822E54EF000F1CCFB /* WZMEmoticon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WZMEmoticon.bundle; sourceTree = "<group>"; };
-		7582F7BE22E54F4100F1CCFB /* WZMChatMoreKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMChatMoreKeyboard.m; sourceTree = "<group>"; };
-		7582F7BF22E54F4100F1CCFB /* WZMChatMoreKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMChatMoreKeyboard.h; sourceTree = "<group>"; };
+		7582F7BE22E54F4100F1CCFB /* WZMMoreKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMMoreKeyboard.m; sourceTree = "<group>"; };
+		7582F7BF22E54F4100F1CCFB /* WZMMoreKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMMoreKeyboard.h; sourceTree = "<group>"; };
 		7582F7C122E54FFD00F1CCFB /* WZMInputHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMInputHelper.h; sourceTree = "<group>"; };
 		7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMInputHelper.m; sourceTree = "<group>"; };
 		7582F7C422E551C900F1CCFB /* WZMInputBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMInputBase64.h; sourceTree = "<group>"; };
@@ -319,32 +319,32 @@
 		7582F79B22E54EE900F1CCFB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7582F7A222E54EE900F1CCFB /* cell */,
-				7582F79C22E54EE900F1CCFB /* layout */,
-				7582F79F22E54EE900F1CCFB /* recordAnimation */,
+				7582F7A222E54EE900F1CCFB /* Cell */,
+				7582F79C22E54EE900F1CCFB /* Layout */,
+				7582F79F22E54EE900F1CCFB /* RecordAnimation */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		7582F79C22E54EE900F1CCFB /* layout */ = {
+		7582F79C22E54EE900F1CCFB /* Layout */ = {
 			isa = PBXGroup;
 			children = (
 				7582F79D22E54EE900F1CCFB /* WZMHorizontalLayout.h */,
 				7582F79E22E54EE900F1CCFB /* WZMHorizontalLayout.m */,
 			);
-			path = layout;
+			path = Layout;
 			sourceTree = "<group>";
 		};
-		7582F79F22E54EE900F1CCFB /* recordAnimation */ = {
+		7582F79F22E54EE900F1CCFB /* RecordAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				7582F7A122E54EE900F1CCFB /* WZMChatRecordAnimation.h */,
-				7582F7A022E54EE900F1CCFB /* WZMChatRecordAnimation.m */,
+				7582F7A122E54EE900F1CCFB /* WZMRecordAnimation.h */,
+				7582F7A022E54EE900F1CCFB /* WZMRecordAnimation.m */,
 			);
-			path = recordAnimation;
+			path = RecordAnimation;
 			sourceTree = "<group>";
 		};
-		7582F7A222E54EE900F1CCFB /* cell */ = {
+		7582F7A222E54EE900F1CCFB /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				7582F7A322E54EE900F1CCFB /* WZMBlankCell.h */,
@@ -356,7 +356,7 @@
 				7582F7A822E54EE900F1CCFB /* WZMEmoticonCell.h */,
 				7582F7A622E54EE900F1CCFB /* WZMEmoticonCell.m */,
 			);
-			path = cell;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		7582F7B422E54EF000F1CCFB /* Resource */ = {
@@ -373,8 +373,8 @@
 		7582F7BD22E54F4100F1CCFB /* WZMMoreKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				7582F7BF22E54F4100F1CCFB /* WZMChatMoreKeyboard.h */,
-				7582F7BE22E54F4100F1CCFB /* WZMChatMoreKeyboard.m */,
+				7582F7BF22E54F4100F1CCFB /* WZMMoreKeyboard.h */,
+				7582F7BE22E54F4100F1CCFB /* WZMMoreKeyboard.m */,
 			);
 			path = WZMMoreKeyboard;
 			sourceTree = "<group>";
@@ -618,10 +618,10 @@
 				7582F7C322E54FFD00F1CCFB /* WZMInputHelper.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				7582F7C622E551C900F1CCFB /* WZMInputBase64.m in Sources */,
-				7582F7C022E54F4100F1CCFB /* WZMChatMoreKeyboard.m in Sources */,
+				7582F7C022E54F4100F1CCFB /* WZMMoreKeyboard.m in Sources */,
 				7582F7B122E54EEA00F1CCFB /* WZMDeleteCell.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
-				7582F7AE22E54EEA00F1CCFB /* WZMChatRecordAnimation.m in Sources */,
+				7582F7AE22E54EEA00F1CCFB /* WZMRecordAnimation.m in Sources */,
 				754A1E5A22E1639B005A0585 /* WZMInputBtn.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				7582F7CA22E556D100F1CCFB /* WZMInputToolView.m in Sources */,

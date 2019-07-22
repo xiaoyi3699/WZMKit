@@ -10,12 +10,12 @@
 #import "WZMInputHelper.h"
 #import "WZMInputToolView.h"
 #import "WZMEmojisKeyboard.h"
-#import "WZMChatMoreKeyboard.h"
+#import "WZMMoreKeyboard.h"
 
-@interface WZMInputView ()<UITextViewDelegate,WZMInputToolViewDelegate,WZMEmojisKeyboardDelegate,WZMChatMoreKeyboardDelegate>
+@interface WZMInputView ()<UITextViewDelegate,WZMInputToolViewDelegate,WZMEmojisKeyboardDelegate,WZMMoreKeyboardDelegate>
 
 @property (nonatomic, strong) WZMInputToolView *inputToolView;
-@property (nonatomic, strong) WZMChatMoreKeyboard *moreKeyboard;
+@property (nonatomic, strong) WZMMoreKeyboard *moreKeyboard;
 @property (nonatomic, strong) WZMEmojisKeyboard *emojisKeyboard;
 
 @end
@@ -79,7 +79,7 @@
 }
 
 //more键盘
-- (void)moreKeyboard:(WZMChatMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type {
+- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type {
     
 }
 
@@ -124,9 +124,9 @@
     return _emojisKeyboard;
 }
 
-- (WZMChatMoreKeyboard *)moreKeyboard {
+- (WZMMoreKeyboard *)moreKeyboard {
     if (_moreKeyboard == nil) {
-        _moreKeyboard = [[WZMChatMoreKeyboard alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.bounds.size.width, 200+[WZMInputHelper helper].iPhoneXBottomH)];
+        _moreKeyboard = [[WZMMoreKeyboard alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.bounds.size.width, 200+[WZMInputHelper helper].iPhoneXBottomH)];
         _moreKeyboard.delegate = self;
         _moreKeyboard.hidden = YES;
         _moreKeyboard.backgroundColor = [UIColor whiteColor];

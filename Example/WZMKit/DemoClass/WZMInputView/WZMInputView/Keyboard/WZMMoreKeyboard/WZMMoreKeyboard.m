@@ -1,16 +1,16 @@
 //
-//  WZMChatMoreKeyboard.m
+//  WZMMoreKeyboard.m
 //  WZMChat
 //
 //  Created by WangZhaomeng on 2018/9/5.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "WZMChatMoreKeyboard.h"
+#import "WZMMoreKeyboard.h"
 #import "WZMInputBtn.h"
 #import "WZMInputHelper.h"
 
-@implementation WZMChatMoreKeyboard
+@implementation WZMMoreKeyboard
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

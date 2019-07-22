@@ -1,5 +1,5 @@
 //
-//  WZMChatMoreKeyboard.h
+//  WZMMoreKeyboard.h
 //  WZMChat
 //
 //  Created by WangZhaomeng on 2018/9/5.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol WZMChatMoreKeyboardDelegate;
+@protocol WZMMoreKeyboardDelegate;
 
 typedef enum : NSInteger {
     WZMChatMoreTypeImage = 0,
@@ -17,15 +17,15 @@ typedef enum : NSInteger {
     WZMChatMoreTypeTransfer,
 }WZMChatMoreType;
 
-@interface WZMChatMoreKeyboard : UIView
+@interface WZMMoreKeyboard : UIView
 
-@property (nonatomic, weak) id<WZMChatMoreKeyboardDelegate> delegate;
+@property (nonatomic, weak) id<WZMMoreKeyboardDelegate> delegate;
 
 @end
 
-@protocol WZMChatMoreKeyboardDelegate <NSObject>
+@protocol WZMMoreKeyboardDelegate <NSObject>
 
 @optional
-- (void)moreKeyboard:(WZMChatMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type;
+- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type;
 
 @end
