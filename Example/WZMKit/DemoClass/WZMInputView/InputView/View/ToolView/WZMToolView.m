@@ -8,6 +8,7 @@
 
 #import "WZMToolView.h"
 #import "WZMInputBtn.h"
+#import "WZMInputHelper.h"
 
 @interface WZMToolView ()
 
@@ -33,7 +34,7 @@
         
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:3];
         NSArray *images = @[@"wzm_chat_voice",@"wzm_chat_emotion",@"wzm_chat_more"];//ll_chat_board
-        UIImage *keyboardImg = [UIImage imageNamed:@"wzm_chat_board"];
+        UIImage *keyboardImg = [WZMInputHelper otherImageNamed:@"wzm_chat_board"];
         for (NSInteger i = 0; i < 3; i ++) {
             WZMInputBtn *btn = [WZMInputBtn chatButtonWithType:WZMInputBtnTypeTool];
             if (i == 0) {
@@ -46,7 +47,7 @@
                 btn.frame = CGRectMake(toolW-40, (toolH-40)/2, 40, 40);
             }
             btn.tag = i;
-            [btn setImage:[UIImage imageNamed:images[i]] forState:UIControlStateNormal];
+            [btn setImage:[WZMInputHelper otherImageNamed:images[i]] forState:UIControlStateNormal];
             [btn setImage:keyboardImg forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];

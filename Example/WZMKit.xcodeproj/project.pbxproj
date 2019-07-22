@@ -21,10 +21,6 @@
 		7505DDB922E56CB90012A2E9 /* WZMRecordAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7505DDB722E56CB90012A2E9 /* WZMRecordAnimation.m */; };
 		754A1E5722E15290005A0585 /* WZMBaseInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754A1E5622E15290005A0585 /* WZMBaseInputView.m */; };
 		754A1E5A22E1639B005A0585 /* WZMInputBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 754A1E5822E1639A005A0585 /* WZMInputBtn.m */; };
-		754A1E5F22E16459005A0585 /* wzm_chat_more.png in Resources */ = {isa = PBXBuildFile; fileRef = 754A1E5B22E16458005A0585 /* wzm_chat_more.png */; };
-		754A1E6022E16459005A0585 /* wzm_chat_board.png in Resources */ = {isa = PBXBuildFile; fileRef = 754A1E5C22E16459005A0585 /* wzm_chat_board.png */; };
-		754A1E6122E16459005A0585 /* wzm_chat_emotion.png in Resources */ = {isa = PBXBuildFile; fileRef = 754A1E5D22E16459005A0585 /* wzm_chat_emotion.png */; };
-		754A1E6222E16459005A0585 /* wzm_chat_voice.png in Resources */ = {isa = PBXBuildFile; fileRef = 754A1E5E22E16459005A0585 /* wzm_chat_voice.png */; };
 		754A1E6522E17609005A0585 /* WZMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 754A1E6422E17609005A0585 /* WZMInputView.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
@@ -84,10 +80,6 @@
 		754A1E5622E15290005A0585 /* WZMBaseInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMBaseInputView.m; sourceTree = "<group>"; };
 		754A1E5822E1639A005A0585 /* WZMInputBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputBtn.m; sourceTree = "<group>"; };
 		754A1E5922E1639A005A0585 /* WZMInputBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMInputBtn.h; sourceTree = "<group>"; };
-		754A1E5B22E16458005A0585 /* wzm_chat_more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_chat_more.png; sourceTree = "<group>"; };
-		754A1E5C22E16459005A0585 /* wzm_chat_board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_chat_board.png; sourceTree = "<group>"; };
-		754A1E5D22E16459005A0585 /* wzm_chat_emotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_chat_emotion.png; sourceTree = "<group>"; };
-		754A1E5E22E16459005A0585 /* wzm_chat_voice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_chat_voice.png; sourceTree = "<group>"; };
 		754A1E6322E17609005A0585 /* WZMInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMInputView.h; sourceTree = "<group>"; };
 		754A1E6422E17609005A0585 /* WZMInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMInputView.m; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
@@ -283,10 +275,6 @@
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
-				754A1E5C22E16459005A0585 /* wzm_chat_board.png */,
-				754A1E5D22E16459005A0585 /* wzm_chat_emotion.png */,
-				754A1E5B22E16458005A0585 /* wzm_chat_more.png */,
-				754A1E5E22E16459005A0585 /* wzm_chat_voice.png */,
 				754A1E5422E1526E005A0585 /* WZMInputView */,
 				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
 				7558CBB922DF4FB80043651C /* FirstViewController.m */,
@@ -524,13 +512,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7582F7BB22E54EF000F1CCFB /* WZMEmojis.plist in Resources */,
-				754A1E6222E16459005A0585 /* wzm_chat_voice.png in Resources */,
 				7582F7BA22E54EF000F1CCFB /* WZMEmoticon1.plist in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				754A1E5F22E16459005A0585 /* wzm_chat_more.png in Resources */,
-				754A1E6022E16459005A0585 /* wzm_chat_board.png in Resources */,
 				7582F7BC22E54EF000F1CCFB /* WZMEmoticon.bundle in Resources */,
-				754A1E6122E16459005A0585 /* wzm_chat_emotion.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				7582F7B922E54EF000F1CCFB /* WZMEmoticon2.plist in Resources */,
 			);
