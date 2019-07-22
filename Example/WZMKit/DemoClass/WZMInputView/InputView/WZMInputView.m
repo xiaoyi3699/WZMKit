@@ -49,19 +49,34 @@
 #pragma mark - 代理事件
 //toolView
 - (void)toolView:(WZMToolView *)toolView didSelectAtIndex:(NSInteger)index {
-    if (index == 0) {
-        if (self.isEditing) {
-            [self dismissKeyboard];
-        }
-        else {
-            [self showSystemKeyboard];
-        }
+//    if (index == 0) {
+//        if (self.isEditing) {
+//            [self dismissKeyboard];
+//        }
+//        else {
+//            [self showSystemKeyboard];
+//        }
+//    }
+//    else if (index == 1) {
+//        [self showKeyboardAtIndex:0 duration:0.3];
+//    }
+//    else {
+//        [self showKeyboardAtIndex:1 duration:0.3];
+//    }
+}
+
+- (void)toolView:(WZMToolView *)toolView showKeyboardType:(WZMKeyboardType)type {
+    if (type == WZMKeyboardTypeSystem) {
+        [self showSystemKeyboard];
     }
-    else if (index == 1) {
+    else if (type == WZMKeyboardTypeEmoticon) {
         [self showKeyboardAtIndex:0 duration:0.3];
     }
-    else {
+    else if (type == WZMKeyboardTypeMore) {
         [self showKeyboardAtIndex:1 duration:0.3];
+    }
+    else {
+        [self dismissKeyboard];
     }
 }
 

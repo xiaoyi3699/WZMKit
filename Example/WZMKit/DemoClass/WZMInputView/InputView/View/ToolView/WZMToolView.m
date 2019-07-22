@@ -18,6 +18,7 @@
 @end
 
 @implementation WZMToolView {
+    NSArray *_toolBtns;
     UIButton *_recordBtn;
 }
 
@@ -53,7 +54,7 @@
         [_recordBtn addTarget:self action:@selector(touchFinish:) forControlEvents:UIControlEventTouchUpInside];
         [_recordBtn addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
         [_recordBtn addTarget:self action:@selector(touchDragOutside:) forControlEvents:UIControlEventTouchDragOutside];
-//        _recordBtn.hidden = YES;
+        _recordBtn.hidden = YES;
         [self addSubview:_recordBtn];
         
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:3];
@@ -77,13 +78,57 @@
             [self addSubview:btn];
             [array addObject:btn];
         }
+        _toolBtns = [array copy];
     }
     return self;
 }
 
 - (void)btnClick:(UIButton *)btn {
+    WZMKeyboardType type;
+    if (btn.tag == 0) {
+        //语音按钮
+        if (btn.isSelected) {
+            _recordBtn.hidden = YES;
+            type = WZMKeyboardTypeSystem;
+        }
+        else {
+            _recordBtn.hidden = NO;
+            type = WZMKeyboardTypeNone;
+        }
+    }
+    else if (btn.tag == 1) {
+        //表情按钮
+        _recordBtn.hidden = YES;
+        if (btn.isSelected) {
+            type = WZMKeyboardTypeSystem;
+        }
+        else {
+            type = WZMKeyboardTypeEmoticon;
+        }
+    }
+    else {
+        //更多按钮
+        _recordBtn.hidden = YES;
+        if (btn.isSelected) {
+            type = WZMKeyboardTypeSystem;
+        }
+        else {
+            type = WZMKeyboardTypeMore;
+        }
+    }
+    for (UIButton *button in _toolBtns) {
+        if (button.tag == btn.tag) {
+            button.selected = !button.isSelected;
+        }
+        else {
+            button.selected = NO;
+        }
+    }
     if ([self.delegate respondsToSelector:@selector(toolView:didSelectAtIndex:)]) {
         [self.delegate toolView:self didSelectAtIndex:btn.tag];
+    }
+    if ([self.delegate respondsToSelector:@selector(toolView:showKeyboardType:)]) {
+        [self.delegate toolView:self showKeyboardType:type];
     }
 }
 
@@ -131,15 +176,15 @@
 }
 
 - (void)didChangeRecordType:(UIControlEvents)touchEvent {
-    WZMChatRecordType type;
+    WZMRecordType type;
     if (touchEvent == UIControlEventTouchDown) {
-        type = WZMChatRecordTypeBegin;
+        type = WZMRecordTypeBegin;
     }
     else if (touchEvent == UIControlEventTouchUpInside) {
-        type = WZMChatRecordTypeFinish;
+        type = WZMRecordTypeFinish;
     }
     else {
-        type = WZMChatRecordTypeCancel;
+        type = WZMRecordTypeCancel;
     }
     if ([self.delegate respondsToSelector:@selector(toolView:didChangeRecordType:)]) {
         [self.delegate toolView:self didChangeRecordType:type];

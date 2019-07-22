@@ -107,11 +107,6 @@
         if (self.type == WZMInputViewTypeIdle) {
             [self didBeginEditing];
         }
-        if (self.type == WZMInputViewTypeOther) {
-            //隐藏之前的keyboard
-            UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
-            k.hidden = YES;
-        }
         self.keyboardIndex = -1;
         self.type = WZMInputViewTypeSystem;
         CGFloat minY = endFrame.origin.y-self.toolView.bounds.size.height;
@@ -214,11 +209,6 @@
         [self endEditing:YES];
     }
     else {
-        if (self.type == WZMInputViewTypeOther) {
-            //隐藏之前的keyboard
-            UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
-            k.hidden = YES;
-        }
         self.keyboardIndex = index;
         //直接弹出自定义键盘
         [self wzm_showKeyboardAtIndex:index duration:duration];
@@ -245,10 +235,21 @@
     }
     //直接弹出自定义键盘
     self.type = WZMInputViewTypeOther;
-    UIView *k = [self.keyboards objectAtIndex:self.keyboardIndex];
-    k.hidden = NO;
-    CGFloat minY = self.startY-k.bounds.size.height;
-    [self minYWillChange:minY duration:duration isFinishEditing:NO];
+    UIView *k;
+    for (NSInteger i = 0; i < self.keyboards.count; i ++) {
+        UIView *other = [self.keyboards objectAtIndex:i];
+        if (i == index) {
+            other.hidden = NO;
+            k = other;
+        }
+        else {
+            other.hidden = YES;
+        }
+    }
+    if (k) {
+        CGFloat minY = self.startY-k.bounds.size.height;
+        [self minYWillChange:minY duration:duration isFinishEditing:NO];
+    }
 }
 
 //重设frame

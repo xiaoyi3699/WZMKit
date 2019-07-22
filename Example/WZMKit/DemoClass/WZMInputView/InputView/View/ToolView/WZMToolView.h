@@ -10,10 +10,17 @@
 @protocol WZMToolViewDelegate;
 
 typedef enum : NSInteger {
-    WZMChatRecordTypeBegin = 0,
-    WZMChatRecordTypeCancel,
-    WZMChatRecordTypeFinish,
-} WZMChatRecordType;
+    WZMRecordTypeBegin = 0,
+    WZMRecordTypeCancel,
+    WZMRecordTypeFinish,
+} WZMRecordType;
+
+typedef enum : NSInteger {
+    WZMKeyboardTypeNone = 0,
+    WZMKeyboardTypeSystem,
+    WZMKeyboardTypeEmoticon,
+    WZMKeyboardTypeMore,
+} WZMKeyboardType;
 
 @interface WZMToolView : UIView
 
@@ -25,6 +32,7 @@ typedef enum : NSInteger {
 
 @optional
 - (void)toolView:(WZMToolView *)toolView didSelectAtIndex:(NSInteger)index;
-- (void)toolView:(WZMToolView *)toolView didChangeRecordType:(WZMChatRecordType)type;
+- (void)toolView:(WZMToolView *)toolView showKeyboardType:(WZMKeyboardType)type;
+- (void)toolView:(WZMToolView *)toolView didChangeRecordType:(WZMRecordType)type;
 
 @end
