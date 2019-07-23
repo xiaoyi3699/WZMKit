@@ -7,18 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSUInteger {
-    WZMInputViewTypeIdle = 0, //闲置状态
-    WZMInputViewTypeSystem,   //系统键盘
-    WZMInputViewTypeOther,    //自定义键盘
-} WZMInputViewType;
+#import "WZNInputEnum.h"
 
 @interface WZMBaseInputView : UIView
 
 @property (nonatomic, strong) NSString *text;
 ///当前键盘类型
-@property (nonatomic, assign, readonly) WZMInputViewType type;
+@property (nonatomic, assign, readonly) WZMKeyboardType type;
 ///是否处于编辑状态, 自定义键盘模式为非编辑状态
 @property (nonatomic, assign, readonly, getter=isEditing) BOOL editing;
 

@@ -7,20 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZNInputEnum.h"
 @protocol WZMToolViewDelegate;
-
-typedef enum : NSInteger {
-    WZMRecordTypeBegin = 0,
-    WZMRecordTypeCancel,
-    WZMRecordTypeFinish,
-} WZMRecordType;
-
-typedef enum : NSInteger {
-    WZMKeyboardTypeNone = 0,
-    WZMKeyboardTypeSystem,
-    WZMKeyboardTypeEmoticon,
-    WZMKeyboardTypeMore,
-} WZMKeyboardType;
 
 @interface WZMToolView : UIView
 

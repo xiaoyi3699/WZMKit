@@ -41,9 +41,9 @@
 }
 
 - (void)btnClick:(UIButton *)btn {
-    WZMChatMoreType type = (WZMChatMoreType)btn.tag;
-    if ([self.delegate respondsToSelector:@selector(moreKeyboard:didSelectedWithType:)]) {
-        [self.delegate moreKeyboard:self didSelectedWithType:type];
+    WZInputMoreType type = (WZInputMoreType)btn.tag;
+    if ([self.delegate respondsToSelector:@selector(moreKeyboard:didSelectType:)]) {
+        [self.delegate moreKeyboard:self didSelectType:type];
     }
 }
 

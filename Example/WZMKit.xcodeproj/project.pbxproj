@@ -76,6 +76,7 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		7505DDB722E56CB90012A2E9 /* WZMRecordAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRecordAnimation.m; sourceTree = "<group>"; };
 		7505DDB822E56CB90012A2E9 /* WZMRecordAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRecordAnimation.h; sourceTree = "<group>"; };
+		7505DDBB22E698940012A2E9 /* WZNInputEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZNInputEnum.h; sourceTree = "<group>"; };
 		754A1E5522E15290005A0585 /* WZMBaseInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseInputView.h; sourceTree = "<group>"; };
 		754A1E5622E15290005A0585 /* WZMBaseInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMBaseInputView.m; sourceTree = "<group>"; };
 		754A1E5822E1639A005A0585 /* WZMInputBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputBtn.m; sourceTree = "<group>"; };
@@ -401,6 +402,7 @@
 		7582F7CD22E5658300F1CCFB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				7505DDBB22E698940012A2E9 /* WZNInputEnum.h */,
 				7582F7C122E54FFD00F1CCFB /* WZMInputHelper.h */,
 				7582F7C222E54FFD00F1CCFB /* WZMInputHelper.m */,
 				7582F7C422E551C900F1CCFB /* WZMInputBase64.h */,

@@ -7,13 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum {
-    WZMInputBtnTypeNormal = 0,   //系统默认类型
-    WZMInputBtnTypeRetry,        //重发消息按钮
-    WZMInputBtnTypeTool,         //键盘工具按钮
-    WZMInputBtnTypeMoreKeyboard, //加号键盘按钮
-}WZMInputBtnType;
+#import "WZNInputEnum.h"
 
 @interface WZMInputBtn : UIButton
 

@@ -7,15 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WZNInputEnum.h"
 @protocol WZMMoreKeyboardDelegate;
-
-typedef enum : NSInteger {
-    WZMChatMoreTypeImage = 0,
-    WZMChatMoreTypeVideo,
-    WZMChatMoreTypeLocation,
-    WZMChatMoreTypeTransfer,
-}WZMChatMoreType;
 
 @interface WZMMoreKeyboard : UIView
 
@@ -26,6 +19,6 @@ typedef enum : NSInteger {
 @protocol WZMMoreKeyboardDelegate <NSObject>
 
 @optional
-- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type;
+- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectType:(WZInputMoreType)type;
 
 @end

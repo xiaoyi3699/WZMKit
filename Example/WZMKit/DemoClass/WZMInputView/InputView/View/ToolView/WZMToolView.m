@@ -93,7 +93,7 @@
         }
         else {
             _recordBtn.hidden = NO;
-            type = WZMKeyboardTypeNone;
+            type = WZMKeyboardTypeIdle;
         }
     }
     else if (btn.tag == 1) {

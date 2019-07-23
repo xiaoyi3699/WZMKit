@@ -83,7 +83,7 @@
 }
 
 //more键盘
-- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZMChatMoreType)type {
+- (void)moreKeyboard:(WZMMoreKeyboard *)moreKeyboard didSelectedWithType:(WZInputMoreType)type {
     //点击按钮类型
     
 }
