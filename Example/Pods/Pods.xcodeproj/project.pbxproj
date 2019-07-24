@@ -557,13 +557,13 @@
 			path = WZMCatchStore;
 			sourceTree = "<group>";
 		};
-		08801372049BADAC3B0A70279495F391 /* WZMAudioRecorderr */ = {
+		08801372049BADAC3B0A70279495F391 /* WZMAudioRecorder */ = {
 			isa = PBXGroup;
 			children = (
 				9980EF819BD3BB0FBDC931BFBD37426C /* WZMAudioRecorder.h */,
 				97A1AAF677366090669F9DAD69F0B76E /* WZMAudioRecorder.m */,
 			);
-			path = WZMAudioRecorderr;
+			path = WZMAudioRecorder;
 			sourceTree = "<group>";
 		};
 		0D8262DC48E1ED92E47747DA966C05AD /* UIScrollView */ = {
@@ -927,10 +927,10 @@
 		6D5AEA3882ED879702BECCF84BDBA145 /* WZMMedia */ = {
 			isa = PBXGroup;
 			children = (
-				08801372049BADAC3B0A70279495F391 /* WZMAudioRecorderr */,
 				51846FAC43F81B75685F740B1EA20771 /* WZMCamera */,
 				D6FC774F4DB94989157EB0478EAA5078 /* WZMPlayer */,
 				B559375559ACCB86DB9C50AECE2032DA /* WZMVideoPlayer */,
+				08801372049BADAC3B0A70279495F391 /* WZMAudioRecorder */,
 			);
 			name = WZMMedia;
 			path = WZMKit/Classes/WZMMedia;
