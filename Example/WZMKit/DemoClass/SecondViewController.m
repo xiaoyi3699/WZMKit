@@ -7,7 +7,6 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMInputView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -15,9 +14,7 @@
 
 @end
 
-@implementation SecondViewController {
-    WZMInputView *inputView;
-}
+@implementation SecondViewController
 
 - (instancetype)init {
     self = [super init];
@@ -31,18 +28,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    inputView = [[WZMInputView alloc] init];
-    [self.view addSubview:inputView];
-    
-//    WZMDispatch_after(19, ^{
-//        [inputView removeFromSuperview];
-//    });
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    [inputView resignFirstResponder];
 }
 
 @end
