@@ -12,6 +12,8 @@
 
 @interface SecondViewController ()
 
+@property (nonatomic, strong) WZMAudioRecorder *recorder;
+
 @end
 
 @implementation SecondViewController
@@ -28,11 +30,17 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.recorder = [[WZMAudioRecorder alloc] init];
+    self.recorder.toPath = @"0";
+    [self.recorder startRecord];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
+    [self.recorder stopRecord:^(NSString *toPath, NSInteger time) {
+        NSLog(@"%@===%@",toPath,@(time));
+    }];
 }
 
 @end

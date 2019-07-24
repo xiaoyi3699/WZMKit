@@ -42,7 +42,7 @@
 #import "WZMViewHandle.h"
 #import "WZMInline.h"
 #import "WZMKit.h"
-#import "WZMAVManager.h"
+#import "WZMAudioRecorder.h"
 #import "WZMCamera.h"
 #import "WZMPlayer.h"
 #import "WZMPlayerItem.h"
