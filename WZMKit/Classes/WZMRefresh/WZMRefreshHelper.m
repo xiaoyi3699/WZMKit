@@ -42,8 +42,7 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 }
 
 + (UIImage *)arrowImage {
-    NSBundle *bundle = [WZMPublic resourceBundle];
-    return [UIImage imageWithContentsOfFile:[bundle pathForResource:@"wzm_arrow" ofType:@"png"]];
+    return [WZMPublic imageNamed:@"wzm_arrow" ofType:@"png"];
 }
 
 #pragma mark - private method

@@ -52,7 +52,6 @@
 ///document
 - (NSString *)document;
 ///资源文件
-+ (NSBundle *)resourceBundle;
 + (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type;
 
 @end
