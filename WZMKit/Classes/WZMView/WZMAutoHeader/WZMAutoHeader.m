@@ -70,7 +70,7 @@
 }
 
 - (void)removeFromSuperview {
-    if (_scrollView) {
+    if ([_scrollView isKindOfClass:[UIScrollView class]]) {
         [_scrollView removeObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET];
         _scrollView = nil;
     }
