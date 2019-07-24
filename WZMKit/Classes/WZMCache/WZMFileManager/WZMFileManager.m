@@ -7,7 +7,7 @@
 //
 
 #import "WZMFileManager.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "WZMEnum.h"
 
 #define WZM_FILE_MANAGER    [NSFileManager defaultManager]
@@ -18,7 +18,7 @@
     if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]) {
         return YES;
     }
-    wzm_log(@"fileExistsAtPath:文件未找到");
+    WZMLog(@"fileExistsAtPath:文件未找到");
     return NO;
 }
 
@@ -26,7 +26,7 @@
     if ([WZM_FILE_MANAGER fileExistsAtPath:filePath isDirectory:result]) {
         return YES;
     }
-    wzm_log(@"fileExistsAtPath:isDirectory:文件未找到");
+    WZMLog(@"fileExistsAtPath:isDirectory:文件未找到");
     return NO;;
 }
 
@@ -44,7 +44,7 @@
                                                       attributes:nil
                                                            error:&error];
             if (error) {
-                wzm_log(@"创建文件夹失败:%@",error);
+                WZMLog(@"创建文件夹失败:%@",error);
             }
             return result;
         }
@@ -56,7 +56,7 @@
                                                   attributes:nil
                                                        error:&error];
         if (error) {
-            wzm_log(@"创建文件夹失败:%@",error);
+            WZMLog(@"创建文件夹失败:%@",error);
         }
         return result;
     }
@@ -66,7 +66,7 @@
     if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]){
         return [WZM_FILE_MANAGER removeItemAtPath:filePath error:error];
     }
-    wzm_log(@"deleteFileAtPath:error:路径未找到");
+    WZMLog(@"deleteFileAtPath:error:路径未找到");
     return YES;
 }
 
@@ -191,7 +191,7 @@
         [WZM_USER_DEFAULTS setObject:obj forKey:key];
         return [WZM_USER_DEFAULTS synchronize];
     }
-    wzm_log(@"数据存储到沙盒失败：key/obj不能为空");
+    WZMLog(@"数据存储到沙盒失败：key/obj不能为空");
     return NO;
 }
 
@@ -199,13 +199,13 @@
     if (key) {
         return [WZM_USER_DEFAULTS objectForKey:key];
     }
-    wzm_log(@"从沙盒中取出数据失败：key不能为空");
+    WZMLog(@"从沙盒中取出数据失败：key不能为空");
     return nil;
 }
 
 + (BOOL)writeFile:(id)file toPath:(NSString *)path{
     BOOL isOK = [file writeToFile:path atomically:YES];
-    wzm_log(@"文件存储路径为:%@",path);
+    WZMLog(@"文件存储路径为:%@",path);
     return isOK;
 }
 
@@ -214,7 +214,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
         return [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    wzm_log(@"从沙盒中删除数据失败：key不能为空");
+    WZMLog(@"从沙盒中删除数据失败：key不能为空");
     return NO;
 }
 
@@ -263,10 +263,10 @@
                          encoding:NSUTF8StringEncoding
                             error:&error];
     if (error) {
-        wzm_log(@"widget数据共享(存)失败：%@",error);
+        WZMLog(@"widget数据共享(存)失败：%@",error);
     }
     else {
-        wzm_log(@"widget数据共享(存)成功：%@",obj);
+        WZMLog(@"widget数据共享(存)成功：%@",obj);
     }
     return result;
 }

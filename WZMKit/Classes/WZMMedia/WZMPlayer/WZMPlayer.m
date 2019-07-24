@@ -11,7 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "WZMPlayerItem.h"
 #import "WZMMacro.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMPlayer ()<AVAudioPlayerDelegate>
 
@@ -311,7 +311,7 @@
 
 //移除相关监听
 - (void)dealloc {
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
     [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

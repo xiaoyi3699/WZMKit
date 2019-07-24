@@ -41,8 +41,6 @@
  +[wzm_getColorByHex:]
  +[wzm_getColorByImage:]
  
- 
- 
  UIView扩展:
  view.wzm_cornerRadius
  view.wzm_viewController
@@ -50,7 +48,9 @@
  -[wzm_colorWithPoint:]
  -[wzm_savePDFToDocumentsWithFileName:]
  
- NSObject扩展: [self className]、[NSObject className]
+ NSObject扩展:
+ [self className]
+ [NSObject className]
  
  NSString扩展:
  +[wzm_isBlankString:]
@@ -106,13 +106,17 @@
     //开启手机端日志悬浮图标
     [WZMLogView startLog];
     //开启framework内部日志打印
-    wzm_openLogEnable(YES);
+    [WZMLogPrinter openLogEnable:YES];
     //开启异常采集
     WZMInstallSignalHandler();
     WZMInstallUncaughtExceptionHandler();
     //监听CPU使用量和FPS(页面帧率)
     [self.window wzm_startObserveFpsAndCpu];
 #endif
+    
+    NSLog(@"恭喜你，成功打印日志！");
+    
+    WZMLog(@"恭喜你，成功打印日志！");
     
     NSLog(@"恭喜你，成功打印日志！");
     

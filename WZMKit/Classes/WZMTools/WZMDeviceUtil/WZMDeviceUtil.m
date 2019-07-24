@@ -7,7 +7,7 @@
 //
 
 #import "WZMDeviceUtil.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "WZMAlertView.h"
 #import <objc/runtime.h>
 //麦克风
@@ -35,16 +35,16 @@
 //是否为越狱
 char* printEnv(void){
     char *env = getenv("DYLD_INSERT_LIBRARIES");
-    wzm_log(@"%s", env);
+    WZMLog(@"%s", env);
     return env;
 }
 
 + (BOOL)isPrisonBreakEquipment{
     if (printEnv()) {
-        wzm_log(@"The device is jail broken!");
+        WZMLog(@"The device is jail broken!");
         return YES;
     }
-    wzm_log(@"The device is NOT jail broken!");
+    WZMLog(@"The device is NOT jail broken!");
     return NO;
 }
 
@@ -298,7 +298,7 @@ char* printEnv(void){
             if ([info count]) {
                 NSString *ssid  = [info objectForKey:(__bridge NSString *)kCNNetworkInfoKeySSID];
                 NSString *bssid = [info objectForKey:(__bridge NSString *)kCNNetworkInfoKeyBSSID];
-                wzm_log(@"interfaceName:%@ ssid:%@ bssid:%@",ifnam,ssid,bssid);
+                WZMLog(@"interfaceName:%@ ssid:%@ bssid:%@",ifnam,ssid,bssid);
                 return ssid;
             }
         }

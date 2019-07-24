@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "WZMVideoPlayerItem.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
 #import "UIView+wzmcate.h"
@@ -529,17 +529,17 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
             [_player play];
         }
         else if (item.status == AVPlayerStatusFailed) {
-            wzm_log(@"AVPlayerStatusFailed");
+            WZMLog(@"AVPlayerStatusFailed");
         }
         else {
-            wzm_log(@"AVPlayerStatusUnknown");
+            WZMLog(@"AVPlayerStatusUnknown");
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSTimeInterval timeInterval = [self availableDuration];
         float pro = timeInterval/self.duration;
         if (pro >= 0.0 && pro <= 1.0) {
-            wzm_log(@"缓冲进度：%f",pro);
+            WZMLog(@"缓冲进度：%f",pro);
         }
     }
 }
@@ -573,7 +573,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 {
     _playBtn.selected = NO;
     _progressSlider.value = 1.0;
-    wzm_log(@"视频播放完毕！");
+    WZMLog(@"视频播放完毕！");
 }
 
 #pragma mark - super method
@@ -583,7 +583,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 }
 
 - (void)dealloc {
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player.currentItem removeObserver:self forKeyPath:@"status"];
     [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];

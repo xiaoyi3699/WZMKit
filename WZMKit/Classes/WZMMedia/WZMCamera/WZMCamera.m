@@ -8,7 +8,7 @@
 
 #import "WZMCamera.h"
 #import <AVFoundation/AVFoundation.h>
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMCamera (){
     AVCaptureSession *_captureSession;
@@ -24,19 +24,19 @@
         
         if (position == WZMCaptureDevicePositionBack) {
             if ([self isBackCameraAvailable] == NO) {
-                wzm_log(@"后摄像头不可用");
+                WZMLog(@"后摄像头不可用");
                 return self;
             }
         }
         else if (position == WZMCaptureDevicePositionFront) {
             if ([self isFrontCameraAvailable] == NO) {
-                wzm_log(@"前摄像头不可用");
+                WZMLog(@"前摄像头不可用");
                 return self;
             }
         }
         else {
             if ([self isCameraAvailable] == NO) {
-                wzm_log(@"摄像头不可用");
+                WZMLog(@"摄像头不可用");
                 return self;
             }
         }
@@ -45,7 +45,7 @@
         AVCaptureDevice *camera = [self cameraWithPosition:(AVCaptureDevicePosition)position];
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:camera error:&error];
         if (error) {
-            wzm_log(@"%@",[error localizedDescription]);
+            WZMLog(@"%@",[error localizedDescription]);
         }
         else {
             if (_captureSession == nil) {

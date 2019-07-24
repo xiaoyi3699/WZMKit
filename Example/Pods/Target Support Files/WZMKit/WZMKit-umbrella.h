@@ -81,7 +81,7 @@
 #import "WZMDispatch.h"
 #import "WZMJSONParse.h"
 #import "WZMLocationManager.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "WZMNetWorking.h"
 #import "WZMSendEmail.h"
 #import "WZMSignalException.h"

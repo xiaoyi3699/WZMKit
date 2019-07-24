@@ -7,7 +7,7 @@
 //
 
 #import "WZMReactionManager.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMReactionManager ()
 
@@ -227,7 +227,7 @@
 }
 
 - (void)dealloc {
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
     [self removeObserver];
 }
 

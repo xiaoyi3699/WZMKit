@@ -7,7 +7,7 @@
 //
 
 #import "WZMImageCache.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "WZMMacro.h"
 #import "WZMBase64.h"
 
@@ -295,7 +295,7 @@
 
 - (NSString *)storeImage:(UIImage *)image forKey:(NSString *)key {
     if (image == nil || key.length == 0) {
-        wzm_log(@"键值不能为空");
+        WZMLog(@"键值不能为空");
         return @"";
     }
     NSString *tureKey = [key wzm_base64EncodedString];
@@ -325,7 +325,7 @@
 
 - (NSString *)storeData:(NSData *)data forKey:(NSString *)key {
     if (data == nil || key.length == 0) {
-        wzm_log(@"键值不能为空");
+        WZMLog(@"键值不能为空");
         return @"";
     }
     NSString *tureKey = [key wzm_base64EncodedString];
@@ -381,7 +381,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return YES;
     }
-    wzm_log(@"fileExistsAtPath:文件未找到");
+    WZMLog(@"fileExistsAtPath:文件未找到");
     return NO;
 }
 
@@ -397,14 +397,14 @@
                                                              attributes:nil
                                                                   error:&error];
     if (error) {
-        wzm_log(@"创建文件夹失败:%@",error);
+        WZMLog(@"创建文件夹失败:%@",error);
     }
     return result;
 }
 
 - (BOOL)writeFile:(id)file toPath:(NSString *)path{
     BOOL isOK = [file writeToFile:path atomically:YES];
-    wzm_log(@"文件存储路径为:%@",path);
+    WZMLog(@"文件存储路径为:%@",path);
     return isOK;
 }
 
@@ -412,7 +412,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
         return [[NSFileManager defaultManager] removeItemAtPath:filePath error:error];
     }
-    wzm_log(@"deleteFileAtPath:error:路径未找到");
+    WZMLog(@"deleteFileAtPath:error:路径未找到");
     return YES;
 }
 

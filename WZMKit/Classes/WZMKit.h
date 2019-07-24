@@ -80,7 +80,7 @@
  在AppDelegate中允许打印日志
  wzm_openLogEnable(YES);
  */
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 /*
  常用枚举

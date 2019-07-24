@@ -9,7 +9,7 @@
 #import "WZMSqliteManager.h"
 #import <objc/runtime.h>
 #import <sqlite3.h>
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMSqliteManager (){
     NSString *_dataBasePath;
@@ -52,7 +52,7 @@
             int result = sqlite3_exec(_sql3, sql.UTF8String, NULL, NULL, NULL);
             if (result != SQLITE_OK) {
                 //NSAssert(NO, @"数据库-创建-失败");
-                wzm_log(@"数据库-创建-失败");
+                WZMLog(@"数据库-创建-失败");
             }
             [self closeDataBase];
             return (result == SQLITE_OK);
@@ -105,11 +105,11 @@
         }
     }
     if (keySql == nil) {
-        wzm_log(@"数据库删除失败:字段[%@]不存在",primkey);
+        WZMLog(@"数据库删除失败:字段[%@]不存在",primkey);
         return NO;
     }
     NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@",tableName,keySql];
-    wzm_log(@"%@",sql);
+    WZMLog(@"%@",sql);
     return ![self execute:sql];
 }
 
@@ -135,11 +135,11 @@
         [values appendFormat:@"`%@`='%@',", key, value];
     }
     if (keySql == nil) {
-        wzm_log(@"数据库更新失败:字段[%@]不存在",primkey);
+        WZMLog(@"数据库更新失败:字段[%@]不存在",primkey);
         return NO;
     }
     NSString *sql = [NSString stringWithFormat:@"update %@ set %@ where %@",tableName,[values substringToIndex:values.length - 1], keySql];
-    wzm_log(@"%@",sql);
+    WZMLog(@"%@",sql);
     return ![self execute:sql];
 }
 
@@ -230,7 +230,7 @@
     else{
         sqlite3_close(_sql3);
         //NSAssert(NO, @"数据库-打开-失败");
-        wzm_log(@"数据库-打开-失败");
+        WZMLog(@"数据库-打开-失败");
         return NO;
     }
 }

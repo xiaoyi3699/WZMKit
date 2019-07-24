@@ -7,7 +7,7 @@
 //
 
 #import "WZMNetWorking.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "NSString+wzmcate.h"
 
 NSString * const WZMNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
@@ -107,7 +107,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
     NSURLSessionDataTask *task = [[self session] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
         //            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        //            wzm_log(@"%ld",(long)httpResponse.statusCode);
+        //            WZMLog(@"%ld",(long)httpResponse.statusCode);
         //        }
         if (callBack) {
             if (self.resultContentType == WZMNetResultContentTypeData) {
@@ -122,11 +122,11 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
                                                                 options:kNilOptions//返回不可变对象
                                                                   error:&jsonError];
                     if (jsonError) {
-                        wzm_log(@"网络请求成功，数据解析失败：%@",jsonError);
+                        WZMLog(@"网络请求成功，数据解析失败：%@",jsonError);
                     }
                 }
                 else {
-                    wzm_log(@"请求数据失败：%@",error);
+                    WZMLog(@"请求数据失败：%@",error);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     callBack(resultObj,error);

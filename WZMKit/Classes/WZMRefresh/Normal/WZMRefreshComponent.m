@@ -9,7 +9,7 @@
 #import "WZMRefreshComponent.h"
 #import "WZMRefreshHeaderView.h"
 #import "WZMRefreshFooterView.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMRefreshComponent ()
 
@@ -204,7 +204,7 @@
 
 - (void)dealloc {
     [self removeObservers];
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

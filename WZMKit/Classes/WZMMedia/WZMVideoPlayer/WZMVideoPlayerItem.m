@@ -7,7 +7,7 @@
 //
 
 #import "WZMVideoPlayerItem.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @implementation WZMVideoPlayerItem
 
@@ -17,7 +17,7 @@
         [self removeObserver:self.observer forKeyPath:@"status"];
         [self removeObserver:self.observer forKeyPath:@"loadedTimeRanges"];
     }
-    wzm_log(@"%@释放了",NSStringFromClass(self.class));
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

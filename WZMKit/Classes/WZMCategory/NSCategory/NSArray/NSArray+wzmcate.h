@@ -58,7 +58,7 @@
  3、打印排序结果
  for (NSInteger i = 0; i < 20; i ++) {
  WZMBaseModel *model = array[i];
- wzm_log(@"age=%ld",(long)model.age);
+ WZMLog(@"age=%ld",(long)model.age);
  }
  */
 

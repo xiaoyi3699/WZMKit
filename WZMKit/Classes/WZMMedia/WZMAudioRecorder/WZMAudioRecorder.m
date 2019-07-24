@@ -7,7 +7,7 @@
 //
 
 #import "WZMAudioRecorder.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface WZMAudioRecorder ()<AVAudioRecorderDelegate>

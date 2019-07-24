@@ -7,7 +7,7 @@
 //
 
 #import "WZMSendEmail.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 #import "NSString+wzmcate.h"
 
 @implementation WZMSendEmail
@@ -49,19 +49,19 @@
     switch (result)
     {
         case MFMailComposeResultCancelled: {
-            wzm_log(@"用户取消编辑");
+            WZMLog(@"用户取消编辑");
         }
             break;
         case MFMailComposeResultSaved: {
-            wzm_log(@"用户保存邮件");
+            WZMLog(@"用户保存邮件");
         }
             break;
         case MFMailComposeResultSent: {
-            wzm_log(@"用户点击发送");
+            WZMLog(@"用户点击发送");
         }
             break;
         case MFMailComposeResultFailed: {
-            wzm_log(@"用户尝试保存或发送邮件失败: %@", [error localizedDescription]);
+            WZMLog(@"用户尝试保存或发送邮件失败: %@", [error localizedDescription]);
         }break;
     }
     [controller dismissViewControllerAnimated:YES completion:nil];

@@ -7,7 +7,7 @@
 //
 
 #import "WZMFontView.h"
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMFontView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -115,7 +115,7 @@
     NSInteger row = indexPath.row;
     NSString* fontName = [[_fonts objectAtIndex:section] objectAtIndex:row];
     
-    wzm_log(@"字体名称为：%@",fontName);
+    WZMLog(@"字体名称为：%@",fontName);
 }
 
 @end

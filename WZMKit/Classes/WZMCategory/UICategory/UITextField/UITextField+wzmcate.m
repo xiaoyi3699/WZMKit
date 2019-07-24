@@ -8,7 +8,7 @@
 
 #import "UITextField+wzmcate.h"
 #import <objc/runtime.h>
-#import "WZMLog.h"
+#import "WZMLogPrinter.h"
 
 #define TF_WZM_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 @implementation UITextField (wzmcate)
@@ -131,7 +131,7 @@ static NSString *_performActionKey = @"performAction";
                 //首字母不能为0
                 if([self.text length] == 0){
                     if (single == '0') {
-                        wzm_log(@"亲，第一个数字不能为0");
+                        WZMLog(@"亲，第一个数字不能为0");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -139,7 +139,7 @@ static NSString *_performActionKey = @"performAction";
                 return YES;
             }
             else{//输入的数据格式不正确
-                wzm_log(@"亲，您输入的格式不正确");
+                WZMLog(@"亲，您输入的格式不正确");
                 [self.text stringByReplacingCharactersInRange:range withString:@""];
                 return NO;
             }
@@ -167,7 +167,7 @@ static NSString *_performActionKey = @"performAction";
                 //首字母不能为小数点
                 if([self.text length] == 0){
                     if(single == '.') {
-                        wzm_log(@"亲，第一个数字不能为小数点");
+                        WZMLog(@"亲，第一个数字不能为小数点");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -178,7 +178,7 @@ static NSString *_performActionKey = @"performAction";
                         return YES;
                     }
                     else{
-                        wzm_log(@"亲，您已经输入过小数点了");
+                        WZMLog(@"亲，您已经输入过小数点了");
                         [self.text stringByReplacingCharactersInRange:range withString:@""];
                         return NO;
                     }
@@ -191,7 +191,7 @@ static NSString *_performActionKey = @"performAction";
                             return YES;
                         }
                         else{
-                            wzm_log(@"%@",[NSString stringWithFormat:@"亲，您最多输入%ld位小数",(long)pointNums]);
+                            WZMLog(@"%@",[NSString stringWithFormat:@"亲，您最多输入%ld位小数",(long)pointNums]);
                             return NO;
                         }
                     }
@@ -201,7 +201,7 @@ static NSString *_performActionKey = @"performAction";
                 }
             }
             else{//输入的数据格式不正确
-                wzm_log(@"亲，您输入的格式不正确");
+                WZMLog(@"亲，您输入的格式不正确");
                 [self.text stringByReplacingCharactersInRange:range withString:@""];
                 return NO;
             }
@@ -318,10 +318,10 @@ static NSString *_performActionKey = @"performAction";
 
 - (void)dealKeyboardHide:(UIButton *)btn {
     if (btn.tag == 0) {
-        wzm_log(@"取消");
+        WZMLog(@"取消");
     }
     else {
-        wzm_log(@"完成");
+        WZMLog(@"完成");
     }
     [self resignFirstResponder];
 }
