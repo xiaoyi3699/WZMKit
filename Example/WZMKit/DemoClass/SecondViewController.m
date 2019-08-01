@@ -7,10 +7,13 @@
 //
 
 #import "SecondViewController.h"
+#import "ScannerViewController.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()
+@interface SecondViewController ()<WZMPlayerDelegate> {
+    WZMPlayer *player;
+}
 
 @end
 
@@ -28,10 +31,23 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    WZMPlayerView *view = [[WZMPlayerView alloc] initWithFrame:CGRectMake(0, 64, WZM_SCREEN_WIDTH, 400)];
+    view.backgroundColor = [UIColor redColor];
+    [self.view addSubview:view];
+    
+    player = [[WZMPlayer alloc] init];
+    player.delegate = self;
+    player.playerView = view;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+    
+    [player playWithURL:[NSURL URLWithString:@"http://sqb.gudaomoni.com/kdtest.mp4"]];
+}
+
+- (void)playerLoadProgress:(WZMPlayer *)player {
+    NSLog(@"===%@",@(player.loadProgress));
 }
 
 @end

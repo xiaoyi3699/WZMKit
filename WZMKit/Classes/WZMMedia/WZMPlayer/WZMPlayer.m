@@ -60,6 +60,7 @@
     self.currentTime = 0;
     self.playProgress = 0;
     self.loadProgress = 0;
+    [self relatePlayer:nil];
 }
 
 //url：文件路径或文件网络地址

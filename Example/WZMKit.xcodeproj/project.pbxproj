@@ -18,6 +18,9 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		7505DE8322EA8E580012A2E9 /* qrLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7505DE7F22EA8E580012A2E9 /* qrLine@2x.png */; };
+		7505DE8422EA8E580012A2E9 /* qrBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7505DE8022EA8E580012A2E9 /* qrBg@2x.png */; };
+		7505DE8522EA8E580012A2E9 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7505DE8222EA8E580012A2E9 /* ScannerViewController.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
@@ -55,6 +58,10 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		7505DE7F22EA8E580012A2E9 /* qrLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrLine@2x.png"; sourceTree = "<group>"; };
+		7505DE8022EA8E580012A2E9 /* qrBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrBg@2x.png"; sourceTree = "<group>"; };
+		7505DE8122EA8E580012A2E9 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
+		7505DE8222EA8E580012A2E9 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -192,9 +199,21 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		7505DE7E22EA8E410012A2E9 /* ScanQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				7505DE8022EA8E580012A2E9 /* qrBg@2x.png */,
+				7505DE7F22EA8E580012A2E9 /* qrLine@2x.png */,
+				7505DE8122EA8E580012A2E9 /* ScannerViewController.h */,
+				7505DE8222EA8E580012A2E9 /* ScannerViewController.m */,
+			);
+			path = ScanQRCode;
+			sourceTree = "<group>";
+		};
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
+				7505DE7E22EA8E410012A2E9 /* ScanQRCode */,
 				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
 				7558CBB922DF4FB80043651C /* FirstViewController.m */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
@@ -296,8 +315,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7505DE8422EA8E580012A2E9 /* qrBg@2x.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				7505DE8322EA8E580012A2E9 /* qrLine@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
+				7505DE8522EA8E580012A2E9 /* ScannerViewController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
