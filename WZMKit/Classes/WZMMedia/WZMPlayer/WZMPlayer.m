@@ -276,6 +276,16 @@
     }
 }
 
+- (void)stop {
+    if (_player) {
+        self.playing = NO;
+        [_player pause];
+        [self resetConfig];
+        [self seekToTime:0.0];
+        [self wzm_changeStatus];
+    }
+}
+
 //注册taskId
 - (UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId {
     //设置后台任务ID

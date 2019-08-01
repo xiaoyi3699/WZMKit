@@ -32,6 +32,7 @@
 - (void)playWithURL:(NSURL *)url;
 - (void)play;
 - (void)pause;
+- (void)stop;
 - (void)seekToTime:(NSInteger)time;
 - (void)seekToProgress:(CGFloat)progress;
 
