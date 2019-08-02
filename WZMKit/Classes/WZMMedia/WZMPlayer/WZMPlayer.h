@@ -21,7 +21,7 @@
 ///当前播放时间
 @property (nonatomic, readonly, assign) NSInteger currentTime;
 ///播放状态
-@property (nonatomic, assign, getter=isPlaying) BOOL playing;
+@property (nonatomic, assign, readonly, getter=isPlaying) BOOL playing;
 ///是否允许后台播放, 默认NO, 后台播放需要应用简单配置
 @property (nonatomic, assign, getter=isBackground) BOOL background;
 ///代理事件

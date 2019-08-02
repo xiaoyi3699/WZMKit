@@ -22,6 +22,7 @@
 @property (nonatomic, assign) NSInteger currentTime;  //当前播放时间
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
+@property (nonatomic, assign, getter=isPlaying) BOOL playing;
 
 @end
 
