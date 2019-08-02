@@ -78,6 +78,7 @@
 #import "WZMAppJump.h"
 #import "WZMAppStore.h"
 #import "WZMDeviceUtil.h"
+#import "WZMDownloader.h"
 #import "WZMDispatch.h"
 #import "WZMJSONParse.h"
 #import "WZMLocationManager.h"

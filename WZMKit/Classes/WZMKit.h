@@ -115,6 +115,7 @@
  网络请求
  */
 #import "WZMNetWorking.h"
+#import "WZMDownloader.h"
 
 /*
  下拉刷新
