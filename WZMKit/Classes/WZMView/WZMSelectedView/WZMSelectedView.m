@@ -87,7 +87,7 @@
     }
 }
 
-- (void)setselectedTitleColor:(UIColor *)selectedTitleColor {
+- (void)setSelectedTitleColor:(UIColor *)selectedTitleColor {
     if (_selectedTitleColor == selectedTitleColor) {
         return;
     }
@@ -96,7 +96,7 @@
     [_selectedBtn setTitleColor:_selectedTitleColor forState:UIControlStateNormal];
 }
 
-- (void)setselectedLineColor:(UIColor *)selectedLineColor {
+- (void)setSelectedLineColor:(UIColor *)selectedLineColor {
     if (_selectedLineColor == selectedLineColor) {
         return;
     }
@@ -104,7 +104,7 @@
     _selectedLineView.backgroundColor = _selectedLineColor;
 }
 
-- (void)setlineColor:(UIColor *)lineColor {
+- (void)setLineColor:(UIColor *)lineColor {
     if (_lineColor == lineColor) {
         return;
     }
