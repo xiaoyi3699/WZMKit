@@ -229,6 +229,8 @@
 
 - (void)wzm_beginPlaying {
     if (self.duration > 0) {
+        self.playing = YES;
+        [self wzm_changeStatus];
         if ([self.delegate respondsToSelector:@selector(playerBeginPlaying:)]) {
             [self.delegate playerBeginPlaying:self];
         }
@@ -242,6 +244,8 @@
 }
 
 - (void)wzm_endPlaying {
+    self.playing = NO;
+    [self wzm_changeStatus];
     if ([self.delegate respondsToSelector:@selector(playerEndPlaying:)]) {
         [self.delegate playerEndPlaying:self];
     }
@@ -262,6 +266,7 @@
 }
 
 - (void)play {
+    if (self.isPlaying) return;
     if (_player) {
         self.playing = YES;
         [_player play];
@@ -270,6 +275,7 @@
 }
 
 - (void)pause {
+    if (self.isPlaying == NO) return;
     if (_player) {
         self.playing = NO;
         [_player pause];
@@ -278,6 +284,7 @@
 }
 
 - (void)stop {
+    if (self.isPlaying == NO) return;
     if (_player) {
         self.playing = NO;
         [_player pause];
