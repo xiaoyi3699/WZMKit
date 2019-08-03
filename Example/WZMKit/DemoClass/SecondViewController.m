@@ -15,6 +15,8 @@
     WZMPlayer *player;
 }
 
+@property (nonatomic, strong) WZMDownloader *downloader;
+
 @end
 
 @implementation SecondViewController
@@ -31,19 +33,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    WZMPlayerView *view = [[WZMPlayerView alloc] initWithFrame:CGRectMake(0, 64, WZM_SCREEN_WIDTH, 400)];
-    view.backgroundColor = [UIColor redColor];
-    [self.view addSubview:view];
-    
-    player = [[WZMPlayer alloc] init];
-    player.delegate = self;
-    player.playerView = view;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    [player playWithURL:[NSURL URLWithString:@"http://sqb.gudaomoni.com/kdtest.mp4"]];
 }
 
 - (void)playerLoadProgress:(WZMPlayer *)player {

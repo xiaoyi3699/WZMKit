@@ -21,17 +21,17 @@
 
 @implementation WZMDownloader
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        //监听程序进入前台
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-        
-        //监听程序退到后台
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
-    }
-    return self;
-}
+//- (instancetype)init {
+//    self = [super init];
+//    if (self) {
+//        //监听程序进入前台
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+//
+//        //监听程序退到后台
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
+//    }
+//    return self;
+//}
 
 //开始
 - (void)start {
@@ -76,7 +76,7 @@
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     if ([self.delegate respondsToSelector:@selector(downloader:didWriteBytes:totalBytes:)]) {
-        [self.delegate downloader:self didWriteBytes:totalBytesWritten totalBytes:totalBytesWritten];
+        [self.delegate downloader:self didWriteBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
     }
 }
 
