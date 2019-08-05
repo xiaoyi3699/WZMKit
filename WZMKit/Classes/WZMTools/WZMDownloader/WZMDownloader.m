@@ -83,6 +83,7 @@
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    if (self.isDownloading == NO) return;
     if ([self.delegate respondsToSelector:@selector(downloader:didWriteBytes:totalBytes:)]) {
         [self.delegate downloader:self didWriteBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
     }
