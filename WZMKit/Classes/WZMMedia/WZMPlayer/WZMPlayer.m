@@ -23,6 +23,7 @@
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
+@property (nonatomic, assign, getter=isLocking) BOOL locking;
 
 @end
 
@@ -31,6 +32,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.playing = NO;
+        self.locking = NO;
         self.background = NO;
         
         //监听音频播放结束
@@ -128,6 +131,7 @@
                       ofObject:(id)object
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
+    if (self.isBackground == NO && self.isLocking) return;
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
@@ -171,11 +175,13 @@
 
 //程序进入前台
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
+    self.locking = NO;
     [self play];//恢复播放
 }
 
 //监听程序退到后台
 - (void)applicationWillResignActive:(NSNotification *)notification {
+    self.locking = YES;
     if (self.isBackground) {
         //注册后台播放,如果需要后台播放网络歌曲，必须注册taskId
         _bgTaskId = [self backgroundPlayerID:_bgTaskId];
