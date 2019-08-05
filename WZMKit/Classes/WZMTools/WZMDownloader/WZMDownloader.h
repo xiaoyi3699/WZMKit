@@ -23,6 +23,8 @@
 - (void)start;
 ///暂停
 - (void)pause;
+///停止
+- (void)stop;
 
 @end
 

@@ -69,6 +69,14 @@
     }];
 }
 
+//停止
+- (void)stop {
+    self.resumeData = nil;
+    if (self.isDownloading == NO) return;
+    self.downloading = NO;
+    [self.task cancelByProducingResumeData:nil];
+}
+
 #pragma mark - NSURLSessionDownloadDelegate
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
