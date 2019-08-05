@@ -74,7 +74,7 @@
     self.resumeData = nil;
     if (self.isDownloading == NO) return;
     self.downloading = NO;
-    [self.task cancelByProducingResumeData:nil];
+    [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {}];
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
