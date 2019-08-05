@@ -92,6 +92,7 @@
                 _player = [[AVPlayer alloc] initWithPlayerItem:item];
             }
             
+            self.locking = NO;
             //观察播放状态
             [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
             //观察缓冲进度
@@ -175,7 +176,6 @@
 
 //程序进入前台
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    self.locking = NO;
     [self play];//恢复播放
 }
 
@@ -274,6 +274,7 @@
 - (void)play {
     if (self.isPlaying) return;
     if (_player) {
+        self.locking = NO;
         self.playing = YES;
         [_player play];
         [self wzm_changeStatus];
