@@ -272,9 +272,9 @@
 }
 
 - (void)play {
+    self.locking = NO;
     if (self.isPlaying) return;
     if (_player) {
-        self.locking = NO;
         self.playing = YES;
         [_player play];
         [self wzm_changeStatus];
@@ -282,6 +282,7 @@
 }
 
 - (void)pause {
+    self.locking = YES;
     if (self.isPlaying == NO) return;
     if (_player) {
         self.playing = NO;
@@ -291,6 +292,7 @@
 }
 
 - (void)stop {
+    self.locking = YES;
     if (self.isPlaying == NO) return;
     if (_player) {
         self.playing = NO;
