@@ -28,6 +28,7 @@
 		75FB378522F99FA60064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378422F99FA60064CF6C /* WZMAlbumModel.m */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumPhotoModel.m */; };
 		75FB378B22F9A2920064CF6C /* WZMAlbumPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378A22F9A2920064CF6C /* WZMAlbumPhotoCell.m */; };
+		75FB378E22F9B3B30064CF6C /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 		DE012CDCE7AE8D032B2B7FB0 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C63DD93959D398BDB5C6D81 /* Pods_WZMKit_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,8 @@
 		75FB378722F99FC70064CF6C /* WZMAlbumPhotoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumPhotoModel.m; sourceTree = "<group>"; };
 		75FB378922F9A2920064CF6C /* WZMAlbumPhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumPhotoCell.h; sourceTree = "<group>"; };
 		75FB378A22F9A2920064CF6C /* WZMAlbumPhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumPhotoCell.m; sourceTree = "<group>"; };
+		75FB378C22F9B3B30064CF6C /* WZMAlbumHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumHelper.h; sourceTree = "<group>"; };
+		75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumHelper.m; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF91485E0336DB80B22F793 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 		75FB377F22F99F440064CF6C /* AlbumBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				75FB378C22F9B3B30064CF6C /* WZMAlbumHelper.h */,
+				75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */,
 				75FB378322F99FA60064CF6C /* WZMAlbumModel.h */,
 				75FB378422F99FA60064CF6C /* WZMAlbumModel.m */,
 				75FB378622F99FC70064CF6C /* WZMAlbumPhotoModel.h */,
@@ -440,6 +445,7 @@
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
+				75FB378E22F9B3B30064CF6C /* WZMAlbumHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

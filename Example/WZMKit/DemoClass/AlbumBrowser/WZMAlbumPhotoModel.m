@@ -7,6 +7,7 @@
 //
 
 #import "WZMAlbumPhotoModel.h"
+#import "WZMAlbumHelper.h"
 
 @implementation WZMAlbumPhotoModel
 
@@ -14,24 +15,8 @@
     WZMAlbumPhotoModel *model = [[WZMAlbumPhotoModel alloc] init];
     model.asset = asset;
     model.isSelected = NO;
-    model.type = [self getAssetType:asset];
+    model.type = [WZMAlbumHelper getAssetType:asset];
     return model;
-}
-
-+ (WZMAlbumPhotoType)getAssetType:(PHAsset *)asset {
-    WZMAlbumPhotoType type = WZMAlbumPhotoTypePhoto;
-    PHAsset *phAsset = (PHAsset *)asset;
-    if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = WZMAlbumPhotoTypeVideo;
-    else if (phAsset.mediaType == PHAssetMediaTypeAudio) type = WZMAlbumPhotoTypeAudio;
-    else if (phAsset.mediaType == PHAssetMediaTypeImage) {
-        if (@available(iOS 9.1, *)) {
-//             if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = WZMAlbumPhotoTypeLivePhoto;
-        }
-        if ([[phAsset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
-            type = WZMAlbumPhotoTypePhotoGif;
-        }
-    }
-    return type;
 }
 
 @end
