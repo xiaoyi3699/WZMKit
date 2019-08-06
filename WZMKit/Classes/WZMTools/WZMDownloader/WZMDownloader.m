@@ -60,21 +60,28 @@
 }
 
 //暂停
-- (void)pause {
+- (void)pause:(void(^)(void))completion {
     if (self.isDownloading == NO) return;
     self.downloading = NO;
     __weak typeof(self) weakSelf = self;
     [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
         weakSelf.resumeData = resumeData;
+        if (completion) {
+            completion();
+        }
     }];
 }
 
 //停止
-- (void)stop {
+- (void)stop:(void(^)(void))completion {
     self.resumeData = nil;
     if (self.isDownloading == NO) return;
     self.downloading = NO;
-    [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {}];
+    [self.task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 #pragma mark - NSURLSessionDownloadDelegate
@@ -126,7 +133,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 }
 
 - (void)applicationWillResignActive:(NSNotification *)n {
-    [self pause];
+    [self pause:nil];
 }
 
 - (NSURLSession *)session {

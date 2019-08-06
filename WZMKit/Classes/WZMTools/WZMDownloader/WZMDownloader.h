@@ -22,9 +22,9 @@
 ///开始
 - (void)start;
 ///暂停
-- (void)pause;
+- (void)pause:(void(^)(void))completion;
 ///停止
-- (void)stop;
+- (void)stop:(void(^)(void))completion;
 
 @end
 
