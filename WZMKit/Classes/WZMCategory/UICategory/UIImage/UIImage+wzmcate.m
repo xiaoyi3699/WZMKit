@@ -59,6 +59,7 @@
     return image;
 }
 
+//获取图片
 + (void)wzm_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion {
     [self wzm_getOriginalPhotoWithAsset:asset newCompletion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if (completion) {
@@ -162,6 +163,80 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+//获取视频
+- (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
+    PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
+    options.version = PHVideoRequestOptionsVersionOriginal;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    options.networkAccessAllowed = YES;
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        // NSLog(@"Info:\n%@",info);
+        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+        // NSLog(@"AVAsset URL: %@",myAsset.URL);
+        [self startExportVideoWithVideoAsset:videoAsset presetName:AVAssetExportPreset640x480 completion:completion];
+    }];
+}
+
+- (void)startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void (^)(NSString *videoPath, NSString *desc))completion {
+    // Find compatible presets by video asset.
+    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
+    
+    if ([presets containsObject:presetName]) {
+        AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
+        NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+        [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss-SSS"];
+        NSString *outputPath = [NSHomeDirectory() stringByAppendingFormat:@"/tmp/video-%@.mp4", [formater stringFromDate:[NSDate date]]];
+        
+        // Optimize for network use.
+        session.shouldOptimizeForNetworkUse = true;
+        
+        NSArray *supportedTypeArray = session.supportedFileTypes;
+        if (supportedTypeArray.count == 0) {
+            if (completion) {
+                completion(nil, @"该视频类型暂不支持导出");
+            }
+            return;
+        }
+        else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
+            session.outputFileType = AVFileTypeMPEG4;
+        } else {
+            session.outputFileType = [supportedTypeArray objectAtIndex:0];
+            if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
+                outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
+            }
+        }
+        // NSLog(@"video outputPath = %@",outputPath);
+        session.outputURL = [NSURL fileURLWithPath:outputPath];
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"]]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"] withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        
+        // Begin to export video to the output path asynchronously.
+        [session exportAsynchronouslyWithCompletionHandler:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                switch (session.status) {
+                    case AVAssetExportSessionStatusCompleted: {
+                        if (completion) {
+                            completion(outputPath, nil);
+                        }
+                    }  break;
+                    default: {
+                        if (completion) {
+                            completion(nil, session.error.description);
+                        }
+                    };
+                }
+            });
+        }];
+    } else {
+        if (completion) {
+            NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", presetName];
+            completion(nil, des);
+        }
+    }
 }
 
 + (UIImage *)wzm_getImageByBase64:(NSString *)str {

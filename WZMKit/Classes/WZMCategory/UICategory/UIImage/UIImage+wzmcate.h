@@ -23,6 +23,8 @@
 + (UIImage *)wzm_getScreenImageByView:(UIView *)view;
 ///根据ALAsset/PHAsset获取image
 + (void)wzm_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
+///根据ALAsset/PHAsset获取视频
+- (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion;
 ///base64编码转换为图片
 + (UIImage *)wzm_getImageByBase64:(NSString *)str;
 ///创建一个动态图片，动态图片持续的时间为duration
