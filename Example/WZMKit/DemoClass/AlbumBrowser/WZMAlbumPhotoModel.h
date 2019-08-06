@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 @interface WZMAlbumPhotoModel : NSObject
 
 @property (nonatomic, strong) PHAsset *asset;
-@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, assign) WZMAlbumPhotoType type;
 
 + (instancetype)modelWithAsset:(PHAsset *)asset;

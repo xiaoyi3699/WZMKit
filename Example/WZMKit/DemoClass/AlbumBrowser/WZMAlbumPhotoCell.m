@@ -9,6 +9,12 @@
 #import "WZMAlbumPhotoCell.h"
 #import "WZMAlbumHelper.h"
 
+@interface WZMAlbumPhotoCell ()
+
+@property (nonatomic, strong) WZMAlbumPhotoModel *model;
+
+@end
+
 @implementation WZMAlbumPhotoCell {
     int32_t _imageRequestID;
     NSString *_representedAssetIdentifier;
@@ -17,6 +23,7 @@
     UIView *_videoTimeView;
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
+    UIButton *_selectedBtn;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -55,11 +62,19 @@
         _gifLabel.textAlignment = NSTextAlignmentCenter;
         _gifLabel.hidden = YES;
         [self addSubview:_gifLabel];
+        
+        _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _selectedBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_normal"] forState:UIControlStateNormal];
+        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_seleced"] forState:UIControlStateSelected];
+        [_selectedBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_selectedBtn];
     }
     return self;
 }
 
 - (void)setConfig:(WZMAlbumPhotoModel *)photoModel {
+    self.model = photoModel;
     _representedAssetIdentifier = photoModel.asset.localIdentifier;
     int32_t imageRequestID = [WZMAlbumHelper getPhotoWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if ([_representedAssetIdentifier isEqualToString:photoModel.asset.localIdentifier]) {
@@ -75,6 +90,7 @@
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }
     _imageRequestID = imageRequestID;
+    _selectedBtn.selected = photoModel.isSelected;
     if (photoModel.type == WZMAlbumPhotoTypePhotoGif) {
         _gifLabel.hidden = NO;
         _videoTimeView.hidden = YES;
@@ -92,6 +108,14 @@
         _videoTimeView.hidden = YES;
         _playImageView.hidden = YES;
         _videoTimeLabel.text = @"";
+    }
+}
+
+- (void)btnClick:(UIButton *)btn {
+    btn.selected = !btn.isSelected;
+    self.model.selected = btn.isSelected;
+    if ([self.delegate respondsToSelector:@selector(albumPhotoCell:didSelected:)]) {
+        [self.delegate albumPhotoCell:self didSelected:btn.isSelected];
     }
 }
 

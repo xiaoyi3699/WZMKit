@@ -14,7 +14,7 @@
 + (instancetype)modelWithAsset:(PHAsset *)asset {
     WZMAlbumPhotoModel *model = [[WZMAlbumPhotoModel alloc] init];
     model.asset = asset;
-    model.isSelected = NO;
+    model.selected = NO;
     model.type = [WZMAlbumHelper getAssetType:asset];
     return model;
 }
