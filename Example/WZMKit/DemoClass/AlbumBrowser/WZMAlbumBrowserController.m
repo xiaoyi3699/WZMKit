@@ -33,15 +33,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGFloat itemW = floor((self.albumFrame.size.width-20-10*(self.column-1))/self.column);
+    CGFloat itemW = floor((self.albumFrame.size.width-10-5*(self.column-1))/self.column);
     CGFloat itemH = itemW;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.itemSize = CGSizeMake(itemW, itemH);
-    flowLayout.minimumInteritemSpacing = 10;
-    flowLayout.minimumLineSpacing = 10;
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.minimumInteritemSpacing = 5;
+    flowLayout.minimumLineSpacing = 5;
+    flowLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.albumFrame collectionViewLayout:flowLayout];
     collectionView.delegate = self;
