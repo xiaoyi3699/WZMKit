@@ -259,7 +259,7 @@
 		120D4C2898B6C9FBB642D21E52F5B19F /* UINavigationBar+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+wzmcate.h"; sourceTree = "<group>"; };
 		12439E5A947B705D0FD40817227382BE /* WZMReactionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMReactionManager.m; sourceTree = "<group>"; };
 		12D267586FE8EDFAEEC88967D3066E5C /* UILabel+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UILabel+wzmcate.h"; sourceTree = "<group>"; };
-		149EE873E2664868F437E54C16F6A18A /* WZMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WZMKit.framework; path = WZMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		149EE873E2664868F437E54C16F6A18A /* WZMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WZMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1534D16DE61B80FF0A3AFE6BD2CD01EE /* UITextField+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITextField+wzmcate.m"; sourceTree = "<group>"; };
 		15BCBF2F1AEF59409745A4C8D8C8CED0 /* WZMCatchStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMCatchStore.m; sourceTree = "<group>"; };
 		1B6335FE85B01766704A39CC1F27E394 /* WZMAnimationNumItemView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAnimationNumItemView.h; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 		1C07ACB0A7C20190E01F3EF5EBB70213 /* NSAttributedString+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+wzmcate.h"; sourceTree = "<group>"; };
 		1C89C911D4CE6D7D357AA328D86E5095 /* Pods-WZMKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WZMKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1CE40BE20AFEDDCBC5ECDF3225282864 /* WZMFontView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMFontView.h; sourceTree = "<group>"; };
-		1D9A50CEBE390C9C7A9385DBD3CE59A8 /* WZMKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = WZMKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1D9A50CEBE390C9C7A9385DBD3CE59A8 /* WZMKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = WZMKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		1DBA24B37840B4FDABB48EDBC6FF1426 /* WZMFontView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMFontView.m; sourceTree = "<group>"; };
 		1E1DF17A22ADD484CC02E44243F4B929 /* Pods-WZMKit_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-WZMKit_Tests-umbrella.h"; sourceTree = "<group>"; };
 		1E5A5456D43BA68BD925887474D79B12 /* WZMImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMImageCache.h; sourceTree = "<group>"; };
@@ -300,7 +300,7 @@
 		36F5B222855CAFD7B7DF63DDC61E751E /* UITextField+WZMReaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WZMReaction.m"; sourceTree = "<group>"; };
 		379162B09B8977DE88DA1575695A3C3A /* WZMLogTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMLogTableViewCell.h; sourceTree = "<group>"; };
 		385F6DCA827D49E41F0CCAADE83E7FC8 /* WZMMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMMacro.h; sourceTree = "<group>"; };
-		39C8F843EF2062B80B8F45E4805ED2A5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		39C8F843EF2062B80B8F45E4805ED2A5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		39CC34F4662F8DC88FB2F5247290AA6F /* WZMLogModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMLogModel.m; sourceTree = "<group>"; };
 		39EAD98F35080E46E0C672FC60D7DCED /* WZMJSONParse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMJSONParse.h; sourceTree = "<group>"; };
 		3A4EE9189ED618E482E0CAB6E08D5E07 /* WZMCatchStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMCatchStore.h; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		91FBEB461C46C9BCFBAC869A2E251B91 /* WZMScrollImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMScrollImageView.h; sourceTree = "<group>"; };
 		9285CA037D03C9C23278DF211189BE0D /* WZMSegmentedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedView.m; sourceTree = "<group>"; };
 		93A72D5623F4FCF8E68CDD916F073B02 /* UIView+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+wzmcate.m"; sourceTree = "<group>"; };
-		93CEB5FA9FE66686F946254295F2F9C1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		93CEB5FA9FE66686F946254295F2F9C1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		94BA1DC5566F767E1B4541384E570C63 /* UITextView+WZMReaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITextView+WZMReaction.h"; sourceTree = "<group>"; };
 		968367D2563089D80959EEBD35B36CE4 /* WZMUncaughtException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMUncaughtException.m; sourceTree = "<group>"; };
 		9730F05A033ABFA59F5201925A10F045 /* WZMTextInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMTextInfo.h; sourceTree = "<group>"; };
@@ -392,7 +392,7 @@
 		98FD45957AB45ECA4748D7BBEF2B79C7 /* WZMLocationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMLocationManager.h; sourceTree = "<group>"; };
 		994B7CD3C891967C5FA9E5405005D714 /* UIImage+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+wzmcate.m"; sourceTree = "<group>"; };
 		9AE7F4F3DEC85A911B889B259166AA4C /* WZMProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMProgressHUD.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F077DC5EC82680DC2B3B547C6ECB632 /* NSDate+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDate+wzmcate.h"; sourceTree = "<group>"; };
 		9F556494CE12C00E281613778113F21D /* wzm_player_play.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = wzm_player_play.png; path = WZMKit/Assets/wzm_player_play.png; sourceTree = "<group>"; };
 		A08D4935383E1DCA626C68558F5B031C /* UIWindow+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIWindow+wzmcate.h"; sourceTree = "<group>"; };
@@ -416,7 +416,7 @@
 		B68C69FA74C325BBD3BF9DE6F875E0CB /* WZMAppJump.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAppJump.h; sourceTree = "<group>"; };
 		B6E69FDE84C3F996300E0E2A3E61A7EA /* Pods-WZMKit_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WZMKit_Example-Info.plist"; sourceTree = "<group>"; };
 		B8D661E9F2AD3AB6CEC0CF7F3591E471 /* WZMRefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefreshComponent.h; sourceTree = "<group>"; };
-		B8E4ED1E4ABCF4360B8BF0BC24B9C241 /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_WZMKit_Example.framework; path = "Pods-WZMKit_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E4ED1E4ABCF4360B8BF0BC24B9C241 /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B929C4CB34417DFABBECFAD2014081E1 /* WZMRefreshFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefreshFooterView.h; sourceTree = "<group>"; };
 		BA9A3FA0C1C947F21F53A53E065EF9A2 /* WZMNetWorking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMNetWorking.m; sourceTree = "<group>"; };
 		BB32427D27F9BFF1B386CA0AC2DD59C7 /* WZMLogTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMLogTableViewCell.m; sourceTree = "<group>"; };
@@ -430,7 +430,7 @@
 		C6DA2A9E2F6AA679D64B612BF65173D8 /* Pods-WZMKit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-WZMKit_Tests.modulemap"; sourceTree = "<group>"; };
 		C7EEF2CDCC2C02ECF33E83D3D3F8FFB0 /* WZMVideoPlayerItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMVideoPlayerItem.h; sourceTree = "<group>"; };
 		C8871269A657D40168E41BF2693CC278 /* WZMDeviceUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMDeviceUtil.m; sourceTree = "<group>"; };
-		CA5498075F4AF33DC5CB6DC8D58F43C9 /* WZMKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = WZMKit.bundle; path = "WZMKit-WZMKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA5498075F4AF33DC5CB6DC8D58F43C9 /* WZMKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WZMKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB54AAD6763E1C0C8133D1268E58B1EE /* WZMJSONParse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMJSONParse.m; sourceTree = "<group>"; };
 		CC9ED78A7B92E3D8BA1E777143B41125 /* WZMVideoPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMVideoPlayerView.h; sourceTree = "<group>"; };
 		CF09F7AC8E68437AFCB8EC61B89BA598 /* NSString+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+wzmcate.h"; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 		E2AFD35E9B942199491452EFF0BD3C71 /* WZMKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WZMKit-umbrella.h"; sourceTree = "<group>"; };
 		E3FD1B5FCB897A8C3427D0737DE01FED /* WZMCycleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMCycleView.m; sourceTree = "<group>"; };
 		E4F4ADC76006B2C6E1E18C0DFF590C90 /* UIScrollView+WZMRefresh.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WZMRefresh.m"; sourceTree = "<group>"; };
-		E59DF45F35B735228C60D0D9AD7D053B /* Pods_WZMKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_WZMKit_Tests.framework; path = "Pods-WZMKit_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E59DF45F35B735228C60D0D9AD7D053B /* Pods_WZMKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E610C4E3979820FE66392F2C5CD95751 /* WZMKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WZMKit.h; path = WZMKit/Classes/WZMKit.h; sourceTree = "<group>"; };
 		E644B2FF36346B2BCA3A590029A47F13 /* NSAttributedString+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+wzmcate.m"; sourceTree = "<group>"; };
 		E6B7796DA5E0210DD9CCD4E337F53F42 /* WZMPublic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPublic.h; sourceTree = "<group>"; };
@@ -516,7 +516,6 @@
 				640EC8BE1E2CE7B33F0EB80648874284 /* NSNull+wzmcate.h */,
 				45F7ABB0CE9B7A612C5F289515F17782 /* NSNull+wzmcate.m */,
 			);
-			name = NSNull;
 			path = NSNull;
 			sourceTree = "<group>";
 		};
@@ -550,7 +549,6 @@
 				A4C9E4EBB229C0B0EB5B7271CF50FE3B /* UITextView+wzmcate.h */,
 				21314B37BF89E69E6A44FE057DECA107 /* UITextView+wzmcate.m */,
 			);
-			name = UITextView;
 			path = UITextView;
 			sourceTree = "<group>";
 		};
@@ -560,7 +558,6 @@
 				4AC093EF879E60EA4ABE12D5AF4BF205 /* WZMAutoHeader.h */,
 				D6E7C859C638474A5A2F7C6FA1C35303 /* WZMAutoHeader.m */,
 			);
-			name = WZMAutoHeader;
 			path = WZMAutoHeader;
 			sourceTree = "<group>";
 		};
@@ -593,7 +590,6 @@
 				91FBEB461C46C9BCFBAC869A2E251B91 /* WZMScrollImageView.h */,
 				8C825D36A4A091EE19F3E36E9478412E /* WZMScrollImageView.m */,
 			);
-			name = WZMScrollImageView;
 			path = WZMScrollImageView;
 			sourceTree = "<group>";
 		};
@@ -603,7 +599,6 @@
 				97ABB1B9922043C080956402DDBCD277 /* UIView+wzmcate.h */,
 				93A72D5623F4FCF8E68CDD916F073B02 /* UIView+wzmcate.m */,
 			);
-			name = UIView;
 			path = UIView;
 			sourceTree = "<group>";
 		};
@@ -613,7 +608,6 @@
 				6082E59FA9FFDBB591EF55A2DC2FEA33 /* WZMDispatch.h */,
 				5BFDB0BC6CC22990717B8EA6512D52CC /* WZMDispatch.m */,
 			);
-			name = WZMGCD;
 			path = WZMGCD;
 			sourceTree = "<group>";
 		};
@@ -623,7 +617,6 @@
 				1E5A5456D43BA68BD925887474D79B12 /* WZMImageCache.h */,
 				DFFC1650F083CFAE0CA02B76D2F6A980 /* WZMImageCache.m */,
 			);
-			name = WZMImageCache;
 			path = WZMImageCache;
 			sourceTree = "<group>";
 		};
@@ -633,7 +626,6 @@
 				A08D4935383E1DCA626C68558F5B031C /* UIWindow+wzmcate.h */,
 				42B3BB3ADEAF4AECACCC26CE034616C5 /* UIWindow+wzmcate.m */,
 			);
-			name = UIWindow;
 			path = UIWindow;
 			sourceTree = "<group>";
 		};
@@ -643,7 +635,6 @@
 				7554341A51FC1C8AE2C40B94F65AEA85 /* NSData+wzmcate.h */,
 				2EA4764E71B6EDBF10B3FFECDEE54CF6 /* NSData+wzmcate.m */,
 			);
-			name = NSData;
 			path = NSData;
 			sourceTree = "<group>";
 		};
@@ -663,7 +654,6 @@
 				385F6DCA827D49E41F0CCAADE83E7FC8 /* WZMMacro.h */,
 				9730F05A033ABFA59F5201925A10F045 /* WZMTextInfo.h */,
 			);
-			name = WZMConfig;
 			path = WZMConfig;
 			sourceTree = "<group>";
 		};
@@ -673,7 +663,6 @@
 				23A6EBAF87594E30B0C9588109F1A1EA /* WZMDrawView.h */,
 				FD714050C28EB2FB91027C0C68177314 /* WZMDrawView.m */,
 			);
-			name = WZMDrawView;
 			path = WZMDrawView;
 			sourceTree = "<group>";
 		};
@@ -690,7 +679,6 @@
 				D5FCE438F4441A65736085F79A4DE0B6 /* NSObject */,
 				89B1A2C260E8C6CD76807FF74E00BF2E /* NSString */,
 			);
-			name = NSCategory;
 			path = NSCategory;
 			sourceTree = "<group>";
 		};
@@ -700,7 +688,6 @@
 				98FD45957AB45ECA4748D7BBEF2B79C7 /* WZMLocationManager.h */,
 				F2CEC8EA11DD4EC346D2C96F2D40E12D /* WZMLocationManager.m */,
 			);
-			name = WZMLocationManager;
 			path = WZMLocationManager;
 			sourceTree = "<group>";
 		};
@@ -712,7 +699,6 @@
 				C2562E7CA0CCF7782CA4761D3ADC9686 /* WZMUncaughtException.h */,
 				968367D2563089D80959EEBD35B36CE4 /* WZMUncaughtException.m */,
 			);
-			name = WZMUncaughtException;
 			path = WZMUncaughtException;
 			sourceTree = "<group>";
 		};
@@ -726,7 +712,6 @@
 				5334E31905ADA7C43AEC0687372286C8 /* WZMPlayerView.h */,
 				3214E0048D16CE9474A50F10E3B24DDD /* WZMPlayerView.m */,
 			);
-			name = WZMPlayer;
 			path = WZMPlayer;
 			sourceTree = "<group>";
 		};
@@ -779,7 +764,6 @@
 				120D4C2898B6C9FBB642D21E52F5B19F /* UINavigationBar+wzmcate.h */,
 				3E6A137FF049AE7D3BE85980F098577B /* UINavigationBar+wzmcate.m */,
 			);
-			name = UINavigationBar;
 			path = UINavigationBar;
 			sourceTree = "<group>";
 		};
@@ -789,7 +773,6 @@
 				12D267586FE8EDFAEEC88967D3066E5C /* UILabel+wzmcate.h */,
 				547865DC88520DF9FE9AA5EBD037370C /* UILabel+wzmcate.m */,
 			);
-			name = UILabel;
 			path = UILabel;
 			sourceTree = "<group>";
 		};
@@ -799,7 +782,6 @@
 				55FE30A775A5180E031F49E00967A309 /* UIFont+wzmcate.h */,
 				1E7EA0E7AF4B2A0616CB7D6BAF6D7D24 /* UIFont+wzmcate.m */,
 			);
-			name = UIFont;
 			path = UIFont;
 			sourceTree = "<group>";
 		};
@@ -809,7 +791,6 @@
 				49F74127FC5382E2359FF2B4F63A816B /* WZMAppStore.h */,
 				AA3A7B92A7F0C1801576DC8A0E5A6E94 /* WZMAppStore.m */,
 			);
-			name = WZMAppStore;
 			path = WZMAppStore;
 			sourceTree = "<group>";
 		};
@@ -823,7 +804,6 @@
 				BF961078DC27922EF35AD3473ADA7242 /* WZMPhotoBrowserCell.h */,
 				A32C6DE47D72F30F56E9390098E2D183 /* WZMPhotoBrowserCell.m */,
 			);
-			name = WZMPhotoBrowser;
 			path = WZMPhotoBrowser;
 			sourceTree = "<group>";
 		};
@@ -844,7 +824,6 @@
 				00229B978AFFD92C60B96B3DF59EF8E2 /* WZMSelectedView.h */,
 				8FA0DFB3E12F7D6F0CC07450FA2C4390 /* WZMSelectedView.m */,
 			);
-			name = WZMSelectedView;
 			path = WZMSelectedView;
 			sourceTree = "<group>";
 		};
@@ -856,7 +835,6 @@
 				B54F8A59E6B58E7242508A631863E529 /* WZMViewHandle.h */,
 				6EB91B82DE9B77AB44F12E17E6D1AB4A /* WZMViewHandle.m */,
 			);
-			name = WZMHandle;
 			path = WZMHandle;
 			sourceTree = "<group>";
 		};
@@ -875,7 +853,6 @@
 				3E3C074D595741C99FD8E203DFE407B2 /* UIImage+wzmcate.h */,
 				994B7CD3C891967C5FA9E5405005D714 /* UIImage+wzmcate.m */,
 			);
-			name = UIImage;
 			path = UIImage;
 			sourceTree = "<group>";
 		};
@@ -884,7 +861,6 @@
 			children = (
 				73F2945359E1C91CF38E651B9E5F196A /* WZMInline.h */,
 			);
-			name = WZMInline;
 			path = WZMInline;
 			sourceTree = "<group>";
 		};
@@ -894,7 +870,6 @@
 				0A4490095675CB2C937F9A4F16E0EED9 /* WZMBase64.h */,
 				2DAEB54439F8387E24498D296A5EB509 /* WZMBase64.m */,
 			);
-			name = WZMBase64;
 			path = WZMBase64;
 			sourceTree = "<group>";
 		};
@@ -918,7 +893,6 @@
 				33A0B635BE2FDEC2F8F435342834760E /* WZMHeaderView_0.h */,
 				C26711CCE0318C978FA69EFF20FA723D /* WZMHeaderView_0.m */,
 			);
-			name = Custom;
 			path = Custom;
 			sourceTree = "<group>";
 		};
@@ -928,7 +902,6 @@
 				A35E4F9F44828BCA44D4FCFB58195370 /* UIWebView+wzmcate.h */,
 				5000F5CEC4B7A7AFE84BA9B75808C205 /* UIWebView+wzmcate.m */,
 			);
-			name = UIWebView;
 			path = UIWebView;
 			sourceTree = "<group>";
 		};
@@ -940,7 +913,6 @@
 				6441B80240C7C9CDC511C7554C5B6B06 /* WZMAnimationNumView.h */,
 				619368C5C23BDB92035CB0560D331FFB /* WZMAnimationNumView.m */,
 			);
-			name = WZMAnimationNumView;
 			path = WZMAnimationNumView;
 			sourceTree = "<group>";
 		};
@@ -950,7 +922,6 @@
 				8720EA54DC7F28296ABFD4191242FE3B /* WZMCamera.h */,
 				8E39941ED71CD763AFC861360B61E45B /* WZMCamera.m */,
 			);
-			name = WZMCamera;
 			path = WZMCamera;
 			sourceTree = "<group>";
 		};
@@ -960,7 +931,6 @@
 				89B9D84D3815B50AEC4AF833D8963FEE /* WZMProgressHUD.h */,
 				9AE7F4F3DEC85A911B889B259166AA4C /* WZMProgressHUD.m */,
 			);
-			name = WZMProgressHUD;
 			path = WZMProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -970,7 +940,6 @@
 				1CE40BE20AFEDDCBC5ECDF3225282864 /* WZMFontView.h */,
 				1DBA24B37840B4FDABB48EDBC6FF1426 /* WZMFontView.m */,
 			);
-			name = WZMFontView;
 			path = WZMFontView;
 			sourceTree = "<group>";
 		};
@@ -982,7 +951,6 @@
 				8D54D00BCC2CACD27FC5BA4A02A083DE /* WZMSegmentedView.h */,
 				9285CA037D03C9C23278DF211189BE0D /* WZMSegmentedView.m */,
 			);
-			name = WZMSegmentedView;
 			path = WZMSegmentedView;
 			sourceTree = "<group>";
 		};
@@ -992,7 +960,6 @@
 				AA3308F392FF164C6E51B0463949736E /* WZMLogPrinter.h */,
 				8E50BE88722DD63A0D9FF0CC1C5A4861 /* WZMLogPrinter.m */,
 			);
-			name = WZMLogPrinter;
 			path = WZMLogPrinter;
 			sourceTree = "<group>";
 		};
@@ -1002,7 +969,6 @@
 				1C07ACB0A7C20190E01F3EF5EBB70213 /* NSAttributedString+wzmcate.h */,
 				E644B2FF36346B2BCA3A590029A47F13 /* NSAttributedString+wzmcate.m */,
 			);
-			name = NSAttributedString;
 			path = NSAttributedString;
 			sourceTree = "<group>";
 		};
@@ -1012,7 +978,6 @@
 				353DC1CB0E09CD44B8FD457B2A427EA2 /* UIButton+wzmcate.h */,
 				2C8673BE344D9BCCF46A2146CD37A383 /* UIButton+wzmcate.m */,
 			);
-			name = UIButton;
 			path = UIButton;
 			sourceTree = "<group>";
 		};
@@ -1026,7 +991,6 @@
 				EA98FA4597353E462A04FD200DB86361 /* WZMLogView.h */,
 				D73D38C8A670A4A617B9BC64EF2FA300 /* WZMLogView.m */,
 			);
-			name = WZMLogView;
 			path = WZMLogView;
 			sourceTree = "<group>";
 		};
@@ -1036,7 +1000,6 @@
 				CF09F7AC8E68437AFCB8EC61B89BA598 /* NSString+wzmcate.h */,
 				98639B3BB4057D804CF4A6E7BD96D212 /* NSString+wzmcate.m */,
 			);
-			name = NSString;
 			path = NSString;
 			sourceTree = "<group>";
 		};
@@ -1046,7 +1009,6 @@
 				D1322F59AA0B85D39B3DF88D0B355BD6 /* WZMSingleRotationGestureRecognizer.h */,
 				5D5D5CAE6B0DDD88E3B242822DC2DB8E /* WZMSingleRotationGestureRecognizer.m */,
 			);
-			name = WZMGestureRecognizer;
 			path = WZMGestureRecognizer;
 			sourceTree = "<group>";
 		};
@@ -1060,7 +1022,6 @@
 				23798533E2C1F9DE4301C02DAC1CD54A /* WZMBaseHeaderView.h */,
 				EBE4135942A8CAAB92E59F2E53BC26C7 /* WZMBaseHeaderView.m */,
 			);
-			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -1070,7 +1031,6 @@
 				6D17CCA52B543D2B039AA3CB6777AC93 /* WZMActionSheet.h */,
 				455FD5D33A0870FE0B7F98E93F074B3B /* WZMActionSheet.m */,
 			);
-			name = WZMActionSheet;
 			path = WZMActionSheet;
 			sourceTree = "<group>";
 		};
@@ -1095,7 +1055,6 @@
 				9F077DC5EC82680DC2B3B547C6ECB632 /* NSDate+wzmcate.h */,
 				BEB132B7542770584DBA4ABC149D506D /* NSDate+wzmcate.m */,
 			);
-			name = NSDate;
 			path = NSDate;
 			sourceTree = "<group>";
 		};
@@ -1105,7 +1064,6 @@
 				366B392E6D86B7A0E644972D34D908F5 /* UITableView+wzmcate.h */,
 				207BE210DD9842C3DCC547600731D1A9 /* UITableView+wzmcate.m */,
 			);
-			name = UITableView;
 			path = UITableView;
 			sourceTree = "<group>";
 		};
@@ -1148,7 +1106,6 @@
 				69BE335001D2891EE5DDE5A4729195D8 /* NSDictionary+wzmcate.h */,
 				02E64B35FCA05E8DD3E1B7FFC35C9639 /* NSDictionary+wzmcate.m */,
 			);
-			name = NSDictionary;
 			path = NSDictionary;
 			sourceTree = "<group>";
 		};
@@ -1158,7 +1115,6 @@
 				C1C7672B384F87957A1531F7ECF2F732 /* WZMFileManager.h */,
 				839630F5E360241E6675B7D3424D3600 /* WZMFileManager.m */,
 			);
-			name = WZMFileManager;
 			path = WZMFileManager;
 			sourceTree = "<group>";
 		};
@@ -1184,7 +1140,6 @@
 				548D7CFAC28AC8F365C7FF0D8729F4C8 /* WZMAudioRecorder.h */,
 				D3C418493D37CBE0242FC3F988AE238D /* WZMAudioRecorder.m */,
 			);
-			name = WZMAudioRecorder;
 			path = WZMAudioRecorder;
 			sourceTree = "<group>";
 		};
@@ -1194,7 +1149,6 @@
 				39EAD98F35080E46E0C672FC60D7DCED /* WZMJSONParse.h */,
 				CB54AAD6763E1C0C8133D1268E58B1EE /* WZMJSONParse.m */,
 			);
-			name = WZMJSONParseUtil;
 			path = WZMJSONParseUtil;
 			sourceTree = "<group>";
 		};
@@ -1204,7 +1158,6 @@
 				64C291F8C20F0DE3B01523D5758D553B /* WZMGifImageView.h */,
 				7EC31AEBF5EFF656A7289523FA4E28B1 /* WZMGifImageView.m */,
 			);
-			name = WZMGifView;
 			path = WZMGifView;
 			sourceTree = "<group>";
 		};
@@ -1244,7 +1197,6 @@
 				7F6872FE72DC32301EC3FDA06883B72F /* UITextField+wzmcate.h */,
 				1534D16DE61B80FF0A3AFE6BD2CD01EE /* UITextField+wzmcate.m */,
 			);
-			name = UITextField;
 			path = UITextField;
 			sourceTree = "<group>";
 		};
@@ -1256,7 +1208,6 @@
 				0DF05E28EE477B57A9F39B2DB93B80AD /* WZMCycleView.h */,
 				E3FD1B5FCB897A8C3427D0737DE01FED /* WZMCycleView.m */,
 			);
-			name = WZMCycleView;
 			path = WZMCycleView;
 			sourceTree = "<group>";
 		};
@@ -1266,7 +1217,6 @@
 				22BE2500A65756943E6B23CD11D29E3B /* WZMNetWorking.h */,
 				BA9A3FA0C1C947F21F53A53E065EF9A2 /* WZMNetWorking.m */,
 			);
-			name = WZMNetWork;
 			path = WZMNetWork;
 			sourceTree = "<group>";
 		};
@@ -1290,7 +1240,6 @@
 				EC6F86503C7B5B619D1425CDCF27D9DA /* WZMRefreshHeaderView.h */,
 				880E9A256C1E6B8C11FE59E64B6D3EAD /* WZMRefreshHeaderView.m */,
 			);
-			name = Normal;
 			path = Normal;
 			sourceTree = "<group>";
 		};
@@ -1309,7 +1258,6 @@
 				B68C69FA74C325BBD3BF9DE6F875E0CB /* WZMAppJump.h */,
 				A68388214BE4295FD9F1D9A3CE777CA7 /* WZMAppJump.m */,
 			);
-			name = WZMAppJump;
 			path = WZMAppJump;
 			sourceTree = "<group>";
 		};
@@ -1342,7 +1290,6 @@
 				3A4EE9189ED618E482E0CAB6E08D5E07 /* WZMCatchStore.h */,
 				15BCBF2F1AEF59409745A4C8D8C8CED0 /* WZMCatchStore.m */,
 			);
-			name = WZMCatchStore;
 			path = WZMCatchStore;
 			sourceTree = "<group>";
 		};
@@ -1360,7 +1307,6 @@
 				4E80881B307A4BD1089B07521A951B4C /* NSObject+wzmcate.h */,
 				F1F9A6C9D3B5B180312BE4FBFA33760C /* NSObject+wzmcate.m */,
 			);
-			name = NSObject;
 			path = NSObject;
 			sourceTree = "<group>";
 		};
@@ -1383,7 +1329,6 @@
 				6FCBEAD5FB0AD33D32752CAAC31B286B /* UIWebView */,
 				19D215C96180CAE742FF0B57F4BF2707 /* UIWindow */,
 			);
-			name = UICategory;
 			path = UICategory;
 			sourceTree = "<group>";
 		};
@@ -1393,7 +1338,6 @@
 				86755C2852EDE851BDBB8C435D281E52 /* WZMSendEmail.h */,
 				85BDED492C1C74568E79D999B97B4672 /* WZMSendEmail.m */,
 			);
-			name = WZMSendEmail;
 			path = WZMSendEmail;
 			sourceTree = "<group>";
 		};
@@ -1403,7 +1347,6 @@
 				2365CBE19607CE325CEC3AB8D510AD4E /* UIImageView+wzmcate.h */,
 				0DD80B30CB63B698E511F0B8B78A6F47 /* UIImageView+wzmcate.m */,
 			);
-			name = UIImageView;
 			path = UIImageView;
 			sourceTree = "<group>";
 		};
@@ -1428,7 +1371,6 @@
 				85F5D78621C39453225C8A38C2F70777 /* WZMVideoPlayerViewController.h */,
 				758F9FDB5925D9D886C9E6ED392F6A45 /* WZMVideoPlayerViewController.m */,
 			);
-			name = WZMVideoPlayer;
 			path = WZMVideoPlayer;
 			sourceTree = "<group>";
 		};
@@ -1438,7 +1380,6 @@
 				6BA875006004B4593A69BF23BCEED25B /* WZMPopupAnimator.h */,
 				413F7218D62AC83E566B9421D3FB069C /* WZMPopupAnimator.m */,
 			);
-			name = WZMPopupAnimator;
 			path = WZMPopupAnimator;
 			sourceTree = "<group>";
 		};
@@ -1448,7 +1389,6 @@
 				EFA91D5AED04FDE227118F82406E0636 /* NSArray+wzmcate.h */,
 				0242F433F51E347A72163E0CF5D6DD17 /* NSArray+wzmcate.m */,
 			);
-			name = NSArray;
 			path = NSArray;
 			sourceTree = "<group>";
 		};
@@ -1458,7 +1398,6 @@
 				6F2DCB9C36CD46D14C4B5A93D7080885 /* NSDateFormatter+wzmcate.h */,
 				B48F0CF2662ADB7FB1B6244760B6F07A /* NSDateFormatter+wzmcate.m */,
 			);
-			name = NSDateFormatter;
 			path = NSDateFormatter;
 			sourceTree = "<group>";
 		};
@@ -1468,7 +1407,6 @@
 				847BEAE3B69A287CA0B32E1B347B3C99 /* UIViewController+wzmcate.h */,
 				EC00C7AFD47900877D202B864564AB24 /* UIViewController+wzmcate.m */,
 			);
-			name = UIViewController;
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
@@ -1478,7 +1416,6 @@
 				25304CC061BB4FF14DBFEE7A6CD9B974 /* WZMSqliteManager.h */,
 				546AA7F1E71BF9573B85ED1EFFB9C299 /* WZMSqliteManager.m */,
 			);
-			name = WZMSqliteManager;
 			path = WZMSqliteManager;
 			sourceTree = "<group>";
 		};
@@ -1488,7 +1425,6 @@
 				0DA2BF6161045E4E6981E205B8BDC5C3 /* WZMAlertView.h */,
 				27FE96FCC04DB7651CE463D9A42CAD1D /* WZMAlertView.m */,
 			);
-			name = WZMAlertView;
 			path = WZMAlertView;
 			sourceTree = "<group>";
 		};
@@ -1498,7 +1434,6 @@
 				477A70B1E08FA2F8667C99A2DD6D21D6 /* WZMDownloader.h */,
 				91AF4F84452CFA24308653F839F248AD /* WZMDownloader.m */,
 			);
-			name = WZMDownloader;
 			path = WZMDownloader;
 			sourceTree = "<group>";
 		};
@@ -1508,7 +1443,6 @@
 				442A8876E87916CD4CA0B34347F28CBE /* UIColor+wzmcate.h */,
 				E6D5487A64BEC97B99C8315220A77F9F /* UIColor+wzmcate.m */,
 			);
-			name = UIColor;
 			path = UIColor;
 			sourceTree = "<group>";
 		};
@@ -1518,7 +1452,6 @@
 				EEAB77CDFB99D99DB4187F38258CAE7F /* WZMDeviceUtil.h */,
 				C8871269A657D40168E41BF2693CC278 /* WZMDeviceUtil.m */,
 			);
-			name = WZMDeviceUtil;
 			path = WZMDeviceUtil;
 			sourceTree = "<group>";
 		};
@@ -1528,7 +1461,6 @@
 				0D131413DB101BBD1D0F427C110B7083 /* UIScrollView+wzmcate.h */,
 				7DB8C858FA2B56FA15923BE87072745E /* UIScrollView+wzmcate.m */,
 			);
-			name = UIScrollView;
 			path = UIScrollView;
 			sourceTree = "<group>";
 		};
@@ -2085,8 +2017,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
