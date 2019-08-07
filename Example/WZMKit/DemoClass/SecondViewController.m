@@ -13,7 +13,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMPlayerDelegate> {
+@interface SecondViewController ()<WZMPlayerDelegate,WZMClipViewDelegate> {
     WZMPlayer *player;
 }
 
@@ -36,7 +36,12 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     WZMClipView *clipView = [[WZMClipView alloc] initWithFrame:CGRectMake(20, 100, WZM_SCREEN_WIDTH-40, 60)];
+    clipView.delegate = self;
     [self.view addSubview:clipView];
+}
+
+- (void)clipView:(WZMClipView *)clipView valueState:(WZMClipViewValueState)state {
+    NSLog(@"%@===%@===%@",@(clipView.startValue),@(clipView.endValue),@(state));
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
