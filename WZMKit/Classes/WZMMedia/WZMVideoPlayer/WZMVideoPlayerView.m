@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 @implementation WZMVideoPlayerView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {

@@ -33,6 +33,9 @@
 		75FB379222F9BC600064CF6C /* album_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FB379122F9BC600064CF6C /* album_play.png */; };
 		75FB379522F9BDC20064CF6C /* album_seleced.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FB379322F9BDC20064CF6C /* album_seleced.png */; };
 		75FB379622F9BDC20064CF6C /* album_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FB379422F9BDC20064CF6C /* album_normal.png */; };
+		75FB379A22FA6AF50064CF6C /* WZMClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB379922FA6AF50064CF6C /* WZMClipView.m */; };
+		75FB379D22FA6F130064CF6C /* clip_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FB379B22FA6F130064CF6C /* clip_left.png */; };
+		75FB379E22FA6F130064CF6C /* clip_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 75FB379C22FA6F130064CF6C /* clip_right.png */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 		DE012CDCE7AE8D032B2B7FB0 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C63DD93959D398BDB5C6D81 /* Pods_WZMKit_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +94,10 @@
 		75FB379122F9BC600064CF6C /* album_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_play.png; sourceTree = "<group>"; };
 		75FB379322F9BDC20064CF6C /* album_seleced.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_seleced.png; sourceTree = "<group>"; };
 		75FB379422F9BDC20064CF6C /* album_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_normal.png; sourceTree = "<group>"; };
+		75FB379822FA6AF50064CF6C /* WZMClipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMClipView.h; sourceTree = "<group>"; };
+		75FB379922FA6AF50064CF6C /* WZMClipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMClipView.m; sourceTree = "<group>"; };
+		75FB379B22FA6F130064CF6C /* clip_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clip_left.png; sourceTree = "<group>"; };
+		75FB379C22FA6F130064CF6C /* clip_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clip_right.png; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF91485E0336DB80B22F793 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -236,6 +243,7 @@
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
+				75FB379722FA6ADD0064CF6C /* ClipView */,
 				75FB377F22F99F440064CF6C /* AlbumBrowser */,
 				7505DE7E22EA8E410012A2E9 /* ScanQRCode */,
 				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
@@ -274,6 +282,17 @@
 				75FB378122F99F840064CF6C /* WZMAlbumBrowserController.m */,
 			);
 			path = AlbumBrowser;
+			sourceTree = "<group>";
+		};
+		75FB379722FA6ADD0064CF6C /* ClipView */ = {
+			isa = PBXGroup;
+			children = (
+				75FB379B22FA6F130064CF6C /* clip_left.png */,
+				75FB379C22FA6F130064CF6C /* clip_right.png */,
+				75FB379822FA6AF50064CF6C /* WZMClipView.h */,
+				75FB379922FA6AF50064CF6C /* WZMClipView.m */,
+			);
+			path = ClipView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,12 +380,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7505DE8422EA8E580012A2E9 /* qrBg@2x.png in Resources */,
+				75FB379D22FA6F130064CF6C /* clip_left.png in Resources */,
 				75FB379522F9BDC20064CF6C /* album_seleced.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75FB379622F9BDC20064CF6C /* album_normal.png in Resources */,
 				7505DE8322EA8E580012A2E9 /* qrLine@2x.png in Resources */,
 				75FB379022F9BB730064CF6C /* album_video.png in Resources */,
+				75FB379E22FA6F130064CF6C /* clip_right.png in Resources */,
 				75FB379222F9BC600064CF6C /* album_play.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +477,7 @@
 				7505DE8522EA8E580012A2E9 /* ScannerViewController.m in Sources */,
 				75FB378522F99FA60064CF6C /* WZMAlbumModel.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
+				75FB379A22FA6AF50064CF6C /* WZMClipView.m in Sources */,
 				75FB378B22F9A2920064CF6C /* WZMAlbumPhotoCell.m in Sources */,
 				75FB378222F99F840064CF6C /* WZMAlbumBrowserController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,

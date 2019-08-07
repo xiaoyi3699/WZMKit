@@ -9,6 +9,7 @@
 #import "SecondViewController.h"
 #import "ScannerViewController.h"
 #import "WZMAlbumBrowserController.h"
+#import "WZMClipView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -32,17 +33,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
+    WZMClipView *clipView = [[WZMClipView alloc] initWithFrame:CGRectMake(20, 100, WZM_SCREEN_WIDTH-40, 60)];
+    [self.view addSubview:clipView];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
-    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
-    vc.albumFrame = WZMRectMiddleArea();
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    [super touchesBegan:touches withEvent:event];
+//
+//    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
+//    vc.albumFrame = WZMRectMiddleArea();
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 - (void)playerLoadProgress:(WZMPlayer *)player {
     NSLog(@"===%@",@(player.loadProgress));

@@ -22,14 +22,6 @@
     UICollectionViewFlowLayout *_flowLayout;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self createViews];
-    }
-    return self;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

@@ -19,14 +19,6 @@
 
 @implementation WZMFontView 
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setConfig:CGRectZero];
-    }
-    return self;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
