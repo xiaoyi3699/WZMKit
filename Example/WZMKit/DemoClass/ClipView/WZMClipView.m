@@ -10,6 +10,8 @@
 
 @interface WZMClipView ()
 
+@property (nonatomic, assign) CGFloat startValue;
+@property (nonatomic, assign) CGFloat endValue;
 @property (nonatomic, strong) UIImageView *leftView;
 @property (nonatomic, strong) UIImageView *rightView;
 @property (nonatomic, strong) UIView *contentView;
@@ -38,7 +40,6 @@
         contentRect.size.width -= 40;
         contentRect.size.height -= 6;
         self.contentView = [[UIView alloc] initWithFrame:contentRect];
-        self.contentView.backgroundColor = [UIColor redColor];
         [self addSubview:self.contentView];
         
         CGRect foreRect = self.bounds;
