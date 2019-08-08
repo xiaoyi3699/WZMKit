@@ -35,7 +35,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    WZMClipView *clipView = [[WZMClipView alloc] initWithFrame:CGRectMake(20, 100, WZM_SCREEN_WIDTH-40, 60)];
+    WZMClipView *clipView = [[WZMClipView alloc] initWithFrame:CGRectMake(20, 200, WZM_SCREEN_WIDTH-40, 70)];
     clipView.delegate = self;
     [self.view addSubview:clipView];
 }

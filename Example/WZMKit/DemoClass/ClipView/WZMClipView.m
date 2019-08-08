@@ -24,17 +24,21 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        CGRect backRect = self.bounds;
+        backRect.origin.x = 17;
+        backRect.size.width -= 34;
+        self.backgroundView = [[UIView alloc] initWithFrame:backRect];
         self.backgroundView.alpha = 0;
         self.backgroundView.wzm_borderWidth = 3;
         [self addSubview:self.backgroundView];
         
         CGRect contentRect = self.bounds;
-        contentRect.origin.x = 3;
+        contentRect.origin.x = 20;
         contentRect.origin.y = 3;
-        contentRect.size.width -= 6;
+        contentRect.size.width -= 40;
         contentRect.size.height -= 6;
         self.contentView = [[UIView alloc] initWithFrame:contentRect];
+        self.contentView.backgroundColor = [UIColor redColor];
         [self addSubview:self.contentView];
         
         CGRect foreRect = self.bounds;
@@ -129,8 +133,8 @@
             self.backgroundView.alpha = 0.0;
         }];
     }
-    self.startValue = self.leftView.wzm_minX/self.wzm_width;
-    self.endValue = self.rightView.wzm_maxX/self.wzm_width;
+    self.startValue = (self.leftView.wzm_maxX-self.leftView.wzm_width)/self.contentView.wzm_width;
+    self.endValue = (self.rightView.wzm_minX-self.leftView.wzm_width)/self.contentView.wzm_width;
     if ([self.delegate respondsToSelector:@selector(clipView:valueState:)]) {
         [self.delegate clipView:self valueState:state];
     }
