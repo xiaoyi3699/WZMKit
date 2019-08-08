@@ -105,8 +105,7 @@
     else if (minX+self.leftView.wzm_width > self.rightView.wzm_minX) {
         minX = self.rightView.wzm_minX-self.leftView.wzm_width;
     }
-    self.leftView.wzm_minX = minX;
-    self.foregroundView.wzm_mutableMinX = minX;
+    self.startValue = [self loadStartValue:minX];
     [self valueChanged:state];
 }
 
@@ -117,8 +116,7 @@
     else if (minX < self.leftView.wzm_maxX) {
         minX = self.leftView.wzm_maxX;
     }
-    self.rightView.wzm_minX = minX;
-    self.foregroundView.wzm_mutableMaxX = minX+self.rightView.wzm_width;
+    self.endValue = [self loadEndValue:minX];
     [self valueChanged:state];
 }
 
@@ -133,11 +131,21 @@
             self.backgroundView.alpha = 0.0;
         }];
     }
-    self.startValue = (self.leftView.wzm_maxX-self.leftView.wzm_width)/self.contentView.wzm_width;
-    self.endValue = (self.rightView.wzm_minX-self.leftView.wzm_width)/self.contentView.wzm_width;
     if ([self.delegate respondsToSelector:@selector(clipView:valueState:)]) {
         [self.delegate clipView:self valueState:state];
     }
+}
+
+- (CGFloat)loadStartValue:(CGFloat)minX {
+    self.leftView.wzm_minX = minX;
+    self.foregroundView.wzm_mutableMinX = minX;
+    return (self.leftView.wzm_maxX-self.leftView.wzm_width)/self.contentView.wzm_width;
+}
+
+- (CGFloat)loadEndValue:(CGFloat)minX {
+    self.rightView.wzm_minX = minX;
+    self.foregroundView.wzm_mutableMaxX = minX+self.rightView.wzm_width;
+    return (self.rightView.wzm_minX-self.leftView.wzm_width)/self.contentView.wzm_width;
 }
 
 - (void)setForegroundBorderColor:(UIColor *)foregroundBorderColor {

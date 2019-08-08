@@ -21,6 +21,10 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) CGFloat startValue;
 ///取值0~1, 默认值1
 @property (nonatomic, assign) CGFloat endValue;
+///至少选中值, 默认0
+@property (nonatomic, assign) CGFloat minValue;
+///最多选中值, 默认1
+@property (nonatomic, assign) CGFloat maxValue;
 ///前景色
 @property (nonatomic, strong) UIColor *foregroundBorderColor;
 ///背景色
