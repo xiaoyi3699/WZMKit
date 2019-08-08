@@ -9,11 +9,10 @@
 #import "SecondViewController.h"
 #import "ScannerViewController.h"
 #import "WZMAlbumBrowserController.h"
-#import "WZMClipView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMPlayerDelegate,WZMClipViewDelegate> {
+@interface SecondViewController ()<WZMPlayerDelegate,WZMClipTimeViewDelegate> {
     WZMPlayer *player;
 }
 
@@ -35,13 +34,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     
-    WZMClipView *clipView = [[WZMClipView alloc] initWithFrame:CGRectMake(20, 200, WZM_SCREEN_WIDTH-40, 70)];
-    clipView.delegate = self;
-    [self.view addSubview:clipView];
-}
-
-- (void)clipView:(WZMClipView *)clipView valueState:(WZMClipViewValueState)state {
-    NSLog(@"%@===%@===%@",@(clipView.startValue),@(clipView.endValue),@(state));
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

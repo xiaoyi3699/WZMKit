@@ -93,6 +93,7 @@
 #import "WZMAnimationNumItemView.h"
 #import "WZMAnimationNumView.h"
 #import "WZMAutoHeader.h"
+#import "WZMClipTimeView.h"
 #import "WZMBezierView.h"
 #import "WZMCycleView.h"
 #import "WZMDrawView.h"

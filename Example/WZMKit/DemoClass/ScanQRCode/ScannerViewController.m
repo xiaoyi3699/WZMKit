@@ -70,7 +70,7 @@
     
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     if (!input) {
-        NSLog(@"%@",[error localizedDescription]);
+        WZMLog(@"%@",[error localizedDescription]);
         return NO;
     }
     else {
@@ -116,7 +116,7 @@
 }
 
 - (void)handleText:(NSString *)text {
-    NSLog(@"===%@",text);
+    WZMLog(@"===%@",text);
 }
 
 #pragma mark - 二维码扫描动画

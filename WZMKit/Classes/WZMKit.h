@@ -267,6 +267,7 @@
  手机版日志控制台, 测试神器
  */
 #import "WZMLogView.h"
+#import "WZMClipTimeView.h"
 
 /*
  查看所有的字体样式及其名称

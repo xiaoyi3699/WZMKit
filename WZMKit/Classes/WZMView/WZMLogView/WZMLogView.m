@@ -47,6 +47,7 @@
         _tableView = [[UITableView alloc] initWithFrame:rect];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.scrollsToTop = NO;
         _tableView.separatorColor = [UIColor colorWithRed:230/255. green:230/255. blue:230/255. alpha:0.5];
         _tableView.separatorInset = UIEdgeInsetsMake(0, 20, 0, 20);
         _tableView.tableFooterView = [UIView new];
