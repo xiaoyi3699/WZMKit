@@ -208,6 +208,7 @@
 
 //监听音频播放完成
 - (void)moviePlayDidEnd:(NSNotification *)notification {
+    self.locking = YES;
     [self wzm_endPlaying];
 }
 
