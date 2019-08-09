@@ -59,18 +59,20 @@
     return self;
 }
 
-- (void)resetConfig {
+- (void)resetConfig:(BOOL)clear {
     self.duration = 0;
     self.currentTime = 0;
     self.playProgress = 0;
     self.loadProgress = 0;
-    [self relatePlayer:nil];
+    [self seekToTime:0.0];
+    if (clear) {
+        [self relatePlayer:nil];
+    }
 }
 
 //url：文件路径或文件网络地址
 - (void)playWithURL:(NSURL *)url {
-    [self pause];
-    [self resetConfig];
+    [self stop];
     //加载视频资源的类
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];
     //AVURLAsset 通过tracks关键字会将资源异步加载在程序的一个临时内存缓冲区中
@@ -185,7 +187,6 @@
     if (self.isBackground) {
         //注册后台播放,如果需要后台播放网络歌曲，必须注册taskId
         _bgTaskId = [self backgroundPlayerID:_bgTaskId];
-        [self play];
     }
     else {
         [self pause];
@@ -251,8 +252,8 @@
 }
 
 - (void)wzm_endPlaying {
-    self.playing = NO;
-    [self wzm_changeStatus];
+    [self pause];
+    [self resetConfig:NO];
     if ([self.delegate respondsToSelector:@selector(playerEndPlaying:)]) {
         [self.delegate playerEndPlaying:self];
     }
@@ -293,15 +294,8 @@
 }
 
 - (void)stop {
-    self.locking = YES;
-    if (self.isPlaying == NO) return;
-    if (_player) {
-        self.playing = NO;
-        [_player pause];
-        [self resetConfig];
-        [self seekToTime:0.0];
-        [self wzm_changeStatus];
-    }
+    [self pause];
+    [self resetConfig:YES];
 }
 
 //注册taskId

@@ -305,7 +305,6 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
-    CGColorSpaceRelease(colorSpace);
     UIGraphicsEndImageContext();
     return image;
 }
@@ -359,7 +358,6 @@
                                                    [groups addObject:group];
                                                }
                                               failureBlock:nil];
-                haveHDRGroup = YES;
             }
         }
     };
@@ -499,8 +497,11 @@
     CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
     CGContextRelease(bitmapRef);
     CGImageRelease(bitmapImage);
+    CGColorSpaceRelease(cs);
     
-    return [UIImage imageWithCGImage:scaledImage];
+    UIImage *img = [UIImage imageWithCGImage:scaledImage];
+    CGImageRelease(scaledImage);
+    return img;
 }
 
 - (UIImage *)wzm_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize {

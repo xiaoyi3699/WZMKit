@@ -592,7 +592,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				WARNING_CFLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-implicit-retain-self",
+					"-Wno-deprecated-declarations",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -613,7 +616,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				WARNING_CFLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-implicit-retain-self",
+					"-Wno-deprecated-declarations",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -53,10 +53,6 @@
 
 + (UIViewController *)wzm_theTopViewControler {
     UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
-    UIViewController *parent = rootVC;
-    while ((parent = rootVC.presentedViewController)) {
-        rootVC = parent;
-    }
     while ([rootVC isKindOfClass:[UINavigationController class]]) {
         rootVC = [(UINavigationController *)rootVC topViewController];
     }

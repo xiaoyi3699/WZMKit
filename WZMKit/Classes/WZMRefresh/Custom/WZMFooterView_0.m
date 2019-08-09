@@ -12,21 +12,21 @@
 
 - (void)updateRefreshState:(WZMRefreshState)refreshState {
     if (refreshState == _refreshState) return;
-    
-    NSString *refreshText;
-    if (refreshState == WZMRefreshStateNormal) {
-        refreshText = @"上拉可以加载更多";
-    }
-    else if (refreshState == WZMRefreshStateWillRefresh) {
-        refreshText = @"松开立即加载更多";
-    }
-    else if (refreshState == WZMRefreshStateRefreshing) {
-        refreshText = @"正在加载数据...";
-    }
-    else {
-        refreshText = @"没有更多数据了";
-    }
     _refreshState = refreshState;
+    
+//    NSString *refreshText;
+//    if (refreshState == WZMRefreshStateNormal) {
+//        refreshText = @"上拉可以加载更多";
+//    }
+//    else if (refreshState == WZMRefreshStateWillRefresh) {
+//        refreshText = @"松开立即加载更多";
+//    }
+//    else if (refreshState == WZMRefreshStateRefreshing) {
+//        refreshText = @"正在加载数据...";
+//    }
+//    else {
+//        refreshText = @"没有更多数据了";
+//    }
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{
