@@ -232,12 +232,6 @@
 
 + (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type {
     NSBundle *bundle = [[WZMPublic Public] resourceBundle];
-    if (bundle == nil) {
-        if (type.length > 0) {
-            name = [NSString stringWithFormat:@"%@.%@",name,type];
-        }
-        return [UIImage imageNamed:name];
-    }
     return [UIImage imageWithContentsOfFile:[bundle pathForResource:name ofType:type]];
 }
 

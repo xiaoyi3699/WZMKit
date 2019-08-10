@@ -33,10 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor grayColor];
-    
-    WZMClipTimeView *view = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10, 200, WZM_SCREEN_WIDTH-20, 70)];
-    [self.view addSubview:view];
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
