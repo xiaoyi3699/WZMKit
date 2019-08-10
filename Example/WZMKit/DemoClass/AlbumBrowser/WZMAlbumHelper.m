@@ -7,13 +7,14 @@
 //
 
 #import "WZMAlbumHelper.h"
+#import <Photos/Photos.h>
+#import <ImageIO/ImageIO.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface WZMAlbumHelper ()
 
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
-@property (nonatomic, assign) CGFloat photoPreviewMaxWidth;
-@property (nonatomic, assign) CGSize assetGridThumbnailSize;
 
 @end
 
@@ -40,7 +41,8 @@
     return self;
 }
 
-+ (WZMAlbumPhotoType)getAssetType:(PHAsset *)asset {
+//文件格式
++ (WZMAlbumPhotoType)getAssetType:(id)asset {
     WZMAlbumPhotoType type = WZMAlbumPhotoTypePhoto;
     PHAsset *phAsset = (PHAsset *)asset;
     if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = WZMAlbumPhotoTypeVideo;
@@ -56,26 +58,21 @@
     return type;
 }
 
-+ (PHImageRequestID)getPhotoWithAsset:(PHAsset *)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    CGSize imageSize;
-    if (photoWidth < helper.screenWidth && photoWidth < helper.photoPreviewMaxWidth) {
-        imageSize = helper.assetGridThumbnailSize;
-    } else {
-        PHAsset *phAsset = (PHAsset *)asset;
-        CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
-        CGFloat pixelWidth = photoWidth * helper.screenScale;
-        // 超宽图片
-        if (aspectRatio > 1.8) {
-            pixelWidth = pixelWidth * aspectRatio;
-        }
-        // 超高图片
-        if (aspectRatio < 0.2) {
-            pixelWidth = pixelWidth * 0.5;
-        }
-        CGFloat pixelHeight = pixelWidth / aspectRatio;
-        imageSize = CGSizeMake(pixelWidth, pixelHeight);
+//获取缩略图
++ (PHImageRequestID)getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
+    PHAsset *phAsset = (PHAsset *)asset;
+    CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
+    CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
+    // 超宽图片
+    if (aspectRatio > 1.8) {
+        pixelWidth = pixelWidth * aspectRatio;
     }
+    // 超高图片
+    if (aspectRatio < 0.2) {
+        pixelWidth = pixelWidth * 0.5;
+    }
+    CGFloat pixelHeight = pixelWidth / aspectRatio;
+    CGSize imageSize = CGSizeMake(pixelWidth, pixelHeight);
     
     __block UIImage *image;
     // 修复获取图片时出现的瞬间内存过高问题
@@ -87,7 +84,7 @@
         }
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
-            result = [self fixOrientation:result];
+            result = [self wzm_fixOrientation:result];
             if (completion) completion(result,info,[[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
         }
         // Download image from iCloud / 从iCloud下载图片
@@ -107,7 +104,7 @@
                 if (!resultImage) {
                     resultImage = image;
                 }
-                resultImage = [self fixOrientation:resultImage];
+                resultImage = [self wzm_fixOrientation:resultImage];
                 if (completion) completion(resultImage,info,NO);
             }];
         }
@@ -115,14 +112,25 @@
     return imageRequestID;
 }
 
-/// 修正图片转向
-+ (UIImage *)fixOrientation:(UIImage *)aImage {
-    // No-op if the orientation is already correct
+//获取原图
++ (void)wzm_getOriginalImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
+    PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
+    option.networkAccessAllowed = YES;
+    option.resizeMode = PHImageRequestOptionsResizeModeFast;
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:option resultHandler:^(UIImage *result, NSDictionary *info) {
+        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+        if (downloadFinined && result) {
+            result = [self wzm_fixOrientation:result];
+            BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+            if (completion) completion(result,info,isDegraded);
+        }
+    }];
+}
+
+//private修正图片转向
++ (UIImage *)wzm_fixOrientation:(UIImage *)aImage {
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
-    
-    // We need to calculate the proper transformation to make the image upright.
-    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
     CGAffineTransform transform = CGAffineTransformIdentity;
     
     switch (aImage.imageOrientation) {
@@ -162,9 +170,6 @@
         default:
             break;
     }
-    
-    // Now we draw the underlying CGImage into a new context, applying the transform
-    // calculated above.
     CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
                                              CGImageGetBitsPerComponent(aImage.CGImage), 0,
                                              CGImageGetColorSpace(aImage.CGImage),
@@ -175,21 +180,199 @@
         case UIImageOrientationLeftMirrored:
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
-            // Grr...
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
             break;
-            
         default:
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
             break;
     }
-    
-    // And now we just create a new UIImage from the drawing context
     CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
     UIImage *img = [UIImage imageWithCGImage:cgimg];
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+//获取视频
+- (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
+    PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
+    options.version = PHVideoRequestOptionsVersionOriginal;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    options.networkAccessAllowed = YES;
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        // NSLog(@"Info:\n%@",info);
+        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+        // NSLog(@"AVAsset URL: %@",myAsset.URL);
+        [self wzm_startExportVideoWithVideoAsset:videoAsset presetName:AVAssetExportPreset640x480 completion:completion];
+    }];
+}
+
+//private导出视频
+- (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void (^)(NSString *videoPath, NSString *desc))completion {
+    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
+    if ([presets containsObject:presetName]) {
+        AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
+        NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
+        NSString *outputPath = [NSHomeDirectory() stringByAppendingFormat:@"/tmp/video-%@.mp4", [formater stringFromDate:[NSDate date]]];
+        session.shouldOptimizeForNetworkUse = true;
+        NSArray *supportedTypeArray = session.supportedFileTypes;
+        if (supportedTypeArray.count == 0) {
+            if (completion) {
+                completion(nil, @"该视频类型暂不支持导出");
+            }
+            return;
+        }
+        else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
+            session.outputFileType = AVFileTypeMPEG4;
+        } else {
+            session.outputFileType = [supportedTypeArray objectAtIndex:0];
+            if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
+                outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
+            }
+        }
+        session.outputURL = [NSURL fileURLWithPath:outputPath];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"]]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"] withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        [session exportAsynchronouslyWithCompletionHandler:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                switch (session.status) {
+                    case AVAssetExportSessionStatusCompleted: {
+                        if (completion) {
+                            completion(outputPath, nil);
+                        }
+                    }  break;
+                    default: {
+                        if (completion) {
+                            completion(nil, session.error.description);
+                        }
+                    };
+                }
+            });
+        }];
+    } else {
+        if (completion) {
+            NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", presetName];
+            completion(nil, des);
+        }
+    }
+}
+
+//保存视频到系统相册
+- (void)wzm_saveVideo:(NSString *)path {
+    UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
+}
+
+//保存图片到系统相册
+- (void)wzm_saveImage:(UIImage *)image {
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
+//保存图片到自定义相册
++ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    NSMutableArray *groups=[[NSMutableArray alloc]init];
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        if (group){
+            [groups addObject:group];
+        }
+        else {
+            BOOL haveHDRGroup = NO;
+            for (ALAssetsGroup *gp in groups) {
+                NSString *name =[gp valueForProperty:ALAssetsGroupPropertyName];
+                if ([name isEqualToString:albumName]) {//相册已存在
+                    haveHDRGroup = YES;
+                    break;
+                }
+            }
+            if (haveHDRGroup == NO) {//相册不存在
+                [assetsLibrary addAssetsGroupAlbumWithName:albumName
+                                               resultBlock:^(ALAssetsGroup *group) {
+                                                   [groups addObject:group];
+                                               }
+                                              failureBlock:nil];
+            }
+        }
+    };
+    //创建相簿
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
+    [self wzm_saveToAlbumWithMetadata:nil
+                            imageData:data
+                      customAlbumName:albumName
+                      completionBlock:^{
+                          if (completion) {
+                              completion();
+                          }
+                      }
+                         failureBlock:^(NSError *error){
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 
+                                 if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
+                                    ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
+                                     //提示授权
+                                     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
+                                     [alert show];
+                                 }
+                             });
+                         }];
+}
+
++ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
+                          imageData:(NSData *)imageData
+                    customAlbumName:(NSString *)customAlbumName
+                    completionBlock:(void (^)(void))completionBlock
+                       failureBlock:(void (^)(NSError *error))failureBlock {
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
+    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
+        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
+                    [group addAsset:asset];
+                    if (completionBlock) {
+                        completionBlock();
+                    }
+                }
+            } failureBlock:^(NSError *error) {
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
+        } failureBlock:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+    };
+    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (customAlbumName) {
+            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
+                if (group) {
+                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                        [group addAsset:asset];
+                        if (completionBlock) {
+                            completionBlock();
+                        }
+                    } failureBlock:^(NSError *error) {
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }];
+                }
+                else {
+                    AddAsset(weakSelf, assetURL);
+                }
+            } failureBlock:^(NSError *error) {
+                AddAsset(weakSelf, assetURL);
+            }];
+        }
+        else {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+    }];
 }
 
 @end

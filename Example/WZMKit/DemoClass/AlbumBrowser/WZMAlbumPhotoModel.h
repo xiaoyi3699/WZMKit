@@ -7,22 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Photos/Photos.h>
-
-typedef enum : NSUInteger {
-    WZMAlbumPhotoTypePhoto = 0,
-    WZMAlbumPhotoTypeLivePhoto,
-    WZMAlbumPhotoTypePhotoGif,
-    WZMAlbumPhotoTypeVideo,
-    WZMAlbumPhotoTypeAudio
-} WZMAlbumPhotoType;
+#import "WZMEnum.h"
 
 @interface WZMAlbumPhotoModel : NSObject
 
-@property (nonatomic, strong) PHAsset *asset;
+@property (nonatomic, strong) id asset;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, assign) WZMAlbumPhotoType type;
 
-+ (instancetype)modelWithAsset:(PHAsset *)asset;
++ (instancetype)modelWithAsset:(id)asset;
 
 @end

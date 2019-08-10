@@ -9,6 +9,7 @@
 #import "WZMAlbumBrowserController.h"
 #import "WZMAlbumModel.h"
 #import "WZMAlbumPhotoCell.h"
+#import <Photos/Photos.h>
 
 @interface WZMAlbumBrowserController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -54,7 +55,12 @@
     }
     [collectionView registerClass:[WZMAlbumPhotoCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:collectionView];
-    self.photos = [[NSMutableArray alloc] initWithCapacity:0];
+    if (self.selectedPhotos.count) {
+        self.photos = [[NSMutableArray alloc] initWithArray:self.selectedPhotos];
+    }
+    else {
+        self.photos = [[NSMutableArray alloc] initWithCapacity:0];
+    }
     [self loadPhotoWithAlbum:@"All Photos"];
 }
 

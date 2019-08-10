@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMAlbumBrowserController.h"
 
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
@@ -32,6 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
+    vc.albumFrame = CGRectMake(0, WZM_NAVBAR_HEIGHT, WZM_SCREEN_WIDTH, WZM_SCREEN_HEIGHT-WZM_NAVBAR_HEIGHT-WZM_TABBAR_HEIGHT);
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

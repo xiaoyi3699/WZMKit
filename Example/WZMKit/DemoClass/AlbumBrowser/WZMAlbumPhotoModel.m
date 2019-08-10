@@ -8,6 +8,7 @@
 
 #import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumHelper.h"
+#import <Photos/Photos.h>
 
 @implementation WZMAlbumPhotoModel
 

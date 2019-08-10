@@ -8,6 +8,7 @@
 
 #import "WZMAlbumPhotoCell.h"
 #import "WZMAlbumHelper.h"
+#import <Photos/Photos.h>
 
 @interface WZMAlbumPhotoCell ()
 
@@ -75,9 +76,10 @@
 
 - (void)setConfig:(WZMAlbumPhotoModel *)photoModel {
     self.model = photoModel;
-    _representedAssetIdentifier = photoModel.asset.localIdentifier;
-    int32_t imageRequestID = [WZMAlbumHelper getPhotoWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
-        if ([_representedAssetIdentifier isEqualToString:photoModel.asset.localIdentifier]) {
+    PHAsset *phAsset = (PHAsset *)photoModel.asset;
+    _representedAssetIdentifier = phAsset.localIdentifier;
+    int32_t imageRequestID = [WZMAlbumHelper getThumbnailImageWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        if ([_representedAssetIdentifier isEqualToString:phAsset.localIdentifier]) {
             _photoImageView.image = photo;
         } else {
             [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
@@ -85,7 +87,7 @@
         if (!isDegraded) {
             _imageRequestID = 0;
         }
-    } progressHandler:nil networkAccessAllowed:NO];
+    } progressHandler:nil networkAccessAllowed:YES];
     if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }
@@ -101,7 +103,7 @@
         _gifLabel.hidden = YES;
         _videoTimeView.hidden = NO;
         _playImageView.hidden = NO;
-        _videoTimeLabel.text = [NSString wzm_getTimeBySecond:photoModel.asset.duration];
+        _videoTimeLabel.text = [NSString wzm_getTimeBySecond:phAsset.duration];
     }
     else {
         _gifLabel.hidden = YES;

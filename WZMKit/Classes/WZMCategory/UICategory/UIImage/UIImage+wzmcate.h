@@ -21,10 +21,6 @@
 + (UIImage *)wzm_getRectImageByColor:(UIColor *)color size:(CGSize)size;
 ///截屏
 + (UIImage *)wzm_getScreenImageByView:(UIView *)view;
-///根据ALAsset/PHAsset获取image
-+ (void)wzm_getImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
-///根据ALAsset/PHAsset获取视频
-- (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion;
 ///base64编码转换为图片
 + (UIImage *)wzm_getImageByBase64:(NSString *)str;
 ///创建一个动态图片，动态图片持续的时间为duration
@@ -35,8 +31,6 @@
 + (UIImage *)wzm_getGradientImageByColors:(NSArray *)colors gradientType: (WZMGradientType)gradientType imgSize:(CGSize)imgSize;
 ///绘制空心图片
 + (UIImage *)wzm_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
-///保存图片到自定义相册
-+ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion;
 ///合并图片
 + (UIImage *)wzm_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage;
 
@@ -49,8 +43,6 @@
 - (UIImage *)wzm_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
 
 #pragma mark - 实例方法
-///保存到相册
-- (void)wzm_savedToAlbum;
 ///剪裁图片
 - (UIImage *)wzm_clipImageWithRect:(CGRect)rect;
 ///压缩图片所占的物理内存大小 100M以内的图片经过三层压缩，<= 1M
