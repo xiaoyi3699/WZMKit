@@ -33,12 +33,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor grayColor];
+    
+    WZMClipTimeView *view = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10, 200, WZM_SCREEN_WIDTH-20, 70)];
+    [self.view addSubview:view];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
-    vc.albumFrame = CGRectMake(0, WZM_NAVBAR_HEIGHT, WZM_SCREEN_WIDTH, WZM_SCREEN_HEIGHT-WZM_NAVBAR_HEIGHT-WZM_TABBAR_HEIGHT);
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
+//    vc.albumFrame = CGRectMake(0, WZM_NAVBAR_HEIGHT, WZM_SCREEN_WIDTH, WZM_SCREEN_HEIGHT-WZM_NAVBAR_HEIGHT-WZM_TABBAR_HEIGHT);
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 @end

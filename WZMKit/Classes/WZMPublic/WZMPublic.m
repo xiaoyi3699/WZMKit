@@ -31,6 +31,7 @@
     NSString *_temp;
     NSString *_cache;
     NSString *_document;
+    NSBundle *_resourceBundle;
 }
 
 + (instancetype)Public {
@@ -215,19 +216,22 @@
     return _document;
 }
 
-+ (NSBundle *)resourceBundle {
-    NSString *mainBundlePath = [NSBundle mainBundle].bundlePath;
-    NSString *bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"WZMKit.bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    if (bundle == nil) {
-        bundlePath = [NSString stringWithFormat:@"%@/%@",mainBundlePath,@"Frameworks/WZMKit.framework/WZMKit.bundle"];
-        bundle = [NSBundle bundleWithPath:bundlePath];
+- (NSBundle *)resourceBundle {
+    if (_resourceBundle == nil) {
+        NSBundle *kitBundle = [NSBundle bundleForClass:[WZMPublic class]];
+        NSString *path = [kitBundle pathForResource:@"WZMImages" ofType:@"bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:path];
+        if (bundle == nil) {
+            path = [kitBundle.bundlePath stringByAppendingPathComponent:@"WZMKit.bundle/WZMImages.bundle"];
+            bundle = [NSBundle bundleWithPath:path];
+        }
+        _resourceBundle = bundle;
     }
-    return bundle;
+    return _resourceBundle;
 }
 
 + (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type {
-    NSBundle *bundle = [self resourceBundle];
+    NSBundle *bundle = [[WZMPublic Public] resourceBundle];
     if (bundle == nil) {
         if (type.length > 0) {
             name = [NSString stringWithFormat:@"%@.%@",name,type];
