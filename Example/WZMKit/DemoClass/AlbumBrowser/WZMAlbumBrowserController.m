@@ -7,15 +7,14 @@
 //
 
 #import "WZMAlbumBrowserController.h"
-#import "WZMAlbumModel.h"
 #import "WZMAlbumPhotoCell.h"
 #import <Photos/Photos.h>
 
-@interface WZMAlbumBrowserController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface WZMAlbumBrowserController ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumPhotoCellDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray<WZMAlbumModel *> *albums;
 @property (nonatomic, strong) NSMutableArray<WZMAlbumPhotoModel *> *photos;
+@property (nonatomic, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 
 @end
 
@@ -28,6 +27,8 @@
         self.allowPickingImage = YES;
         self.allowPickingVideo = YES;
         self.albumFrame = [UIScreen mainScreen].bounds;
+        self.photos = [[NSMutableArray alloc] initWithCapacity:0];
+        self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -55,42 +56,32 @@
     }
     [collectionView registerClass:[WZMAlbumPhotoCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:collectionView];
-    if (self.selectedPhotos.count) {
-        self.photos = [[NSMutableArray alloc] initWithArray:self.selectedPhotos];
-    }
-    else {
-        self.photos = [[NSMutableArray alloc] initWithCapacity:0];
-    }
-    [self loadPhotoWithAlbum:@"All Photos"];
+    
+    [self reloadData];
 }
 
-- (void)loadPhotoWithAlbum:(NSString *)album {
+- (void)reloadData {
     [self.photos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
     if (!self.allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
     if (!self.allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
                                                      PHAssetMediaTypeVideo];
     option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    
-    if ([album isEqualToString:@"All Photos"]) {
-        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-        for (PHAssetCollection *collection in smartAlbums) {
-            if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
-            if (collection.estimatedAssetCount <= 0) continue;
-            if ([self isCameraRollAlbum:collection]) {
-                NSLog(@"%@",collection.localizedTitle);
-                PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-                [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    PHAsset *phAsset = (PHAsset *)obj;
-                    WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
-                    [self.photos addObject:model];
-                }];
-                break;
-            }
+    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *collection in smartAlbums) {
+        if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+        if (collection.estimatedAssetCount <= 0) continue;
+        if ([self isCameraRollAlbum:collection]) {
+            PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+            [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                PHAsset *phAsset = (PHAsset *)obj;
+                WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
+                [self.photos addObject:model];
+            }];
+            break;
         }
     }
     [self.collectionView reloadData];
-    
 }
 
 #pragma mark - UICollectionViewDelegate && UICollectionViewDataSource && UICollectionViewDelegateWaterfallLayout
@@ -100,6 +91,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumPhotoCell *cell = (WZMAlbumPhotoCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.delegate = self;
     if (indexPath.row < self.photos.count) {
         [cell setConfig:[self.photos objectAtIndex:indexPath.row]];
     }
@@ -107,7 +99,22 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.allowPreview) {
+        
+    }
+    else {
+        WZMAlbumPhotoCell *cell = (WZMAlbumPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        [cell didSelected];
+    }
+}
+
+- (void)albumPhotoDidSelectedCell:(WZMAlbumPhotoCell *)cell {
+    if (cell.model.isSelected) {
+        [self.selectedPhotos addObject:cell.model];
+    }
+    else {
+        [self.selectedPhotos removeObject:cell.model];
+    }
 }
 
 - (BOOL)isCameraRollAlbum:(PHAssetCollection *)metadata {
@@ -133,6 +140,10 @@
         return;
     }
     _column = column;
+}
+
+- (void)dealloc {
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

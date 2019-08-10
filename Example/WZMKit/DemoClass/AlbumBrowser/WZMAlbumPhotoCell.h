@@ -15,6 +15,7 @@
 @property (nonatomic, readonly, strong) WZMAlbumPhotoModel *model;
 @property (nonatomic, weak) id<WZMAlbumPhotoCellDelegate> delegate;
 
+- (void)didSelected;;
 - (void)setConfig:(WZMAlbumPhotoModel *)photoModel;
 
 @end
@@ -22,6 +23,6 @@
 @protocol WZMAlbumPhotoCellDelegate <NSObject>
 
 @optional
-- (void)albumPhotoCell:(WZMAlbumPhotoCell *)cell didSelected:(BOOL)selected;
+- (void)albumPhotoDidSelectedCell:(WZMAlbumPhotoCell *)cell;
 
 @end

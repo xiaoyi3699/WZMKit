@@ -68,7 +68,7 @@
         _selectedBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
         [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_normal"] forState:UIControlStateNormal];
         [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_seleced"] forState:UIControlStateSelected];
-        [_selectedBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_selectedBtn addTarget:self action:@selector(didSelected) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_selectedBtn];
     }
     return self;
@@ -113,11 +113,11 @@
     }
 }
 
-- (void)btnClick:(UIButton *)btn {
-    btn.selected = !btn.isSelected;
-    self.model.selected = btn.isSelected;
-    if ([self.delegate respondsToSelector:@selector(albumPhotoCell:didSelected:)]) {
-        [self.delegate albumPhotoCell:self didSelected:btn.isSelected];
+- (void)didSelected {
+    _selectedBtn.selected = !_selectedBtn.isSelected;
+    self.model.selected = _selectedBtn.isSelected;
+    if ([self.delegate respondsToSelector:@selector(albumPhotoDidSelectedCell:)]) {
+        [self.delegate albumPhotoDidSelectedCell:self];
     }
 }
 
