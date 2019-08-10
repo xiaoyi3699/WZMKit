@@ -42,6 +42,16 @@
 + (void)deleteFileInPath:(NSString *)filePath completion:(doBlock)completion;
 
 /**
+ 移动文件
+ */
++ (BOOL)moveItemAtURL:(NSURL *)atURO toURL:(NSURL *)toURL;
+
+/**
+ 移动文件
+ */
++ (BOOL)moveItemAtPath:(NSString *)atPath toPath:(NSString *)toPath;
+
+/**
  获取缓存大小
  */
 + (float)cacheSizeAtPath:(NSString *)cachePath;

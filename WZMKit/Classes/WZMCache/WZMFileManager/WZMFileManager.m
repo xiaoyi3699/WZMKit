@@ -138,6 +138,14 @@
     }
 }
 
++ (BOOL)moveItemAtURL:(NSURL *)atURO toURL:(NSURL *)toURL {
+    return [WZM_FILE_MANAGER moveItemAtURL:atURO toURL:toURL error:nil];
+}
+
++ (BOOL)moveItemAtPath:(NSString *)atPath toPath:(NSString *)toPath {
+    return [WZM_FILE_MANAGER moveItemAtPath:atPath toPath:toPath error:nil];
+}
+
 + (float)cacheSizeAtPath:(NSString *)cachePath{
     float totalSize = 0;
     BOOL isDirectory = NO;
