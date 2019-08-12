@@ -87,7 +87,7 @@
         if (!isDegraded) {
             _imageRequestID = 0;
         }
-    } progressHandler:nil networkAccessAllowed:NO];
+    }];
     if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }

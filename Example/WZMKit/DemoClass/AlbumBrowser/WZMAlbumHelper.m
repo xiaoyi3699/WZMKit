@@ -15,6 +15,10 @@
 
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
+@property (nonatomic, strong) PHImageRequestOptions *imageOptions;
+@property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
+
+@property (nonatomic, strong) PHImageRequestOptions *iCloudImageOptions;
 
 @end
 
@@ -37,6 +41,17 @@
         if (self.screenWidth > 700) {
             self.screenScale = 1.5;
         }
+        self.imageOptions = [[PHImageRequestOptions alloc] init];
+        self.imageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+        
+        self.videoOptions = [[PHVideoRequestOptions alloc] init];
+        self.videoOptions.version = PHVideoRequestOptionsVersionOriginal;
+        self.videoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        self.videoOptions.networkAccessAllowed = YES;
+        
+        self.iCloudImageOptions = [[PHImageRequestOptions alloc] init];
+        self.iCloudImageOptions.networkAccessAllowed = YES;
+        self.iCloudImageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
     }
     return self;
 }
@@ -59,7 +74,7 @@
 }
 
 //获取缩略图
-+ (PHImageRequestID)wzm_getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
++ (int32_t)wzm_getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
@@ -74,56 +89,50 @@
     CGFloat pixelHeight = pixelWidth / aspectRatio;
     CGSize imageSize = CGSizeMake(pixelWidth, pixelHeight);
     
-    __block UIImage *image;
     // 修复获取图片时出现的瞬间内存过高问题
-    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
-    option.resizeMode = PHImageRequestOptionsResizeModeFast;
-    int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
-        if (result) {
-            image = result;
-        }
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.imageOptions.networkAccessAllowed = NO;
+    int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             result = [self wzm_fixOrientation:result];
             if (completion) completion(result,info,[[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
-        }
-        // Download image from iCloud / 从iCloud下载图片
-        if ([info objectForKey:PHImageResultIsInCloudKey] && !result && networkAccessAllowed) {
-            PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-            options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (progressHandler) {
-                        progressHandler(progress, error, stop, info);
-                    }
-                });
-            };
-            options.networkAccessAllowed = YES;
-            options.resizeMode = PHImageRequestOptionsResizeModeFast;
-            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:options resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-                UIImage *resultImage = [UIImage imageWithData:imageData];
-                if (!resultImage) {
-                    resultImage = image;
-                }
-                resultImage = [self wzm_fixOrientation:resultImage];
-                if (completion) completion(resultImage,info,NO);
-            }];
         }
     }];
     return imageRequestID;
 }
 
 //获取原图
-+ (void)wzm_getOriginalImageWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
-    PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
-    option.networkAccessAllowed = YES;
-    option.resizeMode = PHImageRequestOptionsResizeModeFast;
-    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:option resultHandler:^(UIImage *result, NSDictionary *info) {
++ (void)wzm_getOriginalImageWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion networkAccessAllowed:(BOOL)networkAccessAllowed {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.imageOptions.networkAccessAllowed = YES;
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             result = [self wzm_fixOrientation:result];
             BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
             if (completion) completion(result,info,isDegraded);
         }
+        // Download image from iCloud / 从iCloud下载图片
+        if ([info objectForKey:PHImageResultIsInCloudKey] && !result && networkAccessAllowed) {
+            [self getICloudImageWithAsset:asset progressHandler:progressHandler completion:completion];
+        }
+    }];
+}
+
++ (void)getICloudImageWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressHandler) {
+                progressHandler(progress, error, stop, info);
+            }
+        });
+    };
+    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+        UIImage *resultImage = [UIImage imageWithData:imageData];
+        resultImage = [self wzm_fixOrientation:resultImage];
+        if (completion) completion(resultImage,info,NO);
     }];
 }
 
@@ -132,7 +141,6 @@
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
     CGAffineTransform transform = CGAffineTransformIdentity;
-    
     switch (aImage.imageOrientation) {
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
@@ -195,11 +203,8 @@
 
 //获取视频
 + (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
-    PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
-    options.version = PHVideoRequestOptionsVersionOriginal;
-    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-    options.networkAccessAllowed = YES;
-    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         // NSLog(@"Info:\n%@",info);
         AVURLAsset *videoAsset = (AVURLAsset*)avasset;
         // NSLog(@"AVAsset URL: %@",myAsset.URL);

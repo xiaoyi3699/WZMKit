@@ -123,11 +123,11 @@
         }];
     }
     else {
-        [WZMAlbumHelper wzm_getOriginalImageWithAsset:model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        [WZMAlbumHelper wzm_getOriginalImageWithAsset:model.asset progressHandler:nil completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
             if (completion) {
                 completion(photo);
             }
-        }];
+        } networkAccessAllowed:YES];
     }
 }
 
