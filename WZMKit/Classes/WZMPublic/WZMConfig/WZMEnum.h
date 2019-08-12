@@ -147,7 +147,7 @@ typedef enum : NSInteger {
 //数据返回格式
 typedef enum : NSInteger {
     WZMNetResultContentTypeJson = 0, //json
-    WZMNetResultContentTypeData,    //源数据
+    WZMNetResultContentTypeData,     //源数据
 } WZMNetResultContentType;
 
 ///文件管理
