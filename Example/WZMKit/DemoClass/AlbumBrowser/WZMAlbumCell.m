@@ -1,22 +1,22 @@
 //
-//  WZMAlbumPhotoCell.m
+//  WZMAlbumCell.m
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/8/6.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMAlbumPhotoCell.h"
+#import "WZMAlbumCell.h"
 #import "WZMAlbumHelper.h"
 #import <Photos/Photos.h>
 
-@interface WZMAlbumPhotoCell ()
+@interface WZMAlbumCell ()
 
-@property (nonatomic, strong) WZMAlbumPhotoModel *model;
+@property (nonatomic, strong) WZMAlbumModel *model;
 
 @end
 
-@implementation WZMAlbumPhotoCell {
+@implementation WZMAlbumCell {
     int32_t _imageRequestID;
     NSString *_representedAssetIdentifier;
     UIImageView *_photoImageView;
@@ -74,11 +74,11 @@
     return self;
 }
 
-- (void)setConfig:(WZMAlbumPhotoModel *)photoModel {
+- (void)setConfig:(WZMAlbumModel *)photoModel {
     self.model = photoModel;
     PHAsset *phAsset = (PHAsset *)photoModel.asset;
     _representedAssetIdentifier = phAsset.localIdentifier;
-    int32_t imageRequestID = [WZMAlbumHelper getThumbnailImageWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailImageWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if ([_representedAssetIdentifier isEqualToString:phAsset.localIdentifier]) {
             _photoImageView.image = photo;
         } else {
@@ -87,7 +87,7 @@
         if (!isDegraded) {
             _imageRequestID = 0;
         }
-    } progressHandler:nil networkAccessAllowed:YES];
+    } progressHandler:nil networkAccessAllowed:NO];
     if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }

@@ -1,5 +1,5 @@
 //
-//  WZMAlbumPhotoModel.h
+//  WZMAlbumModel.h
 //  WZMKit_Example
 //
 //  Created by WangZhaomeng on 2019/8/6.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WZMEnum.h"
 
-@interface WZMAlbumPhotoModel : NSObject
+@interface WZMAlbumModel : NSObject
 
 @property (nonatomic, strong) id asset;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;

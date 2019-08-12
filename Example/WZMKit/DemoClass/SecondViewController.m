@@ -7,16 +7,15 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMAlbumBrowserController.h"
+#import "WZMAlbumController.h"
+#import "WZMAlbumNavigationController.h"
 
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMPlayerDelegate,WZMClipTimeViewDelegate> {
+@interface SecondViewController ()<WZMAlbumControllerDelegate> {
     WZMPlayer *player;
 }
-
-@property (nonatomic, strong) WZMDownloader *downloader;
 
 @end
 
@@ -36,9 +35,14 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumBrowserController *vc = [[WZMAlbumBrowserController alloc] init];
-    vc.albumFrame = CGRectMake(0, WZM_NAVBAR_HEIGHT, WZM_SCREEN_WIDTH, WZM_SCREEN_HEIGHT-WZM_NAVBAR_HEIGHT-WZM_TABBAR_HEIGHT);
+    WZMAlbumController *vc = [[WZMAlbumController alloc] init];
+    vc.pickerDelegate = self;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)albumPicker:(WZMAlbumNavigationController *)albumPicker didSelectedPhotos:(NSArray<WZMAlbumModel *> *)photos {
+    NSLog(@"%@",photos);
 }
 
 @end

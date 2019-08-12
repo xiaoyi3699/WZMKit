@@ -59,7 +59,7 @@
 }
 
 //获取缩略图
-+ (PHImageRequestID)getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
++ (PHImageRequestID)wzm_getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler networkAccessAllowed:(BOOL)networkAccessAllowed {
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
@@ -194,7 +194,7 @@
 }
 
 //获取视频
-- (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
++ (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
     PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
     options.version = PHVideoRequestOptionsVersionOriginal;
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
@@ -208,7 +208,7 @@
 }
 
 //private导出视频
-- (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void (^)(NSString *videoPath, NSString *desc))completion {
++ (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void (^)(NSString *videoPath, NSString *desc))completion {
     NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
     if ([presets containsObject:presetName]) {
         AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
@@ -259,12 +259,12 @@
 }
 
 //保存视频到系统相册
-- (void)wzm_saveVideo:(NSString *)path {
++ (void)wzm_saveVideo:(NSString *)path {
     UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
 }
 
 //保存图片到系统相册
-- (void)wzm_saveImage:(UIImage *)image {
++ (void)wzm_saveImage:(UIImage *)image {
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
