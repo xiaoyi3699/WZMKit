@@ -11,6 +11,7 @@
 @protocol WZMAlbumBrowserControllerDelegate;
 
 @interface WZMAlbumBrowserController : UIViewController
+typedef void(^selPhotos)(WZMAlbumBrowserController *albumBrowser,NSArray<WZMAlbumPhotoModel *> *photos);
 
 ///相册视图在屏幕中的frame, 默认全屏
 @property (nonatomic, assign) CGRect albumFrame;
@@ -22,8 +23,13 @@
 @property (nonatomic, assign) BOOL allowPickingImage;
 ///是否允许选择视频
 @property (nonatomic, assign) BOOL allowPickingVideo;
+///block
+@property (nonatomic, copy) selPhotos didSelectedPhotos;
 ///代理
 @property (nonatomic, weak) id<WZMAlbumBrowserControllerDelegate> delegate;
+
+- (void)okBtnClick;
+- (void)cancelBtnClick;
 
 @end
 

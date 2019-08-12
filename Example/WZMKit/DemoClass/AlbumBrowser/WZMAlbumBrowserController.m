@@ -60,6 +60,26 @@
     [self reloadData];
 }
 
+- (void)okBtnClick {
+    if (self.didSelectedPhotos) {
+        self.didSelectedPhotos(self, self.selectedPhotos);
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(albumBrowser:didSelectedPhotos:)]) {
+        [self.delegate albumBrowser:self didSelectedPhotos:self.selectedPhotos];
+    }
+    [self cancelBtnClick];
+}
+
+- (void)cancelBtnClick {
+    if (self.navigationController.topViewController == self) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void)reloadData {
     [self.photos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
