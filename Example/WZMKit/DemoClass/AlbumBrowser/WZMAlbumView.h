@@ -15,10 +15,12 @@
 @property (nonatomic, assign) NSInteger column;
 ///是否允许预览
 @property (nonatomic, assign) BOOL allowPreview;
-///是否允许选择图片
-@property (nonatomic, assign) BOOL allowPickingImage;
-///是否允许选择视频
-@property (nonatomic, assign) BOOL allowPickingVideo;
+///是否显示GIF, 默认NO
+@property (nonatomic, assign) BOOL allowShowGIF;
+///是否显示图片, 默认YES
+@property (nonatomic, assign) BOOL allowShowImage;
+///是否显示视频, 默认YES
+@property (nonatomic, assign) BOOL allowShowVideo;
 
 ///所有图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;

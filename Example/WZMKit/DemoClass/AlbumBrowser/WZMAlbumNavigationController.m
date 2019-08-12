@@ -21,8 +21,9 @@
         self.column = 4;
         self.autoDismiss = YES;
         self.allowPreview = NO;
-        self.allowPickingImage = YES;
-        self.allowPickingVideo = YES;
+        self.allowShowGIF = NO;
+        self.allowShowImage = YES;
+        self.allowShowVideo = YES;
     }
     return self;
 }

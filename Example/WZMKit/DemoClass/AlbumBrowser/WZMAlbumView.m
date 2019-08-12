@@ -24,10 +24,11 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         self.column = 4;
-        self.allowPickingImage = YES;
-        self.allowPickingVideo = YES;
+        self.allowPreview = NO;
+        self.allowShowGIF = NO;
+        self.allowShowImage = YES;
+        self.allowShowVideo = YES;
         self.albumFrame = self.bounds;
         self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
@@ -58,8 +59,8 @@
 - (void)reloadData {
     [self.allPhotos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
-    if (!self.allowPickingImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
-    if (!self.allowPickingVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
+    if (!self.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
+    if (!self.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
                                                      PHAssetMediaTypeImage];
     option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
@@ -71,7 +72,11 @@
             [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 PHAsset *phAsset = (PHAsset *)obj;
                 WZMAlbumModel *model = [WZMAlbumModel modelWithAsset:phAsset];
-                [self.allPhotos addObject:model];
+                if (self.allowShowGIF == NO) {
+                    if (model.type != WZMAlbumPhotoTypePhotoGif) {
+                        [self.allPhotos addObject:model];
+                    }
+                }
             }];
             break;
         }

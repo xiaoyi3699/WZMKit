@@ -16,12 +16,14 @@
 @property (nonatomic, assign) NSInteger column;
 ///点击确定时是否自动消失
 @property (nonatomic, assign) BOOL autoDismiss;
-///是否允许预览
+///是否允许预览<暂时无效>
 @property (nonatomic, assign) BOOL allowPreview;
+///是否显示GIF, 默认NO
+@property (nonatomic, assign) BOOL allowShowGIF;
 ///是否允许选择图片
-@property (nonatomic, assign) BOOL allowPickingImage;
+@property (nonatomic, assign) BOOL allowShowImage;
 ///是否允许选择视频
-@property (nonatomic, assign) BOOL allowPickingVideo;
+@property (nonatomic, assign) BOOL allowShowVideo;
 ///代理
 @property (nonatomic, weak) id<WZMAlbumNavigationControllerDelegate> pickerDelegate;
 

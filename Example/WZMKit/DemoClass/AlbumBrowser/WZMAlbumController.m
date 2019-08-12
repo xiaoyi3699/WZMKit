@@ -25,8 +25,9 @@
         self.column = 4;
         self.autoDismiss = YES;
         self.allowPreview = NO;
-        self.allowPickingImage = YES;
-        self.allowPickingVideo = YES;
+        self.allowShowGIF = NO;
+        self.allowShowImage = YES;
+        self.allowShowVideo = YES;
     }
     return self;
 }
@@ -44,14 +45,14 @@
         WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
         self.albumBrowser.column = picker.column;
         self.albumBrowser.allowPreview = picker.allowPreview;
-        self.albumBrowser.allowPickingImage = picker.allowPickingImage;
-        self.albumBrowser.allowPickingVideo = picker.allowPickingVideo;
+        self.albumBrowser.allowShowImage = picker.allowShowImage;
+        self.albumBrowser.allowShowVideo = picker.allowShowVideo;
     }
     else {
         self.albumBrowser.column = self.column;
         self.albumBrowser.allowPreview = self.allowPreview;
-        self.albumBrowser.allowPickingImage = self.allowPickingImage;
-        self.albumBrowser.allowPickingVideo = self.allowPickingVideo;
+        self.albumBrowser.allowShowImage = self.allowShowImage;
+        self.albumBrowser.allowShowVideo = self.allowShowVideo;
     }
     [self.view addSubview:self.albumBrowser];
 }
@@ -81,8 +82,8 @@
             }
         }
         else {
-            if ([self.pickerDelegate respondsToSelector:@selector(albumPicker:didSelectedPhotos:)]) {
-                [self.pickerDelegate albumPicker:self didSelectedPhotos:photos];
+            if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedPhotos:)]) {
+                [self.pickerDelegate albumController:self didSelectedPhotos:photos];
             }
             if (self.autoDismiss) {
                 [self.navigationController popViewControllerAnimated:YES];

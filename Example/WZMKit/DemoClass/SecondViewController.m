@@ -41,7 +41,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)albumPicker:(WZMAlbumNavigationController *)albumPicker didSelectedPhotos:(NSArray<WZMAlbumModel *> *)photos {
+- (void)albumController:(WZMAlbumNavigationController *)albumController didSelectedPhotos:(NSArray<WZMAlbumModel *> *)photos {
     NSLog(@"%@",photos);
 }
 
