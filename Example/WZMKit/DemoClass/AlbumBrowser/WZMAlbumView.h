@@ -27,4 +27,6 @@
 ///选中的图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *selectedPhotos;
 
+- (void)reloadData;
+
 @end

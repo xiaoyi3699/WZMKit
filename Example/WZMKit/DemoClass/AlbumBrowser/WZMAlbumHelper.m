@@ -13,6 +13,7 @@
 
 @interface WZMAlbumHelper ()
 
+@property (nonatomic, strong) NSString *videoPath;
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
@@ -52,6 +53,9 @@
         self.iCloudImageOptions = [[PHImageRequestOptions alloc] init];
         self.iCloudImageOptions.networkAccessAllowed = YES;
         self.iCloudImageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+        
+        self.videoPath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"KPAlbum"];
+        [WZMFileManager createDirectoryAtPath:self.videoPath];
     }
     return self;
 }
@@ -217,8 +221,10 @@
     NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
     if ([presets containsObject:presetName]) {
         AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
+        WZMAlbumHelper *helper = [WZMAlbumHelper helper];
         NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
-        NSString *outputPath = [NSHomeDirectory() stringByAppendingFormat:@"/tmp/video-%@.mp4", [formater stringFromDate:[NSDate date]]];
+        NSString *videoName = [formater stringFromDate:[NSDate date]];
+        NSString *outputPath = [helper.videoPath stringByAppendingFormat:@"%@.mp4", videoName];
         session.shouldOptimizeForNetworkUse = true;
         NSArray *supportedTypeArray = session.supportedFileTypes;
         if (supportedTypeArray.count == 0) {
@@ -236,9 +242,6 @@
             }
         }
         session.outputURL = [NSURL fileURLWithPath:outputPath];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"]]) {
-            [[NSFileManager defaultManager] createDirectoryAtPath:[NSHomeDirectory() stringByAppendingFormat:@"/tmp"] withIntermediateDirectories:YES attributes:nil error:nil];
-        }
         [session exportAsynchronouslyWithCompletionHandler:^(void) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 switch (session.status) {
@@ -378,6 +381,13 @@
             }
         }
     }];
+}
+
+///清除视频缓存
++ (void)wzm_claerVideoCache {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [WZMFileManager deleteFileAtPath:helper.videoPath error:nil];
+    [WZMFileManager createDirectoryAtPath:helper.videoPath];
 }
 
 @end

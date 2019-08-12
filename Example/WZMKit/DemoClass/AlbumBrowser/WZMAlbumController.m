@@ -7,11 +7,12 @@
 //
 
 #import "WZMAlbumController.h"
+#import <Photos/Photos.h>
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumView.h"
 #import "WZMAlbumHelper.h"
 
-@interface WZMAlbumController ()
+@interface WZMAlbumController ()<UIAlertViewDelegate>
 
 @property (nonatomic, strong) WZMAlbumView *albumBrowser;
 
@@ -57,6 +58,11 @@
     [self.view addSubview:self.albumBrowser];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self checkAlbumAuthorization];
+}
+
 - (void)leftItemClick {
     if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -74,8 +80,8 @@
         self.navigationController.view.userInteractionEnabled = YES;
         if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
             WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
-            if ([picker.pickerDelegate respondsToSelector:@selector(albumPicker:didSelectedPhotos:)]) {
-                [picker.pickerDelegate albumPicker:picker didSelectedPhotos:photos];
+            if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedPhotos:)]) {
+                [picker.pickerDelegate albumNavigationController:picker didSelectedPhotos:photos];
             }
             if (picker.autoDismiss) {
                 [picker dismissViewControllerAnimated:YES completion:nil];
@@ -90,6 +96,33 @@
             }
         }
     }];
+}
+
+//相册权限
+- (void)checkAlbumAuthorization {
+    if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized){//用户之前已经授权
+        [self.albumBrowser reloadData];
+    }
+    else if([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusDenied){//用户之前已经拒绝授权
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请前往“设置-隐私-照片”打开应用的相册访问权限" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else{//弹窗授权时监听
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (status == PHAuthorizationStatusAuthorized){//允许
+                    [self.albumBrowser reloadData];
+                }
+                else {//拒绝
+                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                }
+            });
+        }];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 ///获取图片(UIImage)或视频(路径)

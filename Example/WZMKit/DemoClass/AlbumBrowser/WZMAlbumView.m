@@ -52,6 +52,7 @@
         }
         [collectionView registerClass:[WZMAlbumCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:collectionView];
+        self.collectionView = collectionView;
     }
     return self;
 }
@@ -140,13 +141,6 @@
         return;
     }
     _column = column;
-}
-
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    if (newSuperview) {
-        [self reloadData];
-    }
-    [super willMoveToSuperview:newSuperview];
 }
 
 - (void)dealloc {

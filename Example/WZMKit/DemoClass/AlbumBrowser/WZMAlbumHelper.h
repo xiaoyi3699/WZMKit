@@ -25,5 +25,7 @@
 + (void)wzm_saveImage:(UIImage *)image;
 ///保存图片到自定义相册
 + (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion;
+///清除视频缓存
++ (void)wzm_claerVideoCache;
 
 @end
