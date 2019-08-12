@@ -113,6 +113,11 @@
     }
 }
 
+- (void)cancelSelected {
+    _selectedBtn.selected = NO;
+    self.model.selected = NO;
+}
+
 - (void)didSelected {
     _selectedBtn.selected = !_selectedBtn.isSelected;
     self.model.selected = _selectedBtn.isSelected;

@@ -21,6 +21,10 @@
 @property (nonatomic, assign) BOOL allowShowImage;
 ///是否显示视频, 默认YES
 @property (nonatomic, assign) BOOL allowShowVideo;
+///最小选中数量, 默认0
+@property (nonatomic, assign) NSInteger minCount;
+///最大选中数量, 默认9
+@property (nonatomic, assign) NSInteger maxCount;
 
 ///所有图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;

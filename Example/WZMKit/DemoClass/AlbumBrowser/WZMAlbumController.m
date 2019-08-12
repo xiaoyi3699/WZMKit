@@ -14,7 +14,7 @@
 
 @interface WZMAlbumController ()<UIAlertViewDelegate>
 
-@property (nonatomic, strong) WZMAlbumView *albumBrowser;
+@property (nonatomic, strong) WZMAlbumView *albumView;
 
 @end
 
@@ -24,6 +24,8 @@
     self = [super init];
     if (self) {
         self.column = 4;
+        self.minCount = 0;
+        self.maxCount = 9;
         self.autoDismiss = YES;
         self.allowPreview = NO;
         self.allowShowGIF = NO;
@@ -41,21 +43,25 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    self.albumBrowser = [[WZMAlbumView alloc] initWithFrame:WZMRectBottomArea()];
+    self.albumView = [[WZMAlbumView alloc] initWithFrame:WZMRectBottomArea()];
     if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
         WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
-        self.albumBrowser.column = picker.column;
-        self.albumBrowser.allowPreview = picker.allowPreview;
-        self.albumBrowser.allowShowImage = picker.allowShowImage;
-        self.albumBrowser.allowShowVideo = picker.allowShowVideo;
+        self.column = picker.column;
+        self.minCount = picker.minCount;
+        self.maxCount = picker.maxCount;
+        self.allowPreview = picker.allowPreview;
+        self.allowShowGIF = picker.allowShowGIF;
+        self.allowShowImage = picker.allowShowImage;
+        self.allowShowVideo = picker.allowShowVideo;
     }
-    else {
-        self.albumBrowser.column = self.column;
-        self.albumBrowser.allowPreview = self.allowPreview;
-        self.albumBrowser.allowShowImage = self.allowShowImage;
-        self.albumBrowser.allowShowVideo = self.allowShowVideo;
-    }
-    [self.view addSubview:self.albumBrowser];
+    self.albumView.column = self.column;
+    self.albumView.minCount = self.minCount;
+    self.albumView.maxCount = self.maxCount;
+    self.albumView.allowPreview = self.allowPreview;
+    self.albumView.allowShowGIF = self.allowShowGIF;
+    self.albumView.allowShowImage = self.allowShowImage;
+    self.albumView.allowShowVideo = self.allowShowVideo;
+    [self.view addSubview:self.albumView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,9 +79,15 @@
 }
 
 - (void)rightItemClick {
+    if (self.albumView.selectedPhotos.count < self.minCount) {
+        NSString *msg = [NSString stringWithFormat:@"请至少选择%@张照片",@(self.minCount)];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
     [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
     self.navigationController.view.userInteractionEnabled = NO;
-    [self photosWithModels:self.albumBrowser.selectedPhotos completion:^(NSArray *photos) {
+    [self photosWithModels:self.albumView.selectedPhotos completion:^(NSArray *photos) {
         [WZMViewHandle wzm_dismiss];
         self.navigationController.view.userInteractionEnabled = YES;
         if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
@@ -101,7 +113,7 @@
 //相册权限
 - (void)checkAlbumAuthorization {
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized){//用户之前已经授权
-        [self.albumBrowser reloadData];
+        [self.albumView reloadData];
     }
     else if([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusDenied){//用户之前已经拒绝授权
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请前往“设置-隐私-照片”打开应用的相册访问权限" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -111,7 +123,7 @@
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (status == PHAuthorizationStatusAuthorized){//允许
-                    [self.albumBrowser reloadData];
+                    [self.albumView reloadData];
                 }
                 else {//拒绝
                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];

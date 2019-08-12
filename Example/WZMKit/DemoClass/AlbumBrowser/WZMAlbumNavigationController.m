@@ -19,6 +19,8 @@
     self = [super initWithRootViewController:[[WZMAlbumController alloc] init]];
     if (self) {
         self.column = 4;
+        self.minCount = 0;
+        self.maxCount = 9;
         self.autoDismiss = YES;
         self.allowPreview = NO;
         self.allowShowGIF = NO;

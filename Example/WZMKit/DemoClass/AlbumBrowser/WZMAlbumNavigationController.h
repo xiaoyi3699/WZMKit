@@ -23,6 +23,10 @@
 @property (nonatomic, assign) BOOL allowShowImage;
 ///是否允许选择视频
 @property (nonatomic, assign) BOOL allowShowVideo;
+///最小选中数量, 默认0
+@property (nonatomic, assign) NSInteger minCount;
+///最大选中数量, 默认9
+@property (nonatomic, assign) NSInteger maxCount;
 ///代理
 @property (nonatomic, weak) id<WZMAlbumNavigationControllerDelegate> pickerDelegate;
 

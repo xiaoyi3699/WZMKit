@@ -25,6 +25,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.column = 4;
+        self.minCount = 0;
+        self.maxCount = 9;
         self.allowPreview = NO;
         self.allowShowGIF = NO;
         self.allowShowImage = YES;
@@ -111,6 +113,13 @@
 
 - (void)albumPhotoDidSelectedCell:(WZMAlbumCell *)cell {
     if (cell.model.isSelected) {
+        if (self.selectedPhotos.count+1 > self.maxCount) {
+            NSString *msg = [NSString stringWithFormat:@"最多只能选%@张照片",@(self.maxCount)];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
+            [cell cancelSelected];
+            return;
+        }
         [self.selectedPhotos addObject:cell.model];
     }
     else {

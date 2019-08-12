@@ -15,7 +15,8 @@
 @property (nonatomic, readonly, strong) WZMAlbumModel *model;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
-- (void)didSelected;;
+- (void)didSelected;
+- (void)cancelSelected;
 - (void)setConfig:(WZMAlbumModel *)photoModel;
 
 @end
