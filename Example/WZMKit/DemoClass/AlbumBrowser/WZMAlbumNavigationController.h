@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMAlbumModel.h"
 @protocol WZMAlbumNavigationControllerDelegate;
 
 @interface WZMAlbumNavigationController : UINavigationController
@@ -32,6 +31,6 @@
 @protocol WZMAlbumNavigationControllerDelegate <NSObject>
 
 @optional
-- (void)albumPicker:(WZMAlbumNavigationController *)albumPicker didSelectedPhotos:(NSArray<WZMAlbumModel *> *)photos;
+- (void)albumPicker:(WZMAlbumNavigationController *)albumPicker didSelectedPhotos:(NSArray *)photos;
 
 @end
