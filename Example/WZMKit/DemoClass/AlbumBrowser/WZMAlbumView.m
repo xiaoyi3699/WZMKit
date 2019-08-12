@@ -12,6 +12,8 @@
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
+@property (nonatomic, strong) UIView *toolView;
+@property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, assign) CGRect albumFrame;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;
@@ -31,7 +33,7 @@
         self.allowShowGIF = NO;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
-        self.albumFrame = self.bounds;
+        self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-44);
         self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         
@@ -55,6 +57,30 @@
         [collectionView registerClass:[WZMAlbumCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:collectionView];
         self.collectionView = collectionView;
+        
+        self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, 44)];
+        self.toolView.backgroundColor = WZM_R_G_B(240, 240, 240);
+        [self addSubview:self.toolView];
+        
+        UIView *toolLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.toolView.wzm_width, 0.5)];
+        toolLineView.backgroundColor = WZM_R_G_B(220, 220, 220);
+        [self.toolView addSubview:toolLineView];
+        
+        UILabel *msgLabel = [[UILabel alloc] initWithFrame:self.toolView.bounds];
+        msgLabel.text = @"请选择素材";
+        msgLabel.font = [UIFont systemFontOfSize:12];
+        msgLabel.textColor = [UIColor grayColor];
+        msgLabel.textAlignment = NSTextAlignmentCenter;
+        [self.toolView addSubview:msgLabel];
+        
+        self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.toolView.wzm_width-90, 7, 80, 30)];
+        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
+        self.countLabel.font = [UIFont systemFontOfSize:17];
+        self.countLabel.textColor = [UIColor whiteColor];
+        self.countLabel.textAlignment = NSTextAlignmentCenter;
+        self.countLabel.wzm_cornerRadius = 15;
+        self.countLabel.backgroundColor = [UIColor redColor];
+        [self.toolView addSubview:self.countLabel];
     }
     return self;
 }
@@ -125,6 +151,7 @@
     else {
         [self.selectedPhotos removeObject:cell.model];
     }
+    self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
 }
 
 - (BOOL)isCameraRollAlbum:(PHAssetCollection *)metadata {
