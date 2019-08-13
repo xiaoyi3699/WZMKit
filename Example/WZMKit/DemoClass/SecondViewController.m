@@ -36,6 +36,8 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    config.allowPreview = NO;
+    config.maxCount = 1;
     
     WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
