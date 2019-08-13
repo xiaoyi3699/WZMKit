@@ -24,7 +24,8 @@
     UIView *_videoTimeView;
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
-    UIButton *_selectedBtn;
+    UIButton *_previewBtn;
+    UILabel *_indexLabel;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -64,12 +65,20 @@
         _gifLabel.hidden = YES;
         [self addSubview:_gifLabel];
         
-        _selectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectedBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_normal"] forState:UIControlStateNormal];
-        [_selectedBtn setBackgroundImage:[UIImage imageNamed:@"album_seleced"] forState:UIControlStateSelected];
-        [_selectedBtn addTarget:self action:@selector(didSelected) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_selectedBtn];
+        _indexLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _indexLabel.text = @"1";
+        _indexLabel.font = [UIFont boldSystemFontOfSize:25];
+        _indexLabel.textColor = [UIColor whiteColor];
+        _indexLabel.backgroundColor = [THEME_COLOR colorWithAlphaComponent:0.6];
+        _indexLabel.textAlignment = NSTextAlignmentCenter;
+        _indexLabel.hidden = YES;
+        [self addSubview:_indexLabel];
+        
+        _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        [_previewBtn setImage:[UIImage imageNamed:@"album_yt"] forState:UIControlStateNormal];
+        [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_previewBtn];
     }
     return self;
 }
@@ -92,7 +101,13 @@
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }
     _imageRequestID = imageRequestID;
-    _selectedBtn.selected = photoModel.isSelected;
+    if (photoModel.isSelected) {
+        _indexLabel.hidden = NO;
+        _indexLabel.text = [NSString stringWithFormat:@"%@",@(photoModel.index)];
+    }
+    else {
+        _indexLabel.hidden = YES;
+    }
     if (photoModel.type == WZMAlbumPhotoTypePhotoGif) {
         _gifLabel.hidden = NO;
         _videoTimeView.hidden = YES;
@@ -113,16 +128,9 @@
     }
 }
 
-- (void)cancelSelected {
-    _selectedBtn.selected = NO;
-    self.model.selected = NO;
-}
-
-- (void)didSelected {
-    _selectedBtn.selected = !_selectedBtn.isSelected;
-    self.model.selected = _selectedBtn.isSelected;
-    if ([self.delegate respondsToSelector:@selector(albumPhotoDidSelectedCell:)]) {
-        [self.delegate albumPhotoDidSelectedCell:self];
+- (void)previewBtnClick:(UIButton *)btn {
+    if ([self.delegate respondsToSelector:@selector(albumPhotoCellWillShowPreview:)]) {
+        [self.delegate albumPhotoCellWillShowPreview:self];
     }
 }
 

@@ -24,6 +24,7 @@
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
+		75AD1C912302918B003720FB /* album_yt.png in Resources */ = {isa = PBXBuildFile; fileRef = 75AD1C902302918B003720FB /* album_yt.png */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumModel.m */; };
 		75FB378B22F9A2920064CF6C /* WZMAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378A22F9A2920064CF6C /* WZMAlbumCell.m */; };
 		75FB378E22F9B3B30064CF6C /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */; };
@@ -78,6 +79,7 @@
 		7558CBC222DF50D30043651C /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		7558CBC422DF50E60043651C /* ThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		7558CBC522DF50E60043651C /* ThirdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		75AD1C902302918B003720FB /* album_yt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_yt.png; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
 		75FB378122F99F840064CF6C /* WZMAlbumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumView.m; sourceTree = "<group>"; };
 		75FB378622F99FC70064CF6C /* WZMAlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumModel.h; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 		75FB377F22F99F440064CF6C /* AlbumBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				75AD1C902302918B003720FB /* album_yt.png */,
 				75FB379122F9BC600064CF6C /* album_play.png */,
 				75FB378F22F9BB730064CF6C /* album_video.png */,
 				75FB379422F9BDC20064CF6C /* album_normal.png */,
@@ -367,6 +370,7 @@
 			files = (
 				7505DE8422EA8E580012A2E9 /* qrBg@2x.png in Resources */,
 				75FB379522F9BDC20064CF6C /* album_seleced.png in Resources */,
+				75AD1C912302918B003720FB /* album_yt.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75FB379622F9BDC20064CF6C /* album_normal.png in Resources */,

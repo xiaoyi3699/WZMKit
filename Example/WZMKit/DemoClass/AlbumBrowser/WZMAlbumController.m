@@ -12,7 +12,7 @@
 #import "WZMAlbumView.h"
 #import "WZMAlbumHelper.h"
 
-@interface WZMAlbumController ()<UIAlertViewDelegate>
+@interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate>
 
 @property (nonatomic, strong) WZMAlbumView *albumView;
 
@@ -31,12 +31,14 @@
         self.allowShowGIF = NO;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
+        self.title = @"选择素材";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
@@ -54,6 +56,7 @@
         self.allowShowImage = picker.allowShowImage;
         self.allowShowVideo = picker.allowShowVideo;
     }
+    self.albumView.delegate = self;
     self.albumView.column = self.column;
     self.albumView.minCount = self.minCount;
     self.albumView.maxCount = self.maxCount;
@@ -119,6 +122,10 @@
             }
         }
     }];
+}
+
+- (void)albumViewDidSelectedFinish:(WZMAlbumView *)albumView {
+    [self rightItemClick];
 }
 
 //相册权限

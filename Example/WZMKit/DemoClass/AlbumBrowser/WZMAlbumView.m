@@ -66,23 +66,30 @@
         toolLineView.backgroundColor = WZM_R_G_B(220, 220, 220);
         [self.toolView.contentView addSubview:toolLineView];
         
-        UILabel *msgLabel = [[UILabel alloc] initWithFrame:self.toolView.bounds];
-        msgLabel.text = @"请选择素材";
-        msgLabel.font = [UIFont systemFontOfSize:12];
-        msgLabel.textColor = [UIColor grayColor];
-        msgLabel.textAlignment = NSTextAlignmentCenter;
-        [self.toolView.contentView addSubview:msgLabel];
+        UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        okBtn.frame = CGRectMake(self.toolView.wzm_width-50, 0, 40, 44);
+        okBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [okBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [okBtn setTitleColor:THEME_COLOR forState:UIControlStateNormal];
+        [okBtn addTarget:self action:@selector(okBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.toolView.contentView addSubview:okBtn];
         
-        self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.toolView.wzm_width-90, 7, 80, 30)];
+        self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(okBtn.wzm_minX-90, 7, 80, 30)];
         self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
         self.countLabel.font = [UIFont systemFontOfSize:17];
         self.countLabel.textColor = [UIColor whiteColor];
         self.countLabel.textAlignment = NSTextAlignmentCenter;
         self.countLabel.wzm_cornerRadius = 15;
-        self.countLabel.backgroundColor = [UIColor redColor];
+        self.countLabel.backgroundColor = THEME_COLOR;
         [self.toolView.contentView addSubview:self.countLabel];
     }
     return self;
+}
+
+- (void)okBtnClick:(UIButton *)btn {
+    if ([self.delegate respondsToSelector:@selector(albumViewDidSelectedFinish:)]) {
+        [self.delegate albumViewDidSelectedFinish:self];
+    }
 }
 
 - (void)reloadData {
@@ -90,7 +97,7 @@
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
     if (!self.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
     if (!self.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
-                                                     PHAssetMediaTypeImage];
+                                                  PHAssetMediaTypeImage];
     option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     for (PHAssetCollection *collection in smartAlbums) {
@@ -121,7 +128,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
-    cell.indexPath = indexPath;
     if (indexPath.row < self.allPhotos.count) {
         [cell setConfig:[self.allPhotos objectAtIndex:indexPath.row]];
     }
@@ -129,29 +135,29 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.allowPreview) {
-        
+    WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
+    if (model.isSelected) {
+        model.selected = NO;
+        model.index = 1;
+        NSInteger index = [self.selectedPhotos indexOfObject:model];
+        for (NSInteger i = index+1; i < self.selectedPhotos.count; i ++) {
+            WZMAlbumModel *tmodel = [self.selectedPhotos objectAtIndex:i];
+            tmodel.index = tmodel.index-1;
+        }
+        [self.selectedPhotos removeObject:model];
     }
     else {
-        WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        [cell didSelected];
-    }
-}
-
-- (void)albumPhotoDidSelectedCell:(WZMAlbumCell *)cell {
-    if (cell.model.isSelected) {
         if (self.selectedPhotos.count+1 > self.maxCount) {
             NSString *msg = [NSString stringWithFormat:@"最多只能选%@张照片",@(self.maxCount)];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alertView show];
-            [cell cancelSelected];
             return;
         }
-        [self.selectedPhotos addObject:cell.model];
+        model.index = self.selectedPhotos.count+1;
+        model.selected = YES;
+        [self.selectedPhotos addObject:model];
     }
-    else {
-        [self.selectedPhotos removeObject:cell.model];
-    }
+    [collectionView reloadData];
     self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
 }
 

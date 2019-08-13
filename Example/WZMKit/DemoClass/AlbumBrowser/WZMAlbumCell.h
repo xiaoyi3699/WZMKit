@@ -16,8 +16,6 @@
 @property (nonatomic, readonly, strong) WZMAlbumModel *model;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
-- (void)didSelected;
-- (void)cancelSelected;
 - (void)setConfig:(WZMAlbumModel *)photoModel;
 
 @end
@@ -25,6 +23,8 @@
 @protocol WZMAlbumCellDelegate <NSObject>
 
 @optional
-- (void)albumPhotoDidSelectedCell:(WZMAlbumCell *)cell;
+- (void)albumPhotoCellDidSelected:(WZMAlbumCell *)cell;
+- (void)albumPhotoCellWillShowPreview:(WZMAlbumCell *)cell;
+- (void)albumPhotoCellDidSelectedPreview:(WZMAlbumCell *)cell;
 
 @end

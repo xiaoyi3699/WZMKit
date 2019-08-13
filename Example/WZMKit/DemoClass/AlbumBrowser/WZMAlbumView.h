@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMAlbumModel.h"
+@protocol WZMAlbumViewDelegate;
 
 @interface WZMAlbumView : UIView
 
@@ -25,6 +26,8 @@
 @property (nonatomic, assign) NSInteger minCount;
 ///最大选中数量, 默认9
 @property (nonatomic, assign) NSInteger maxCount;
+///代理
+@property (nonatomic, weak) id<WZMAlbumViewDelegate> delegate;
 
 ///所有图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;
@@ -32,5 +35,12 @@
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *selectedPhotos;
 
 - (void)reloadData;
+
+@end
+
+@protocol WZMAlbumViewDelegate <NSObject>
+
+@optional
+- (void)albumViewDidSelectedFinish:(WZMAlbumView *)albumView;
 
 @end
