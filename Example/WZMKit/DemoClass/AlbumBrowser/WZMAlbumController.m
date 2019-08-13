@@ -71,10 +71,21 @@
 
 - (void)leftItemClick {
     if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
+        if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationControllerDidCancel:)]) {
+            [picker.pickerDelegate albumNavigationControllerDidCancel:picker];
+        }
+        if (picker.autoDismiss) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
     }
     else {
-        [self.navigationController popViewControllerAnimated:YES];
+        if ([self.pickerDelegate respondsToSelector:@selector(albumControllerDidCancel:)]) {
+            [self.pickerDelegate albumControllerDidCancel:self];
+        }
+        if (self.autoDismiss) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

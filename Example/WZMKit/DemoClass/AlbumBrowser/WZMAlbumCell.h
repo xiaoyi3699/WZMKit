@@ -12,6 +12,7 @@
 
 @interface WZMAlbumCell : UICollectionViewCell
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, readonly, strong) WZMAlbumModel *model;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 

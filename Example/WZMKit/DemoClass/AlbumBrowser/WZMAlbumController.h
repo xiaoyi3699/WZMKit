@@ -35,6 +35,7 @@
 @protocol WZMAlbumControllerDelegate <NSObject>
 
 @optional
+- (void)albumControllerDidCancel:(WZMAlbumController *)albumController;
 - (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos;
 
 @end

@@ -121,6 +121,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
+    cell.indexPath = indexPath;
     if (indexPath.row < self.allPhotos.count) {
         [cell setConfig:[self.allPhotos objectAtIndex:indexPath.row]];
     }
