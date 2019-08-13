@@ -180,6 +180,15 @@
     _column = column;
 }
 
+- (void)setMaxCount:(NSInteger)maxCount {
+    if (maxCount < 0) return;
+    if (_maxCount == maxCount) return;
+    _maxCount = maxCount;
+    if (self.countLabel) {
+        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
+    }
+}
+
 - (void)dealloc {
     WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
