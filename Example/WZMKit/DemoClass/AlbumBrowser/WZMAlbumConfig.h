@@ -16,6 +16,8 @@
 @property (nonatomic, assign) BOOL autoDismiss;
 ///是否允许预览
 @property (nonatomic, assign) BOOL allowPreview;
+///选中图片时, 是否显示索引
+@property (nonatomic, assign) BOOL allowShowIndex;
 ///是否显示GIF, 默认NO
 @property (nonatomic, assign) BOOL allowShowGIF;
 ///是否允许选择图片

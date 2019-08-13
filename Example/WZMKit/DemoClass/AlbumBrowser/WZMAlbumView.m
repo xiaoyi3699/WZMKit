@@ -124,7 +124,7 @@
     WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
     if (indexPath.row < self.allPhotos.count) {
-        [cell setConfig:[self.allPhotos objectAtIndex:indexPath.row]];
+        [cell setConfig:self.config photoModel:[self.allPhotos objectAtIndex:indexPath.row]];
     }
     return cell;
 }

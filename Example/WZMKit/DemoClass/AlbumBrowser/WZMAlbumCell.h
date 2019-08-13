@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMAlbumModel.h"
+#import "WZMAlbumConfig.h"
 @protocol WZMAlbumCellDelegate;
 
 @interface WZMAlbumCell : UICollectionViewCell
 
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
-- (void)setConfig:(WZMAlbumModel *)photoModel;
+- (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel;
 
 @end
 

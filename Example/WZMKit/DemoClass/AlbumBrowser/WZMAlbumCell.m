@@ -78,12 +78,13 @@
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
         [_previewBtn setImage:[UIImage imageNamed:@"album_yt"] forState:UIControlStateNormal];
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
     }
     return self;
 }
 
-- (void)setConfig:(WZMAlbumModel *)photoModel {
+- (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel {
     PHAsset *phAsset = (PHAsset *)photoModel.asset;
     _representedAssetIdentifier = phAsset.localIdentifier;
     int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailImageWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
@@ -100,13 +101,6 @@
         [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
     }
     _imageRequestID = imageRequestID;
-    if (photoModel.isSelected) {
-        _indexLabel.hidden = NO;
-        _indexLabel.text = [NSString stringWithFormat:@"%@",@(photoModel.index)];
-    }
-    else {
-        _indexLabel.hidden = YES;
-    }
     if (photoModel.type == WZMAlbumPhotoTypePhotoGif) {
         _gifLabel.hidden = NO;
         _videoTimeView.hidden = YES;
@@ -124,6 +118,22 @@
         _videoTimeView.hidden = YES;
         _playImageView.hidden = YES;
         _videoTimeLabel.text = @"";
+    }
+    
+    _previewBtn.hidden = !config.allowPreview;
+    if (config.maxCount == 1 || config.allowShowIndex == NO) {
+        _indexLabel.text = @"";
+        _indexLabel.hidden = !photoModel.isSelected;
+    }
+    else {
+        if (photoModel.isSelected) {
+            _indexLabel.hidden = NO;
+            _indexLabel.text = [NSString stringWithFormat:@"%@",@(photoModel.index)];
+        }
+        else {
+            _indexLabel.hidden = YES;
+            _indexLabel.text = @"";
+        }
     }
 }
 
