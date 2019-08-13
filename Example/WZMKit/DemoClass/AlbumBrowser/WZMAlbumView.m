@@ -29,7 +29,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.config = config;
-        self.onlyOne = (config.allowPreview == NO || config.maxCount == 1);
+        self.onlyOne = (config.allowPreview == NO && config.maxCount == 1);
         self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         
