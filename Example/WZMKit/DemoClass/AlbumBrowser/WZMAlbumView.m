@@ -12,6 +12,7 @@
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
+@property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) UIVisualEffectView *toolView;
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, assign) CGRect albumFrame;
@@ -23,21 +24,15 @@
 
 @implementation WZMAlbumView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config {
     self = [super initWithFrame:frame];
     if (self) {
-        self.column = 4;
-        self.minCount = 0;
-        self.maxCount = 9;
-        self.allowPreview = NO;
-        self.allowShowGIF = NO;
-        self.allowShowImage = YES;
-        self.allowShowVideo = YES;
+        self.config = config;
         self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-44);
         self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         
-        CGFloat itemW = floor((self.albumFrame.size.width-10-5*(self.column-1))/self.column);
+        CGFloat itemW = floor((self.albumFrame.size.width-10-5*(config.column-1))/config.column);
         CGFloat itemH = itemW;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -75,7 +70,7 @@
         [self.toolView.contentView addSubview:okBtn];
         
         self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(okBtn.wzm_minX-90, 7, 80, 30)];
-        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
+        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(config.maxCount)];
         self.countLabel.font = [UIFont systemFontOfSize:17];
         self.countLabel.textColor = [UIColor whiteColor];
         self.countLabel.textAlignment = NSTextAlignmentCenter;
@@ -95,8 +90,8 @@
 - (void)reloadData {
     [self.allPhotos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
-    if (!self.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
-    if (!self.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
+    if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
+    if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld",
                                                   PHAssetMediaTypeImage];
     option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
@@ -108,7 +103,7 @@
             [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 PHAsset *phAsset = (PHAsset *)obj;
                 WZMAlbumModel *model = [WZMAlbumModel modelWithAsset:phAsset];
-                if (self.allowShowGIF == NO) {
+                if (self.config.allowShowGIF == NO) {
                     if (model.type != WZMAlbumPhotoTypePhotoGif) {
                         [self.allPhotos addObject:model];
                     }
@@ -147,8 +142,8 @@
         [self.selectedPhotos removeObject:model];
     }
     else {
-        if (self.selectedPhotos.count+1 > self.maxCount) {
-            NSString *msg = [NSString stringWithFormat:@"最多只能选%@张照片",@(self.maxCount)];
+        if (self.selectedPhotos.count+1 > self.config.maxCount) {
+            NSString *msg = [NSString stringWithFormat:@"最多只能选%@张照片",@(self.config.maxCount)];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alertView show];
             return;
@@ -158,7 +153,7 @@
         [self.selectedPhotos addObject:model];
     }
     [collectionView reloadData];
-    self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
+    self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.config.maxCount)];
 }
 
 - (BOOL)isCameraRollAlbum:(PHAssetCollection *)metadata {
@@ -174,24 +169,6 @@
         return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded;
     } else {
         return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary;
-    }
-}
-
-- (void)setColumn:(NSInteger)column {
-    if (_column == column) return;
-    if (column < 1 || column > 5) {
-        _column = 4;
-        return;
-    }
-    _column = column;
-}
-
-- (void)setMaxCount:(NSInteger)maxCount {
-    if (maxCount < 0) return;
-    if (_maxCount == maxCount) return;
-    _maxCount = maxCount;
-    if (self.countLabel) {
-        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.maxCount)];
     }
 }
 

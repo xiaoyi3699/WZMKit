@@ -35,9 +35,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] init];
+    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
-    vc.minCount = 5;
     [self presentViewController:vc animated:YES completion:nil];
 }
 

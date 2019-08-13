@@ -14,23 +14,17 @@
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate>
 
+@property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) WZMAlbumView *albumView;
 
 @end
 
 @implementation WZMAlbumController
 
-- (instancetype)init {
+- (instancetype)initWithConfig:(WZMAlbumConfig *)config {
     self = [super init];
     if (self) {
-        self.column = 4;
-        self.minCount = 0;
-        self.maxCount = 9;
-        self.autoDismiss = YES;
-        self.allowPreview = NO;
-        self.allowShowGIF = NO;
-        self.allowShowImage = YES;
-        self.allowShowVideo = YES;
+        self.config = config;
         self.title = @"选择素材";
     }
     return self;
@@ -45,25 +39,8 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    self.albumView = [[WZMAlbumView alloc] initWithFrame:WZMRectBottomArea()];
-    if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
-        WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
-        self.column = picker.column;
-        self.minCount = picker.minCount;
-        self.maxCount = picker.maxCount;
-        self.allowPreview = picker.allowPreview;
-        self.allowShowGIF = picker.allowShowGIF;
-        self.allowShowImage = picker.allowShowImage;
-        self.allowShowVideo = picker.allowShowVideo;
-    }
+    self.albumView = [[WZMAlbumView alloc] initWithFrame:WZMRectBottomArea() config:self.config];
     self.albumView.delegate = self;
-    self.albumView.column = self.column;
-    self.albumView.minCount = self.minCount;
-    self.albumView.maxCount = self.maxCount;
-    self.albumView.allowPreview = self.allowPreview;
-    self.albumView.allowShowGIF = self.allowShowGIF;
-    self.albumView.allowShowImage = self.allowShowImage;
-    self.albumView.allowShowVideo = self.allowShowVideo;
     [self.view addSubview:self.albumView];
 }
 
@@ -78,7 +55,7 @@
         if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationControllerDidCancel:)]) {
             [picker.pickerDelegate albumNavigationControllerDidCancel:picker];
         }
-        if (picker.autoDismiss) {
+        if (self.config.autoDismiss) {
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
     }
@@ -86,15 +63,15 @@
         if ([self.pickerDelegate respondsToSelector:@selector(albumControllerDidCancel:)]) {
             [self.pickerDelegate albumControllerDidCancel:self];
         }
-        if (self.autoDismiss) {
+        if (self.config.autoDismiss) {
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
 
 - (void)rightItemClick {
-    if (self.albumView.selectedPhotos.count < self.minCount) {
-        NSString *msg = [NSString stringWithFormat:@"请至少选择%@张照片",@(self.minCount)];
+    if (self.albumView.selectedPhotos.count < self.config.minCount) {
+        NSString *msg = [NSString stringWithFormat:@"请至少选择%@张照片",@(self.config.minCount)];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alertView show];
         return;
@@ -109,7 +86,7 @@
             if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedPhotos:)]) {
                 [picker.pickerDelegate albumNavigationController:picker didSelectedPhotos:photos];
             }
-            if (picker.autoDismiss) {
+            if (self.config.autoDismiss) {
                 [picker dismissViewControllerAnimated:YES completion:nil];
             }
         }
@@ -117,7 +94,7 @@
             if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedPhotos:)]) {
                 [self.pickerDelegate albumController:self didSelectedPhotos:photos];
             }
-            if (self.autoDismiss) {
+            if (self.config.autoDismiss) {
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }

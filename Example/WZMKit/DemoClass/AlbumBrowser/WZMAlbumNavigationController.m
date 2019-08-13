@@ -11,21 +11,17 @@
 
 @interface WZMAlbumNavigationController ()
 
+@property (nonatomic, strong) WZMAlbumConfig *config;
+
 @end
 
 @implementation WZMAlbumNavigationController
 
-- (instancetype)init {
-    self = [super initWithRootViewController:[[WZMAlbumController alloc] init]];
+- (instancetype)initWithConfig:(WZMAlbumConfig *)config {
+    WZMAlbumController *album = [[WZMAlbumController alloc] initWithConfig:config];
+    self = [super initWithRootViewController:album];
     if (self) {
-        self.column = 4;
-        self.minCount = 0;
-        self.maxCount = 9;
-        self.autoDismiss = YES;
-        self.allowPreview = NO;
-        self.allowShowGIF = NO;
-        self.allowShowImage = YES;
-        self.allowShowVideo = YES;
+        self.config = config;
     }
     return self;
 }
