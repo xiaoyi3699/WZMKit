@@ -7,13 +7,13 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMAlbumController.h"
 #import "WZMAlbumNavigationController.h"
 
-#import "WZMAlbumHelper.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMAlbumNavigationControllerDelegate> {
+@interface SecondViewController ()<WZMAlbumControllerDelegate,WZMAlbumNavigationControllerDelegate> {
     WZMPlayer *player;
 }
 
@@ -36,12 +36,21 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    
     WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
+    
+//    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
+//    vc.pickerDelegate = self;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedPhotos:(NSArray *)photos {
+    NSLog(@"%@",photos);
+}
+
+- (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos {
     NSLog(@"%@",photos);
 }
 
