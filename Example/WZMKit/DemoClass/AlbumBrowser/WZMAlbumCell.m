@@ -76,7 +76,7 @@
         
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        [_previewBtn setImage:[UIImage imageNamed:@"album_yt"] forState:UIControlStateNormal];
+        [_previewBtn setImage:[UIImage imageNamed:@"album_fd"] forState:UIControlStateNormal];
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
