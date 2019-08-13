@@ -137,6 +137,7 @@
     }
 }
 
+//预览按钮点击事件
 - (void)previewBtnClick:(UIButton *)btn {
     if ([self.delegate respondsToSelector:@selector(albumPhotoCellWillShowPreview:)]) {
         [self.delegate albumPhotoCellWillShowPreview:self];

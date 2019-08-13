@@ -13,6 +13,7 @@
 
 @interface WZMAlbumCell : UICollectionViewCell
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
 - (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel;
@@ -22,7 +23,6 @@
 @protocol WZMAlbumCellDelegate <NSObject>
 
 @optional
-- (void)albumPhotoCellDidSelected:(WZMAlbumCell *)cell;
 - (void)albumPhotoCellWillShowPreview:(WZMAlbumCell *)cell;
 - (void)albumPhotoCellDidSelectedPreview:(WZMAlbumCell *)cell;
 

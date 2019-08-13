@@ -89,12 +89,21 @@
     return self;
 }
 
+//确定按钮点击事件
 - (void)didSelectedFinish {
     if ([self.delegate respondsToSelector:@selector(albumViewDidSelectedFinish:)]) {
         [self.delegate albumViewDidSelectedFinish:self];
     }
 }
 
+//cell代理
+- (void)albumPhotoCellWillShowPreview:(WZMAlbumCell *)cell {
+    if ([self.delegate respondsToSelector:@selector(albumViewWillShowPreview:atIndexPath:)]) {
+        [self.delegate albumViewWillShowPreview:self atIndexPath:cell.indexPath];
+    }
+}
+
+//刷新相册
 - (void)reloadData {
     [self.allPhotos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
@@ -131,6 +140,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
+    cell.indexPath = indexPath;
     if (indexPath.row < self.allPhotos.count) {
         [cell setConfig:self.config photoModel:[self.allPhotos objectAtIndex:indexPath.row]];
     }

@@ -16,6 +16,9 @@
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
 
+#import "WZMPlayer.h"
+#import "WZMPlayerView.h"
+
 typedef NS_ENUM(NSUInteger, WZMDirection) {
     WZMDirectionNone = 0,
     WZMDirectionHrizontal,    //水平方向滑动
@@ -37,15 +40,14 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 @property (nonatomic, strong) UISlider *progressSlider;
 
 //视图
-@property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) UIButton *playBtn;
 @property (nonatomic, strong) UIButton *fullBtn;
 @property (nonatomic, strong) UIView   *topView;
 @property (nonatomic, strong) UIView   *toolView;
-@property (nonatomic, assign) CGFloat  duration;
 @property (nonatomic, strong) UILabel  *totalTimeLabel;
 @property (nonatomic, strong) UILabel  *currentTimeLabel;
-@property (nonatomic, assign) id playTimeObserver;
+@property (nonatomic, strong) WZMPlayer *player;
+@property (nonatomic, strong) WZMPlayerView *playerView;
 
 @end
 
@@ -55,184 +57,118 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self createViewsWithFrame:frame];
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGR:)];
+        [self addGestureRecognizer:tapGR];
         
-        //监听程序进入后台
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationWillResignActive:)
-                                                     name:UIApplicationWillResignActiveNotification
-                                                   object:nil];
+        //获取系统的音量view
+        self.volumeView.frame = CGRectMake(frame.size.width-30, (frame.size.height-100)/2.0, 20, 100);
+        self.volumeView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+        self.volumeView.hidden = YES;
+        [self addSubview:self.volumeView];
         
-        //监听程序进入前台
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationDidBecomeActive:)
-                                                     name:UIApplicationDidBecomeActiveNotification
-                                                   object:nil];
-        //监听播放结束
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlayDidEnd:)
-                                                     name:AVPlayerItemDidPlayToEndTimeNotification
-                                                   object:nil];
+        //控制亮度
+        self.brightnessSlider.frame = CGRectMake(20, (frame.size.height-100)/2.0, 20, 100);
+        self.brightnessSlider.minimumValue = 0.0;
+        self.brightnessSlider.maximumValue = 1.0;
+        self.brightnessSlider.hidden = YES;
+        [self.brightnessSlider addTarget:self action:@selector(brightnessChanged:) forControlEvents:UIControlEventValueChanged];
+        self.brightnessSlider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+        [self addSubview:self.brightnessSlider];
         
-        //监听音频播放中断
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(movieInterruption:)
-                                                     name:AVAudioSessionInterruptionNotification
-                                                   object:nil];
+        //顶部view
+        _topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
+        _topView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
+        _topView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
+        [self addSubview:_topView];
+        
+        //返回按钮
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backBtn setFrame:CGRectMake(10, 15, 50, 16)];
+        backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
+        [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [backBtn setImage:[WZMPublic imageNamed:@"wzm_back_white" ofType:@"png"] forState:UIControlStateNormal];
+        [_topView addSubview:backBtn];
+        
+        UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tureBackBtn setFrame:CGRectMake(0, 0, 60, 44)];
+        [tureBackBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+        [_topView addSubview:tureBackBtn];
+        
+        //全屏按钮
+        _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_fullBtn setFrame:CGRectMake(_topView.wzm_width-50, 10, 40, 25)];
+        _fullBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        _fullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        _fullBtn.layer.masksToBounds = YES;
+        _fullBtn.layer.cornerRadius = 5;
+        _fullBtn.layer.borderColor = WZM_R_G_B(230, 230, 230).CGColor;
+        _fullBtn.layer.borderWidth = 0.8;
+        [_fullBtn setTitle:@"全屏" forState:UIControlStateNormal];
+        [_fullBtn setTitle:@"还原" forState:UIControlStateSelected];
+        [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_topView addSubview:_fullBtn];
+        
+        UIButton *tureFullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [tureFullBtn setFrame:CGRectMake(_topView.wzm_width-60, 0, 60, 44)];
+        tureFullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [tureFullBtn addTarget:self action:@selector(fullBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_topView addSubview:tureFullBtn];
+        
+        //底部view
+        _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
+        _toolView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
+        _toolView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
+        [self addSubview:_toolView];
+        
+        //播放暂停按钮
+        _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_playBtn setFrame:CGRectMake(5,10,20,20)];
+        _playBtn.selected=YES;
+        [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_play" ofType:@"png"] forState:UIControlStateNormal];
+        [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_pause" ofType:@"png"] forState:UIControlStateSelected];
+        [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_toolView addSubview:_playBtn];
+        
+        _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_playBtn.frame), 10, 40, 20)];
+        _currentTimeLabel.text = @"00:00";
+        _currentTimeLabel.textColor = [UIColor whiteColor];
+        _currentTimeLabel.font = [UIFont systemFontOfSize:8];
+        _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+        [_toolView addSubview:_currentTimeLabel];
+        
+        //播放进度条
+        _progressSlider= [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_currentTimeLabel.frame),12.5,frame.size.width-CGRectGetMaxX(_currentTimeLabel.frame)-40,15)];
+        _progressSlider.minimumValue = 0.0;
+        _progressSlider.maximumValue = 1.0;
+        [_progressSlider addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
+        [_progressSlider addTarget:self action:@selector(touchChange:) forControlEvents:UIControlEventValueChanged];
+        [_progressSlider addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside|UIControlEventTouchCancel];
+        [_progressSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
+        _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [_toolView addSubview:_progressSlider];
+        
+        _totalTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_progressSlider.frame), 10, 40, 20)];
+        _totalTimeLabel.text = @"00:00";
+        _totalTimeLabel.textColor = [UIColor whiteColor];
+        _totalTimeLabel.font = [UIFont systemFontOfSize:8];
+        _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _totalTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [_toolView addSubview:_totalTimeLabel];
+        
+        _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
+        [self addSubview:_playerView];
+        _player = [[WZMPlayer alloc] init];
+        _player.playerView = _playerView;
     }
     return self;
 }
 
-- (void)playWithUrl:(NSURL *)url
-{
-    //加载视频资源的类
-    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
-    //AVURLAsset 通过tracks关键字会将资源异步加载在程序的一个临时内存缓冲区中
-    [asset loadValuesAsynchronouslyForKeys:[NSArray arrayWithObject:@"tracks"] completionHandler:^{
-        //能够得到资源被加载的状态
-        AVKeyValueStatus status = [asset statusOfValueForKey:@"tracks" error:nil];
-        //如果资源加载完成,开始进行播放
-        if (status == AVKeyValueStatusLoaded) {
-            //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
-            WZMVideoPlayerItem *item = [WZMVideoPlayerItem playerItemWithAsset:asset];
-            item.observer = self;
-            
-            //观察播放状态
-            [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-            
-            //观察缓冲进度
-            [item addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
-            
-            if (_player) {
-                [_player removeTimeObserver:_playTimeObserver];
-                [_player replaceCurrentItemWithPlayerItem:item];
-            }
-            else {
-                _player = [[AVPlayer alloc] initWithPlayerItem:item];
-            }
-            
-            //需要时时显示播放的进度
-            //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
-            @wzm_weakify(self);
-            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-                @wzm_strongify(self);
-                //获取当前播放时间
-                NSInteger current = CMTimeGetSeconds(self.player.currentItem.currentTime);
-                
-                float pro = current*1.0/self.duration;
-                if (pro >= 0.0 && pro <= 1.0) {
-                    self.progressSlider.value  = pro;
-                    self.currentTimeLabel.text = [self getTime:current];
-                }
-            }];
-        }
-    }];
+- (void)playWithUrl:(NSURL *)url {
+    [_player playWithURL:url];
 }
 
-//创建相关UI
--(void)createViewsWithFrame:(CGRect)frame
-{
-    self.backgroundColor=[UIColor blackColor];
-    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGR:)];
-    [self addGestureRecognizer:tapGR];
-    
-    //获取系统的音量view
-    self.volumeView.frame = CGRectMake(frame.size.width-30, (frame.size.height-100)/2.0, 20, 100);
-    self.volumeView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
-    self.volumeView.hidden = YES;
-    [self addSubview:self.volumeView];
-    
-    //控制亮度
-    self.brightnessSlider.frame = CGRectMake(20, (frame.size.height-100)/2.0, 20, 100);
-    self.brightnessSlider.minimumValue = 0.0;
-    self.brightnessSlider.maximumValue = 1.0;
-    self.brightnessSlider.hidden = YES;
-    [self.brightnessSlider addTarget:self action:@selector(brightnessChanged:) forControlEvents:UIControlEventValueChanged];
-    self.brightnessSlider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
-    [self addSubview:self.brightnessSlider];
-    
-    //顶部view
-    _topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-    _topView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
-    _topView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
-    [self addSubview:_topView];
-    
-    //返回按钮
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setFrame:CGRectMake(10, 15, 50, 16)];
-    backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
-    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [backBtn setImage:[WZMPublic imageNamed:@"wzm_back_white" ofType:@"png"] forState:UIControlStateNormal];
-    [_topView addSubview:backBtn];
-    
-    UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [tureBackBtn setFrame:CGRectMake(0, 0, 60, 44)];
-    [tureBackBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    [_topView addSubview:tureBackBtn];
-    
-    //全屏按钮
-    _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_fullBtn setFrame:CGRectMake(_topView.wzm_width-50, 10, 40, 25)];
-    _fullBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    _fullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    _fullBtn.layer.masksToBounds = YES;
-    _fullBtn.layer.cornerRadius = 5;
-    _fullBtn.layer.borderColor = WZM_R_G_B(230, 230, 230).CGColor;
-    _fullBtn.layer.borderWidth = 0.8;
-    [_fullBtn setTitle:@"全屏" forState:UIControlStateNormal];
-    [_fullBtn setTitle:@"还原" forState:UIControlStateSelected];
-    [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [_topView addSubview:_fullBtn];
-    
-    UIButton *tureFullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [tureFullBtn setFrame:CGRectMake(_topView.wzm_width-60, 0, 60, 44)];
-    tureFullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [tureFullBtn addTarget:self action:@selector(fullBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [_topView addSubview:tureFullBtn];
-    
-    //底部view
-    _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
-    _toolView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
-    _toolView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
-    [self addSubview:_toolView];
-    
-    //播放暂停按钮
-    _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_playBtn setFrame:CGRectMake(5,10,20,20)];
-    _playBtn.selected=YES;
-    [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_play" ofType:@"png"] forState:UIControlStateNormal];
-    [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_pause" ofType:@"png"] forState:UIControlStateSelected];
-    [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_toolView addSubview:_playBtn];
-    
-    _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_playBtn.frame), 10, 40, 20)];
-    _currentTimeLabel.text = @"00:00";
-    _currentTimeLabel.textColor = [UIColor whiteColor];
-    _currentTimeLabel.font = [UIFont systemFontOfSize:8];
-    _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
-    [_toolView addSubview:_currentTimeLabel];
-    
-    //播放进度条
-    _progressSlider= [[UISlider alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_currentTimeLabel.frame),12.5,frame.size.width-CGRectGetMaxX(_currentTimeLabel.frame)-40,15)];
-    _progressSlider.minimumValue = 0.0;
-    _progressSlider.maximumValue = 1.0;
-    [_progressSlider addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
-    [_progressSlider addTarget:self action:@selector(touchChange:) forControlEvents:UIControlEventValueChanged];
-    [_progressSlider addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside|UIControlEventTouchCancel];
-    [_progressSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
-    _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_toolView addSubview:_progressSlider];
-    
-    _totalTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_progressSlider.frame), 10, 40, 20)];
-    _totalTimeLabel.text = @"00:00";
-    _totalTimeLabel.textColor = [UIColor whiteColor];
-    _totalTimeLabel.font = [UIFont systemFontOfSize:8];
-    _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
-    _totalTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [_toolView addSubview:_totalTimeLabel];
-}
 
 //音量调节
 - (MPVolumeView *)volumeView {
@@ -265,19 +201,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 //亮度调节相关
 - (void)brightnessChanged:(UISlider *)slider {
     [[UIScreen mainScreen] setBrightness:slider.value];
-}
-
-//每个视图都对应一个层，改变视图的形状、动画效果\与播放器的关联等，都可以在层上操作
-- (void)relatePlayer:(AVPlayer *)myPlayer
-{
-    AVPlayerLayer *playerLayer=(AVPlayerLayer *)self.layer;
-    [playerLayer setPlayer:myPlayer];
-}
-
-//在调用视图的layer时，会自动触发layerClass方法，重写它，保证返回的类型是AVPlayerLayer
-+ (Class)layerClass
-{
-    return [AVPlayerLayer class];
 }
 
 //播放器的单击事件<控制底部和顶部view的显示与隐藏>
@@ -334,14 +257,9 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 //进度条滑动
 -(void)touchChange:(UISlider *)sl
 {
-    //通过进度条控制播放进度
-    if (_player) {
-        CMTime dur = _player.currentItem.duration;
-        float current = _progressSlider.value;
-        _currentTimeLabel.text = [self getTime:(NSInteger)(current*self.duration)];
-        //跳转到指定的时间
-        [_player seekToTime:CMTimeMultiplyByFloat64(dur, current)];
-    }
+//    float current = _progressSlider.value;
+//    _currentTimeLabel.text = [self getTime:(NSInteger)(current*_player.duration)];
+    [_player seekToProgress:_progressSlider.value];
 }
 
 //进度条滑动结束
@@ -371,8 +289,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         //音量
         self.startBright = self.volumeViewSlider.value;
     }
-    CMTime ctime = _player.currentTime;
-    self.startVideoRate = ctime.value /ctime.timescale/self.duration;
+    self.startVideoRate = _player.playProgress;
 }
 
 /**
@@ -399,7 +316,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     }
     
     if (self.direction == WZMDirectionHrizontal) {
-        CGFloat scale = (self.duration > 180 ? 180/self.duration : 1.0);
+        CGFloat scale = (_player.duration > 180 ? 180/_player.duration : 1.0);
         CGFloat rate = self.startVideoRate+(panPoint.x/self.bounds.size.width)*scale;
         if (rate > 1) {
             rate = 1;
@@ -408,11 +325,9 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
             rate = 0;
         }
         _progressSlider.value = rate;
-        CMTime dur = _player.currentItem.duration;
-        _currentTimeLabel.text = [self getTime:(NSInteger)(rate*self.duration)];
-        [_player seekToTime:CMTimeMultiplyByFloat64(dur, rate)];
-        
-    }else if (self.direction == WZMDirectionVertical) {
+        [_player seekToProgress:rate];
+    }
+    else if (self.direction == WZMDirectionVertical) {
         CGFloat value = self.startBright-(panPoint.y/self.bounds.size.height);
         if (value > 1) {
             value = 1;
@@ -461,15 +376,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 }
 
 #pragma mark - private method
-//计算缓冲时间
-- (CGFloat)availableDuration {
-    NSArray *loadedTimeRanges = [_player.currentItem loadedTimeRanges];
-    CMTimeRange range = [loadedTimeRanges.firstObject CMTimeRangeValue];
-    CGFloat start = CMTimeGetSeconds(range.start);
-    CGFloat duration = CMTimeGetSeconds(range.duration);
-    return (start + duration);
-}
-
 //播放
 - (void)play {
     if (_player) {
@@ -504,90 +410,16 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     return time;
 }
 
-#pragma mark - 相关监听
-//监听播放开始
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary<NSString *,id> *)change
-                       context:(void *)context {
-    AVPlayerItem *item = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@"status"]) {
-        if (item.status == AVPlayerStatusReadyToPlay) {
-            //获取当前播放时间
-            NSInteger current = CMTimeGetSeconds(item.currentTime);
-            //总时间
-            self.duration = CMTimeGetSeconds(item.duration);
-            
-            float pro = current*1.0/self.duration;
-            if (pro >= 0.0 && pro <= 1.0) {
-                _progressSlider.value  = pro;
-                _currentTimeLabel.text = [self getTime:current];
-                _totalTimeLabel.text   = [self getTime:self.duration];
-            }
-            //将播放器与播放视图关联
-            [self relatePlayer:_player];
-            [_player play];
-        }
-        else if (item.status == AVPlayerStatusFailed) {
-            WZMLog(@"AVPlayerStatusFailed");
-        }
-        else {
-            WZMLog(@"AVPlayerStatusUnknown");
-        }
-        
-    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSTimeInterval timeInterval = [self availableDuration];
-        float pro = timeInterval/self.duration;
-        if (pro >= 0.0 && pro <= 1.0) {
-            WZMLog(@"缓冲进度：%f",pro);
-        }
-    }
-}
-
-//音频播放中断
-- (void)movieInterruption:(NSNotification *)notification {
-    NSDictionary *dic = notification.userInfo;
-    NSInteger type = [[dic valueForKey:AVAudioSessionInterruptionTypeKey] integerValue];
-    if (type == AVAudioSessionInterruptionTypeBegan) {
-        //收到中断，停止音频播放
-        [self pause];
-    }
-    else {
-        //系统中断结束，恢复音频播放
-        [self play];
-    }
-}
-
-//程序进入后台
-- (void)applicationWillResignActive:(NSNotification *)notification {
-    [self pause];//暂停播放
-}
-
-//程序进入前台
-- (void)applicationDidBecomeActive:(NSNotification *)notification {
-    [self play];//恢复播放
-}
-
 //视频播放完毕
--(void)moviePlayDidEnd:(NSNotification *)notification
-{
+-(void)moviePlayDidEnd:(NSNotification *)notification {
     _playBtn.selected = NO;
     _progressSlider.value = 1.0;
+    [_player seekToProgress:0.0];
     WZMLog(@"视频播放完毕！");
-}
-
-#pragma mark - super method
-- (void)layoutSubviews {
-    self.frame = [UIScreen mainScreen].bounds;
-    _fullBtn.selected = ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height);
 }
 
 - (void)dealloc {
     WZMLog(@"%@释放了",NSStringFromClass(self.class));
-    [_player removeTimeObserver:_playTimeObserver];
-    [_player.currentItem removeObserver:self forKeyPath:@"status"];
-    [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

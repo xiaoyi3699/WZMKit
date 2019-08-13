@@ -12,7 +12,7 @@
 
 #import "FirstViewController.h"
 
-@interface FirstViewController ()
+@interface FirstViewController ()<WZMPlayerDelegate>
 
 @end
 
@@ -29,7 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyn_juqing" ofType:@"mp4"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    
+    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end
