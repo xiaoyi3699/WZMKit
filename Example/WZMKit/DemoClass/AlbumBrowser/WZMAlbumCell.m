@@ -188,6 +188,8 @@
     [WZMAlbumHelper getICloudImageWithAsset:self.model.asset progressHandler:nil completion:^(id obj) {
         self.model.iCloud = NO;
         self.model.downloading = NO;
+        _previewBtn.hidden = NO;
+        _iCloudBtn.hidden = YES;
         [_activityView stopAnimating];
     }];
 }
