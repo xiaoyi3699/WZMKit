@@ -17,6 +17,7 @@
     model.asset = asset;
     model.iCloud = NO;
     model.selected = NO;
+    model.downloading = NO;
     model.type = [WZMAlbumHelper getAssetType:asset];
     return model;
 }

@@ -12,6 +12,7 @@
 
 @interface WZMAlbumCell ()
 
+@property (nonatomic, strong) WZMAlbumModel *model;
 @property (nonatomic, assign, getter=isDisplay) BOOL display;
 
 @end
@@ -26,6 +27,7 @@
     UILabel *_indexLabel;
     UIButton *_previewBtn;
     UIButton *_iCloudBtn;
+    UIActivityIndicatorView *_activityView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -74,6 +76,11 @@
         _indexLabel.hidden = YES;
         [self addSubview:_indexLabel];
         
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityView.frame = self.bounds;
+        _activityView.hidesWhenStopped = YES;
+        [self addSubview:_activityView];
+        
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
         [_previewBtn setImage:[UIImage imageNamed:@"album_fd"] forState:UIControlStateNormal];
@@ -92,6 +99,7 @@
 }
 
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
+    self.model = model;
     if (model.image) {
         _photoImageView.image = model.image;
         [self setConfit:config iCloud:model.isICloud];
@@ -149,10 +157,18 @@
     if (iCloud) {
         _iCloudBtn.hidden = NO;
         _previewBtn.hidden = YES;
+        
+        if (self.model.isDownloading) {
+            [_activityView startAnimating];
+        }
+        else {
+            [_activityView stopAnimating];
+        }
     }
     else {
         _iCloudBtn.hidden = YES;
         _previewBtn.hidden = !config.allowPreview;
+        [_activityView stopAnimating];
     }
 }
 
@@ -165,7 +181,14 @@
 
 //iCloud按钮点击事件
 - (void)iCloudBtnClick:(UIButton *)btn {
-    
+    if (self.model.isDownloading) return;
+    self.model.downloading = YES;
+    [_activityView startAnimating];
+    [WZMAlbumHelper getICloudImageWithAsset:self.model.asset progressHandler:nil completion:^(UIImage *photo) {
+        self.model.iCloud = NO;
+        self.model.downloading = NO;
+        [_activityView stopAnimating];
+    }];
 }
 
 - (NSString *)getTimeWithAsset:(id)asset {
