@@ -13,6 +13,7 @@
 @interface WZMAlbumCell ()
 
 @property (nonatomic, strong) WZMAlbumModel *model;
+@property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, assign, getter=isDisplay) BOOL display;
 
 @end
@@ -101,9 +102,10 @@
 
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
     self.model = model;
+    self.config = config;
     if (model.image) {
         _photoImageView.image = model.image;
-        [self setConfit:config iCloud:model.isICloud];
+        [self setICloud:model.isICloud];
     }
     else {
         //获取缩略图
@@ -112,7 +114,7 @@
             model.image = photo;
         } cloud:^(BOOL iCloud) {
             model.iCloud = iCloud;
-            [self setConfit:config iCloud:model.isICloud];
+            [self setICloud:model.isICloud];
         }];
         if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
             [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
@@ -155,11 +157,10 @@
     }
 }
 
-- (void)setConfit:(WZMAlbumConfig *)config iCloud:(BOOL)iCloud {
+- (void)setICloud:(BOOL)iCloud {
     if (iCloud) {
         _iCloudBtn.hidden = NO;
         _previewBtn.hidden = YES;
-        
         if (self.model.isDownloading) {
             [_activityView startAnimating];
         }
@@ -169,7 +170,7 @@
     }
     else {
         _iCloudBtn.hidden = YES;
-        _previewBtn.hidden = !config.allowPreview;
+        _previewBtn.hidden = !self.config.allowPreview;
         [_activityView stopAnimating];
     }
 }
@@ -186,12 +187,8 @@
     if (self.model.isDownloading) return;
     self.model.downloading = YES;
     [_activityView startAnimating];
-    [WZMAlbumHelper getICloudImageWithAsset:self.model.asset progressHandler:nil completion:^(id obj) {
-        self.model.iCloud = NO;
-        self.model.downloading = NO;
-        _previewBtn.hidden = NO;
-        _iCloudBtn.hidden = YES;
-        [_activityView stopAnimating];
+    [self.model getICloudImageCompletion:^(id obj) {
+        [self setICloud:NO];
     }];
 }
 

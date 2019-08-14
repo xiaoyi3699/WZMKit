@@ -20,5 +20,6 @@
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 
 + (instancetype)modelWithAsset:(id)asset;
+- (void)getICloudImageCompletion:(void (^)(id obj))completion;
 
 @end

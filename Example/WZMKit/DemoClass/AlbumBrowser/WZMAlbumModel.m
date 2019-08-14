@@ -22,4 +22,15 @@
     return model;
 }
 
+- (void)getICloudImageCompletion:(void (^)(id obj))completion {
+    self.downloading = YES;
+    [WZMAlbumHelper getICloudImageWithAsset:self.asset progressHandler:nil completion:^(id obj) {
+        self.iCloud = NO;
+        self.downloading = NO;
+        if (completion) {
+            completion(obj);
+        }
+    }];
+}
+
 @end

@@ -18,7 +18,9 @@
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
 @property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
+
 @property (nonatomic, strong) PHImageRequestOptions *iCloudImageOptions;
+@property (nonatomic, strong) PHVideoRequestOptions *iCloudVideoOptions;
 
 @end
 
@@ -47,11 +49,15 @@
         self.videoOptions = [[PHVideoRequestOptions alloc] init];
         self.videoOptions.version = PHVideoRequestOptionsVersionOriginal;
         self.videoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-        self.videoOptions.networkAccessAllowed = YES;
         
         self.iCloudImageOptions = [[PHImageRequestOptions alloc] init];
         self.iCloudImageOptions.networkAccessAllowed = YES;
         self.iCloudImageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+        
+        self.iCloudVideoOptions = [[PHVideoRequestOptions alloc] init];
+        self.iCloudVideoOptions.networkAccessAllowed = YES;
+        self.iCloudVideoOptions.version = PHVideoRequestOptionsVersionOriginal;
+        self.iCloudVideoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         
         self.videoPath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"KPAlbum"];
         [WZMFileManager createDirectoryAtPath:self.videoPath];
@@ -104,9 +110,22 @@
     }];
     
     if (cloud) {
-        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-            cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
-        }];
+        WZMAlbumPhotoType type = [self getAssetType:asset];
+        if (type == WZMAlbumPhotoTypeVideo) {
+            helper.videoOptions.networkAccessAllowed = NO;
+//            [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
+//                });
+//            }];
+            cloud(NO);
+        }
+        else {
+            helper.imageOptions.networkAccessAllowed = NO;
+            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
+            }];
+        }
     }
     return imageRequestID;
 }
@@ -129,16 +148,16 @@
 
 + (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (progressHandler) {
-                progressHandler(progress);
-            }
-        });
-    };
     WZMAlbumPhotoType type = [self getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
-        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        helper.iCloudVideoOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (progressHandler) {
+                    progressHandler(progress);
+                }
+            });
+        };
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.iCloudVideoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
             AVURLAsset *videoAsset = (AVURLAsset*)avasset;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
@@ -148,6 +167,13 @@
         }];
     }
     else {
+        helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (progressHandler) {
+                    progressHandler(progress);
+                }
+            });
+        };
         [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
             UIImage *resultImage = [UIImage imageWithData:imageData];
             resultImage = [self wzm_fixOrientation:resultImage];
@@ -159,6 +185,7 @@
 //获取视频
 + (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.videoOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         AVURLAsset *videoAsset = (AVURLAsset*)avasset;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -172,6 +199,7 @@
 //导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.videoOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         // NSLog(@"Info:\n%@",info);
         AVURLAsset *videoAsset = (AVURLAsset*)avasset;
