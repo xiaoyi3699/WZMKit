@@ -142,7 +142,7 @@
     cell.delegate = self;
     cell.indexPath = indexPath;
     if (indexPath.row < self.allPhotos.count) {
-        [cell setConfig:self.config photoModel:[self.allPhotos objectAtIndex:indexPath.row]];
+        [cell setConfig:self.config model:[self.allPhotos objectAtIndex:indexPath.row]];
     }
     return cell;
 }

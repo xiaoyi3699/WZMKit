@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
-- (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel;
+- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model;
 
 @end
 

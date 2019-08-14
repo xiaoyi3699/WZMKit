@@ -12,13 +12,12 @@
 
 @interface WZMAlbumCell ()
 
-@property (nonatomic, strong) WZMAlbumModel *model;
+@property (nonatomic, assign, getter=isDisplay) BOOL display;
 
 @end
 
 @implementation WZMAlbumCell {
     int32_t _imageRequestID;
-    NSString *_representedAssetIdentifier;
     UIImageView *_photoImageView;
     UILabel *_gifLabel;
     UIView *_videoTimeView;
@@ -84,31 +83,33 @@
     return self;
 }
 
-- (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel {
-    PHAsset *phAsset = (PHAsset *)photoModel.asset;
-    _representedAssetIdentifier = phAsset.localIdentifier;
-    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, BOOL iCloud) {
-        if ([_representedAssetIdentifier isEqualToString:phAsset.localIdentifier]) {
+- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
+    if (model.image) {
+        _photoImageView.image = model.image;
+    }
+    else {
+        //获取缩略图
+        int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, BOOL iCloud) {
             _photoImageView.image = photo;
-        } else {
+            model.image = photo;
+        }];
+        if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
             [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
         }
-    }];
-    if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
-        [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
+        _imageRequestID = imageRequestID;
     }
-    _imageRequestID = imageRequestID;
-    if (photoModel.type == WZMAlbumPhotoTypePhotoGif) {
+    
+    if (model.type == WZMAlbumPhotoTypePhotoGif) {
         _gifLabel.hidden = NO;
         _videoTimeView.hidden = YES;
         _playImageView.hidden = YES;
         _videoTimeLabel.text = @"";
     }
-    else if (photoModel.type == WZMAlbumPhotoTypeVideo) {
+    else if (model.type == WZMAlbumPhotoTypeVideo) {
         _gifLabel.hidden = YES;
         _videoTimeView.hidden = NO;
         _playImageView.hidden = NO;
-        _videoTimeLabel.text = [NSString wzm_getTimeBySecond:phAsset.duration];
+        _videoTimeLabel.text = [self getTimeWithAsset:model.asset];
     }
     else {
         _gifLabel.hidden = YES;
@@ -120,12 +121,12 @@
     _previewBtn.hidden = !config.allowPreview;
     if (config.maxCount == 1 || config.allowShowIndex == NO) {
         _indexLabel.text = @"";
-        _indexLabel.hidden = !photoModel.isSelected;
+        _indexLabel.hidden = !model.isSelected;
     }
     else {
-        if (photoModel.isSelected) {
+        if (model.isSelected) {
             _indexLabel.hidden = NO;
-            _indexLabel.text = [NSString stringWithFormat:@"%@",@(photoModel.index)];
+            _indexLabel.text = [NSString stringWithFormat:@"%@",@(model.index)];
         }
         else {
             _indexLabel.hidden = YES;
@@ -139,6 +140,23 @@
     if ([self.delegate respondsToSelector:@selector(albumPhotoCellWillShowPreview:)]) {
         [self.delegate albumPhotoCellWillShowPreview:self];
     }
+}
+
+- (NSString *)getTimeWithAsset:(id)asset {
+    NSInteger second = [(PHAsset *)asset duration];
+    NSString *time;
+    if (second < 60) {
+        time = [NSString stringWithFormat:@"00:%02ld",(long)second];
+    }
+    else {
+        if (second < 3600) {
+            time = [NSString stringWithFormat:@"%02ld:%02ld",(long)(second/60),(long)(second%60)];
+        }
+        else {
+            time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)(second/3600),(long)((second-second/3600*3600)/60),(long)(second%60)];
+        }
+    }
+    return time;
 }
 
 @end
