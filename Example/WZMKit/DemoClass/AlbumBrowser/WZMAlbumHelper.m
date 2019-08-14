@@ -78,7 +78,7 @@
 }
 
 //获取缩略图
-+ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void(^)(UIImage *photo, BOOL iCloud))completion {
++ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth thumbnail:(void(^)(UIImage *photo))thumbnail cloud:(void(^)(BOOL iCloud))cloud {
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
@@ -100,9 +100,15 @@
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             result = [self wzm_fixOrientation:result];
-            if (completion) completion(result,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
+            if (thumbnail) thumbnail(result);
         }
     }];
+    
+    if (cloud) {
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
+        }];
+    }
     return imageRequestID;
 }
 

@@ -106,9 +106,10 @@
     }
     else {
         //获取缩略图
-        int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, BOOL iCloud) {
+        int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width thumbnail:^(UIImage *photo) {
             _photoImageView.image = photo;
             model.image = photo;
+        } cloud:^(BOOL iCloud) {
             model.iCloud = iCloud;
             [self setConfit:config iCloud:model.isICloud];
         }];

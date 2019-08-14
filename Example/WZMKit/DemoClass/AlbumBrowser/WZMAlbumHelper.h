@@ -14,7 +14,7 @@
 //文件格式
 + (WZMAlbumPhotoType)getAssetType:(id)asset;
 ///获取缩略图
-+ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void(^)(UIImage *photo, BOOL iCloud))completion;
++ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth thumbnail:(void(^)(UIImage *photo))thumbnail cloud:(void(^)(BOOL iCloud))cloud;
 ///获取原图
 + (void)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(UIImage *photo, BOOL iCloud))completion;
 ///从iCloud获取图片
