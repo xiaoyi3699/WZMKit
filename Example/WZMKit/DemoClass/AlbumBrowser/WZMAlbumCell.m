@@ -87,7 +87,7 @@
 - (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel {
     PHAsset *phAsset = (PHAsset *)photoModel.asset;
     _representedAssetIdentifier = phAsset.localIdentifier;
-    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailImageWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if ([_representedAssetIdentifier isEqualToString:phAsset.localIdentifier]) {
             _photoImageView.image = photo;
         } else {

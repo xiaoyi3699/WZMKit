@@ -163,14 +163,14 @@
 
 - (void)photoWithModel:(WZMAlbumModel *)model completion:(void(^)(id obj))completion {
     if (model.type == WZMAlbumPhotoTypeVideo) {
-        [WZMAlbumHelper wzm_getVideoWithAsset:model.asset completion:^(NSString *videoPath, NSString *desc) {
+        [WZMAlbumHelper wzm_getVideoWithAsset:model.asset completion:^(NSURL *videoURL) {
             if (completion) {
-                completion(videoPath);
+                completion(videoURL);
             }
         }];
     }
     else {
-        [WZMAlbumHelper wzm_getOriginalImageWithAsset:model.asset progressHandler:nil completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset progressHandler:nil completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
             if (completion) {
                 completion(photo);
             }

@@ -78,7 +78,7 @@
 }
 
 //获取缩略图
-+ (int32_t)wzm_getThumbnailImageWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
++ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
@@ -107,7 +107,7 @@
 }
 
 //获取原图
-+ (void)wzm_getOriginalImageWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion networkAccessAllowed:(BOOL)networkAccessAllowed {
++ (void)wzm_getOriginalWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion networkAccessAllowed:(BOOL)networkAccessAllowed {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.imageOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -205,8 +205,22 @@
     return img;
 }
 
+
 //获取视频
-+ (void)wzm_getVideoWithAsset:(id)asset completion:(void (^)(NSString *videoPath, NSString *desc))completion {
++ (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(videoAsset.URL);
+            }
+        });
+    }];
+}
+
+//导出视频
++ (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         // NSLog(@"Info:\n%@",info);
@@ -217,7 +231,7 @@
 }
 
 //private导出视频
-+ (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void (^)(NSString *videoPath, NSString *desc))completion {
++ (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void(^)(NSURL *videoURL))completion {
     NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
     if ([presets containsObject:presetName]) {
         AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
@@ -228,9 +242,12 @@
         session.shouldOptimizeForNetworkUse = true;
         NSArray *supportedTypeArray = session.supportedFileTypes;
         if (supportedTypeArray.count == 0) {
-            if (completion) {
-                completion(nil, @"该视频类型暂不支持导出");
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    WZMLog(@"该视频类型暂不支持导出");
+                    completion(nil);
+                }
+            });
             return;
         }
         else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
@@ -246,23 +263,31 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 switch (session.status) {
                     case AVAssetExportSessionStatusCompleted: {
-                        if (completion) {
-                            completion(outputPath, nil);
-                        }
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (completion) {
+                                completion([NSURL fileURLWithPath:outputPath]);
+                            }
+                        });
                     }  break;
                     default: {
-                        if (completion) {
-                            completion(nil, session.error.description);
-                        }
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (completion) {
+                                WZMLog(@"%@",session.error.description);
+                                completion(nil);
+                            }
+                        });
                     };
                 }
             });
         }];
     } else {
-        if (completion) {
-            NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", presetName];
-            completion(nil, des);
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", presetName];
+                WZMLog(@"%@",des);
+                completion(nil);
+            }
+        });
     }
 }
 
@@ -311,18 +336,17 @@
                           if (completion) {
                               completion();
                           }
-                      }
-                         failureBlock:^(NSError *error){
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 
-                                 if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
-                                    ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
-                                     //提示授权
-                                     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
-                                     [alert show];
-                                 }
-                             });
-                         }];
+                      } failureBlock:^(NSError *error) {
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              
+                              if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
+                                 ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
+                                  //提示授权
+                                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
+                                  [alert show];
+                              }
+                          });
+                      }];
 }
 
 + (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
