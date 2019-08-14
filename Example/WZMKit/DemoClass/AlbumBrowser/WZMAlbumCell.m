@@ -76,9 +76,10 @@
         _indexLabel.hidden = YES;
         [self addSubview:_indexLabel];
         
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = self.bounds;
         _activityView.hidesWhenStopped = YES;
+        _activityView.backgroundColor = [THEME_COLOR colorWithAlphaComponent:0.2];
         [self addSubview:_activityView];
         
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
