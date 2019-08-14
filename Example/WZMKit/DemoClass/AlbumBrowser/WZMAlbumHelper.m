@@ -78,7 +78,7 @@
 }
 
 //获取缩略图
-+ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
++ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void(^)(UIImage *photo, BOOL iCloud))completion {
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
@@ -100,44 +100,130 @@
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             result = [self wzm_fixOrientation:result];
-            if (completion) completion(result,info,[[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
+            if (completion) completion(result,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
         }
     }];
     return imageRequestID;
 }
 
 //获取原图
-+ (void)wzm_getOriginalWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion networkAccessAllowed:(BOOL)networkAccessAllowed {
++ (void)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(UIImage *photo, BOOL iCloud))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.imageOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             result = [self wzm_fixOrientation:result];
-            BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
-            if (completion) completion(result,info,isDegraded);
+            if (completion) completion(result,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
         }
-        // Download image from iCloud / 从iCloud下载图片
-        if ([info objectForKey:PHImageResultIsInCloudKey] && !result && networkAccessAllowed) {
-            [self getICloudImageWithAsset:asset progressHandler:progressHandler completion:completion];
+        else {
+            if (completion) completion(nil,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
         }
     }];
 }
 
-+ (void)getICloudImageWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
++ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(UIImage *photo))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (progressHandler) {
-                progressHandler(progress, error, stop, info);
+                progressHandler(progress);
             }
         });
     };
     [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
         UIImage *resultImage = [UIImage imageWithData:imageData];
         resultImage = [self wzm_fixOrientation:resultImage];
-        if (completion) completion(resultImage,info,NO);
+        if (completion) completion(resultImage);
     }];
+}
+
+//获取视频
++ (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(videoAsset.URL);
+            }
+        });
+    }];
+}
+
+//导出视频
++ (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+        // NSLog(@"Info:\n%@",info);
+        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+        // NSLog(@"AVAsset URL: %@",myAsset.URL);
+        [self wzm_startExportVideoWithVideoAsset:videoAsset presetName:AVAssetExportPreset640x480 completion:completion];
+    }];
+}
+
+//保存视频到系统相册
++ (void)wzm_saveVideo:(NSString *)path {
+    UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
+}
+
+//保存图片到系统相册
++ (void)wzm_saveImage:(UIImage *)image {
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
+
+//保存图片到自定义相册
++ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    NSMutableArray *groups=[[NSMutableArray alloc]init];
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        if (group){
+            [groups addObject:group];
+        }
+        else {
+            BOOL haveHDRGroup = NO;
+            for (ALAssetsGroup *gp in groups) {
+                NSString *name =[gp valueForProperty:ALAssetsGroupPropertyName];
+                if ([name isEqualToString:albumName]) {//相册已存在
+                    haveHDRGroup = YES;
+                    break;
+                }
+            }
+            if (haveHDRGroup == NO) {//相册不存在
+                [assetsLibrary addAssetsGroupAlbumWithName:albumName
+                                               resultBlock:^(ALAssetsGroup *group) {
+                                                   [groups addObject:group];
+                                               }
+                                              failureBlock:nil];
+            }
+        }
+    };
+    //创建相簿
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
+    [self wzm_saveToAlbumWithMetadata:nil
+                            imageData:data
+                      customAlbumName:albumName
+                      completionBlock:^{
+                          if (completion) {
+                              completion();
+                          }
+                      } failureBlock:^(NSError *error) {
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
+                                 ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
+                                  //提示授权
+                                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
+                                  [alert show];
+                              }
+                          });
+                      }];
+}
+
+///清除视频缓存
++ (void)wzm_claerVideoCache {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [WZMFileManager deleteFileAtPath:helper.videoPath error:nil];
+    [WZMFileManager createDirectoryAtPath:helper.videoPath];
 }
 
 //private修正图片转向
@@ -205,28 +291,62 @@
     return img;
 }
 
-
-//获取视频
-+ (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                completion(videoAsset.URL);
+//保存到相册
++ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
+                          imageData:(NSData *)imageData
+                    customAlbumName:(NSString *)customAlbumName
+                    completionBlock:(void (^)(void))completionBlock
+                       failureBlock:(void (^)(NSError *error))failureBlock {
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
+    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
+        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
+                    [group addAsset:asset];
+                    if (completionBlock) {
+                        completionBlock();
+                    }
+                }
+            } failureBlock:^(NSError *error) {
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
+        } failureBlock:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
             }
-        });
-    }];
-}
-
-//导出视频
-+ (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-        // NSLog(@"Info:\n%@",info);
-        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-        // NSLog(@"AVAsset URL: %@",myAsset.URL);
-        [self wzm_startExportVideoWithVideoAsset:videoAsset presetName:AVAssetExportPreset640x480 completion:completion];
+        }];
+    };
+    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (customAlbumName) {
+            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
+                if (group) {
+                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                        [group addAsset:asset];
+                        if (completionBlock) {
+                            completionBlock();
+                        }
+                    } failureBlock:^(NSError *error) {
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }];
+                }
+                else {
+                    AddAsset(weakSelf, assetURL);
+                }
+            } failureBlock:^(NSError *error) {
+                AddAsset(weakSelf, assetURL);
+            }];
+        }
+        else {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
     }];
 }
 
@@ -289,129 +409,6 @@
             }
         });
     }
-}
-
-//保存视频到系统相册
-+ (void)wzm_saveVideo:(NSString *)path {
-    UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
-}
-
-//保存图片到系统相册
-+ (void)wzm_saveImage:(UIImage *)image {
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-}
-
-//保存图片到自定义相册
-+ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    NSMutableArray *groups=[[NSMutableArray alloc]init];
-    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        if (group){
-            [groups addObject:group];
-        }
-        else {
-            BOOL haveHDRGroup = NO;
-            for (ALAssetsGroup *gp in groups) {
-                NSString *name =[gp valueForProperty:ALAssetsGroupPropertyName];
-                if ([name isEqualToString:albumName]) {//相册已存在
-                    haveHDRGroup = YES;
-                    break;
-                }
-            }
-            if (haveHDRGroup == NO) {//相册不存在
-                [assetsLibrary addAssetsGroupAlbumWithName:albumName
-                                               resultBlock:^(ALAssetsGroup *group) {
-                                                   [groups addObject:group];
-                                               }
-                                              failureBlock:nil];
-            }
-        }
-    };
-    //创建相簿
-    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
-    [self wzm_saveToAlbumWithMetadata:nil
-                            imageData:data
-                      customAlbumName:albumName
-                      completionBlock:^{
-                          if (completion) {
-                              completion();
-                          }
-                      } failureBlock:^(NSError *error) {
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              
-                              if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
-                                 ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
-                                  //提示授权
-                                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
-                                  [alert show];
-                              }
-                          });
-                      }];
-}
-
-+ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
-                          imageData:(NSData *)imageData
-                    customAlbumName:(NSString *)customAlbumName
-                    completionBlock:(void (^)(void))completionBlock
-                       failureBlock:(void (^)(NSError *error))failureBlock {
-    
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
-    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
-        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
-                    [group addAsset:asset];
-                    if (completionBlock) {
-                        completionBlock();
-                    }
-                }
-            } failureBlock:^(NSError *error) {
-                if (failureBlock) {
-                    failureBlock(error);
-                }
-            }];
-        } failureBlock:^(NSError *error) {
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        }];
-    };
-    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (customAlbumName) {
-            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
-                if (group) {
-                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                        [group addAsset:asset];
-                        if (completionBlock) {
-                            completionBlock();
-                        }
-                    } failureBlock:^(NSError *error) {
-                        if (failureBlock) {
-                            failureBlock(error);
-                        }
-                    }];
-                }
-                else {
-                    AddAsset(weakSelf, assetURL);
-                }
-            } failureBlock:^(NSError *error) {
-                AddAsset(weakSelf, assetURL);
-            }];
-        }
-        else {
-            if (completionBlock) {
-                completionBlock();
-            }
-        }
-    }];
-}
-
-///清除视频缓存
-+ (void)wzm_claerVideoCache {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    [WZMFileManager deleteFileAtPath:helper.videoPath error:nil];
-    [WZMFileManager createDirectoryAtPath:helper.videoPath];
 }
 
 @end

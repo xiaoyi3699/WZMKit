@@ -14,9 +14,11 @@
 //文件格式
 + (WZMAlbumPhotoType)getAssetType:(id)asset;
 ///获取缩略图
-+ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion;
++ (int32_t)wzm_getThumbnailWithAsset:(id)asset photoWidth:(CGFloat)photoWidth completion:(void(^)(UIImage *photo, BOOL iCloud))completion;
 ///获取原图
-+ (void)wzm_getOriginalWithAsset:(id)asset progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion networkAccessAllowed:(BOOL)networkAccessAllowed;
++ (void)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(UIImage *photo, BOOL iCloud))completion;
+///从iCloud获取图片
++ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(UIImage *photo))completion;
 //获取视频
 + (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
 ///导出视频

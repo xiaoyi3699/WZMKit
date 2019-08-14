@@ -87,14 +87,11 @@
 - (void)setConfig:(WZMAlbumConfig *)config photoModel:(WZMAlbumModel *)photoModel {
     PHAsset *phAsset = (PHAsset *)photoModel.asset;
     _representedAssetIdentifier = phAsset.localIdentifier;
-    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+    int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:photoModel.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, BOOL iCloud) {
         if ([_representedAssetIdentifier isEqualToString:phAsset.localIdentifier]) {
             _photoImageView.image = photo;
         } else {
             [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
-        }
-        if (!isDegraded) {
-            _imageRequestID = 0;
         }
     }];
     if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {

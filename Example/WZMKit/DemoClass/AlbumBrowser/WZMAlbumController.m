@@ -170,11 +170,11 @@
         }];
     }
     else {
-        [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset progressHandler:nil completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(UIImage *photo, BOOL iCloud) {
             if (completion) {
                 completion(photo);
             }
-        } networkAccessAllowed:YES];
+        }];
     }
 }
 
