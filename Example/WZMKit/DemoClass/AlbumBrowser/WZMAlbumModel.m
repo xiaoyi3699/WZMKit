@@ -15,6 +15,7 @@
 + (instancetype)modelWithAsset:(PHAsset *)asset {
     WZMAlbumModel *model = [[WZMAlbumModel alloc] init];
     model.asset = asset;
+    model.iCloud = NO;
     model.selected = NO;
     model.type = [WZMAlbumHelper getAssetType:asset];
     return model;

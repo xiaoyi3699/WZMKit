@@ -23,8 +23,9 @@
     UIView *_videoTimeView;
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
-    UIButton *_previewBtn;
     UILabel *_indexLabel;
+    UIButton *_previewBtn;
+    UIButton *_iCloudBtn;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -79,6 +80,13 @@
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
+        
+        _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        [_iCloudBtn setImage:[UIImage imageNamed:@"album_qp"] forState:UIControlStateNormal];
+        [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _iCloudBtn.hidden = YES;
+        [self addSubview:_iCloudBtn];
     }
     return self;
 }
@@ -86,12 +94,15 @@
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
     if (model.image) {
         _photoImageView.image = model.image;
+        [self setConfit:config iCloud:model.isICloud];
     }
     else {
         //获取缩略图
         int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width completion:^(UIImage *photo, BOOL iCloud) {
             _photoImageView.image = photo;
             model.image = photo;
+            model.iCloud = iCloud;
+            [self setConfit:config iCloud:model.isICloud];
         }];
         if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
             [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
@@ -118,7 +129,6 @@
         _videoTimeLabel.text = @"";
     }
     
-    _previewBtn.hidden = !config.allowPreview;
     if (config.maxCount == 1 || config.allowShowIndex == NO) {
         _indexLabel.text = @"";
         _indexLabel.hidden = !model.isSelected;
@@ -135,11 +145,27 @@
     }
 }
 
+- (void)setConfit:(WZMAlbumConfig *)config iCloud:(BOOL)iCloud {
+    if (iCloud) {
+        _iCloudBtn.hidden = NO;
+        _previewBtn.hidden = YES;
+    }
+    else {
+        _iCloudBtn.hidden = YES;
+        _previewBtn.hidden = !config.allowPreview;
+    }
+}
+
 //预览按钮点击事件
 - (void)previewBtnClick:(UIButton *)btn {
     if ([self.delegate respondsToSelector:@selector(albumPhotoCellWillShowPreview:)]) {
         [self.delegate albumPhotoCellWillShowPreview:self];
     }
+}
+
+//iCloud按钮点击事件
+- (void)iCloudBtnClick:(UIButton *)btn {
+    
 }
 
 - (NSString *)getTimeWithAsset:(id)asset {
