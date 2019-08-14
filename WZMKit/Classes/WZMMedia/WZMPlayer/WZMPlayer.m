@@ -178,7 +178,9 @@
 
 //程序进入前台
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    [self play];//恢复播放
+    if (self.isBackground) {
+        [self play];//恢复播放
+    }
 }
 
 //监听程序退到后台
@@ -202,14 +204,15 @@
         [self pause];
     }
     else {
-        //系统中断结束，恢复音频播放
-        [self play];
+        if (self.isBackground) {
+            //系统中断结束，恢复音频播放
+            [self play];
+        }
     }
 }
 
 //监听音频播放完成
 - (void)moviePlayDidEnd:(NSNotification *)notification {
-    self.locking = YES;
     [self wzm_endPlaying];
 }
 
@@ -253,7 +256,6 @@
 
 - (void)wzm_endPlaying {
     [self pause];
-    [self resetConfig:NO];
     if ([self.delegate respondsToSelector:@selector(playerEndPlaying:)]) {
         [self.delegate playerEndPlaying:self];
     }

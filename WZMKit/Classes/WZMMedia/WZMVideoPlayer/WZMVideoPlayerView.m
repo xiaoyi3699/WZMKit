@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     WZMDirectionVertical,     //垂直方向滑动
 };
 
-@interface WZMVideoPlayerView ()
+@interface WZMVideoPlayerView ()<WZMPlayerDelegate>
 
 //滑动手势
 @property (nonatomic, assign) CGPoint startPoint;
@@ -42,7 +42,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 //视图
 @property (nonatomic, strong) UIButton *playBtn;
 @property (nonatomic, strong) UIButton *fullBtn;
-@property (nonatomic, strong) UIView   *topView;
 @property (nonatomic, strong) UIView   *toolView;
 @property (nonatomic, strong) UILabel  *totalTimeLabel;
 @property (nonatomic, strong) UILabel  *currentTimeLabel;
@@ -57,8 +56,12 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGR:)];
-        [self addGestureRecognizer:tapGR];
+        self.backgroundColor = [UIColor blackColor];
+        _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
+        [self addSubview:_playerView];
+        _player = [[WZMPlayer alloc] init];
+        _player.delegate = self;
+        _player.playerView = _playerView;
         
         //获取系统的音量view
         self.volumeView.frame = CGRectMake(frame.size.width-30, (frame.size.height-100)/2.0, 20, 100);
@@ -75,46 +78,13 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         self.brightnessSlider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:self.brightnessSlider];
         
-        //顶部view
-        _topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-        _topView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
-        _topView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_topView];
-        
         //返回按钮
-        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backBtn setFrame:CGRectMake(10, 15, 50, 16)];
-        backBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [backBtn setTitle:@" 返回" forState:UIControlStateNormal];
-        [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [backBtn setImage:[WZMPublic imageNamed:@"wzm_back_white" ofType:@"png"] forState:UIControlStateNormal];
-        [_topView addSubview:backBtn];
-        
-        UIButton *tureBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tureBackBtn setFrame:CGRectMake(0, 0, 60, 44)];
-        [tureBackBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-        [_topView addSubview:tureBackBtn];
-        
-        //全屏按钮
-        _fullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullBtn setFrame:CGRectMake(_topView.wzm_width-50, 10, 40, 25)];
-        _fullBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        _fullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        _fullBtn.layer.masksToBounds = YES;
-        _fullBtn.layer.cornerRadius = 5;
-        _fullBtn.layer.borderColor = WZM_R_G_B(230, 230, 230).CGColor;
-        _fullBtn.layer.borderWidth = 0.8;
-        [_fullBtn setTitle:@"全屏" forState:UIControlStateNormal];
-        [_fullBtn setTitle:@"还原" forState:UIControlStateSelected];
-        [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_fullBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_topView addSubview:_fullBtn];
-        
-        UIButton *tureFullBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tureFullBtn setFrame:CGRectMake(_topView.wzm_width-60, 0, 60, 44)];
-        tureFullBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [tureFullBtn addTarget:self action:@selector(fullBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [_topView addSubview:tureFullBtn];
+        UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeBtn.frame = CGRectMake(10, WZM_STATUS_HEIGHT, 50, 50);
+        closeBtn.backgroundColor = [UIColor blueColor];
+        closeBtn.wzm_cornerRadius = 25;
+        [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:closeBtn];
         
         //底部view
         _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
@@ -156,11 +126,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
         _totalTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [_toolView addSubview:_totalTimeLabel];
-        
-        _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
-        [self addSubview:_playerView];
-        _player = [[WZMPlayer alloc] init];
-        _player.playerView = _playerView;
     }
     return self;
 }
@@ -203,45 +168,12 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [[UIScreen mainScreen] setBrightness:slider.value];
 }
 
-//播放器的单击事件<控制底部和顶部view的显示与隐藏>
-- (void)tapGR:(UITapGestureRecognizer *)tapGR {
-    [UIView animateWithDuration:.5 animations:^{
-        _topView.hidden = !_topView.isHidden;
-        _toolView.hidden = !_toolView.isHidden;
-    }];
-}
-
-#pragma mark - 顶部view相关事件
 //返回按钮的点击事件
-- (void)goBack:(UIButton *)btn
+- (void)closeBtnClick:(UIButton *)btn
 {
-    if (_fullBtn.selected) {
-        [self fullBtnClick];
-    }
-    else {
-        if (self.wzm_viewController.navigationController.topViewController == self.wzm_viewController) {
-            [self.wzm_viewController.navigationController popViewControllerAnimated:YES];
-        }
-        else {
-            [self.wzm_viewController dismissViewControllerAnimated:YES completion:nil];
-        }
-    }
+    [self.wzm_viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-//全屏按钮的点击事件
-- (void)fullBtnClick
-{
-    UIInterfaceOrientation orientation;
-    if (_fullBtn.selected) {
-        orientation = UIInterfaceOrientationPortrait;
-    }
-    else {
-        orientation = UIInterfaceOrientationLandscapeRight;
-    }
-    [self.wzm_viewController wzm_interfaceOrientation:orientation];
-}
-
-#pragma mark - 底部view相关事件
 //播放按钮的点击事件
 -(void)playBtnClick:(UIButton *)btn
 {
@@ -257,8 +189,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 //进度条滑动
 -(void)touchChange:(UISlider *)sl
 {
-//    float current = _progressSlider.value;
-//    _currentTimeLabel.text = [self getTime:(NSInteger)(current*_player.duration)];
     [_player seekToProgress:_progressSlider.value];
 }
 
@@ -380,7 +310,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 - (void)play {
     if (_player) {
         [_player play];
-        _playBtn.selected = YES;
     }
 }
 
@@ -388,7 +317,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 - (void)pause {
     if (_player) {
         [_player pause];
-        _playBtn.selected = NO;
     }
 }
 
@@ -410,10 +338,23 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     return time;
 }
 
+//播放器代理
+- (void)playerBeginPlaying:(WZMPlayer *)player {
+    _totalTimeLabel.text = [self getTime:player.duration];
+}
+
+- (void)playerPlaying:(WZMPlayer *)player {
+    _progressSlider.value = player.playProgress;
+    _currentTimeLabel.text = [self getTime:player.currentTime];
+}
+
+- (void)playerChangeStatus:(WZMPlayer *)player {
+    _playBtn.selected = player.isPlaying;
+}
+
 //视频播放完毕
--(void)moviePlayDidEnd:(NSNotification *)notification {
-    _playBtn.selected = NO;
-    _progressSlider.value = 1.0;
+-(void)playerEndPlaying:(WZMPlayer *)player {
+    _progressSlider.value = 0.0;
     [_player seekToProgress:0.0];
     WZMLog(@"视频播放完毕！");
 }

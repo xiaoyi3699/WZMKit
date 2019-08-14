@@ -28,10 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self createViews];
-}
-
-- (void)createViews {
+    self.view.backgroundColor = [UIColor whiteColor];
     _playerView = [[WZMVideoPlayerView alloc] initWithFrame:self.view.bounds];
     [_playerView playWithUrl:_videoUrl];
     [self.view addSubview:_playerView];
