@@ -18,7 +18,7 @@
 ///获取原图
 + (void)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(UIImage *photo, BOOL iCloud))completion;
 ///从iCloud获取图片
-+ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(UIImage *photo))completion;
++ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion;
 //获取视频
 + (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
 ///导出视频

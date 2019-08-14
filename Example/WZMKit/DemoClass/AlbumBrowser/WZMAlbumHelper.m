@@ -18,7 +18,6 @@
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
 @property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
-
 @property (nonatomic, strong) PHImageRequestOptions *iCloudImageOptions;
 
 @end
@@ -128,7 +127,7 @@
     }];
 }
 
-+ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(UIImage *photo))completion {
++ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -137,11 +136,24 @@
             }
         });
     };
-    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-        UIImage *resultImage = [UIImage imageWithData:imageData];
-        resultImage = [self wzm_fixOrientation:resultImage];
-        if (completion) completion(resultImage);
-    }];
+    WZMAlbumPhotoType type = [self getAssetType:asset];
+    if (type == WZMAlbumPhotoTypeVideo) {
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(videoAsset.URL);
+                }
+            });
+        }];
+    }
+    else {
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+            UIImage *resultImage = [UIImage imageWithData:imageData];
+            resultImage = [self wzm_fixOrientation:resultImage];
+            if (completion) completion(resultImage);
+        }];
+    }
 }
 
 //获取视频

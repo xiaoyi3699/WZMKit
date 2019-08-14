@@ -185,7 +185,7 @@
     if (self.model.isDownloading) return;
     self.model.downloading = YES;
     [_activityView startAnimating];
-    [WZMAlbumHelper getICloudImageWithAsset:self.model.asset progressHandler:nil completion:^(UIImage *photo) {
+    [WZMAlbumHelper getICloudImageWithAsset:self.model.asset progressHandler:nil completion:^(id obj) {
         self.model.iCloud = NO;
         self.model.downloading = NO;
         [_activityView stopAnimating];
