@@ -130,7 +130,7 @@
     return imageRequestID;
 }
 
-//获取原图
+//获取原图/原视频
 + (int32_t)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
@@ -159,6 +159,7 @@
     }
 }
 
+//从iCloud获取图片/视频
 + (void)wzm_getICloudWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
@@ -275,108 +276,11 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
-//保存图片到自定义相册
-+ (void)wzm_saveToAlbumName:(NSString *)albumName data:(NSData *)data completion:(doBlock)completion {
++ (void)wzm_saveImageData:(NSData *)data completion:(doBlock)completion {
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    NSMutableArray *groups=[[NSMutableArray alloc]init];
-    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
-        if (group){
-            [groups addObject:group];
-        }
-        else {
-            BOOL haveHDRGroup = NO;
-            for (ALAssetsGroup *gp in groups) {
-                NSString *name =[gp valueForProperty:ALAssetsGroupPropertyName];
-                if ([name isEqualToString:albumName]) {//相册已存在
-                    haveHDRGroup = YES;
-                    break;
-                }
-            }
-            if (haveHDRGroup == NO) {//相册不存在
-                [assetsLibrary addAssetsGroupAlbumWithName:albumName
-                                               resultBlock:^(ALAssetsGroup *group) {
-                                                   [groups addObject:group];
-                                               }
-                                              failureBlock:nil];
-            }
-        }
-    };
-    //创建相簿
-    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:listGroupBlock failureBlock:nil];
-    [self wzm_saveToAlbumWithMetadata:nil
-                            imageData:data
-                      customAlbumName:albumName
-                      completionBlock:^{
-                          if (completion) {
-                              completion();
-                          }
-                      } failureBlock:^(NSError *error) {
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              if([error.localizedDescription rangeOfString:@"User denied access"].location != NSNotFound
-                                 ||[error.localizedDescription rangeOfString:@"用户拒绝访问"].location!=NSNotFound){
-                                  //提示授权
-                                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:error.localizedDescription message:error.localizedFailureReason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles: nil];
-                                  [alert show];
-                              }
-                          });
-                      }];
-}
-
-//保存到相册
-+ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
-                          imageData:(NSData *)imageData
-                    customAlbumName:(NSString *)customAlbumName
-                    completionBlock:(void (^)(void))completionBlock
-                       failureBlock:(void (^)(NSError *error))failureBlock {
-    
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
-    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
-        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
-                    [group addAsset:asset];
-                    if (completionBlock) {
-                        completionBlock();
-                    }
-                }
-            } failureBlock:^(NSError *error) {
-                if (failureBlock) {
-                    failureBlock(error);
-                }
-            }];
-        } failureBlock:^(NSError *error) {
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        }];
-    };
-    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (customAlbumName) {
-            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
-                if (group) {
-                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                        [group addAsset:asset];
-                        if (completionBlock) {
-                            completionBlock();
-                        }
-                    } failureBlock:^(NSError *error) {
-                        if (failureBlock) {
-                            failureBlock(error);
-                        }
-                    }];
-                }
-                else {
-                    AddAsset(weakSelf, assetURL);
-                }
-            } failureBlock:^(NSError *error) {
-                AddAsset(weakSelf, assetURL);
-            }];
-        }
-        else {
-            if (completionBlock) {
-                completionBlock();
-            }
+    [assetsLibrary writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (completion) {
+            completion();
         }
     }];
 }
