@@ -33,11 +33,13 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyn_juqing" ofType:@"mp4"];
-    NSURL *url = [NSURL fileURLWithPath:path];
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyn_juqing" ofType:@"mp4"];
+//    NSURL *url = [NSURL fileURLWithPath:path];
+//
+//    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
+//    [self presentViewController:vc animated:YES completion:nil];
     
-    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
-    [self presentViewController:vc animated:YES completion:nil];
+    [WZMViewHandle wzm_showProgressMessage:@"哈哈哈"];
 }
 
 @end

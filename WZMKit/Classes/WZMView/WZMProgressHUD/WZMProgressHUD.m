@@ -11,8 +11,8 @@
 
 @interface WZMProgressView ()
 
-@property (nonatomic, strong) UIColor *progressColor;
 @property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -21,6 +21,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityView.hidesWhenStopped = YES;
+        [self addSubview:_activityView];
+        
         _messageLabel = [[UILabel alloc] init];
         [self addSubview:_messageLabel];
     }
@@ -29,81 +33,24 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
-    
     if (newSuperview) {
-        [self creatGradientLayer];
-        
-        if (_messageLabel.hidden == NO) {
+        if (_messageLabel.hidden) {
+            _messageLabel.frame = CGRectZero;
+            self.activityView.frame = self.bounds;
+        }
+        else {
             _messageLabel.frame = CGRectMake(0, 65, self.bounds.size.width, 35);
+            self.activityView.frame = CGRectMake(0, 0, self.bounds.size.width, 80);
         }
     }
 }
 
 - (void)startAnimation {
-    for (CALayer *layer in self.layer.sublayers) {
-        if ([layer isKindOfClass:[CAGradientLayer class]]) {
-            [layer addAnimation:[self animation] forKey:@"Rotation"];
-            break;
-        }
-    }
+    [self.activityView startAnimating];
 }
 
 - (void)stopAnimation {
-    [self.layer removeAllAnimations];
-}
-
-- (void)creatGradientLayer{
-    for (CALayer *layer in self.layer.sublayers) {
-        if ([layer isKindOfClass:[CAGradientLayer class]]) {
-            [layer removeFromSuperlayer];
-        }
-    }
-    CGRect rect = self.bounds;
-    CGFloat y;
-    if (self.messageLabel.text.length) {
-        y = 5;
-    }
-    else {
-        y = (rect.size.height-60)/2.0;
-    }
-    rect.origin.x = (rect.size.width-60)/2.0;
-    rect.origin.y = y;
-    rect.size.width = 60;
-    rect.size.height = 60;
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = rect;
-    [self.layer addSublayer:gradientLayer];
-    
-    gradientLayer.colors = @[(id)[UIColor whiteColor].CGColor,(id)self.progressColor.CGColor];
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(1, 1);
-    UIBezierPath *bezierP = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10, 10, 40, 40)];
-    CAShapeLayer* shapeLayer = [[CAShapeLayer alloc] init];
-    shapeLayer.path = bezierP.CGPath;
-    shapeLayer.lineWidth = 3;
-    shapeLayer.fillColor = [UIColor clearColor].CGColor;
-    shapeLayer.strokeColor = [UIColor blueColor].CGColor;
-    shapeLayer.lineCap = kCALineCapRound;
-    shapeLayer.strokeStart = 0.0;
-    shapeLayer.strokeEnd = 1.0;
-    gradientLayer.mask = shapeLayer;
-}
-
-- (CABasicAnimation *)animation {
-    static CABasicAnimation* rotationAnimation;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *transformName = [NSString stringWithFormat:@"transform.rotation.z"];
-        rotationAnimation = [CABasicAnimation animationWithKeyPath:transformName];
-        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI*2.0 ];
-        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        rotationAnimation.duration = .5;
-        rotationAnimation.repeatCount = LONG_MAX;
-        rotationAnimation.cumulative = NO;
-        rotationAnimation.removedOnCompletion = NO;
-        rotationAnimation.fillMode = kCAFillModeForwards;
-    });
-    return rotationAnimation;
+    [self.activityView stopAnimating];
 }
 
 @end
@@ -122,9 +69,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.backgroundColor = WZM_R_G_B_A(40, 40, 40, .8);
+        self.backgroundColor = WZM_R_G_B_A(40, 40, 40, .6);
         self.textColor = WZM_R_G_B_A(250, 250, 250, 1);
-        self.progressColor = WZM_R_G_B_A(180, 180, 180, 1);
+        self.progressColor = WZM_R_G_B_A(250, 250, 250, 1);
         self.font = [UIFont systemFontOfSize:14];
     }
     return self;
@@ -218,7 +165,7 @@
     }
     hud.progressView.frame = rect;
     hud.progressView.backgroundColor = hud.config.backgroundColor;
-    hud.progressView.progressColor = hud.config.progressColor;
+    hud.progressView.activityView.color = hud.config.progressColor;
     hud.progressView.messageLabel.hidden = (message.length == 0);
     hud.progressView.messageLabel.text = message;
     hud.progressView.messageLabel.font = hud.config.font;
