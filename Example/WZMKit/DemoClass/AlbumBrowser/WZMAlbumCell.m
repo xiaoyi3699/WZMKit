@@ -85,14 +85,16 @@
         
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        [_previewBtn setImage:[UIImage imageNamed:@"album_fd"] forState:UIControlStateNormal];
+        _previewBtn.tintColor = [THEME_COLOR colorWithAlphaComponent:0.5];
+        [_previewBtn setImage:[[UIImage imageNamed:@"album_fd"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
         
         _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        [_iCloudBtn setImage:[UIImage imageNamed:@"album_xz"] forState:UIControlStateNormal];
+        _iCloudBtn.tintColor = [THEME_COLOR colorWithAlphaComponent:0.5];
+        [_iCloudBtn setImage:[[UIImage imageNamed:@"album_xz"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
         [self addSubview:_iCloudBtn];

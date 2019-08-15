@@ -18,13 +18,13 @@
     model.iCloud = NO;
     model.selected = NO;
     model.downloading = NO;
-    model.type = [WZMAlbumHelper getAssetType:asset];
+    model.type = [WZMAlbumHelper wzm_getAssetType:asset];
     return model;
 }
 
 - (void)getICloudImageCompletion:(void (^)(id obj))completion {
     self.downloading = YES;
-    [WZMAlbumHelper getICloudImageWithAsset:self.asset progressHandler:nil completion:^(id obj) {
+    [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
         self.iCloud = NO;
         self.downloading = NO;
         if (completion) {

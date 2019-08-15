@@ -7,6 +7,8 @@
 //
 
 #import "WZMAlbumConfig.h"
+#import "WZMAlbumHelper.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation WZMAlbumConfig
 
@@ -22,6 +24,11 @@
         self.allowShowGIF = NO;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
+        self.originalImage = YES;
+        self.originalVideo = YES;
+        self.imagePreset = 600;
+        self.videoPreset = AVAssetExportPreset640x480;
+//        self.videoPath = [WZMAlbumHelper video];
     }
     return self;
 }

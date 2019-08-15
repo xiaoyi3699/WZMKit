@@ -162,20 +162,11 @@
 }
 
 - (void)photoWithModel:(WZMAlbumModel *)model completion:(void(^)(id obj))completion {
-    if (model.type == WZMAlbumPhotoTypeVideo) {
-        [WZMAlbumHelper wzm_getVideoWithAsset:model.asset completion:^(NSURL *videoURL) {
-            if (completion) {
-                completion(videoURL);
-            }
-        }];
-    }
-    else {
-        [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(UIImage *photo, BOOL iCloud) {
-            if (completion) {
-                completion(photo);
-            }
-        }];
-    }
+    [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(id obj) {
+        if (completion) {
+            completion(obj);
+        }
+    }];
 }
 
 - (void)dealloc {

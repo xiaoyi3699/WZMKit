@@ -59,14 +59,14 @@
         self.iCloudVideoOptions.version = PHVideoRequestOptionsVersionOriginal;
         self.iCloudVideoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         
-        self.videoPath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"KPAlbum"];
+        self.videoPath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMAlbum"];
         [WZMFileManager createDirectoryAtPath:self.videoPath];
     }
     return self;
 }
 
 //文件格式
-+ (WZMAlbumPhotoType)getAssetType:(id)asset {
++ (WZMAlbumPhotoType)wzm_getAssetType:(id)asset {
     WZMAlbumPhotoType type = WZMAlbumPhotoTypePhoto;
     PHAsset *phAsset = (PHAsset *)asset;
     if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = WZMAlbumPhotoTypeVideo;
@@ -87,18 +87,18 @@
     PHAsset *phAsset = (PHAsset *)asset;
     CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
     CGFloat pixelWidth = photoWidth * WZM_SCREEN_SCALE;
-    // 超宽图片
+    //超宽图片
     if (aspectRatio > 1.8) {
         pixelWidth = pixelWidth * aspectRatio;
     }
-    // 超高图片
+    //超高图片
     if (aspectRatio < 0.2) {
         pixelWidth = pixelWidth * 0.5;
     }
     CGFloat pixelHeight = pixelWidth / aspectRatio;
     CGSize imageSize = CGSizeMake(pixelWidth, pixelHeight);
     
-    // 修复获取图片时出现的瞬间内存过高问题
+    //修复获取图片时出现的瞬间内存过高问题
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.imageOptions.networkAccessAllowed = NO;
     int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -110,7 +110,7 @@
     }];
     
     if (cloud) {
-        WZMAlbumPhotoType type = [self getAssetType:asset];
+        WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
             [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary* info){
@@ -131,24 +131,37 @@
 }
 
 //获取原图
-+ (void)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(UIImage *photo, BOOL iCloud))completion {
++ (int32_t)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    helper.imageOptions.networkAccessAllowed = YES;
-    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
-        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-        if (downloadFinined && result) {
-            result = [self wzm_fixOrientation:result];
-            if (completion) completion(result,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
-        }
-        else {
-            if (completion) completion(nil,[[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
-        }
-    }];
+    WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
+    if (type == WZMAlbumPhotoTypeVideo) {
+        helper.videoOptions.networkAccessAllowed = YES;
+        int32_t requestId = [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary* info){
+            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    completion(videoAsset.URL);
+                }
+            });
+        }];
+        return requestId;
+    }
+    else {
+        helper.imageOptions.networkAccessAllowed = YES;
+        int32_t requestId = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+            if (downloadFinined && result) {
+                result = [self wzm_fixOrientation:result];
+                if (completion) completion(result);
+            }
+        }];
+        return requestId;
+    }
 }
 
-+ (void)getICloudImageWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
++ (void)wzm_getICloudWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    WZMAlbumPhotoType type = [self getAssetType:asset];
+    WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
         helper.iCloudVideoOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -182,29 +195,73 @@
     }
 }
 
-//获取视频
-+ (void)wzm_getVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    helper.videoOptions.networkAccessAllowed = YES;
-    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                completion(videoAsset.URL);
-            }
-        });
-    }];
-}
-
 //导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset640x480 outPath:helper.videoPath completion:completion];
+}
+
++ (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outPath:(NSString *)outPath completion:(void(^)(NSURL *videoURL))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.videoOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-        // NSLog(@"Info:\n%@",info);
-        AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-        // NSLog(@"AVAsset URL: %@",myAsset.URL);
-        [self wzm_startExportVideoWithVideoAsset:videoAsset presetName:AVAssetExportPreset640x480 completion:completion];
+        NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
+        if ([presets containsObject:preset]) {
+            AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
+            NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
+            NSString *videoName = [formater stringFromDate:[NSDate date]];
+            NSString *outputPath = [outPath stringByAppendingFormat:@"%@.mp4", videoName];
+            session.shouldOptimizeForNetworkUse = true;
+            NSArray *supportedTypeArray = session.supportedFileTypes;
+            if (supportedTypeArray.count == 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        WZMLog(@"该视频类型暂不支持导出");
+                        completion(nil);
+                    }
+                });
+                return;
+            }
+            else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
+                session.outputFileType = AVFileTypeMPEG4;
+            } else {
+                AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+                session.outputFileType = [supportedTypeArray objectAtIndex:0];
+                if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
+                    outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
+                }
+            }
+            session.outputURL = [NSURL fileURLWithPath:outputPath];
+            [session exportAsynchronouslyWithCompletionHandler:^(void) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    switch (session.status) {
+                        case AVAssetExportSessionStatusCompleted: {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (completion) {
+                                    completion([NSURL fileURLWithPath:outputPath]);
+                                }
+                            });
+                        }  break;
+                        default: {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (completion) {
+                                    WZMLog(@"%@",session.error.description);
+                                    completion(nil);
+                                }
+                            });
+                        };
+                    }
+                });
+            }];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) {
+                    NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", preset];
+                    WZMLog(@"%@",des);
+                    completion(nil);
+                }
+            });
+        }
     }];
 }
 
@@ -263,6 +320,65 @@
                               }
                           });
                       }];
+}
+
+//保存到相册
++ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
+                          imageData:(NSData *)imageData
+                    customAlbumName:(NSString *)customAlbumName
+                    completionBlock:(void (^)(void))completionBlock
+                       failureBlock:(void (^)(NSError *error))failureBlock {
+    
+    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
+    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
+        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
+                    [group addAsset:asset];
+                    if (completionBlock) {
+                        completionBlock();
+                    }
+                }
+            } failureBlock:^(NSError *error) {
+                if (failureBlock) {
+                    failureBlock(error);
+                }
+            }];
+        } failureBlock:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+    };
+    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (customAlbumName) {
+            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
+                if (group) {
+                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                        [group addAsset:asset];
+                        if (completionBlock) {
+                            completionBlock();
+                        }
+                    } failureBlock:^(NSError *error) {
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }];
+                }
+                else {
+                    AddAsset(weakSelf, assetURL);
+                }
+            } failureBlock:^(NSError *error) {
+                AddAsset(weakSelf, assetURL);
+            }];
+        }
+        else {
+            if (completionBlock) {
+                completionBlock();
+            }
+        }
+    }];
 }
 
 ///清除视频缓存
@@ -335,126 +451,6 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
-}
-
-//保存到相册
-+ (void)wzm_saveToAlbumWithMetadata:(NSDictionary *)metadata
-                          imageData:(NSData *)imageData
-                    customAlbumName:(NSString *)customAlbumName
-                    completionBlock:(void (^)(void))completionBlock
-                       failureBlock:(void (^)(NSError *error))failureBlock {
-    
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    __weak ALAssetsLibrary *weakSelf = assetsLibrary;
-    void (^AddAsset)(ALAssetsLibrary *, NSURL *) = ^(ALAssetsLibrary *assetsLibrary, NSURL *assetURL) {
-        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-            [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:customAlbumName]) {
-                    [group addAsset:asset];
-                    if (completionBlock) {
-                        completionBlock();
-                    }
-                }
-            } failureBlock:^(NSError *error) {
-                if (failureBlock) {
-                    failureBlock(error);
-                }
-            }];
-        } failureBlock:^(NSError *error) {
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        }];
-    };
-    [assetsLibrary writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (customAlbumName) {
-            [assetsLibrary addAssetsGroupAlbumWithName:customAlbumName resultBlock:^(ALAssetsGroup *group) {
-                if (group) {
-                    [weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                        [group addAsset:asset];
-                        if (completionBlock) {
-                            completionBlock();
-                        }
-                    } failureBlock:^(NSError *error) {
-                        if (failureBlock) {
-                            failureBlock(error);
-                        }
-                    }];
-                }
-                else {
-                    AddAsset(weakSelf, assetURL);
-                }
-            } failureBlock:^(NSError *error) {
-                AddAsset(weakSelf, assetURL);
-            }];
-        }
-        else {
-            if (completionBlock) {
-                completionBlock();
-            }
-        }
-    }];
-}
-
-//private导出视频
-+ (void)wzm_startExportVideoWithVideoAsset:(AVURLAsset *)videoAsset presetName:(NSString *)presetName completion:(void(^)(NSURL *videoURL))completion {
-    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:videoAsset];
-    if ([presets containsObject:presetName]) {
-        AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:videoAsset presetName:presetName];
-        WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-        NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
-        NSString *videoName = [formater stringFromDate:[NSDate date]];
-        NSString *outputPath = [helper.videoPath stringByAppendingFormat:@"%@.mp4", videoName];
-        session.shouldOptimizeForNetworkUse = true;
-        NSArray *supportedTypeArray = session.supportedFileTypes;
-        if (supportedTypeArray.count == 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) {
-                    WZMLog(@"该视频类型暂不支持导出");
-                    completion(nil);
-                }
-            });
-            return;
-        }
-        else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
-            session.outputFileType = AVFileTypeMPEG4;
-        } else {
-            session.outputFileType = [supportedTypeArray objectAtIndex:0];
-            if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
-                outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
-            }
-        }
-        session.outputURL = [NSURL fileURLWithPath:outputPath];
-        [session exportAsynchronouslyWithCompletionHandler:^(void) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                switch (session.status) {
-                    case AVAssetExportSessionStatusCompleted: {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (completion) {
-                                completion([NSURL fileURLWithPath:outputPath]);
-                            }
-                        });
-                    }  break;
-                    default: {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (completion) {
-                                WZMLog(@"%@",session.error.description);
-                                completion(nil);
-                            }
-                        });
-                    };
-                }
-            });
-        }];
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion) {
-                NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", presetName];
-                WZMLog(@"%@",des);
-                completion(nil);
-            }
-        });
-    }
 }
 
 @end
