@@ -105,9 +105,9 @@
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
     self.model = model;
     self.config = config;
+    [self setICloud:model.isICloud];
     if (model.image) {
         _photoImageView.image = model.image;
-        [self setICloud:model.isICloud];
     }
     else {
         //获取缩略图

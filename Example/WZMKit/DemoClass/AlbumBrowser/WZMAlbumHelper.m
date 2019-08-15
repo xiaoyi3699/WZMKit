@@ -45,6 +45,7 @@
         }
         self.imageOptions = [[PHImageRequestOptions alloc] init];
         self.imageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+        self.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         
         self.videoOptions = [[PHVideoRequestOptions alloc] init];
         self.videoOptions.version = PHVideoRequestOptionsVersionOriginal;
@@ -53,6 +54,7 @@
         self.iCloudImageOptions = [[PHImageRequestOptions alloc] init];
         self.iCloudImageOptions.networkAccessAllowed = YES;
         self.iCloudImageOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+        self.iCloudImageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         
         self.iCloudVideoOptions = [[PHVideoRequestOptions alloc] init];
         self.iCloudVideoOptions.networkAccessAllowed = YES;
@@ -113,11 +115,12 @@
         WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
-            [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary* info){
-                NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cloud(presets.count==0);
-                });
+            [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info){
+                if (cloud) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        cloud(avasset==nil);
+                    });
+                }
             }];
         }
         else {
@@ -136,7 +139,7 @@
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
         helper.videoOptions.networkAccessAllowed = YES;
-        int32_t requestId = [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary* info){
+        int32_t requestId = [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info) {
             AVURLAsset *videoAsset = (AVURLAsset*)avasset;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
@@ -188,10 +191,12 @@
                 }
             });
         };
-        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-            UIImage *resultImage = [UIImage imageWithData:imageData];
-            resultImage = [self wzm_fixOrientation:resultImage];
-            if (completion) completion(resultImage);
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.iCloudImageOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+            if (downloadFinined && result) {
+                result = [self wzm_fixOrientation:result];
+                if (completion) completion(result);
+            }
         }];
     }
 }
