@@ -113,16 +113,16 @@
         WZMAlbumPhotoType type = [self getAssetType:asset];
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
-//            [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
-//                });
-//            }];
-            cloud(NO);
+            [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary* info){
+                NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cloud(presets.count==0);
+                });
+            }];
         }
         else {
             helper.imageOptions.networkAccessAllowed = NO;
-            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
                 cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
             }];
         }

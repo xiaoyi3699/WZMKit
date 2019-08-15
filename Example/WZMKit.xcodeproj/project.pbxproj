@@ -28,6 +28,7 @@
 		75AD1C9A2302A77F003720FB /* album_qp.png in Resources */ = {isa = PBXBuildFile; fileRef = 75AD1C982302A77F003720FB /* album_qp.png */; };
 		75AD1C9B2302A77F003720FB /* album_fd.png in Resources */ = {isa = PBXBuildFile; fileRef = 75AD1C992302A77F003720FB /* album_fd.png */; };
 		75DA6A1B2302EEE200BA8E71 /* qnyn_juqing.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */; };
+		75DA6A202304E5E500BA8E71 /* album_xz.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DA6A1F2304E5E500BA8E71 /* album_xz.png */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumModel.m */; };
 		75FB378B22F9A2920064CF6C /* WZMAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378A22F9A2920064CF6C /* WZMAlbumCell.m */; };
 		75FB378E22F9B3B30064CF6C /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */; };
@@ -87,6 +88,7 @@
 		75AD1C982302A77F003720FB /* album_qp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_qp.png; sourceTree = "<group>"; };
 		75AD1C992302A77F003720FB /* album_fd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_fd.png; sourceTree = "<group>"; };
 		75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = qnyn_juqing.mp4; sourceTree = "<group>"; };
+		75DA6A1F2304E5E500BA8E71 /* album_xz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_xz.png; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
 		75FB378122F99F840064CF6C /* WZMAlbumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumView.m; sourceTree = "<group>"; };
 		75FB378622F99FC70064CF6C /* WZMAlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumModel.h; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		75FB377F22F99F440064CF6C /* AlbumBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				75DA6A1F2304E5E500BA8E71 /* album_xz.png */,
 				75AD1C992302A77F003720FB /* album_fd.png */,
 				75AD1C982302A77F003720FB /* album_qp.png */,
 				75FB379122F9BC600064CF6C /* album_play.png */,
@@ -384,6 +387,7 @@
 				75AD1C9A2302A77F003720FB /* album_qp.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				75DA6A202304E5E500BA8E71 /* album_xz.png in Resources */,
 				75AD1C9B2302A77F003720FB /* album_fd.png in Resources */,
 				75FB379622F9BDC20064CF6C /* album_normal.png in Resources */,
 				75DA6A1B2302EEE200BA8E71 /* qnyn_juqing.mp4 in Resources */,

@@ -92,7 +92,7 @@
         
         _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        [_iCloudBtn setImage:[UIImage imageNamed:@"album_qp"] forState:UIControlStateNormal];
+        [_iCloudBtn setImage:[UIImage imageNamed:@"album_xz"] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
         [self addSubview:_iCloudBtn];
