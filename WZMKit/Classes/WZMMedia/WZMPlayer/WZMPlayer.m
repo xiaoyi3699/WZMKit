@@ -18,8 +18,8 @@
 @property (nonatomic, strong) AVPlayer  *player;      //音频播放器
 @property (nonatomic, assign) CGFloat   playProgress; //播放进度
 @property (nonatomic, assign) CGFloat   loadProgress; //缓冲进度
-@property (nonatomic, assign) NSInteger duration;     //音频总时长
-@property (nonatomic, assign) NSInteger currentTime;  //当前播放时间
+@property (nonatomic, assign) CGFloat duration;       //音频总时长
+@property (nonatomic, assign) CGFloat currentTime;    //当前播放时间
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
@@ -108,7 +108,8 @@
                 //获取当前播放时间
                 self.currentTime = CMTimeGetSeconds(self.player.currentItem.currentTime);
                 if (self.duration == 0) {
-                    self.duration = CMTimeGetSeconds(self.player.currentItem.duration);
+                    NSString *dur = [NSString stringWithFormat:@"%@",@(CMTimeGetSeconds(self.player.currentItem.duration))];
+                    self.duration = [dur doubleValue];
                     [self wzm_loadSuccess];
                     [self wzm_beginPlaying];
                 }

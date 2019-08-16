@@ -17,9 +17,9 @@
 ///缓冲进度
 @property (nonatomic, readonly, assign) CGFloat   loadProgress;
 ///音频总时长
-@property (nonatomic, readonly, assign) NSInteger duration;
+@property (nonatomic, readonly, assign) CGFloat duration;
 ///当前播放时间
-@property (nonatomic, readonly, assign) NSInteger currentTime;
+@property (nonatomic, readonly, assign) CGFloat currentTime;
 ///播放状态
 @property (nonatomic, assign, readonly, getter=isPlaying) BOOL playing;
 ///是否允许后台播放, 默认NO, 后台播放需要应用简单配置
