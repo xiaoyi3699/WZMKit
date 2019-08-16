@@ -82,3 +82,12 @@ UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxSize (CGSize size, CGSize maxSize) {
         return WZMSizeRatioToMaxHeight(size, maxSize.height);
     }
 }
+
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToFillSize (CGSize size, CGSize fillSize) {
+    if (fillSize.width/fillSize.height >= size.width/size.height) {
+        return CGSizeMake(fillSize.width, size.height*fillSize.width/size.width);
+    }
+    else {
+        return CGSizeMake(size.width*fillSize.height/size.height, fillSize.height);
+    }
+}
