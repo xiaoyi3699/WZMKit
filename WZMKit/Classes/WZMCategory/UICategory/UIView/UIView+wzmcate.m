@@ -8,8 +8,11 @@
 
 #import "UIView+wzmcate.h"
 #import "WZMDispatch.h"
+#import <objc/runtime.h>
 
 @implementation UIView (wzmcate)
+
+static NSString *_visualKey = @"visual";
 
 - (UIViewController *)wzm_viewController{
     UIResponder *next = [self nextResponder];
@@ -316,18 +319,40 @@
     }
 }
 
-- (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor {
-    CAShapeLayer *markLayer = [[CAShapeLayer alloc] init];
-    markLayer.frame = self.bounds;
-    //layer的填充颜色，这里设置了透明度
-    markLayer.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor;
-    //填充规则,奇消不消
-    markLayer.fillRule = kCAFillRuleEvenOdd;
-    CGMutablePathRef path = CGPathCreateMutable();
-    //空心的frame,可多次添加,遵循-奇消不消-规则,空心不可交接
-    CGPathAddRect(path, nil, CGRectMake(0, 0, 100, 100));
-    markLayer.path = path;
-    self.layer.mask = markLayer;
+//遮罩效果
+- (UIView *)visual {
+    return objc_getAssociatedObject(self, &_visualKey);
+}
+
+- (void)setVisual:(UIView *)visual {
+    objc_setAssociatedObject(self, &_visualKey, visual, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor blur:(BOOL)blur {
+    if (blur) {
+        if (self.visual == nil) {
+            UIVisualEffectView *visualView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+            visualView.frame = self.bounds;
+            [self addSubview:visualView];
+            self.visual = visualView;
+        }
+    }
+    else {
+        if (self.visual == nil) {
+            UIView *visualView = [[UIView alloc] init];
+            visualView.frame = self.bounds;
+            visualView.backgroundColor = shadowColor;
+            [self addSubview:visualView];
+            self.visual = visualView;
+        }
+    }
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
+    UIBezierPath *cropPath = [UIBezierPath bezierPathWithRect:hollowFrame];
+    [path appendPath:cropPath];
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.path = path.CGPath;
+    shapeLayer.fillRule = kCAFillRuleEvenOdd;
+    self.visual.layer.mask = shapeLayer;
 }
 
 - (UIColor *)wzm_colorWithPoint:(CGPoint)point {

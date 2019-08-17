@@ -89,8 +89,8 @@
 ///设置阴影
 - (void)wzm_setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha;
 - (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType: (WZMShadowType)shadowType;
-///设置空心遮罩
-- (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
+///设置空心遮罩,毛玻璃效果下,shadowColor无效
+- (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor blur:(BOOL)blur;
 ///获取某一点的颜色
 - (UIColor *)wzm_colorWithPoint:(CGPoint)point;
 ///渐变
