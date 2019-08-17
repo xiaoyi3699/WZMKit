@@ -316,6 +316,20 @@
     }
 }
 
+- (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor {
+    CAShapeLayer *markLayer = [[CAShapeLayer alloc] init];
+    markLayer.frame = self.bounds;
+    //layer的填充颜色，这里设置了透明度
+    markLayer.fillColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor;
+    //填充规则,奇消不消
+    markLayer.fillRule = kCAFillRuleEvenOdd;
+    CGMutablePathRef path = CGPathCreateMutable();
+    //空心的frame,可多次添加,遵循-奇消不消-规则,空心不可交接
+    CGPathAddRect(path, nil, CGRectMake(0, 0, 100, 100));
+    markLayer.path = path;
+    self.layer.mask = markLayer;
+}
+
 - (UIColor *)wzm_colorWithPoint:(CGPoint)point {
     unsigned char pixel[4] = {0};
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
