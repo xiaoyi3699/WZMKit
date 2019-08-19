@@ -497,7 +497,7 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return grayImage;
 }
 
-- (UIImage*)wzm_getRotateImage:(UIImageOrientation)orient {
+- (UIImage *)wzm_getRotateImage:(UIImageOrientation)orient {
     CGRect bnds = CGRectZero;
     UIImage* copy = nil;
     CGContextRef ctxt = nil;

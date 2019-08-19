@@ -66,7 +66,7 @@
 ///灰度图
 - (UIImage *)wzm_getGrayImage;
 ///按给定的方向旋转图片
-- (UIImage*)wzm_getRotateImage:(UIImageOrientation)orient;
+- (UIImage *)wzm_getRotateImage:(UIImageOrientation)orient;
 ///垂直翻转
 - (UIImage *)wzm_getVerticalImage;
 ///水平翻转
