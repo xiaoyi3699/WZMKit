@@ -12,7 +12,6 @@
 
 ///进度
 @property (nonatomic, strong) UIView *sliderView;
-@property (nonatomic, strong) UIScrollView *scrollView;
 ///关键帧
 @property (nonatomic, strong) UIView *keysView;
 @property (nonatomic, strong) UIImageView *keysImageView;
@@ -29,34 +28,26 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        CGRect rect = self.bounds;
+        UIView *contentView = [[UIView alloc] initWithFrame:self.bounds];
+        contentView.clipsToBounds = YES;
+        contentView.userInteractionEnabled = NO;
+        [self addSubview:contentView];
+        
+        CGRect rect = contentView.bounds;
+        rect.origin.x = rect.size.width/2;
         rect.origin.y = 5;
         rect.size.height -= 10;
-        self.scrollView = [[UIScrollView alloc] initWithFrame:rect];
-        if (@available(iOS 11.0, *)) {
-            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
-        self.scrollView.contentSize = CGSizeMake(rect.size.width*2, rect.size.height);
-        self.scrollView.bounces = NO;
-        self.scrollView.showsHorizontalScrollIndicator = NO;
-        self.scrollView.delegate = self;
-        [self addSubview:self.scrollView];
-        
-        CGRect keyRect = self.scrollView.bounds;
-        keyRect.origin.x = keyRect.size.width/2;
-        self.keysView = [[UIView alloc] initWithFrame:keyRect];
+        self.keysView = [[UIView alloc] initWithFrame:rect];
         self.keysView.clipsToBounds = YES;
-        self.keysView.userInteractionEnabled = NO;
-        [self.scrollView addSubview:self.keysView];
+        [contentView addSubview:self.keysView];
         
         self.keysImageView = [[UIImageView alloc] initWithFrame:self.keysView.bounds];
         self.keysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.keysView addSubview:self.keysImageView];
         
-        self.graysView = [[UIView alloc] initWithFrame:keyRect];
+        self.graysView = [[UIView alloc] initWithFrame:rect];
         self.graysView.clipsToBounds = YES;
-        self.graysView.userInteractionEnabled = NO;
-        [self.scrollView addSubview:self.graysView];
+        [contentView addSubview:self.graysView];
         
         self.graysImageView = [[UIImageView alloc] initWithFrame:self.graysView.bounds];
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -65,9 +56,31 @@
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake((self.wzm_width-2)/2, 0, 2, self.wzm_height)];
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
-        [self addSubview:self.sliderView];
+        [contentView addSubview:self.sliderView];
+        
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+        [self addGestureRecognizer:panGesture];
     }
     return self;
+}
+
+- (void)panGesture:(UIPanGestureRecognizer *)recognizer {
+    CGFloat tx = [recognizer translationInView:self].x;
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        _sliderX = self.keysView.wzm_minX;
+        [self didChangeType:WZMCommonStateWillChanged];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat x = _sliderX+tx;
+        if (x < (-self.keysView.wzm_width/2)) x = (-self.keysView.wzm_width/2);
+        if (x > self.wzm_width/2) x = self.wzm_width/2;
+        self.value = ((self.wzm_width/2-x)/self.wzm_width);
+        [self didChangeType:WZMCommonStateDidChanged];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded ||
+             recognizer.state == UIGestureRecognizerStateCancelled) {
+        [self didChangeType:WZMCommonStateEndChanged];
+    }
 }
 
 - (void)didChangeType:(WZMCommonState)type {
@@ -76,36 +89,28 @@
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self didChangeType:WZMCommonStateWillChanged];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat value = scrollView.contentOffset.x/scrollView.wzm_width;
-    [self didChangeValue:value scroll:NO];
-    [self didChangeType:WZMCommonStateDidChanged];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self didChangeType:WZMCommonStateEndChanged];
-}
-
 - (void)didChangeValue:(CGFloat)value scroll:(BOOL)scroll {
     if (value < 0 || value > 1) return;
     _value = value;
     CGFloat x = value*self.wzm_width;
     CGFloat w = (1-value)*self.wzm_width;
+    
     self.graysView.frame = CGRectMake(self.keysView.wzm_minX+x, self.graysView.wzm_minY, w, self.wzm_height);
     self.graysImageView.wzm_minX = -x;
-    if (scroll) {
-        self.scrollView.contentOffset = CGPointMake(x, 0);
-    }
 }
 
 - (void)setValue:(CGFloat)value {
     if (value < 0 || value > 1) return;
     if (_value == value) return;
     [self didChangeValue:value scroll:YES];
+    
+    CGFloat x = (0.5-self.value)*self.wzm_width;
+    CGFloat tx = value*self.wzm_width;
+    CGFloat tw = (1-value)*self.wzm_width;
+    
+    self.keysView.wzm_minX = x;
+    self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.wzm_height);
+    self.graysImageView.wzm_minX = -tx;
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {
