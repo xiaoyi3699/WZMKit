@@ -33,7 +33,10 @@
 + (UIImage *)wzm_getImageWithShadowFrame:(CGRect)shadowFrame hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor;
 ///合并图片
 + (UIImage *)wzm_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage;
-
+///视频中获取图片
++ (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count;
+///视频中获取图片
++ (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress;
 #pragma mark - 二维码
 ///生成二维码图片
 + (UIImage *)wzm_getQRCodeByString:(NSString *)string size:(CGFloat)size;

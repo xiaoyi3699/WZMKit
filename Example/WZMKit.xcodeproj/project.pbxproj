@@ -31,6 +31,7 @@
 		75C6D9EB230A81C800B268B2 /* config.json(1).encode in Resources */ = {isa = PBXBuildFile; fileRef = 75C6D9EA230A81C800B268B2 /* config.json(1).encode */; };
 		75C6D9ED230A820F00B268B2 /* config.json(2).encode in Resources */ = {isa = PBXBuildFile; fileRef = 75C6D9EC230A820F00B268B2 /* config.json(2).encode */; };
 		75C6D9F3230B832B00B268B2 /* WZMVideoKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C6D9F2230B832B00B268B2 /* WZMVideoKeyView.m */; };
+		75C6D9F6230BD86900B268B2 /* WZMVideoKeyView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C6D9F5230BD86900B268B2 /* WZMVideoKeyView2.m */; };
 		75DA6A1B2302EEE200BA8E71 /* qnyn_juqing.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */; };
 		75DA6A202304E5E500BA8E71 /* album_xz.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DA6A1F2304E5E500BA8E71 /* album_xz.png */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumModel.m */; };
@@ -96,6 +97,8 @@
 		75C6D9EC230A820F00B268B2 /* config.json(2).encode */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "config.json(2).encode"; sourceTree = "<group>"; };
 		75C6D9F1230B832B00B268B2 /* WZMVideoKeyView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMVideoKeyView.h; sourceTree = "<group>"; };
 		75C6D9F2230B832B00B268B2 /* WZMVideoKeyView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoKeyView.m; sourceTree = "<group>"; };
+		75C6D9F4230BD86900B268B2 /* WZMVideoKeyView2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMVideoKeyView2.h; sourceTree = "<group>"; };
+		75C6D9F5230BD86900B268B2 /* WZMVideoKeyView2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoKeyView2.m; sourceTree = "<group>"; };
 		75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = qnyn_juqing.mp4; sourceTree = "<group>"; };
 		75DA6A1F2304E5E500BA8E71 /* album_xz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album_xz.png; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 			children = (
 				75C6D9F1230B832B00B268B2 /* WZMVideoKeyView.h */,
 				75C6D9F2230B832B00B268B2 /* WZMVideoKeyView.m */,
+				75C6D9F4230BD86900B268B2 /* WZMVideoKeyView2.h */,
+				75C6D9F5230BD86900B268B2 /* WZMVideoKeyView2.m */,
 			);
 			path = WZMVideoKeyView;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */,
 				7505DE8522EA8E580012A2E9 /* ScannerViewController.m in Sources */,
+				75C6D9F6230BD86900B268B2 /* WZMVideoKeyView2.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				75FB37DE23013ECF0064CF6C /* WZMAlbumNavigationController.m in Sources */,
 				75AD1C94230294D6003720FB /* WZMAlbumConfig.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import "WZMVideoKeyView.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface WZMVideoKeyView ()
 
@@ -84,7 +83,7 @@
     if ([_videoUrl.path isEqualToString:videoUrl.path]) return;
     _videoUrl = videoUrl;
     
-    UIImage *fImage = [[self wzm_getImageByUrl:_videoUrl count:1] firstObject];
+    UIImage *fImage = [[UIImage wzm_getImagesByUrl:_videoUrl count:1] firstObject];
     CGFloat imageViewH = self.keysView.wzm_height;
     CGFloat imageViewW = fImage.size.width*imageViewH/fImage.size.height;
     CGFloat c = self.keysView.wzm_width/imageViewW;
@@ -92,7 +91,7 @@
     if (c > count) {
         count ++;
     }
-    NSArray *images = [self wzm_getImageByUrl:self.videoUrl count:count];
+    NSArray *images = [UIImage wzm_getImagesByUrl:self.videoUrl count:count];
     UIImage *keysImage = [UIImage wzm_getImageByImages:images type:WZMAddImageTypeHorizontal];
     UIImage *graysImage = [keysImage wzm_getGrayImage];
     
@@ -108,28 +107,6 @@
     self.graysView.frame = CGRectMake(x, self.graysView.wzm_minY, w, self.wzm_height);
     self.graysImageView.wzm_minX = -x;
     self.sliderView.wzm_minX = self.keysView.wzm_minX+x;
-}
-
-- (NSMutableArray *)wzm_getImageByUrl:(NSURL *)url count:(NSInteger)count {
-    NSDictionary *opts = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:opts];
-    return [self wzm_getImageByAsset:asset count:count];
-}
-
-- (NSMutableArray *)wzm_getImageByAsset:(AVURLAsset *)asset count:(NSInteger)count {
-    NSMutableArray *keyImages = [[NSMutableArray alloc] initWithCapacity:0];
-    AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:asset];
-    generator.appliesPreferredTrackTransform = YES;
-    generator.maximumSize = CGSizeMake(300,300);
-    for (NSInteger i = 0; i < count; i ++) {
-        CGFloat progress = i*1.0/count;
-        CMTime dur = asset.duration;
-        CMTime time = CMTimeMultiplyByFloat64(dur, progress);
-        CGImageRef img = [generator copyCGImageAtTime:time actualTime:NULL error:nil];
-        UIImage *image = [UIImage imageWithCGImage:img];
-        [keyImages addObject:image];
-    }
-    return keyImages;
 }
 
 @end
