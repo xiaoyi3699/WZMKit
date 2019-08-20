@@ -70,9 +70,24 @@
     return self;
 }
 
+- (void)didChangeType:(WZMCommonState)type {
+    if ([self.delegate respondsToSelector:@selector(videoKeyView2:changeType:)]) {
+        [self.delegate videoKeyView2:self changeType:type];
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self didChangeType:WZMCommonStateWillChanged];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat value = scrollView.contentOffset.x/scrollView.wzm_width;
     [self didChangeValue:value scroll:NO];
+    [self didChangeType:WZMCommonStateDidChanged];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self didChangeType:WZMCommonStateEndChanged];
 }
 
 - (void)didChangeValue:(CGFloat)value scroll:(BOOL)scroll {
@@ -84,9 +99,6 @@
     self.graysImageView.wzm_minX = -x;
     if (scroll) {
         self.scrollView.contentOffset = CGPointMake(x, 0);
-    }
-    if ([self.delegate respondsToSelector:@selector(videoKeyView2:didChangeValue:)]) {
-        [self.delegate videoKeyView2:self didChangeValue:_value];
     }
 }
 

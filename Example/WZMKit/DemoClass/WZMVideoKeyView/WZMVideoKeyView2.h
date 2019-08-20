@@ -23,6 +23,6 @@
 @protocol WZMVideoKeyView2Delegate <NSObject>
 
 @optional
-- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 didChangeValue:(CGFloat)value;
+- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 changeType:(WZMCommonState)type;
 
 @end

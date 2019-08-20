@@ -79,12 +79,12 @@
     static CGFloat startX;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         startX = self.leftView.wzm_minX;
-        [self valueChanged:WZMClipTimeStateWillChanged];
+        [self valueChanged:WZMCommonStateWillChanged];
     }
     else {
         CGFloat tx = [recognizer translationInView:self.leftView].x;
         BOOL end = (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled);
-        [self setLeftViewMinX:(startX+tx) recognizerState:(end ? WZMClipTimeStateEndChanged : WZMClipTimeStateDidChanged)];
+        [self setLeftViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEndChanged : WZMCommonStateDidChanged)];
     }
 }
 
@@ -92,16 +92,16 @@
     static CGFloat startX;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         startX = self.rightView.wzm_minX;
-        [self valueChanged:WZMClipTimeStateWillChanged];
+        [self valueChanged:WZMCommonStateWillChanged];
     }
     else {
         CGFloat tx = [recognizer translationInView:self.rightView].x;
         BOOL end = (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled);
-        [self setRightViewMinX:(startX+tx) recognizerState:(end ? WZMClipTimeStateEndChanged : WZMClipTimeStateDidChanged)];
+        [self setRightViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEndChanged : WZMCommonStateDidChanged)];
     }
 }
 
-- (void)setLeftViewMinX:(CGFloat)minX recognizerState:(WZMClipTimeState)state {
+- (void)setLeftViewMinX:(CGFloat)minX recognizerState:(WZMCommonState)state {
     if (minX < 0) {
         minX = 0;
     }
@@ -112,7 +112,7 @@
     [self valueChanged:state];
 }
 
-- (void)setRightViewMinX:(CGFloat)minX recognizerState:(WZMClipTimeState)state {
+- (void)setRightViewMinX:(CGFloat)minX recognizerState:(WZMCommonState)state {
     if (minX+self.rightView.wzm_width > self.bounds.size.width) {
         minX = (self.bounds.size.width-self.rightView.wzm_width);
     }
@@ -123,13 +123,13 @@
     [self valueChanged:state];
 }
 
-- (void)valueChanged:(WZMClipTimeState)state {
-    if (state == WZMClipTimeStateWillChanged) {
+- (void)valueChanged:(WZMCommonState)state {
+    if (state == WZMCommonStateWillChanged) {
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroundView.alpha = 0.5;
         }];
     }
-    else if (state == WZMClipTimeStateEndChanged) {
+    else if (state == WZMCommonStateEndChanged) {
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroundView.alpha = 0.0;
         }];

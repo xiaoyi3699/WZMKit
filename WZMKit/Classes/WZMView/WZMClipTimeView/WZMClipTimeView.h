@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMEnum.h"
 @protocol WZMClipTimeViewDelegate;
-
-typedef enum : NSInteger {
-    WZMClipTimeStateWillChanged = 0,
-    WZMClipTimeStateDidChanged,
-    WZMClipTimeStateEndChanged,
-} WZMClipTimeState;
 
 @interface WZMClipTimeView : UIView
 
@@ -33,6 +28,6 @@ typedef enum : NSInteger {
 @protocol WZMClipTimeViewDelegate <NSObject>
 
 @optional
-- (void)clipView:(WZMClipTimeView *)clipView valueState:(WZMClipTimeState)state;
+- (void)clipView:(WZMClipTimeView *)clipView valueState:(WZMCommonState)state;
 
 @end

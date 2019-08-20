@@ -190,4 +190,10 @@ typedef enum : NSUInteger {
     WZMAlbumPhotoTypeAudio
 } WZMAlbumPhotoType;
 
+typedef enum : NSInteger {
+    WZMCommonStateWillChanged = 0,
+    WZMCommonStateDidChanged,
+    WZMCommonStateEndChanged,
+} WZMCommonState;
+
 #endif /* WZMEnum_h */
