@@ -273,6 +273,31 @@
     return image;
 }
 
++ (UIImage *)wzm_getImageByImages:(NSArray<UIImage *> *)images type:(WZMAddImageType)type {
+    UIImage *fImage = images.firstObject;
+    if (type == WZMAddImageTypeHorizontal) {
+        //横向
+        CGSize size = CGSizeMake(fImage.size.width*images.count, fImage.size.height);
+        UIGraphicsBeginImageContext(size);
+        for (NSInteger i = 0; i < images.count; i ++) {
+            UIImage *image = [images objectAtIndex:i];
+            [image drawInRect:CGRectMake(i*fImage.size.width, 0, fImage.size.width, fImage.size.height)];
+        }
+    }
+    else {
+        //纵向
+        CGSize size = CGSizeMake(fImage.size.width, fImage.size.height*images.count);
+        UIGraphicsBeginImageContext(size);
+        for (NSInteger i = 0; i < images.count; i ++) {
+            UIImage *image = [images objectAtIndex:i];
+            [image drawInRect:CGRectMake(0, i*fImage.size.height, fImage.size.width, fImage.size.height)];
+        }
+    }
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 #define WZM_M (1000*1000)
 - (UIImage *)wzm_getScaleImage {
     NSData *imageData = UIImagePNGRepresentation(self);

@@ -175,6 +175,12 @@ typedef enum : NSInteger {
     WZMImageTypeWEBP,
 } WZMImageType;
 
+///图片拼接
+typedef enum : NSInteger {
+    WZMAddImageTypeHorizontal= 0,
+    WZMAddImageTypeVertical,
+} WZMAddImageType;
+
 ///相册资源文件格式
 typedef enum : NSUInteger {
     WZMAlbumPhotoTypePhoto = 0,

@@ -45,6 +45,8 @@
 #pragma mark - 实例方法
 ///剪裁图片
 - (UIImage *)wzm_clipImageWithRect:(CGRect)rect;
+///拼接图片
++ (UIImage *)wzm_getImageByImages:(NSArray<UIImage *> *)images type:(WZMAddImageType)type;
 ///压缩图片所占的物理内存大小 100M以内的图片经过三层压缩，<= 1M
 - (UIImage *)wzm_getScaleImage;
 ///按比例压缩image

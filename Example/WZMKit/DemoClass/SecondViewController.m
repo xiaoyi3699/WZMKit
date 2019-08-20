@@ -35,7 +35,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"config.json(2).encode" ofType:nil];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"config.json(1).encode" ofType:nil];
     NSLog(@"%@",[self decodeJSONWithPath:path]);
 }
 
