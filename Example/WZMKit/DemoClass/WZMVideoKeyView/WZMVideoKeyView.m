@@ -18,6 +18,8 @@
 ///灰度图
 @property (nonatomic, strong) UIView *graysView;
 @property (nonatomic, strong) UIImageView *graysImageView;
+///视图
+@property (nonatomic, strong) UIView *contentView;
 
 @end
 
@@ -31,19 +33,23 @@
         CGRect rect = self.bounds;
         rect.origin.y = 5;
         rect.size.height -= 10;
-        self.keysView = [[UIView alloc] initWithFrame:rect];
+        self.contentView = [[UIView alloc] initWithFrame:rect];
+        self.contentView.clipsToBounds = YES;
+        self.contentView.userInteractionEnabled = NO;
+        [self addSubview:self.contentView];
+        
+        CGRect contentRect = self.contentView.bounds;
+        self.keysView = [[UIView alloc] initWithFrame:contentRect];
         self.keysView.clipsToBounds = YES;
-        self.keysView.userInteractionEnabled = NO;
-        [self addSubview:self.keysView];
+        [self.contentView addSubview:self.keysView];
         
         self.keysImageView = [[UIImageView alloc] initWithFrame:self.keysView.bounds];
         self.keysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.keysView addSubview:self.keysImageView];
         
-        self.graysView = [[UIView alloc] initWithFrame:rect];
+        self.graysView = [[UIView alloc] initWithFrame:contentRect];
         self.graysView.clipsToBounds = YES;
-        self.graysView.userInteractionEnabled = NO;
-        [self addSubview:self.graysView];
+        [self.contentView addSubview:self.graysView];
         
         self.graysImageView = [[UIImageView alloc] initWithFrame:self.graysView.bounds];
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -94,6 +100,15 @@
     self.graysView.frame = CGRectMake(self.keysView.wzm_minX+x, self.graysView.wzm_minY, w, self.wzm_height);
     self.graysImageView.wzm_minX = -x;
     self.sliderView.wzm_minX = x;
+}
+
+- (void)setRadius:(CGFloat)radius {
+    if (radius < 0) return;
+    if (_radius == radius) return;
+    _radius = radius;
+    self.contentView.wzm_cornerRadius = radius;
+    self.keysImageView.wzm_cornerRadius = radius;
+    self.graysImageView.wzm_cornerRadius = radius;
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {

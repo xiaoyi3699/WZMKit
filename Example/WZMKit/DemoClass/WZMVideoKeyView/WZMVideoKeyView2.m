@@ -18,6 +18,8 @@
 ///灰度图
 @property (nonatomic, strong) UIView *graysView;
 @property (nonatomic, strong) UIImageView *graysImageView;
+///视图
+@property (nonatomic, strong) UIView *contentView;
 
 @end
 
@@ -28,26 +30,27 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        UIView *contentView = [[UIView alloc] initWithFrame:self.bounds];
-        contentView.clipsToBounds = YES;
-        contentView.userInteractionEnabled = NO;
-        [self addSubview:contentView];
-        
-        CGRect rect = contentView.bounds;
-        rect.origin.x = rect.size.width/2;
+        CGRect rect = self.bounds;
         rect.origin.y = 5;
         rect.size.height -= 10;
-        self.keysView = [[UIView alloc] initWithFrame:rect];
+        self.contentView = [[UIView alloc] initWithFrame:rect];
+        self.contentView.clipsToBounds = YES;
+        self.contentView.userInteractionEnabled = NO;
+        [self addSubview:self.contentView];
+        
+        CGRect contentRect = self.contentView.bounds;
+        contentRect.origin.x = contentRect.size.width/2;
+        self.keysView = [[UIView alloc] initWithFrame:contentRect];
         self.keysView.clipsToBounds = YES;
-        [contentView addSubview:self.keysView];
+        [self.contentView addSubview:self.keysView];
         
         self.keysImageView = [[UIImageView alloc] initWithFrame:self.keysView.bounds];
         self.keysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.keysView addSubview:self.keysImageView];
         
-        self.graysView = [[UIView alloc] initWithFrame:rect];
+        self.graysView = [[UIView alloc] initWithFrame:contentRect];
         self.graysView.clipsToBounds = YES;
-        [contentView addSubview:self.graysView];
+        [self.contentView addSubview:self.graysView];
         
         self.graysImageView = [[UIImageView alloc] initWithFrame:self.graysView.bounds];
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -56,7 +59,7 @@
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake((self.wzm_width-2)/2, 0, 2, self.wzm_height)];
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
-        [contentView addSubview:self.sliderView];
+        [self.contentView addSubview:self.sliderView];
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
         [self addGestureRecognizer:panGesture];
@@ -111,6 +114,15 @@
     self.keysView.wzm_minX = x;
     self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.wzm_height);
     self.graysImageView.wzm_minX = -tx;
+}
+
+- (void)setRadius:(CGFloat)radius {
+    if (radius < 0) return;
+    if (_radius == radius) return;
+    _radius = radius;
+    self.contentView.wzm_cornerRadius = radius;
+    self.keysImageView.wzm_cornerRadius = radius;
+    self.graysImageView.wzm_cornerRadius = radius;
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {

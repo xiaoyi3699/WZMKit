@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSURL *videoUrl;
 ///0-1
 @property (nonatomic, assign) CGFloat value;
+///圆角
+@property (nonatomic, assign) CGFloat radius;
 ///代理
 @property (nonatomic, weak) id<WZMVideoKeyViewDelegate> delegate;
 
