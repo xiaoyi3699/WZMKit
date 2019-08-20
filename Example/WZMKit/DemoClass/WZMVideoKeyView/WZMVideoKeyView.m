@@ -11,7 +11,6 @@
 @interface WZMVideoKeyView ()
 
 ///进度
-@property (nonatomic, strong) UISlider *slider;
 @property (nonatomic, strong) UIView *sliderView;
 ///关键帧
 @property (nonatomic, strong) UIView *keysView;
@@ -79,6 +78,21 @@
     }
 }
 
+- (void)setValue:(CGFloat)value {
+    if (value < 0 || value > 1) return;
+    if (_value == value) return;
+    _value = value;
+    CGFloat x = value*self.wzm_width;
+    CGFloat w = (1-value)*self.wzm_width;
+    self.graysView.frame = CGRectMake(self.keysView.wzm_minX+x, self.graysView.wzm_minY, w, self.wzm_height);
+    self.graysImageView.wzm_minX = -x;
+    self.sliderView.wzm_minX = x;
+    
+    if ([self.delegate respondsToSelector:@selector(videoKeyView:didChangeValue:)]) {
+        [self.delegate videoKeyView:self didChangeValue:_value];
+    }
+}
+
 - (void)setVideoUrl:(NSURL *)videoUrl {
     if ([_videoUrl.path isEqualToString:videoUrl.path]) return;
     _videoUrl = videoUrl;
@@ -97,16 +111,6 @@
     
     self.keysImageView.image = keysImage;
     self.graysImageView.image = graysImage;
-}
-
-- (void)setValue:(CGFloat)value {
-    if (_value == value) return;
-    _value = value;
-    CGFloat x = value*self.wzm_width;
-    CGFloat w = (1-value)*self.wzm_width;
-    self.graysView.frame = CGRectMake(x, self.graysView.wzm_minY, w, self.wzm_height);
-    self.graysImageView.wzm_minX = -x;
-    self.sliderView.wzm_minX = self.keysView.wzm_minX+x;
 }
 
 @end

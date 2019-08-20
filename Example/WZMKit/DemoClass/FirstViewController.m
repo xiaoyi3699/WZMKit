@@ -12,6 +12,7 @@
 
 #import "FirstViewController.h"
 #import "WZMVideoKeyView.h"
+#import "WZMVideoKeyView2.h"
 
 @interface FirstViewController ()<WZMPlayerDelegate>
 

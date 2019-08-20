@@ -7,11 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+@protocol WZMVideoKeyView2Delegate;
 
 @interface WZMVideoKeyView2 : UIView
 
+///音频地址
+@property (nonatomic, strong) NSURL *videoUrl;
+///0-1
+@property (nonatomic, assign) CGFloat value;
+///代理
+@property (nonatomic, weak) id<WZMVideoKeyView2Delegate> delegate;
+
 @end
 
-NS_ASSUME_NONNULL_END
+@protocol WZMVideoKeyView2Delegate <NSObject>
+
+@optional
+- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 didChangeValue:(CGFloat)value;
+
+@end
