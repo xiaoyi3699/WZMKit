@@ -59,7 +59,7 @@
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake((self.wzm_width-2)/2, 0, 2, self.wzm_height)];
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
-        [self.contentView addSubview:self.sliderView];
+        [self addSubview:self.sliderView];
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
         [self addGestureRecognizer:panGesture];

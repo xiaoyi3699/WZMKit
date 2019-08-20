@@ -33,7 +33,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyn_juqing" ofType:@"mp4"];
-    WZMVideoKeyView *view = [[WZMVideoKeyView alloc] initWithFrame:CGRectMake(10, 70, 355, 60)];
+    WZMVideoKeyView2 *view = [[WZMVideoKeyView2 alloc] initWithFrame:CGRectMake(10, 70, 355, 60)];
     view.videoUrl = [NSURL fileURLWithPath:path];
     view.radius = 10;
     [self.view addSubview:view];
