@@ -92,20 +92,10 @@
     }
 }
 
-- (void)didChangeValue:(CGFloat)value scroll:(BOOL)scroll {
-    if (value < 0 || value > 1) return;
-    _value = value;
-    CGFloat x = value*self.wzm_width;
-    CGFloat w = (1-value)*self.wzm_width;
-    
-    self.graysView.frame = CGRectMake(self.keysView.wzm_minX+x, self.graysView.wzm_minY, w, self.wzm_height);
-    self.graysImageView.wzm_minX = -x;
-}
-
 - (void)setValue:(CGFloat)value {
     if (value < 0 || value > 1) return;
     if (_value == value) return;
-    [self didChangeValue:value scroll:YES];
+    _value = value;
     
     CGFloat x = (0.5-self.value)*self.wzm_width;
     CGFloat tx = value*self.wzm_width;
