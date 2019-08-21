@@ -54,8 +54,10 @@
 - (UIImage *)wzm_getScaleImage;
 ///按比例压缩image
 - (UIImage *)wzm_getImageWithScale:(CGFloat)scale;
+///设置最大尺寸压缩image
+- (UIImage *)wzm_getImageWithMaxSize:(CGSize)size;
 ///圆角图片
-- (UIImage *)wzm_getRoundImageWithRadius:(CGFloat)radius ;
+- (UIImage *)wzm_getRoundImageWithRadius:(CGFloat)radius;
 ///图片上绘制文字
 - (UIImage *)wzm_getImageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize;
 ///拉伸图片

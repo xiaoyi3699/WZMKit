@@ -183,6 +183,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= self.allPhotos.count) return;
     if (self.onlyOne) {
         WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
         [self.selectedPhotos addObject:model];
