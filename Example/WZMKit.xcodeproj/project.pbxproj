@@ -271,7 +271,7 @@
 				75C6D9E8230A7C5000B268B2 /* config.json.encode */,
 				75C6D9EA230A81C800B268B2 /* config.json(1).encode */,
 				75C6D9EC230A820F00B268B2 /* config.json(2).encode */,
-				75FB377F22F99F440064CF6C /* AlbumBrowser */,
+				75FB377F22F99F440064CF6C /* WZMAlbumBrowser */,
 				7505DE7E22EA8E410012A2E9 /* ScanQRCode */,
 				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
 				7558CBB922DF4FB80043651C /* FirstViewController.m */,
@@ -310,7 +310,7 @@
 			path = WZMSliderView;
 			sourceTree = "<group>";
 		};
-		75FB377F22F99F440064CF6C /* AlbumBrowser */ = {
+		75FB377F22F99F440064CF6C /* WZMAlbumBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				75DA6A1F2304E5E500BA8E71 /* album_xz.png */,
@@ -335,7 +335,7 @@
 				75FB37DC23013ECF0064CF6C /* WZMAlbumNavigationController.h */,
 				75FB37DD23013ECF0064CF6C /* WZMAlbumNavigationController.m */,
 			);
-			path = AlbumBrowser;
+			path = WZMAlbumBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

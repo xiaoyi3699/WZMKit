@@ -23,7 +23,11 @@
 
 @end
 
-@implementation WZMAlbumView
+@implementation WZMAlbumView {
+    CGSize _itemSize;
+    NSInteger _lastRow;
+    NSInteger _lastColumn;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config {
     self = [super initWithFrame:frame];
@@ -84,6 +88,9 @@
             self.countLabel.wzm_cornerRadius = 15;
             self.countLabel.backgroundColor = THEME_COLOR;
             [self.toolView.contentView addSubview:self.countLabel];
+            
+            UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
+            [self addGestureRecognizer:selectPan];
         }
     }
     return self;
@@ -129,6 +136,35 @@
         }
     }
     [self.collectionView reloadData];
+}
+
+//滑动选择
+- (void)selectPanGesture:(UIPanGestureRecognizer *)recognizer {
+    CGPoint point = [recognizer locationInView:self];
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        _lastRow = -1;
+        _lastColumn = -1;
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+        _itemSize = layout.itemSize;
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        NSInteger row = ceil((self.collectionView.contentOffset.y+point.y)/(_itemSize.height+5))-1;
+        NSInteger column = ceil(point.x/(_itemSize.width+5))-1;
+        if (row < 0) {
+            row = 0;
+        }
+        if (column < 0) {
+            column = 0;
+        }
+        else if (column > self.config.column-1) {
+            column = self.config.column-1;
+        }
+        if (_lastRow == row && _lastColumn == column) return;
+        _lastRow = row; _lastColumn = column;
+        NSInteger index = row*self.config.column+column;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate && UICollectionViewDataSource && UICollectionViewDelegateWaterfallLayout
