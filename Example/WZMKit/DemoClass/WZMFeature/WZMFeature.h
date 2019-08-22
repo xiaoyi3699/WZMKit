@@ -15,13 +15,12 @@
 #import "WZMPullListViewController.h"
 
 ///视图/工具类
-#import "LLCrashManager.h"
-#import "LLAVLameManager.h"
-#import "LLAttributeTextView.h"
+#import "WZMCrashManager.h"
+#import "WZMAttributeTextView.h"
 
 ///扩展类
-#import "UIButton+LLHelper.h"
-#import "UIImage+LLCustomImage.h"
+#import "UIButton+WZMHelper.h"
+#import "UIImage+WZMCustomImage.h"
 #import "UIWindow+WZMTransformAnimation.h"
 #import "UIViewController+WZMModalAnimation.h"
 #import "UINavigationController+WZMNavAnimation.h"
@@ -33,7 +32,6 @@
 
 //第三方
 #import "Aspects.h"
-#import "ASScreenRecorder.h"
 
 //接口相关
 #define LL_BASE_URL     @"http://www.vasueyun.cn/apro/"

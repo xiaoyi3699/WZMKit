@@ -1,12 +1,12 @@
 //
-//  UIImage+LLCustomImage.m
+//  UIImage+WZMCustomImage.m
 //  LLFirstAPP
 //
 //  Created by WangZhaomeng on 2018/3/25.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "UIImage+LLCustomImage.h"
+#import "UIImage+WZMCustomImage.h"
 
 @implementation UIImage (LLNavBGImage)
 

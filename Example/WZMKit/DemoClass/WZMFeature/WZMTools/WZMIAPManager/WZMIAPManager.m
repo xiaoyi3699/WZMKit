@@ -1,15 +1,15 @@
 //
-//  LLApplePayManager.m
+//  WZMIAPManager.m
 //  SQB_ScreenShot
 //
 //  Created by WangZhaomeng on 2019/3/1.
 //  Copyright © 2019 AiZhe. All rights reserved.
 //
 
-#import "LLApplePayManager.h"
+#import "WZMIAPManager.h"
 #import <StoreKit/StoreKit.h>
 
-@interface LLApplePayManager ()<SKProductsRequestDelegate,SKPaymentTransactionObserver,UIAlertViewDelegate>
+@interface WZMIAPManager ()<SKProductsRequestDelegate,SKPaymentTransactionObserver,UIAlertViewDelegate>
 
 //是否正在支付
 @property (nonatomic, assign, getter=isPaying) BOOL paying;
@@ -23,13 +23,13 @@
 @end
 
 static NSString *kSaveReceiptData = @"kSaveReceiptData";
-@implementation LLApplePayManager
+@implementation WZMIAPManager
 
 + (instancetype)shareManager {
     static dispatch_once_t onceToken;
-    static LLApplePayManager *manager = nil;
+    static WZMIAPManager *manager = nil;
     dispatch_once(&onceToken, ^{
-        manager = [[LLApplePayManager alloc] init];
+        manager = [[WZMIAPManager alloc] init];
     });
     return manager;
 }

@@ -9,15 +9,13 @@
 #import <UIKit/UIKit.h>
 
 typedef enum{
-    
-    LLFontStyleCustom,     //用户自定义字体
-    LLFontStyleSystems     //系统默认字体,会跟随系统设置改变字体大小,一般不使用
-    
-} LLFontStyle;
+    WZMFontStyleCustom,     //用户自定义字体
+    WZMFontStyleSystems     //系统默认字体,会跟随系统设置改变字体大小,一般不使用
+} WZMFontStyle;
 
-@interface LLAttributeTextView : UITextView
+@interface WZMAttributeTextView : UITextView
 
-@property (nonatomic, assign) LLFontStyle fontStyle; //字体样式
+@property (nonatomic, assign) WZMFontStyle fontStyle; //字体样式
 @property (nonatomic, assign, getter=isVerticalCenter) BOOL verticalCenter; //文字是否垂直居中
 
 ///唯一初始化方式

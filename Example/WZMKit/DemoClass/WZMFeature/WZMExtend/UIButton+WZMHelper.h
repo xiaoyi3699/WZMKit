@@ -1,5 +1,5 @@
 //
-//  UIButton+LLHelper.h
+//  UIButton+WZMHelper.h
 //  LLCommonSDK
 //
 //  Created by WangZhaomeng on 2017/12/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIButton (LLHelper)
+@interface UIButton (WZMHelper)
 
 /**
  *  重新设置按钮图标和标题位置

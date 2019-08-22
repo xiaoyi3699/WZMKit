@@ -1,5 +1,5 @@
 //
-//  LLTextStorage.h
+//  WZMTextStorage.h
 //  textkit
 //
 //  Created by Mr.Wang on 16/12/19.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LLTextStorage : NSTextStorage
+@interface WZMTextStorage : NSTextStorage
 
 @end

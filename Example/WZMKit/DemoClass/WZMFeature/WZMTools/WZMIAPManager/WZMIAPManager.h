@@ -1,5 +1,5 @@
 //
-//  LLApplePayManager.h
+//  WZMIAPManager.h
 //  SQB_ScreenShot
 //
 //  Created by WangZhaomeng on 2019/3/1.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLApplePayManager : NSObject
+@interface WZMIAPManager : NSObject
 
 + (instancetype)shareManager;
 

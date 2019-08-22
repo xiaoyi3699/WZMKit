@@ -1,5 +1,5 @@
 //
-//  LLCrashManager.h
+//  WZMCrashManager.h
 //  LLCommonStatic
 //
 //  Created by WangZhaomeng on 2018/3/1.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LLCrashManager : NSObject
+@interface WZMCrashManager : NSObject
 
 + (void)ocCrash;
 

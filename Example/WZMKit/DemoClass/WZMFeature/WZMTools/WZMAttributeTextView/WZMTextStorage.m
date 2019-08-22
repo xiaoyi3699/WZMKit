@@ -1,14 +1,14 @@
 //
-//  LLTextStorage.m
+//  WZMTextStorage.m
 //  textkit
 //
 //  Created by Mr.Wang on 16/12/19.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLTextStorage.h"
+#import "WZMTextStorage.h"
 
-@implementation LLTextStorage {
+@implementation WZMTextStorage {
     NSMutableAttributedString *_storingText; //存储的文字
     BOOL _dynamicTextNeedsUpdate;            //文字是否需要更新
     NSDictionary *_replacements;             //正则表达式与富文本属性的映射字典

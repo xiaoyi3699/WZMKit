@@ -6,19 +6,19 @@
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLAttributeTextView.h"
-#import "LLTextStorage.h"
+#import "WZMAttributeTextView.h"
+#import "WZMTextStorage.h"
 
-@interface LLAttributeTextView ()
+@interface WZMAttributeTextView ()
 @end
 
-@implementation LLAttributeTextView
+@implementation WZMAttributeTextView
 
 - (id)initWithFrame:(CGRect)frame {
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
     NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:CGSizeMake(frame.size.width, CGFLOAT_MAX)];
     [layoutManager addTextContainer:textContainer];
-    LLTextStorage *textStore = [[LLTextStorage alloc] init];
+    WZMTextStorage *textStore = [[WZMTextStorage alloc] init];
     NSAttributedString *attStr = [[NSAttributedString alloc] init];
     [textStore setAttributedString:attStr];
     [textStore addLayoutManager:layoutManager];
@@ -33,9 +33,9 @@
     return self;
 }
 
-- (void)setFontStyle:(LLFontStyle)fontStyle{
+- (void)setFontStyle:(WZMFontStyle)fontStyle{
     _fontStyle = fontStyle;
-    if (_fontStyle == LLFontStyleSystems) {//监听系统字体变化
+    if (_fontStyle == WZMFontStyleSystems) {//监听系统字体变化
         self.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(preferredContentSizeChanged:)
@@ -119,7 +119,7 @@
 }
 
 - (void)dealloc{
-    if (_fontStyle == LLFontStyleSystems) {
+    if (_fontStyle == WZMFontStyleSystems) {
         [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }

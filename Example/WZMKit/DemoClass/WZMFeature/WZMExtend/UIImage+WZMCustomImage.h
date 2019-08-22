@@ -1,5 +1,5 @@
 //
-//  UIImage+LLCustomImage.h
+//  UIImage+WZMCustomImage.h
 //  LLFirstAPP
 //
 //  Created by WangZhaomeng on 2018/3/25.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (LLCustomImage)
+@interface UIImage (WZMCustomImage)
 
 ///白色
 + (instancetype)defaultNavBGImage;
