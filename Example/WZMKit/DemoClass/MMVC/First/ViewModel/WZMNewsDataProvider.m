@@ -1,15 +1,15 @@
 //
-//  LLNewsDataProvider.m
+//  WZMNewsDataProvider.m
 //  APPIcon
 //
 //  Created by WangZhaomeng on 2017/8/19.
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLNewsDataProvider.h"
+#import "WZMNewsDataProvider.h"
 #import "WZMJSONParse.h"
 
-@implementation LLNewsDataProvider {
+@implementation WZMNewsDataProvider {
     NSString *_fileName;
 }
 
@@ -44,7 +44,7 @@
         if (results.count == 0) return;
     }
     for (NSDictionary *dic in results) {
-        LLNewsModel *model = [LLNewsModel new];
+        WZMNewsModel *model = [WZMNewsModel new];
         model.ID    = [WZMJSONParse getStringValueInDict:dic withKey:@"id"];
         model.title = [WZMJSONParse getStringValueInDict:dic withKey:@"title"];
         model.url   = [WZMJSONParse getStringValueInDict:dic withKey:@"url"];

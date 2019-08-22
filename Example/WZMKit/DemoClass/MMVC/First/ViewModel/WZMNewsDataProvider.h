@@ -1,5 +1,5 @@
 //
-//  LLNewsDataProvider.h
+//  WZMNewsDataProvider.h
 //  APPIcon
 //
 //  Created by WangZhaomeng on 2017/8/19.
@@ -7,9 +7,9 @@
 //
 
 #import "WZMBaseDataProvider.h"
-#import "LLNewsModel.h"
+#import "WZMNewsModel.h"
 
-@interface LLNewsDataProvider : WZMBaseDataProvider
+@interface WZMNewsDataProvider : WZMBaseDataProvider
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSMutableArray *currentList;

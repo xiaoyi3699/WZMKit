@@ -1,5 +1,5 @@
 //
-//  LLNewsModel.h
+//  WZMNewsModel.h
 //  APPIcon
 //
 //  Created by WangZhaomeng on 2017/8/21.
@@ -8,7 +8,7 @@
 
 #import "WZMBaseModel.h"
 
-@interface LLNewsModel : WZMBaseModel
+@interface WZMNewsModel : WZMBaseModel
 
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSString *title;

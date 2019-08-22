@@ -66,8 +66,8 @@
 		75DA9E3E230E924A0000A955 /* WZMPresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0D230E924A0000A955 /* WZMPresentAnimation.m */; };
 		75DA9E3F230E924A0000A955 /* UIWindow+WZMTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */; };
 		75DA9E42230E924A0000A955 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E1A230E924A0000A955 /* Aspects.m */; };
-		75DA9E4F230E9BBD0000A955 /* LLNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */; };
-		75DA9E50230E9BBD0000A955 /* LLNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */; };
+		75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */; };
+		75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */; };
 		75DA9E55230E9CA60000A955 /* article.json in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9E53230E9CA60000A955 /* article.json */; };
 		75DA9E56230E9CA60000A955 /* WZMCity in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9E54230E9CA60000A955 /* WZMCity */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumModel.m */; };
@@ -203,10 +203,10 @@
 		75DA9E19230E924A0000A955 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
 		75DA9E1A230E924A0000A955 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		75DA9E48230E9A030000A955 /* WZMFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMFeature.h; sourceTree = "<group>"; };
-		75DA9E4A230E9BBC0000A955 /* LLNewsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLNewsDataProvider.h; sourceTree = "<group>"; };
-		75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNewsDataProvider.m; sourceTree = "<group>"; };
-		75DA9E4D230E9BBC0000A955 /* LLNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLNewsModel.h; sourceTree = "<group>"; };
-		75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNewsModel.m; sourceTree = "<group>"; };
+		75DA9E4A230E9BBC0000A955 /* WZMNewsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNewsDataProvider.h; sourceTree = "<group>"; };
+		75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsDataProvider.m; sourceTree = "<group>"; };
+		75DA9E4D230E9BBC0000A955 /* WZMNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNewsModel.h; sourceTree = "<group>"; };
+		75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsModel.m; sourceTree = "<group>"; };
 		75DA9E53230E9CA60000A955 /* article.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = article.json; sourceTree = "<group>"; };
 		75DA9E54230E9CA60000A955 /* WZMCity */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WZMCity; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
@@ -689,8 +689,8 @@
 		75DA9E49230E9BBC0000A955 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				75DA9E4A230E9BBC0000A955 /* LLNewsDataProvider.h */,
-				75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */,
+				75DA9E4A230E9BBC0000A955 /* WZMNewsDataProvider.h */,
+				75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -698,8 +698,8 @@
 		75DA9E4C230E9BBC0000A955 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				75DA9E4D230E9BBC0000A955 /* LLNewsModel.h */,
-				75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */,
+				75DA9E4D230E9BBC0000A955 /* WZMNewsModel.h */,
+				75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -948,7 +948,7 @@
 			files = (
 				75DA9E34230E924A0000A955 /* WZMWebProgressLayer.m in Sources */,
 				75DA9E3C230E924A0000A955 /* UIViewController+WZMModalAnimation.m in Sources */,
-				75DA9E4F230E9BBD0000A955 /* LLNewsDataProvider.m in Sources */,
+				75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75DA9E1C230E924A0000A955 /* UIButton+WZMHelper.m in Sources */,
 				75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */,
@@ -979,7 +979,7 @@
 				75DA9E2B230E924A0000A955 /* WKWebView+WZMWebViewController.m in Sources */,
 				75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
-				75DA9E50230E9BBD0000A955 /* LLNewsModel.m in Sources */,
+				75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */,
 				75DA9E3B230E924A0000A955 /* WZMDismissAnimation.m in Sources */,
 				75DA9E39230E924A0000A955 /* WZMPushAnimation.m in Sources */,
 				75DA9E36230E924A0000A955 /* WZMNavControllerAnimator.m in Sources */,

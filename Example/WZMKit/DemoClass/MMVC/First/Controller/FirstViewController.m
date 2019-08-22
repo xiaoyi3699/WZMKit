@@ -11,13 +11,13 @@
 /**********************************************************************************/
 
 #import "FirstViewController.h"
-#import "LLNewsDataProvider.h"
+#import "WZMNewsDataProvider.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSInteger _page;
     NSInteger _rows;
     UITableView *_tableView;
-    LLNewsDataProvider *_newDataProvider;
+    WZMNewsDataProvider *_newDataProvider;
 }
 
 @end
@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         self.title = @"第一页";
-        _newDataProvider = [[LLNewsDataProvider alloc] initWithFileName:@"article.json"];
+        _newDataProvider = [[WZMNewsDataProvider alloc] initWithFileName:@"article.json"];
         self.superDataProvider = _newDataProvider;
     }
     return self;
@@ -56,7 +56,7 @@
     index += indexPath.row;
     
     if (indexPath.row < _newDataProvider.currentList.count) {
-        LLNewsModel *model = _newDataProvider.currentList[indexPath.row];
+        WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
@@ -72,14 +72,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UITableViewCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.font = [UIFont systemFontOfSize:10];
     }
     if (indexPath.row < _newDataProvider.currentList.count) {
-        LLNewsModel *model = _newDataProvider.currentList[indexPath.row];
+        WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
         cell.textLabel.text = model.title;
     }
     return cell;
