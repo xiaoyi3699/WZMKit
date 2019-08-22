@@ -32,4 +32,11 @@
     [super viewDidLoad];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 @end

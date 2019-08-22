@@ -106,7 +106,7 @@
     [self rightItemClick];
 }
 
-- (void)albumViewWillShowPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
+- (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumModel *model = [albumView.allPhotos objectAtIndex:indexPath.row];
     NSLog(@"%@",model);
 }

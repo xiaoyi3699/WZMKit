@@ -31,6 +31,6 @@
 
 @optional
 - (void)albumViewDidSelectedFinish:(WZMAlbumView *)albumView;
-- (void)albumViewWillShowPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath;
+- (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath;
 
 @end

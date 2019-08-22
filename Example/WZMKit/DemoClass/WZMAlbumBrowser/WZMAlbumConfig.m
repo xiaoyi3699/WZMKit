@@ -15,7 +15,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.column = 4;
+        self.column = 3;
         self.minCount = 0;
         self.maxCount = 9;
         self.autoDismiss = YES;

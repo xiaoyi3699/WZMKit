@@ -37,7 +37,7 @@
         self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
         
-        CGFloat toolHeight = 44;
+        CGFloat toolHeight = 50;
         if (self.onlyOne) {
             toolHeight = 0;
         }
@@ -55,7 +55,7 @@
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.albumFrame collectionViewLayout:flowLayout];
         collectionView.delegate = self;
         collectionView.dataSource = self;
-        collectionView.backgroundColor = [UIColor whiteColor];
+        collectionView.backgroundColor = [UIColor clearColor];
         if (@available(iOS 11.0, *)) {
             collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -66,28 +66,28 @@
         if (self.onlyOne == NO) {
             self.toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
             self.toolView.frame = CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, toolHeight);
+            self.toolView.backgroundColor = [UIColor colorWithRed:244/255. green:240/255. blue:240/255. alpha:0.8];
             [self addSubview:self.toolView];
             
-            UIView *toolLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.toolView.wzm_width, 0.5)];
-            toolLineView.backgroundColor = WZM_R_G_B(220, 220, 220);
-            [self.toolView.contentView addSubview:toolLineView];
-            
-            UIButton *okBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            okBtn.frame = CGRectMake(self.toolView.wzm_width-50, 0, 40, toolHeight);
-            okBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-            [okBtn setTitle:@"确定" forState:UIControlStateNormal];
-            [okBtn setTitleColor:THEME_COLOR forState:UIControlStateNormal];
-            [okBtn addTarget:self action:@selector(didSelectedFinish) forControlEvents:UIControlEventTouchUpInside];
-            [self.toolView.contentView addSubview:okBtn];
-            
-            self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(okBtn.wzm_minX-90, 7, 80, 30)];
-            self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(config.maxCount)];
-            self.countLabel.font = [UIFont systemFontOfSize:17];
+            self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110, 7, 100, 36)];
+            self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(config.maxCount)];
+            self.countLabel.font = [UIFont systemFontOfSize:14];
             self.countLabel.textColor = [UIColor whiteColor];
             self.countLabel.textAlignment = NSTextAlignmentCenter;
-            self.countLabel.wzm_cornerRadius = 15;
+            self.countLabel.wzm_cornerRadius = 5;
             self.countLabel.backgroundColor = THEME_COLOR;
+            self.countLabel.userInteractionEnabled = YES;
             [self.toolView.contentView addSubview:self.countLabel];
+            
+            UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_minX-5, toolHeight)];
+            msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(config.maxCount)];
+            msgLabel.font = [UIFont systemFontOfSize:13];
+            msgLabel.textColor = THEME_COLOR;
+            msgLabel.textAlignment = NSTextAlignmentLeft;
+            [self.toolView.contentView addSubview:msgLabel];
+            
+            UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
+            [self.countLabel addGestureRecognizer:okTap];
             
             UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
             [self addGestureRecognizer:selectPan];
@@ -104,9 +104,9 @@
 }
 
 //cell代理
-- (void)albumPhotoCellWillShowPreview:(WZMAlbumCell *)cell {
-    if ([self.delegate respondsToSelector:@selector(albumViewWillShowPreview:atIndexPath:)]) {
-        [self.delegate albumViewWillShowPreview:self atIndexPath:cell.indexPath];
+- (void)albumPhotoCellWillPreview:(WZMAlbumCell *)cell {
+    if ([self.delegate respondsToSelector:@selector(albumViewWillPreview:atIndexPath:)]) {
+        [self.delegate albumViewWillPreview:self atIndexPath:cell.indexPath];
     }
 }
 
