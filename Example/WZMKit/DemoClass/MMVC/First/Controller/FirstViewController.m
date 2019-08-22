@@ -14,8 +14,6 @@
 #import "WZMNewsDataProvider.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource> {
-    NSInteger _page;
-    NSInteger _rows;
     UITableView *_tableView;
     WZMNewsDataProvider *_newDataProvider;
 }
