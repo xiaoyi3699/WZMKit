@@ -146,7 +146,7 @@
     if (self.isRefreshing == NO) {
         [super beginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:.35 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(-WZMRefreshFooterHeight-_contentOffsetY, 0, 0, 0);
                 _lastContentHeight = self.scrollView.contentSize.height;
             } completion:^(BOOL finished) {
@@ -163,7 +163,7 @@
         [super endRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
-                [UIView animateWithDuration:.35 animations:^{
+                [UIView animateWithDuration:0.5 animations:^{
                     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                 }];
             }
@@ -173,7 +173,7 @@
                     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                 }
                 else {
-                    [UIView animateWithDuration:.35 animations:^{
+                    [UIView animateWithDuration:0.5 animations:^{
                         self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                     }];
                 }
@@ -194,7 +194,7 @@
         [super endRefresh:more];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (more == NO) {
-                [UIView animateWithDuration:.35 animations:^{
+                [UIView animateWithDuration:0.5 animations:^{
                     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                 }];
             }
@@ -204,7 +204,7 @@
                     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                 }
                 else {
-                    [UIView animateWithDuration:.35 animations:^{
+                    [UIView animateWithDuration:0.5 animations:^{
                         self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                     }];
                 }

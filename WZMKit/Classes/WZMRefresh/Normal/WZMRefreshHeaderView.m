@@ -110,7 +110,7 @@
     if (self.isRefreshing == NO) {
         [super beginRefresh];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:.35 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(WZMRefreshHeaderHeight, 0, 0, 0);
             } completion:^(BOOL finished) {
                 if ([self.refreshingTarget respondsToSelector:self.refreshingAction]) {
@@ -126,7 +126,7 @@
         [super endRefresh:more];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(more)];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:.35 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }];
         });
@@ -138,7 +138,7 @@
         [super endRefresh:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(YES)];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:.35 animations:^{
+            [UIView animateWithDuration:0.5 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }];
         });
