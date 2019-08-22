@@ -20,20 +20,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         _animation = NO;
-        _strokeStart = 0;
-        _strokeEnd = 0;
-        
+        _strokeStart = 0.0;
+        _strokeEnd = 0.0;
         CGFloat lineW = frame.size.height;
         self.shaperLayer = [[CAShapeLayer alloc] init];
         self.shaperLayer.frame = self.bounds;
         self.shaperLayer.lineWidth = lineW;
-        self.shaperLayer.backgroundColor = [UIColor clearColor].CGColor;
-        self.shaperLayer.strokeColor = [UIColor blueColor].CGColor;
         self.shaperLayer.lineCap = kCALineCapRound;
         self.shaperLayer.cornerRadius = lineW/2;
         self.shaperLayer.masksToBounds = YES;
         self.shaperLayer.strokeStart = _strokeStart;
         self.shaperLayer.strokeEnd = _strokeEnd;
+        self.normalColor = [UIColor clearColor];
+        self.highlightedColor = [UIColor redColor];
         
         UIBezierPath *path = [UIBezierPath bezierPath];
         [path moveToPoint:CGPointMake(lineW/2, frame.size.height/2)];
@@ -46,7 +45,8 @@
 
 //无动画
 - (void)setStrokeStart:(CGFloat)strokeStart {
-    if (strokeStart < 0 || strokeStart > 1) return;
+    if (strokeStart < 0) strokeStart = 0;
+    if (strokeStart > 1) strokeStart = 1;
     if (_strokeStart == strokeStart) return;
     _strokeStart = strokeStart;
     if (self.isAnimation) {
@@ -62,7 +62,8 @@
 }
 
 - (void)setStrokeEnd:(CGFloat)strokeEnd {
-    if (strokeEnd < 0 || strokeEnd > 1) return;
+    if (strokeEnd < 0) strokeEnd = 0;
+    if (strokeEnd > 1) strokeEnd = 1;
     if (_strokeEnd == strokeEnd) return;
     _strokeEnd = strokeEnd;
     if (self.isAnimation) {

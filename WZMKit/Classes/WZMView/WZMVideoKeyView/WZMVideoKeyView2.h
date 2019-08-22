@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMEnum.h"
 @protocol WZMVideoKeyView2Delegate;
 
 @interface WZMVideoKeyView2 : UIView

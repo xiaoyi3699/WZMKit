@@ -10,8 +10,10 @@
 
 @interface WZMSliderView : UIView
 
+///进度
 @property (nonatomic, assign) CGFloat strokeStart;
 @property (nonatomic, assign) CGFloat strokeEnd;
+///颜色
 @property (nonatomic, strong) UIColor *normalColor;
 @property (nonatomic, strong) UIColor *highlightedColor;
 ///是否有弹性动画, 默认NO
