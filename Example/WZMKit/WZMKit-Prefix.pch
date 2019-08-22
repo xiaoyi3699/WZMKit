@@ -11,8 +11,11 @@
 #endif
 
 #ifdef __OBJC__
-    @import UIKit;
-    @import Foundation;
-    #import <WZMKit/WZMKit.h>
-    #define THEME_COLOR [UIColor colorWithRed:66/255. green:152/255. blue:233/255. alpha:1]
+@import UIKit;
+@import Foundation;
+
+#import "WZMFeature.h"
+#import <WZMKit/WZMKit.h>
+#define THEME_COLOR [UIColor colorWithRed:66/255. green:152/255. blue:233/255. alpha:1]
+
 #endif

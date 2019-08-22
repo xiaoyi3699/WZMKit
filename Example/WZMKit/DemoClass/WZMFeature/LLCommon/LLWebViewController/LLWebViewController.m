@@ -476,7 +476,7 @@
     if (_progressLayer == nil) {
         _progressLayer = [[LLWebProgressLayer alloc] init];
         if (self.navigationController) {
-            _progressLayer.frame = CGRectMake(0, WZM_NAVBAR_HEIGHT-2, WZM_SCREEN_WIDTH, 2);
+            _progressLayer.frame = CGRectMake(0, WZM_NAVBAR_HEIGHT-WZM_STATUS_HEIGHT-2, WZM_SCREEN_WIDTH, 2);
         }
         else {
             _progressLayer.frame = CGRectMake(0, 0, WZM_SCREEN_WIDTH, 2);

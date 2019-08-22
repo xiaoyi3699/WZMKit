@@ -38,7 +38,4 @@
 //接口相关
 #define LL_BASE_URL     @"http://www.vasueyun.cn/apro/"
 
-//其他自定义
-#define THEME_COLOR     [UIColor ll_colorWithHex:0xa031ed]
-
 #endif /* WZMFeature_h */

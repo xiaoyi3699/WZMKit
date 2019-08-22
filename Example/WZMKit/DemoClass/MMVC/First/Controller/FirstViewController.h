@@ -6,8 +6,8 @@
 //  Copyright (c) 2019 wangzhaomeng. All rights reserved.
 //
 
-@import UIKit;
+#import "LLPullListViewController.h"
 
-@interface FirstViewController : UIViewController
+@interface FirstViewController : LLPullListViewController
 
 @end

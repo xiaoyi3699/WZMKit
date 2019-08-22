@@ -69,6 +69,10 @@
 		75DA9E40230E924A0000A955 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75DA9E13230E924A0000A955 /* libmp3lame.a */; };
 		75DA9E41230E924A0000A955 /* ASScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E16230E924A0000A955 /* ASScreenRecorder.m */; };
 		75DA9E42230E924A0000A955 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E1A230E924A0000A955 /* Aspects.m */; };
+		75DA9E4F230E9BBD0000A955 /* LLNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */; };
+		75DA9E50230E9BBD0000A955 /* LLNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */; };
+		75DA9E55230E9CA60000A955 /* article.json in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9E53230E9CA60000A955 /* article.json */; };
+		75DA9E56230E9CA60000A955 /* WZMCity in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9E54230E9CA60000A955 /* WZMCity */; };
 		75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378722F99FC70064CF6C /* WZMAlbumModel.m */; };
 		75FB378B22F9A2920064CF6C /* WZMAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378A22F9A2920064CF6C /* WZMAlbumCell.m */; };
 		75FB378E22F9B3B30064CF6C /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB378D22F9B3B30064CF6C /* WZMAlbumHelper.m */; };
@@ -208,6 +212,12 @@
 		75DA9E19230E924A0000A955 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
 		75DA9E1A230E924A0000A955 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		75DA9E48230E9A030000A955 /* WZMFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMFeature.h; sourceTree = "<group>"; };
+		75DA9E4A230E9BBC0000A955 /* LLNewsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLNewsDataProvider.h; sourceTree = "<group>"; };
+		75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNewsDataProvider.m; sourceTree = "<group>"; };
+		75DA9E4D230E9BBC0000A955 /* LLNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLNewsModel.h; sourceTree = "<group>"; };
+		75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLNewsModel.m; sourceTree = "<group>"; };
+		75DA9E53230E9CA60000A955 /* article.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = article.json; sourceTree = "<group>"; };
+		75DA9E54230E9CA60000A955 /* WZMCity */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WZMCity; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
 		75FB378122F99F840064CF6C /* WZMAlbumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumView.m; sourceTree = "<group>"; };
 		75FB378622F99FC70064CF6C /* WZMAlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumModel.h; sourceTree = "<group>"; };
@@ -305,11 +315,6 @@
 		6003F593195388D20070C39A /* Example for WZMKit */ = {
 			isa = PBXGroup;
 			children = (
-				75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */,
-				6003F59C195388D20070C39A /* WZMAppDelegate.h */,
-				6003F59D195388D20070C39A /* WZMAppDelegate.m */,
-				6003F5A8195388D20070C39A /* Images.xcassets */,
-				7558CBBB22DF4FB80043651C /* Resource */,
 				7558CBB822DF4FB80043651C /* DemoClass */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -377,13 +382,6 @@
 				7505DE7E22EA8E410012A2E9 /* ScanQRCode */,
 			);
 			path = DemoClass;
-			sourceTree = "<group>";
-		};
-		7558CBBB22DF4FB80043651C /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 		75DA9DB2230E924A0000A955 /* LLExtend */ = {
@@ -678,9 +676,11 @@
 		75DA9E43230E994D0000A955 /* MMVC */ = {
 			isa = PBXGroup;
 			children = (
+				75DA9E57230E9CEC0000A955 /* AppDelegate */,
 				75DA9E44230E99590000A955 /* First */,
 				75DA9E46230E99670000A955 /* Second */,
 				75DA9E45230E99610000A955 /* Third */,
+				75DA9E52230E9C7F0000A955 /* Resource */,
 			);
 			path = MMVC;
 			sourceTree = "<group>";
@@ -688,8 +688,9 @@
 		75DA9E44230E99590000A955 /* First */ = {
 			isa = PBXGroup;
 			children = (
-				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
-				7558CBB922DF4FB80043651C /* FirstViewController.m */,
+				75DA9E4C230E9BBC0000A955 /* Model */,
+				75DA9E49230E9BBC0000A955 /* ViewModel */,
+				75DA9E51230E9BC00000A955 /* Controller */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -723,6 +724,53 @@
 				75DA9E11230E924A0000A955 /* LLVender */,
 			);
 			path = WZMFeature;
+			sourceTree = "<group>";
+		};
+		75DA9E49230E9BBC0000A955 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				75DA9E4A230E9BBC0000A955 /* LLNewsDataProvider.h */,
+				75DA9E4B230E9BBC0000A955 /* LLNewsDataProvider.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		75DA9E4C230E9BBC0000A955 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				75DA9E4D230E9BBC0000A955 /* LLNewsModel.h */,
+				75DA9E4E230E9BBC0000A955 /* LLNewsModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		75DA9E51230E9BC00000A955 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
+				7558CBB922DF4FB80043651C /* FirstViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		75DA9E52230E9C7F0000A955 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6003F5A8195388D20070C39A /* Images.xcassets */,
+				75DA9E53230E9CA60000A955 /* article.json */,
+				75DA9E54230E9CA60000A955 /* WZMCity */,
+				75DA6A1A2302EEE200BA8E71 /* qnyn_juqing.mp4 */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		75DA9E57230E9CEC0000A955 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				6003F59C195388D20070C39A /* WZMAppDelegate.h */,
+				6003F59D195388D20070C39A /* WZMAppDelegate.m */,
+			);
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		75FB377F22F99F440064CF6C /* WZMAlbumBrowser */ = {
@@ -840,6 +888,7 @@
 				7505DE8422EA8E580012A2E9 /* qrBg@2x.png in Resources */,
 				75FB379522F9BDC20064CF6C /* album_seleced.png in Resources */,
 				75AD1C9A2302A77F003720FB /* album_qp.png in Resources */,
+				75DA9E56230E9CA60000A955 /* WZMCity in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75DA9E30230E924A0000A955 /* LLTest.png in Resources */,
@@ -852,6 +901,7 @@
 				75DA6A1B2302EEE200BA8E71 /* qnyn_juqing.mp4 in Resources */,
 				7505DE8322EA8E580012A2E9 /* qrLine@2x.png in Resources */,
 				75FB379022F9BB730064CF6C /* album_video.png in Resources */,
+				75DA9E55230E9CA60000A955 /* article.json in Resources */,
 				75FB379222F9BC600064CF6C /* album_play.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -938,6 +988,7 @@
 			files = (
 				75DA9E34230E924A0000A955 /* LLWebProgressLayer.m in Sources */,
 				75DA9E3C230E924A0000A955 /* UIViewController+LLModalAnimation.m in Sources */,
+				75DA9E4F230E9BBD0000A955 /* LLNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75DA9E1C230E924A0000A955 /* UIButton+LLHelper.m in Sources */,
 				75FB378822F99FC70064CF6C /* WZMAlbumModel.m in Sources */,
@@ -969,6 +1020,7 @@
 				75DA9E2B230E924A0000A955 /* WKWebView+LLWebViewController.m in Sources */,
 				75DA9E33230E924A0000A955 /* LLUserContentController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
+				75DA9E50230E9BBD0000A955 /* LLNewsModel.m in Sources */,
 				75DA9E1F230E924A0000A955 /* LLAVLameManager.m in Sources */,
 				75DA9E3B230E924A0000A955 /* LLDismissAnimation.m in Sources */,
 				75DA9E39230E924A0000A955 /* LLPushAnimation.m in Sources */,
