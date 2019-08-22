@@ -7,10 +7,6 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMAlbumController.h"
-#import "WZMAlbumNavigationController.h"
-#import <WZMKit/WZMKit.h>
-
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -30,13 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 @end
