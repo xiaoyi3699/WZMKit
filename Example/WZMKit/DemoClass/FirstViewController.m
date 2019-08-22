@@ -13,10 +13,8 @@
 #import "FirstViewController.h"
 #import "WZMAlbumController.h"
 #import "WZMAlbumNavigationController.h"
-#import "WZMVideoKeyView.h"
-#import "WZMVideoKeyView2.h"
 
-@interface FirstViewController ()<WZMVideoKeyViewDelegate,WZMVideoKeyView2Delegate>
+@interface FirstViewController ()
 
 @end
 
@@ -34,29 +32,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyn_juqing" ofType:@"mp4"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    
-    WZMVideoKeyView *view = [[WZMVideoKeyView alloc] initWithFrame:CGRectMake(10, 150, 355, 60)];
-    view.delegate = self;
-    view.videoUrl = url;
-    view.radius = 5;
-    [self.view addSubview:view];
-    
-    WZMVideoKeyView2 *view2 = [[WZMVideoKeyView2 alloc] initWithFrame:CGRectMake(10, 300, 355, 60)];
-    view2.delegate = self;
-    view2.videoUrl = url;
-    view2.radius = 5;
-    view2.contentWidth = 1000;
-    [self.view addSubview:view2];
-}
-
-- (void)videoKeyView:(WZMVideoKeyView *)videoKeyView changeType:(WZMCommonState)type {
-    NSLog(@"1==%@====%@",@(type),@(videoKeyView.value));
-}
-
-- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 changeType:(WZMCommonState)type {
-    NSLog(@"2==%@====%@",@(type),@(videoKeyView2.value));
 }
 
 @end

@@ -113,6 +113,10 @@
 #import "WZMSegmentedCell.h"
 #import "WZMSegmentedView.h"
 #import "WZMSelectedView.h"
+#import "WZMSliderView.h"
+#import "WZMSliderView2.h"
+#import "WZMVideoKeyView.h"
+#import "WZMVideoKeyView2.h"
 
 FOUNDATION_EXPORT double WZMKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char WZMKitVersionString[];
