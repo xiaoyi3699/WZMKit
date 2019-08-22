@@ -19,6 +19,7 @@
         
         if (CGRectIsNull(titieFrame) == NO) {
             self.titleLabel.frame = titieFrame;
+            self.titleLabel.textAlignment = NSTextAlignmentCenter;
         }
         
     } error:nil];

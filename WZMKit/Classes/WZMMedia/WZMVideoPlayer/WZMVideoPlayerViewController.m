@@ -45,8 +45,4 @@
     return YES;
 }
 
-- (void)viewWillLayoutSubviews {
-    _playerView.frame = self.view.bounds;
-}
-
 @end
