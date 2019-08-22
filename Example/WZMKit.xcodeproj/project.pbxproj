@@ -207,6 +207,7 @@
 		75DA9E17230E924A0000A955 /* ASScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASScreenRecorder.h; sourceTree = "<group>"; };
 		75DA9E19230E924A0000A955 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
 		75DA9E1A230E924A0000A955 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
+		75DA9E48230E9A030000A955 /* WZMFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMFeature.h; sourceTree = "<group>"; };
 		75FB378022F99F840064CF6C /* WZMAlbumView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumView.h; sourceTree = "<group>"; };
 		75FB378122F99F840064CF6C /* WZMAlbumView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumView.m; sourceTree = "<group>"; };
 		75FB378622F99FC70064CF6C /* WZMAlbumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMAlbumModel.h; sourceTree = "<group>"; };
@@ -370,19 +371,10 @@
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
-				75DA9DC6230E924A0000A955 /* LLBaseClass */,
-				75DA9DD8230E924A0000A955 /* LLCommon */,
-				75DA9DB2230E924A0000A955 /* LLExtend */,
-				75DA9DB7230E924A0000A955 /* LLTools */,
-				75DA9E11230E924A0000A955 /* LLVender */,
+				75DA9E43230E994D0000A955 /* MMVC */,
+				75DA9E47230E99C50000A955 /* WZMFeature */,
 				75FB377F22F99F440064CF6C /* WZMAlbumBrowser */,
 				7505DE7E22EA8E410012A2E9 /* ScanQRCode */,
-				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
-				7558CBB922DF4FB80043651C /* FirstViewController.m */,
-				7558CBC122DF50D30043651C /* SecondViewController.h */,
-				7558CBC222DF50D30043651C /* SecondViewController.m */,
-				7558CBC422DF50E60043651C /* ThirdViewController.h */,
-				7558CBC522DF50E60043651C /* ThirdViewController.m */,
 			);
 			path = DemoClass;
 			sourceTree = "<group>";
@@ -457,9 +449,9 @@
 		75DA9DC6230E924A0000A955 /* LLBaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				75DA9DD3230E924A0000A955 /* LLBaseModel */,
 				75DA9DC7230E924A0000A955 /* LLBaseViewModel */,
 				75DA9DCE230E924A0000A955 /* LLBaseController */,
-				75DA9DD3230E924A0000A955 /* LLBaseModel */,
 				75DA9DD6230E924A0000A955 /* LLProtocol */,
 			);
 			path = LLBaseClass;
@@ -681,6 +673,56 @@
 				75DA9E1A230E924A0000A955 /* Aspects.m */,
 			);
 			path = Aspects;
+			sourceTree = "<group>";
+		};
+		75DA9E43230E994D0000A955 /* MMVC */ = {
+			isa = PBXGroup;
+			children = (
+				75DA9E44230E99590000A955 /* First */,
+				75DA9E46230E99670000A955 /* Second */,
+				75DA9E45230E99610000A955 /* Third */,
+			);
+			path = MMVC;
+			sourceTree = "<group>";
+		};
+		75DA9E44230E99590000A955 /* First */ = {
+			isa = PBXGroup;
+			children = (
+				7558CBBA22DF4FB80043651C /* FirstViewController.h */,
+				7558CBB922DF4FB80043651C /* FirstViewController.m */,
+			);
+			path = First;
+			sourceTree = "<group>";
+		};
+		75DA9E45230E99610000A955 /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				7558CBC422DF50E60043651C /* ThirdViewController.h */,
+				7558CBC522DF50E60043651C /* ThirdViewController.m */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
+		75DA9E46230E99670000A955 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				7558CBC122DF50D30043651C /* SecondViewController.h */,
+				7558CBC222DF50D30043651C /* SecondViewController.m */,
+			);
+			path = Second;
+			sourceTree = "<group>";
+		};
+		75DA9E47230E99C50000A955 /* WZMFeature */ = {
+			isa = PBXGroup;
+			children = (
+				75DA9E48230E9A030000A955 /* WZMFeature.h */,
+				75DA9DC6230E924A0000A955 /* LLBaseClass */,
+				75DA9DD8230E924A0000A955 /* LLCommon */,
+				75DA9DB2230E924A0000A955 /* LLExtend */,
+				75DA9DB7230E924A0000A955 /* LLTools */,
+				75DA9E11230E924A0000A955 /* LLVender */,
+			);
+			path = WZMFeature;
 			sourceTree = "<group>";
 		};
 		75FB377F22F99F440064CF6C /* WZMAlbumBrowser */ = {
@@ -1070,7 +1112,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WZMKit/DemoClass/LLVender/lame",
+					"$(PROJECT_DIR)/WZMKit/DemoClass/WZMFeature/LLVender/lame",
 				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -1099,7 +1141,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/WZMKit/DemoClass/LLVender/lame",
+					"$(PROJECT_DIR)/WZMKit/DemoClass/WZMFeature/LLVender/lame",
 				);
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";

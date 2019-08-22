@@ -11,8 +11,6 @@
 /**********************************************************************************/
 
 #import "FirstViewController.h"
-#import "WZMAlbumController.h"
-#import "WZMAlbumNavigationController.h"
 
 @interface FirstViewController ()
 
