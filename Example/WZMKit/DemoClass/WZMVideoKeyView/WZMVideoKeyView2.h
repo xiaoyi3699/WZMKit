@@ -17,6 +17,8 @@
 @property (nonatomic, assign) CGFloat value;
 ///圆角
 @property (nonatomic, assign) CGFloat radius;
+///内容宽度, 默认等于视图宽度
+@property (nonatomic, assign) CGFloat contentWidth;
 ///代理
 @property (nonatomic, weak) id<WZMVideoKeyView2Delegate> delegate;
 
