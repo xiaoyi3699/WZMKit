@@ -6,8 +6,8 @@
 //  Copyright (c) 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "LLPullListViewController.h"
+#import "WZMPullListViewController.h"
 
-@interface FirstViewController : LLPullListViewController
+@interface FirstViewController : WZMPullListViewController
 
 @end

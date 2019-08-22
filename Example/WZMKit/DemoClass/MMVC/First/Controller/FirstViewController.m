@@ -57,7 +57,7 @@
     
     if (indexPath.row < _newDataProvider.currentList.count) {
         LLNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        LLWebViewController *webVC = [[LLWebViewController alloc] initWithUrl:model.url];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }

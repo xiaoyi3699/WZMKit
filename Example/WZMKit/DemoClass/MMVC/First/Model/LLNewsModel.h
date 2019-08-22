@@ -6,9 +6,9 @@
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLBaseModel.h"
+#import "WZMBaseModel.h"
 
-@interface LLNewsModel : LLBaseModel
+@interface LLNewsModel : WZMBaseModel
 
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSString *title;

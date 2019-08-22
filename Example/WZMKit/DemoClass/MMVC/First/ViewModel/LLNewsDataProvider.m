@@ -24,7 +24,7 @@
 
 - (void)loadData:(doHandler)loadHandler callBack:(doHandler)backHandler {
     
-    self.httpRequestMethod = LLHttpRequestMethodGet;
+    self.httpRequestMethod = WZMHttpRequestMethodGet;
     
     self.requestUrl = [NSString stringWithFormat:@"http://www.vasueyun.cn/apro/%@",_fileName];
     [super loadData:loadHandler callBack:backHandler];

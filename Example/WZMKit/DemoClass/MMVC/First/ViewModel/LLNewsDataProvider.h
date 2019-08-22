@@ -6,10 +6,10 @@
 //  Copyright © 2017年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "LLBaseDataProvider.h"
+#import "WZMBaseDataProvider.h"
 #import "LLNewsModel.h"
 
-@interface LLNewsDataProvider : LLBaseDataProvider
+@interface LLNewsDataProvider : WZMBaseDataProvider
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSMutableArray *currentList;
