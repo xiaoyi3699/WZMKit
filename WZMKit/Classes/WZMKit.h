@@ -329,6 +329,16 @@
  */
 #import "WZMBase64.h"
 
+/*
+ 其他自定义控件
+ */
+#import "WZMSliderView.h"
+#import "WZMSliderView2.h"
+#import "WZMVideoKeyView.h"
+#import "WZMVideoKeyView2.h"
+#import "WZMPanGestureRecognizer.h"
+#import "WZMSingleRotationGestureRecognizer.h"
+
 /********************************************************/
 /********************** ↓ 扩展类 ↓ **********************/
 /********************************************************/
@@ -361,13 +371,6 @@
 #import "UIScrollView+wzmcate.h"
 #import "UINavigationBar+wzmcate.h"
 #import "UIWindow+wzmcate.h"
-
-#import "WZMSliderView.h"
-#import "WZMSliderView2.h"
-#import "WZMVideoKeyView.h"
-#import "WZMVideoKeyView2.h"
-#import "WZMPanGestureRecognizer.h"
-#import "WZMSingleRotationGestureRecognizer.h"
 
 //时间差 CFAbsoluteTime
 #define WZMStartTime CFAbsoluteTimeGetCurrent()
