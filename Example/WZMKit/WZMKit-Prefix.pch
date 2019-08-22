@@ -16,6 +16,7 @@
 
 #import "WZMFeature.h"
 #import <WZMKit/WZMKit.h>
+#define WZM_APP_ID  @"123456789"
 #define THEME_COLOR [UIColor colorWithRed:66/255. green:152/255. blue:233/255. alpha:1]
 
 #endif

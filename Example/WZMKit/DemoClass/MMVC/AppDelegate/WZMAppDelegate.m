@@ -77,6 +77,7 @@
 #import "FirstViewController.h"
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @implementation WZMAppDelegate
 
@@ -86,21 +87,22 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    FirstViewController *firstVC = [[FirstViewController alloc] init];
-    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
-    
-    SecondViewController *secondVC = [[SecondViewController alloc] init];
-    UINavigationController *secondNav = [[UINavigationController alloc] initWithRootViewController:secondVC];
-    
-    ThirdViewController *thirdVC = [[ThirdViewController alloc] init];
-    UINavigationController *thirdNav = [[UINavigationController alloc] initWithRootViewController:thirdVC];
-    
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [tabBarController addChildViewController:firstNav];
-    [tabBarController addChildViewController:secondNav];
-    [tabBarController addChildViewController:thirdNav];
-    [self setTabBarConfig:tabBarController];
     self.window.rootViewController = [WZMTabBarController tabBarController];
+    
+    //禁止多点触控
+    [[UIView appearance] setExclusiveTouch:YES];
+    
+    //检查更新
+    NSString *url = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",WZM_APP_ID];
+    [[WZMNetWorking netWorking] GET:url parameters:nil callBack:^(id responseObject, NSError *error) {
+        if (error == nil) {
+            NSDictionary *data = [[responseObject objectForKey:@"results"] firstObject];
+            NSString *version = [data objectForKey:@"version"];
+            [self updateWithVersion:version
+                      updateContent:@"1、优化用户体验；\n\n2、修复已知bug。"
+                      isForceUpdate:NO];
+        }
+    }];
     
 #if DEBUG
     //开启手机端日志悬浮图标
@@ -123,54 +125,160 @@
     return YES;
 }
 
-- (void)setTabBarConfig:(UITabBarController *)tabBarController {
-    NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
-    NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
-    NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
+#pragma mark - 屏幕旋转处理
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     
-    for (NSInteger i = 0; i < tabBarController.viewControllers.count; i ++) {
-        
-        UIViewController *viewController = tabBarController.viewControllers[i];
-        
-        NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
-        NSDictionary *selAtts = @{NSForegroundColorAttributeName:THEME_COLOR,NSFontAttributeName:[UIFont systemFontOfSize:12]};
-        
-        UIImage *img = [[UIImage imageNamed:normalImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        
-        viewController.tabBarItem.title = titles[i];
-        viewController.tabBarItem.image = img;
-        viewController.tabBarItem.selectedImage = selImg;
-        [viewController.tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
-        [viewController.tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
+    UIViewController *rootVC = self.window.rootViewController;
+    UIViewController *presentedVC = rootVC.presentedViewController;
+    
+    if (presentedVC.isBeingDismissed) {
+        if ([rootVC respondsToSelector:@selector(ll_supportedInterfaceOrientations)]) {
+            return [rootVC ll_supportedInterfaceOrientations];
+        }
+    }
+    else {
+        if ([presentedVC respondsToSelector:@selector(ll_supportedInterfaceOrientations)]) {
+            return [presentedVC ll_supportedInterfaceOrientations];
+        }
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+#pragma mark -  APP弹框机制
+/**
+ APP弹框
+ 机制:每七天弹出一次
+ 
+ @param key         弹框标识
+ @param title       弹框标题
+ @param message     弹框内容
+ @param OKTitle     确定按钮
+ @param cancelTitle 取消按钮
+ @param isForce  是否强制确定
+ @param OKBlock  确定按钮事件
+ */
+- (void)compareWithKey:(NSString *)key title:(NSString *)title message:(NSString *)message OKTitle:(NSString *)OKTitle cancelTitle:(NSString *)cancelTitle isForce:(BOOL)isForce OKBlock:(doBlock)OKBlock {
+    NSString *time = [WZMFileManager objForKey:key];
+    if (time == nil || [NSDate wzm_isInTime:time days:7] == NO) {
+        WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:message OKButtonTitle:OKTitle cancelButtonTitle:cancelTitle type:WZMAlertViewTypeUpdate];
+        [alertView setOKBlock:OKBlock];
+        [alertView setCannelBlock:^{
+            if (isForce) {
+                exit(0);
+            }
+            else {
+                [WZMFileManager setObj:[NSString wzm_getTimeStringByDate:[NSDate date]] forKey:key];
+            }
+        }];
+        [alertView showAnimated:YES];
     }
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+#pragma mark -  APP检查更新
+- (void)updateWithVersion:(NSString *)version updateContent:(NSString *)updateContent isForceUpdate:(BOOL)isForceUpdate {
+    static NSString *versionKey = @"ll_version";
+    //沙盒存储的version
+    NSString * docVersion = [WZMFileManager objForKey:versionKey];
+    if ([self compareVersion:version otherVersion:docVersion]) {
+        //APP的version
+        if ([self compareVersion:version otherVersion:WZM_APP_VERSION]) {
+            NSString *title = @"版本升级了";
+            NSString *cancel;
+            if (isForceUpdate) {
+                cancel = @"退出";
+            }
+            else {
+                cancel = @"取消";
+            }
+            [WZMFileManager setObj:version forKey:versionKey];
+            WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:updateContent OKButtonTitle:@"立即更新" cancelButtonTitle:cancel type:WZMAlertViewTypeUpdate];
+            [alertView setOKBlock:^{
+                [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppStoreTypeOpen];
+                exit(0);
+            }];
+            [alertView setCannelBlock:^{
+                if (isForceUpdate) {
+                    exit(0);
+                }
+            }];
+            [alertView showAnimated:YES];
+        }
+    }
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (BOOL)compareVersion:(NSString *)version otherVersion:(NSString *)otherVersion {
+    return ([version compare:otherVersion options:NSNumericSearch] == NSOrderedDescending);
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+#pragma mark - APP跳转相关
+//NS_DEPRECATED_IOS(2_0, 9_0)
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    [self openUrl:url];
+    return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//NS_DEPRECATED_IOS(4_2, 9_0)
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    [self openUrl:url];
+    return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//NS_AVAILABLE_IOS(9_0)
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [self openUrl:url];
+    return YES;
 }
+
+//自定义跳转回调
+- (void)openUrl:(NSURL *)url {
+    
+}
+
+#pragma mark - 推送相关
+//NS_DEPRECATED_IOS(3_0, 10_0)
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [self didReceiveRemoteNotification:userInfo];
+}
+
+//NS_AVAILABLE_IOS(7_0)
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [self didReceiveRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+//__IOS_AVAILABLE(10.0)
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    //应用处于前台时收到推送
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {//远程
+        
+        [self didReceiveRemoteNotification:userInfo];
+    }
+    else {//本地
+        
+    }
+    completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    //点击推送进入应用
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {//远程
+        [self didReceiveRemoteNotification:userInfo];
+    }
+    else {//本地
+    }
+}
+
+//自定义推送处理
+- (void)didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {}
+- (void)applicationDidEnterBackground:(UIApplication *)application {}
+- (void)applicationWillEnterForeground:(UIApplication *)application {}
+- (void)applicationDidBecomeActive:(UIApplication *)application {}
+- (void)applicationWillTerminate:(UIApplication *)application {}
 
 @end
