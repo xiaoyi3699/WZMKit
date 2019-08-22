@@ -19,6 +19,10 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _animation = NO;
+        _strokeStart = 0;
+        _strokeEnd = 0;
+        
         CGFloat lineW = frame.size.height;
         self.shaperLayer = [[CAShapeLayer alloc] init];
         self.shaperLayer.frame = self.bounds;
@@ -28,6 +32,8 @@
         self.shaperLayer.lineCap = kCALineCapRound;
         self.shaperLayer.cornerRadius = lineW/2;
         self.shaperLayer.masksToBounds = YES;
+        self.shaperLayer.strokeStart = _strokeStart;
+        self.shaperLayer.strokeEnd = _strokeEnd;
         
         UIBezierPath *path = [UIBezierPath bezierPath];
         [path moveToPoint:CGPointMake(lineW/2, frame.size.height/2)];
@@ -42,21 +48,33 @@
 - (void)setStrokeStart:(CGFloat)strokeStart {
     if (strokeStart < 0 || strokeStart > 1) return;
     if (_strokeStart == strokeStart) return;
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.shaperLayer.strokeStart = strokeStart;
-    [CATransaction setDisableActions:NO];
-    [CATransaction commit];
+    _strokeStart = strokeStart;
+    if (self.isAnimation) {
+        self.shaperLayer.strokeStart = strokeStart;
+    }
+    else {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.shaperLayer.strokeStart = strokeStart;
+        [CATransaction setDisableActions:NO];
+        [CATransaction commit];
+    }
 }
 
 - (void)setStrokeEnd:(CGFloat)strokeEnd {
     if (strokeEnd < 0 || strokeEnd > 1) return;
     if (_strokeEnd == strokeEnd) return;
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.shaperLayer.strokeEnd = strokeEnd;
-    [CATransaction setDisableActions:NO];
-    [CATransaction commit];
+    _strokeEnd = strokeEnd;
+    if (self.isAnimation) {
+        self.shaperLayer.strokeEnd = strokeEnd;
+    }
+    else {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.shaperLayer.strokeEnd = strokeEnd;
+        [CATransaction setDisableActions:NO];
+        [CATransaction commit];
+    }
 }
 
 - (void)setNormalColor:(UIColor *)normalColor {

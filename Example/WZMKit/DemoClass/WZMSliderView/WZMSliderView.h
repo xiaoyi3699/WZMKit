@@ -14,5 +14,7 @@
 @property (nonatomic, assign) CGFloat strokeEnd;
 @property (nonatomic, strong) UIColor *normalColor;
 @property (nonatomic, strong) UIColor *highlightedColor;
+///是否有弹性动画, 默认NO
+@property (nonatomic, assign, getter=isAnimation) BOOL animation;
 
 @end

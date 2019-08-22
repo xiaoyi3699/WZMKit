@@ -98,6 +98,7 @@
 #import "WZMCycleView.h"
 #import "WZMDrawView.h"
 #import "WZMFontView.h"
+#import "WZMPanGestureRecognizer.h"
 #import "WZMSingleRotationGestureRecognizer.h"
 #import "WZMGifImageView.h"
 #import "WZMLogModel.h"

@@ -361,6 +361,7 @@
 #import "UIScrollView+wzmcate.h"
 #import "UINavigationBar+wzmcate.h"
 #import "UIWindow+wzmcate.h"
+#import "WZMPanGestureRecognizer.h"
 #import "WZMSingleRotationGestureRecognizer.h"
 
 //时间差 CFAbsoluteTime

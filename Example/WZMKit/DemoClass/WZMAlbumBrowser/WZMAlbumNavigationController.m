@@ -12,6 +12,8 @@
 @interface WZMAlbumNavigationController ()
 
 @property (nonatomic, strong) WZMAlbumConfig *config;
+@property (nonatomic, assign) BOOL statusHidden;
+@property (nonatomic, assign) UIStatusBarStyle statusStyle;
 
 @end
 
@@ -29,6 +31,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.statusStyle = [UIApplication sharedApplication].statusBarStyle;
+    self.statusHidden = [UIApplication sharedApplication].statusBarHidden;
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].statusBarHidden = self.statusHidden;
+    [UIApplication sharedApplication].statusBarStyle = self.statusStyle;
 }
 
 - (void)dealloc {
