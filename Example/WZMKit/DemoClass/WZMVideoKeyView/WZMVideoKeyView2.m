@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIView *graysView;
 @property (nonatomic, strong) UIImageView *graysImageView;
 ///视图
+@property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
@@ -30,16 +31,21 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        CGRect contentRect = self.bounds;
-        contentRect.origin.y = 5;
-        contentRect.size.height -= 10;
-        self.contentView = [[UIView alloc] initWithFrame:contentRect];
+        CGRect bgRect = self.bounds;
+        bgRect.origin.y = 5;
+        bgRect.size.height -= 10;
+        self.bgView = [[UIView alloc] initWithFrame:bgRect];
+        self.bgView.clipsToBounds = YES;
+        self.bgView.userInteractionEnabled = NO;
+        [self addSubview:self.bgView];
+        
+        self.contentView = [[UIView alloc] initWithFrame:self.bgView.bounds];
         self.contentView.clipsToBounds = YES;
-        self.contentView.userInteractionEnabled = NO;
-        [self addSubview:self.contentView];
+        [self.bgView addSubview:self.contentView];
+        _contentWidth = self.contentView.wzm_width;
         
         CGRect keyRect = self.contentView.bounds;
-        keyRect.origin.x = contentRect.size.width/2;
+        keyRect.origin.x = keyRect.size.width/2;
         self.keysView = [[UIView alloc] initWithFrame:keyRect];
         self.keysView.clipsToBounds = YES;
         [self.contentView addSubview:self.keysView];
@@ -110,6 +116,7 @@
     if (radius < 0) return;
     if (_radius == radius) return;
     _radius = radius;
+    self.bgView.wzm_cornerRadius = radius;
     self.contentView.wzm_cornerRadius = radius;
     self.keysImageView.wzm_cornerRadius = radius;
     self.graysImageView.wzm_cornerRadius = radius;
@@ -119,11 +126,9 @@
     if (_contentWidth == contentWidth) return;
     _contentWidth = contentWidth;
     
-    CGRect contentRect = self.bounds;
-    contentRect.origin.x = (self.wzm_width-contentWidth)/2;
-    contentRect.origin.y = 5;
+    CGRect contentRect = self.bgView.bounds;
+    contentRect.origin.x = (self.bgView.wzm_width-contentWidth)/2;
     contentRect.size.width = contentWidth;
-    contentRect.size.height -= 10;
     self.contentView.frame = contentRect;
     
     CGRect keyRect = self.contentView.bounds;
@@ -141,7 +146,10 @@
 - (void)setVideoUrl:(NSURL *)videoUrl {
     if ([_videoUrl.path isEqualToString:videoUrl.path]) return;
     _videoUrl = videoUrl;
-    [self loadKeyImages];
+    
+    if (self.superview) {
+        [self loadKeyImages];
+    }
 }
 
 - (void)loadKeyImages {

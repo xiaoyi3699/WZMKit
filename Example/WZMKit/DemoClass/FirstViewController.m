@@ -47,11 +47,8 @@
     view2.delegate = self;
     view2.videoUrl = url;
     view2.radius = 5;
+    view2.contentWidth = 1000;
     [self.view addSubview:view2];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        view2.contentWidth = 355*2;
-    });
 }
 
 - (void)videoKeyView:(WZMVideoKeyView *)videoKeyView changeType:(WZMCommonState)type {
