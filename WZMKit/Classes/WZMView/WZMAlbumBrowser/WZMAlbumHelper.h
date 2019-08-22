@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WZMEnum.h"
+#import "WZMBlock.h"
 
 @interface WZMAlbumHelper : NSObject
 

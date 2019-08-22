@@ -8,6 +8,7 @@
 
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumController.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMAlbumNavigationController ()
 

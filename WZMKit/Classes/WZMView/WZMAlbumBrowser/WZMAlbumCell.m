@@ -9,6 +9,7 @@
 #import "WZMAlbumCell.h"
 #import "WZMAlbumHelper.h"
 #import <Photos/Photos.h>
+#import "WZMPublic.h"
 
 @interface WZMAlbumCell ()
 
@@ -40,7 +41,7 @@
         [self addSubview:_photoImageView];
         
         _playImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.bounds.size.width-20)/2, (self.bounds.size.height-30)/2, 20, 20)];
-        _playImageView.image = [UIImage imageNamed:@"album_play"];
+        _playImageView.image = [WZMPublic imageNamed:@"album_play" ofType:@"png"];
         _playImageView.hidden = YES;
         [self addSubview:_playImageView];
         
@@ -56,7 +57,7 @@
         [_videoTimeView addSubview:_videoTimeLabel];
         
         UIImageView *videoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 1, 13, 13)];
-        videoImageView.image = [UIImage imageNamed:@"album_video"];
+        videoImageView.image = [WZMPublic imageNamed:@"album_video" ofType:@"png"];
         [_videoTimeView addSubview:videoImageView];
         
         _gifLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-25, self.bounds.size.height-15, 25, 15)];
@@ -72,7 +73,7 @@
         _indexLabel.text = @"1";
         _indexLabel.font = [UIFont boldSystemFontOfSize:25];
         _indexLabel.textColor = [UIColor whiteColor];
-        _indexLabel.backgroundColor = [THEME_COLOR colorWithAlphaComponent:0.6];
+        _indexLabel.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.6];
         _indexLabel.textAlignment = NSTextAlignmentCenter;
         _indexLabel.hidden = YES;
         [self addSubview:_indexLabel];
@@ -80,21 +81,21 @@
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = self.bounds;
         _activityView.hidesWhenStopped = YES;
-        _activityView.backgroundColor = [THEME_COLOR colorWithAlphaComponent:0.2];
+        _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
         [self addSubview:_activityView];
         
         _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        _previewBtn.tintColor = [THEME_COLOR colorWithAlphaComponent:0.5];
-        [_previewBtn setImage:[[UIImage imageNamed:@"album_fd"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        _previewBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
+        [_previewBtn setImage:[[WZMPublic imageNamed:@"album_fd" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
         
         _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        _iCloudBtn.tintColor = [THEME_COLOR colorWithAlphaComponent:0.5];
-        [_iCloudBtn setImage:[[UIImage imageNamed:@"album_xz"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        _iCloudBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
+        [_iCloudBtn setImage:[[WZMPublic imageNamed:@"album_xz" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
         [self addSubview:_iCloudBtn];

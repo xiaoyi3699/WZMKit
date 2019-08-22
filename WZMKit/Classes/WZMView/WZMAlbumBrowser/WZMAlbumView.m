@@ -9,6 +9,8 @@
 #import "WZMAlbumView.h"
 #import "WZMAlbumCell.h"
 #import <Photos/Photos.h>
+#import "UIView+wzmcate.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
@@ -75,14 +77,14 @@
             self.countLabel.textColor = [UIColor whiteColor];
             self.countLabel.textAlignment = NSTextAlignmentCenter;
             self.countLabel.wzm_cornerRadius = 5;
-            self.countLabel.backgroundColor = THEME_COLOR;
+            self.countLabel.backgroundColor = WZM_ALBUM_COLOR;
             self.countLabel.userInteractionEnabled = YES;
             [self.toolView.contentView addSubview:self.countLabel];
             
             UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_minX-5, toolHeight)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(config.maxCount)];
             msgLabel.font = [UIFont systemFontOfSize:13];
-            msgLabel.textColor = THEME_COLOR;
+            msgLabel.textColor = WZM_ALBUM_COLOR;
             msgLabel.textAlignment = NSTextAlignmentLeft;
             [self.toolView.contentView addSubview:msgLabel];
             

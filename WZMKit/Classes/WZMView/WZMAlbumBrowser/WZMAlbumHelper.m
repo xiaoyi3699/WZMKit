@@ -10,6 +10,10 @@
 #import <Photos/Photos.h>
 #import <ImageIO/ImageIO.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "WZMMacro.h"
+#import "WZMFileManager.h"
+#import "WZMLogPrinter.h"
+#import "NSDateFormatter+wzmcate.h"
 
 @interface WZMAlbumHelper ()
 

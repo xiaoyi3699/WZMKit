@@ -11,6 +11,9 @@
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumView.h"
 #import "WZMAlbumHelper.h"
+#import "WZMInline.h"
+#import "WZMViewHandle.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate>
 
@@ -108,7 +111,7 @@
 
 - (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumModel *model = [albumView.allPhotos objectAtIndex:indexPath.row];
-    NSLog(@"%@",model);
+    WZMLog(@"%@",model);
 }
 
 //相册权限
