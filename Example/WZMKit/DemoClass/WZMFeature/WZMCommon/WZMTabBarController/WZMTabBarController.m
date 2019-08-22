@@ -12,9 +12,7 @@
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
 
-@interface WZMTabBarController (){
-    
-}
+@interface WZMTabBarController ()
 
 @end
 
@@ -49,10 +47,9 @@
 }
 
 - (void)setConfig {
-    NSArray *titles = @[@"首页",@"最新成交",@"商品分类",@"我"];
-    NSArray *normalImages = @[@"tabbar_home",@"tabbar_auction",@"tabbar_classify",@"tabbar_mine"];
-    NSArray *selectImages = @[@"tabbar_home_on",@"tabbar_auction_on",@"tabbar_classify_on",@"tabbar_mine_on"];
-
+    NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
+    NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
+    NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
     for (NSInteger i = 0; i < self.viewControllers.count; i ++) {
         
         UIViewController *viewController = self.viewControllers[i];

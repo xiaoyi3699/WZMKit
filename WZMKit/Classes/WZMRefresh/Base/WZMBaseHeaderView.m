@@ -74,7 +74,7 @@
         [super endRefresh:more];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(more)];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }];
         });
@@ -86,7 +86,7 @@
         [super endRefresh:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:WZMRefreshMoreData object:@(YES)];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.35 animations:^{
                 self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }];
         });

@@ -100,7 +100,7 @@
     [tabBarController addChildViewController:secondNav];
     [tabBarController addChildViewController:thirdNav];
     [self setTabBarConfig:tabBarController];
-    self.window.rootViewController = tabBarController;
+    self.window.rootViewController = [WZMTabBarController tabBarController];
     
 #if DEBUG
     //开启手机端日志悬浮图标
