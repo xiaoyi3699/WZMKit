@@ -79,6 +79,10 @@
 #import "ThirdViewController.h"
 #import <UserNotifications/UserNotifications.h>
 
+@interface WZMAppDelegate ()<UNUserNotificationCenterDelegate>
+
+@end
+
 @implementation WZMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
