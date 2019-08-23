@@ -120,7 +120,6 @@
         WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
-            helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
             [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info){
                 if (cloud) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -131,8 +130,8 @@
         }
         else {
             helper.imageOptions.networkAccessAllowed = NO;
-            helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-            [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+            helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
                 cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
             }];
         }

@@ -30,10 +30,8 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"qnyh" ofType:@"mp4"];
-    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:[NSURL fileURLWithPath:path]];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self presentViewController:vc animated:YES completion:nil];
+    WZMAlbumController *nav = [[WZMAlbumController alloc] initWithConfig:[WZMAlbumConfig new]];
+    [self.navigationController pushViewController:nav animated:YES];
 }
 
 @end
