@@ -11,6 +11,11 @@
 #import "WZMDeviceUtil.h"
 #import "WZMViewHandle.h"
 
+#if DEBUG
+#define WZM_IAP_VERIFY  @"https://sandbox.itunes.apple.com/verifyReceipt"
+#else
+#define WZM_IAP_VERIFY @"https://buy.itunes.apple.com/verifyReceipt"
+#endif
 @interface WZMIAPManager ()<SKProductsRequestDelegate,SKPaymentTransactionObserver,UIAlertViewDelegate>
 
 //是否正在支付
@@ -205,16 +210,20 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         [self showInfoMessage:@"订单号/凭证无效"];
         return;
     }
-    /*
-    //向服务器验证支付结果
-    //交易成功
-    [WZMViewHandle wzm_dismiss];
-    self.isPaying = NO;
-    [self removeLocReceiptData];
-    //交易失败
-     self.isPaying = NO;
-    [self verifyPurchaseFail];
-     */
+    //验证支付结果,一般放服务端验证
+    NSDictionary *dic = @{@"receipt-data":receiptString};
+    [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:dic callBack:^(id responseObject, NSError *error) {
+        self.paying = NO;
+        if (responseObject) {
+            //交易成功
+            [WZMViewHandle wzm_dismiss];
+            [self removeLocReceiptData];
+        }
+        else {
+            //交易失败
+            [self verifyPurchaseFail];
+        }
+    }];
 }
 
 #pragma mark - private
