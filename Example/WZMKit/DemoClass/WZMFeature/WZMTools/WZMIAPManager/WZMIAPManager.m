@@ -10,6 +10,7 @@
 #import <StoreKit/StoreKit.h>
 #import "WZMDeviceUtil.h"
 #import "WZMViewHandle.h"
+#import "WZMLogPrinter.h"
 
 #if DEBUG
 #define WZM_IAP_VERIFY  @"https://sandbox.itunes.apple.com/verifyReceipt"
@@ -125,18 +126,18 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    NSLog(@"------------------错误-----------------:%@", error);
+    WZMLog(@"------------------错误-----------------:%@", error);
     self.paying = NO;
     [self showInfoMessage:@"从Apple获取商品信息失败"];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
-    NSLog(@"------------反馈信息结束-----------------%@",request);
+    WZMLog(@"------------反馈信息结束-----------------%@",request);
 }
 
 #pragma mark -- 监听AppStore支付状态
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction {
-    NSLog(@"监听AppStore支付状态");
+    WZMLog(@"监听AppStore支付状态");
     dispatch_async(dispatch_get_main_queue(), ^{
         for(SKPaymentTransaction *tran in transaction){
             switch (tran.transactionState) {
@@ -144,11 +145,11 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                     // 订阅特殊处理
                     if (tran.originalTransaction) {
                         // 如果是自动续费的订单,originalTransaction会有内容
-                        NSLog(@"自动续费的订单,originalTransaction = %@",tran.originalTransaction);
+                        WZMLog(@"自动续费的订单,originalTransaction = %@",tran.originalTransaction);
                     }
                     else {
                         // 普通购买，以及第一次购买自动订阅
-                        NSLog(@"普通购买，以及第一次购买自动订阅");
+                        WZMLog(@"普通购买，以及第一次购买自动订阅");
                     }
                     //服务器验证凭证
                     [self verifyPurchaseWithPaymentTransaction];
@@ -186,7 +187,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
     }
     else {
-        NSLog(@"没有历史未消耗订单");
+        WZMLog(@"没有历史未消耗订单");
     }
 }
 
