@@ -107,6 +107,7 @@
     //修复获取图片时出现的瞬间内存过高问题
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.imageOptions.networkAccessAllowed = NO;
+    helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
     int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
@@ -119,6 +120,7 @@
         WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
+            helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
             [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info){
                 if (cloud) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -129,6 +131,7 @@
         }
         else {
             helper.imageOptions.networkAccessAllowed = NO;
+            helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
             [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
                 cloud([[info objectForKey:PHImageResultIsInCloudKey] boolValue]);
             }];
@@ -155,6 +158,7 @@
     }
     else {
         helper.imageOptions.networkAccessAllowed = YES;
+        helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         int32_t requestId = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
             BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
             if (downloadFinined && result) {
