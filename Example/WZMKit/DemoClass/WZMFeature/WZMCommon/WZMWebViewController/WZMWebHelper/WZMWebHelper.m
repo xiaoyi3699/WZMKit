@@ -7,6 +7,7 @@
 //
 
 #import "WZMWebHelper.h"
+#import "NSString+wzmcate.h"
 
 @implementation WZMWebHelper
 

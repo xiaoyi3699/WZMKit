@@ -13,6 +13,8 @@
 #import "WKWebView+WZMWebViewController.h"
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "WZMInline.h"
+#import "NSString+wzmcate.h"
 
 @interface WZMWebViewController ()<WKNavigationDelegate,WKUIDelegate,UIWebViewDelegate,WZMScriptMessageHandler>
 

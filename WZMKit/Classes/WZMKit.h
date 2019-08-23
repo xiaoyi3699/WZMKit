@@ -340,6 +340,7 @@
 #import "WZMSingleRotationGestureRecognizer.h"
 #import "WZMAlbumController.h"
 #import "WZMAlbumNavigationController.h"
+#import "WZMScannerViewController.h"
 
 /********************************************************/
 /********************** ↓ 扩展类 ↓ **********************/

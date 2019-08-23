@@ -10,6 +10,8 @@
 #import "WZMViewHandle.h"
 #import "WZMTextInfo.h"
 #import "WZMRefresh.h"
+#import "NSString+wzmcate.h"
+#import "UIView+wzmcate.h"
 
 @interface WZMPullListViewController ()
 

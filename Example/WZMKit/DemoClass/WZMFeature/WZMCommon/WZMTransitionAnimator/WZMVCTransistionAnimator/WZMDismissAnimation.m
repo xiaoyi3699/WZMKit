@@ -7,6 +7,7 @@
 //
 
 #import "WZMDismissAnimation.h"
+#import "WZMMacro.h"
 
 @interface WZMDismissAnimation ()
 

@@ -7,6 +7,8 @@
 //
 
 #import "WZMProviderDataCache.h"
+#import "WZMMacro.h"
+#import "WZMBase64.h"
 
 @implementation WZMProviderDataCache {
     NSString *_cachePath;

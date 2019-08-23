@@ -7,6 +7,7 @@
 //
 
 #import "WZMPopAnimation.h"
+#import "UIView+wzmcate.h"
 
 @implementation WZMPopAnimation
 

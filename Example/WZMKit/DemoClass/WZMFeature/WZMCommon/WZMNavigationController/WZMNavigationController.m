@@ -9,6 +9,7 @@
 #import "WZMNavigationController.h"
 #import "WZMTabBarController.h"
 #import "UIWindow+WZMTransformAnimation.h"
+#import "UIView+wzmcate.h"
 
 @interface WZMNavigationController ()<UIGestureRecognizerDelegate>
 

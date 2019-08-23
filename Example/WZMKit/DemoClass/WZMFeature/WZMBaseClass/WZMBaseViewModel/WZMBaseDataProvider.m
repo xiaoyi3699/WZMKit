@@ -8,6 +8,8 @@
 
 #import "WZMBaseDataProvider.h"
 #import "WZMProviderDataCache.h"
+#import "WZMNetWorking.h"
+#import "WZMViewHandle.h"
 
 @implementation WZMBaseDataProvider
 

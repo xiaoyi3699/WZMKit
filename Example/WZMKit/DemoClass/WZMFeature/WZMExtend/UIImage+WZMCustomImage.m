@@ -7,6 +7,8 @@
 //
 
 #import "UIImage+WZMCustomImage.h"
+#import "UIImage+wzmcate.h"
+#import "UIColor+wzmcate.h"
 
 @implementation UIImage (LLNavBGImage)
 

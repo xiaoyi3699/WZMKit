@@ -8,6 +8,8 @@
 
 #import "WZMIAPManager.h"
 #import <StoreKit/StoreKit.h>
+#import "WZMDeviceUtil.h"
+#import "WZMViewHandle.h"
 
 @interface WZMIAPManager ()<SKProductsRequestDelegate,SKPaymentTransactionObserver,UIAlertViewDelegate>
 

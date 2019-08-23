@@ -116,6 +116,7 @@
 #import "WZMPhotoBrowserCell.h"
 #import "WZMPopupAnimator.h"
 #import "WZMProgressHUD.h"
+#import "WZMScannerViewController.h"
 #import "WZMScrollImageView.h"
 #import "WZMSegmentedCell.h"
 #import "WZMSegmentedView.h"

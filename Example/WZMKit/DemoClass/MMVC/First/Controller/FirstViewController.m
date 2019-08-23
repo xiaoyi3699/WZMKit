@@ -54,7 +54,7 @@
     index += indexPath.row;
     
     if (indexPath.row < _newDataProvider.currentList.count) {
-        WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
+        WZMNewsModel *model = _newDataProvider.currentList[index];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];

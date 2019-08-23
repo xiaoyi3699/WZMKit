@@ -8,6 +8,9 @@
 
 #import "UIWindow+WZMTransformAnimation.h"
 #import <objc/runtime.h>
+#import "WZMMacro.h"
+#import "UIImage+wzmcate.h"
+#import "UIView+wzmcate.h"
 
 @implementation UIWindow (WZMTransformAnimation)
 static NSString *_screenImageKey = @"screenImage";

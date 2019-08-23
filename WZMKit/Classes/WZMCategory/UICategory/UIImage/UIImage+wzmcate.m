@@ -275,6 +275,7 @@
         CMTime time = CMTimeMultiplyByFloat64(dur, progress);
         CGImageRef img = [generator copyCGImageAtTime:time actualTime:NULL error:nil];
         UIImage *image = [UIImage imageWithCGImage:img];
+        CGImageRelease(img);
         [keyImages addObject:image];
     }
     return keyImages;
@@ -290,6 +291,7 @@
     CMTime time = CMTimeMultiplyByFloat64(dur, progress);
     CGImageRef img = [generator copyCGImageAtTime:time actualTime:NULL error:nil];
     UIImage *image = [UIImage imageWithCGImage:img];
+    CGImageRelease(img);
     return image;
 }
 

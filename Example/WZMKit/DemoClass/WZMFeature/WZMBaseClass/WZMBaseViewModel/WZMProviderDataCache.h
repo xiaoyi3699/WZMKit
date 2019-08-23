@@ -7,6 +7,7 @@
 //  网络请求的缓存处理
 
 #import <Foundation/Foundation.h>
+#import "WZMBlock.h"
 
 @interface WZMProviderDataCache : NSObject
 

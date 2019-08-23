@@ -7,6 +7,8 @@
 //
 
 #import "WZMWebProgressLayer.h"
+#import "WZMMacro.h"
+#import "WZMViewHandle.h"
 
 static NSTimeInterval const LLFastTimeInterval = 0.01;
 

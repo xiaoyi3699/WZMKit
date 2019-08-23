@@ -7,6 +7,7 @@
 //
 
 #import "WZMPushAnimation.h"
+#import "UIView+wzmcate.h"
 
 @implementation WZMPushAnimation
 
