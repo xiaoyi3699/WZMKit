@@ -13,12 +13,12 @@
 ///支付结果
 typedef enum : NSInteger {
     WZMIAPResultStatusSuccess           = 0,     //成功
-    WZMIAPResultStatusErrorJson         = 21000, //AppStore无法读取你提供的JSON数据
+    WZMIAPResultStatusErrorJson         = 21000, //AppStore无法读取提供的JSON数据
     WZMIAPResultStatusErrorReceipt1     = 21002, //收据数据不符合格式
-    WZMIAPResultStatusErrorReceipt2     = 21003, // 收据无法被验证
-    WZMIAPResultStatusErrorKey          = 21004, // 你提供的共享密钥和账户的共享密钥不一致
-    WZMIAPResultStatusErrorService      = 21005, // 收据服务器当前不可用
-    WZMIAPResultStatusErrorExpires      = 21006, // 收据是有效的,但订阅服务已经过期
+    WZMIAPResultStatusErrorReceipt2     = 21003, //收据无法被验证
+    WZMIAPResultStatusErrorKey          = 21004, //提供的共享密钥和账户的共享密钥不一致
+    WZMIAPResultStatusErrorService      = 21005, //收据服务器当前不可用
+    WZMIAPResultStatusErrorExpires      = 21006, //收据是有效的,但订阅服务已经过期
     WZMIAPResultStatusErrorEnvironment1 = 21007, //收据信息是测试用,但却被发送到产品环境中验证
     WZMIAPResultStatusErrorEnvironment2 = 21008, //收据信息是产品环境中使用,但却被发送到测试环境中验证
 } WZMIAPResultStatus;
