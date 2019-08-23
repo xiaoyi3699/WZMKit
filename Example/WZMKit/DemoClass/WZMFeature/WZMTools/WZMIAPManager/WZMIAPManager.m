@@ -11,6 +11,8 @@
 #import "WZMDeviceUtil.h"
 #import "WZMViewHandle.h"
 #import "WZMLogPrinter.h"
+#import "WZMNetWorking.h"
+#import "WZMJSONParse.h"
 
 #if DEBUG
 #define WZM_IAP_VERIFY  @"https://sandbox.itunes.apple.com/verifyReceipt"
@@ -48,6 +50,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.paying = NO;
         self.addObserver = NO;
         self.failedCount = 0;
+        self.type = WZMIAPTypeNormal;
+        self.verifyInApp = YES;
     }
     return self;
 }
@@ -211,20 +215,38 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         [self showInfoMessage:@"订单号/凭证无效"];
         return;
     }
-    //验证支付结果,一般放服务端验证
-    NSDictionary *dic = @{@"receipt-data":receiptString};
-    [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:dic callBack:^(id responseObject, NSError *error) {
-        self.paying = NO;
-        if (responseObject) {
-            //交易成功
-            [WZMViewHandle wzm_dismiss];
-            [self removeLocReceiptData];
-        }
-        else {
-            //交易失败
-            [self verifyPurchaseFail];
-        }
-    }];
+    
+    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}",receiptString];
+    if (self.type == WZMIAPTypeSubscription) {
+        params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKet];
+    }
+    if (self.isVerifyInApp) {
+        //直接向苹果服务器验证支付结果
+        [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:params callBack:^(id responseObject, NSError *error) {
+            self.paying = NO;
+            if (error || responseObject == nil) {
+                //交易失败
+                [self verifyPurchaseFail];
+            }
+            else {
+                WZMIAPResultStatus status = [WZMJSONParse getIntValueInDict:responseObject withKey:@"status"];
+                if (status == WZMIAPResultStatusSuccess) {
+                    //交易成功
+                    [WZMViewHandle wzm_dismiss];
+                    [self removeLocReceiptData];
+                }
+                else {
+                    [self verifyPurchaseFail];
+                    NSString *statusStr = [NSString stringWithFormat:@"%@",@(status)];
+                    WZMLog(@"%@",statusStr);
+                }
+            }
+        }];
+    }
+    else {
+        //将params传给服务器,让服务器去验证支付结果
+        
+    }
 }
 
 #pragma mark - private
