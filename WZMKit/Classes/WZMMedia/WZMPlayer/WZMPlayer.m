@@ -319,7 +319,7 @@
         self.currentTime = time;
         self.playProgress = self.currentTime*1.0/self.duration;
         CMTime dur = self.player.currentItem.duration;
-        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, self.playProgress)];
+        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, self.playProgress) toleranceBefore:CMTimeMake(1, 10) toleranceAfter:CMTimeMake(1, 10)];
     }
 }
 
@@ -331,7 +331,7 @@
         self.currentTime = time;
         self.playProgress = progress;
         CMTime dur = self.player.currentItem.duration;
-        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, progress)];
+        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, progress) toleranceBefore:CMTimeMake(1, 10) toleranceAfter:CMTimeMake(1, 10)];
     }
 }
 
