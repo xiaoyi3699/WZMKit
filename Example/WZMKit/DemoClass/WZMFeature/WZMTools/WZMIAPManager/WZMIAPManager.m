@@ -28,7 +28,7 @@
 //订单验证失败次数
 @property (nonatomic, assign) NSInteger failedCount;
 //订单号
-@property (nonatomic, copy) NSString *orderId;
+@property (nonatomic, strong) NSString *orderId;
 
 @end
 
