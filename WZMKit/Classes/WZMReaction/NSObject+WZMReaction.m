@@ -32,10 +32,4 @@ static NSString *_reactionKey = @"reaction";
     return self.reaction.next;
 }
 
-- (void)wzm_executeReaction:(id)param {
-    if (self.reaction.next) {
-        self.reaction.next(param);
-    }
-}
-
 @end

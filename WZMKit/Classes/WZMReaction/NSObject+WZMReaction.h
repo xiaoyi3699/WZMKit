@@ -17,6 +17,4 @@
 - (void)setNextAction:(nextAction)nextAction;
 - (nextAction)nextAction;
 
-- (void)wzm_executeReaction:(id)param;
-
 @end
