@@ -15,7 +15,7 @@
 #import "WZMJSONParse.h"
 
 #if DEBUG
-#define WZM_IAP_VERIFY  @"https://sandbox.itunes.apple.com/verifyReceipt"
+#define WZM_IAP_VERIFY @"https://sandbox.itunes.apple.com/verifyReceipt"
 #else
 #define WZM_IAP_VERIFY @"https://buy.itunes.apple.com/verifyReceipt"
 #endif
