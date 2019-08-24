@@ -29,6 +29,7 @@
 @property (nonatomic, assign) NSInteger failedCount;
 //订单号
 @property (nonatomic, strong) NSString *orderId;
+@property (nonatomic, strong) NSString *receipt;
 
 @end
 
@@ -52,6 +53,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.failedCount = 0;
         self.type = WZMIAPTypeNormal;
         self.verifyInApp = YES;
+        self.orderId = @"wzm.iap";
     }
     return self;
 }
@@ -60,9 +62,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     NSDictionary *orderInfo = [self getReceiptData];
     if (orderInfo) {
         self.paying = YES;
-        NSString *orderId = orderInfo[@"orderId"];
-        NSString *receipt = orderInfo[@"receipt"];
-        [self verifyPurchaseForServiceWithOrderId:orderId receipt:receipt];
+        self.orderId = orderInfo[@"orderId"];
+        self.receipt = orderInfo[@"receipt"];
+        [self verifyPurchaseForService];
         if (msg) {
             [self showLoadingMessage:msg];
         }
@@ -71,7 +73,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 //检查是否有未处理订单
 - (BOOL)checkLocaltionOrder {
-    return ([self getReceiptData] != nil);
+    NSDictionary *dic = [self getReceiptData];
+    return (dic != nil && dic[@"orderId"] != nil && dic[@"receipt"] != nil);
 }
 
 /** 检测权限 添加支付监测 开始支付流程*/
@@ -146,17 +149,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         for(SKPaymentTransaction *tran in transaction){
             switch (tran.transactionState) {
                 case SKPaymentTransactionStatePurchased:{
-                    // 订阅特殊处理
+                    //订阅特殊处理
                     if (tran.originalTransaction) {
-                        // 如果是自动续费的订单,originalTransaction会有内容
+                        //如果是自动续费的订单,originalTransaction会有内容
                         WZMLog(@"自动续费的订单,originalTransaction = %@",tran.originalTransaction);
                     }
                     else {
-                        // 普通购买，以及第一次购买自动订阅
+                        //普通购买，以及第一次购买自动订阅
                         WZMLog(@"普通购买，以及第一次购买自动订阅");
                     }
-                    //服务器验证凭证
-                    [self verifyPurchaseWithPaymentTransaction];
+                    [self loadAppStoreReceipt];
                     [self finishTransaction:tran];
                 }
                     break;
@@ -196,27 +198,22 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 #pragma mark - 订单验证
-/**验证购买，避免越狱软件模拟苹果请求达到非法购买问题*/
--(void)verifyPurchaseWithPaymentTransaction {
-    //从沙盒中获取交易凭证并且拼接成请求体数据
-    NSURL *receiptUrl = [[NSBundle mainBundle] appStoreReceiptURL];
-    NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
-    NSString *receiptString = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    [self saveReceiptData:@{@"receipt":[NSString stringWithFormat:@"%@",receiptString],
-                            @"orderId":[NSString stringWithFormat:@"%@",self.orderId]}];
-    [self verifyPurchaseForServiceWithOrderId:self.orderId
-                                      receipt:receiptString];
+/**从沙盒中获取交易凭证*/
+-(void)loadAppStoreReceipt {
+    NSURL *url   = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    self.receipt = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    [self saveReceiptData];
+    [self verifyPurchaseForService];
 }
 
-- (void)verifyPurchaseForServiceWithOrderId:(NSString *)orderId
-                                    receipt:(NSString *)receiptString {
-    if (orderId == nil || receiptString == nil) {
+/**验证收据真实性*/
+- (void)verifyPurchaseForService {
+    if (self.orderId == nil || self.receipt == nil) {
         self.paying = NO;
-        [self showInfoMessage:@"订单号/凭证无效"];
         return;
     }
-    
-    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}",receiptString];
+    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}",self.receipt];
     if (self.type == WZMIAPTypeSubscription) {
         params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKet];
     }
@@ -271,10 +268,11 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     }
 }
 
-//本地保存支付凭证
-- (void)saveReceiptData:(NSDictionary *)receiptData {
-    [[NSUserDefaults standardUserDefaults] setValue:receiptData forKey:kSaveReceiptData];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+- (void)saveReceiptData {
+    if (self.orderId == nil || self.receipt == nil) return;
+    NSDictionary *dic = @{@"orderId":self.orderId,@"receipt":self.receipt};
+    [[NSUserDefaults standardUserDefaults] setValue:dic forKey:kSaveReceiptData];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSDictionary *)getReceiptData {
