@@ -53,7 +53,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.failedCount = 0;
         self.type = WZMIAPTypeNormal;
         self.verifyInApp = YES;
-        self.orderId = @"wzm.iap";
+        self.shareKey = @"123456789";
     }
     return self;
 }
@@ -199,11 +199,26 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 #pragma mark - 订单验证
 /**从沙盒中获取交易凭证*/
 -(void)loadAppStoreReceipt {
-    NSURL *url   = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSURL *url = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *data = [NSData dataWithContentsOfURL:url];
-    self.receipt = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-    [self saveReceiptData];
-    [self verifyPurchaseForService];
+    if (data) {
+        self.receipt = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+        if (self.orderId == nil) {
+            //该订单是上次验证失败的订单
+            NSDictionary *orderInfo = [self getReceiptData];
+            self.orderId = orderInfo[@"orderId"];
+            
+            if (self.orderId == nil) {
+                //用户卸载重装了应用,订单号遗漏,使用默认值
+                self.orderId = @"wzm.iap";
+            }
+        }
+        [self saveReceiptData];
+        [self verifyPurchaseForService];
+    }
+    else {
+        self.paying = NO;
+    }
 }
 
 /**验证收据真实性*/
