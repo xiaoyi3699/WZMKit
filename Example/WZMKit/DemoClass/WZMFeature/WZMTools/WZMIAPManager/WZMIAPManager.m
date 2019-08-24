@@ -303,7 +303,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     [WZMViewHandle wzm_dismiss];
     self.failedCount ++;
     if (self.failedCount < 3) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"服务器验证"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单验证失败"
                                                             message:@"请检查网络环境后重试，取消后下次点击充值时将自动验证！"
                                                            delegate:self
                                                   cancelButtonTitle:@"取消"
