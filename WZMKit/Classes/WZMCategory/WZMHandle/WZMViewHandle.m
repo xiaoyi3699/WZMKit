@@ -11,6 +11,11 @@
 
 @implementation WZMViewHandle
 
++ (void)wzm_showAlertMessage:(NSString *)message {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+}
+
 + (void)wzm_showInfoMessage:(NSString *)message{
     [WZMProgressHUD showInfoMessage:message];
 }

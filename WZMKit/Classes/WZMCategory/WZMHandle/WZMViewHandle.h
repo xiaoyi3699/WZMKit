@@ -11,6 +11,7 @@
 
 @interface WZMViewHandle : UIView
 
++ (void)wzm_showAlertMessage:(NSString *)message;
 + (void)wzm_showInfoMessage:(NSString *)message;
 + (void)wzm_showProgressMessage:(NSString *)message;
 + (void)wzm_dismiss;
