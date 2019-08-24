@@ -159,7 +159,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                         WZMLog(@"普通购买，以及第一次购买自动订阅");
                     }
                     [self loadAppStoreReceipt];
-                    [self finishTransaction:tran];
                 }
                     break;
                 case SKPaymentTransactionStateRestored:{
@@ -213,9 +212,12 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.paying = NO;
         return;
     }
-    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}",self.receipt];
+    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"",self.receipt];
     if (self.type == WZMIAPTypeSubscription) {
         params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKey];
+    }
+    else {
+        params = [NSString stringWithFormat:@"}"];
     }
     if (self.isVerifyInApp) {
         //直接向苹果服务器验证支付结果
@@ -229,8 +231,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 WZMIAPResultStatus status = [WZMJSONParse getIntValueInDict:responseObject withKey:@"status"];
                 if (status == WZMIAPResultStatusSuccess) {
                     //交易成功
-                    [WZMViewHandle wzm_dismiss];
+                    [self showInfoMessage:@"支付成功"];
                     [self removeLocReceiptData];
+                    [self removeAllUncompleteTransactionsBeforeNewPurchase];
                 }
                 else {
                     [self verifyPurchaseFail];
