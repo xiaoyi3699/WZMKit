@@ -215,7 +215,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     }
     NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"}",self.receipt];
     if (self.type == WZMIAPTypeSubscription) {
-        params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKet];
+        params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKey];
     }
     if (self.isVerifyInApp) {
         //直接向苹果服务器验证支付结果
