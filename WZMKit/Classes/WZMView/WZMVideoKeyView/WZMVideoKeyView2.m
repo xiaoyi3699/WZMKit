@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UIImageView *graysImageView;
 ///视图
 @property (nonatomic, strong) UIView *bgView;
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIScrollView *contentView;
 
 @end
 
@@ -38,29 +38,26 @@
         bgRect.size.height -= 10;
         self.bgView = [[UIView alloc] initWithFrame:bgRect];
         self.bgView.clipsToBounds = YES;
-        self.bgView.userInteractionEnabled = NO;
         [self addSubview:self.bgView];
         
-        self.contentView = [[UIView alloc] initWithFrame:self.bgView.bounds];
+        self.contentView = [[UIScrollView alloc] initWithFrame:self.bgView.bounds];
+        self.contentView.delegate = self;
         self.contentView.clipsToBounds = YES;
         [self.bgView addSubview:self.contentView];
-        _contentWidth = self.contentView.wzm_width;
         
-        CGRect keyRect = self.contentView.bounds;
-        keyRect.origin.x = keyRect.size.width/2;
-        self.keysView = [[UIView alloc] initWithFrame:keyRect];
+        self.keysView = [[UIView alloc] init];
         self.keysView.clipsToBounds = YES;
         [self.contentView addSubview:self.keysView];
         
-        self.keysImageView = [[UIImageView alloc] initWithFrame:self.keysView.bounds];
+        self.keysImageView = [[UIImageView alloc] init];
         self.keysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.keysView addSubview:self.keysImageView];
         
-        self.graysView = [[UIView alloc] initWithFrame:keyRect];
+        self.graysView = [[UIView alloc] init];
         self.graysView.clipsToBounds = YES;
         [self.contentView addSubview:self.graysView];
         
-        self.graysImageView = [[UIImageView alloc] initWithFrame:self.graysView.bounds];
+        self.graysImageView = [[UIImageView alloc] init];
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.graysView addSubview:self.graysImageView];
         
@@ -69,8 +66,8 @@
         self.sliderView.wzm_cornerRadius = 1;
         [self addSubview:self.sliderView];
         
-        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
-        [self addGestureRecognizer:panGesture];
+        ///设置contentWidth
+        self.contentWidth = self.contentView.wzm_width*3;
     }
     return self;
 }
@@ -94,6 +91,24 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _sliderX = self.keysView.wzm_minX;
+    [self didChangeType:WZMCommonStateWillChanged];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetX = scrollView.contentOffset.x;
+    CGFloat tx = offsetX+scrollView.wzm_width/2-self.keysView.wzm_minX;
+    self.value = tx/self.keysView.wzm_width;
+    [self didChangeType:WZMCommonStateDidChanged];
+    
+    NSLog(@"%@",@(self.value));
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self didChangeType:WZMCommonStateEndChanged];
+}
+
 - (void)didChangeType:(WZMCommonState)type {
     if ([self.delegate respondsToSelector:@selector(videoKeyView2:changeType:)]) {
         [self.delegate videoKeyView2:self changeType:type];
@@ -101,16 +116,22 @@
 }
 
 - (void)setValue:(CGFloat)value {
-    if (value < 0 || value > 1) return;
+    if (value < 0) {
+        
+        return;
+    }
+    if (value > 1) {
+        
+        return;
+    }
     if (_value == value) return;
     _value = value;
     
-    CGFloat x = (0.5-self.value)*self.contentView.wzm_width;
-    CGFloat tx = value*self.contentView.wzm_width;
-    CGFloat tw = (1-value)*self.contentView.wzm_width;
+    CGFloat x = self.keysView.wzm_minX;
+    CGFloat tx = value*self.keysView.wzm_width;
+    CGFloat tw = (1-value)*self.keysView.wzm_width;
     
-    self.keysView.wzm_minX = x;
-    self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.wzm_height);
+    self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.graysView.wzm_height);
     self.graysImageView.wzm_minX = -tx;
 }
 
@@ -128,13 +149,10 @@
     if (_contentWidth == contentWidth) return;
     _contentWidth = contentWidth;
     
-    CGRect contentRect = self.bgView.bounds;
-    contentRect.origin.x = (self.bgView.wzm_width-contentWidth)/2;
-    contentRect.size.width = contentWidth;
-    self.contentView.frame = contentRect;
+    self.contentView.contentSize = CGSizeMake(contentWidth, self.contentView.wzm_height);
+    self.contentView.contentOffset = CGPointMake(0, 0);
     
-    CGRect keyRect = self.contentView.bounds;
-    keyRect.origin.x = contentRect.size.width/2;
+    CGRect keyRect = CGRectMake(self.contentView.wzm_width/2, 0, contentWidth-self.contentView.wzm_width, self.contentView.wzm_height);
     self.keysView.frame = keyRect;
     self.keysImageView.frame = self.keysView.bounds;
     self.graysView.frame = keyRect;
