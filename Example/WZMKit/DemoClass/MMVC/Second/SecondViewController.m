@@ -10,7 +10,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<UIScrollViewDelegate>
+@interface SecondViewController ()<UIScrollViewDelegate,WZMVideoKeyView2Delegate>
 
 @end
 
@@ -38,12 +38,13 @@
     
     WZMVideoKeyView2 *view2 = [[WZMVideoKeyView2 alloc] initWithFrame:CGRectMake(10, 300, 355, 60)];
     view2.videoUrl = url;
-//    view2.contentWidth = 999;
+    view2.contentWidth = 999;
+    view2.delegate = self;
     [self.view addSubview:view2];
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    
+- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 changeType:(WZMCommonState)type {
+    NSLog(@"%@==%@",@(videoKeyView2.value),@(type));
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

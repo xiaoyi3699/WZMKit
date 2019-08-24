@@ -43,6 +43,8 @@
         self.contentView = [[UIScrollView alloc] initWithFrame:self.bgView.bounds];
         self.contentView.delegate = self;
         self.contentView.clipsToBounds = YES;
+        self.contentView.showsHorizontalScrollIndicator = NO;
+        self.contentView.showsVerticalScrollIndicator = NO;
         [self.bgView addSubview:self.contentView];
         
         self.keysView = [[UIView alloc] init];
@@ -61,13 +63,14 @@
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.graysView addSubview:self.graysImageView];
         
-        self.sliderView = [[UIView alloc] initWithFrame:CGRectMake((self.wzm_width-2)/2, 0, 2, self.wzm_height)];
+        _sliderX = (self.wzm_width-2)/2;
+        self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(_sliderX, 0, 2, self.wzm_height)];
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
         [self addSubview:self.sliderView];
         
         ///设置contentWidth
-        self.contentWidth = self.contentView.wzm_width*3;
+        self.contentWidth = self.contentView.wzm_width*2;
     }
     return self;
 }
@@ -92,7 +95,6 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    _sliderX = self.keysView.wzm_minX;
     [self didChangeType:WZMCommonStateWillChanged];
 }
 
@@ -101,11 +103,9 @@
     CGFloat tx = offsetX+scrollView.wzm_width/2-self.keysView.wzm_minX;
     self.value = tx/self.keysView.wzm_width;
     [self didChangeType:WZMCommonStateDidChanged];
-    
-    NSLog(@"%@",@(self.value));
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     [self didChangeType:WZMCommonStateEndChanged];
 }
 
@@ -117,18 +117,20 @@
 
 - (void)setValue:(CGFloat)value {
     if (value < 0) {
-        
+        CGFloat dx = self.contentView.contentOffset.x;
+        self.sliderView.wzm_minX = _sliderX-dx;
         return;
     }
     if (value > 1) {
-        
+        CGFloat dx = self.contentView.contentOffset.x+self.contentView.wzm_width-self.contentView.contentSize.width;
+        self.sliderView.wzm_minX = _sliderX-dx;
         return;
     }
     if (_value == value) return;
     _value = value;
     
-    CGFloat x = self.keysView.wzm_minX;
     CGFloat tx = value*self.keysView.wzm_width;
+    CGFloat x = self.keysView.wzm_minX;
     CGFloat tw = (1-value)*self.keysView.wzm_width;
     
     self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.graysView.wzm_height);
