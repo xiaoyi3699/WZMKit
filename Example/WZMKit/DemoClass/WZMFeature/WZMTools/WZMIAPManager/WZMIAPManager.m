@@ -264,7 +264,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     }
     else {
         //将params传给服务器,让服务器去验证支付结果
-        
+        //请求完设置self.paying = NO;
     }
 }
 
