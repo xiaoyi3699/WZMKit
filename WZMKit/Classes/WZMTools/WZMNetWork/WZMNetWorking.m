@@ -220,7 +220,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
     //请求体的长度
     [request setValue:[NSString stringWithFormat:@"%zd", body.length] forHTTPHeaderField:@"Content-Length"];
     //声明这个POST请求是个文件上传
-    [request setValue:@"multipart/form-data; boundary=WZM"forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"multipart/form-data; boundary=WZM" forHTTPHeaderField:@"Content-Type"];
     [self request:[self handlingRequest:request] callBack:callBack];
 }
 

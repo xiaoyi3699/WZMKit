@@ -227,15 +227,15 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.paying = NO;
         return;
     }
-    NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"",self.receipt];
-    if (self.type == WZMIAPTypeSubscription) {
-        params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKey];
-    }
-    else {
-        params = [NSString stringWithFormat:@"}"];
-    }
     if (self.isVerifyInApp) {
         //直接向苹果服务器验证支付结果
+        NSString *params = [NSString stringWithFormat:@"{\"receipt-data\":\"%@\"",self.receipt];
+        if (self.type == WZMIAPTypeSubscription) {
+            params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKey];
+        }
+        else {
+            params = [NSString stringWithFormat:@"}"];
+        }
         [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:params callBack:^(id responseObject, NSError *error) {
             self.paying = NO;
             if (error || responseObject == nil) {
