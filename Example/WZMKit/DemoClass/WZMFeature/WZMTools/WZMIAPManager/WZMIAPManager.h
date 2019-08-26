@@ -33,6 +33,8 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) WZMIAPType type;
 ///共享秘钥,订阅模式需要
 @property (nonatomic, strong) NSString *shareKey;
+///是否正在支付
+@property (nonatomic, assign, readonly, getter=isPaying) BOOL paying;
 
 /**
  是否在APP内部验证支付结果

@@ -109,9 +109,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 /** 去Apple IAP Service 根据商品ID请求商品信息*/
-- (void)requestProductData:(NSString *)type {
+- (void)requestProductData:(NSString *)productId {
     self.paying = YES;
-    NSArray *product = [[NSArray alloc] initWithObjects:type,nil];
+    NSArray *product = [[NSArray alloc] initWithObjects:productId,nil];
     NSSet *nsset = [NSSet setWithArray:product];
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
     request.delegate = self;
@@ -173,7 +173,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                     break;
                 case SKPaymentTransactionStateFailed:{
                     self.paying = NO;
-                    [self showInfoMessage:@"交易失败"];
+                    [self showInfoMessage:@"支付失败"];
                     [self finishTransaction:tran];
                 }
                     break;
