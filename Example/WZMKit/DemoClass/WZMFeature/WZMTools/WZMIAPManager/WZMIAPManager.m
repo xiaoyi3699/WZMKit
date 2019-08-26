@@ -30,8 +30,8 @@
 //订单号
 @property (nonatomic, strong) NSString *orderId;
 @property (nonatomic, strong) NSString *receipt;
-//防止重复弹框
-@property (nonatomic, assign) BOOL continueVerify;
+//是否是用户手动验证的订单
+@property (nonatomic, assign) BOOL manualVerify;
 
 @end
 
@@ -56,7 +56,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.type = WZMIAPTypeNormal;
         self.verifyInApp = YES;
         self.shareKey = @"123456789";
-        self.continueVerify = YES;
+        self.manualVerify = NO;
     }
     return self;
 }
@@ -83,6 +83,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 /** 检测权限 添加支付监测 开始支付流程*/
 - (void)requestProductWithOrderId:(NSString *)orderId productId:(NSString *)productId {
     if (self.isPaying) return;
+    self.manualVerify = YES;
     if ([self checkLocaltionOrder]) {
         //本地有未处理订单
         [self checkAppleOrder:@"上一笔订单未处理完成，正在重新验证..."];
@@ -312,6 +313,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 - (void)showInfoMessage:(NSString *)msg {
     [WZMViewHandle wzm_dismiss];
+    if (self.manualVerify == NO) return;
+    self.manualVerify = NO;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:msg
                                                        delegate:nil
@@ -322,8 +325,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 - (void)showVerifyPurchaseFail {
     [WZMViewHandle wzm_dismiss];
-    if (self.continueVerify == NO) return;
-    self.continueVerify = NO;
+    if (self.manualVerify == NO) return;
+    self.manualVerify = NO;
     self.failedCount ++;
     if (self.failedCount < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单验证失败"
@@ -345,9 +348,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    self.continueVerify = YES;
     if (buttonIndex != alertView.cancelButtonIndex) {
         if (self.failedCount < 3) {
+            self.manualVerify = YES;
             [self checkAppleOrder:@"订单验证中..."];
         }
         else {
