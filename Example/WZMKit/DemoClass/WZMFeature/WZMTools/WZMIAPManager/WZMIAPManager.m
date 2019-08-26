@@ -30,6 +30,8 @@
 //订单号
 @property (nonatomic, strong) NSString *orderId;
 @property (nonatomic, strong) NSString *receipt;
+//防止重复弹框
+@property (nonatomic, assign) BOOL continueVerify;
 
 @end
 
@@ -54,6 +56,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.type = WZMIAPTypeNormal;
         self.verifyInApp = YES;
         self.shareKey = @"123456789";
+        self.continueVerify = YES;
     }
     return self;
 }
@@ -319,6 +322,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 - (void)showVerifyPurchaseFail {
     [WZMViewHandle wzm_dismiss];
+    if (self.continueVerify == NO) return;
+    self.continueVerify = NO;
     self.failedCount ++;
     if (self.failedCount < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单验证失败"
@@ -340,6 +345,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    self.continueVerify = YES;
     if (buttonIndex != alertView.cancelButtonIndex) {
         if (self.failedCount < 3) {
             [self checkAppleOrder:@"订单验证中..."];
