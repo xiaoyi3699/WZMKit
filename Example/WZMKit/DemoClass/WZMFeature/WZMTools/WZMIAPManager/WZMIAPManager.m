@@ -347,6 +347,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         else {
             self.failedCount = 0;
             [self removeLocReceiptData];
+            [self removeAllUncompleteTransactionsBeforeNewPurchase];
         }
     }
 }
