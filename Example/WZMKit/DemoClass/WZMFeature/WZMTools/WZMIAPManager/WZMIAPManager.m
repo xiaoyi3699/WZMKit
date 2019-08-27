@@ -169,7 +169,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 }
                     break;
                 case SKPaymentTransactionStateFailed:{
-                    [self finishTransaction:@"已经购买过商品"];
+                    [self finishTransaction:@"支付失败"];
                 }
                     break;
                 default:
