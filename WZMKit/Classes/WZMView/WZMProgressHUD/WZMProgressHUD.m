@@ -32,17 +32,17 @@
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
     if (newSuperview) {
-        if (_messageLabel.hidden) {
-            _messageLabel.frame = CGRectZero;
+        if (self.messageLabel.hidden) {
+            self.messageLabel.frame = CGRectZero;
             self.activityView.frame = self.bounds;
         }
         else {
-            _messageLabel.frame = CGRectMake(0, 65, self.bounds.size.width, 35);
+            self.messageLabel.frame = CGRectMake(0, 65, self.bounds.size.width, 35);
             self.activityView.frame = CGRectMake(0, 0, self.bounds.size.width, 80);
         }
     }
+    [super willMoveToSuperview:newSuperview];
 }
 
 - (void)startAnimation {
