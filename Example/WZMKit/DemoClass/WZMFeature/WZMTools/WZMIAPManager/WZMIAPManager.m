@@ -38,7 +38,7 @@
 static NSString *kSaveReceiptData = @"kSaveReceiptData";
 @implementation WZMIAPManager
 
-+ (instancetype)shareManager {
++ (instancetype)manager {
     static dispatch_once_t onceToken;
     static WZMIAPManager *manager = nil;
     dispatch_once(&onceToken, ^{

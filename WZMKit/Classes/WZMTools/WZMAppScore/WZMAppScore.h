@@ -1,5 +1,5 @@
 //
-//  WZMAppStore.h
+//  WZMAppScore.h
 //  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/5/22.
@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 
-@interface WZMAppStore : NSObject
+@interface WZMAppScore : NSObject
 
-+ (instancetype)shareScore;
-- (void)showScoreView: (WZMAppStoreType)type isOnce:(BOOL)isOnce;
++ (instancetype)score;
+- (void)showScoreView:(WZMAppScoreType)type isOnce:(BOOL)isOnce;
 
 @end

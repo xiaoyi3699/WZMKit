@@ -22,7 +22,7 @@
 /**
  数据库操纵单例
  */
-+ (instancetype)defaultManager{
++ (instancetype)manager{
     static dispatch_once_t onceToken;
     static WZMSqliteManager *manager;
     dispatch_once(&onceToken, ^{

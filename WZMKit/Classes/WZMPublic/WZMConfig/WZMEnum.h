@@ -17,9 +17,9 @@ typedef enum : NSInteger {
 
 ///打开AppStore的方式
 typedef enum : NSInteger {
-    WZMAppStoreTypeOpen  = 0,//AppStore
-    WZMAppStoreTypeInApp,    //应用内
-} WZMAppStoreType;
+    WZMAppScoreTypeOpen  = 0,//AppStore
+    WZMAppScoreTypeInApp,    //应用内
+} WZMAppScoreType;
 
 ///手势类型
 typedef enum : NSInteger {

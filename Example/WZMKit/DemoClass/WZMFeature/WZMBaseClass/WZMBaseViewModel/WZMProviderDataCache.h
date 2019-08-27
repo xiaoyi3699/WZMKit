@@ -11,7 +11,7 @@
 
 @interface WZMProviderDataCache : NSObject
 
-+ (instancetype)dataCache;
++ (instancetype)cache;
 ///存数据
 - (NSString *)storeData:(id)data forKey:(NSString *)key;
 ///取数据

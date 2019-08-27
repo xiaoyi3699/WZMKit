@@ -44,7 +44,7 @@ typedef enum : NSInteger {
  */
 @property (nonatomic, assign, getter=isVerifyInApp) BOOL verifyInApp;
 
-+ (instancetype)shareManager;
++ (instancetype)manager;
 
 /**
  根据商品ID请求支付信息

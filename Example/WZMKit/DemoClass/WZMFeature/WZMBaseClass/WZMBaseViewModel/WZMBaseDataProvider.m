@@ -28,7 +28,7 @@
         loadHandler();
     }
     if (self.isUseLocalCache) {
-        id responseObject = [[WZMProviderDataCache dataCache] dataForKey:self.requestUrl];
+        id responseObject = [[WZMProviderDataCache cache] dataForKey:self.requestUrl];
         if (responseObject) {
             [self handleResponseObj:responseObject
                               error:nil
@@ -74,7 +74,7 @@
 - (void)handleResponseObj:(id)responseObject error:(NSError *)error callBack:(doHandler)backHandler cacheData:(BOOL)cacheData {
     [self handleResponseObj:responseObject error:error callBack:backHandler];
     if (self.isUseLocalCache && cacheData && responseObject && error == nil) {
-        [[WZMProviderDataCache dataCache] storeData:responseObject forKey:self.requestUrl];
+        [[WZMProviderDataCache cache] storeData:responseObject forKey:self.requestUrl];
     }
 }
 

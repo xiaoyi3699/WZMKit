@@ -11,7 +11,7 @@
 
 @interface WZMImageCache : NSObject
 
-+ (instancetype)imageCache;
++ (instancetype)cache;
 
 ///加载网络图片(同步)
 - (UIImage *)getImageWithUrl:(NSString *)url isUseCatch:(BOOL)isUseCatch;

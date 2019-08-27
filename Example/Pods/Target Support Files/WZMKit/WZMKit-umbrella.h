@@ -76,7 +76,7 @@
 #import "WZMRefresh.h"
 #import "WZMRefreshHelper.h"
 #import "WZMAppJump.h"
-#import "WZMAppStore.h"
+#import "WZMAppScore.h"
 #import "WZMDeviceUtil.h"
 #import "WZMDownloader.h"
 #import "WZMDispatch.h"

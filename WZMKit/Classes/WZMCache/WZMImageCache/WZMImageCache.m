@@ -16,13 +16,13 @@
     NSMutableDictionary *_memoryCache;
 }
 
-+ (instancetype)imageCache {
-    static WZMImageCache *imageCache;
++ (instancetype)cache {
+    static WZMImageCache *cache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        imageCache = [[WZMImageCache alloc] init];
+        cache = [[WZMImageCache alloc] init];
     });
-    return imageCache;
+    return cache;
 }
 
 - (instancetype)init {

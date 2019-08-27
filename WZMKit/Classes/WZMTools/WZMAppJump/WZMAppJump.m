@@ -16,7 +16,7 @@
 
 @implementation WZMAppJump
 
-+ (WZMAppJump *)shareInstance{
++ (WZMAppJump *)jump {
     static WZMAppJump* instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -103,8 +103,8 @@
 }
 
 //AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type{
-    if (type == WZMAppStoreTypeOpen) {
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppScoreType)type{
+    if (type == WZMAppScoreTypeOpen) {
         [self wzm_AppStoreScoreOpen:appId];
     }
     else {
@@ -130,13 +130,13 @@
 }
 
 //AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type{
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppScoreType)type{
     
-    if (type == WZMAppStoreTypeOpen) {
+    if (type == WZMAppScoreTypeOpen) {
         [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
     else {
-        [[WZMAppJump shareInstance] openAppStoreDownloadInInnerApp:appId];
+        [[WZMAppJump jump] openAppStoreDownloadInInnerApp:appId];
     }
 }
 

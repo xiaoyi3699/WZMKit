@@ -11,7 +11,7 @@
 
 @interface WZMAppJump : NSObject
 
-+ (WZMAppJump *)shareInstance;
++ (WZMAppJump *)jump;
 
 ///判断APP是否第一次启动
 + (BOOL)checkAppIsFirstLaunch:(NSString *)key;
@@ -32,9 +32,9 @@
 + (BOOL)openAppWithAppType: (WZMAPPType)type;
 
 ///AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type;
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppScoreType)type;
 
 ///AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type;
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppScoreType)type;
 
 @end

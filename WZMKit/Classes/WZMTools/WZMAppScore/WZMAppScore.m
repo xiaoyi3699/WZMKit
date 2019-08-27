@@ -1,12 +1,12 @@
 //
-//  WZMAppStore.m
+//  WZMAppScore.m
 //  WZMCommonStatic
 //
 //  Created by WangZhaomeng on 2018/5/22.
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "WZMAppStore.h"
+#import "WZMAppScore.h"
 #import "WZMFileManager.h"
 #import "WZMAppJump.h"
 #import "WZMDispatch.h"
@@ -15,20 +15,20 @@
 //评分
 #define WZM_STORE_KEY @"wzmStoreKey"
 #define WZM_BAD_KEY   @"wzmBadKey"
-@interface WZMAppStore ()<UIAlertViewDelegate>
+@interface WZMAppScore ()<UIAlertViewDelegate>
 
 @end
 
-@implementation WZMAppStore {
-    WZMAppStoreType _type;
+@implementation WZMAppScore {
+    WZMAppScoreType _type;
     NSString *_appId;
 }
 
-+ (instancetype)shareScore {
-    static WZMAppStore *score;
++ (instancetype)score {
+    static WZMAppScore *score;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        score = [[WZMAppStore alloc] initWithAppId:@""];
+        score = [[WZMAppScore alloc] initWithAppId:@""];
     });
     return score;
 }
@@ -41,7 +41,7 @@
     return self;
 }
 
-- (void)showScoreView: (WZMAppStoreType)type isOnce:(BOOL)isOnce {
+- (void)showScoreView: (WZMAppScoreType)type isOnce:(BOOL)isOnce {
     _type = type;
     BOOL isStore = [[WZMFileManager objForKey:WZM_STORE_KEY] boolValue];
     if (isOnce && isStore) return;

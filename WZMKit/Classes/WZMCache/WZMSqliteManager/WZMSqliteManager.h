@@ -10,7 +10,7 @@
 
 @interface WZMSqliteManager : NSObject
 
-+ (instancetype)defaultManager;
++ (instancetype)manager;
 - (BOOL)createTableName:(NSString *)tableName modelClass:(Class)modelClass;
 - (BOOL)insertModel:(id)model tableName:(NSString *)tableName;
 - (BOOL)deleteModel:(id)model tableName:(NSString *)tableName primkey:(NSString *)primkey;

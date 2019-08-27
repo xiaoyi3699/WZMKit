@@ -195,7 +195,7 @@
             [WZMFileManager setObj:version forKey:versionKey];
             WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:updateContent OKButtonTitle:@"立即更新" cancelButtonTitle:cancel type:WZMAlertViewTypeUpdate];
             [alertView setOKBlock:^{
-                [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppStoreTypeOpen];
+                [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppScoreTypeOpen];
                 exit(0);
             }];
             [alertView setCannelBlock:^{
