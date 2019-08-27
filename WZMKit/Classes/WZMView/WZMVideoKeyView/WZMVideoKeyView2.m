@@ -103,13 +103,27 @@
     CGFloat tx = offsetX+scrollView.wzm_width/2-self.keysView.wzm_minX;
     self.value = tx/self.keysView.wzm_width;
     [self didChangeType:WZMCommonStateDidChanged];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.1];
 }
 
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // 停止类型1、停止类型2
+    BOOL stop = !scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+    if (stop) {
+        [self scrollViewDidEndScroll];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        // 停止类型3
+        BOOL stop = scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+        if (stop) {
+            [self scrollViewDidEndScroll];
+        }
+    }
+}
+
+- (void)scrollViewDidEndScroll {
     [self didChangeType:WZMCommonStateEndChanged];
 }
 
