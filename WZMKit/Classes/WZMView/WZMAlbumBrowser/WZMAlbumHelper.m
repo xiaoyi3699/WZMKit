@@ -17,9 +17,9 @@
 
 @interface WZMAlbumHelper ()
 
-@property (nonatomic, strong) NSString *videoPath;
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
+@property (nonatomic, strong) NSString *videoFolder;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
 @property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
 
@@ -65,8 +65,8 @@
         self.iCloudVideoOptions.version = PHVideoRequestOptionsVersionOriginal;
         self.iCloudVideoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
         
-        self.videoPath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMAlbum"];
-        [WZMFileManager createDirectoryAtPath:self.videoPath];
+        self.videoFolder = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMAlbum"];
+        [WZMFileManager createDirectoryAtPath:self.videoFolder];
     }
     return self;
 }
@@ -208,13 +208,27 @@
     }
 }
 
+//导出图片
++ (void)wzm_exportImageWithAsset:(id)asset imageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.imageOptions.networkAccessAllowed = YES;
+    helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+        if (downloadFinined && result) {
+            result = [self wzm_fixOrientation:result];
+            if (completion) completion(result);
+        }
+    }];
+}
+
 //导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset640x480 outPath:helper.videoPath completion:completion];
+    [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset640x480 outFolder:helper.videoFolder completion:completion];
 }
 
-+ (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outPath:(NSString *)outPath completion:(void(^)(NSURL *videoURL))completion {
++ (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
     helper.videoOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
@@ -223,7 +237,7 @@
             AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
             NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
             NSString *videoName = [formater stringFromDate:[NSDate date]];
-            NSString *outputPath = [outPath stringByAppendingFormat:@"%@.mp4", videoName];
+            NSString *outputPath = [outFolder stringByAppendingFormat:@"/%@.mp4", videoName];
             session.shouldOptimizeForNetworkUse = true;
             NSArray *supportedTypeArray = session.supportedFileTypes;
             if (supportedTypeArray.count == 0) {
@@ -300,8 +314,8 @@
 ///清除视频缓存
 + (void)wzm_claerVideoCache {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
-    [WZMFileManager deleteFileAtPath:helper.videoPath error:nil];
-    [WZMFileManager createDirectoryAtPath:helper.videoPath];
+    [WZMFileManager deleteFileAtPath:helper.videoFolder error:nil];
+    [WZMFileManager createDirectoryAtPath:helper.videoFolder];
 }
 
 //private修正图片转向

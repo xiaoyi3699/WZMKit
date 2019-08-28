@@ -165,11 +165,42 @@
 }
 
 - (void)photoWithModel:(WZMAlbumModel *)model completion:(void(^)(id obj))completion {
-    [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(id obj) {
-        if (completion) {
-            completion(obj);
+    if (model.type == WZMAlbumPhotoTypeVideo) {
+        if (self.config.originalVideo) {
+            //原视频
+            [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(id obj) {
+                if (completion) {
+                    completion(obj);
+                }
+            }];
         }
-    }];
+        else {
+            //预设尺寸
+            [WZMAlbumHelper wzm_exportVideoWithAsset:model.asset preset:self.config.videoPreset outFolder:self.config.videoFolder completion:^(NSURL *videoURL) {
+                if (completion) {
+                    completion(videoURL);
+                }
+            }];
+        }
+    }
+    else {
+        if (self.config.originalImage) {
+            //原图
+            [WZMAlbumHelper wzm_getOriginalWithAsset:model.asset completion:^(id obj) {
+                if (completion) {
+                    completion(obj);
+                }
+            }];
+        }
+        else {
+            //预设尺寸
+            [WZMAlbumHelper wzm_exportImageWithAsset:model.asset imageSize:self.config.imageSize completion:^(UIImage *image) {
+                if (completion) {
+                    completion(image);
+                }
+            }];
+        }
+    }
 }
 
 - (void)dealloc {

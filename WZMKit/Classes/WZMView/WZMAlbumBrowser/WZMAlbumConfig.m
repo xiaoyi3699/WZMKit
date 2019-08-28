@@ -26,9 +26,9 @@
         self.allowShowVideo = YES;
         self.originalImage = YES;
         self.originalVideo = YES;
-        self.imagePreset = 600;
+        self.imageSize = CGSizeMake(600, 600);
         self.videoPreset = AVAssetExportPreset640x480;
-//        self.videoPath = [WZMAlbumHelper video];
+        self.videoFolder = NSTemporaryDirectory();
     }
     return self;
 }

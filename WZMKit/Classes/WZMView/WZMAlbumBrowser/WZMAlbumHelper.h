@@ -20,9 +20,11 @@
 + (int32_t)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion;
 ///从iCloud获取图片/视频
 + (void)wzm_getICloudWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion;
+//导出图片
++ (void)wzm_exportImageWithAsset:(id)asset imageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion;
 ///导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
-+ (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outPath:(NSString *)outPath completion:(void(^)(NSURL *videoURL))completion;
++ (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///保存视频到系统相册
 + (void)wzm_saveVideo:(NSString *)path;
 ///保存图片到系统相册

@@ -32,12 +32,12 @@
 ///是否导出原图, 默认YES
 @property (nonatomic, assign) BOOL originalImage;
 ///导出的最大尺寸(像素), 默认600x600, 非原图时生效
-@property (nonatomic, assign) NSInteger imagePreset;
+@property (nonatomic, assign) CGSize imageSize;
 
 ///是否是源视频(源视频路径为虚拟镜像路径), 默认YES
 @property (nonatomic, assign) BOOL originalVideo;
-///导出的视频存储路径, 非源视频时生效
-@property (nonatomic, assign) NSString *videoPath;
+///导出的视频存储路径(文件夹), 非源视频时生效, 默认tmp
+@property (nonatomic, assign) NSString *videoFolder;
 /*
  导出的视频尺寸, 非源视频时生效, 默认AVAssetExportPreset640x480
  参数设置:
