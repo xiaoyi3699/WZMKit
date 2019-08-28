@@ -21,7 +21,7 @@
         self.autoDismiss = YES;
         self.allowPreview = YES;
         self.allowShowIndex = YES;
-        self.allowShowGIF = NO;
+        self.allowShowGIF = YES;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
         self.originalImage = YES;

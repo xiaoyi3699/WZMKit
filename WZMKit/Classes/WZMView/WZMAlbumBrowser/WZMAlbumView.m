@@ -128,11 +128,7 @@
             [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 PHAsset *phAsset = (PHAsset *)obj;
                 WZMAlbumModel *model = [WZMAlbumModel modelWithAsset:phAsset];
-                if (self.config.allowShowGIF == NO) {
-                    if (model.type != WZMAlbumPhotoTypePhotoGif) {
-                        [self.allPhotos addObject:model];
-                    }
-                }
+                [self.allPhotos addObject:model];
             }];
             break;
         }

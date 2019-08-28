@@ -34,6 +34,7 @@
     config.originalImage = NO;
     config.imageSize = CGSizeMake(200, 220);
     config.originalVideo = NO;
+    config.allowShowGIF = NO;
     WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
     [self.navigationController pushViewController:vc animated:YES];

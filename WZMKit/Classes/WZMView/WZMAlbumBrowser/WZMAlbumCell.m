@@ -126,7 +126,7 @@
     }
     
     if (model.type == WZMAlbumPhotoTypePhotoGif) {
-        _gifLabel.hidden = NO;
+        _gifLabel.hidden = !config.allowShowGIF;
         _videoTimeView.hidden = YES;
         _playImageView.hidden = YES;
         _videoTimeLabel.text = @"";
