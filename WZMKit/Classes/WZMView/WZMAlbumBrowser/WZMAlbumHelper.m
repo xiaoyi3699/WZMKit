@@ -236,8 +236,8 @@
         if ([presets containsObject:preset]) {
             AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
             NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
-            NSString *videoName = [formater stringFromDate:[NSDate date]];
-            NSString *outputPath = [outFolder stringByAppendingFormat:@"/%@.mp4", videoName];
+            NSString *videoName = [NSString stringWithFormat:@"%@.mp4",[formater stringFromDate:[NSDate date]]];
+            NSString *outputPath = [outFolder stringByAppendingPathComponent:videoName];
             session.shouldOptimizeForNetworkUse = true;
             NSArray *supportedTypeArray = session.supportedFileTypes;
             if (supportedTypeArray.count == 0) {

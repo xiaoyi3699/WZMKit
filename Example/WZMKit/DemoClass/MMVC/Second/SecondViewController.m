@@ -10,7 +10,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()
+@interface SecondViewController ()<WZMAlbumControllerDelegate>
 
 @end
 
@@ -30,8 +30,17 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:[WZMAlbumConfig new]];
+    WZMAlbumConfig *config = [WZMAlbumConfig new];
+    config.originalImage = NO;
+    config.imageSize = CGSizeMake(200, 220);
+    config.originalVideo = NO;
+    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
+    vc.pickerDelegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos {
+    NSLog(@"%@",photos);
 }
 
 @end
