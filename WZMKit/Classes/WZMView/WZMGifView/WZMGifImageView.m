@@ -8,6 +8,7 @@
 
 #import "WZMGifImageView.h"
 #import <ImageIO/ImageIO.h>
+#import "WZMMacro.h"
 
 @interface WZMGifImageView ()
 
@@ -74,28 +75,27 @@
 - (void)playGifAnimation {
     if (self.isPlaying) return;
     _playing = YES;
-    __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         CGImageSourceRef src = nil;
         size_t frameCount = 0;
         size_t frameCacheInterval = NSUIntegerMax;
         NSArray<NSNumber*> *frameDelayArray = nil;
         NSMutableDictionary<NSNumber*, UIImage*> *imageCache = nil;
-        while (weakSelf.isPlaying && weakSelf.lastCount > 0) {
+        while (self.isPlaying && self.lastCount > 0) {
             NSDate *beginTime = [NSDate date];
             // gifData改变或者线程刚开始src为nil，并且要gifData有数据
-            if ((weakSelf.isSourceChange || src == nil) && weakSelf.gifData != nil) {
-                weakSelf.sourceChange = NO;
+            if ((self.isSourceChange || src == nil) && self.gifData != nil) {
+                self.sourceChange = NO;
                 if (src) {
                     CFRelease(src);
                 }
-                src = CGImageSourceCreateWithData((__bridge CFDataRef)weakSelf.gifData, NULL);
+                src = CGImageSourceCreateWithData((__bridge CFDataRef)self.gifData, NULL);
                 if (src) {
                     frameCount = CGImageSourceGetCount(src);
                     frameDelayArray = [WZMGifImageView durationArrayWithSource:src];
                     imageCache = [NSMutableDictionary dictionary];
-                    if (weakSelf.frameCacheInterval != NSUIntegerMax) {
-                        frameCacheInterval = weakSelf.frameCacheInterval + 1;
+                    if (self.frameCacheInterval != NSUIntegerMax) {
+                        frameCacheInterval = self.frameCacheInterval + 1;
                     }
                 }
                 else {
@@ -104,35 +104,35 @@
             }
             
             NSTimeInterval frameDelay = 0.0;
-            if (weakSelf.imageIndex < frameDelayArray.count) {
-                frameDelay = frameDelayArray[weakSelf.imageIndex].floatValue * weakSelf.speed;
+            if (self.imageIndex < frameDelayArray.count) {
+                frameDelay = frameDelayArray[self.imageIndex].floatValue * self.speed;
             }
-            weakSelf.imageIndex ++;
-            if (weakSelf.imageIndex == frameCount) {
-                weakSelf.imageIndex = 0;
-                if (weakSelf.lastCount != NSUIntegerMax) {
-                    weakSelf.lastCount --;
+            self.imageIndex ++;
+            if (self.imageIndex == frameCount) {
+                self.imageIndex = 0;
+                if (self.lastCount != NSUIntegerMax) {
+                    self.lastCount --;
                 }
             }
-            UIImage *image = imageCache[@(weakSelf.imageIndex)];
+            UIImage *image = imageCache[@(self.imageIndex)];
             if (image == nil && src) {
-                image = [WZMGifImageView imageWithSource:src andIndex:weakSelf.imageIndex];
+                image = [WZMGifImageView imageWithSource:src andIndex:self.imageIndex];
                 if (frameCacheInterval < frameCount
-                    && weakSelf.imageIndex % frameCacheInterval == 0) {
-                    imageCache[@(weakSelf.imageIndex)] = image;
+                    && self.imageIndex % frameCacheInterval == 0) {
+                    imageCache[@(self.imageIndex)] = image;
                 }
             }
             [NSThread sleepUntilDate:[beginTime dateByAddingTimeInterval:frameDelay]];
             dispatch_sync(dispatch_get_main_queue(), ^{
-                if (weakSelf.isPlaying && !weakSelf.isSourceChange) {
-                    weakSelf.image = image;
+                if (self.isPlaying && !self.isSourceChange) {
+                    self.image = image;
                 }
             });
         }
         if (src) {
             CFRelease(src);
         }
-        weakSelf.playing = NO;
+        self.playing = NO;
     });
 }
 
@@ -218,6 +218,10 @@
 - (void)removeFromSuperview {
     [self stopGif];
     [super removeFromSuperview];
+}
+
+- (void)dealloc {
+    NSLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end
