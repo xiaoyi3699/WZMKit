@@ -8,7 +8,6 @@
 
 #import "WZMGifImageView.h"
 #import <ImageIO/ImageIO.h>
-#import "WZMMacro.h"
 
 @interface WZMGifImageView ()
 
