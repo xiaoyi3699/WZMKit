@@ -72,12 +72,8 @@
 
 #pragma mark - gif播发代码
 - (void)playGifAnimation {
-    if (self.isPlaying) {
-        return;
-    }
-    else {
-        _playing = YES;
-    }
+    if (self.isPlaying) return;
+    _playing = YES;
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         CGImageSourceRef src = nil;
@@ -123,9 +119,7 @@
                 image = [WZMGifImageView imageWithSource:src andIndex:weakSelf.imageIndex];
                 if (frameCacheInterval < frameCount
                     && weakSelf.imageIndex % frameCacheInterval == 0) {
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        imageCache[@(weakSelf.imageIndex)] = image;
-                    });
+                    imageCache[@(weakSelf.imageIndex)] = image;
                 }
             }
             [NSThread sleepUntilDate:[beginTime dateByAddingTimeInterval:frameDelay]];
@@ -150,7 +144,6 @@
 }
 
 + (NSTimeInterval)durationTimeWithSource:(CGImageSourceRef)src andIndex:(size_t)index {
-    
     NSDictionary *properties    = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(src, index, NULL);
     NSDictionary *gifProperties = [properties valueForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary];
     NSString *gifDelayTime      = [gifProperties valueForKey:(__bridge NSString*)kCGImagePropertyGIFDelayTime];
