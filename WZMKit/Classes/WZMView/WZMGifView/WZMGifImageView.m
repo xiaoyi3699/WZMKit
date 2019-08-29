@@ -114,16 +114,16 @@
                     self.lastCount --;
                 }
             }
-            UIImage *image = imageCache[@(self.imageIndex)];
-            if (image == nil && src) {
-                image = [WZMGifImageView imageWithSource:src andIndex:self.imageIndex];
-                if (frameCacheInterval < frameCount
-                    && self.imageIndex % frameCacheInterval == 0) {
-                    imageCache[@(self.imageIndex)] = image;
-                }
-            }
             [NSThread sleepUntilDate:[beginTime dateByAddingTimeInterval:frameDelay]];
             dispatch_sync(dispatch_get_main_queue(), ^{
+                UIImage *image = imageCache[@(self.imageIndex)];
+                if (image == nil && src) {
+                    image = [WZMGifImageView imageWithSource:src andIndex:self.imageIndex];
+                    if (frameCacheInterval < frameCount
+                        && self.imageIndex % frameCacheInterval == 0) {
+                        imageCache[@(self.imageIndex)] = image;
+                    }
+                }
                 if (self.isPlaying && !self.isSourceChange) {
                     self.image = image;
                 }
