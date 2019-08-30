@@ -32,7 +32,7 @@
 
 + (void)log:(NSString *)string {
     if ([WZMLogPrinter printer].enable) {
-        printf("%s\n\n", [[WZMLogView outputString:[NSString stringWithFormat:@"[WZNKitLog]: %@",string]] UTF8String]);
+        printf("%s\n\n", [[WZMLogView outputString:[NSString stringWithFormat:@"[WZMKitLog]: %@",string]] UTF8String]);
     }
 }
 
