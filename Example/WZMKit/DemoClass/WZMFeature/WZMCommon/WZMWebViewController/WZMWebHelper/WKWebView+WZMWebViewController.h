@@ -10,6 +10,6 @@
 
 @interface WKWebView (WZMWebViewController)
 
-- (void)webVC_loadUrl:(NSString *)url;
+- (void)wzm_loadUrl:(NSString *)url;
 
 @end
