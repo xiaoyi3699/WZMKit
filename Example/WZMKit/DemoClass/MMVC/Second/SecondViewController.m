@@ -44,7 +44,6 @@
     WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 355, 200)];
     gifView.gifData = [NSData dataWithContentsOfFile:path];
     [scrollView addSubview:gifView];
-    [gifView startGif];
 }
 
 /**

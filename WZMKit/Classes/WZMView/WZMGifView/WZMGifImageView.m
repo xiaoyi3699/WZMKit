@@ -37,7 +37,7 @@
     _loopCount = NSUIntegerMax;
     _imageIndex = 0;
     _speed = 1.0;
-    _frameCacheInterval = NSUIntegerMax;
+    _frameCacheInterval = 0;
 }
 
 #pragma mark - 属性
@@ -65,10 +65,12 @@
 }
 
 - (void)pauseGif {
+    if (self.isPlaying == NO) return;
     _playing = NO;
 }
 
 - (void)stopGif {
+    if (self.isPlaying == NO) return;
     _playing = NO;
     _imageIndex = 0;
     self.image = [UIImage imageWithData:_gifData];
@@ -257,6 +259,8 @@
     [super willMoveToSuperview:newSuperview];
     if (newSuperview) {
         //移除旧的监听
+        [self stopGif];
+        [self startGif];
         [self removeObserver];
         self.scrollView = nil;
         UIView *superView = newSuperview;
