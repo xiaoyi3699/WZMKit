@@ -61,7 +61,6 @@
 		75DA9E42230E924A0000A955 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E1A230E924A0000A955 /* Aspects.m */; };
 		75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */; };
 		75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */; };
-		75DA9E55230E9CA60000A955 /* article.json in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9E53230E9CA60000A955 /* article.json */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
 		DE012CDCE7AE8D032B2B7FB0 /* Pods_WZMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C63DD93959D398BDB5C6D81 /* Pods_WZMKit_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -179,7 +178,6 @@
 		75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsDataProvider.m; sourceTree = "<group>"; };
 		75DA9E4D230E9BBC0000A955 /* WZMNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNewsModel.h; sourceTree = "<group>"; };
 		75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsModel.m; sourceTree = "<group>"; };
-		75DA9E53230E9CA60000A955 /* article.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = article.json; sourceTree = "<group>"; };
 		769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZMKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-WZMKit_Example/Pods-WZMKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF91485E0336DB80B22F793 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -658,7 +656,6 @@
 			isa = PBXGroup;
 			children = (
 				6003F5A8195388D20070C39A /* Images.xcassets */,
-				75DA9E53230E9CA60000A955 /* article.json */,
 				75DA6A1A2302EEE200BA8E71 /* qnyh.mp4 */,
 			);
 			path = Resource;
@@ -765,7 +762,6 @@
 				75DA9E2F230E924A0000A955 /* WZMTest.js in Resources */,
 				75DA6A1B2302EEE200BA8E71 /* qnyh.mp4 in Resources */,
 				75D1ADA02317739600C01BA1 /* test.gif in Resources */,
-				75DA9E55230E9CA60000A955 /* article.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

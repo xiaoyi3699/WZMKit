@@ -35,14 +35,6 @@
     NSArray *results = [WZMJSONParse getArrayValueInDict:json withKey:@"urls"];
     self.title       = [WZMJSONParse getStringValueInDict:json withKey:@"title"];
     
-    if (results.count == 0) {
-        NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"article" ofType:@"json"];
-        NSData *jsonData   = [NSData dataWithContentsOfFile:jsonPath];
-        NSDictionary *dic  = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        results            = [WZMJSONParse getArrayValueInDict:dic withKey:@"urls"];
-        self.title         = [WZMJSONParse getStringValueInDict:dic withKey:@"title"];
-        if (results.count == 0) return;
-    }
     for (NSDictionary *dic in results) {
         WZMNewsModel *model = [WZMNewsModel new];
         model.ID    = [WZMJSONParse getStringValueInDict:dic withKey:@"id"];
