@@ -28,6 +28,13 @@ typedef enum : NSInteger {
     WZMGestureRecognizerTypeLong,
 } WZMGestureRecognizerType;
 
+///滑动状态
+typedef enum : NSInteger {
+    WZMScrollTypeBeginScroll  = 0,
+    WZMScrollTypeScrolling,
+    WZMScrollTypeEndScroll,
+} WZMScrollType;
+
 ///转场动画
 typedef enum : NSInteger {
     Fade                = 1,   //淡入淡出

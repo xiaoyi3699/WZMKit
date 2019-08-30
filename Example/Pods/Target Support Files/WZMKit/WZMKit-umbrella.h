@@ -57,6 +57,7 @@
 #import "NSObject+WZMReaction.h"
 #import "UIAlertView+WZMReaction.h"
 #import "UIButton+WZMReaction.h"
+#import "UIScrollView+WZMReaction.h"
 #import "UITextField+WZMReaction.h"
 #import "UITextView+WZMReaction.h"
 #import "UIView+WZMReaction.h"

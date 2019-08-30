@@ -60,6 +60,43 @@
     }
 }
 
+#pragma mark - UIScrollView
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self scrollView:scrollView didChangeType:WZMScrollTypeBeginScroll];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self scrollView:scrollView didChangeType:WZMScrollTypeScrolling];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    // 停止类型1、停止类型2
+    BOOL stop = !scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+    if (stop) {
+        [self scrollViewDidEndScroll:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        // 停止类型3
+        BOOL stop = scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
+        if (stop) {
+            [self scrollViewDidEndScroll:scrollView];
+        }
+    }
+}
+
+- (void)scrollViewDidEndScroll:(UIScrollView *)scrollView {
+    [self scrollView:scrollView didChangeType:WZMScrollTypeEndScroll];
+}
+
+- (void)scrollView:(UIScrollView *)scrollView didChangeType:(WZMScrollType)type {
+    if (self.scroll) {
+        self.scroll(scrollView, type);
+    }
+}
+
 #pragma mark - UIButton
 - (void)btnClick:(UIButton *)btn {
     if (self.next) {

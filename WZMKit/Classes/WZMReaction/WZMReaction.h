@@ -15,5 +15,6 @@
 #import "UITextField+WZMReaction.h"
 #import "UITextView+WZMReaction.h"
 #import "UIAlertView+WZMReaction.h"
+#import "UIScrollView+WZMReaction.h"
 
 #endif /* WZMReaction_h */

@@ -31,48 +31,16 @@
     
 }
 
-/**
- runloop嵌套测试，
- */
-- (void)nestTest {
-    _time = 0;
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSTimer *tickTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:0.1 target:self selector:@selector(timerHandle1) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:tickTimer forMode:NSDefaultRunLoopMode];
-        NSInteger i = 0;
-        while (_time < 60) {
-            i ++;
-            NSLog(@"====%@",@(i));
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-        }
-    });
-}
-
-- (void)timerHandle1 {
-    _time ++;
-//    NSLog(@"%@",@(_time));
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self nestTest];
-    WZMAlbumConfig *config = [WZMAlbumConfig new];
-    config.originalImage = NO;
-    config.imageSize = CGSizeMake(200, 220);
-    config.originalVideo = NO;
-    config.allowShowGIF = NO;
-    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
-    vc.pickerDelegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"gif"];
-    
-//    WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 355, 200)];
-//    gifView.gifData = [NSData dataWithContentsOfFile:path];
-//    [vc.view addSubview:gifView];
-}
-
-- (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos {
-    NSLog(@"%@",photos);
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
+//        NSInteger i = 0;
+//        while (i < 60) {
+//            NSLog(@"====%@",@(i));
+//            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+//            i ++;
+//        }
+//    });
+//}
 
 @end
