@@ -36,7 +36,6 @@
 #import "UITextView+wzmcate.h"
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
-#import "UIWebView+wzmcate.h"
 #import "UIWindow+wzmcate.h"
 #import "WZMNSHandle.h"
 #import "WZMViewHandle.h"

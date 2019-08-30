@@ -9,20 +9,17 @@
 #import "WZMWebViewController.h"
 #import "WZMWebProgressLayer.h"
 #import "WZMUserContentController.h"
-#import "UIWebView+WZMWebViewController.h"
 #import "WKWebView+WZMWebViewController.h"
 #import <WebKit/WebKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "WZMInline.h"
 #import "NSString+wzmcate.h"
 
-@interface WZMWebViewController ()<WKNavigationDelegate,WKUIDelegate,UIWebViewDelegate,WZMScriptMessageHandler>
+@interface WZMWebViewController ()<WKNavigationDelegate,WKUIDelegate,WZMScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *webView_WK;
-@property (nonatomic, strong) UIWebView *webView_UI;
 @property (nonatomic, strong) NSArray *scriptNames;
 @property (nonatomic, strong) WZMWebProgressLayer *progressLayer;
-@property (nonatomic, assign, getter=isUseWKWebView) BOOL useWKWebView;
 
 @end
 
@@ -77,17 +74,9 @@
 
 ///导航返回相关
 - (BOOL)ll_navigationShouldPop {
-    if (self.isUseWKWebView) {
-        if (self.webView_WK.canGoBack) {
-            [self.webView_WK goBack];
-            return NO;
-        }
-    }
-    else {
-        if (self.webView_UI.canGoBack) {
-            [self.webView_UI goBack];
-            return NO;
-        }
+    if (self.webView_WK.canGoBack) {
+        [self.webView_WK goBack];
+        return NO;
     }
     return YES;
 }
@@ -95,12 +84,6 @@
 #pragma mark - life cyclic
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (WZM_DEVICE < 8.0 || self.loadType == WZMWebViewLoadTypeUIWebView) {
-        self.useWKWebView = NO;
-    }
-    else {
-        self.useWKWebView = YES;
-    }
     [self loadUrl:_url];
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -118,45 +101,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.progressLayer removeFromSuperlayer];
-}
-
-#pragma mark - UIWebViewDelegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *requestString = [[request URL] absoluteString];
-    NSString *word = [requestString wzm_getURLDecoded];
-    if ([word hasPrefix:@"app"]) {
-        NSString *script = [NSString stringWithFormat:@"alert('%@')",word];
-        [self stringByEvaluatingJavaScriptFromString:script];
-    }
-    return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-    [self.progressLayer startLoad];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self.progressLayer finishedLoad];
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    
-    //js调用oc
-    JSContext *context = [self.webView_UI valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    //定义好JS要调用的方法
-    context[@"UIClick"] = ^() {
-        NSArray *args = [JSContext currentArguments];
-        for (JSValue *jsVal in args) {
-            NSLog(@"%@", jsVal.toString);
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LLTest.html" message:@"这是OC原生的弹出窗" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
-        });
-    };
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self.progressLayer finishedLoad];
 }
 
 #pragma mark - WZMScriptMessageHandler
@@ -309,54 +253,26 @@
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:resource ofType:type];
     NSString *script = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    if (self.isUseWKWebView) {
-        [self.webView_WK evaluateJavaScript:script completionHandler:nil];
-    }
-    else {
-        [self.webView_UI stringByEvaluatingJavaScriptFromString:script];
-    }
+    [self.webView_WK evaluateJavaScript:script completionHandler:nil];
 }
 
 /** 以字符串的方式注入JS */
 - (void)stringByEvaluatingJavaScriptFromString:(NSString *)script {
-    if (self.isUseWKWebView) {
-        [self.webView_WK evaluateJavaScript:script completionHandler:nil];
-    }
-    else {
-        [self.webView_UI stringByEvaluatingJavaScriptFromString:script];
-    }
+    [self.webView_WK evaluateJavaScript:script completionHandler:nil];
 }
 
 - (void)loadUrl:(NSString *)url {
-    if (self.isUseWKWebView) {
-        [self.webView_WK webVC_loadUrl:url];
-    }
-    else {
-        [self.webView_UI webVC_loadUrl:url];
-    }
+    [self.webView_WK webVC_loadUrl:url];
 }
 
 - (void)reload{
-    if (self.isUseWKWebView) {
-        [self.webView_WK reload];
-    }
-    else {
-        [self.webView_UI reload];
-    }
+    [self.webView_WK reload];
 }
 
 - (void)webGoback {
-    if (self.isUseWKWebView) {
-        if (self.webView_WK.canGoBack) {
-            [self.webView_WK goBack];
-            return;
-        }
-    }
-    else {
-        if (self.webView_UI.canGoBack) {
-            [self.webView_UI goBack];
-            return;
-        }
+    if (self.webView_WK.canGoBack) {
+        [self.webView_WK goBack];
+        return;
     }
     if (self.navigationController.topViewController == self) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -369,31 +285,27 @@
 #pragma mark - pravite method
 // 添加KVO监听
 - (void)addObserver {
-    if (self.isUseWKWebView) {
-        [self.webView_WK addObserver:self
+    [self.webView_WK addObserver:self
                       forKeyPath:@"loading"
                          options:NSKeyValueObservingOptionNew
                          context:nil];
-        
-        [self.webView_WK addObserver:self
+    
+    [self.webView_WK addObserver:self
                       forKeyPath:@"title"
                          options:NSKeyValueObservingOptionNew
                          context:nil];
-        
-        [self.webView_WK addObserver:self
+    
+    [self.webView_WK addObserver:self
                       forKeyPath:@"estimatedProgress"
                          options:NSKeyValueObservingOptionNew
                          context:nil];
-    }
 }
 
 // 移除KVO监听
 - (void)removeObserver {
-    if (self.isUseWKWebView) {
-        [self.webView_WK removeObserver:self forKeyPath:@"loading"];
-        [self.webView_WK removeObserver:self forKeyPath:@"title"];
-        [self.webView_WK removeObserver:self forKeyPath:@"estimatedProgress"];
-    }
+    [self.webView_WK removeObserver:self forKeyPath:@"loading"];
+    [self.webView_WK removeObserver:self forKeyPath:@"title"];
+    [self.webView_WK removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
 // KVO
@@ -454,26 +366,6 @@
     return _webView_WK;
 }
 
-- (UIWebView *)webView_UI {
-    if (_webView_UI == nil) {
-        _webView_UI = [[UIWebView alloc] initWithFrame:_frame];
-        _webView_UI.scalesPageToFit = YES;
-        _webView_UI.delegate = self;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-        if (@available(iOS 11.0, *)) {
-            _webView_UI.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        }
-        else {
-            self.automaticallyAdjustsScrollViewInsets = NO;
-        }
-#else
-        self.automaticallyAdjustsScrollViewInsets = NO;
-#endif
-        [self.view addSubview:_webView_UI];
-    }
-    return _webView_UI;
-}
-
 - (WZMWebProgressLayer *)progressLayer {
     if (_progressLayer == nil) {
         _progressLayer = [[WZMWebProgressLayer alloc] init];
@@ -490,9 +382,7 @@
 - (void)dealloc {
     NSLog(@"%@释放了",NSStringFromClass(self.class));
     [self removeObserver];
-    if (self.isUseWKWebView) {
-        [(WZMUserContentController *)self.webView_WK.configuration.userContentController removeScriptMessageHandler:_scriptNames];
-    }
+    [(WZMUserContentController *)self.webView_WK.configuration.userContentController removeScriptMessageHandler:_scriptNames];
 }
 
 @end

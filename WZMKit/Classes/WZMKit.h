@@ -370,7 +370,6 @@
 #import "UITextField+wzmcate.h"
 #import "UIViewController+wzmcate.h"
 #import "UIButton+wzmcate.h"
-#import "UIWebView+wzmcate.h"
 #import "UIScrollView+wzmcate.h"
 #import "UINavigationBar+wzmcate.h"
 #import "UIWindow+wzmcate.h"

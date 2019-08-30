@@ -33,17 +33,7 @@ function LoadUrl(url){
 
 //js交互方式二: 使用js传值
 function JSClick(array) {
-    WKClick(array);
-}
-
-//WKWebView通过js调用OC
-function WKClick(array) {
     window.webkit.messageHandlers.universal.postMessage(array);
-}
-
-//UIWebView通过js调用OC
-function UIClick(array) {
-    
 }
 
 //自定义

@@ -8,16 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-///加载方式
-typedef enum : NSInteger {
-    WZMWebViewLoadTypeAuto         = 0,
-    WZMWebViewLoadTypeUIWebView,
-    WZMWebViewLoadTypeWKWebView,
-} WZMWebViewLoadType;
-
 @interface WZMWebViewController : UIViewController
-
-@property (nonatomic, assign) WZMWebViewLoadType loadType;
 
 //加载网页
 - (instancetype)initWithUrl:(NSString *)url;

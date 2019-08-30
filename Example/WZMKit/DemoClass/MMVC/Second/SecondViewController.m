@@ -27,6 +27,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __block BOOL run = NO;
+    
+    WZMDispatch_after(2, ^{
+        run = YES;
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"2===");
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"3===");
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"4===");
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"2===");
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"3===");
+    });
+    
+    WZMDispatch_execute_global_queue(^{
+        while (run == NO) {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        NSLog(@"4===");
+    });
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

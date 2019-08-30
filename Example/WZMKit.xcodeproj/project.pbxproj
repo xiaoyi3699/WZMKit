@@ -39,7 +39,6 @@
 		75DA9E29230E924A0000A955 /* UINavigationController+wzmnav.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DDB230E924A0000A955 /* UINavigationController+wzmnav.m */; };
 		75DA9E2A230E924A0000A955 /* WZMScreenShotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DDD230E924A0000A955 /* WZMScreenShotView.m */; };
 		75DA9E2B230E924A0000A955 /* WKWebView+WZMWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DE5230E924A0000A955 /* WKWebView+WZMWebViewController.m */; };
-		75DA9E2C230E924A0000A955 /* UIWebView+WZMWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DE7230E924A0000A955 /* UIWebView+WZMWebViewController.m */; };
 		75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DEA230E924A0000A955 /* WZMWebHelper.m */; };
 		75DA9E2E230E924A0000A955 /* WZMTest.css in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9DEC230E924A0000A955 /* WZMTest.css */; };
 		75DA9E2F230E924A0000A955 /* WZMTest.js in Resources */ = {isa = PBXBuildFile; fileRef = 75DA9DED230E924A0000A955 /* WZMTest.js */; };
@@ -140,9 +139,7 @@
 		75DA9DE3230E924A0000A955 /* WZMWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMWebViewController.h; sourceTree = "<group>"; };
 		75DA9DE5230E924A0000A955 /* WKWebView+WZMWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+WZMWebViewController.m"; sourceTree = "<group>"; };
 		75DA9DE6230E924A0000A955 /* WZMWebHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMWebHelper.h; sourceTree = "<group>"; };
-		75DA9DE7230E924A0000A955 /* UIWebView+WZMWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WZMWebViewController.m"; sourceTree = "<group>"; };
 		75DA9DE8230E924A0000A955 /* WKWebView+WZMWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+WZMWebViewController.h"; sourceTree = "<group>"; };
-		75DA9DE9230E924A0000A955 /* UIWebView+WZMWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WZMWebViewController.h"; sourceTree = "<group>"; };
 		75DA9DEA230E924A0000A955 /* WZMWebHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMWebHelper.m; sourceTree = "<group>"; };
 		75DA9DEC230E924A0000A955 /* WZMTest.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = WZMTest.css; sourceTree = "<group>"; };
 		75DA9DED230E924A0000A955 /* WZMTest.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WZMTest.js; sourceTree = "<group>"; };
@@ -472,8 +469,6 @@
 			children = (
 				75DA9DE6230E924A0000A955 /* WZMWebHelper.h */,
 				75DA9DEA230E924A0000A955 /* WZMWebHelper.m */,
-				75DA9DE9230E924A0000A955 /* UIWebView+WZMWebViewController.h */,
-				75DA9DE7230E924A0000A955 /* UIWebView+WZMWebViewController.m */,
 				75DA9DE8230E924A0000A955 /* WKWebView+WZMWebViewController.h */,
 				75DA9DE5230E924A0000A955 /* WKWebView+WZMWebViewController.m */,
 			);
@@ -868,7 +863,6 @@
 				75DA9E3D230E924A0000A955 /* WZMViewControllerAnimator.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
-				75DA9E2C230E924A0000A955 /* UIWebView+WZMWebViewController.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
