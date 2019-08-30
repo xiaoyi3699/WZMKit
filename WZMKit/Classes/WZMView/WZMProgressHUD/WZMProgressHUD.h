@@ -16,12 +16,16 @@
 
 ///背景色
 @property (nonatomic, strong) UIColor *backgroundColor;
-///圆环色
+///菊花色
 @property (nonatomic, strong) UIColor *progressColor;
 ///文本色
 @property (nonatomic, strong) UIColor *textColor;
 ///文本字体
 @property (nonatomic, strong) UIFont *font;
+///是否有毛玻璃效果
+@property (nonatomic, assign, getter=isBlur) BOOL blur;
+///毛玻璃效果
+@property (nonatomic, strong) UIBlurEffect *effect;
 
 + (instancetype)defaultConfig;
 

@@ -69,7 +69,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.backgroundColor = WZM_R_G_B_A(40, 40, 40, .6);
+        self.blur = YES;
+        if (self.isBlur == NO) {
+            self.backgroundColor = WZM_R_G_B_A(40, 40, 40, .6);
+        }
         self.textColor = WZM_R_G_B_A(250, 250, 250, 1);
         self.progressColor = WZM_R_G_B_A(250, 250, 250, 1);
         self.font = [UIFont systemFontOfSize:14];
@@ -84,6 +87,7 @@
 @property (nonatomic, strong) WZMProgressConfig *config;
 @property (nonatomic, strong) WZMProgressView *progressView;
 @property (nonatomic, strong) UILabel *messageView;
+@property (nonatomic, strong) UIVisualEffectView *effectView;
 
 @end
 
@@ -94,6 +98,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hud = [[WZMProgressHUD alloc] init];
+        hud.layer.cornerRadius = 3;
+        hud.layer.masksToBounds = YES;
     });
     return hud;
 }
@@ -135,7 +141,17 @@
     hud.messageView.font = hud.config.font;
     hud.messageView.textColor = hud.config.textColor;
     hud.messageView.textAlignment = NSTextAlignmentCenter;
-    hud.messageView.backgroundColor = hud.config.backgroundColor;
+    if (hud.config.isBlur) {
+        hud.effectView.frame = hud.bounds;
+        if (hud.config.effect) {
+            hud.effectView.effect = hud.config.effect;
+        }
+        hud.effectView.backgroundColor = hud.config.backgroundColor;
+        [hud addSubview:hud.effectView];
+    }
+    else {
+        hud.messageView.backgroundColor = hud.config.backgroundColor;
+    }
     [hud addSubview:hud.messageView];
     [WZM_WINDOW addSubview:hud];
     
@@ -164,13 +180,23 @@
         rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
     }
     hud.progressView.frame = rect;
-    hud.progressView.backgroundColor = hud.config.backgroundColor;
     hud.progressView.activityView.color = hud.config.progressColor;
     hud.progressView.messageLabel.hidden = (message.length == 0);
     hud.progressView.messageLabel.text = message;
     hud.progressView.messageLabel.font = hud.config.font;
     hud.progressView.messageLabel.textColor = hud.config.textColor;
     hud.progressView.messageLabel.textAlignment = NSTextAlignmentCenter;
+    if (hud.config.isBlur) {
+        hud.effectView.frame = hud.bounds;
+        if (hud.config.effect) {
+            hud.effectView.effect = hud.config.effect;
+        }
+        hud.effectView.backgroundColor = hud.config.backgroundColor;
+        [hud addSubview:hud.effectView];
+    }
+    else {
+        hud.progressView.backgroundColor = hud.config.backgroundColor;
+    }
     [hud addSubview:hud.progressView];
     [WZM_WINDOW addSubview:hud];
     [hud.progressView startAnimation];
@@ -196,8 +222,6 @@
 - (WZMProgressView *)progressView {
     if (_progressView == nil) {
         _progressView = [[WZMProgressView alloc] init];
-        _progressView.layer.masksToBounds = YES;
-        _progressView.layer.cornerRadius = 5;
     }
     return _progressView;
 }
@@ -205,10 +229,15 @@
 - (UILabel *)messageView {
     if (_messageView == nil) {
         _messageView = [[UILabel alloc] init];
-        _messageView.layer.masksToBounds = YES;
-        _messageView.layer.cornerRadius = 3;
     }
     return _messageView;
+}
+
+- (UIVisualEffectView *)effectView {
+    if (_effectView == nil) {
+        _effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    }
+    return _effectView;
 }
 
 @end

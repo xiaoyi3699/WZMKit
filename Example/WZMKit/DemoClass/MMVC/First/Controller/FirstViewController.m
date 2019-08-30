@@ -53,6 +53,17 @@
     }
     index += indexPath.row;
     
+    if (index%3 == 0) {
+        [WZMViewHandle wzm_showInfoMessage:@"哈哈哈哈"];
+    }
+    else if (index%3 == 1) {
+        [WZMViewHandle wzm_showProgressMessage:@"哈哈哈哈"];
+    }
+    else {
+        [WZMViewHandle wzm_dismiss];
+    }
+    return;
+    
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[index];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
