@@ -115,7 +115,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         [_progressSlider addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
         [_progressSlider addTarget:self action:@selector(touchChange:) forControlEvents:UIControlEventValueChanged];
         [_progressSlider addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside|UIControlEventTouchCancel];
-        [_progressSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(10, 10)] forState:UIControlStateNormal];
+        [_progressSlider setThumbImage:[UIImage wzm_getRoundImageByColor:[UIColor clearColor] size:CGSizeMake(5, 5)] forState:UIControlStateNormal];
         _progressSlider.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_toolView addSubview:_progressSlider];
         

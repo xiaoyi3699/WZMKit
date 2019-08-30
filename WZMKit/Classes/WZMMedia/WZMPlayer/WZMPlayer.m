@@ -103,7 +103,7 @@
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             @wzm_weakify(self);
-            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
                 @wzm_strongify(self);
                 //获取当前播放时间
                 self.currentTime = CMTimeGetSeconds(self.player.currentItem.currentTime);

@@ -31,7 +31,7 @@
     
 }
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //    dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //        [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
 //        NSInteger i = 0;
@@ -41,6 +41,9 @@
 //            i ++;
 //        }
 //    });
-//}
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
+    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:[NSURL fileURLWithPath:path]];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 @end

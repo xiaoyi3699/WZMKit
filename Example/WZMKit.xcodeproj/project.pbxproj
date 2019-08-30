@@ -21,8 +21,8 @@
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
-		75D1ADA02317739600C01BA1 /* test.gif in Resources */ = {isa = PBXBuildFile; fileRef = 75D1AD9F2317739500C01BA1 /* test.gif */; };
-		75DA6A1B2302EEE200BA8E71 /* qnyh.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 75DA6A1A2302EEE200BA8E71 /* qnyh.mp4 */; };
+		75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */; };
+		75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */ = {isa = PBXBuildFile; fileRef = 75D1ADAA2319208300C01BA1 /* jingcai.gif */; };
 		75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DB3230E924A0000A955 /* UIImage+WZMCustomImage.m */; };
 		75DA9E1C230E924A0000A955 /* UIButton+WZMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DB4230E924A0000A955 /* UIButton+WZMHelper.m */; };
 		75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DBA230E924A0000A955 /* WZMTextStorage.m */; };
@@ -101,8 +101,8 @@
 		7558CBC222DF50D30043651C /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		7558CBC422DF50E60043651C /* ThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		7558CBC522DF50E60043651C /* ThirdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
-		75D1AD9F2317739500C01BA1 /* test.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = test.gif; sourceTree = "<group>"; };
-		75DA6A1A2302EEE200BA8E71 /* qnyh.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = qnyh.mp4; sourceTree = "<group>"; };
+		75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = xmhzma.MP4; sourceTree = "<group>"; };
+		75D1ADAA2319208300C01BA1 /* jingcai.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = jingcai.gif; sourceTree = "<group>"; };
 		75DA9DB3230E924A0000A955 /* UIImage+WZMCustomImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WZMCustomImage.m"; sourceTree = "<group>"; };
 		75DA9DB4230E924A0000A955 /* UIButton+WZMHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WZMHelper.m"; sourceTree = "<group>"; };
 		75DA9DB5230E924A0000A955 /* UIImage+WZMCustomImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WZMCustomImage.h"; sourceTree = "<group>"; };
@@ -605,7 +605,6 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
-				75D1AD9F2317739500C01BA1 /* test.gif */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 			);
@@ -655,8 +654,9 @@
 		75DA9E52230E9C7F0000A955 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				75D1ADAA2319208300C01BA1 /* jingcai.gif */,
+				75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
-				75DA6A1A2302EEE200BA8E71 /* qnyh.mp4 */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -757,11 +757,11 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75DA9E30230E924A0000A955 /* WZMTest.png in Resources */,
+				75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
+				75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */,
 				75DA9E2E230E924A0000A955 /* WZMTest.css in Resources */,
 				75DA9E2F230E924A0000A955 /* WZMTest.js in Resources */,
-				75DA6A1B2302EEE200BA8E71 /* qnyh.mp4 in Resources */,
-				75D1ADA02317739600C01BA1 /* test.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
