@@ -116,23 +116,24 @@
     }
 }
 
-//子类如果需要实现自己页面特定的页面加载动画，重载该方法即可
+//子类如果需要实现自己页面特定的页面加载动画,重载该方法即可
 - (void)showLoadingView {
     [WZMViewHandle wzm_showProgressMessage:WZM_LOADING];
 }
 
-//子类如果需要实现自己页面特定需求的数据加载后的处理，重载该方法即可
+- (void)dismissLoadingView {
+    [WZMViewHandle wzm_dismiss];
+}
+
+//子类如果需要实现自己页面特定需求的数据加载后的处理,重载该方法即可
 - (void)didLoadDataWithResponseResult:(WZMHttpResponseResult *)responseResult {
-    
+    [self dismissLoadingView];
     BOOL isDataEmpty = [_superDataProvider isDataEmpty];
     _superTableView.hidden = isDataEmpty;
     _superCollectionView.hidden = isDataEmpty;
     [self showBadView:isDataEmpty];
     
-    if (responseResult.code == WZMHttpResponseCodeSuccess) {
-        [WZMViewHandle wzm_dismiss];
-    }
-    else {
+    if (responseResult.code != WZMHttpResponseCodeSuccess) {
         [WZMViewHandle wzm_showInfoMessage:responseResult.message];
     }
 }
