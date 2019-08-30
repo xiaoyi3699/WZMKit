@@ -29,21 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    if (@available(iOS 11.0, *)) {
-        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    scrollView.contentSize = CGSizeMake(500, 1000);
-    [self.view addSubview:scrollView];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"gif"];
-
-    WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 355, 200)];
-    gifView.gifData = [NSData dataWithContentsOfFile:path];
-    [scrollView addSubview:gifView];
 }
 
 /**
@@ -69,15 +54,21 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self nestTest];
-//    WZMAlbumConfig *config = [WZMAlbumConfig new];
-//    config.originalImage = NO;
-//    config.imageSize = CGSizeMake(200, 220);
-//    config.originalVideo = NO;
-//    config.allowShowGIF = NO;
-//    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
-//    vc.pickerDelegate = self;
-//    [self.navigationController pushViewController:vc animated:YES];
+//    [self nestTest];
+    WZMAlbumConfig *config = [WZMAlbumConfig new];
+    config.originalImage = NO;
+    config.imageSize = CGSizeMake(200, 220);
+    config.originalVideo = NO;
+    config.allowShowGIF = NO;
+    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
+    vc.pickerDelegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"gif"];
+    
+//    WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 355, 200)];
+//    gifView.gifData = [NSData dataWithContentsOfFile:path];
+//    [vc.view addSubview:gifView];
 }
 
 - (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos {
