@@ -14,7 +14,9 @@
 
 @end
 
-@implementation SecondViewController
+@implementation SecondViewController {
+    NSInteger _time;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -27,65 +29,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    __block BOOL run = NO;
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+    else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    scrollView.contentSize = CGSizeMake(500, 1000);
+    [self.view addSubview:scrollView];
     
-    WZMDispatch_after(2, ^{
-        run = YES;
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"gif"];
+
+    WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 355, 200)];
+    gifView.gifData = [NSData dataWithContentsOfFile:path];
+    [scrollView addSubview:gifView];
+    [gifView startGif];
+}
+
+/**
+ runloop嵌套测试，
+ */
+- (void)nestTest {
+    _time = 0;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSTimer *tickTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:0.1 target:self selector:@selector(timerHandle1) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:tickTimer forMode:NSDefaultRunLoopMode];
+        NSInteger i = 0;
+        while (_time < 60) {
+            i ++;
+            NSLog(@"====%@",@(i));
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
         }
-        NSLog(@"2===");
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        NSLog(@"3===");
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        NSLog(@"4===");
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        NSLog(@"2===");
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        NSLog(@"3===");
-    });
-    
-    WZMDispatch_execute_global_queue(^{
-        while (run == NO) {
-            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-        }
-        NSLog(@"4===");
     });
 }
 
+- (void)timerHandle1 {
+    _time ++;
+//    NSLog(@"%@",@(_time));
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [WZMAlbumConfig new];
-    config.originalImage = NO;
-    config.imageSize = CGSizeMake(200, 220);
-    config.originalVideo = NO;
-    config.allowShowGIF = NO;
-    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
-    vc.pickerDelegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self nestTest];
+//    WZMAlbumConfig *config = [WZMAlbumConfig new];
+//    config.originalImage = NO;
+//    config.imageSize = CGSizeMake(200, 220);
+//    config.originalVideo = NO;
+//    config.allowShowGIF = NO;
+//    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:config];
+//    vc.pickerDelegate = self;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos {
