@@ -132,7 +132,6 @@
         else {
             [self.progressLayer startLoad];
         }
-
         //允许web内跳转
         decisionHandler(WKNavigationActionPolicyAllow);
     }
@@ -159,7 +158,7 @@
 
 }
 
-// 页面内容到达main frame时回调
+// 页面内容到达mainframe时回调
 - (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation {
 
 }
@@ -265,7 +264,7 @@
     [self.webView_WK webVC_loadUrl:url];
 }
 
-- (void)reload{
+- (void)reload {
     [self.webView_WK reload];
 }
 
