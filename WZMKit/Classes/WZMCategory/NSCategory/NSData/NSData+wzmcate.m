@@ -93,9 +93,7 @@
                 return WZMImageTypeUnknown;
             }
             NSString *testString = [[NSString alloc] initWithData:[self subdataWithRange:NSMakeRange(0, 12)] encoding:NSASCIIStringEncoding];
-            if ([testString hasPrefix:@"RIFF"]
-                && [testString hasSuffix:@"WEBP"])
-            {
+            if ([testString hasPrefix:@"RIFF"] && [testString hasSuffix:@"WEBP"]) {
                 return WZMImageTypeWEBP;
             }
             return WZMImageTypeUnknown;
