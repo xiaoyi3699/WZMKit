@@ -10,7 +10,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMAlbumControllerDelegate>
+@interface SecondViewController ()<WZMAlbumControllerDelegate,WZMPhotoBrowserDelegate>
 
 @end
 
@@ -41,13 +41,29 @@
 //            i ++;
 //        }
 //    });
+    NSString *r = @"http://www.vasueyun.cn/resource/wzm_qnyh.mp4";
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
     NSString *gifPath = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
     UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
     
     WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
-    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image];
+    photoBrowser.delegate = self;
+    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
     [self presentViewController:photoBrowser animated:YES completion:nil];
+}
+
+- (void)
+photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
+    NSLog(@"%@-==%@",@(index),@(contentType));
+    if (gestureType == WZMGestureRecognizerTypeSingle) {
+        NSLog(@"单击");
+    }
+    else if (gestureType == WZMGestureRecognizerTypeDouble) {
+        NSLog(@"单击2");
+    }
+    else {
+        NSLog(@"单击3");
+    }
 }
 
 @end

@@ -51,11 +51,10 @@
 #pragma mark - WZMPhotoBrowserCellDelegate
 - (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
-                 content:(id)content
-                   isGif:(BOOL)isGif
-                    type: (WZMGestureRecognizerType)type {
-    if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:content:isGif:type:)]) {
-        [self.delegate photoBrowser:self clickAtIndex:indexPath.row content:content isGif:isGif type:type];
+             contentType:(WZMAlbumPhotoType)contentType
+             gestureType:(WZMGestureRecognizerType)gestureType {
+    if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
+        [self.delegate photoBrowser:self clickAtIndex:indexPath.row contentType:contentType gestureType:gestureType];
     }
 }
 

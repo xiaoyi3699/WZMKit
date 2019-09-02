@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 @property (nonatomic, strong) UILabel  *currentTimeLabel;
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playerView;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
 @end
 
@@ -126,11 +127,19 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
         _totalTimeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [_toolView addSubview:_totalTimeLabel];
+        
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _indicatorView.frame = self.bounds;
+        _indicatorView.hidesWhenStopped = YES;
+        [self addSubview:_indicatorView];
     }
     return self;
 }
 
 - (void)playWithUrl:(NSURL *)url {
+    _progressSlider.value = 0.0;
+    _currentTimeLabel.text = @"00:00";
+    [_indicatorView startAnimating];
     [_player playWithURL:url];
 }
 
@@ -347,6 +356,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 
 //播放器代理
 - (void)playerBeginPlaying:(WZMPlayer *)player {
+    [_indicatorView stopAnimating];
     _totalTimeLabel.text = [self getTime:player.duration];
 }
 

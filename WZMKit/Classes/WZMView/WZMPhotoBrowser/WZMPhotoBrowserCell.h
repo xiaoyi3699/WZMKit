@@ -29,8 +29,7 @@
 @optional
 - (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
-                 content:(id)content
-                   isGif:(BOOL)isGif
-                    type: (WZMGestureRecognizerType)type;
+             contentType:(WZMAlbumPhotoType)contentType
+             gestureType: (WZMGestureRecognizerType)gestureType;
 
 @end

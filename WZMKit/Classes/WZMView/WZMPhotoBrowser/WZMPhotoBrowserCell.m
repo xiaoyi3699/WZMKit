@@ -31,9 +31,9 @@
     return self;
 }
 
-- (void)clickAtPhoto:(WZMPhoto *)photo content:(id)content isGif:(BOOL)isGif type: (WZMGestureRecognizerType)type{
-    if ([self.delegate respondsToSelector:@selector(photoBrowserCell:clickAtIndexPath:content:isGif:type:)]) {
-        [self.delegate photoBrowserCell:self clickAtIndexPath:self.indexPath content:content isGif:isGif type:type];
+- (void)clickAtPhoto:(WZMPhoto *)photo contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
+    if ([self.delegate respondsToSelector:@selector(photoBrowserCell:clickAtIndexPath:contentType:gestureType:)]) {
+        [self.delegate photoBrowserCell:self clickAtIndexPath:self.indexPath contentType:contentType gestureType:gestureType];
     }
 }
 

@@ -175,6 +175,10 @@
 - (BOOL)checkVideo:(NSURL *)url network:(BOOL)network {
     if (network) {
         [self showPlaceholderImage];
+        NSString *extension = [url.pathExtension wzm_getLowercase];
+        if ([extension isEqualToString:@"mp4"] || [extension isEqualToString:@"mov"] || [extension isEqualToString:@"3gp"] || [extension isEqualToString:@"mpv"]) {
+            return YES;
+        }
     }
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];
     NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
@@ -284,9 +288,18 @@
 }
 
 - (void)setDelegeteType: (WZMGestureRecognizerType)type {
-    if ([self.wzm_delegate respondsToSelector:@selector(clickAtPhoto:content:isGif:type:)]) {
-        id content = (_isGif ? _imageData : _currentImage);
-        [self.wzm_delegate clickAtPhoto:self content:content isGif:_isGif type:type];
+    if ([self.wzm_delegate respondsToSelector:@selector(clickAtPhoto:contentType:gestureType:)]) {
+        WZMAlbumPhotoType contentType;
+        if (_isGif) {
+            contentType = WZMAlbumPhotoTypePhotoGif;
+        }
+        else if (_isVideo) {
+            contentType = WZMAlbumPhotoTypeVideo;
+        }
+        else {
+            contentType = WZMAlbumPhotoTypePhoto;
+        }
+        [self.wzm_delegate clickAtPhoto:self contentType:contentType gestureType:type];
     }
 }
 
