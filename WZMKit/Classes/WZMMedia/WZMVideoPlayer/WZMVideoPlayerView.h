@@ -15,9 +15,11 @@
  */
 - (void)playWithUrl:(NSURL *)url;
 
-/**
- 暂停视屏
- */
+///播放
+- (void)play;
+///暂停
 - (void)pause;
+///停止
+- (void)stop;
 
 @end

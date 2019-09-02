@@ -43,12 +43,12 @@
 }
 
 - (void)willDisplay {
-    [_photo startGif];
+    [_photo start];
 }
 
 - (void)didEndDisplay {
     _photo.zoomScale = 1.0;
-    [_photo stopGif];
+    [_photo stop];
 }
 
 @end

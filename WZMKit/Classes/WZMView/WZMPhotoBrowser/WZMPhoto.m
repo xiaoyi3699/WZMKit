@@ -8,20 +8,24 @@
 
 #import "WZMPhoto.h"
 #import <ImageIO/ImageIO.h>
+#import <AVFoundation/AVFoundation.h>
 #import "NSString+wzmcate.h"
 #import "WZMGifImageView.h"
 #import "WZMImageCache.h"
 #import "UIView+wzmcate.h"
 #import "NSData+wzmcate.h"
 #import "UIImage+wzmcate.h"
-
+#import "WZMVideoPlayerView.h"
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
 @interface WZMPhoto ()<UIScrollViewDelegate>{
+    WZMVideoPlayerView *_videoView;
     WZMGifImageView *_imageView;
     NSData         *_imageData;
+    NSURL          *_videoUrl;
     UIImage        *_currentImage;
     BOOL           _isGif;
+    BOOL           _isVideo;
 }
 @end
 
@@ -53,21 +57,32 @@
         [self addGestureRecognizer:longClick];
         
         _imageView = [[WZMGifImageView alloc] init];
+        _imageView.hidden = YES;
         [self addSubview:_imageView];
         [self showPlaceholderImage];
+        
+        _videoView = [[WZMVideoPlayerView alloc] initWithFrame:self.bounds];
+        _videoView.hidden = YES;
+        [self addSubview:_videoView];
     }
     return self;
 }
 
-- (void)startGif {
-    if (_isGif && _currentImage) {
+- (void)start {
+    if (_isGif) {
         [_imageView startGif];
+    }
+    else if (_isVideo) {
+        [_videoView playWithUrl:_videoUrl];
     }
 }
 
-- (void)stopGif {
-    if (_isGif && _currentImage) {
+- (void)stop {
+    if (_isGif) {
         [_imageView stopGif];
+    }
+    else if (_isVideo) {
+        [_videoView stop];
     }
 }
 
@@ -76,8 +91,15 @@
 - (void)setPath:(NSString *)path {
     if (path.length == 0) return;
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        _imageData = [NSData dataWithContentsOfFile:path];
-        [self setupImageData];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        if ([self checkVideo:url network:NO]) {
+            //视频
+            [self setupVideoUrl:url];
+        }
+        else {
+            _imageData = [NSData dataWithContentsOfFile:path];
+            [self setupImageData];
+        }
     }
     else {
         NSURL *URL = [NSURL URLWithString:path];
@@ -86,18 +108,24 @@
         }
         BOOL isNetImage = [[UIApplication sharedApplication] canOpenURL:URL];
         if (isNetImage) {
-            _imageData = [[WZMImageCache cache] dataForKey:path];
-            if (_imageData == nil) {
-                [self showPlaceholderImage];
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    _imageData = [[WZMImageCache cache] getDataWithUrl:path isUseCatch:YES];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupImageData];
-                    });
-                });
+            if ([self checkVideo:URL network:YES]) {
+                //视频
+                [self setupVideoUrl:URL];
             }
             else {
-                [self setupImageData];
+                _imageData = [[WZMImageCache cache] dataForKey:path];
+                if (_imageData == nil) {
+                    [self showPlaceholderImage];
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        _imageData = [[WZMImageCache cache] getDataWithUrl:path isUseCatch:YES];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self setupImageData];
+                        });
+                    });
+                }
+                else {
+                    [self setupImageData];
+                }
             }
         }
         else {
@@ -109,28 +137,56 @@
 //更新image
 - (void)setupImageData {
     if (_imageData) {
-        BOOL isGif = ([_imageData wzm_contentType] == WZMImageTypeGIF);
+        _isGif = ([_imageData wzm_contentType] == WZMImageTypeGIF);
         _currentImage = [UIImage imageWithData:_imageData];
-        if (_currentImage) {
-            [self layoutImageViewIsGif:isGif];
-            return;
-        }
+        [self setupImageView];
     }
-    [self showPlaceholderImage];
+    else {
+        [self showPlaceholderImage];
+    }
 }
 
-//自适应图片的宽高比
-- (void)layoutImageViewIsGif:(BOOL)isGif {
-    _isGif = isGif;
+//设置图片的宽高比
+- (void)setupImageView {
+    _isVideo = NO;
+    _videoUrl = nil;
+    _imageView.hidden = NO;
+    _videoView.hidden = YES;
     _imageView.frame = [self imageFrame];
     if (_isGif) {
         _imageView.gifData = _imageData;
-        [_imageView startGif];
     }
     else {
         _imageView.gifData = nil;
         _imageView.image = _currentImage;
     }
+}
+
+//设置视频
+- (void)setupVideoUrl:(NSURL *)url {
+    _isGif = NO;
+    _isVideo = YES;
+    _videoUrl = url;
+    _imageView.hidden = YES;
+    _videoView.hidden = NO;
+}
+
+//是否是视频
+- (BOOL)checkVideo:(NSURL *)url network:(BOOL)network {
+    if (network) {
+        [self showPlaceholderImage];
+    }
+    AVURLAsset *asset = [AVURLAsset assetWithURL:url];
+    NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+    return ([tracks count] > 0);
+}
+
+//显示占位图
+- (void)showPlaceholderImage {
+    _isGif = NO;
+    _imageView.gifData = nil;
+    _currentImage = self.placeholderImage;
+    [self setupImageView];
 }
 
 //计算imageView的frame
@@ -159,19 +215,13 @@
     return imageFrame;
 }
 
-//显示占位图
-- (void)showPlaceholderImage {
-    _imageView.gifData = nil;
-    _currentImage = self.placeholderImage;
-    [self layoutImageViewIsGif:NO];
-}
-
 #pragma mark - setter getter
 - (void)setWzm_image:(id)wzm_image {
     if (_wzm_image == wzm_image) return;
     if ([wzm_image isKindOfClass:[UIImage class]]) {
+        _isGif = NO;
         _currentImage = (UIImage *)wzm_image;
-        [self layoutImageViewIsGif:NO];
+        [self setupImageView];
     }
     else if ([wzm_image isKindOfClass:[NSString class]]) {
         [self setPath:(NSString *)wzm_image];
@@ -194,6 +244,9 @@
 
 #pragma mark - UIScrollViewDelegate
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    if (_isVideo) {
+        return _videoView;
+    }
     return _imageView;
 }
 

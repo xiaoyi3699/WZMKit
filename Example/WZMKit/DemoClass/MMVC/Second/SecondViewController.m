@@ -41,9 +41,13 @@
 //            i ++;
 //        }
 //    });
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
-    WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:[NSURL fileURLWithPath:path]];
-    [self presentViewController:vc animated:YES completion:nil];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
+    NSString *gifPath = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
+    UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
+    
+    WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
+    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image];
+    [self presentViewController:photoBrowser animated:YES completion:nil];
 }
 
 @end

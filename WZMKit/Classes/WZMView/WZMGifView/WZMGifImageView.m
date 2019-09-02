@@ -73,11 +73,13 @@
     if (self.isPlaying == NO) return;
     _playing = NO;
     _imageIndex = 0;
+    if (self.gifData == nil) return;
     self.image = [UIImage imageWithData:_gifData];
 }
 
 #pragma mark - gif播发代码
 - (void)playGifAnimation {
+    if (self.gifData == nil) return;
     if (self.isPlaying) return;
     _playing = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

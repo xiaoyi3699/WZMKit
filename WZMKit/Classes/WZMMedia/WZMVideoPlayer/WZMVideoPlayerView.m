@@ -320,6 +320,13 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     }
 }
 
+//停止
+- (void)stop {
+    if (_player) {
+        [_player stop];
+    }
+}
+
 //将秒数换算成具体时长
 - (NSString *)getTime:(NSInteger)second
 {

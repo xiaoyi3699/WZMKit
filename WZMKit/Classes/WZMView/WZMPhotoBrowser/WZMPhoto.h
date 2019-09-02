@@ -21,8 +21,8 @@
 
 @property (nonatomic, weak)   id<WZMPhotoDelegate> wzm_delegate;
 
-- (void)startGif;
-- (void)stopGif;
+- (void)start;
+- (void)stop;
 
 @end
 
