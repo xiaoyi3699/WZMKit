@@ -13,9 +13,9 @@
 @interface WZMPlayer : NSObject
 
 ///播放进度
-@property (nonatomic, readonly, assign) CGFloat   playProgress;
+@property (nonatomic, readonly, assign) CGFloat playProgress;
 ///缓冲进度
-@property (nonatomic, readonly, assign) CGFloat   loadProgress;
+@property (nonatomic, readonly, assign) CGFloat loadProgress;
 ///音频总时长
 @property (nonatomic, readonly, assign) CGFloat duration;
 ///当前播放时间

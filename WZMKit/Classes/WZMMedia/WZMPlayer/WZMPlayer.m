@@ -15,11 +15,11 @@
 
 @interface WZMPlayer ()<AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVPlayer  *player;      //音频播放器
-@property (nonatomic, assign) CGFloat   playProgress; //播放进度
-@property (nonatomic, assign) CGFloat   loadProgress; //缓冲进度
-@property (nonatomic, assign) CGFloat duration;       //音频总时长
-@property (nonatomic, assign) CGFloat currentTime;    //当前播放时间
+@property (nonatomic, strong) AVPlayer *player;     //音频播放器
+@property (nonatomic, assign) CGFloat playProgress; //播放进度
+@property (nonatomic, assign) CGFloat loadProgress; //缓冲进度
+@property (nonatomic, assign) CGFloat duration;     //音频总时长
+@property (nonatomic, assign) CGFloat currentTime;  //当前播放时间
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
