@@ -13,7 +13,12 @@
 
 @interface WZMPhoto : UIScrollView
 
-///当前显示的图片
+/*
+ 当前显示的视频、GIF、图片
+ 视频: 网址、路径
+ GIF: 网址、路径、NSData
+ 图片: 网址、路径、NSData、UIImage
+ */
 @property (nonatomic, strong) id wzm_image;
 
 ///设置占位图

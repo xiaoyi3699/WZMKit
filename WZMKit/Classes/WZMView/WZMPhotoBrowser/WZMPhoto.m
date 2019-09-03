@@ -16,6 +16,9 @@
 #import "NSData+wzmcate.h"
 #import "UIImage+wzmcate.h"
 #import "WZMVideoPlayerView.h"
+#import "WZMAlbumModel.h"
+#import "WZMLogPrinter.h"
+
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
 @interface WZMPhoto ()<UIScrollViewDelegate>{
@@ -26,6 +29,7 @@
     UIImage        *_currentImage;
     BOOL           _isGif;
     BOOL           _isVideo;
+    BOOL           _display;
 }
 @end
 
@@ -75,6 +79,7 @@
     else if (_isVideo) {
         [_videoView playWithUrl:_videoUrl];
     }
+    _display = YES;
 }
 
 - (void)stop {
@@ -84,6 +89,7 @@
     else if (_isVideo) {
         [_videoView stop];
     }
+    _display = NO;
 }
 
 #pragma mark - private method
@@ -188,6 +194,8 @@
 //显示占位图
 - (void)showPlaceholderImage {
     _isGif = NO;
+    _isVideo = NO;
+    _videoUrl = nil;
     _imageView.gifData = nil;
     _currentImage = self.placeholderImage;
     [self setupImageView];
@@ -222,21 +230,47 @@
 #pragma mark - setter getter
 - (void)setWzm_image:(id)wzm_image {
     if (_wzm_image == wzm_image) return;
+    _isGif = NO;
+    _isVideo = NO;
+    _videoUrl = nil;
+    _imageView.hidden = YES;
+    _videoView.hidden = YES;
     if ([wzm_image isKindOfClass:[UIImage class]]) {
-        _isGif = NO;
         _currentImage = (UIImage *)wzm_image;
         [self setupImageView];
     }
     else if ([wzm_image isKindOfClass:[NSString class]]) {
+        if ([_wzm_image isEqualToString:wzm_image]) return;
         [self setPath:(NSString *)wzm_image];
     }
     else if ([wzm_image isKindOfClass:[NSData class]]) {
         _imageData = (NSData *)wzm_image;
         [self setupImageData];
     }
+    else if ([wzm_image isKindOfClass:[NSURL class]]) {
+        NSURL *url = (NSURL *)wzm_image;
+        [self setPath:url.path];
+    }
+    else if ([wzm_image isKindOfClass:[WZMAlbumModel class]]) {
+        WZMAlbumModel *model = (WZMAlbumModel *)wzm_image;
+        if (model.isICloud) {
+            [model getThumbnailWithAsset:model.asset thumbnail:^(UIImage *photo) {
+                if (model.isICloud) {
+                    self.wzm_image = photo;
+                }
+            }];
+        }
+        [model getICloudImageCompletion:^(id obj) {
+            self.wzm_image = obj;
+            if (_display) {
+                [self start];
+            }
+        }];
+    }
     else {
         [self showPlaceholderImage];
     }
+    _wzm_image = wzm_image;
 }
 
 - (UIImage *)placeholderImage {
@@ -301,6 +335,10 @@
         }
         [self.wzm_delegate clickAtPhoto:self contentType:contentType gestureType:type];
     }
+}
+
+- (void)dealloc {
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

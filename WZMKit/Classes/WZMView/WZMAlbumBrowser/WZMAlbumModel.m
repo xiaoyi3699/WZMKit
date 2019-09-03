@@ -22,11 +22,41 @@
     return model;
 }
 
+///获取缩略图
+- (void)getThumbnailWithAsset:(id)asset thumbnail:(void(^)(UIImage *photo))thumbnail {
+    if (self.thumbnail) {
+        if (thumbnail) {
+            thumbnail(self.thumbnail);
+        }
+    }
+    else {
+        [WZMAlbumHelper wzm_getThumbnailWithAsset:asset photoWidth:200 thumbnail:^(UIImage *photo) {
+            self.thumbnail = photo;
+            if (thumbnail) {
+                thumbnail(photo);
+            }
+        } cloud:nil];
+    }
+}
+
+///获取原图
+- (void)getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion {
+    [WZMAlbumHelper wzm_getOriginalWithAsset:asset completion:^(id obj) {
+        self.original = obj;
+        if (completion) {
+            completion(obj);
+        }
+    }];
+}
+
+///从iCloud获取原图
 - (void)getICloudImageCompletion:(void (^)(id obj))completion {
+    if (self.downloading) return;
     self.downloading = YES;
     [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
         self.iCloud = NO;
         self.downloading = NO;
+        self.original = obj;
         if (completion) {
             completion(obj);
         }

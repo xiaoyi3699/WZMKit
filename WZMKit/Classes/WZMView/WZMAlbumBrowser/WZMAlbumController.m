@@ -14,6 +14,7 @@
 #import "WZMInline.h"
 #import "WZMViewHandle.h"
 #import "WZMLogPrinter.h"
+#import "WZMPhotoBrowser.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate>
 
@@ -111,6 +112,13 @@
 
 - (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumModel *model = [albumView.allPhotos objectAtIndex:indexPath.row];
+    
+    WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
+    photoBrowser.delegate = self;
+    photoBrowser.images = albumView.allPhotos;
+    photoBrowser.index = indexPath.row;
+    [self presentViewController:photoBrowser animated:YES completion:nil];
+    
     WZMLog(@"%@",model);
 }
 
@@ -141,7 +149,7 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-///获取图片(UIImage)或视频(路径)
+///获取图片(UIImage),GIF(NSData)或视频(NSURL)
 - (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models completion:(void(^)(NSArray *photos))completion {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
     [self photosWithModels:models index:0 array:array completion:completion];

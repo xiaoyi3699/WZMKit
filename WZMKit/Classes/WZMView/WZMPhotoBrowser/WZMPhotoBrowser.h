@@ -15,8 +15,12 @@
 
 @property (nonatomic, weak) id<WZMPhotoBrowserDelegate> delegate;
 
-///images内的元素,可以是UIImage对象、NSData对象、路径、图片网址
-///支持gif,支持视频播放
+/*
+ images内的元素,可以是视频、GIF、图片
+ 视频: 网址、路径
+ GIF: 网址、路径、NSData
+ 图片: 网址、路径、NSData、UIImage
+ */
 @property (nonatomic, strong) NSArray *images;
 ///图片索引
 @property (nonatomic, assign) NSInteger index;

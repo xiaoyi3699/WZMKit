@@ -41,15 +41,19 @@
 //            i ++;
 //        }
 //    });
-    NSString *r = @"http://www.vasueyun.cn/resource/wzm_qnyh.mp4";
-    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
-    NSString *gifPath = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
-    UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
+//    NSString *r = @"http://www.vasueyun.cn/resource/wzm_qnyh.mp4";
+//    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
+//    NSString *gifPath = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
+//    UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
+//
+//    WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
+//    photoBrowser.delegate = self;
+//    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
+//    [self presentViewController:photoBrowser animated:YES completion:nil];
     
-    WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
-    photoBrowser.delegate = self;
-    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
-    [self presentViewController:photoBrowser animated:YES completion:nil];
+    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:[WZMAlbumConfig new]];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)
