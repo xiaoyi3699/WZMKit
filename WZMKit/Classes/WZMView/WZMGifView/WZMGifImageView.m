@@ -15,10 +15,7 @@
 @property (nonatomic, assign) NSInteger imageIndex;
 @property (nonatomic, assign) NSUInteger lastCount;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
-@property (nonatomic, assign, getter=isTracking) BOOL tracking;
 @property (nonatomic, assign, getter=isSourceChange) BOOL sourceChange;
-@property (nonatomic, weak) UIScrollView *scrollView;
-@property (nonatomic, weak) UIPanGestureRecognizer *pan;
 
 @end
 
@@ -89,13 +86,9 @@
         NSArray<NSNumber*> *frameDelayArray = nil;
         NSMutableDictionary<NSNumber*, UIImage*> *imageCache = nil;
         while (self.isPlaying && self.lastCount > 0) {
-            //当gif父视图滑动时,停止加载
-            if (self.tracking) {
-                if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
-                    [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-                    continue;
-                }
-                self.tracking = NO;
+            if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
+                [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                continue;
             }
             NSDate *beginTime = [NSDate date];
             // gifData改变或者线程刚开始src为nil，并且要gifData有数据
@@ -233,54 +226,16 @@
     }
 }
 
-- (void)addObserver {
-    if (self.scrollView == nil) return;
-    if ([self.scrollView isKindOfClass:[UIScrollView class]]) {
-        NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
-        self.pan = self.scrollView.panGestureRecognizer;
-        [self.pan addObserver:self forKeyPath:@"state" options:options context:nil];
-    }
-}
-
-- (void)removeObserver {
-    if (self.scrollView == nil) return;
-    if ([self.scrollView isKindOfClass:[UIScrollView class]]) {
-        [self.pan removeObserver:self forKeyPath:@"state"];
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"state"]) {
-        if (self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-            self.tracking = YES;
-        }
-    }
-}
-
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
     if (newSuperview) {
-        //移除旧的监听
         [self stopGif];
         [self startGif];
-        [self removeObserver];
-        self.scrollView = nil;
-        UIView *superView = newSuperview;
-        while (superView) {
-            if ([superView isKindOfClass:[UIScrollView class]]) {
-                self.scrollView = (UIScrollView *)superView;
-                break;
-            }
-            superView = superView.superview;
-        }
-        //添加新的监听
-        [self addObserver];
     }
+    [super willMoveToSuperview:newSuperview];
 }
 
 - (void)removeFromSuperview {
     [self stopGif];
-    [self removeObserver];
     [super removeFromSuperview];
 }
 
