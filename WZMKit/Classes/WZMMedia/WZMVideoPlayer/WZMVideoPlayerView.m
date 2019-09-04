@@ -58,12 +58,14 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     self = [super initWithFrame:frame];
     if (self) {
         self.allowTouch = NO;
+        self.allowPlay = YES;
         self.backgroundColor = [UIColor blackColor];
         _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
         [self addSubview:_playerView];
         _player = [[WZMPlayer alloc] init];
         _player.delegate = self;
         _player.playerView = _playerView;
+        _player.allowPlay = self.isAllowPlay;
         
         //获取系统的音量view
         self.volumeView.frame = CGRectMake(frame.size.width-30, (frame.size.height-100)/2.0, 20, 100);
@@ -182,7 +184,9 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 - (void)setAllowPlay:(BOOL)allowPlay {
     if (_allowPlay == allowPlay) return;
     _allowPlay = allowPlay;
-    self.player.allowPlay = allowPlay;
+    if (self.player) {
+        self.player.allowPlay = allowPlay;
+    }
 }
 
 //亮度调节相关
