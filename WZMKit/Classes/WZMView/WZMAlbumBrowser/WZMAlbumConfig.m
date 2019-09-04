@@ -18,6 +18,7 @@
         self.column = 3;
         self.minCount = 0;
         self.maxCount = 9;
+        self.title = @"所有照片";
         self.autoDismiss = YES;
         self.allowPreview = YES;
         self.allowShowIndex = YES;

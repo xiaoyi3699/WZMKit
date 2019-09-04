@@ -29,7 +29,7 @@
     self = [super init];
     if (self) {
         self.config = config;
-        self.title = @"选择素材";
+        self.title = config.title;
     }
     return self;
 }
