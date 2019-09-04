@@ -48,7 +48,7 @@
     [self scrollToIndex:self.index];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame = CGRectMake(0, WZM_STATUS_HEIGHT, 40, 40);
+    closeBtn.frame = CGRectMake(10, WZM_STATUS_HEIGHT, 40, 40);
     [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeBtn];
     
