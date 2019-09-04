@@ -12,8 +12,6 @@
 
 @interface WZMPlayer : NSObject
 
-///强制设置当前播放器是否允许播放,如非特殊情况,不建议使用
-@property (nonatomic, assign, getter=isAllowPlay) BOOL allowPlay;
 ///播放进度
 @property (nonatomic, readonly, assign) CGFloat playProgress;
 ///缓冲进度
@@ -26,6 +24,10 @@
 @property (nonatomic, assign, readonly, getter=isPlaying) BOOL playing;
 ///是否允许后台播放, 默认NO, 后台播放需要应用简单配置
 @property (nonatomic, assign, getter=isBackground) BOOL background;
+///强制设置当前播放器是否允许播放,默认YES,如非特殊情况,不建议使用
+@property (nonatomic, assign, getter=isAllowPlay) BOOL allowPlay;
+///是否根据主线程RunLoopMode改变播放状态,默认YES
+@property (nonatomic, assign, getter=isTrackingRunLoop) BOOL trackingRunLoop;
 ///代理事件
 @property (nonatomic, weak) id<WZMPlayerDelegate> delegate;
 ///播放音频时不用设置, 播放视频是需要设置视图

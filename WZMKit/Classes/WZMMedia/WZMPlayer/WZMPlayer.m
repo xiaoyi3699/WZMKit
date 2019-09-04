@@ -38,6 +38,7 @@
         self.related = NO;
         self.background = NO;
         self.allowPlay = YES;
+        self.trackingRunLoop = YES;
         
         //监听音频播放结束
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -108,8 +109,7 @@
             @wzm_weakify(self);
             _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
                 @wzm_strongify(self);
-                BOOL isContinue = YES;
-                while (isContinue) {
+                while (self.trackingRunLoop) {
                     if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self loop_pause];
@@ -118,12 +118,12 @@
                         continue;
                     }
                     else {
-                        isContinue = NO;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             if (self.isLocking == NO) {
                                 [self play];
                             }
                         });
+                        break;
                     }
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
