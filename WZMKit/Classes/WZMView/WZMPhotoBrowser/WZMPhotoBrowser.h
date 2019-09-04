@@ -25,6 +25,9 @@
 ///图片索引
 @property (nonatomic, assign) NSInteger index;
 
+- (void)showFromController:(UIViewController *)controller;
+- (void)dismiss;
+
 @end
 
 @protocol WZMPhotoBrowserDelegate <NSObject>

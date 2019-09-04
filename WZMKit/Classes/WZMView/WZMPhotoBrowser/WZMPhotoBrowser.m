@@ -46,6 +46,38 @@
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
+    
+    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeBtn.frame = CGRectMake(0, WZM_STATUS_HEIGHT, 40, 40);
+    [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:closeBtn];
+    
+    CGRect imageFrame = closeBtn.frame;
+    imageFrame.origin.x += 10;
+    imageFrame.origin.y += 10;
+    imageFrame.size.width -= 20;
+    imageFrame.size.height -= 20;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
+    imageView.image = [WZMPublic imageNamed:@"close_1" ofType:@"png"];
+    [self.view addSubview:imageView];
+}
+
+- (void)showFromController:(UIViewController *)controller {
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [UIView transitionWithView:window duration:0.35 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [controller presentViewController:self animated:NO completion:nil];
+    } completion:nil];
+}
+
+- (void)dismiss {
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [UIView transitionWithView:window duration:0.35 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    } completion:nil];
+}
+
+- (void)closeBtnClick:(UIButton *)btn {
+    [self dismiss];
 }
 
 #pragma mark - WZMPhotoBrowserCellDelegate

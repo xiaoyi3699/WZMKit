@@ -16,7 +16,7 @@
 #import "WZMLogPrinter.h"
 #import "WZMPhotoBrowser.h"
 
-@interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate>
+@interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) WZMAlbumView *albumView;
@@ -111,15 +111,11 @@
 }
 
 - (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
-    WZMAlbumModel *model = [albumView.allPhotos objectAtIndex:indexPath.row];
-    
     WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
     photoBrowser.delegate = self;
     photoBrowser.images = albumView.allPhotos;
     photoBrowser.index = indexPath.row;
-    [self presentViewController:photoBrowser animated:YES completion:nil];
-    
-    WZMLog(@"%@",model);
+    [photoBrowser showFromController:self];
 }
 
 //相册权限
@@ -149,6 +145,11 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
+    
+}
+
+#pragma mark - private
 ///获取图片(UIImage),GIF(NSData)或视频(NSURL)
 - (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models completion:(void(^)(NSArray *photos))completion {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
