@@ -178,6 +178,13 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     return _brightnessSlider;
 }
 
+//强制设置播放器是否允许播放
+- (void)setAllowPlay:(BOOL)allowPlay {
+    if (_allowPlay == allowPlay) return;
+    _allowPlay = allowPlay;
+    self.player.allowPlay = allowPlay;
+}
+
 //亮度调节相关
 - (void)brightnessChanged:(UISlider *)slider {
     [[UIScreen mainScreen] setBrightness:slider.value];

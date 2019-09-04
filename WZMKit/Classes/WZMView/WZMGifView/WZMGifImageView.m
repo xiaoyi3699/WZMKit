@@ -87,7 +87,7 @@
         NSMutableDictionary<NSNumber*, UIImage*> *imageCache = nil;
         while (self.isPlaying && self.lastCount > 0) {
             if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
-                [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                [NSThread sleepForTimeInterval:0.5];
                 continue;
             }
             NSDate *beginTime = [NSDate date];

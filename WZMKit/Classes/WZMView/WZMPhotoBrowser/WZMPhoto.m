@@ -74,28 +74,30 @@
 }
 
 - (void)start {
+    _display = YES;
     if (_isGif) {
         [_imageView startGif];
     }
     else if (_isVideo) {
-        if (_videoUrl) {
-            [_videoView playWithUrl:_videoUrl];
-        }
-        else if (_albumModel) {
-            [_videoView playWithAlbumModel:_albumModel];
+        if (_display) {
+            if (_videoUrl) {
+                [_videoView playWithUrl:_videoUrl];
+            }
+            else if (_albumModel) {
+                [_videoView playWithAlbumModel:_albumModel];
+            }
         }
     }
-    _display = YES;
 }
 
 - (void)stop {
+    _display = NO;
     if (_isGif) {
         [_imageView stopGif];
     }
     else if (_isVideo) {
         [_videoView stop];
     }
-    _display = NO;
 }
 
 #pragma mark - private method

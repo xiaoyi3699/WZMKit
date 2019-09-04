@@ -12,6 +12,8 @@
 
 @interface WZMPlayer : NSObject
 
+///强制设置当前播放器是否允许播放,如非特殊情况,不建议使用
+@property (nonatomic, assign, getter=isAllowPlay) BOOL allowPlay;
 ///播放进度
 @property (nonatomic, readonly, assign) CGFloat playProgress;
 ///缓冲进度

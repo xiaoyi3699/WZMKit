@@ -24,6 +24,7 @@
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isLocking) BOOL locking;
+@property (nonatomic, assign, getter=isRelated) BOOL related;
 
 @end
 
@@ -34,7 +35,9 @@
     if (self) {
         self.playing = NO;
         self.locking = NO;
+        self.related = NO;
         self.background = NO;
+        self.allowPlay = YES;
         
         //监听音频播放结束
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -72,6 +75,7 @@
 
 //url：文件路径或文件网络地址
 - (void)playWithURL:(NSURL *)url {
+    if (self.isAllowPlay == NO) return;
     [self stop];
     //加载视频资源的类
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];
@@ -99,27 +103,46 @@
             [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
             //观察缓冲进度
             [item addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
-            
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             @wzm_weakify(self);
-            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
                 @wzm_strongify(self);
-                //获取当前播放时间
-                self.currentTime = CMTimeGetSeconds(self.player.currentItem.currentTime);
-                if (self.duration == 0) {
-                    NSString *dur = [NSString stringWithFormat:@"%@",@(CMTimeGetSeconds(self.player.currentItem.duration))];
-                    self.duration = [dur doubleValue];
-                    [self wzm_loadSuccess];
-                    [self wzm_beginPlaying];
-                }
-                if (self.duration > 0) {
-                    float pro = self.currentTime*1.0/self.duration;
-                    if (pro >= 0.0 && pro <= 1.0) {
-                        self.playProgress = pro;
+                BOOL isContinue = YES;
+                while (isContinue) {
+                    if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self loop_pause];
+                        });
+                        [NSThread sleepForTimeInterval:0.5];
+                        continue;
                     }
-                    [self wzm_playing];
+                    else {
+                        isContinue = NO;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (self.isLocking == NO) {
+                                [self play];
+                            }
+                        });
+                    }
                 }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //获取当前播放时间
+                    self.currentTime = CMTimeGetSeconds(self.player.currentItem.currentTime);
+                    if (self.duration == 0) {
+                        NSString *dur = [NSString stringWithFormat:@"%@",@(CMTimeGetSeconds(self.player.currentItem.duration))];
+                        self.duration = [dur doubleValue];
+                        [self wzm_loadSuccess];
+                        [self wzm_beginPlaying];
+                    }
+                    if (self.duration > 0) {
+                        float pro = self.currentTime*1.0/self.duration;
+                        if (pro >= 0.0 && pro <= 1.0) {
+                            self.playProgress = pro;
+                        }
+                        [self wzm_playing];
+                    }
+                });
             }];
         }
         else {
@@ -135,11 +158,11 @@
                       ofObject:(id)object
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
+    if (self.isAllowPlay == NO) return;
     if (self.isBackground == NO && self.isLocking) return;
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
-            [self relatePlayer:_player];
             [self play];
         }
         else if (item.status == AVPlayerStatusFailed) {
@@ -157,9 +180,16 @@
     }
 }
 
-- (void)relatePlayer:(AVPlayer *)myPlayer
-{
-    if (self.playerView && [self.playerView isKindOfClass:[WZMPlayerView class]]) {
+- (void)relatePlayer:(AVPlayer *)myPlayer {
+    if (self.playerView) {
+        if (myPlayer) {
+            if (self.isRelated) return;
+            self.related = YES;
+        }
+        else {
+            if (self.isRelated == NO) return;
+            self.related = NO;
+        }
         AVPlayerLayer *playerLayer=(AVPlayerLayer *)self.playerView.layer;
         [playerLayer setPlayer:myPlayer];
     }
@@ -277,28 +307,34 @@
 }
 
 - (void)play {
+    if (self.isAllowPlay == NO) return;
     self.locking = NO;
     if (self.isPlaying) return;
     if (_player) {
-        self.playing = YES;
+        [self relatePlayer:_player];
         [_player play];
+        self.playing = YES;
         [self wzm_changeStatus];
     }
 }
 
 - (void)pause {
     self.locking = YES;
-    if (self.isPlaying == NO) return;
-    if (_player) {
-        self.playing = NO;
-        [_player pause];
-        [self wzm_changeStatus];
-    }
+    [self loop_pause];
 }
 
 - (void)stop {
     [self pause];
     [self resetConfig:YES];
+}
+
+- (void)loop_pause {
+    if (self.isPlaying == NO) return;
+    if (_player) {
+        [_player pause];
+        self.playing = NO;
+        [self wzm_changeStatus];
+    }
 }
 
 //注册taskId
