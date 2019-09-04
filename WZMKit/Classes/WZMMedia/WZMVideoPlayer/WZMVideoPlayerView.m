@@ -15,7 +15,7 @@
 #import "UIImage+wzmcate.h"
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
-
+#import "WZMAlbumModel.h"
 #import "WZMPlayer.h"
 #import "WZMPlayerView.h"
 
@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.allowTouch = NO;
         self.backgroundColor = [UIColor blackColor];
         _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
         [self addSubview:_playerView];
@@ -78,14 +79,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         [self.brightnessSlider addTarget:self action:@selector(brightnessChanged:) forControlEvents:UIControlEventValueChanged];
         self.brightnessSlider.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:self.brightnessSlider];
-        
-        //返回按钮
-        UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        closeBtn.frame = CGRectMake(10, WZM_STATUS_HEIGHT, 50, 50);
-        closeBtn.backgroundColor = [UIColor blueColor];
-        closeBtn.wzm_cornerRadius = 25;
-        [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:closeBtn];
         
         //底部view
         _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
@@ -143,6 +136,19 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [_player playWithURL:url];
 }
 
+- (void)playWithAlbumModel:(WZMAlbumModel *)model {
+    _progressSlider.value = 0.0;
+    _currentTimeLabel.text = @"00:00";
+    [_indicatorView startAnimating];
+    if (model.type == WZMAlbumPhotoTypeVideo) {
+        [model getICloudImageCompletion:^(id obj) {
+            if ([obj isKindOfClass:[NSURL class]]) {
+                NSURL *url = (NSURL *)obj;
+                [_player playWithURL:url];
+            }
+        }];
+    }
+}
 
 //音量调节
 - (MPVolumeView *)volumeView {
@@ -177,12 +183,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [[UIScreen mainScreen] setBrightness:slider.value];
 }
 
-//返回按钮的点击事件
-- (void)closeBtnClick:(UIButton *)btn
-{
-    [self.wzm_viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
 //播放按钮的点击事件
 -(void)playBtnClick:(UIButton *)btn
 {
@@ -213,6 +213,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
  */
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+    if (self.isAllowTouch == NO) return;
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
@@ -236,6 +237,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
  */
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
+    if (self.isAllowTouch == NO) return;
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
@@ -291,6 +293,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
  */
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
+    if (self.isAllowTouch == NO) return;
     if (self.direction == WZMDirectionHrizontal) {
         [self play];
     }
@@ -305,6 +308,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
  */
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesCancelled:touches withEvent:event];
+    if (self.isAllowTouch == NO) return;
     if (self.direction == WZMDirectionHrizontal) {
         [self play];
     }

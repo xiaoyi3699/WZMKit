@@ -27,6 +27,7 @@
     NSData         *_imageData;
     NSURL          *_videoUrl;
     UIImage        *_currentImage;
+    WZMAlbumModel  *_albumModel;
     BOOL           _isGif;
     BOOL           _isVideo;
     BOOL           _display;
@@ -77,7 +78,12 @@
         [_imageView startGif];
     }
     else if (_isVideo) {
-        [_videoView playWithUrl:_videoUrl];
+        if (_videoUrl) {
+            [_videoView playWithUrl:_videoUrl];
+        }
+        else if (_albumModel) {
+            [_videoView playWithAlbumModel:_albumModel];
+        }
     }
     _display = YES;
 }
@@ -154,26 +160,26 @@
 
 //设置图片的宽高比
 - (void)setupImageView {
-    _isVideo = NO;
-    _videoUrl = nil;
     _imageView.hidden = NO;
-    _videoView.hidden = YES;
     _imageView.frame = [self imageFrame];
     if (_isGif) {
         _imageView.gifData = _imageData;
     }
     else {
-        _imageView.gifData = nil;
         _imageView.image = _currentImage;
     }
 }
 
 //设置视频
 - (void)setupVideoUrl:(NSURL *)url {
-    _isGif = NO;
     _isVideo = YES;
     _videoUrl = url;
-    _imageView.hidden = YES;
+    _videoView.hidden = NO;
+}
+
+- (void)setupAlbumModel:(WZMAlbumModel *)model {
+    _isVideo = YES;
+    _albumModel = model;
     _videoView.hidden = NO;
 }
 
@@ -193,10 +199,6 @@
 
 //显示占位图
 - (void)showPlaceholderImage {
-    _isGif = NO;
-    _isVideo = NO;
-    _videoUrl = nil;
-    _imageView.gifData = nil;
     _currentImage = self.placeholderImage;
     [self setupImageView];
 }
@@ -227,14 +229,24 @@
     return imageFrame;
 }
 
-#pragma mark - setter getter
-- (void)setWzm_image:(id)wzm_image {
-    if (_wzm_image == wzm_image) return;
+- (void)resetConfig {
     _isGif = NO;
     _isVideo = NO;
     _videoUrl = nil;
+    _albumModel = nil;
+    _imageData = nil;
+    _currentImage = nil;
+    [_videoView stop];
+    [_imageView stopGif];
+    _imageView.gifData = nil;
     _imageView.hidden = YES;
     _videoView.hidden = YES;
+}
+
+#pragma mark - setter getter
+- (void)setWzm_image:(id)wzm_image {
+    if (_wzm_image == wzm_image) return;
+    [self resetConfig];
     if ([wzm_image isKindOfClass:[UIImage class]]) {
         _currentImage = (UIImage *)wzm_image;
         [self setupImageView];
@@ -253,19 +265,24 @@
     }
     else if ([wzm_image isKindOfClass:[WZMAlbumModel class]]) {
         WZMAlbumModel *model = (WZMAlbumModel *)wzm_image;
-        if (model.isICloud) {
-            [model getThumbnailWithAsset:model.asset thumbnail:^(UIImage *photo) {
-                if (model.isICloud) {
-                    self.wzm_image = photo;
+        if (model.type == WZMAlbumPhotoTypeVideo) {
+            [self setupAlbumModel:model];
+        }
+        else {
+            if (model.isICloud) {
+                [model getThumbnailWithAsset:model.asset thumbnail:^(UIImage *photo) {
+                    if (model.isICloud) {
+                        self.wzm_image = photo;
+                    }
+                }];
+            }
+            [model getICloudImageCompletion:^(id obj) {
+                self.wzm_image = obj;
+                if (_display) {
+                    [self start];
                 }
             }];
         }
-        [model getICloudImageCompletion:^(id obj) {
-            self.wzm_image = obj;
-            if (_display) {
-                [self start];
-            }
-        }];
     }
     else {
         [self showPlaceholderImage];
