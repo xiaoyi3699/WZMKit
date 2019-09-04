@@ -35,6 +35,7 @@
     _imageIndex = 0;
     _speed = 1.0;
     _frameCacheInterval = 0;
+    _trackingRunLoop = YES;
 }
 
 #pragma mark - 属性
@@ -86,9 +87,11 @@
         NSArray<NSNumber*> *frameDelayArray = nil;
         NSMutableDictionary<NSNumber*, UIImage*> *imageCache = nil;
         while (self.isPlaying && self.lastCount > 0) {
-            if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
-                [NSThread sleepForTimeInterval:0.5];
-                continue;
+            if (self.isTrackingRunLoop) {
+                if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
+                    [NSThread sleepForTimeInterval:0.5];
+                    continue;
+                }
             }
             NSDate *beginTime = [NSDate date];
             // gifData改变或者线程刚开始src为nil，并且要gifData有数据

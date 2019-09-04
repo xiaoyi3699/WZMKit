@@ -22,7 +22,8 @@
 
 ///是否在播放
 @property (nonatomic, assign, readonly, getter=isPlaying) BOOL playing;
-
+///是否根据主线程RunLoopMode改变播放状态,默认YES
+@property (nonatomic, assign, getter=isTrackingRunLoop) BOOL trackingRunLoop;
 ///播放次数，设置为 NSUIntegerMax 表示无限播发。默认为NSUIntegerMax。
 @property (nonatomic, assign) NSUInteger loopCount;
 

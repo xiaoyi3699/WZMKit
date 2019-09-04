@@ -109,7 +109,7 @@
             @wzm_weakify(self);
             _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
                 @wzm_strongify(self);
-                while (self.trackingRunLoop) {
+                while (self.isTrackingRunLoop) {
                     if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self loop_pause];
