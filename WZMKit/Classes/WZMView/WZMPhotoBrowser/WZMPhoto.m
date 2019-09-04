@@ -310,7 +310,13 @@
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView{
     CGFloat offsetX = (self.bounds.size.width>self.contentSize.width)?(self.bounds.size.width-self.contentSize.width)*0.5:0.0;
     CGFloat offsetY = (self.bounds.size.height>self.contentSize.height)?(self.bounds.size.height-self.contentSize.height)*0.5:0.0;
-    _imageView.center = CGPointMake(scrollView.contentSize.width*0.5+offsetX, scrollView.contentSize.height*0.5+offsetY);
+    CGPoint center = CGPointMake(scrollView.contentSize.width*0.5+offsetX, scrollView.contentSize.height*0.5+offsetY);
+    if (_isVideo) {
+        _videoView.center = center;
+    }
+    else {
+        _imageView.center = center;
+    }
 }
 
 #pragma mark - 手势交互
@@ -331,8 +337,15 @@
     [self setDelegeteType:WZMGestureRecognizerTypeDouble];
     if (self.zoomScale > WZMPhotoMinScale) {
         [self setZoomScale:WZMPhotoMinScale animated:YES];
-    } else {
-        CGPoint touchPoint = [gestureRecognizer locationInView:_imageView];
+    }
+    else {
+        CGPoint touchPoint;
+        if (_isVideo) {
+            touchPoint = [gestureRecognizer locationInView:_videoView];
+        }
+        else {
+            touchPoint = [gestureRecognizer locationInView:_imageView];
+        }
         CGFloat newZoomScale = self.maximumZoomScale;
         CGFloat xsize = self.frame.size.width/newZoomScale;
         CGFloat ysize = self.frame.size.height/newZoomScale;
