@@ -47,19 +47,18 @@
     [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
     
-    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeBtn.frame = CGRectMake(10, WZM_STATUS_HEIGHT, 40, 40);
-    [closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:closeBtn];
+    UIView *closeView = [[UIView alloc] initWithFrame:CGRectMake(10, WZM_STATUS_HEIGHT, 40, 40)];
+    closeView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:0.2];
+    closeView.layer.masksToBounds = YES;
+    closeView.layer.cornerRadius = 20;
+    [self.view addSubview:closeView];
     
-    CGRect imageFrame = closeBtn.frame;
-    imageFrame.origin.x += 10;
-    imageFrame.origin.y += 10;
-    imageFrame.size.width -= 20;
-    imageFrame.size.height -= 20;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
+    UITapGestureRecognizer *closeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeItemTap)];
+    [closeView addGestureRecognizer:closeTap];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 12, 12)];
     imageView.image = [WZMPublic imageNamed:@"close_1" ofType:@"png"];
-    [self.view addSubview:imageView];
+    [closeView addSubview:imageView];
 }
 
 - (void)showFromController:(UIViewController *)controller {
@@ -76,7 +75,7 @@
     } completion:nil];
 }
 
-- (void)closeBtnClick:(UIButton *)btn {
+- (void)closeItemTap {
     [self dismiss];
 }
 

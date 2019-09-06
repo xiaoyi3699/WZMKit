@@ -60,6 +60,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         self.allowTouch = NO;
         self.allowPlay = YES;
         self.backgroundColor = [UIColor blackColor];
+        
         _playerView = [[WZMPlayerView alloc] initWithFrame:self.bounds];
         [self addSubview:_playerView];
         _player = [[WZMPlayer alloc] init];
@@ -84,7 +85,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         
         //底部view
         _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
-        _toolView.backgroundColor = WZM_R_G_B_A(50, 50, 50, .5);
+        _toolView.backgroundColor = [UIColor clearColor];
         _toolView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
         [self addSubview:_toolView];
         
