@@ -124,17 +124,17 @@
     [self dismiss];
     WZMProgressHUD *hud = [self defaultHUD];
     hud.show = YES;
-    CGRect rect; CGFloat w = 30, h = 30;
+    CGRect rect; CGFloat w = 30, h = 40;
     if (message.length > 0) {
         w = [message sizeWithAttributes:@{NSFontAttributeName:hud.config.font}].width+30;
     }
     if (hud.isUserEnabled) {
-        hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-150), w, h);
+        hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2, w, h);
         rect = hud.bounds;
     }
     else {
         hud.frame = WZM_SCREEN_BOUNDS;
-        rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-150), w, h);
+        rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2, w, h);
     }
     hud.messageView.frame = rect;
     hud.messageView.text = message;
