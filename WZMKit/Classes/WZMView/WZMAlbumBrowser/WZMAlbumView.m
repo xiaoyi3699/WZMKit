@@ -211,7 +211,7 @@
             [self.selectedPhotos addObject:model];
         }
         [collectionView reloadData];
-        self.countLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.selectedPhotos.count),@(self.config.maxCount)];
+        self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
     }
 }
 
