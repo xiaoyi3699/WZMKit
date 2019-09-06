@@ -31,6 +31,7 @@
     return self;
 }
 
+#pragma mark - WZMPhotoDelegate
 - (void)clickAtPhoto:(WZMPhoto *)photo contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
     if ([self.delegate respondsToSelector:@selector(photoBrowserCell:clickAtIndexPath:contentType:gestureType:)]) {
         [self.delegate photoBrowserCell:self clickAtIndexPath:self.indexPath contentType:contentType gestureType:gestureType];

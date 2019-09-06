@@ -87,6 +87,9 @@
     if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
         [self.delegate photoBrowser:self clickAtIndex:indexPath.row contentType:contentType gestureType:gestureType];
     }
+    if (gestureType == WZMGestureRecognizerTypeClose) {
+        [self dismiss];
+    }
 }
 
 #define mark - UICollectionViewDataSource,UICollectionViewDelegate

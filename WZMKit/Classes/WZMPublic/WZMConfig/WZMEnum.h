@@ -26,6 +26,7 @@ typedef enum : NSInteger {
     WZMGestureRecognizerTypeSingle  = 0,
     WZMGestureRecognizerTypeDouble,
     WZMGestureRecognizerTypeLong,
+    WZMGestureRecognizerTypeClose,
 } WZMGestureRecognizerType;
 
 ///滑动状态

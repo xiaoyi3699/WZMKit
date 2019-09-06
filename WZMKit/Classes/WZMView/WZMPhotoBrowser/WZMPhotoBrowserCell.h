@@ -18,7 +18,6 @@
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (void)setImage:(id)image;
-
 - (void)willDisplay;
 - (void)didEndDisplay;
 

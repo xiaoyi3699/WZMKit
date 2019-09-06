@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSInteger {
+    WZMPanGestureRecognizerDirectionAll = 0,
     WZMPanGestureRecognizerDirectionVertical,
     WZMPanGestureRecognizerDirectionHorizontal
 } WZMPanGestureRecognizerDirection;

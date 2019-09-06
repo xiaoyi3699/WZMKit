@@ -7,6 +7,7 @@
 //
 
 #import "WZMPanGestureRecognizer.h"
+#import "WZMLogPrinter.h"
 
 int const static WZMDirectionPanThreshold = 5;
 @implementation WZMPanGestureRecognizer {
@@ -47,6 +48,10 @@ int const static WZMDirectionPanThreshold = 5;
     _moveX = 0;
     _moveY = 0;
     [super reset];
+}
+
+- (void)dealloc {
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

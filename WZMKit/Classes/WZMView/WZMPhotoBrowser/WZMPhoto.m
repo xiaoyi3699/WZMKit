@@ -18,6 +18,7 @@
 #import "WZMVideoPlayerView.h"
 #import "WZMAlbumModel.h"
 #import "WZMLogPrinter.h"
+#import "WZMPanGestureRecognizer.h"
 
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
@@ -31,6 +32,7 @@
     BOOL           _isGif;
     BOOL           _isVideo;
     BOOL           _display;
+    CGRect         _startFrame;
 }
 @end
 
@@ -46,26 +48,27 @@
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
         
-        UITapGestureRecognizer *singleClick = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                      action:@selector(singleClick:)];
+        UITapGestureRecognizer *singleClick = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleClick:)];
         [self addGestureRecognizer:singleClick];
         
-        UITapGestureRecognizer *doubleClick = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                      action:@selector(doubleClick:)];
+        UITapGestureRecognizer *doubleClick = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClick:)];
         doubleClick.numberOfTapsRequired = 2;
         [self addGestureRecognizer:doubleClick];
         
         [singleClick requireGestureRecognizerToFail:doubleClick];
-        
-        UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                action:@selector(longClick:)];
+
+        UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
         [self addGestureRecognizer:longClick];
+        
+        WZMPanGestureRecognizer *panClick = [[WZMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panClick:)];
+        panClick.direction = WZMPanGestureRecognizerDirectionVertical;
+        [self addGestureRecognizer:panClick];
         
         _imageView = [[WZMGifImageView alloc] init];
         _imageView.hidden = YES;
         [self addSubview:_imageView];
         [self showPlaceholderImage];
-        
+
         _videoView = [[WZMVideoPlayerView alloc] initWithFrame:self.bounds];
         _videoView.hidden = YES;
         [self addSubview:_videoView];
@@ -329,6 +332,46 @@
 - (void)longClick:(UILongPressGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         [self setDelegeteType:WZMGestureRecognizerTypeLong];
+    }
+}
+
+- (void)panClick:(WZMPanGestureRecognizer *)gesture {
+    CGPoint point_0 = [gesture translationInView:self];
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        if (_isVideo) {
+            _startFrame = _videoView.frame;
+        }
+        else {
+            _startFrame = _imageView.frame;
+        }
+    }
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
+        CGFloat x = _startFrame.origin.x+point_0.x;
+        CGFloat y = _startFrame.origin.y+point_0.y;
+        
+        if (_isVideo) {
+            _videoView.frame = CGRectMake(x, y, _videoView.frame.size.width, _videoView.frame.size.height);
+        }
+        else {
+            _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
+        }
+        self.alpha = MIN((1-point_0.y/self.wzm_height), 1);
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
+        if (point_0.y > 100) {
+            [self setDelegeteType:WZMGestureRecognizerTypeClose];
+        }
+        else {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.alpha = 1.0;
+                if (_isVideo) {
+                    _videoView.frame = _startFrame;
+                }
+                else {
+                    _imageView.frame = _startFrame;
+                }
+            }];
+        }
     }
 }
 
