@@ -187,7 +187,8 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 }
                     break;
                 case SKPaymentTransactionStateRestored:{
-                    [self finishTransaction:@"已经购买过商品"];
+                    //恢复购买
+                    [self loadAppStoreReceipt];
                 }
                     break;
                 case SKPaymentTransactionStateFailed:{
@@ -202,18 +203,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-    BOOL restore = NO;
-    NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
-    for (SKPaymentTransaction *transaction in transactions) {
-        if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-            restore = YES;
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-            NSLog(@"恢复的订单");
-        }
-    }
-    if (restore == NO) {
-        [self finishRestore:@"未查询到可恢复的订单"];
-    }
+    [self finishRestore:@"恢复购买成功"];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
