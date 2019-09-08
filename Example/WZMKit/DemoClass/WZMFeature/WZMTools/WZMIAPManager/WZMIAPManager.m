@@ -92,7 +92,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         return;
     }
     if ([self canRequestIAP]) {
-        [self removeAllUncompleteTransactionsBeforeNewPurchase];
+        [self removeAllUncompleteTransactions];
         [self addObserver];
         self.orderId = orderId;
         [self requestProductData:productId];
@@ -201,6 +201,24 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     });
 }
 
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
+    if (transactions.count > 0) {
+        for (SKPaymentTransaction *transaction in transactions) {
+            if (transaction.transactionState == SKPaymentTransactionStateRestored) {
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            }
+        }
+    }
+    else {
+        [self finishRestore:@"未查询到可恢复的订单"];
+    }
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+    [self finishRestore:@"未查询到可恢复的订单"];
+}
+
 #pragma mark - 订单验证
 /**从沙盒中获取交易凭证*/
 -(void)loadAppStoreReceipt {
@@ -272,7 +290,19 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)finishTransaction:(NSString *)message {
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
-    [self removeAllUncompleteTransactionsBeforeNewPurchase];
+    [self removeAllUncompleteTransactions];
+    [self removeObserver];
+    [self removeLocReceiptData];
+    if (self.isManualVerify == NO) return;
+    self.manualVerify = NO;
+    [self showInfoMessage:message];
+}
+
+//恢复订单结束
+- (void)finishRestore:(NSString *)message {
+    [WZMViewHandle wzm_dismiss];
+    self.paying = NO;
+    [self removeAllUncompleteTransactions];
     [self removeObserver];
     [self removeLocReceiptData];
     if (self.isManualVerify == NO) return;
@@ -292,9 +322,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 //结束未完成的交易
-- (void)removeAllUncompleteTransactionsBeforeNewPurchase{
+- (void)removeAllUncompleteTransactions{
     NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
-    if (transactions.count >= 1) {
+    if (transactions.count > 0) {
         for (SKPaymentTransaction *transaction in transactions) {
             if (transaction.transactionState == SKPaymentTransactionStatePurchased ||
                 transaction.transactionState == SKPaymentTransactionStateRestored) {
