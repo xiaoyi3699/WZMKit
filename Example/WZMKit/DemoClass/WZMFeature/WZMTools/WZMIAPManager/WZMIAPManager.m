@@ -202,15 +202,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    BOOL restore = NO;
     NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
-    if (transactions.count > 0) {
-        for (SKPaymentTransaction *transaction in transactions) {
-            if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-            }
+    for (SKPaymentTransaction *transaction in transactions) {
+        if (transaction.transactionState == SKPaymentTransactionStateRestored) {
+            restore = YES;
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+            NSLog(@"恢复的订单");
         }
     }
-    else {
+    if (restore == NO) {
         [self finishRestore:@"未查询到可恢复的订单"];
     }
 }
