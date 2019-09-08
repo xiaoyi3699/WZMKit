@@ -31,7 +31,9 @@
 @property (nonatomic, strong) NSString *orderId;
 @property (nonatomic, strong) NSString *receipt;
 //是否是用户手动验证的订单
-@property (nonatomic, assign) BOOL manualVerify;
+@property (nonatomic, assign, getter=isManualVerify) BOOL manualVerify;
+//是否是恢复购买
+@property (nonatomic, assign, getter=isRestore) BOOL restore;
 
 @end
 
@@ -51,6 +53,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     self = [super init];
     if (self) {
         self.paying = NO;
+        self.restore = NO;
         self.addObserver = NO;
         self.verifyInApp = YES;
         self.manualVerify = NO;
@@ -65,6 +68,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     NSDictionary *orderInfo = [self getReceiptData];
     if (orderInfo) {
         self.paying = YES;
+        self.restore = NO;
         self.manualVerify = YES;
         self.orderId = orderInfo[@"orderId"];
         self.receipt = orderInfo[@"receipt"];
@@ -81,36 +85,54 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     return (dic != nil && dic[@"orderId"] != nil && dic[@"receipt"] != nil);
 }
 
-/** 检测权限 添加支付监测 开始支付流程*/
+/**开始支付流程*/
 - (void)requestProductWithOrderId:(NSString *)orderId productId:(NSString *)productId {
-    if (self.isPaying) return;
-    if ([self checkLocaltionOrder]) {
-        //本地有未处理订单
-        [self checkAppleOrder:@"上一笔订单未处理完成，正在重新验证..."];
-        return;
-    }
     if (orderId == nil || productId == nil) {
         [self showInfoMessage:@"订单号/商品号有误"];
         return;
     }
-    if ([WZMDeviceUtil isPrisonBreakEquipment]) {
-        [self showInfoMessage:@"越狱手机不支持内购"];
-        return;
-    }
-    if([SKPaymentQueue canMakePayments]){
+    if ([self canRequestIAP]) {
         [self removeAllUncompleteTransactionsBeforeNewPurchase];
         [self addObserver];
         self.orderId = orderId;
         [self requestProductData:productId];
     }
-    else {
-        [self showInfoMessage:@"请打开应用内支付功能"];
+}
+
+//恢复购买
+- (void)restoreCompletedTransactions {
+    if ([self canRequestIAP]) {
+        self.paying = YES;
+        self.restore = YES;
+        self.manualVerify = YES;
+        [self showLoadingMessage:@"查询中..."];
+        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     }
+}
+
+//检测权限
+- (BOOL)canRequestIAP {
+    if (self.isPaying) return NO;
+    if ([self checkLocaltionOrder]) {
+        //本地有未处理订单
+        [self checkAppleOrder:@"上一笔订单未处理完成，正在重新验证..."];
+        return NO;
+    }
+    if ([WZMDeviceUtil isPrisonBreakEquipment]) {
+        [self showInfoMessage:@"越狱手机不支持内购"];
+        return NO;
+    }
+    if([SKPaymentQueue canMakePayments] == NO) {
+        [self showInfoMessage:@"请打开应用内支付功能"];
+        return NO;
+    }
+    return YES;
 }
 
 /** 去Apple IAP Service 根据商品ID请求商品信息*/
 - (void)requestProductData:(NSString *)productId {
     self.paying = YES;
+    self.restore = NO;
     self.manualVerify = YES;
     NSArray *product = [[NSArray alloc] initWithObjects:productId,nil];
     NSSet *nsset = [NSSet setWithArray:product];
@@ -253,7 +275,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     [self removeAllUncompleteTransactionsBeforeNewPurchase];
     [self removeObserver];
     [self removeLocReceiptData];
-    if (self.manualVerify == NO) return;
+    if (self.isManualVerify == NO) return;
     self.manualVerify = NO;
     [self showInfoMessage:message];
 }
@@ -264,7 +286,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
     [self removeObserver];
-    if (self.manualVerify == NO) return;
+    if (self.isManualVerify == NO) return;
     self.manualVerify = NO;
     [self showVerifyPurchaseFail];
 }
@@ -354,7 +376,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         if (self.failedCount < 3) {
-            self.manualVerify = YES;
             [self checkAppleOrder:@"订单验证中..."];
         }
         else {

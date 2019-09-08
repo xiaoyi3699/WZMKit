@@ -53,5 +53,7 @@ typedef enum : NSInteger {
  @param productId 商品号 - 苹果后台设置 <充值标识>
  */
 - (void)requestProductWithOrderId:(NSString *)orderId productId:(NSString *)productId;
+//恢复购买
+- (void)restoreCompletedTransactions;
 
 @end
