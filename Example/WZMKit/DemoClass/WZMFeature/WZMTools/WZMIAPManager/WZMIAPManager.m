@@ -172,48 +172,41 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction {
     WZMLog(@"监听AppStore支付状态");
     dispatch_async(dispatch_get_main_queue(), ^{
-        for(SKPaymentTransaction *tran in transaction){
-            switch (tran.transactionState) {
-                case SKPaymentTransactionStatePurchased:{
-                    //订阅特殊处理
-                    if (tran.originalTransaction) {
-                        //如果是自动续费的订单,originalTransaction会有内容
-                        WZMLog(@"自动续费的订单,originalTransaction = %@",tran.originalTransaction);
-                    }
-                    else {
-                        //普通购买，以及第一次购买自动订阅
-                        WZMLog(@"普通购买，以及第一次购买自动订阅");
-                    }
+        for(SKPaymentTransaction *tran in transaction) {
+            if (tran.transactionState == SKPaymentTransactionStatePurchased) {
+                //订阅特殊处理
+                if (tran.originalTransaction) {
+                    //如果是自动续费的订单,originalTransaction会有内容
+                    WZMLog(@"自动续费的订单,originalTransaction = %@",tran.originalTransaction);
+                }
+                else {
+                    //普通购买，以及第一次购买自动订阅
+                    WZMLog(@"普通购买，以及第一次购买自动订阅");
+                }
+                [self loadAppStoreReceipt];
+            }
+            else if (tran.transactionState == SKPaymentTransactionStateRestored) {
+                if (self.isRestore) {
+                    //恢复购买
                     [self loadAppStoreReceipt];
                 }
-                    break;
-                case SKPaymentTransactionStateRestored:{
-                    if (self.isRestore) {
-                        //恢复购买
-                        [self loadAppStoreReceipt];
-                    }
-                    else {
-                        [self finishTransaction:@"已购买过该商品"];
-                    }
+                else {
+                    [self finishTransaction:@"已购买过该商品"];
                 }
-                    break;
-                case SKPaymentTransactionStateFailed:{
-                    [self finishTransaction:@"支付失败"];
-                }
-                    break;
-                default:
-                    break;
+            }
+            else if (tran.transactionState == SKPaymentTransactionStateFailed) {
+                [self finishTransaction:@"支付失败"];
             }
         }
     });
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-    [self finishTransaction:@"恢复购买成功"];
+    //恢复购买成功
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    [self finishTransaction:@"未查询到可恢复的订单"];
+    //恢复购买失败
 }
 
 #pragma mark - 订单验证
