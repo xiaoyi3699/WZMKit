@@ -105,6 +105,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.paying = YES;
         self.restore = YES;
         self.manualVerify = YES;
+        self.orderId = @"restore";
         [self showLoadingMessage:@"查询中..."];
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     }
@@ -187,8 +188,13 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 }
                     break;
                 case SKPaymentTransactionStateRestored:{
-                    //恢复购买
-                    [self loadAppStoreReceipt];
+                    if (self.isRestore) {
+                        //恢复购买
+                        [self loadAppStoreReceipt];
+                    }
+                    else {
+                        [self finishTransaction:@"已购买过该商品"];
+                    }
                 }
                     break;
                 case SKPaymentTransactionStateFailed:{
@@ -203,11 +209,11 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-    [self finishRestore:@"恢复购买成功"];
+    [self finishTransaction:@"恢复购买成功"];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    [self finishRestore:@"未查询到可恢复的订单"];
+    [self finishTransaction:@"未查询到可恢复的订单"];
 }
 
 #pragma mark - 订单验证
@@ -279,18 +285,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 //AppStore标记交易完成,关闭交易
 //调用场景:1、支付成功 2、订单失效,交易凭证错误或者其他非法因素引起的交易失败
 - (void)finishTransaction:(NSString *)message {
-    [WZMViewHandle wzm_dismiss];
-    self.paying = NO;
-    [self removeAllUncompleteTransactions];
-    [self removeObserver];
-    [self removeLocReceiptData];
-    if (self.isManualVerify == NO) return;
-    self.manualVerify = NO;
-    [self showInfoMessage:message];
-}
-
-//恢复订单结束
-- (void)finishRestore:(NSString *)message {
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
     [self removeAllUncompleteTransactions];
