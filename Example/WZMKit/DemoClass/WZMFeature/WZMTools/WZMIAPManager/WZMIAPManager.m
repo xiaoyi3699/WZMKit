@@ -207,6 +207,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     //恢复购买失败
+    [self finishTransaction:@"未查询到可恢复的订单"];
 }
 
 #pragma mark - 订单验证
