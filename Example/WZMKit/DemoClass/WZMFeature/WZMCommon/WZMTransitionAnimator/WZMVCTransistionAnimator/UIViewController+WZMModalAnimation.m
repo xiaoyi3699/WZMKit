@@ -12,6 +12,7 @@
 
 @implementation UIViewController (WZMModalAnimation)
 static NSString *_animatorKey = @"animator";
+static NSString *_oldDelegate = @"oldDelegate";
 
 - (WZMViewControllerAnimator *)animator
 {
@@ -23,9 +24,20 @@ static NSString *_animatorKey = @"animator";
     objc_setAssociatedObject(self, &_animatorKey, animator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (id<UIViewControllerTransitioningDelegate>)oldDelegate
+{
+    return objc_getAssociatedObject(self, &_oldDelegate);
+}
+
+- (void)setOldDelegate:(id<UIViewControllerTransitioningDelegate>)oldDelegate
+{
+    objc_setAssociatedObject(self, &_oldDelegate, oldDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (void)openModalAnimation:(BOOL)enable {
     if (enable) {
         if (self.animator == nil) {
+            self.oldDelegate = self.transitioningDelegate;
             self.animator = [WZMViewControllerAnimator new];
             self.animator.presentAnimation = @"WZMPresentAnimation";
             self.animator.dismissAnimation  = @"WZMDismissAnimation";
@@ -34,7 +46,7 @@ static NSString *_animatorKey = @"animator";
     }
     else {
         self.animator = nil;
-        self.transitioningDelegate = nil;
+        self.transitioningDelegate = self.oldDelegate;
     }
 }
 
