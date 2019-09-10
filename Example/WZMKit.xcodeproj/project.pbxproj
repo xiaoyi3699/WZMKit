@@ -24,7 +24,6 @@
 		75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = 75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */; };
 		75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */ = {isa = PBXBuildFile; fileRef = 75D1ADAA2319208300C01BA1 /* jingcai.gif */; };
 		75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DB3230E924A0000A955 /* UIImage+WZMCustomImage.m */; };
-		75DA9E1C230E924A0000A955 /* UIButton+WZMHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DB4230E924A0000A955 /* UIButton+WZMHelper.m */; };
 		75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DBA230E924A0000A955 /* WZMTextStorage.m */; };
 		75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DBB230E924A0000A955 /* WZMAttributeTextView.m */; };
 		75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DC1230E924A0000A955 /* WZMIAPManager.m */; };
@@ -58,7 +57,6 @@
 		75DA9E3D230E924A0000A955 /* WZMViewControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0B230E924A0000A955 /* WZMViewControllerAnimator.m */; };
 		75DA9E3E230E924A0000A955 /* WZMPresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0D230E924A0000A955 /* WZMPresentAnimation.m */; };
 		75DA9E3F230E924A0000A955 /* UIWindow+WZMTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */; };
-		75DA9E42230E924A0000A955 /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E1A230E924A0000A955 /* Aspects.m */; };
 		75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */; };
 		75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
@@ -104,9 +102,7 @@
 		75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = xmhzma.MP4; sourceTree = "<group>"; };
 		75D1ADAA2319208300C01BA1 /* jingcai.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = jingcai.gif; sourceTree = "<group>"; };
 		75DA9DB3230E924A0000A955 /* UIImage+WZMCustomImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WZMCustomImage.m"; sourceTree = "<group>"; };
-		75DA9DB4230E924A0000A955 /* UIButton+WZMHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WZMHelper.m"; sourceTree = "<group>"; };
 		75DA9DB5230E924A0000A955 /* UIImage+WZMCustomImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WZMCustomImage.h"; sourceTree = "<group>"; };
-		75DA9DB6230E924A0000A955 /* UIButton+WZMHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WZMHelper.h"; sourceTree = "<group>"; };
 		75DA9DB9230E924A0000A955 /* WZMAttributeTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMAttributeTextView.h; sourceTree = "<group>"; };
 		75DA9DBA230E924A0000A955 /* WZMTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMTextStorage.m; sourceTree = "<group>"; };
 		75DA9DBB230E924A0000A955 /* WZMAttributeTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMAttributeTextView.m; sourceTree = "<group>"; };
@@ -171,8 +167,6 @@
 		75DA9E0E230E924A0000A955 /* WZMDismissInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMDismissInteractiveTransition.h; sourceTree = "<group>"; };
 		75DA9E0F230E924A0000A955 /* UIViewController+WZMModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WZMModalAnimation.h"; sourceTree = "<group>"; };
 		75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+WZMTransformAnimation.m"; sourceTree = "<group>"; };
-		75DA9E19230E924A0000A955 /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
-		75DA9E1A230E924A0000A955 /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		75DA9E48230E9A030000A955 /* WZMFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMFeature.h; sourceTree = "<group>"; };
 		75DA9E4A230E9BBC0000A955 /* WZMNewsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNewsDataProvider.h; sourceTree = "<group>"; };
 		75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsDataProvider.m; sourceTree = "<group>"; };
@@ -317,8 +311,6 @@
 		75DA9DB2230E924A0000A955 /* WZMExtend */ = {
 			isa = PBXGroup;
 			children = (
-				75DA9DB6230E924A0000A955 /* UIButton+WZMHelper.h */,
-				75DA9DB4230E924A0000A955 /* UIButton+WZMHelper.m */,
 				75DA9DB5230E924A0000A955 /* UIImage+WZMCustomImage.h */,
 				75DA9DB3230E924A0000A955 /* UIImage+WZMCustomImage.m */,
 			);
@@ -554,23 +546,6 @@
 			path = WZMVCTransistionAnimator;
 			sourceTree = "<group>";
 		};
-		75DA9E11230E924A0000A955 /* WZMVender */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9E18230E924A0000A955 /* Aspects */,
-			);
-			path = WZMVender;
-			sourceTree = "<group>";
-		};
-		75DA9E18230E924A0000A955 /* Aspects */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9E19230E924A0000A955 /* Aspects.h */,
-				75DA9E1A230E924A0000A955 /* Aspects.m */,
-			);
-			path = Aspects;
-			sourceTree = "<group>";
-		};
 		75DA9E43230E994D0000A955 /* MMVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,7 +594,6 @@
 				75DA9DD8230E924A0000A955 /* WZMCommon */,
 				75DA9DB2230E924A0000A955 /* WZMExtend */,
 				75DA9DB7230E924A0000A955 /* WZMTools */,
-				75DA9E11230E924A0000A955 /* WZMVender */,
 			);
 			path = WZMFeature;
 			sourceTree = "<group>";
@@ -849,7 +823,6 @@
 				75DA9E3C230E924A0000A955 /* UIViewController+WZMModalAnimation.m in Sources */,
 				75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
-				75DA9E1C230E924A0000A955 /* UIButton+WZMHelper.m in Sources */,
 				75DA9E32230E924A0000A955 /* WZMWebViewController.m in Sources */,
 				75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */,
 				75DA9E3F230E924A0000A955 /* UIWindow+WZMTransformAnimation.m in Sources */,
@@ -863,7 +836,6 @@
 				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
 				75DA9E38230E924A0000A955 /* UINavigationController+WZMNavAnimation.m in Sources */,
-				75DA9E42230E924A0000A955 /* Aspects.m in Sources */,
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,
 				75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */,

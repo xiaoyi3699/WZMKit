@@ -59,6 +59,7 @@
 }
 
 + (UIImage *)wzm_getImageByBase64:(NSString *)str {
+    str = [str componentsSeparatedByString:@","].lastObject;
     NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
     return [UIImage imageWithData:data];
 }

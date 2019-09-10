@@ -19,7 +19,6 @@
 #import "WZMAttributeTextView.h"
 
 ///扩展类
-#import "UIButton+WZMHelper.h"
 #import "UIImage+WZMCustomImage.h"
 #import "UIWindow+WZMTransformAnimation.h"
 #import "UIViewController+WZMModalAnimation.h"
@@ -29,9 +28,6 @@
 #import "WZMWebViewController.h"
 #import "WZMNavigationController.h"
 #import "WZMTabBarController.h"
-
-//第三方
-#import "Aspects.h"
 
 //接口相关
 #define LL_BASE_URL     @"http://www.vasueyun.cn/apro/"
