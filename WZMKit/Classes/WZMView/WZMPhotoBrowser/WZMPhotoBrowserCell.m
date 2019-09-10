@@ -20,10 +20,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        CGRect rect = self.bounds;
-        rect.size.width -= 10;
-        rect.origin.x = 5;
-        _photo = [[WZMPhoto alloc] initWithFrame:rect];
+        _photo = [[WZMPhoto alloc] initWithFrame:self.bounds];
         _photo.wzm_delegate = self;
         _photo.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self addSubview:_photo];

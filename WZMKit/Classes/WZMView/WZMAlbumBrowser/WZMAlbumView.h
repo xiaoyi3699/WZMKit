@@ -17,6 +17,8 @@
 @property (nonatomic, readonly, strong) WZMAlbumConfig *config;
 ///代理
 @property (nonatomic, weak) id<WZMAlbumViewDelegate> delegate;
+///视图
+@property (nonatomic, readonly, strong) UICollectionView *collectionView;
 ///所有图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;
 ///选中的图片

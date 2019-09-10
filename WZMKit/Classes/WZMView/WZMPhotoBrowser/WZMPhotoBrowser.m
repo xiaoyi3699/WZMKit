@@ -9,6 +9,7 @@
 #import "WZMPhotoBrowser.h"
 #import "WZMPhotoBrowserCell.h"
 #import "WZMMacro.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>
 
@@ -28,7 +29,6 @@
     flowLayout.minimumLineSpacing = 0;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
-    _collectionView.backgroundColor = [UIColor blackColor];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.showsHorizontalScrollIndicator = NO;
@@ -43,6 +43,7 @@
 #else
     self.automaticallyAdjustsScrollViewInsets = NO;
 #endif
+    _collectionView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
@@ -61,22 +62,10 @@
     [closeView addSubview:imageView];
 }
 
-- (void)showFromController:(UIViewController *)controller {
-    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    [UIView transitionWithView:window duration:0.35 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        [controller presentViewController:self animated:NO completion:nil];
-    } completion:nil];
-}
-
-- (void)dismiss {
-    UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    [UIView transitionWithView:window duration:0.35 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        [self dismissViewControllerAnimated:NO completion:nil];
-    } completion:nil];
-}
-
 - (void)closeItemTap {
-    [self dismiss];
+    if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
+        [self.delegate photoBrowser:self clickAtIndex:self.index contentType:WZMAlbumPhotoTypePhoto gestureType:WZMGestureRecognizerTypeClose];
+    }
 }
 
 #pragma mark - WZMPhotoBrowserCellDelegate
@@ -86,9 +75,6 @@
              gestureType:(WZMGestureRecognizerType)gestureType {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
         [self.delegate photoBrowser:self clickAtIndex:indexPath.row contentType:contentType gestureType:gestureType];
-    }
-    if (gestureType == WZMGestureRecognizerTypeClose) {
-        [self dismiss];
     }
 }
 
@@ -121,6 +107,10 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    _index = scrollView.contentOffset.x/WZM_SCREEN_WIDTH;
+}
+
 #pragma mark - setter
 - (void)setImages:(NSArray *)images {
     if (_images == images) return;
@@ -143,6 +133,10 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (void)dealloc {
+    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

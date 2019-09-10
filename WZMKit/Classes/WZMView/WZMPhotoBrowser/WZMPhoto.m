@@ -44,7 +44,7 @@
         self.delegate = self;
         self.minimumZoomScale = WZMPhotoMinScale;
         self.maximumZoomScale = WZMPhotoMaxSCale;
-        self.backgroundColor  = [UIColor clearColor];
+        self.backgroundColor  = [UIColor blackColor];
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
         
@@ -359,6 +359,14 @@
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         if (point_0.y > 100) {
+            [UIView animateWithDuration:0.2 animations:^{
+                if (_isVideo) {
+                    _videoView.frame = _startFrame;
+                }
+                else {
+                    _imageView.frame = _startFrame;
+                }
+            }];
             [self setDelegeteType:WZMGestureRecognizerTypeClose];
         }
         else {
