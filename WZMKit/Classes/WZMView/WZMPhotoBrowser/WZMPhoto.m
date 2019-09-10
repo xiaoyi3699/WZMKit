@@ -276,14 +276,14 @@
         }
         else {
             if (model.isICloud) {
-                [model getThumbnailWithAsset:model.asset thumbnail:^(UIImage *photo) {
+                [model getThumbnailCompletion:^(UIImage *thumbnail) {
                     if (model.isICloud) {
-                        self.wzm_image = photo;
+                        self.wzm_image = thumbnail;
                     }
                 }];
             }
-            [model getICloudImageCompletion:^(id obj) {
-                self.wzm_image = obj;
+            [model getOriginalCompletion:^(id original) {
+                self.wzm_image = original;
                 if (_display) {
                     [self start];
                 }

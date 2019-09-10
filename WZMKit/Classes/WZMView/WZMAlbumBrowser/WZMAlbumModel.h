@@ -18,14 +18,16 @@
 @property (nonatomic, assign) WZMAlbumPhotoType type;
 @property (nonatomic, assign, getter=isICloud) BOOL iCloud;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
+@property (nonatomic, assign, getter=isUserCache) BOOL userCache;
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 
 + (instancetype)modelWithAsset:(id)asset;
-///从iCloud获取原图
-- (void)getICloudImageCompletion:(void (^)(id obj))completion;
+
 ///获取原图
-- (void)getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion;
+- (void)getOriginalCompletion:(void(^)(id original))completion;
+///从iCloud获取原图
+- (void)getICloudImageCompletion:(void (^)(id original))completion;
 ///获取缩略图
-- (void)getThumbnailWithAsset:(id)asset thumbnail:(void(^)(UIImage *photo))thumbnail;
+- (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion;
 
 @end

@@ -144,9 +144,9 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     _currentTimeLabel.text = @"00:00";
     [_indicatorView startAnimating];
     if (model.type == WZMAlbumPhotoTypeVideo) {
-        [model getICloudImageCompletion:^(id obj) {
-            if ([obj isKindOfClass:[NSURL class]]) {
-                NSURL *url = (NSURL *)obj;
+        [model getICloudImageCompletion:^(id original) {
+            if ([original isKindOfClass:[NSURL class]]) {
+                NSURL *url = (NSURL *)original;
                 [_player playWithURL:url];
             }
         }];

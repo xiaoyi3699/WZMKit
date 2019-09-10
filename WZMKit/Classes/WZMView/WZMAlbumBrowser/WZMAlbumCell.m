@@ -193,7 +193,7 @@
     if (self.model.isDownloading) return;
     self.model.downloading = YES;
     [_activityView startAnimating];
-    [self.model getICloudImageCompletion:^(id obj) {
+    [self.model getICloudImageCompletion:^(id original) {
         [self setICloud:NO];
     }];
 }

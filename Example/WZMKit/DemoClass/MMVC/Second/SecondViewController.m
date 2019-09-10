@@ -51,9 +51,10 @@
 //    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
 //    [self presentViewController:photoBrowser animated:YES completion:nil];
     
-    WZMAlbumController *vc = [[WZMAlbumController alloc] initWithConfig:[WZMAlbumConfig new]];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:[WZMAlbumConfig new]];
+    [self presentViewController:vc animated:YES completion:nil];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)

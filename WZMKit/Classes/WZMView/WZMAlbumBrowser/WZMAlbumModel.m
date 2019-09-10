@@ -17,32 +17,37 @@
     model.asset = asset;
     model.iCloud = YES;
     model.selected = NO;
+    model.userCache = NO;
     model.downloading = NO;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
     return model;
 }
 
 ///获取缩略图
-- (void)getThumbnailWithAsset:(id)asset thumbnail:(void(^)(UIImage *photo))thumbnail {
+- (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion {
     if (self.thumbnail) {
-        if (thumbnail) {
-            thumbnail(self.thumbnail);
+        if (completion) {
+            completion(self.thumbnail);
         }
     }
     else {
-        [WZMAlbumHelper wzm_getThumbnailWithAsset:asset photoWidth:200 thumbnail:^(UIImage *photo) {
-            self.thumbnail = photo;
-            if (thumbnail) {
-                thumbnail(photo);
+        [WZMAlbumHelper wzm_getThumbnailWithAsset:self.asset photoWidth:200 thumbnail:^(UIImage *photo) {
+            if (self.isUserCache) {
+                self.thumbnail = photo;
+            }
+            if (completion) {
+                completion(photo);
             }
         } cloud:nil];
     }
 }
 
 ///获取原图
-- (void)getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion {
-    [WZMAlbumHelper wzm_getOriginalWithAsset:asset completion:^(id obj) {
-        self.original = obj;
+- (void)getOriginalCompletion:(void(^)(id original))completion {
+    [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
+        if (self.isUserCache) {
+            self.original = obj;
+        }
         if (completion) {
             completion(obj);
         }
@@ -50,13 +55,15 @@
 }
 
 ///从iCloud获取原图
-- (void)getICloudImageCompletion:(void (^)(id obj))completion {
+- (void)getICloudImageCompletion:(void (^)(id original))completion {
     if (self.downloading) return;
     self.downloading = YES;
     [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
         self.iCloud = NO;
         self.downloading = NO;
-        self.original = obj;
+        if (self.isUserCache) {
+            self.original = obj;
+        }
         if (completion) {
             completion(obj);
         }
