@@ -33,6 +33,7 @@
     BOOL           _isVideo;
     BOOL           _display;
     CGRect         _startFrame;
+    UIView         *_controllerView;
 }
 @end
 
@@ -44,7 +45,7 @@
         self.delegate = self;
         self.minimumZoomScale = WZMPhotoMinScale;
         self.maximumZoomScale = WZMPhotoMaxSCale;
-        self.backgroundColor  = [UIColor blackColor];
+        self.backgroundColor  = [UIColor clearColor];
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
         
@@ -344,6 +345,7 @@
         else {
             _startFrame = _imageView.frame;
         }
+        _controllerView = self.wzm_viewController.view;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGFloat x = _startFrame.origin.x+point_0.x;
@@ -355,7 +357,7 @@
         else {
             _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
         }
-        self.alpha = MIN((1-point_0.y/self.wzm_height), 1);
+        _controllerView.alpha = MIN((1-point_0.y/self.wzm_height), 1);
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         if (point_0.y > 100) {
@@ -371,7 +373,7 @@
         }
         else {
             [UIView animateWithDuration:0.2 animations:^{
-                self.alpha = 1.0;
+                _controllerView.alpha = 1.0;
                 if (_isVideo) {
                     _videoView.frame = _startFrame;
                 }
