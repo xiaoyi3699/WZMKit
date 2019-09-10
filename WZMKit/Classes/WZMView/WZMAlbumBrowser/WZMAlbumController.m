@@ -137,7 +137,7 @@
 }
 
 - (void)photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
-    if (gestureType == WZMGestureRecognizerTypeClose) {
+    if (gestureType == WZMGestureRecognizerTypeClose || gestureType == WZMGestureRecognizerTypeSingle) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         UICollectionViewCell *cell = [self.albumView.collectionView cellForItemAtIndexPath:indexPath];
         NSArray *visibleCells = [self.albumView.collectionView visibleCells];
