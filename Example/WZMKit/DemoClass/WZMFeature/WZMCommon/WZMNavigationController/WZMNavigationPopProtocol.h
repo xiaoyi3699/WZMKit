@@ -14,6 +14,6 @@
 //拦截导航栏返回按钮的点击事件
 - (BOOL)ll_navigationShouldPop;
 //拦截自定义的滑动返回事件
-- (BOOL)ll_navigationShouldDrag;
+- (BOOL)wzm_navigationShouldDrag;
 
 @end

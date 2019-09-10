@@ -131,6 +131,10 @@
     }
 }
 
+- (BOOL)wzm_navigationShouldDrag {
+    return NO;
+}
+
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }

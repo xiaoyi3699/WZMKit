@@ -41,8 +41,8 @@
     //如果只有1个子控制器,停止拖拽
     if (self.viewControllers.count <= 1) return;
     //如果页面滑动返回被关闭,停止拖拽
-    if ([self.topViewController respondsToSelector:@selector(ll_navigationShouldDrag)]) {
-        if ([self.topViewController ll_navigationShouldDrag] == NO) {
+    if ([self.topViewController respondsToSelector:@selector(wzm_navigationShouldDrag)]) {
+        if ([self.topViewController wzm_navigationShouldDrag] == NO) {
             return;
         }
     }
@@ -90,8 +90,8 @@
     //如果只有1个子控制器,停止拖拽
     if (self.viewControllers.count <= 1) return;
     //如果页面滑动返回被关闭,停止拖拽
-    if ([self.topViewController respondsToSelector:@selector(ll_navigationShouldDrag)]) {
-        if ([self.topViewController ll_navigationShouldDrag] == NO) {
+    if ([self.topViewController respondsToSelector:@selector(wzm_navigationShouldDrag)]) {
+        if ([self.topViewController wzm_navigationShouldDrag] == NO) {
             return;
         }
     }
@@ -212,8 +212,8 @@
     
     if (gestureRecognizer == self.interactivePopGestureRecognizer) {
         UIViewController *topVC = self.topViewController;
-        if ([topVC respondsToSelector:@selector(ll_navigationShouldDrag)]) {
-            return [topVC ll_navigationShouldDrag];
+        if ([topVC respondsToSelector:@selector(wzm_navigationShouldDrag)]) {
+            return [topVC wzm_navigationShouldDrag];
         }
         return YES;
     }
@@ -233,8 +233,8 @@
     if (gestureRecognizer == self.interactivePopGestureRecognizer) {
         
         UIViewController *topVC = self.topViewController;
-        if ([topVC respondsToSelector:@selector(ll_navigationShouldDrag)]) {
-            return [topVC ll_navigationShouldDrag];
+        if ([topVC respondsToSelector:@selector(wzm_navigationShouldDrag)]) {
+            return [topVC wzm_navigationShouldDrag];
         }
         return YES;
     }
