@@ -124,7 +124,7 @@
     CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
     photoBrowser.view.center = center;
     photoBrowser.view.transform = CGAffineTransformMakeScale(scale, scale);
-    photoBrowser.view.alpha = 0.2;
+    photoBrowser.view.alpha = 0.0;
     photoBrowser.navigationItem.hidesBackButton = YES;
     [self.navigationController.view addSubview:photoBrowser.view];
     [self.navigationController addChildViewController:photoBrowser];
