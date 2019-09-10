@@ -10,6 +10,7 @@
 #import "WZMAlbumHelper.h"
 #import <Photos/Photos.h>
 #import "WZMPublic.h"
+#import "WZMButton.h"
 
 @interface WZMAlbumCell ()
 
@@ -27,8 +28,8 @@
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
     UILabel *_indexLabel;
-    UIButton *_previewBtn;
-    UIButton *_iCloudBtn;
+    WZMButton *_previewBtn;
+    WZMButton *_iCloudBtn;
     UIActivityIndicatorView *_activityView;
 }
 
@@ -84,16 +85,18 @@
         _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
         [self addSubview:_activityView];
         
-        _previewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _previewBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        _previewBtn.imageFrame = CGRectMake(8, 2, 20, 20);
         _previewBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_previewBtn setImage:[[WZMPublic imageNamed:@"album_fd" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _previewBtn.hidden = YES;
         [self addSubview:_previewBtn];
         
-        _iCloudBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _iCloudBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        _iCloudBtn.imageFrame = CGRectMake(8, 2, 20, 20);
         _iCloudBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_iCloudBtn setImage:[[WZMPublic imageNamed:@"album_xz" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];

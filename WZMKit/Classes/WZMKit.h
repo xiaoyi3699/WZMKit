@@ -332,6 +332,7 @@
 /*
  其他自定义控件
  */
+#import "WZMButton.h"
 #import "WZMSliderView.h"
 #import "WZMSliderView2.h"
 #import "WZMVideoKeyView.h"

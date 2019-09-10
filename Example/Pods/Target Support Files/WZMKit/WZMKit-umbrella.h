@@ -100,6 +100,7 @@
 #import "WZMAnimationNumItemView.h"
 #import "WZMAnimationNumView.h"
 #import "WZMAutoHeader.h"
+#import "WZMButton.h"
 #import "WZMClipTimeView.h"
 #import "WZMBezierView.h"
 #import "WZMCycleView.h"
