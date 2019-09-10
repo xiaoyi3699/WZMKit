@@ -33,7 +33,7 @@
     BOOL           _isVideo;
     BOOL           _display;
     CGRect         _startFrame;
-    UIView         *_controllerView;
+    __weak UIView  *_controllerView;
 }
 @end
 
