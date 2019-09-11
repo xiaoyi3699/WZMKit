@@ -357,16 +357,32 @@
         else {
             _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
         }
-        _controllerView.alpha = MIN((1-point_0.y/self.wzm_height), 1);
+        CGFloat scale;
+        CGFloat dy = [gesture translationInView:self].y;
+        if (dy > 0) {
+            scale = 1-(dy/self.wzm_height);
+        }
+        else {
+            scale = 1.0;
+        }
+        _controllerView.alpha = scale;
+        if (_isVideo) {
+            _videoView.transform = CGAffineTransformMakeScale(scale, scale);
+        }
+        else {
+            _imageView.transform = CGAffineTransformMakeScale(scale, scale);
+        }
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         if (point_0.y > 100) {
             [UIView animateWithDuration:0.2 animations:^{
                 if (_isVideo) {
                     _videoView.frame = _startFrame;
+                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
                 else {
                     _imageView.frame = _startFrame;
+                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
             }];
             [self setDelegeteType:WZMGestureRecognizerTypeClose];
@@ -376,9 +392,11 @@
                 _controllerView.alpha = 1.0;
                 if (_isVideo) {
                     _videoView.frame = _startFrame;
+                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
                 else {
                     _imageView.frame = _startFrame;
+                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
             }];
         }

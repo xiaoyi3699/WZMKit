@@ -161,6 +161,7 @@
             photoBrowser.view.alpha = 0.0;
         } completion:^(BOOL finished) {
             [photoBrowser.view removeFromSuperview];
+            [photoBrowser willMoveToParentViewController:nil];
             [photoBrowser removeFromParentViewController];
             self.navigationController.view.userInteractionEnabled = YES;
         }];
