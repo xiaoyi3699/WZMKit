@@ -183,15 +183,15 @@
 //从iCloud获取图片/视频
 + (void)wzm_getICloudWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressHandler) {
+                progressHandler(progress);
+            }
+        });
+    };
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
-        helper.iCloudVideoOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (progressHandler) {
-                    progressHandler(progress);
-                }
-            });
-        };
         [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.iCloudVideoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
             AVURLAsset *videoAsset = (AVURLAsset*)avasset;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -201,31 +201,22 @@
             });
         }];
     }
+    else if (type == WZMAlbumPhotoTypePhotoGif) {
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+            if (downloadFinined && imageData) {
+                if (completion) completion(imageData);
+            }
+        }];
+    }
     else {
-        helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (progressHandler) {
-                    progressHandler(progress);
-                }
-            });
-        };
-        if (type == WZMAlbumPhotoTypePhotoGif) {
-            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-                if (downloadFinined && imageData) {
-                    if (completion) completion(imageData);
-                }
-            }];
-        }
-        else {
-            [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.iCloudImageOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-                if (downloadFinined && result) {
-                    result = [self wzm_fixOrientation:result];
-                    if (completion) completion(result);
-                }
-            }];
-        }
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.iCloudImageOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+            if (downloadFinined && result) {
+                result = [self wzm_fixOrientation:result];
+                if (completion) completion(result);
+            }
+        }];
     }
 }
 

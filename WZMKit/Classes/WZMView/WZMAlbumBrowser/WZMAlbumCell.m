@@ -191,7 +191,6 @@
 //iCloud按钮点击事件
 - (void)iCloudBtnClick:(UIButton *)btn {
     if (self.model.isDownloading) return;
-    self.model.downloading = YES;
     [_activityView startAnimating];
     [self.model getICloudImageCompletion:^(id original) {
         [self setICloud:NO];
