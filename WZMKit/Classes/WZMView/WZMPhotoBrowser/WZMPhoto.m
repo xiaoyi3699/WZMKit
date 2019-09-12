@@ -57,19 +57,20 @@
         [self addGestureRecognizer:doubleClick];
         
         [singleClick requireGestureRecognizerToFail:doubleClick];
-
+        
         UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
         [self addGestureRecognizer:longClick];
         
         WZMPanGestureRecognizer *panClick = [[WZMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panClick:)];
         panClick.direction = WZMPanGestureRecognizerDirectionVertical;
+        panClick.verticalDirection = WZMPanGestureRecognizerVerticalDirectionDown;
         [self addGestureRecognizer:panClick];
         
         _imageView = [[WZMGifImageView alloc] init];
         _imageView.hidden = YES;
         [self addSubview:_imageView];
         [self showPlaceholderImage];
-
+        
         _videoView = [[WZMVideoPlayerView alloc] initWithFrame:self.bounds];
         _videoView.hidden = YES;
         [self addSubview:_videoView];
@@ -358,20 +359,16 @@
             _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
         }
         CGFloat scale;
-        CGFloat dy = [gesture translationInView:self].y;
-        if (dy > 0) {
-            scale = 1-(dy/self.wzm_height);
+        if (point_0.y > 0) {
+            scale = 1-(point_0.y/self.wzm_height);
         }
         else {
             scale = 1.0;
         }
-        _controllerView.alpha = scale;
-        scale = 1-0.5*(1-scale);
-        if (_isVideo) {
-            _videoView.transform = CGAffineTransformMakeScale(scale, scale);
-        }
-        else {
-            _imageView.transform = CGAffineTransformMakeScale(scale, scale);
+        if (scale > 0.5) {
+            _controllerView.alpha = scale;
+            scale = 1-0.5*(1-scale);
+            self.transform = CGAffineTransformMakeScale(scale, scale);
         }
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
@@ -379,12 +376,11 @@
             [UIView animateWithDuration:0.2 animations:^{
                 if (_isVideo) {
                     _videoView.frame = _startFrame;
-                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
                 else {
                     _imageView.frame = _startFrame;
-                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
+                self.transform = CGAffineTransformMakeScale(1.0, 1.0);
             }];
             [self setDelegeteType:WZMGestureRecognizerTypeClose];
         }
@@ -393,12 +389,11 @@
                 _controllerView.alpha = 1.0;
                 if (_isVideo) {
                     _videoView.frame = _startFrame;
-                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
                 else {
                     _imageView.frame = _startFrame;
-                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                 }
+                self.transform = CGAffineTransformMakeScale(1.0, 1.0);
             }];
         }
     }

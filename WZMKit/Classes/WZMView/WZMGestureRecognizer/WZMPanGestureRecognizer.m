@@ -18,6 +18,9 @@ int const static WZMDirectionPanThreshold = 5;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
+    if (_direction == WZMPanGestureRecognizerDirectionNone) {
+        self.state = UIGestureRecognizerStateFailed;
+    }
     if (self.state == UIGestureRecognizerStateFailed) return;
     CGPoint nowPoint = [[touches anyObject] locationInView:self.view];
     CGPoint prevPoint = [[touches anyObject] previousLocationInView:self.view];
@@ -27,16 +30,42 @@ int const static WZMDirectionPanThreshold = 5;
         if (abs(_moveX) > WZMDirectionPanThreshold) {
             if (_direction == WZMPanGestureRecognizerDirectionVertical) {
                 self.state = UIGestureRecognizerStateFailed;
+                return;
             }
             else {
+                if (_horizontalDirection == WZMPanGestureRecognizerHorizontalDirectionLeft) {
+                    if (_moveX < 0) {
+                        self.state = UIGestureRecognizerStateFailed;
+                        return;
+                    }
+                }
+                else if (_horizontalDirection == WZMPanGestureRecognizerHorizontalDirectionRight) {
+                    if (_moveX > 0) {
+                        self.state = UIGestureRecognizerStateFailed;
+                        return;
+                    }
+                }
                 _drag = YES;
             }
         }
         else if (abs(_moveY) > WZMDirectionPanThreshold) {
             if (_direction == WZMPanGestureRecognizerDirectionHorizontal) {
                 self.state = UIGestureRecognizerStateFailed;
+                return;
             }
             else {
+                if (_verticalDirection == WZMPanGestureRecognizerVerticalDirectionUp) {
+                    if (_moveY < 0) {
+                        self.state = UIGestureRecognizerStateFailed;
+                        return;
+                    }
+                }
+                else if (_verticalDirection == WZMPanGestureRecognizerVerticalDirectionDown) {
+                    if (_moveY > 0) {
+                        self.state = UIGestureRecognizerStateFailed;
+                        return;
+                    }
+                }
                 _drag = YES;
             }
         }

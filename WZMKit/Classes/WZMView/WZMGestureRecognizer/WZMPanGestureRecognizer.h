@@ -10,12 +10,30 @@
 
 typedef enum : NSInteger {
     WZMPanGestureRecognizerDirectionAll = 0,
+    WZMPanGestureRecognizerDirectionNone,
     WZMPanGestureRecognizerDirectionVertical,
     WZMPanGestureRecognizerDirectionHorizontal
 } WZMPanGestureRecognizerDirection;
 
+typedef enum : NSInteger {
+    WZMPanGestureRecognizerVerticalDirectionAll = 0,
+    WZMPanGestureRecognizerVerticalDirectionUp,
+    WZMPanGestureRecognizerVerticalDirectionDown
+} WZMPanGestureRecognizerVerticalDirection;
+
+typedef enum : NSInteger {
+    WZMPanGestureRecognizerHorizontalDirectionAll = 0,
+    WZMPanGestureRecognizerHorizontalDirectionLeft,
+    WZMPanGestureRecognizerHorizontalDirectionRight
+} WZMPanGestureRecognizerHorizontalDirection;
+
 @interface WZMPanGestureRecognizer : UIPanGestureRecognizer 
 
+///横向纵向
 @property (nonatomic, assign) WZMPanGestureRecognizerDirection direction;
+///上下
+@property (nonatomic, assign) WZMPanGestureRecognizerVerticalDirection verticalDirection;
+///左右
+@property (nonatomic, assign) WZMPanGestureRecognizerHorizontalDirection horizontalDirection;
 
 @end
