@@ -88,7 +88,7 @@
         //如果资源加载完成,开始进行播放
         if (status == AVKeyValueStatusLoaded) {
             //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
-            WZMPlayerItem *item = [WZMPlayerItem playerItemWithAsset:asset];
+            WZMPlayerItem *item = [[WZMPlayerItem alloc] initWithAsset:asset];
             item.observer = self;
             
             if (_player) {
