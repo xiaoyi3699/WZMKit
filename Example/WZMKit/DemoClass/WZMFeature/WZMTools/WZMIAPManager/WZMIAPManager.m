@@ -148,7 +148,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     NSArray *product = response.products;
     if([product count] == 0){
-        [self finishTransaction:@"无法获取商品信息，请重新尝试购买"];
+        [self finishTransaction:@"获取商品信息失败，请检查网络后重试"];
         return;
     }
     SKProduct *p = product.firstObject;
