@@ -366,6 +366,7 @@
             scale = 1.0;
         }
         _controllerView.alpha = scale;
+        scale = 1-0.5*(1-scale);
         if (_isVideo) {
             _videoView.transform = CGAffineTransformMakeScale(scale, scale);
         }
