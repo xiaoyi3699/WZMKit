@@ -201,7 +201,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             }
         }
         if (self.restore && restoreFail) {
-            [self finishTransaction:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
+            [self finishTransaction:@"未查询到可恢复的订单"];
         }
     });
 }
