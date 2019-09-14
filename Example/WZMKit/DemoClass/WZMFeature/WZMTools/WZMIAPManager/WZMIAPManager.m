@@ -172,7 +172,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction {
     WZMLog(@"监听AppStore支付状态");
     dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL restoreFail = YES;
         for(SKPaymentTransaction *tran in transaction) {
             if (tran.transactionState == SKPaymentTransactionStatePurchased) {
                 //订阅特殊处理
@@ -187,12 +186,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self loadAppStoreReceipt];
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
-                restoreFail = NO;
-                if (self.isRestore) {
-                    //恢复购买
-                    [self loadAppStoreReceipt];
-                }
-                else {
+                if (self.isRestore == NO) {
                     [self finishTransaction:@"已购买过该商品"];
                 }
             }
@@ -200,14 +194,24 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self finishTransaction:@"支付失败"];
             }
         }
-        if (self.restore && restoreFail) {
-            [self finishTransaction:@"未查询到可恢复的订单"];
-        }
     });
 }
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
-    //恢复购买成功
+    //恢复购买完成
+    WZMLog(@"监听恢复购买完成");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL restoreFail = YES;
+        for(SKPaymentTransaction *tran in queue.transactions) {
+            if (tran.transactionState == SKPaymentTransactionStateRestored) {
+                restoreFail = NO;
+                [self loadAppStoreReceipt];
+            }
+        }
+        if (self.restore && restoreFail) {
+            [self finishTransaction:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
+        }
+    });
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
