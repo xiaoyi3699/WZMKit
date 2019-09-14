@@ -172,6 +172,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction {
     WZMLog(@"监听AppStore支付状态");
     dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL restoreFail = YES;
         for(SKPaymentTransaction *tran in transaction) {
             if (tran.transactionState == SKPaymentTransactionStatePurchased) {
                 //订阅特殊处理
@@ -186,6 +187,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self loadAppStoreReceipt];
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
+                restoreFail = NO;
                 if (self.isRestore) {
                     //恢复购买
                     [self loadAppStoreReceipt];
@@ -197,6 +199,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
                 [self finishTransaction:@"支付失败"];
             }
+        }
+        if (self.restore && restoreFail) {
+            [self finishTransaction:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
         }
     });
 }
