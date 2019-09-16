@@ -92,7 +92,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         return;
     }
     if ([self canRequestIAP]) {
-        [self removeAllUncompleteTransactions];
+        [self removeUncompleteTransaction:nil];
         [self addObserver];
         self.orderId = orderId;
         [self requestProductData:productId];
@@ -148,7 +148,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     NSArray *product = response.products;
     if([product count] == 0){
-        [self finishTransaction:@"获取商品信息失败，请检查网络后重试"];
+        [self finishTransaction:nil message:@"获取商品信息失败，请检查网络后重试"];
         return;
     }
     SKProduct *p = product.firstObject;
@@ -161,7 +161,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     WZMLog(@"------------------错误-----------------:%@", error);
-    [self finishTransaction:@"从Apple获取商品信息失败"];
+    [self finishTransaction:nil message:@"从Apple获取商品信息失败"];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -187,11 +187,11 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
                 if (self.isRestore == NO) {
-                    [self finishTransaction:@"已购买过该商品"];
+                    [self finishTransaction:tran message:@"已购买过该商品"];
                 }
             }
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
-                [self finishTransaction:@"支付失败"];
+                [self finishTransaction:tran message:@"支付失败"];
             }
         }
     });
@@ -209,14 +209,14 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             }
         }
         if (self.restore && restoreFail) {
-            [self finishTransaction:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
+            [self finishTransaction:nil message:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
         }
     });
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     //恢复购买失败
-    [self finishTransaction:@"未查询到可恢复的订单"];
+    [self finishTransaction:nil message:@"未查询到可恢复的订单"];
 }
 
 #pragma mark - 订单验证
@@ -240,7 +240,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         [self verifyPurchaseForService];
     }
     else {
-        [self finishTransaction:@"支付失败"];
+        [self finishTransaction:nil message:@"支付失败"];
     }
 }
 
@@ -268,12 +268,12 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 WZMIAPResultStatus status = [WZMJSONParse getIntValueInDict:responseObject withKey:@"status"];
                 if (status == WZMIAPResultStatusSuccess) {
                     //交易成功
-                    [self finishTransaction:@"支付成功"];
+                    [self finishTransaction:nil message:@"支付成功"];
                 }
                 else {
                     //交易失败
                     NSString *statusStr = [NSString stringWithFormat:@"支付失败(%@)",@(status)];
-                    [self finishTransaction:statusStr];
+                    [self finishTransaction:nil message:statusStr];
                 }
             }
         }];
@@ -287,10 +287,10 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 #pragma mark - private
 //AppStore标记交易完成,关闭交易
 //调用场景:1、支付成功 2、订单失效,交易凭证错误或者其他非法因素引起的交易失败
-- (void)finishTransaction:(NSString *)message {
+- (void)finishTransaction:(SKPaymentTransaction *)tran message:(NSString *)message {
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
-    [self removeAllUncompleteTransactions];
+    [self removeUncompleteTransaction:tran];
     [self removeObserver];
     [self removeLocReceiptData];
     if (self.isManualVerify == NO) return;
@@ -310,18 +310,21 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 //结束未完成的交易
-- (void)removeAllUncompleteTransactions{
-    NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
-    if (transactions.count > 0) {
+- (void)removeUncompleteTransaction:(SKPaymentTransaction *)tran {
+    if (tran) {
+        if (tran.transactionState == SKPaymentTransactionStatePurchased ||
+            tran.transactionState == SKPaymentTransactionStateRestored) {
+            [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+        }
+    }
+    else {
+        NSArray *transactions = [SKPaymentQueue defaultQueue].transactions;
         for (SKPaymentTransaction *transaction in transactions) {
             if (transaction.transactionState == SKPaymentTransactionStatePurchased ||
                 transaction.transactionState == SKPaymentTransactionStateRestored) {
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             }
         }
-    }
-    else {
-        WZMLog(@"没有历史未消耗订单");
     }
 }
 
@@ -398,7 +401,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
         else {
             self.failedCount = 0;
-            [self finishTransaction:@"支付失败"];
+            [self finishTransaction:nil message:@"支付失败"];
         }
     }
 }
