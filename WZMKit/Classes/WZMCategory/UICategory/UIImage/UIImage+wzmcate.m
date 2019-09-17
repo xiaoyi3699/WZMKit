@@ -10,6 +10,7 @@
 #import "WZMMacro.h"
 #import "WZMLogPrinter.h"
 #import "NSDateFormatter+wzmcate.h"
+#import "WZMInline.h"
 #import <Accelerate/Accelerate.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -357,6 +358,15 @@
 - (UIImage *)wzm_getImageWithScale:(CGFloat)scale {
     UIGraphicsBeginImageContext(CGSizeMake(self.size.width*scale,self.size.height*scale));
     [self drawInRect:CGRectMake(0, 0, self.size.width*scale, self.size.height*scale)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
+- (UIImage *)wzm_getImageWithMaxSize:(CGSize)maxSize {
+    CGSize size = WZMSizeRatioToMaxSize(self.size, maxSize);
+    UIGraphicsBeginImageContext(size);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
