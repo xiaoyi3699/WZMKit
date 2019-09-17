@@ -36,8 +36,12 @@
 
 - (void)setColumn:(NSInteger)column {
     if (_column == column) return;
-    if (column < 1 || column > 5) {
-        _column = 4;
+    if (column < 1) {
+        _column = 3;
+        return;
+    }
+    if (column > 5) {
+        _column = 5;
         return;
     }
     _column = column;
