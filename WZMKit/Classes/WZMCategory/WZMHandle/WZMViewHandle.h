@@ -36,11 +36,6 @@
  */
 + (void)wzm_setStatusBarStyle: (WZMStatusBarStyle)statusBarStyle;
 
-/**
- 当前展示的视图控制器
- */
-+ (UIViewController *)wzm_theTopViewControler;
-
 ///寻找导航栏黑线
 + (UIImageView *)wzm_findShadowImageView:(UIView *)view;
 

@@ -56,14 +56,6 @@
     }
 }
 
-+ (UIViewController *)wzm_theTopViewControler {
-    UIViewController *rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
-    while ([rootVC isKindOfClass:[UINavigationController class]]) {
-        rootVC = [(UINavigationController *)rootVC topViewController];
-    }
-    return rootVC;
-}
-
 + (UIImageView *)wzm_findShadowImageView:(UIView *)view {
     if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
         return (UIImageView *)view;
