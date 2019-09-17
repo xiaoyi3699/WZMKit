@@ -14,7 +14,7 @@
 ///随机元素
 - (id)wzm_getRandomObject;
 ///数组运算
-- (id)wzm_getResultWithStyle: (WZMTakingValueStyle)style;
+- (id)wzm_getResultWithStyle:(WZMTakingValueStyle)style;
 ///谓词搜索
 - (NSArray *)wzm_searchWithKey:(NSString *)key;
 

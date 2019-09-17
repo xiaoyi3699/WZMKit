@@ -18,7 +18,7 @@
     return nil;
 }
 
-- (id)wzm_getResultWithStyle: (WZMTakingValueStyle)style {
+- (id)wzm_getResultWithStyle:(WZMTakingValueStyle)style {
     NSString *keyPath;
     if (style == WZMTakingValueStyleMin) {
         //keyPath = @"@min.floatValue";
