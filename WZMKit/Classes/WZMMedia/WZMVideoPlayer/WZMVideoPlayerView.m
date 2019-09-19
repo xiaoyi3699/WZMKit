@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.volume = 1.0;
         self.allowTouch = NO;
         self.allowPlay = YES;
         self.backgroundColor = [UIColor blackColor];
@@ -136,6 +137,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     _progressSlider.value = 0.0;
     _currentTimeLabel.text = @"00:00";
     [_indicatorView startAnimating];
+    _player.volume = self.volume;
     [_player playWithURL:url];
 }
 
@@ -147,6 +149,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         [model getICloudImageCompletion:^(id original) {
             if ([original isKindOfClass:[NSURL class]]) {
                 NSURL *url = (NSURL *)original;
+                _player.volume = self.volume;
                 [_player playWithURL:url];
             }
         }];

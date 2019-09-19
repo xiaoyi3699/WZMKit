@@ -32,6 +32,8 @@
 @property (nonatomic, weak) id<WZMPlayerDelegate> delegate;
 ///播放音频时不用设置, 播放视频是需要设置视图
 @property (nonatomic, strong) WZMPlayerView *playerView;
+///音量,默认1.0
+@property (nonatomic, assign) CGFloat volume;
 
 - (void)playWithURL:(NSURL *)url;
 - (void)play;

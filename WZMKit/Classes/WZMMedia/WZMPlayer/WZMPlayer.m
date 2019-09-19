@@ -33,6 +33,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.volume = 1.0;
         self.playing = NO;
         self.locking = NO;
         self.related = NO;
@@ -98,6 +99,7 @@
             else {
                 _player = [[AVPlayer alloc] initWithPlayerItem:item];
             }
+            _player.volume = self.volume;
             
             self.locking = NO;
             //观察播放状态

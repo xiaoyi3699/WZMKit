@@ -11,6 +11,7 @@
 
 @interface WZMVideoPlayerView : UIView
 
+@property (nonatomic, assign) CGFloat volume;
 @property (nonatomic, assign, getter=isAllowPlay) BOOL allowPlay;
 @property (nonatomic, assign, getter=isAllowTouch) BOOL allowTouch;
 

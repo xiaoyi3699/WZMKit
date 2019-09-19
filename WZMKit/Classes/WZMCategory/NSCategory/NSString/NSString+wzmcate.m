@@ -630,7 +630,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 - (NSString *)wzm_deleteHeadAndTailWhitespace {
-    return [self stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 @end
