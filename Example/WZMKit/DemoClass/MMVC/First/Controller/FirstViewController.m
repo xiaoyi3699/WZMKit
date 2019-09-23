@@ -62,14 +62,6 @@
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
-    NSString *url = @"http://rlsbj.cq.gov.cn/xcb/zjxt/agencyInter/app/personal/card/upload";
-    [[WZMNetWorking netWorking] uploadUrl:url key:@"file" filename:@"yyy.png" mimeType:@"image/png" data:UIImagePNGRepresentation(image) parmas:nil callBack:^(id responseObject, NSError *error) {
-        NSLog(@"%@",responseObject);
-    }];
-    
-    return;
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
