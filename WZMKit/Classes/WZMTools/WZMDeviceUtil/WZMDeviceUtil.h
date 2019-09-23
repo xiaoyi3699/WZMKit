@@ -17,6 +17,11 @@
 + (BOOL)isPrisonBreakEquipment;
 
 /**
+ 获取时间格式,是否是24小时制
+ */
++ (BOOL)is24HourSystem;
+
+/**
  获取当前iOS版本
  */
 + (float)getDeviceSystemMajorVersion;

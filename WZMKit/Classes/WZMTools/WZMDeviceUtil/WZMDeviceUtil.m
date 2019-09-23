@@ -48,6 +48,13 @@ char* printEnv(void){
     return NO;
 }
 
+//获取时间格式,是否是24小时制
++ (BOOL)is24HourSystem {
+    NSString*formatStringForHours = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    NSRange containsA =[formatStringForHours rangeOfString:@"a"];
+    return containsA.location == NSNotFound;
+}
+
 /**
  获取当前iOS版本
  */
