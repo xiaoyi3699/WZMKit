@@ -28,6 +28,9 @@
 ///打开QQ私聊界面
 + (BOOL)QQChatToUser:(NSString *)account;
 
+///加入QQ群聊
++ (BOOL)QQJoinGroup:(NSString *)group key:(NSString *)key;
+
 ///打开应用
 + (BOOL)openAppWithAppType: (WZMAPPType)type;
 

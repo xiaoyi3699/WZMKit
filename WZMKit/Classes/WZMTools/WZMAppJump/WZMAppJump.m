@@ -69,6 +69,16 @@
     return NO;
 }
 
++ (BOOL)QQJoinGroup:(NSString *)group key:(NSString *)key {
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", group,key];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+        return YES;
+    }
+    else return NO;
+}
+
 //打开应用
 + (BOOL)openAppWithAppType: (WZMAPPType)type{
     NSString *APPSchemeName = [self getAPPSchemeName:type];
