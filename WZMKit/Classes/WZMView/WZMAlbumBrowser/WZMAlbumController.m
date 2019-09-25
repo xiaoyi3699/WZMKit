@@ -76,8 +76,7 @@
 - (void)rightItemClick {
     if (self.albumView.selectedPhotos.count < self.config.minCount) {
         NSString *msg = [NSString stringWithFormat:@"请至少选择%@张照片",@(self.config.minCount)];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
+        [WZMViewHandle wzm_showInfoMessage:msg];
         return;
     }
     [WZMViewHandle wzm_showProgressMessage:@"处理中..."];

@@ -11,6 +11,7 @@
 #import <Photos/Photos.h>
 #import "UIView+wzmcate.h"
 #import "WZMLogPrinter.h"
+#import "WZMViewHandle.h"
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
@@ -202,8 +203,7 @@
         else {
             if (self.selectedPhotos.count+1 > self.config.maxCount) {
                 NSString *msg = [NSString stringWithFormat:@"最多只能选%@张照片",@(self.config.maxCount)];
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                [alertView show];
+                [WZMViewHandle wzm_showInfoMessage:msg];
                 return;
             }
             model.index = self.selectedPhotos.count+1;
