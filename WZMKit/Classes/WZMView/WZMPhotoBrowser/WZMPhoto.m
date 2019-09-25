@@ -367,8 +367,6 @@
         }
         if (scale > 0.5) {
             _controllerView.alpha = scale;
-            scale = 1-0.5*(1-scale);
-            self.transform = CGAffineTransformMakeScale(scale, scale);
         }
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
@@ -380,7 +378,6 @@
                 else {
                     _imageView.frame = _startFrame;
                 }
-                self.transform = CGAffineTransformMakeScale(1.0, 1.0);
             }];
             [self setDelegeteType:WZMGestureRecognizerTypeClose];
         }
@@ -393,7 +390,6 @@
                 else {
                     _imageView.frame = _startFrame;
                 }
-                self.transform = CGAffineTransformMakeScale(1.0, 1.0);
             }];
         }
     }
