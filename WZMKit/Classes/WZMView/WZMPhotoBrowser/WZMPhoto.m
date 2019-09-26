@@ -285,11 +285,16 @@
                 }];
             }
             [model getOriginalCompletion:^(id original) {
-                self.wzm_image = original;
-                if (_display) {
-                    [self start];
+                if (original) {
+                    self.wzm_image = original;
+                    if (_display) {
+                        [self start];
+                    }
+                    [WZMAlbumHelper postUpdateAlbumNotification];
                 }
-                [WZMAlbumHelper postUpdateAlbumNotification];
+                else {
+                    //从iCloud获取图片失败,可以在此处写一些提示或者UI处理
+                }
             }];
         }
     }

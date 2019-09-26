@@ -63,12 +63,12 @@
         }
         else {
             [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
-                if (self.isUseCache) {
-                    self.original = obj;
+                if (obj) {
+                    if (self.isUseCache) {
+                        self.original = obj;
+                    }
                 }
-                if (completion) {
-                    completion(obj);
-                }
+                if (completion) completion(obj);
             }];
         }
     }
@@ -79,32 +79,28 @@
     if (self.downloading) return;
     self.downloading = YES;
     [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
-        self.iCloud = NO;
+        if (obj) {
+            self.iCloud = NO;
+            if (self.isUseCache) {
+                self.original = obj;
+            }
+        }
         self.downloading = NO;
-        if (self.isUseCache) {
-            self.original = obj;
-        }
-        if (completion) {
-            completion(obj);
-        }
+        if (completion) completion(obj);
     }];
 }
 
 ///预设尺寸视频
 - (void)exportVideoWithPreset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
     [WZMAlbumHelper wzm_exportVideoWithAsset:self.asset preset:preset outFolder:outFolder completion:^(NSURL *videoURL) {
-        if (completion) {
-            completion(videoURL);
-        }
+        if (completion) completion(videoURL);
     }];
 }
 
 ///预设尺寸图片
 - (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion {
     [WZMAlbumHelper wzm_exportImageWithAsset:self.asset imageSize:imageSize completion:^(UIImage *image) {
-        if (completion) {
-            completion(image);
-        }
+        if (completion) completion(image);
     }];
 }
 

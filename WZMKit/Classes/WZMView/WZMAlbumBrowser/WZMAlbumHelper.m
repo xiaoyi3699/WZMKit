@@ -109,10 +109,15 @@
     helper.imageOptions.networkAccessAllowed = NO;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
     int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
-        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-        if (downloadFinined && result) {
-            result = [self wzm_fixOrientation:result];
-            if (thumbnail) thumbnail(result);
+        if ([info objectForKey:PHImageErrorKey]) {
+            if (thumbnail) thumbnail(nil);
+        }
+        else {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+            if (downloadFinined && result) {
+                result = [self wzm_fixOrientation:result];
+                if (thumbnail) thumbnail(result);
+            }
         }
     }];
     
@@ -146,12 +151,19 @@
     if (type == WZMAlbumPhotoTypeVideo) {
         helper.videoOptions.networkAccessAllowed = YES;
         int32_t requestId = [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info) {
-            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) {
-                    completion(videoAsset.URL);
-                }
-            });
+            if ([info objectForKey:PHImageErrorKey]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) completion(nil);
+                });
+            }
+            else {
+                AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion(videoAsset.URL);
+                    }
+                });
+            }
         }];
         return requestId;
     }
@@ -160,19 +172,29 @@
         helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
         if (type == WZMAlbumPhotoTypePhotoGif) {
             int32_t requestId = [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.imageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-                if (downloadFinined && imageData) {
-                    if (completion) completion(imageData);
+                if ([info objectForKey:PHImageErrorKey]) {
+                    if (completion) completion(nil);
+                }
+                else {
+                    BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+                    if (downloadFinined && imageData) {
+                        if (completion) completion(imageData);
+                    }
                 }
             }];
             return requestId;
         }
         else {
             int32_t requestId = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
-                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-                if (downloadFinined && result) {
-                    result = [self wzm_fixOrientation:result];
-                    if (completion) completion(result);
+                if ([info objectForKey:PHImageErrorKey]) {
+                    if (completion) completion(nil);
+                }
+                else {
+                    BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+                    if (downloadFinined && result) {
+                        result = [self wzm_fixOrientation:result];
+                        if (completion) completion(result);
+                    }
                 }
             }];
             return requestId;
@@ -192,29 +214,44 @@
     };
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
-        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.iCloudVideoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) {
-                    completion(videoAsset.URL);
-                }
-            });
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.iCloudVideoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info){
+            if ([info objectForKey:PHImageErrorKey]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) completion(nil);
+                });
+            }
+            else {
+                AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) completion(videoAsset.URL);
+                });
+            }
         }];
     }
     else if (type == WZMAlbumPhotoTypePhotoGif) {
-        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-            if (downloadFinined && imageData) {
-                if (completion) completion(imageData);
+        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+            if ([info objectForKey:PHImageErrorKey]) {
+                if (completion) completion(nil);
+            }
+            else {
+                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+                if (downloadFinined && imageData) {
+                    if (completion) completion(imageData);
+                }
             }
         }];
     }
     else {
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.iCloudImageOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-            if (downloadFinined && result) {
-                result = [self wzm_fixOrientation:result];
-                if (completion) completion(result);
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:helper.iCloudImageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+            if ([info objectForKey:PHImageErrorKey]) {
+                if (completion) completion(nil);
+            }
+            else {
+                BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+                if (downloadFinined && result) {
+                    result = [self wzm_fixOrientation:result];
+                    if (completion) completion(result);
+                }
             }
         }];
     }
@@ -226,10 +263,15 @@
     helper.imageOptions.networkAccessAllowed = YES;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
-        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-        if (downloadFinined && result) {
-            result = [self wzm_fixOrientation:result];
-            if (completion) completion(result);
+        if ([info objectForKey:PHImageErrorKey]) {
+            if (completion) completion(nil);
+        }
+        else {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+            if (downloadFinined && result) {
+                result = [self wzm_fixOrientation:result];
+                if (completion) completion(result);
+            }
         }
     }];
 }
@@ -240,9 +282,14 @@
     helper.imageOptions.networkAccessAllowed = YES;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
-        if (downloadFinined && imageData) {
-            if (completion) completion(imageData);
+        if ([info objectForKey:PHImageErrorKey]) {
+            if (completion) completion(nil);
+        }
+        else {
+            BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
+            if (downloadFinined && imageData) {
+                if (completion) completion(imageData);
+            }
         }
     }];
 }
