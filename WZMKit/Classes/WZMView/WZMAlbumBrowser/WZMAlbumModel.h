@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UIImage *thumbnail;
 @property (nonatomic, strong) id original;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger duration;
+@property (nonatomic, strong) NSString *timeStr;
 @property (nonatomic, assign) WZMAlbumPhotoType type;
 @property (nonatomic, assign, getter=isICloud) BOOL iCloud;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;

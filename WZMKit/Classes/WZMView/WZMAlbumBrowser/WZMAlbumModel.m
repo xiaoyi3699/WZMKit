@@ -20,6 +20,14 @@
     model.userCache = NO;
     model.downloading = NO;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
+    if (model.type == WZMAlbumPhotoTypeVideo) {
+        model.duration = [(PHAsset *)asset duration];
+        model.timeStr = [model getTimeWithSecond:model.duration];
+    }
+    else {
+        model.duration = 0;
+        model.timeStr = @"00";
+    }
     return model;
 }
 
@@ -86,6 +94,23 @@
             completion(image);
         }
     }];
+}
+
+///时间
+- (NSString *)getTimeWithSecond:(NSInteger)second {
+    NSString *time;
+    if (second < 60) {
+        time = [NSString stringWithFormat:@"00:%02ld",(long)second];
+    }
+    else {
+        if (second < 3600) {
+            time = [NSString stringWithFormat:@"%02ld:%02ld",(long)(second/60),(long)(second%60)];
+        }
+        else {
+            time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)(second/3600),(long)((second-second/3600*3600)/60),(long)(second%60)];
+        }
+    }
+    return time;
 }
 
 @end

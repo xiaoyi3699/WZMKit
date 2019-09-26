@@ -138,7 +138,7 @@
         _gifLabel.hidden = YES;
         _videoTimeView.hidden = NO;
         _playImageView.hidden = NO;
-        _videoTimeLabel.text = [self getTimeWithAsset:model.asset];
+        _videoTimeLabel.text = model.timeStr;
     }
     else {
         _gifLabel.hidden = YES;
@@ -195,23 +195,6 @@
     [self.model getICloudImageCompletion:^(id original) {
         [self setICloud:NO];
     }];
-}
-
-- (NSString *)getTimeWithAsset:(id)asset {
-    NSInteger second = [(PHAsset *)asset duration];
-    NSString *time;
-    if (second < 60) {
-        time = [NSString stringWithFormat:@"00:%02ld",(long)second];
-    }
-    else {
-        if (second < 3600) {
-            time = [NSString stringWithFormat:@"%02ld:%02ld",(long)(second/60),(long)(second%60)];
-        }
-        else {
-            time = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)(second/3600),(long)((second-second/3600*3600)/60),(long)(second%60)];
-        }
-    }
-    return time;
 }
 
 @end
