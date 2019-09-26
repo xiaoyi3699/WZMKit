@@ -408,4 +408,17 @@
     return img;
 }
 
+#pragma mark - 刷新相册通知
++ (void)postUpdateAlbumNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WZMUpdateAlbum" object:nil];
+}
+
++ (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector {
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:@"WZMUpdateAlbum" object:nil];
+}
+
++ (void)removeUpdateAlbumObserver:(id)observer {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+}
+
 @end

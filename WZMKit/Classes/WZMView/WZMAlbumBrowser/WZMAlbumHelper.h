@@ -35,4 +35,9 @@
 ///清除视频缓存
 + (void)wzm_claerVideoCache;
 
+#pragma mark - 刷新相册通知
++ (void)postUpdateAlbumNotification;
++ (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector;
++ (void)removeUpdateAlbumObserver:(id)observer;
+
 @end

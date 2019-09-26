@@ -12,6 +12,7 @@
 #import "UIView+wzmcate.h"
 #import "WZMLogPrinter.h"
 #import "WZMViewHandle.h"
+#import "WZMAlbumHelper.h"
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
@@ -94,6 +95,8 @@
             
             UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
             [self addGestureRecognizer:selectPan];
+            
+            [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
         }
     }
     return self;
@@ -134,6 +137,10 @@
             break;
         }
     }
+    [self.collectionView reloadData];
+}
+
+- (void)collectionViewReloadData {
     [self.collectionView reloadData];
 }
 
@@ -233,6 +240,7 @@
 
 - (void)dealloc {
     WZMLog(@"%@释放了",NSStringFromClass(self.class));
+    [WZMAlbumHelper removeUpdateAlbumObserver:self];
 }
 
 @end

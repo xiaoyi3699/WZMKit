@@ -52,14 +52,26 @@
 
 ///获取原图
 - (void)getOriginalCompletion:(void(^)(id original))completion {
-    [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
-        if (self.isUserCache) {
-            self.original = obj;
-        }
+    if (self.original) {
         if (completion) {
-            completion(obj);
+            completion(self.original);
         }
-    }];
+    }
+    else {
+        if (self.isICloud) {
+            [self getICloudImageCompletion:completion];
+        }
+        else {
+            [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
+                if (self.isUserCache) {
+                    self.original = obj;
+                }
+                if (completion) {
+                    completion(obj);
+                }
+            }];
+        }
+    }
 }
 
 ///从iCloud获取原图

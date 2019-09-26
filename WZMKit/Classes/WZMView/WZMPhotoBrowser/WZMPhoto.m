@@ -16,9 +16,10 @@
 #import "NSData+wzmcate.h"
 #import "UIImage+wzmcate.h"
 #import "WZMVideoPlayerView.h"
-#import "WZMAlbumModel.h"
 #import "WZMLogPrinter.h"
 #import "WZMPanGestureRecognizer.h"
+#import "WZMAlbumModel.h"
+#import "WZMAlbumHelper.h"
 
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
@@ -288,6 +289,7 @@
                 if (_display) {
                     [self start];
                 }
+                [WZMAlbumHelper postUpdateAlbumNotification];
             }];
         }
     }
