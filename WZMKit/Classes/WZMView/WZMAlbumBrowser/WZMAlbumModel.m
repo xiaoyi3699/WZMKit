@@ -17,7 +17,7 @@
     model.asset = asset;
     model.iCloud = YES;
     model.selected = NO;
-    model.userCache = NO;
+    model.useCache = NO;
     model.downloading = NO;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
     if (model.type == WZMAlbumPhotoTypeVideo) {
@@ -40,7 +40,7 @@
     }
     else {
         [WZMAlbumHelper wzm_getThumbnailWithAsset:self.asset photoWidth:200 thumbnail:^(UIImage *photo) {
-            if (self.isUserCache) {
+            if (self.isUseCache) {
                 self.thumbnail = photo;
             }
             if (completion) {
@@ -63,7 +63,7 @@
         }
         else {
             [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
-                if (self.isUserCache) {
+                if (self.isUseCache) {
                     self.original = obj;
                 }
                 if (completion) {
@@ -81,7 +81,7 @@
     [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
         self.iCloud = NO;
         self.downloading = NO;
-        if (self.isUserCache) {
+        if (self.isUseCache) {
             self.original = obj;
         }
         if (completion) {

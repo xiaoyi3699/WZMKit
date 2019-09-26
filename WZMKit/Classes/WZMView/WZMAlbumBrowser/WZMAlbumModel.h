@@ -20,7 +20,7 @@
 @property (nonatomic, assign) WZMAlbumPhotoType type;
 @property (nonatomic, assign, getter=isICloud) BOOL iCloud;
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
-@property (nonatomic, assign, getter=isUserCache) BOOL userCache;
+@property (nonatomic, assign, getter=isUseCache) BOOL useCache;
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 
 + (instancetype)modelWithAsset:(id)asset;
