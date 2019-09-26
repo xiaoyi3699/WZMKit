@@ -79,7 +79,7 @@
     else if (phAsset.mediaType == PHAssetMediaTypeAudio) type = WZMAlbumPhotoTypeAudio;
     else if (phAsset.mediaType == PHAssetMediaTypeImage) {
         if (@available(iOS 9.1, *)) {
-            //             if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = WZMAlbumPhotoTypeLivePhoto;
+            if (phAsset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = WZMAlbumPhotoTypeLivePhoto;
         }
         if ([[phAsset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
             type = WZMAlbumPhotoTypePhotoGif;
