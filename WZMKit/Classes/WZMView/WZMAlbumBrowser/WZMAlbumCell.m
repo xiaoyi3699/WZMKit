@@ -21,7 +21,6 @@
 @end
 
 @implementation WZMAlbumCell {
-    int32_t _imageRequestID;
     UIImageView *_photoImageView;
     UILabel *_gifLabel;
     UIView *_videoTimeView;
@@ -115,30 +114,26 @@
     }
     else {
         //获取缩略图
-        int32_t imageRequestID = [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width thumbnail:^(UIImage *photo) {
+        [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width thumbnail:^(UIImage *photo) {
             _photoImageView.image = photo;
             model.thumbnail = photo;
         } cloud:^(BOOL iCloud) {
             model.iCloud = iCloud;
             [self setICloud:model.isICloud];
         }];
-        if (imageRequestID && _imageRequestID && imageRequestID != _imageRequestID) {
-            [[PHImageManager defaultManager] cancelImageRequest:_imageRequestID];
-        }
-        _imageRequestID = imageRequestID;
     }
     
-    if (model.type == WZMAlbumPhotoTypePhotoGif) {
-        _gifLabel.hidden = !config.allowShowGIF;
-        _videoTimeView.hidden = YES;
-        _playImageView.hidden = YES;
-        _videoTimeLabel.text = @"";
-    }
-    else if (model.type == WZMAlbumPhotoTypeVideo) {
+    if (model.type == WZMAlbumPhotoTypeVideo) {
         _gifLabel.hidden = YES;
         _videoTimeView.hidden = NO;
         _playImageView.hidden = NO;
         _videoTimeLabel.text = model.timeStr;
+    }
+    else if (model.type == WZMAlbumPhotoTypePhotoGif) {
+        _gifLabel.hidden = !config.allowShowGIF;
+        _videoTimeView.hidden = YES;
+        _playImageView.hidden = YES;
+        _videoTimeLabel.text = @"";
     }
     else {
         _gifLabel.hidden = YES;
@@ -147,7 +142,7 @@
         _videoTimeLabel.text = @"";
     }
     
-    if (config.maxCount == 1 || config.allowShowIndex == NO) {
+    if (config.allowShowIndex == NO) {
         _indexLabel.text = @"";
         _indexLabel.hidden = !model.isSelected;
     }
