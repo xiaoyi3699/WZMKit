@@ -27,8 +27,9 @@
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
     UILabel *_indexLabel;
-    WZMButton *_previewBtn;
     WZMButton *_iCloudBtn;
+    WZMButton *_indexBtn;
+    CAKeyframeAnimation *_animation;
     UIActivityIndicatorView *_activityView;
 }
 
@@ -69,14 +70,28 @@
         _gifLabel.hidden = YES;
         [self addSubview:_gifLabel];
         
-        _indexLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-30, 0, 30, 30)];
         _indexLabel.text = @"1";
-        _indexLabel.font = [UIFont boldSystemFontOfSize:25];
+        _indexLabel.font = [UIFont boldSystemFontOfSize:17];
         _indexLabel.textColor = [UIColor whiteColor];
-        _indexLabel.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.6];
+        _indexLabel.backgroundColor = WZM_ALBUM_COLOR;
         _indexLabel.textAlignment = NSTextAlignmentCenter;
         _indexLabel.hidden = YES;
+        _indexLabel.layer.masksToBounds = YES;
+        _indexLabel.layer.cornerRadius = 15;
+        _indexLabel.userInteractionEnabled = YES;
         [self addSubview:_indexLabel];
+        
+        UITapGestureRecognizer *indexTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(indexTapGesture:)];
+        [_indexLabel addGestureRecognizer:indexTap];
+        
+        _indexBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
+        _indexBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        _indexBtn.imageFrame = CGRectMake(0, 0, 30, 30);
+        _indexBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
+        [_indexBtn setImage:[WZMPublic imageNamed:@"album_normal" ofType:@"png"] forState:UIControlStateNormal];
+        [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_indexBtn];
         
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = self.bounds;
@@ -84,17 +99,8 @@
         _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
         [self addSubview:_activityView];
         
-        _previewBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
-        _previewBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
-        _previewBtn.imageFrame = CGRectMake(8, 2, 20, 20);
-        _previewBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
-        [_previewBtn setImage:[[WZMPublic imageNamed:@"album_fd" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        [_previewBtn addTarget:self action:@selector(previewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _previewBtn.hidden = YES;
-        [self addSubview:_previewBtn];
-        
         _iCloudBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
-        _iCloudBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
+        _iCloudBtn.frame = CGRectMake(0, 0, 30, 30);
         _iCloudBtn.imageFrame = CGRectMake(8, 2, 20, 20);
         _iCloudBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_iCloudBtn setImage:[[WZMPublic imageNamed:@"album_xz" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -142,26 +148,49 @@
         _videoTimeLabel.text = @"";
     }
     
+    if (model.isSelected) {
+        _indexBtn.hidden = YES;
+        _indexLabel.hidden = NO;
+        if (config.allowShowIndex) {
+            NSString *indexStr = [NSString stringWithFormat:@"%@",@(model.index)];
+            if (indexStr.length > 1) {
+                _indexLabel.font = [UIFont systemFontOfSize:13];
+            }
+            else {
+                _indexLabel.font = [UIFont systemFontOfSize:17];
+            }
+            _indexLabel.text = indexStr;
+        }
+        else {
+            _indexLabel.text = @"";
+        }
+        if (model.isAnimated == NO) {
+            model.animated = YES;
+            [self startAnimation];
+        }
+    }
+    else {
+        _indexBtn.hidden = NO;
+        _indexLabel.hidden = YES;
+        _indexLabel.text = @"";
+        if (model.isAnimated) {
+            model.animated = NO;
+            [self removeAnimation];
+        }
+    }
+    
     if (config.allowShowIndex == NO) {
         _indexLabel.text = @"";
         _indexLabel.hidden = !model.isSelected;
     }
     else {
-        if (model.isSelected) {
-            _indexLabel.hidden = NO;
-            _indexLabel.text = [NSString stringWithFormat:@"%@",@(model.index)];
-        }
-        else {
-            _indexLabel.hidden = YES;
-            _indexLabel.text = @"";
-        }
+        
     }
 }
 
 - (void)setICloud:(BOOL)iCloud {
     if (iCloud) {
         _iCloudBtn.hidden = NO;
-        _previewBtn.hidden = YES;
         if (self.model.isDownloading) {
             [_activityView startAnimating];
         }
@@ -171,15 +200,18 @@
     }
     else {
         _iCloudBtn.hidden = YES;
-        _previewBtn.hidden = !self.config.allowPreview;
         [_activityView stopAnimating];
     }
 }
 
-//预览按钮点击事件
-- (void)previewBtnClick:(UIButton *)btn {
-    if ([self.delegate respondsToSelector:@selector(albumPhotoCellWillPreview:)]) {
-        [self.delegate albumPhotoCellWillPreview:self];
+//选择按钮点击事件
+- (void)indexTapGesture:(UITapGestureRecognizer *)recognizer {
+    [self indexBtnClick:nil];
+}
+
+- (void)indexBtnClick:(UIButton *)btn {
+    if ([self.delegate respondsToSelector:@selector(albumPhotoCellDidSelectedIndexBtn:)]) {
+        [self.delegate albumPhotoCellDidSelectedIndexBtn:self];
     }
 }
 
@@ -197,6 +229,28 @@
             [alertView show];
         }
     }];
+}
+
+- (void)startAnimation {
+    if (_animation == nil) {
+        _animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+        _animation.duration = 0.2;
+        _animation.removedOnCompletion = NO;
+        _animation.fillMode = kCAFillModeForwards;
+        
+        NSMutableArray *values = [NSMutableArray array];
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)]];
+        [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+        
+        _animation.values = values;
+        _animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+    }
+    [_indexLabel.layer addAnimation:_animation forKey:@"index.animation"];
+}
+
+- (void)removeAnimation {
+    [_indexLabel.layer removeAnimationForKey:@"index.animation"];
 }
 
 @end

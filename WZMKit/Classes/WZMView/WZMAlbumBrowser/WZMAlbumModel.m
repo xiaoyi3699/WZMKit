@@ -18,6 +18,7 @@
     model.iCloud = YES;
     model.selected = NO;
     model.useCache = NO;
+    model.animated = NO;
     model.downloading = NO;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
     if (model.type == WZMAlbumPhotoTypeVideo) {

@@ -25,6 +25,7 @@
         self.allowShowGIF = YES;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
+        self.allowDragSelect = YES;
         self.originalImage = YES;
         self.originalVideo = YES;
         self.imageSize = CGSizeMake(600, 600);

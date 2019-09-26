@@ -83,7 +83,7 @@
             self.countLabel.userInteractionEnabled = YES;
             [self.toolView.contentView addSubview:self.countLabel];
             
-            UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_minX-5, toolHeight)];
+            UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(config.maxCount)];
             msgLabel.font = [UIFont systemFontOfSize:13];
             msgLabel.textColor = WZM_ALBUM_COLOR;
@@ -93,9 +93,10 @@
             UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
             [self.countLabel addGestureRecognizer:okTap];
             
-            UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
-            [self addGestureRecognizer:selectPan];
-            
+            if (config.allowDragSelect) {
+                UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
+                [self addGestureRecognizer:selectPan];
+            }
             [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
         }
     }
@@ -110,10 +111,8 @@
 }
 
 //cell代理
-- (void)albumPhotoCellWillPreview:(WZMAlbumCell *)cell {
-    if ([self.delegate respondsToSelector:@selector(albumViewWillPreview:atIndexPath:)]) {
-        [self.delegate albumViewWillPreview:self atIndexPath:cell.indexPath];
-    }
+- (void)albumPhotoCellDidSelectedIndexBtn:(WZMAlbumCell *)cell {
+    [self didSelectedAtIndexPath:cell.indexPath];
 }
 
 //刷新相册
@@ -169,7 +168,7 @@
         _lastRow = row; _lastColumn = column;
         NSInteger index = row*self.config.column+column;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+        [self didSelectedAtIndexPath:indexPath];
     }
 }
 
@@ -190,6 +189,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= self.allPhotos.count) return;
+    if (self.config.allowPreview) {
+        if ([self.delegate respondsToSelector:@selector(albumViewWillPreview:atIndexPath:)]) {
+            [self.delegate albumViewWillPreview:self atIndexPath:indexPath];
+        }
+    }
+    else {
+        [self didSelectedAtIndexPath:indexPath];
+    }
+}
+
+- (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
     if (self.onlyOne) {
         WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
         [self.selectedPhotos addObject:model];
@@ -217,7 +227,7 @@
             model.selected = YES;
             [self.selectedPhotos addObject:model];
         }
-        [collectionView reloadData];
+        [self.collectionView reloadData];
         self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
     }
 }

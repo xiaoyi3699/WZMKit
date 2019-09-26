@@ -24,7 +24,6 @@
 @protocol WZMAlbumCellDelegate <NSObject>
 
 @optional
-- (void)albumPhotoCellWillPreview:(WZMAlbumCell *)cell;
-- (void)albumPhotoCellDidSelectedPreview:(WZMAlbumCell *)cell;
+- (void)albumPhotoCellDidSelectedIndexBtn:(WZMAlbumCell *)cell;
 
 @end

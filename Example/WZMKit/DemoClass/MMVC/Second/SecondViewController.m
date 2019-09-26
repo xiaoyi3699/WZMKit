@@ -55,6 +55,7 @@
     config.originalVideo = YES;
     config.originalImage = YES;
     config.allowShowGIF = YES;
+    config.maxCount = 99;
     WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];

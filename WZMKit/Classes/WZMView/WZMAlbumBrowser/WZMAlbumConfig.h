@@ -24,6 +24,8 @@
 @property (nonatomic, assign) BOOL allowShowImage;
 ///是否允许选择视频,默认YES
 @property (nonatomic, assign) BOOL allowShowVideo;
+///是否允许滑动选择,默认YES
+@property (nonatomic, assign) BOOL allowDragSelect;
 ///最小选中数量,默认0
 @property (nonatomic, assign) NSInteger minCount;
 ///最大选中数量,默认9
