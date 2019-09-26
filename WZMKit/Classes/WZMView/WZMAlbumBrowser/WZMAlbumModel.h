@@ -29,5 +29,9 @@
 - (void)getICloudImageCompletion:(void (^)(id original))completion;
 ///获取缩略图
 - (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion;
+///预设尺寸视频
+- (void)exportVideoWithPreset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
+///预设尺寸图片
+- (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion;
 
 @end

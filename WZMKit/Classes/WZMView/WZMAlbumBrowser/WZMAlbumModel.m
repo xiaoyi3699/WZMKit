@@ -70,4 +70,22 @@
     }];
 }
 
+///预设尺寸视频
+- (void)exportVideoWithPreset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
+    [WZMAlbumHelper wzm_exportVideoWithAsset:self.asset preset:preset outFolder:outFolder completion:^(NSURL *videoURL) {
+        if (completion) {
+            completion(videoURL);
+        }
+    }];
+}
+
+///预设尺寸图片
+- (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion {
+    [WZMAlbumHelper wzm_exportImageWithAsset:self.asset imageSize:imageSize completion:^(UIImage *image) {
+        if (completion) {
+            completion(image);
+        }
+    }];
+}
+
 @end

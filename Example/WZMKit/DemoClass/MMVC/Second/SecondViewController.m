@@ -10,7 +10,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMAlbumControllerDelegate,WZMPhotoBrowserDelegate>
+@interface SecondViewController ()<WZMAlbumControllerDelegate,WZMAlbumNavigationControllerDelegate>
 
 @end
 
@@ -51,24 +51,19 @@
 //    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
 //    [self presentViewController:photoBrowser animated:YES completion:nil];
     
-    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:[WZMAlbumConfig new]];
+    WZMAlbumConfig *config = [WZMAlbumConfig new];
+    config.originalVideo = YES;
+    config.originalImage = YES;
+    config.allowShowGIF = YES;
+    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+    vc.pickerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 //    vc.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)
-photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
-    NSLog(@"%@-==%@",@(index),@(contentType));
-    if (gestureType == WZMGestureRecognizerTypeSingle) {
-        NSLog(@"单击");
-    }
-    else if (gestureType == WZMGestureRecognizerTypeDouble) {
-        NSLog(@"单击2");
-    }
-    else {
-        NSLog(@"单击3");
-    }
+- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedPhotos:(NSArray *)photos {
+    NSLog(@"===%@",photos);
 }
 
 @end
