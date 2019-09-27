@@ -204,69 +204,13 @@
 - (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models index:(NSInteger)index array:(NSMutableArray *)array completion:(void(^)(NSArray *photos))completion {
     if (index < models.count) {
         WZMAlbumModel *model = [models objectAtIndex:index];
-        [self photoWithModel:model completion:^(id obj) {
-            if (obj) {
-                [array addObject:obj];
-            }
+        [model getImageWithConfig:self.config completion:^(id obj) {
+            if (obj) [array addObject:obj];
             [self photosWithModels:models index:(index+1) array:array completion:completion];
         }];
     }
     else {
-        if (completion) {
-            completion([array copy]);
-        }
-    }
-}
-
-- (void)photoWithModel:(WZMAlbumModel *)model completion:(void(^)(id obj))completion {
-    if (model.type == WZMAlbumPhotoTypeVideo) {
-        if (self.config.originalVideo) {
-            //原视频
-            [model getOriginalCompletion:^(id original) {
-                if (completion) {
-                    completion(original);
-                }
-            }];
-        }
-        else {
-            //预设尺寸
-            [model exportVideoWithPreset:self.config.videoPreset outFolder:self.config.videoFolder completion:^(NSURL *videoURL) {
-                if (completion) {
-                    completion(videoURL);
-                }
-            }];
-        }
-    }
-    else if (model.type == WZMAlbumPhotoTypeAudio) {
-        if (completion) {
-            completion(nil);
-        }
-    }
-    else if (model.type == WZMAlbumPhotoTypePhotoGif && self.config.allowShowGIF) {
-        //原图
-        [model getOriginalCompletion:^(id original) {
-            if (completion) {
-                completion(original);
-            }
-        }];
-    }
-    else {
-        if (self.config.originalImage) {
-            //原图
-            [model getOriginalCompletion:^(id original) {
-                if (completion) {
-                    completion(original);
-                }
-            }];
-        }
-        else {
-            //预设尺寸
-            [model exportImageWithImageSize:self.config.imageSize completion:^(UIImage *image) {
-                if (completion) {
-                    completion(image);
-                }
-            }];
-        }
+        if (completion) completion([array copy]);
     }
 }
 

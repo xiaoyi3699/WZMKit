@@ -15,11 +15,12 @@
 #import "WZMLogPrinter.h"
 #import "NSDateFormatter+wzmcate.h"
 
-@interface WZMAlbumHelper ()
+@interface WZMAlbumHelper ()<UIAlertViewDelegate>
 
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, strong) NSString *videoFolder;
+@property (nonatomic, assign, getter=isShowAlert) BOOL showAlert;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
 @property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
 
@@ -35,6 +36,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         helper = [[WZMAlbumHelper alloc] init];
+        helper.showAlert = NO;
     });
     return helper;
 }
@@ -453,6 +455,20 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+///从iCloud获取图片失败
++ (void)showiCloudError {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    if (helper.isShowAlert) return;
+    helper.showAlert = YES;
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"从iCloud获取图片失败，请切换至无线网络后重试" delegate:helper cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    helper.showAlert = NO;
 }
 
 #pragma mark - 刷新相册通知

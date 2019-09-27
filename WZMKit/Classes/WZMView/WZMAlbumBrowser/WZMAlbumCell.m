@@ -225,8 +225,7 @@
         }
         else {
             [self setICloud:YES];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"从iCloud获取图片失败，请切换至无线网络后重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            [alertView show];
+            [WZMAlbumHelper showiCloudError];
         }
     }];
 }

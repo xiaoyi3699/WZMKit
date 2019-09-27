@@ -9,6 +9,7 @@
 #import "WZMAlbumModel.h"
 #import "WZMAlbumHelper.h"
 #import <Photos/Photos.h>
+#import "WZMAlbumConfig.h"
 
 @implementation WZMAlbumModel
 
@@ -103,6 +104,47 @@
     [WZMAlbumHelper wzm_exportImageWithAsset:self.asset imageSize:imageSize completion:^(UIImage *image) {
         if (completion) completion(image);
     }];
+}
+
+///获取图片
+- (void)getImageWithConfig:(WZMAlbumConfig *)config completion:(void(^)(id obj))completion {
+    if (self.type == WZMAlbumPhotoTypeVideo) {
+        if (config.originalVideo) {
+            //原视频
+            [self getOriginalCompletion:^(id original) {
+                if (completion) completion(original);
+            }];
+        }
+        else {
+            //预设尺寸
+            [self exportVideoWithPreset:config.videoPreset outFolder:config.videoFolder completion:^(NSURL *videoURL) {
+                if (completion) completion(videoURL);
+            }];
+        }
+    }
+    else if (self.type == WZMAlbumPhotoTypeAudio) {
+        if (completion) completion(nil);
+    }
+    else if (self.type == WZMAlbumPhotoTypePhotoGif && config.allowShowGIF) {
+        //原图
+        [self getOriginalCompletion:^(id original) {
+            if (completion) completion(original);
+        }];
+    }
+    else {
+        if (config.originalImage) {
+            //原图
+            [self getOriginalCompletion:^(id original) {
+                if (completion) completion(original);
+            }];
+        }
+        else {
+            //预设尺寸
+            [self exportImageWithImageSize:config.imageSize completion:^(UIImage *image) {
+                if (completion) completion(image);
+            }];
+        }
+    }
 }
 
 ///时间

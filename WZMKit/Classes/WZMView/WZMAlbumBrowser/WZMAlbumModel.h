@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WZMEnum.h"
+@class WZMAlbumConfig;
 
 @interface WZMAlbumModel : NSObject
 
@@ -36,5 +37,7 @@
 - (void)exportVideoWithPreset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///预设尺寸图片
 - (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion;
+///获取图片
+- (void)getImageWithConfig:(WZMAlbumConfig *)config completion:(void(^)(id obj))completion;
 
 @end

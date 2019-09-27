@@ -34,6 +34,8 @@
 + (void)wzm_saveImageData:(NSData *)data completion:(doBlock)completion;
 ///清除视频缓存
 + (void)wzm_claerVideoCache;
+///从iCloud获取图片失败
++ (void)showiCloudError;
 
 #pragma mark - 刷新相册通知
 + (void)postUpdateAlbumNotification;

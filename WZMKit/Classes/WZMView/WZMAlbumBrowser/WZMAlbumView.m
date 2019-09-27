@@ -112,7 +112,7 @@
 
 //cell代理
 - (void)albumPhotoCellDidSelectedIndexBtn:(WZMAlbumCell *)cell {
-    [self didSelectedAtIndexPath:cell.indexPath];
+    [self checkSelectedAtIndexPath:cell.indexPath];
 }
 
 //刷新相册
@@ -168,7 +168,7 @@
         _lastRow = row; _lastColumn = column;
         NSInteger index = row*self.config.column+column;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self didSelectedAtIndexPath:indexPath];
+        [self checkSelectedAtIndexPath:indexPath];
     }
 }
 
@@ -195,10 +195,48 @@
         }
     }
     else {
+        [self checkSelectedAtIndexPath:indexPath];
+    }
+}
+
+#pragma mark - private method
+- (BOOL)isCameraRollAlbum:(PHAssetCollection *)metadata {
+    NSString *versionStr = [[UIDevice currentDevice].systemVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
+    if (versionStr.length <= 1) {
+        versionStr = [versionStr stringByAppendingString:@"00"];
+    } else if (versionStr.length <= 2) {
+        versionStr = [versionStr stringByAppendingString:@"0"];
+    }
+    CGFloat version = versionStr.floatValue;
+    // 目前已知8.0.0 ~ 8.0.2系统，拍照后的图片会保存在最近添加中
+    if (version >= 800 && version <= 802) {
+        return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded;
+    } else {
+        return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary;
+    }
+}
+
+//检查是否是iCloud图片
+- (void)checkSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
+    if (model.isICloud) {
+        [model getICloudImageCompletion:^(id original) {
+            if (original) {
+                [self didSelectedAtIndexPath:indexPath];
+            }
+            else {
+                [WZMAlbumHelper showiCloudError];
+            }
+            [self.collectionView reloadData];
+        }];
+        [self.collectionView reloadData];
+    }
+    else {
         [self didSelectedAtIndexPath:indexPath];
     }
 }
 
+//选中图片
 - (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
     if (self.onlyOne) {
         WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
@@ -229,22 +267,6 @@
         }
         [self.collectionView reloadData];
         self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
-    }
-}
-
-- (BOOL)isCameraRollAlbum:(PHAssetCollection *)metadata {
-    NSString *versionStr = [[UIDevice currentDevice].systemVersion stringByReplacingOccurrencesOfString:@"." withString:@""];
-    if (versionStr.length <= 1) {
-        versionStr = [versionStr stringByAppendingString:@"00"];
-    } else if (versionStr.length <= 2) {
-        versionStr = [versionStr stringByAppendingString:@"0"];
-    }
-    CGFloat version = versionStr.floatValue;
-    // 目前已知8.0.0 ~ 8.0.2系统，拍照后的图片会保存在最近添加中
-    if (version >= 800 && version <= 802) {
-        return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumRecentlyAdded;
-    } else {
-        return ((PHAssetCollection *)metadata).assetCollectionSubtype == PHAssetCollectionSubtypeSmartAlbumUserLibrary;
     }
 }
 
