@@ -61,10 +61,9 @@
         videoImageView.image = [WZMPublic imageNamed:@"album_video" ofType:@"png"];
         [_videoTimeView addSubview:videoImageView];
         
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         _activityView.frame = self.bounds;
         _activityView.hidesWhenStopped = YES;
-        _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
         [self addSubview:_activityView];
         
         _gifLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-25, self.bounds.size.height-15, 25, 15)];
@@ -219,7 +218,7 @@
 - (void)iCloudBtnClick:(UIButton *)btn {
     if (self.model.isDownloading) return;
     [_activityView startAnimating];
-    [self.model getICloudImageCompletion:^(id original) {
+    [self.model getOriginalCompletion:^(id original) {
         if (original) {
             [self setICloud:NO];
         }

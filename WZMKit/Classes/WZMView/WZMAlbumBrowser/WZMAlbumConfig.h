@@ -26,6 +26,8 @@
 @property (nonatomic, assign) BOOL allowShowVideo;
 ///是否允许滑动选择,默认YES
 @property (nonatomic, assign) BOOL allowDragSelect;
+///当从iCloud获取图片失败时,是否使用缩略图,仅对图片有效,默认YES,
+@property (nonatomic, assign) BOOL allowUseThumbnail;
 ///最小选中数量,默认0
 @property (nonatomic, assign) NSInteger minCount;
 ///最大选中数量,默认9

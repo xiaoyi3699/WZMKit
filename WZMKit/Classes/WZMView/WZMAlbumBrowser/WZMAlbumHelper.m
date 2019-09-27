@@ -128,11 +128,9 @@
         if (type == WZMAlbumPhotoTypeVideo) {
             helper.videoOptions.networkAccessAllowed = NO;
             [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info){
-                if (cloud) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cloud(avasset==nil);
-                    });
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cloud(avasset==nil);
+                });
             }];
         }
         else {

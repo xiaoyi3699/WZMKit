@@ -26,6 +26,7 @@
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
         self.allowDragSelect = YES;
+        self.allowUseThumbnail = YES;
         self.originalImage = YES;
         self.originalVideo = YES;
         self.imageSize = CGSizeMake(600, 600);

@@ -123,10 +123,11 @@
         }
     }
     else if (self.type == WZMAlbumPhotoTypeAudio) {
+        //声音
         if (completion) completion(nil);
     }
     else if (self.type == WZMAlbumPhotoTypePhotoGif && config.allowShowGIF) {
-        //原图
+        //GIF
         [self getOriginalCompletion:^(id original) {
             if (completion) completion(original);
         }];
@@ -135,13 +136,41 @@
         if (config.originalImage) {
             //原图
             [self getOriginalCompletion:^(id original) {
-                if (completion) completion(original);
+                if (completion) {
+                    if (original) {
+                        completion(original);
+                    }
+                    else {
+                        if (config.allowUseThumbnail) {
+                            [self getThumbnailCompletion:^(UIImage *thumbnail) {
+                                completion(thumbnail);
+                            }];
+                        }
+                        else {
+                            completion(original);
+                        }
+                    }
+                }
             }];
         }
         else {
             //预设尺寸
             [self exportImageWithImageSize:config.imageSize completion:^(UIImage *image) {
-                if (completion) completion(image);
+                if (completion) {
+                    if (image) {
+                        completion(image);
+                    }
+                    else {
+                        if (config.allowUseThumbnail) {
+                            [self getThumbnailCompletion:^(UIImage *thumbnail) {
+                                completion(thumbnail);
+                            }];
+                        }
+                        else {
+                            completion(image);
+                        }
+                    }
+                }
             }];
         }
     }

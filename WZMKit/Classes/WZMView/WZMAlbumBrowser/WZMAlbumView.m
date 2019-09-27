@@ -219,20 +219,21 @@
 //检查是否是iCloud图片
 - (void)checkSelectedAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
-    if (model.isICloud) {
-        [model getICloudImageCompletion:^(id original) {
-            if (original) {
-                [self didSelectedAtIndexPath:indexPath];
-            }
-            else {
-                [WZMAlbumHelper showiCloudError];
-            }
+    BOOL isICloud = model.isICloud;
+    BOOL isAllowSelect = (model.type == WZMAlbumPhotoTypePhoto && self.config.allowUseThumbnail);
+    [model getOriginalCompletion:^(id original) {
+        if (original || isAllowSelect) {
+            [self didSelectedAtIndexPath:indexPath];
+        }
+        else {
+            [WZMAlbumHelper showiCloudError];
+        }
+        if (isICloud && model.isSelected) {
             [self.collectionView reloadData];
-        }];
+        }
+    }];
+    if (isICloud && model.isSelected == NO) {
         [self.collectionView reloadData];
-    }
-    else {
-        [self didSelectedAtIndexPath:indexPath];
     }
 }
 

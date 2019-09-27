@@ -29,15 +29,13 @@
 
 ///获取原图
 - (void)getOriginalCompletion:(void(^)(id original))completion;
-///从iCloud获取原图
-- (void)getICloudImageCompletion:(void (^)(id original))completion;
 ///获取缩略图
 - (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion;
 ///预设尺寸视频
 - (void)exportVideoWithPreset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///预设尺寸图片
 - (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion;
-///获取图片
+///根据相册配置,获取图片
 - (void)getImageWithConfig:(WZMAlbumConfig *)config completion:(void(^)(id obj))completion;
 
 @end
