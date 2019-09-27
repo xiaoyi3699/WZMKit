@@ -80,9 +80,9 @@
     if (phAsset.mediaType == PHAssetMediaTypeVideo)      type = WZMAlbumPhotoTypeVideo;
     else if (phAsset.mediaType == PHAssetMediaTypeAudio) type = WZMAlbumPhotoTypeAudio;
     else if (phAsset.mediaType == PHAssetMediaTypeImage) {
-        if (@available(iOS 9.1, *)) {
-            if (phAsset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = WZMAlbumPhotoTypeLivePhoto;
-        }
+//        if (@available(iOS 9.1, *)) {
+//            if (phAsset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) type = WZMAlbumPhotoTypeLivePhoto;
+//        }
         if ([[phAsset valueForKey:@"filename"] hasSuffix:@"GIF"]) {
             type = WZMAlbumPhotoTypePhotoGif;
         }

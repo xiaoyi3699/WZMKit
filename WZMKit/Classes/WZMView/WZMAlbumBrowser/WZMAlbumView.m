@@ -228,7 +228,7 @@
         else {
             [WZMAlbumHelper showiCloudError];
         }
-        if (isICloud && model.isSelected) {
+        if (isICloud) {
             [self.collectionView reloadData];
         }
     }];

@@ -62,15 +62,10 @@
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    WZMScannerViewController *scanerVC = [[WZMScannerViewController alloc] init];
-    scanerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:scanerVC animated:YES];
-    
-    return;
     if (indexPath.row < _newDataProvider.currentList.count) {
+        NSString *url = @"http://rlsbj.cq.gov.cn/xcb/zjxt/agency/app/html/login.html";
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
