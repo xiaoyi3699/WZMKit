@@ -277,7 +277,8 @@
             [self setupAlbumModel:model];
         }
         else {
-            if (model.isICloud) {
+            BOOL isICloud = model.isICloud;
+            if (isICloud) {
                 [model getThumbnailCompletion:^(UIImage *thumbnail) {
                     if (model.isICloud) {
                         self.wzm_image = thumbnail;
@@ -290,12 +291,17 @@
                     if (_display) {
                         [self start];
                     }
-                    [WZMAlbumHelper postUpdateAlbumNotification];
                 }
                 else {
                     //从iCloud获取图片失败,可以在此处写一些提示或者UI处理
                 }
+                if (isICloud) {
+                    [WZMAlbumHelper postUpdateAlbumNotification];
+                }
             }];
+            if (isICloud) {
+                [WZMAlbumHelper postUpdateAlbumNotification];
+            }
         }
     }
     else {
