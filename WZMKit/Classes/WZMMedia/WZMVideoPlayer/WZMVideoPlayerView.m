@@ -147,10 +147,13 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [_indicatorView startAnimating];
     if (model.type == WZMAlbumPhotoTypeVideo) {
         [model getICloudImageCompletion:^(id original) {
-            if ([original isKindOfClass:[NSURL class]]) {
+            if (original && [original isKindOfClass:[NSURL class]]) {
                 NSURL *url = (NSURL *)original;
                 _player.volume = self.volume;
                 [_player playWithURL:url];
+            }
+            else {
+                
             }
         }];
     }
