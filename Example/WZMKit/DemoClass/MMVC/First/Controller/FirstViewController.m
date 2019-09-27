@@ -63,9 +63,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < _newDataProvider.currentList.count) {
-        NSString *url = @"http://rlsbj.cq.gov.cn/xcb/zjxt/agency/app/html/login.html";
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:url];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
