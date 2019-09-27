@@ -20,6 +20,7 @@
 #import "WZMPanGestureRecognizer.h"
 #import "WZMAlbumModel.h"
 #import "WZMAlbumHelper.h"
+#import "WZMPublic.h"
 
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
@@ -29,11 +30,11 @@
     NSData         *_imageData;
     NSURL          *_videoUrl;
     UIImage        *_currentImage;
-    WZMAlbumModel  *_albumModel;
     BOOL           _isGif;
     BOOL           _isVideo;
     BOOL           _display;
     CGRect         _startFrame;
+    UIImageView    *_errorImageView;
     __weak UIView  *_controllerView;
 }
 @end
@@ -75,6 +76,10 @@
         _videoView = [[WZMVideoPlayerView alloc] initWithFrame:self.bounds];
         _videoView.hidden = YES;
         [self addSubview:_videoView];
+        
+        _errorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.wzm_width-40, self.wzm_height-40, 20, 20)];
+        _errorImageView.image = [WZMPublic imageNamed:@"album_error" ofType:@"png"];
+        [self addSubview:_errorImageView];
     }
     return self;
 }
@@ -88,9 +93,6 @@
         if (_display) {
             if (_videoUrl) {
                 [_videoView playWithUrl:_videoUrl];
-            }
-            else if (_albumModel) {
-                [_videoView playWithAlbumModel:_albumModel];
             }
         }
     }
@@ -185,12 +187,6 @@
     _videoView.hidden = NO;
 }
 
-- (void)setupAlbumModel:(WZMAlbumModel *)model {
-    _isVideo = YES;
-    _albumModel = model;
-    _videoView.hidden = NO;
-}
-
 //是否是视频
 - (BOOL)checkVideo:(NSURL *)url network:(BOOL)network {
     if (network) {
@@ -241,7 +237,6 @@
     _isGif = NO;
     _isVideo = NO;
     _videoUrl = nil;
-    _albumModel = nil;
     _imageData = nil;
     _currentImage = nil;
     [_videoView stop];
@@ -249,6 +244,7 @@
     _imageView.gifData = nil;
     _imageView.hidden = YES;
     _videoView.hidden = YES;
+    _errorImageView.hidden = YES;
 }
 
 #pragma mark - setter getter
@@ -273,35 +269,32 @@
     }
     else if ([wzm_image isKindOfClass:[WZMAlbumModel class]]) {
         WZMAlbumModel *model = (WZMAlbumModel *)wzm_image;
-        if (model.type == WZMAlbumPhotoTypeVideo) {
-            [self setupAlbumModel:model];
-        }
-        else {
-            BOOL isICloud = model.isICloud;
-            if (isICloud) {
-                [model getThumbnailCompletion:^(UIImage *thumbnail) {
-                    if (model.isICloud) {
-                        self.wzm_image = thumbnail;
-                    }
-                }];
-            }
-            [model getOriginalCompletion:^(id original) {
-                if (original) {
-                    self.wzm_image = original;
-                    if (_display) {
-                        [self start];
-                    }
-                }
-                else {
-                    //从iCloud获取图片失败,可以在此处写一些提示或者UI处理
-                }
-                if (isICloud) {
-                    [WZMAlbumHelper postUpdateAlbumNotification];
+        BOOL isICloud = model.isICloud;
+        if (isICloud) {
+            [model getThumbnailCompletion:^(UIImage *thumbnail) {
+                if (model.isICloud) {
+                    self.wzm_image = thumbnail;
                 }
             }];
+        }
+        [model getOriginalCompletion:^(id original) {
+            if (original) {
+                self.wzm_image = original;
+                if (_display) {
+                    [self start];
+                }
+                _errorImageView.hidden = YES;
+            }
+            else {
+                //从iCloud获取图片失败,可以在此处写一些提示或者UI处理
+                _errorImageView.hidden = NO;
+            }
             if (isICloud) {
                 [WZMAlbumHelper postUpdateAlbumNotification];
             }
+        }];
+        if (isICloud) {
+            [WZMAlbumHelper postUpdateAlbumNotification];
         }
     }
     else {

@@ -61,6 +61,12 @@
         videoImageView.image = [WZMPublic imageNamed:@"album_video" ofType:@"png"];
         [_videoTimeView addSubview:videoImageView];
         
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityView.frame = self.bounds;
+        _activityView.hidesWhenStopped = YES;
+        _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
+        [self addSubview:_activityView];
+        
         _gifLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-25, self.bounds.size.height-15, 25, 15)];
         _gifLabel.text = @"GIF";
         _gifLabel.font = [UIFont systemFontOfSize:10];
@@ -92,12 +98,6 @@
         [_indexBtn setImage:[WZMPublic imageNamed:@"album_normal" ofType:@"png"] forState:UIControlStateNormal];
         [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_indexBtn];
-        
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _activityView.frame = self.bounds;
-        _activityView.hidesWhenStopped = YES;
-        _activityView.backgroundColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.2];
-        [self addSubview:_activityView];
         
         _iCloudBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(0, 0, 30, 30);

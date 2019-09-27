@@ -19,7 +19,6 @@
  播放视屏
  */
 - (void)playWithUrl:(NSURL *)url;
-- (void)playWithAlbumModel:(WZMAlbumModel *)model;
 
 ///播放
 - (void)play;

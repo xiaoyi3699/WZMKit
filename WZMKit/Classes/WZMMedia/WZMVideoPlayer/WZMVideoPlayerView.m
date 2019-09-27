@@ -141,24 +141,6 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     [_player playWithURL:url];
 }
 
-- (void)playWithAlbumModel:(WZMAlbumModel *)model {
-    _progressSlider.value = 0.0;
-    _currentTimeLabel.text = @"00:00";
-    [_indicatorView startAnimating];
-    if (model.type == WZMAlbumPhotoTypeVideo) {
-        [model getICloudImageCompletion:^(id original) {
-            if (original && [original isKindOfClass:[NSURL class]]) {
-                NSURL *url = (NSURL *)original;
-                _player.volume = self.volume;
-                [_player playWithURL:url];
-            }
-            else {
-                
-            }
-        }];
-    }
-}
-
 //音量调节
 - (MPVolumeView *)volumeView {
     if (_volumeView == nil) {
