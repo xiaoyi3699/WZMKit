@@ -61,7 +61,7 @@
         videoImageView.image = [WZMPublic imageNamed:@"album_video" ofType:@"png"];
         [_videoTimeView addSubview:videoImageView];
         
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = self.bounds;
         _activityView.hidesWhenStopped = YES;
         [self addSubview:_activityView];
