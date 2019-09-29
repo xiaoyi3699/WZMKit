@@ -15,7 +15,6 @@
 #import "UIImage+wzmcate.h"
 #import "UIView+wzmcate.h"
 #import "UIViewController+wzmcate.h"
-#import "WZMAlbumModel.h"
 #import "WZMPlayer.h"
 #import "WZMPlayerView.h"
 
