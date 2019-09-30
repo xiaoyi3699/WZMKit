@@ -41,7 +41,7 @@
         _photoImageView.clipsToBounds = YES;
         [self addSubview:_photoImageView];
         
-        _playImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.bounds.size.width-20)/2, (self.bounds.size.height-30)/2, 20, 20)];
+        _playImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.bounds.size.width-20)/2, (self.bounds.size.height-20)/2, 20, 20)];
         _playImageView.image = [WZMPublic imageNamed:@"album_play" ofType:@"png"];
         _playImageView.hidden = YES;
         [self addSubview:_playImageView];
@@ -119,15 +119,13 @@
     }
     else {
         //获取缩略图
-        [WZMAlbumHelper wzm_getThumbnailWithAsset:model.asset photoWidth:self.bounds.size.width thumbnail:^(UIImage *photo) {
-            _photoImageView.image = photo;
-            model.thumbnail = photo;
+        model.width = self.bounds.size.width;
+        [model getThumbnailCompletion:^(UIImage *thumbnail) {
+            _photoImageView.image = thumbnail;
         } cloud:^(BOOL iCloud) {
-            model.iCloud = iCloud;
-            [self setICloud:model.isICloud];
+            [self setICloud:iCloud];
         }];
     }
-    
     if (model.type == WZMAlbumPhotoTypeVideo) {
         _gifLabel.hidden = YES;
         _videoTimeView.hidden = NO;

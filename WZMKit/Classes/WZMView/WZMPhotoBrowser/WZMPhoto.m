@@ -275,7 +275,7 @@
                 if (model.isICloud) {
                     self.wzm_image = thumbnail;
                 }
-            }];
+            } cloud:nil];
         }
         [model getOriginalCompletion:^(id original) {
             if (original) {

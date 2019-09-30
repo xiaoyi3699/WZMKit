@@ -16,9 +16,9 @@
 + (instancetype)modelWithAsset:(PHAsset *)asset {
     WZMAlbumModel *model = [[WZMAlbumModel alloc] init];
     model.asset = asset;
+    model.width = 100;
     model.iCloud = YES;
     model.selected = NO;
-    model.useCache = NO;
     model.animated = NO;
     model.downloading = NO;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
@@ -34,45 +34,30 @@
 }
 
 ///获取缩略图
-- (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion {
+- (void)getThumbnailCompletion:(void(^)(UIImage *thumbnail))completion cloud:(void(^)(BOOL iCloud))cloud {
     if (self.thumbnail) {
-        if (completion) {
-            completion(self.thumbnail);
-        }
+        if (completion) completion(self.thumbnail);
     }
     else {
-        [WZMAlbumHelper wzm_getThumbnailWithAsset:self.asset photoWidth:200 thumbnail:^(UIImage *photo) {
-            if (self.isUseCache) {
-                self.thumbnail = photo;
-            }
-            if (completion) {
-                completion(photo);
-            }
-        } cloud:nil];
+        [WZMAlbumHelper wzm_getThumbnailWithAsset:self.asset photoWidth:self.width thumbnail:^(UIImage *photo) {
+            self.thumbnail = photo;
+            if (completion) completion(photo);
+        } cloud:^(BOOL iCloud) {
+            self.iCloud = iCloud;
+            if (cloud) cloud(iCloud);
+        }];
     }
 }
 
 ///获取原图
 - (void)getOriginalCompletion:(void(^)(id original))completion {
-    if (self.original) {
-        if (completion) {
-            completion(self.original);
-        }
+    if (self.isICloud) {
+        [self getICloudImageCompletion:completion];
     }
     else {
-        if (self.isICloud) {
-            [self getICloudImageCompletion:completion];
-        }
-        else {
-            [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
-                if (obj) {
-                    if (self.isUseCache) {
-                        self.original = obj;
-                    }
-                }
-                if (completion) completion(obj);
-            }];
-        }
+        [WZMAlbumHelper wzm_getOriginalWithAsset:self.asset completion:^(id obj) {
+            if (completion) completion(obj);
+        }];
     }
 }
 
@@ -83,9 +68,6 @@
     [WZMAlbumHelper wzm_getICloudWithAsset:self.asset progressHandler:nil completion:^(id obj) {
         if (obj) {
             self.iCloud = NO;
-            if (self.isUseCache) {
-                self.original = obj;
-            }
         }
         self.downloading = NO;
         if (completion) completion(obj);
@@ -144,7 +126,7 @@
                         if (config.allowUseThumbnail) {
                             [self getThumbnailCompletion:^(UIImage *thumbnail) {
                                 completion(thumbnail);
-                            }];
+                            } cloud:nil];
                         }
                         else {
                             completion(original);
@@ -164,7 +146,7 @@
                         if (config.allowUseThumbnail) {
                             [self getThumbnailCompletion:^(UIImage *thumbnail) {
                                 completion(thumbnail);
-                            }];
+                            } cloud:nil];
                         }
                         else {
                             completion(image);

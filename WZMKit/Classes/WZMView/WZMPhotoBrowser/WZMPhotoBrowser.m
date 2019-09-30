@@ -86,11 +86,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMPhotoBrowserCell *cell = (WZMPhotoBrowserCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WZMPhotoCell" forIndexPath:indexPath];
-    cell.indexPath = indexPath;
-    cell.delegate = self;
-    if (indexPath.row < _images.count) {
-        [cell setImage:_images[indexPath.row]];
+    if (cell.delegate == nil) {
+        cell.delegate = self;
     }
+    cell.indexPath = indexPath;
     return cell;
 }
 
@@ -104,6 +103,9 @@
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[WZMPhotoBrowserCell class]]) {
         WZMPhotoBrowserCell *photoCell = (WZMPhotoBrowserCell *)cell;
+        if (indexPath.row < _images.count) {
+            [photoCell setImage:_images[indexPath.row]];
+        }
         [photoCell willDisplay];
     }
 }
