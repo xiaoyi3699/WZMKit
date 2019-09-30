@@ -56,6 +56,19 @@ typedef enum : NSInteger {
     FlipFromRight,             //右翻转
 } AnimationType;
 
+///导航转场动滑类型
+typedef enum : NSInteger {
+    WZMNavAnimationTypeNormal = 0,
+    WZMNavAnimationTypeScroll,
+    WZMNavAnimationTypeAlbum,
+} WZMNavAnimationType;
+
+///模态转场动滑类型
+typedef enum : NSInteger {
+    WZMModalAnimationTypeNormal = 0,
+    WZMModalAnimationTypeScroll,
+} WZMModalAnimationType;
+
 ///tableHeaderView动画
 typedef enum : NSInteger {
     WZMAutoHeaderAnimationNon   = -1, //无动画

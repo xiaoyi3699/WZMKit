@@ -47,16 +47,6 @@
 		75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DF2230E924A0000A955 /* WZMUserContentController.m */; };
 		75DA9E34230E924A0000A955 /* WZMWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DF6230E924A0000A955 /* WZMWebProgressLayer.m */; };
 		75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DF8230E924A0000A955 /* WZMTabBarController.m */; };
-		75DA9E36230E924A0000A955 /* WZMNavControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DFE230E924A0000A955 /* WZMNavControllerAnimator.m */; };
-		75DA9E37230E924A0000A955 /* WZMPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DFF230E924A0000A955 /* WZMPopAnimation.m */; };
-		75DA9E38230E924A0000A955 /* UINavigationController+WZMNavAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E00230E924A0000A955 /* UINavigationController+WZMNavAnimation.m */; };
-		75DA9E39230E924A0000A955 /* WZMPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E01230E924A0000A955 /* WZMPushAnimation.m */; };
-		75DA9E3A230E924A0000A955 /* WZMDismissInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E07230E924A0000A955 /* WZMDismissInteractiveTransition.m */; };
-		75DA9E3B230E924A0000A955 /* WZMDismissAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E09230E924A0000A955 /* WZMDismissAnimation.m */; };
-		75DA9E3C230E924A0000A955 /* UIViewController+WZMModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0A230E924A0000A955 /* UIViewController+WZMModalAnimation.m */; };
-		75DA9E3D230E924A0000A955 /* WZMViewControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0B230E924A0000A955 /* WZMViewControllerAnimator.m */; };
-		75DA9E3E230E924A0000A955 /* WZMPresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E0D230E924A0000A955 /* WZMPresentAnimation.m */; };
-		75DA9E3F230E924A0000A955 /* UIWindow+WZMTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */; };
 		75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */; };
 		75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9E4E230E9BBC0000A955 /* WZMNewsModel.m */; };
 		8FFC752582DB5F52B13C7854 /* Pods_WZMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB222FE9757B76DF99B833A /* Pods_WZMKit_Example.framework */; };
@@ -147,26 +137,6 @@
 		75DA9DF6230E924A0000A955 /* WZMWebProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMWebProgressLayer.m; sourceTree = "<group>"; };
 		75DA9DF8230E924A0000A955 /* WZMTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMTabBarController.m; sourceTree = "<group>"; };
 		75DA9DF9230E924A0000A955 /* WZMTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMTabBarController.h; sourceTree = "<group>"; };
-		75DA9DFC230E924A0000A955 /* UINavigationController+WZMNavAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WZMNavAnimation.h"; sourceTree = "<group>"; };
-		75DA9DFD230E924A0000A955 /* WZMPushAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMPushAnimation.h; sourceTree = "<group>"; };
-		75DA9DFE230E924A0000A955 /* WZMNavControllerAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNavControllerAnimator.m; sourceTree = "<group>"; };
-		75DA9DFF230E924A0000A955 /* WZMPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMPopAnimation.m; sourceTree = "<group>"; };
-		75DA9E00230E924A0000A955 /* UINavigationController+WZMNavAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WZMNavAnimation.m"; sourceTree = "<group>"; };
-		75DA9E01230E924A0000A955 /* WZMPushAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMPushAnimation.m; sourceTree = "<group>"; };
-		75DA9E02230E924A0000A955 /* WZMNavControllerAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNavControllerAnimator.h; sourceTree = "<group>"; };
-		75DA9E03230E924A0000A955 /* WZMPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMPopAnimation.h; sourceTree = "<group>"; };
-		75DA9E04230E924A0000A955 /* UIWindow+WZMTransformAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+WZMTransformAnimation.h"; sourceTree = "<group>"; };
-		75DA9E06230E924A0000A955 /* WZMViewControllerAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMViewControllerAnimator.h; sourceTree = "<group>"; };
-		75DA9E07230E924A0000A955 /* WZMDismissInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMDismissInteractiveTransition.m; sourceTree = "<group>"; };
-		75DA9E08230E924A0000A955 /* WZMPresentAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMPresentAnimation.h; sourceTree = "<group>"; };
-		75DA9E09230E924A0000A955 /* WZMDismissAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMDismissAnimation.m; sourceTree = "<group>"; };
-		75DA9E0A230E924A0000A955 /* UIViewController+WZMModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WZMModalAnimation.m"; sourceTree = "<group>"; };
-		75DA9E0B230E924A0000A955 /* WZMViewControllerAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMViewControllerAnimator.m; sourceTree = "<group>"; };
-		75DA9E0C230E924A0000A955 /* WZMDismissAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMDismissAnimation.h; sourceTree = "<group>"; };
-		75DA9E0D230E924A0000A955 /* WZMPresentAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMPresentAnimation.m; sourceTree = "<group>"; };
-		75DA9E0E230E924A0000A955 /* WZMDismissInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMDismissInteractiveTransition.h; sourceTree = "<group>"; };
-		75DA9E0F230E924A0000A955 /* UIViewController+WZMModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WZMModalAnimation.h"; sourceTree = "<group>"; };
-		75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+WZMTransformAnimation.m"; sourceTree = "<group>"; };
 		75DA9E48230E9A030000A955 /* WZMFeature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMFeature.h; sourceTree = "<group>"; };
 		75DA9E4A230E9BBC0000A955 /* WZMNewsDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMNewsDataProvider.h; sourceTree = "<group>"; };
 		75DA9E4B230E9BBC0000A955 /* WZMNewsDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNewsDataProvider.m; sourceTree = "<group>"; };
@@ -414,7 +384,6 @@
 				75DA9DD9230E924A0000A955 /* WZMNavigationController */,
 				75DA9DE2230E924A0000A955 /* WZMWebViewController */,
 				75DA9DF7230E924A0000A955 /* WZMTabBarController */,
-				75DA9DFA230E924A0000A955 /* WZMTransitionAnimator */,
 			);
 			path = WZMCommon;
 			sourceTree = "<group>";
@@ -501,49 +470,6 @@
 				75DA9DF8230E924A0000A955 /* WZMTabBarController.m */,
 			);
 			path = WZMTabBarController;
-			sourceTree = "<group>";
-		};
-		75DA9DFA230E924A0000A955 /* WZMTransitionAnimator */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9E05230E924A0000A955 /* WZMVCTransistionAnimator */,
-				75DA9DFB230E924A0000A955 /* WZMNavTransistionAnimator */,
-				75DA9E04230E924A0000A955 /* UIWindow+WZMTransformAnimation.h */,
-				75DA9E10230E924A0000A955 /* UIWindow+WZMTransformAnimation.m */,
-			);
-			path = WZMTransitionAnimator;
-			sourceTree = "<group>";
-		};
-		75DA9DFB230E924A0000A955 /* WZMNavTransistionAnimator */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9E03230E924A0000A955 /* WZMPopAnimation.h */,
-				75DA9DFF230E924A0000A955 /* WZMPopAnimation.m */,
-				75DA9DFD230E924A0000A955 /* WZMPushAnimation.h */,
-				75DA9E01230E924A0000A955 /* WZMPushAnimation.m */,
-				75DA9E02230E924A0000A955 /* WZMNavControllerAnimator.h */,
-				75DA9DFE230E924A0000A955 /* WZMNavControllerAnimator.m */,
-				75DA9DFC230E924A0000A955 /* UINavigationController+WZMNavAnimation.h */,
-				75DA9E00230E924A0000A955 /* UINavigationController+WZMNavAnimation.m */,
-			);
-			path = WZMNavTransistionAnimator;
-			sourceTree = "<group>";
-		};
-		75DA9E05230E924A0000A955 /* WZMVCTransistionAnimator */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9E0C230E924A0000A955 /* WZMDismissAnimation.h */,
-				75DA9E09230E924A0000A955 /* WZMDismissAnimation.m */,
-				75DA9E08230E924A0000A955 /* WZMPresentAnimation.h */,
-				75DA9E0D230E924A0000A955 /* WZMPresentAnimation.m */,
-				75DA9E06230E924A0000A955 /* WZMViewControllerAnimator.h */,
-				75DA9E0B230E924A0000A955 /* WZMViewControllerAnimator.m */,
-				75DA9E0E230E924A0000A955 /* WZMDismissInteractiveTransition.h */,
-				75DA9E07230E924A0000A955 /* WZMDismissInteractiveTransition.m */,
-				75DA9E0F230E924A0000A955 /* UIViewController+WZMModalAnimation.h */,
-				75DA9E0A230E924A0000A955 /* UIViewController+WZMModalAnimation.m */,
-			);
-			path = WZMVCTransistionAnimator;
 			sourceTree = "<group>";
 		};
 		75DA9E43230E994D0000A955 /* MMVC */ = {
@@ -820,22 +746,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				75DA9E34230E924A0000A955 /* WZMWebProgressLayer.m in Sources */,
-				75DA9E3C230E924A0000A955 /* UIViewController+WZMModalAnimation.m in Sources */,
 				75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75DA9E32230E924A0000A955 /* WZMWebViewController.m in Sources */,
 				75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */,
-				75DA9E3F230E924A0000A955 /* UIWindow+WZMTransformAnimation.m in Sources */,
-				75DA9E3A230E924A0000A955 /* WZMDismissInteractiveTransition.m in Sources */,
-				75DA9E37230E924A0000A955 /* WZMPopAnimation.m in Sources */,
 				75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */,
-				75DA9E3D230E924A0000A955 /* WZMViewControllerAnimator.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
-				75DA9E38230E924A0000A955 /* UINavigationController+WZMNavAnimation.m in Sources */,
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,
 				75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */,
@@ -843,11 +763,7 @@
 				75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
 				75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */,
-				75DA9E3B230E924A0000A955 /* WZMDismissAnimation.m in Sources */,
-				75DA9E39230E924A0000A955 /* WZMPushAnimation.m in Sources */,
-				75DA9E36230E924A0000A955 /* WZMNavControllerAnimator.m in Sources */,
 				75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */,
-				75DA9E3E230E924A0000A955 /* WZMPresentAnimation.m in Sources */,
 				75DA9E29230E924A0000A955 /* UINavigationController+wzmnav.m in Sources */,
 				75DA9E21230E924A0000A955 /* WZMCrashManager.m in Sources */,
 				75DA9E2A230E924A0000A955 /* WZMScreenShotView.m in Sources */,

@@ -20,9 +20,6 @@
 
 ///扩展类
 #import "UIImage+WZMCustomImage.h"
-#import "UIWindow+WZMTransformAnimation.h"
-#import "UIViewController+WZMModalAnimation.h"
-#import "UINavigationController+WZMNavAnimation.h"
 
 ///全局类
 #import "WZMWebViewController.h"

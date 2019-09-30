@@ -374,6 +374,9 @@
 #import "UIScrollView+wzmcate.h"
 #import "UINavigationBar+wzmcate.h"
 #import "UIWindow+wzmcate.h"
+#import "UIWindow+WZMTransformAnimation.h"
+#import "UIViewController+WZMModalAnimation.h"
+#import "UINavigationController+WZMNavAnimation.h"
 
 //时间差 CFAbsoluteTime
 #define WZMStartTime CFAbsoluteTimeGetCurrent()
