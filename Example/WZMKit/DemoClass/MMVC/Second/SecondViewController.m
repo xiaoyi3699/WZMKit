@@ -56,8 +56,8 @@
     config.originalImage = YES;
     config.allowShowGIF = YES;
     config.maxCount = 20;
-//    config.allowPreview = NO;
-//    config.allowDragSelect = NO;
+    config.allowPreview = YES;
+    config.allowDragSelect = NO;
     WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
