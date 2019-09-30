@@ -25,6 +25,6 @@
 
 @optional
 - (void)albumControllerDidCancel:(WZMAlbumController *)albumController;
-- (void)albumController:(WZMAlbumController *)albumController didSelectedPhotos:(NSArray *)photos;
+- (void)albumController:(WZMAlbumController *)albumController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets;
 
 @end

@@ -65,8 +65,8 @@
 //    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedPhotos:(NSArray *)photos {
-    NSLog(@"===%@",photos);
+- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    NSLog(@"===%@===%@===%@",originals,thumbnails,assets);
 }
 
 @end

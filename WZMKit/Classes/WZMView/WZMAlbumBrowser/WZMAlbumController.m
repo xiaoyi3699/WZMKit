@@ -81,21 +81,21 @@
     }
     [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
     self.navigationController.view.userInteractionEnabled = NO;
-    [self photosWithModels:self.albumView.selectedPhotos completion:^(NSArray *photos) {
+    [self photosWithModels:self.albumView.selectedPhotos completion:^(NSArray *originals, NSArray *thumbnails, NSArray *assets) {
         [WZMViewHandle wzm_dismiss];
         self.navigationController.view.userInteractionEnabled = YES;
         if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
             WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
-            if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedPhotos:)]) {
-                [picker.pickerDelegate albumNavigationController:picker didSelectedPhotos:photos];
+            if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedOriginals:thumbnails:assets:)]) {
+                [picker.pickerDelegate albumNavigationController:picker didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
             }
             if (self.config.autoDismiss) {
                 [picker dismissViewControllerAnimated:YES completion:nil];
             }
         }
         else {
-            if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedPhotos:)]) {
-                [self.pickerDelegate albumController:self didSelectedPhotos:photos];
+            if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedOriginals:thumbnails:assets:)]) {
+                [self.pickerDelegate albumController:self didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
             }
             if (self.config.autoDismiss) {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -196,21 +196,27 @@
 
 #pragma mark - private
 ///获取图片(UIImage),GIF(NSData)或视频(NSURL)
-- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models completion:(void(^)(NSArray *photos))completion {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
-    [self photosWithModels:models index:0 array:array completion:completion];
+- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
+    NSMutableArray *array1 = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *array2 = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *array3 = [[NSMutableArray alloc] initWithCapacity:0];
+    [self photosWithModels:models index:0 originals:array1 thumbnails:array2 assets:array3 completion:completion];
 }
 
-- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models index:(NSInteger)index array:(NSMutableArray *)array completion:(void(^)(NSArray *photos))completion {
+- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models index:(NSInteger)index originals:(NSMutableArray *)array1 thumbnails:(NSMutableArray *)array2 assets:(NSMutableArray *)array3 completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
     if (index < models.count) {
         WZMAlbumModel *model = [models objectAtIndex:index];
         [model getImageWithConfig:self.config completion:^(id obj) {
-            if (obj) [array addObject:obj];
-            [self photosWithModels:models index:(index+1) array:array completion:completion];
+            if (obj) {
+                [array1 addObject:obj];
+                [array2 addObject:model.thumbnail];
+                [array3 addObject:model.asset];
+            }
+            [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
         }];
     }
     else {
-        if (completion) completion([array copy]);
+        if (completion) completion([array1 copy],[array2 copy],[array3 copy]);
     }
 }
 
