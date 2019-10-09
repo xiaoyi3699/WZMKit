@@ -130,7 +130,12 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
                     WZMLog(@"请求数据失败：%@",error);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    callBack(resultObj,error);
+                    if (resultObj) {
+                        callBack(resultObj,error);
+                    }
+                    else {
+                        callBack(data,error);
+                    }
                 });
             }
         }
@@ -177,7 +182,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
  @param url      上传地址
  @param key      对应字段名
  @param filename 文件名称
- @param mimeType 文件类型
+ @param mimeType 文件类型 如:@"image/jpeg"
  @param data     要上传的文件
  @param params   其他参数
  */

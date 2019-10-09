@@ -43,7 +43,7 @@ extern NSString * const WZMNetRequestContentTypeJson;
  @param url      上传地址
  @param key      对应字段名
  @param filename 文件名称
- @param mimeType 文件类型
+ @param mimeType 文件类型 如:@"image/jpeg"
  @param data     要上传的文件
  @param params   其他参数
  */
