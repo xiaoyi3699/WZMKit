@@ -6,8 +6,8 @@
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WZMBaseViewController.h"
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : WZMBaseViewController
 
 @end
