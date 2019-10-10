@@ -497,13 +497,13 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 - (NSString *)wzm_getURLEncoded2 {
-    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes
-                                                            (kCFAllocatorDefault,
-                                                             (CFStringRef)self,
-                                                             (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
-                                                             NULL,
-                                                             kCFStringEncodingUTF8));
-    return encodedString;
+    CFStringRef cfUrlEncodedString = CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                (CFStringRef)self,NULL,
+                                                (CFStringRef)@"!#$%&'()*+,/:;=?@[]",
+                                                kCFStringEncodingUTF8);
+    NSString *str = (__bridge NSString *)cfUrlEncodedString;
+    CFRelease(cfUrlEncodedString);
+    return str;
 }
 
 - (NSString *)wzm_getURLDecoded {

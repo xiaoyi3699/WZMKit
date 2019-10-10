@@ -192,17 +192,17 @@
     return [super popToRootViewControllerAnimated:animated];
 }
 
-- (UIViewController *)childViewControllerForStatusBarHidden {
-    return self.topViewController;
-}
-
-- (UIViewController *)childViewControllerForStatusBarStyle {
-    return self.topViewController;
-}
-
-- (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
-    return self.topViewController;
-}
+//- (UIViewController *)childViewControllerForStatusBarHidden {
+//    return self.topViewController;
+//}
+//
+//- (UIViewController *)childViewControllerForStatusBarStyle {
+//    return self.topViewController;
+//}
+//
+//- (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
+//    return self.topViewController;
+//}
 
 #pragma mark - UIGestureRecognizerDelegate
 //是否响应触摸事件

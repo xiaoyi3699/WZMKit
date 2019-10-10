@@ -76,17 +76,17 @@
     }
 }
 
-- (UIViewController *)childViewControllerForStatusBarHidden {
-    return self.selectedViewController;
-}
-
-- (UIViewController *)childViewControllerForStatusBarStyle {
-    return self.selectedViewController;
-}
-
-- (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
-    return self.selectedViewController;
-}
+//- (UIViewController *)childViewControllerForStatusBarHidden {
+//    return self.selectedViewController;
+//}
+//
+//- (UIViewController *)childViewControllerForStatusBarStyle {
+//    return self.selectedViewController;
+//}
+//
+//- (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
+//    return self.selectedViewController;
+//}
 
 #pragma mark - lazy load
 - (WZMScreenShotView *)screenShotView {
