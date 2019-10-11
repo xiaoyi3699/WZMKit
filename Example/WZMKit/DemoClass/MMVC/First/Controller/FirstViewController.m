@@ -50,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     _tableView = self.superTableView;
     _tableView.frame = WZMRectMiddleArea();
     _tableView.delegate = self;
