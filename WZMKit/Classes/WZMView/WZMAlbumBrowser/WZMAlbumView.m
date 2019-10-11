@@ -13,6 +13,7 @@
 #import "WZMLogPrinter.h"
 #import "WZMViewHandle.h"
 #import "WZMAlbumHelper.h"
+#import "WZMMacro.h"
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
@@ -45,7 +46,7 @@
         if (self.onlyOne) {
             toolHeight = 0;
         }
-        self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-toolHeight);
+        self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT);
         CGFloat itemW = floor((self.albumFrame.size.width-10-5*(config.column-1))/config.column);
         CGFloat itemH = itemW;
         
