@@ -237,6 +237,18 @@
 }
 
 #pragma mark - 推送相关
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    if (![deviceToken isKindOfClass:[NSData class]]) return;
+    NSMutableString *deviceTokenString = [NSMutableString string];
+    const char *bytes = deviceToken.bytes;
+    NSInteger count = deviceToken.length;
+    for (int i = 0; i < count; i++) {
+        [deviceTokenString appendFormat:@"%02x", bytes[i]&0x000000FF];
+    }
+    NSString *deToken = [deviceTokenString copy];
+    NSLog(@"deviceToken=%@",deToken);
+}
+
 //NS_DEPRECATED_IOS(3_0, 10_0)
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [self didReceiveRemoteNotification:userInfo];
