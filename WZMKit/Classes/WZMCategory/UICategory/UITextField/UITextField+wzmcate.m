@@ -46,13 +46,8 @@ static NSString *_performActionKey = @"performAction";
     return [self wzm_canPerformAction:action withSender:sender];
 }
 
-- (void)wzm_setPlaceholderColor:(UIColor *)color font:(UIFont *)font {
-    if (color) {
-        [self setValue:color forKeyPath:@"_placeholderLabel.textColor"];
-    }
-    if (font) {
-        [self setValue:font forKeyPath:@"_placeholderLabel.font"];
-    }
+- (void)wzm_setPlaceholder:(NSString *)placeholder color:(UIColor *)color font:(UIFont *)font {
+    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color}];
 }
 
 - (void)wzm_contentMargin:(CGFloat)value {

@@ -17,7 +17,7 @@
 /**
  修改placeholder的字体颜色、大小
  */
-- (void)wzm_setPlaceholderColor:(UIColor *)color font:(UIFont *)font;
+- (void)wzm_setPlaceholder:(NSString *)placeholder color:(UIColor *)color font:(UIFont *)font;
 
 ///设置文本框内容区边距
 -(void)wzm_contentMargin:(CGFloat)value;
