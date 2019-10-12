@@ -16,6 +16,8 @@
     if (self.observer) {
         [self removeObserver:self.observer forKeyPath:@"status"];
         [self removeObserver:self.observer forKeyPath:@"loadedTimeRanges"];
+        [self removeObserver:self.observer forKeyPath:@"playbackBufferEmpty"];
+        [self removeObserver:self.observer forKeyPath:@"playbackLikelyToKeepUp"];
     }
     WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }

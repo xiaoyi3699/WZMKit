@@ -106,6 +106,10 @@
             [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
             //观察缓冲进度
             [item addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+            //缓冲区空了，需要等待数据
+            [item addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
+            // 缓冲区有足够数据可以播放了
+            [item addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             @wzm_weakify(self);
@@ -377,8 +381,7 @@
 - (void)dealloc {
     WZMLog(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
-    [_player.currentItem removeObserver:self forKeyPath:@"status"];
-    [_player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+    [_player replaceCurrentItemWithPlayerItem:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
