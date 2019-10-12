@@ -17,6 +17,7 @@
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
+@property (nonatomic, assign) BOOL hasViews;
 @property (nonatomic, assign) BOOL onlyOne;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) UIVisualEffectView *toolView;
@@ -34,20 +35,54 @@
     NSInteger _lastColumn;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithConfig:(WZMAlbumConfig *)config {
+    self = [super init];
     if (self) {
-        self.config = config;
-        self.onlyOne = (config.allowPreview == NO && config.maxCount == 1);
-        self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
-        self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
+        [self setupConfig:config];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config {
+    self = [super init];
+    if (self) {
+        [self setupConfig:config];
+        [self setFrame:frame];
+    }
+    return self;
+}
+
+- (void)setupConfig:(WZMAlbumConfig *)config {
+    self.hasViews = NO;
+    self.config = config;
+    self.onlyOne = (config.allowPreview == NO && config.maxCount == 1);
+    self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
+    self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
+    if (self.onlyOne == NO) {
+        UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
+        [self.countLabel addGestureRecognizer:okTap];
         
-        CGFloat toolHeight = 50;
-        if (self.onlyOne) {
-            toolHeight = 0;
+        if (config.allowDragSelect) {
+            UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
+            [self addGestureRecognizer:selectPan];
         }
+        [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
+    }
+}
+
+- (void)setFrame:(CGRect)frame {
+    if (CGRectIsNull(frame)) return;
+    if (CGRectEqualToRect(frame, CGRectZero)) return;
+    if (CGRectEqualToRect(frame, self.frame)) return;
+    [super setFrame:frame];
+    CGFloat toolHeight = 50;
+    if (self.onlyOne) {
+        toolHeight = 0;
+    }
+    if (self.hasViews == NO) {
+        self.hasViews = YES;
         self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT);
-        CGFloat itemW = floor((self.albumFrame.size.width-10-5*(config.column-1))/config.column);
+        CGFloat itemW = floor((self.albumFrame.size.width-10-5*(self.config.column-1))/self.config.column);
         CGFloat itemH = itemW;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -75,7 +110,7 @@
             [self addSubview:self.toolView];
             
             self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110, 7, 100, 36)];
-            self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(config.maxCount)];
+            self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
             self.countLabel.font = [UIFont systemFontOfSize:14];
             self.countLabel.textColor = [UIColor whiteColor];
             self.countLabel.textAlignment = NSTextAlignmentCenter;
@@ -85,23 +120,15 @@
             [self.toolView.contentView addSubview:self.countLabel];
             
             UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
-            msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(config.maxCount)];
+            msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(self.config.maxCount)];
             msgLabel.font = [UIFont systemFontOfSize:13];
             msgLabel.textColor = WZM_ALBUM_COLOR;
             msgLabel.textAlignment = NSTextAlignmentLeft;
             [self.toolView.contentView addSubview:msgLabel];
-            
-            UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
-            [self.countLabel addGestureRecognizer:okTap];
-            
-            if (config.allowDragSelect) {
-                UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
-                [self addGestureRecognizer:selectPan];
-            }
-            [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
         }
     }
-    return self;
+    self.collectionView.wzm_height = self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT;
+    self.toolView.wzm_minY = self.collectionView.wzm_maxY;
 }
 
 //确定按钮点击事件

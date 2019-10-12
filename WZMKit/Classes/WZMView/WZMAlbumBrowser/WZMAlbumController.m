@@ -43,9 +43,18 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    self.albumView = [[WZMAlbumView alloc] initWithFrame:WZMRectBottomArea() config:self.config];
+    self.albumView = [[WZMAlbumView alloc] initWithConfig:self.config];
     self.albumView.delegate = self;
     [self.view addSubview:self.albumView];
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    CGFloat navBarH = self.navigationController.navigationBar.bounds.size.height;
+    CGRect rect = self.view.bounds;
+    rect.origin.y = navBarH;
+    rect.size.height -= navBarH;
+    self.albumView.frame = rect;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

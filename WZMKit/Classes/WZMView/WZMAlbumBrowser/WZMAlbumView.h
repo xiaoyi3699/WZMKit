@@ -25,6 +25,7 @@
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *selectedPhotos;
 
 - (void)reloadData;
+- (instancetype)initWithConfig:(WZMAlbumConfig *)config;
 - (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config;
 
 @end
