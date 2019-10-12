@@ -63,7 +63,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithHtml:@"applepaywb"];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }

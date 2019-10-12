@@ -42,3 +42,16 @@ function asyncAlert(content) {
                alert(content);
                },1);
 }
+
+//获取参数,url拼接方式
+function getParams() {
+    var params = window.location.href.split("?")[1];
+    alert(params);
+}
+
+function getQueryString(key) {
+    var _url = window.location.href;
+    var qulist = _url.match(new RegExp('[^\?&]*' + key + '=+[^&]*'));
+    var v = qulist ? qulist[0].split('=')[1] : null;
+    alert(v + "v");
+}
