@@ -106,7 +106,7 @@
         
         if (self.onlyOne == NO) {
             self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, toolHeight)];
-            self.toolView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(244, 244, 244) darkColor:WZM_R_G_B(50, 50, 50)];
+            self.toolView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(235, 235, 235) darkColor:WZM_R_G_B(20, 20, 20)];
             [self addSubview:self.toolView];
             
             self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110, 7, 100, 36)];

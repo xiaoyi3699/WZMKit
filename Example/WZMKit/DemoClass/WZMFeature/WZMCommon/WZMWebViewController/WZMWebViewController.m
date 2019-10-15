@@ -85,7 +85,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadUrl:_url];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

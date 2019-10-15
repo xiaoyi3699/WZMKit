@@ -11,7 +11,6 @@
 #import "WZMAlbumConfig.h"
 @protocol WZMAlbumCellDelegate;
 
-#define WZM_ALBUM_COLOR [UIColor redColor]
 @interface WZMAlbumCell : UICollectionViewCell
 
 @property (nonatomic, strong) NSIndexPath *indexPath;

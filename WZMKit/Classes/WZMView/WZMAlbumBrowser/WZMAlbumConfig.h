@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define WZM_ALBUM_COLOR [UIColor redColor]
 @interface WZMAlbumConfig : NSObject
 
 ///列数,默认3,最大5
