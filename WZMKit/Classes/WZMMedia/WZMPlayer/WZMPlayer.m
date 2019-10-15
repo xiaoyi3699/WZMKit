@@ -184,6 +184,9 @@
             }
         }
     }
+    else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
+        [self play];
+    }
 }
 
 - (void)relatePlayer:(AVPlayer *)myPlayer {

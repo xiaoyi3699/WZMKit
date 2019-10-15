@@ -21,6 +21,6 @@
 ///清理内存
 - (void)clearMemory;
 ///清理所有数据
-- (void)clearImageCacheCompletion:(doBlock)completion;
+- (void)clearAllCacheCompletion:(doBlock)completion;
 
 @end
