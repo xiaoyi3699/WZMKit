@@ -15,5 +15,6 @@
 + (UIColor *)wzm_getColorByHex:(NSInteger)hexValue alpha:(CGFloat)alpha;
 + (UIColor *)wzm_getColorByHexString:(NSString *)hexString;
 + (UIColor *)wzm_getColorByHexString:(NSString *)hexString alpha:(CGFloat)alpha;
++ (UIColor *)wzm_getDynamicColorByLightColor:(UIColor *)lightColor darkColor:(UIColor *)darkColor;
 
 @end

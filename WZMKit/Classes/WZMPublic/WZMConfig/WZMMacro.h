@@ -47,8 +47,9 @@
 //获取沙盒Cache路径
 #define WZM_CACHE_PATH [[WZMPublic Public] cache]
 
-#define WZM_IS_IOS11_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统
-#define WZM_IS_IOS12_ABOVE    (WZM_DEVICE >= 11) //是否是iOS11以上系统
+#define WZM_IS_IOS13_ABOVE    (WZM_DEVICE >= 13) //是否是iOS13以上系统
+#define WZM_IS_IOS12_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统
+#define WZM_IS_IOS11_ABOVE    (WZM_DEVICE >= 11) //是否是iOS11以上系统
 #define WZM_IS_IOS10_ABOVE    (WZM_DEVICE >= 10) //是否是iOS10以上系统
 #define WZM_IS_IOS9_ABOVE     (WZM_DEVICE >= 9)  //是否是iOS9以上系统
 #define WZM_IS_IOS8_ABOVE     (WZM_DEVICE >= 8)  //是否是iOS8以上系统

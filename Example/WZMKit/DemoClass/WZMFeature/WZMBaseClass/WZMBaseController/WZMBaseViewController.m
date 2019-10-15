@@ -99,12 +99,12 @@
 
 //title颜色
 - (UIColor *)navigatonBarTitleColor {
-    return [UIColor blackColor];
+    return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
 //返回按钮颜色
 - (UIColor *)backItemColor {
-    return [UIColor blackColor];
+    return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
 //返回按钮文字
@@ -115,7 +115,7 @@
 #pragma mark - super method
 //屏蔽屏幕底部的系统手势
 - (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
-    return  UIRectEdgeBottom;
+    return  UIRectEdgeNone;
 }
 
 - (void)didReceiveMemoryWarning {
