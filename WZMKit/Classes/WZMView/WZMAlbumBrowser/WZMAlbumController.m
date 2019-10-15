@@ -15,6 +15,7 @@
 #import "WZMViewHandle.h"
 #import "WZMLogPrinter.h"
 #import "WZMPhotoBrowser.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
@@ -36,7 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WZM_R_G_B(244, 244, 244);
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(244, 244, 244) darkColor:WZM_R_G_B(44, 44, 44)];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];

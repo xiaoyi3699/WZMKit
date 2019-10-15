@@ -14,13 +14,14 @@
 #import "WZMViewHandle.h"
 #import "WZMAlbumHelper.h"
 #import "WZMMacro.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
 @property (nonatomic, assign) BOOL hasViews;
 @property (nonatomic, assign) BOOL onlyOne;
 @property (nonatomic, strong) WZMAlbumConfig *config;
-@property (nonatomic, strong) UIVisualEffectView *toolView;
+@property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, assign) CGRect albumFrame;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -104,9 +105,8 @@
         self.collectionView = collectionView;
         
         if (self.onlyOne == NO) {
-            self.toolView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-            self.toolView.frame = CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, toolHeight);
-            self.toolView.backgroundColor = [UIColor colorWithRed:244/255. green:240/255. blue:240/255. alpha:0.8];
+            self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, toolHeight)];
+            self.toolView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(244, 244, 244) darkColor:WZM_R_G_B(50, 50, 50)];
             [self addSubview:self.toolView];
             
             self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110, 7, 100, 36)];
@@ -117,14 +117,14 @@
             self.countLabel.wzm_cornerRadius = 5;
             self.countLabel.backgroundColor = WZM_ALBUM_COLOR;
             self.countLabel.userInteractionEnabled = YES;
-            [self.toolView.contentView addSubview:self.countLabel];
+            [self.toolView addSubview:self.countLabel];
             
             UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(self.config.maxCount)];
             msgLabel.font = [UIFont systemFontOfSize:13];
-            msgLabel.textColor = WZM_ALBUM_COLOR;
+            msgLabel.textColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
             msgLabel.textAlignment = NSTextAlignmentLeft;
-            [self.toolView.contentView addSubview:msgLabel];
+            [self.toolView addSubview:msgLabel];
         }
     }
     self.collectionView.wzm_height = self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT;
