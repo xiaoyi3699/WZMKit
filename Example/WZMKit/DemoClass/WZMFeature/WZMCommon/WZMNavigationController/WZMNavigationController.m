@@ -200,6 +200,10 @@
     return self.topViewController;
 }
 
+- (UIViewController *)childViewControllerForHomeIndicatorAutoHidden {
+    return self.topViewController;
+}
+
 - (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
     return self.topViewController;
 }

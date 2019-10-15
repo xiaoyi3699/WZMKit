@@ -84,6 +84,10 @@
     return self.selectedViewController;
 }
 
+- (UIViewController *)childViewControllerForHomeIndicatorAutoHidden {
+    return self.selectedViewController;
+}
+
 - (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
     return self.selectedViewController;
 }
