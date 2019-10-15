@@ -35,7 +35,9 @@ static NSString *_oldDelegate = @"oldDelegate";
 - (void)openPushAnimation:(WZMNavAnimationType)type {
     if (type == WZMNavAnimationTypeNormal) {
         self.animator = nil;
-        self.delegate = self.oldDelegate;
+        if (self.oldDelegate) {
+            self.delegate = self.oldDelegate;
+        }
     }
     else {
         if (self.animator == nil) {

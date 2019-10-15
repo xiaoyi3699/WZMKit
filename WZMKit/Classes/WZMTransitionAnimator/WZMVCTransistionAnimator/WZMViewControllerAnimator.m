@@ -27,7 +27,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                    presentingController:(UIViewController *)presenting
                                                                        sourceController:(UIViewController *)source{
-    if (self.presentAnimation) {
+    if (self.presentAnimation && self.presentAnimation.interactionEnabled) {
         [self.transitionController wireToViewController:presented];
     }
     return self.presentAnimation;

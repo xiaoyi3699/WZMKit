@@ -16,6 +16,7 @@
 #import "WZMLogPrinter.h"
 #import "WZMPhotoBrowser.h"
 #import "UIColor+wzmcate.h"
+#import "UIViewController+WZMModalAnimation.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
@@ -132,21 +133,11 @@
     //计算初始frame
     UICollectionViewCell *cell = [albumView.collectionView cellForItemAtIndexPath:indexPath];
     CGRect rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
-    
-    CGFloat scale = rect.size.height/photoBrowser.view.bounds.size.height;
-    CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-    photoBrowser.view.center = center;
-    photoBrowser.view.transform = CGAffineTransformMakeScale(scale, scale);
-    photoBrowser.view.alpha = 0.0;
-    photoBrowser.navigationItem.hidesBackButton = YES;
-    [self.navigationController.view addSubview:photoBrowser.view];
-    [self.navigationController addChildViewController:photoBrowser];
-    
-    [UIView animateWithDuration:0.35 animations:^{
-        photoBrowser.view.alpha = 1.0;
-        photoBrowser.view.center = CGPointMake(CGRectGetMidX(self.navigationController.view.bounds), CGRectGetMidY(self.navigationController.view.bounds));
-        photoBrowser.view.transform = CGAffineTransformMakeScale(1, 1);
-    }];
+    photoBrowser.wzm_showFromFrame = rect;
+    photoBrowser.wzm_showToFrame = [UIScreen mainScreen].bounds;
+    photoBrowser.modalPresentationStyle = UIModalPresentationFullScreen;
+    [photoBrowser openModalAnimation:WZMModalAnimationTypeZoom];
+    [self presentViewController:photoBrowser animated:YES completion:nil];
 }
 
 - (void)photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
@@ -156,7 +147,7 @@
         NSArray *visibleCells = [self.albumView.collectionView visibleCells];
         CGRect rect;
         if ([visibleCells containsObject:cell]) {
-            rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
+            rect = [cell.superview convertRect:cell.frame toView:self.view];
         }
         else {
             rect = photoBrowser.view.bounds;
@@ -165,19 +156,10 @@
             rect.size.width += 40;
             rect.size.height += 40;
         }
-        CGFloat scale = rect.size.height/photoBrowser.view.bounds.size.height;
-        CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-        self.navigationController.view.userInteractionEnabled = NO;
-        [UIView animateWithDuration:0.35 animations:^{
-            photoBrowser.view.center = center;
-            photoBrowser.view.transform = CGAffineTransformMakeScale(scale, scale);
-            photoBrowser.view.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [photoBrowser.view removeFromSuperview];
-            [photoBrowser willMoveToParentViewController:nil];
-            [photoBrowser removeFromParentViewController];
-            self.navigationController.view.userInteractionEnabled = YES;
-        }];
+        photoBrowser.wzm_dismissFromFrame = [UIScreen mainScreen].bounds;
+        photoBrowser.wzm_dismissToFrame = rect;
+        [photoBrowser openModalAnimation:WZMModalAnimationTypeZoom];
+        [photoBrowser dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

@@ -67,6 +67,7 @@ typedef enum : NSInteger {
 typedef enum : NSInteger {
     WZMModalAnimationTypeNormal = 0,
     WZMModalAnimationTypeScroll,
+    WZMModalAnimationTypeZoom,
 } WZMModalAnimationType;
 
 ///tableHeaderView动画

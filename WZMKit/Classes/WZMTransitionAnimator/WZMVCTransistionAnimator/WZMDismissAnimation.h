@@ -11,6 +11,8 @@
 
 @interface WZMDismissAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, assign) CGRect dismissFromFrame;
+@property (nonatomic, assign) CGRect dismissToFrame;
 @property (nonatomic, assign) WZMModalAnimationType type;
 
 @end

@@ -11,6 +11,9 @@
 
 @interface WZMPresentAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, assign) CGRect showFromFrame;
+@property (nonatomic, assign) CGRect showToFrame;
 @property (nonatomic, assign) WZMModalAnimationType type;
+@property (nonatomic, assign) BOOL interactionEnabled;
 
 @end
