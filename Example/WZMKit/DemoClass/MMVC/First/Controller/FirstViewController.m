@@ -63,7 +63,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithHtml:@"applepaywb"];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
@@ -87,6 +87,5 @@
 }
 
 //基类的一些常用函数
-
 
 @end
