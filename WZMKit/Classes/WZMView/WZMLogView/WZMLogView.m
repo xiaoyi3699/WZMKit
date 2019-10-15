@@ -9,6 +9,7 @@
 #import "WZMLogView.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
+#import "UIColor+wzmcate.h"
 #import "WZMLogTableViewCell.h"
 
 @interface LHYMessageView : UIView<UITableViewDelegate,UITableViewDataSource> {
@@ -61,7 +62,7 @@
         closeBtn.layer.masksToBounds = YES;
         closeBtn.layer.cornerRadius = 22;
         [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
-        [closeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [closeBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor redColor]] forState:UIControlStateNormal];
         [closeBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeBtn];
         
@@ -73,7 +74,7 @@
         clearBtn.layer.masksToBounds = YES;
         clearBtn.layer.cornerRadius = 22;
         [clearBtn setTitle:@"清除" forState:UIControlStateNormal];
-        [clearBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [clearBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor redColor]] forState:UIControlStateNormal];
         [clearBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:clearBtn];
         
@@ -181,7 +182,7 @@
 
 - (void)outputString:(NSString *)string {
     
-    UIColor *color = (_color ? [UIColor blueColor] : [UIColor blackColor]);
+    UIColor *color = (_color ? [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor redColor]] : [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]]);
     NSMutableAttributedString *muAttStr = [[NSMutableAttributedString alloc] initWithString:string];
     [muAttStr addAttributes:@{NSForegroundColorAttributeName:color,NSFontAttributeName:[UIFont systemFontOfSize:8]}
                     range:NSMakeRange(0, muAttStr.length)];
@@ -260,7 +261,7 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:self.bounds];
         label.text = @"日志";
-        label.textColor = [UIColor blueColor];
+        label.textColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor redColor]];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:15];
         [self addSubview:label];
