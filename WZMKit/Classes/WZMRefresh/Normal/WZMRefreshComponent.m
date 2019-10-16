@@ -71,7 +71,7 @@
 - (UIImageView *)arrowView {
     if (_arrowView == nil) {
         _arrowView = [[UIImageView alloc] init];
-        _arrowView.image = [WZMRefreshHelper arrowImage];
+        _arrowView.image = [[WZMRefreshHelper arrowImage] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         _arrowView.tintColor = WZM_REFRESH_COLOR;
         if ([self isKindOfClass:[WZMRefreshFooterView class]]) {
             _arrowView.layer.transform = WZM_TRANS_FORM;
