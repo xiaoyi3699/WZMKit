@@ -63,8 +63,8 @@
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:duration animations:^{
         fromView.alpha = 0.0;
-        fromView.center = center;
         fromView.transform = CGAffineTransformMakeScale(scale, scale);
+        fromView.center = center;
     } completion:^(BOOL finished) {
         fromView.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];

@@ -56,7 +56,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    CGFloat navBarH = self.navigationController.navigationBar.bounds.size.height;
+    CGFloat navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     CGRect rect = self.view.bounds;
     rect.origin.y = navBarH;
     rect.size.height -= navBarH;
@@ -119,7 +119,7 @@
     }];
 }
 
-//代理
+//WZMAlbumView代理
 - (void)albumViewDidSelectedFinish:(WZMAlbumView *)albumView {
     [self rightItemClick];
 }
@@ -129,25 +129,24 @@
     photoBrowser.delegate = self;
     photoBrowser.images = albumView.allPhotos;
     photoBrowser.index = indexPath.row;
+    photoBrowser.modalPresentationStyle = UIModalPresentationFullScreen;
     
     //计算初始frame
     UICollectionViewCell *cell = [albumView.collectionView cellForItemAtIndexPath:indexPath];
     CGRect rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
-    photoBrowser.wzm_showFromFrame = rect;
-    photoBrowser.wzm_showToFrame = [UIScreen mainScreen].bounds;
-    photoBrowser.modalPresentationStyle = UIModalPresentationFullScreen;
-    [photoBrowser openModalAnimation:WZMModalAnimationTypeZoom];
+    [self resetPhotoBrowser:photoBrowser presentRect:rect ];
     [self presentViewController:photoBrowser animated:YES completion:nil];
 }
 
+//WZMPhotoBrowser代理
 - (void)photoBrowser:(WZMPhotoBrowser *)photoBrowser clickAtIndex:(NSInteger)index contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
     if (gestureType == WZMGestureRecognizerTypeClose || gestureType == WZMGestureRecognizerTypeSingle) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:photoBrowser.index inSection:0];
         UICollectionViewCell *cell = [self.albumView.collectionView cellForItemAtIndexPath:indexPath];
         NSArray *visibleCells = [self.albumView.collectionView visibleCells];
         CGRect rect;
         if ([visibleCells containsObject:cell]) {
-            rect = [cell.superview convertRect:cell.frame toView:self.view];
+            rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
         }
         else {
             rect = photoBrowser.view.bounds;
@@ -156,11 +155,23 @@
             rect.size.width += 40;
             rect.size.height += 40;
         }
-        photoBrowser.wzm_dismissFromFrame = [UIScreen mainScreen].bounds;
-        photoBrowser.wzm_dismissToFrame = rect;
-        [photoBrowser openModalAnimation:WZMModalAnimationTypeZoom];
+        [self resetPhotoBrowser:photoBrowser dismissRect:rect];
         [photoBrowser dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+//设置present动画
+- (void)resetPhotoBrowser:(WZMPhotoBrowser *)photoBrowser presentRect:(CGRect)rect {
+    photoBrowser.wzm_showFromFrame = rect;
+    photoBrowser.wzm_showToFrame = [UIScreen mainScreen].bounds;
+    photoBrowser.wzm_presentAnimationType = WZMModalAnimationTypeZoom;
+}
+
+//设置dismiss动画
+- (void)resetPhotoBrowser:(WZMPhotoBrowser *)photoBrowser dismissRect:(CGRect)rect {
+    photoBrowser.wzm_dismissFromFrame = [UIScreen mainScreen].bounds;
+    photoBrowser.wzm_dismissToFrame = rect;
+    photoBrowser.wzm_dismissAnimationType = WZMModalAnimationTypeZoom;
 }
 
 //相册权限

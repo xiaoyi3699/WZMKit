@@ -32,6 +32,12 @@
 }
 
 #pragma mark - WZMPhotoDelegate
+- (void)photo:(WZMPhotoBrowserCell *)photo didPanWithAlpha:(CGFloat)alpha {
+    if ([self.delegate respondsToSelector:@selector(photoBrowserCell:didPanWithAlpha:)]) {
+        [self.delegate photoBrowserCell:self didPanWithAlpha:alpha];
+    }
+}
+
 - (void)clickAtPhoto:(WZMPhoto *)photo contentType:(WZMAlbumPhotoType)contentType gestureType:(WZMGestureRecognizerType)gestureType {
     if ([self.delegate respondsToSelector:@selector(photoBrowserCell:clickAtIndexPath:contentType:gestureType:)]) {
         [self.delegate photoBrowserCell:self clickAtIndexPath:self.indexPath contentType:contentType gestureType:gestureType];

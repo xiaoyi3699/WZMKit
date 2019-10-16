@@ -25,6 +25,7 @@
     self = [super initWithRootViewController:album];
     if (self) {
         self.config = config;
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     return self;
 }

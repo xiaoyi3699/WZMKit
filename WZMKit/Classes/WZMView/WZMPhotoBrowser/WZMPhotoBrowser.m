@@ -10,19 +10,34 @@
 #import "WZMPhotoBrowserCell.h"
 #import "WZMMacro.h"
 #import "WZMLogPrinter.h"
+#import "UIImage+wzmcate.h"
 
 @interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>
 
+@property (nonatomic, strong) UIImage *bgImage;
+@property (nonatomic, strong) UIImageView *bgImageView;
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
 @implementation WZMPhotoBrowser
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.bgImage = [UIImage wzm_getScreenImageByView:[UIApplication sharedApplication].delegate.window];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.bgImageView.image = self.bgImage;
+    [self.view addSubview:self.bgImageView];
+    [self.view addSubview:self.contentView];
     
-    self.view.backgroundColor = [UIColor blackColor];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.itemSize = self.view.bounds.size;
@@ -45,7 +60,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 #endif
     _collectionView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:_collectionView];
+    [self.contentView addSubview:_collectionView];
     [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
     
@@ -53,14 +68,24 @@
     closeView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:0.2];
     closeView.layer.masksToBounds = YES;
     closeView.layer.cornerRadius = 20;
-    [self.view addSubview:closeView];
+    [self.contentView addSubview:closeView];
     
     UITapGestureRecognizer *closeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeItemTap)];
     [closeView addGestureRecognizer:closeTap];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 12, 12)];
-    imageView.image = [WZMPublic imageNamed:@"close_1" ofType:@"png"];
-    [closeView addSubview:imageView];
+    UIImageView *closeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 12, 12)];
+    closeImageView.image = [WZMPublic imageNamed:@"close_1" ofType:@"png"];
+    [closeView addSubview:closeImageView];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.bgImageView.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.bgImageView.hidden = YES;
 }
 
 - (void)closeItemTap {
@@ -70,6 +95,10 @@
 }
 
 #pragma mark - WZMPhotoBrowserCellDelegate
+- (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell didPanWithAlpha:(CGFloat)alpha {
+    self.contentView.alpha = alpha;
+}
+
 - (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
              contentType:(WZMAlbumPhotoType)contentType
@@ -125,6 +154,14 @@
     if (_index == index) return;
     _index = index;
     [self scrollToIndex:index];
+}
+
+- (UIView *)contentView {
+    if (_contentView == nil) {
+        _contentView = [[UIView alloc] initWithFrame:self.view.bounds];
+        _contentView.backgroundColor = [UIColor blackColor];
+    }
+    return _contentView;
 }
 
 //偏移

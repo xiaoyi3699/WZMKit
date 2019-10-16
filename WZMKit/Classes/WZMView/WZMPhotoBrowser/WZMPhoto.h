@@ -34,6 +34,7 @@
 @protocol WZMPhotoDelegate <NSObject>
 
 @optional
+- (void)photo:(WZMPhoto *)photo didPanWithAlpha:(CGFloat)alpha;
 - (void)clickAtPhoto:(WZMPhoto *)photo
          contentType:(WZMAlbumPhotoType)contentType
          gestureType:(WZMGestureRecognizerType)gestureType;

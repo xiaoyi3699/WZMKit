@@ -7,10 +7,12 @@
 //  手势管理者
 
 #import <UIKit/UIKit.h>
+#import "WZMEnum.h"
 
 @interface WZMDismissInteractiveTransition : UIPercentDrivenInteractiveTransition
 
 @property (nonatomic, assign) BOOL interacting;
+@property (nonatomic, assign) WZMPanGestureRecognizerDirection direction;
 
 - (void)wireToViewController:(UIViewController*)viewController;
 

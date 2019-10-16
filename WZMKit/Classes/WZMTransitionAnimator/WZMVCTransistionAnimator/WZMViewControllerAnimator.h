@@ -12,6 +12,8 @@
 
 @interface WZMViewControllerAnimator : NSObject<UIViewControllerTransitioningDelegate>
 
+@property (nonatomic, assign) BOOL interactionEnabled;
+@property (nonatomic, assign) WZMPanGestureRecognizerDirection direction;
 @property (nonatomic, strong) WZMPresentAnimation *presentAnimation;
 @property (nonatomic, strong) WZMDismissAnimation *dismissAnimation;
 

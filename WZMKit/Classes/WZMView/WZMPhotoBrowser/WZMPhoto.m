@@ -35,7 +35,6 @@
     BOOL           _display;
     CGRect         _startFrame;
     UIImageView    *_errorImageView;
-    __weak UIView  *_controllerView;
 }
 @end
 
@@ -352,36 +351,38 @@
         else {
             _startFrame = _imageView.frame;
         }
-        _controllerView = self.wzm_viewController.view;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
-        CGFloat x = _startFrame.origin.x+point_0.x;
-        CGFloat y = _startFrame.origin.y+point_0.y;
-        
-        if (_isVideo) {
-            _videoView.frame = CGRectMake(x, y, _videoView.frame.size.width, _videoView.frame.size.height);
-        }
-        else {
-            _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
-        }
         CGFloat scale;
         if (point_0.y > 0) {
-            scale = 1-(point_0.y/self.wzm_height);
+            scale = 1-(point_0.y/self.wzm_height*0.7);
         }
         else {
             scale = 1.0;
         }
-        if (scale > 0.5) {
-            _controllerView.alpha = scale;
+        CGFloat x = _startFrame.origin.x+point_0.x;
+        CGFloat y = _startFrame.origin.y+point_0.y;
+        if (_isVideo) {
+            _videoView.transform = CGAffineTransformMakeScale(scale, scale);
+            _videoView.frame = CGRectMake(x, y, _videoView.frame.size.width, _videoView.frame.size.height);
+        }
+        else {
+            _imageView.transform = CGAffineTransformMakeScale(scale, scale);
+            _imageView.frame = CGRectMake(x, y, _imageView.frame.size.width, _imageView.frame.size.height);
+        }
+        if ([self.wzm_delegate respondsToSelector:@selector(photo:didPanWithAlpha:)]) {
+            [self.wzm_delegate photo:self didPanWithAlpha:scale];
         }
     }
     else if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         if (point_0.y > 100) {
             [UIView animateWithDuration:0.2 animations:^{
                 if (_isVideo) {
+                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                     _videoView.frame = _startFrame;
                 }
                 else {
+                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                     _imageView.frame = _startFrame;
                 }
             }];
@@ -389,12 +390,16 @@
         }
         else {
             [UIView animateWithDuration:0.2 animations:^{
-                _controllerView.alpha = 1.0;
                 if (_isVideo) {
+                    _videoView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                     _videoView.frame = _startFrame;
                 }
                 else {
+                    _imageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                     _imageView.frame = _startFrame;
+                }
+                if ([self.wzm_delegate respondsToSelector:@selector(photo:didPanWithAlpha:)]) {
+                    [self.wzm_delegate photo:self didPanWithAlpha:1.0];
                 }
             }];
         }

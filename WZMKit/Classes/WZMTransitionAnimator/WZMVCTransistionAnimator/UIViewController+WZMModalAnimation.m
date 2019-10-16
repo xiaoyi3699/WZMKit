@@ -90,6 +90,30 @@ static NSString *_oldDelegate = @"oldDelegate";
     objc_setAssociatedObject(self, &_oldDelegate, oldDelegate, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)setWzm_presentAnimationType:(WZMModalAnimationType)type {
+    [self openModalAnimation:type];
+    self.animator.presentAnimation.type = type;
+}
+
+- (WZMModalAnimationType)wzm_presentAnimationType {
+    if (self.animator && self.animator.presentAnimation) {
+        return self.animator.presentAnimation.type;
+    }
+    return WZMModalAnimationTypeNormal;
+}
+
+- (void)setWzm_dismissAnimationType:(WZMModalAnimationType)type {
+    [self openModalAnimation:type];
+    self.animator.dismissAnimation.type = type;
+}
+
+- (WZMModalAnimationType)wzm_dismissAnimationType {
+    if (self.animator && self.animator.dismissAnimation) {
+        return self.animator.dismissAnimation.type;
+    }
+    return WZMModalAnimationTypeNormal;
+}
+
 - (void)openModalAnimation:(WZMModalAnimationType)type {
     if (type == WZMModalAnimationTypeNormal) {
         self.animator = nil;
@@ -105,12 +129,13 @@ static NSString *_oldDelegate = @"oldDelegate";
             self.animator.dismissAnimation  = [[WZMDismissAnimation alloc] init];
             self.transitioningDelegate = self.animator;
         }
-        self.animator.presentAnimation.type = type;
-        self.animator.dismissAnimation.type = type;
-        self.animator.presentAnimation.showFromFrame = self.wzm_showFromFrame;
-        self.animator.presentAnimation.showToFrame = self.wzm_showToFrame;
-        self.animator.dismissAnimation.dismissFromFrame = self.wzm_dismissFromFrame;
-        self.animator.dismissAnimation.dismissToFrame = self.wzm_dismissToFrame;
+        
+        if (type == WZMModalAnimationTypeZoom) {
+            self.animator.presentAnimation.showFromFrame = self.wzm_showFromFrame;
+            self.animator.presentAnimation.showToFrame = self.wzm_showToFrame;
+            self.animator.dismissAnimation.dismissFromFrame = self.wzm_dismissFromFrame;
+            self.animator.dismissAnimation.dismissToFrame = self.wzm_dismissToFrame;
+        }
     }
 }
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
-
 @protocol WZMPhotoBrowserDelegate;
 
 @interface WZMPhotoBrowser : UIViewController

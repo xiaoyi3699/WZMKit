@@ -41,7 +41,13 @@
         [self.presentingVC dismissViewControllerAnimated:YES completion:nil];
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat fraction = translation.x / WZM_SCREEN_WIDTH;
+        CGFloat fraction;
+        if (self.direction == WZMPanGestureRecognizerDirectionVertical) {
+            fraction = translation.y/gestureRecognizer.view.superview.bounds.size.height;
+        }
+        else {
+            fraction = translation.x/gestureRecognizer.view.superview.bounds.size.width;
+        }
         self.shouldComplete = (fraction > 0.3);
         [self updateInteractiveTransition:fraction];
     }
@@ -63,6 +69,9 @@
 #pragma mark - UIGestureRecognizerDelegate
 //是否响应触摸事件
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (self.direction == WZMPanGestureRecognizerDirectionVertical)  {
+        return YES;
+    }
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         CGPoint point = [touch locationInView:gestureRecognizer.view];
         if (point.x <= 100) {//设置手势触发区

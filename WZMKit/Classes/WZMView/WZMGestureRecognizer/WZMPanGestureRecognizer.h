@@ -7,25 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSInteger {
-    WZMPanGestureRecognizerDirectionAll = 0,
-    WZMPanGestureRecognizerDirectionNone,
-    WZMPanGestureRecognizerDirectionVertical,
-    WZMPanGestureRecognizerDirectionHorizontal
-} WZMPanGestureRecognizerDirection;
-
-typedef enum : NSInteger {
-    WZMPanGestureRecognizerVerticalDirectionAll = 0,
-    WZMPanGestureRecognizerVerticalDirectionUp,
-    WZMPanGestureRecognizerVerticalDirectionDown
-} WZMPanGestureRecognizerVerticalDirection;
-
-typedef enum : NSInteger {
-    WZMPanGestureRecognizerHorizontalDirectionAll = 0,
-    WZMPanGestureRecognizerHorizontalDirectionLeft,
-    WZMPanGestureRecognizerHorizontalDirectionRight
-} WZMPanGestureRecognizerHorizontalDirection;
+#import "WZMEnum.h"
 
 @interface WZMPanGestureRecognizer : UIPanGestureRecognizer 
 

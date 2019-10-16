@@ -17,17 +17,26 @@
 
 @implementation WZMViewControllerAnimator
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.direction = WZMPanGestureRecognizerDirectionHorizontal;
+    }
+    return self;
+}
+
 - (WZMDismissInteractiveTransition *)transitionController {
     if (!_transitionController) {
-        _transitionController = [WZMDismissInteractiveTransition new];
+        _transitionController = [[WZMDismissInteractiveTransition alloc] init];
     }
+    _transitionController.direction = self.direction;
     return _transitionController;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                    presentingController:(UIViewController *)presenting
                                                                        sourceController:(UIViewController *)source{
-    if (self.presentAnimation && self.presentAnimation.interactionEnabled) {
+    if (self.dismissAnimation && self.interactionEnabled) {
         [self.transitionController wireToViewController:presented];
     }
     return self.presentAnimation;

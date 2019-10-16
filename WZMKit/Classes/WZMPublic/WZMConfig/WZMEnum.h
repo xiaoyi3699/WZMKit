@@ -29,6 +29,28 @@ typedef enum : NSInteger {
     WZMGestureRecognizerTypeClose,
 } WZMGestureRecognizerType;
 
+///手势方向
+typedef enum : NSInteger {
+    WZMPanGestureRecognizerDirectionAll = 0,
+    WZMPanGestureRecognizerDirectionVertical,
+    WZMPanGestureRecognizerDirectionHorizontal,
+    WZMPanGestureRecognizerDirectionNone
+} WZMPanGestureRecognizerDirection;
+
+///垂直手势方向
+typedef enum : NSInteger {
+    WZMPanGestureRecognizerVerticalDirectionAll = 0,
+    WZMPanGestureRecognizerVerticalDirectionUp,
+    WZMPanGestureRecognizerVerticalDirectionDown
+} WZMPanGestureRecognizerVerticalDirection;
+
+///水平手势方向
+typedef enum : NSInteger {
+    WZMPanGestureRecognizerHorizontalDirectionAll = 0,
+    WZMPanGestureRecognizerHorizontalDirectionLeft,
+    WZMPanGestureRecognizerHorizontalDirectionRight
+} WZMPanGestureRecognizerHorizontalDirection;
+
 ///滑动状态
 typedef enum : NSInteger {
     WZMScrollTypeBeginScroll  = 0,

@@ -26,6 +26,7 @@
 @protocol WZMPhotoBrowserCellDelegate <NSObject>
 
 @optional
+- (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell didPanWithAlpha:(CGFloat)alpha;
 - (void)photoBrowserCell:(WZMPhotoBrowserCell *)photoBrowserCell
         clickAtIndexPath:(NSIndexPath *)indexPath
              contentType:(WZMAlbumPhotoType)contentType
