@@ -33,8 +33,8 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
-    [alertView showAnimated:YES];
+    WZMActionSheet *sheet = [[WZMActionSheet alloc] initWithMessage:@"提示" titles:@[@"刘德华",@"哈哈哈哈哈哈",@"的话刘而非",@"挖的大多"]];
+    [sheet showCompletion:nil];
     
     return;
     

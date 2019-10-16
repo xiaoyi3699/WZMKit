@@ -9,6 +9,7 @@
 #import "WZMActionSheet.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
+#import "UIColor+wzmcate.h"
 
 @implementation WZMActionSheet {
     UIView *_messageView;
@@ -20,16 +21,16 @@
         self.backgroundColor = WZM_ALERT_BG_COLOR;
         
         _messageView = [[UIView alloc] init];
-        _messageView.backgroundColor = [UIColor whiteColor];
+        _messageView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_R_G_B(33, 33, 33)];
         
-        UIColor *lineColor = WZM_R_G_B_A(200, 200, 200, .5);
+        UIColor *lineColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(200, 200, 200, .5) darkColor:WZM_R_G_B_A(66, 66, 66, .5)];
         CGFloat btnBeginY = 0;
         if (message.length > 0) {
             _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+2)*44+WZM_BOTTOM_HEIGHT);
             
             UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 43.5)];
             messageLabel.text = message;
-            messageLabel.textColor = WZM_R_G_B(100, 100, 100);
+            messageLabel.textColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(100, 100, 100) darkColor:WZM_R_G_B(155, 155, 155)];
             messageLabel.textAlignment = NSTextAlignmentCenter;
             messageLabel.font = [UIFont systemFontOfSize:13];
             [_messageView addSubview:messageLabel];
@@ -51,7 +52,7 @@
             btn.frame = CGRectMake(0, btnBeginY+i%titles.count*44, self.bounds.size.width, 43.5);
             btn.titleLabel.font = [UIFont systemFontOfSize:16];
             [btn setTitle:titles[i] forState:UIControlStateNormal];
-            [btn setTitleColor:WZM_R_G_B(50, 50, 50) forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(50, 50, 50) darkColor:WZM_R_G_B(205, 205, 205)] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [_messageView addSubview:btn];
             
