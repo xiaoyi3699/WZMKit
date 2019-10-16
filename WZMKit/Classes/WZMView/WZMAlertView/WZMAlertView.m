@@ -23,7 +23,7 @@
 }
 @end
 
-#define THEME_COLOR_UP [UIColor wzm_getColorByHex:0xa031ed]
+#define THEME_COLOR_UP [UIColor redColor]
 @implementation WZMAlertView
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type {
@@ -117,15 +117,15 @@
             messageColor = [UIColor darkGrayColor];
         }
         else {
-            titleColor   = [UIColor blackColor];
-            messageColor = [UIColor colorWithWhite:.3 alpha:1];
+            titleColor   = [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
+            messageColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(55, 55, 55) darkColor:WZM_R_G_B(200, 200, 200)];
         }
         
         /** 1、白色背景view */
         _alertView        = [[UIView alloc] initWithFrame:CGRectMake(x, y, width, height)];
         _alertView.layer.masksToBounds = YES;
         _alertView.layer.cornerRadius  = 10;
-        _alertView.backgroundColor     = [UIColor whiteColor];
+        _alertView.backgroundColor     = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_R_G_B(33, 33, 33)];
         [self addSubview:_alertView];
         
         /** 2、标题label */
@@ -146,8 +146,8 @@
         [_alertView addSubview:messageLabel];
         
         /** 4、提示信息label下的横线 */
-        UIView *horizontalLine        = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame)+15, CGRectGetWidth(_alertView.frame), 1)];
-        horizontalLine.backgroundColor= [UIColor colorWithWhite:.9 alpha:.5];
+        UIView *horizontalLine        = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame)+15.5, CGRectGetWidth(_alertView.frame), 0.5)];
+        horizontalLine.backgroundColor= [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(222, 222, 222, 0.5) darkColor:WZM_R_G_B_A(66, 66, 66, 0.5)];
         [_alertView addSubview:horizontalLine];
         
         NSMutableArray *btnTitles     = [[NSMutableArray alloc] initWithCapacity:2];
@@ -164,7 +164,7 @@
             _cancelButtonTitle = @"确定";
         }
         /** 5、计算按钮的宽和y坐标，for循环创建btn */
-        CGFloat btnWidth               = (CGRectGetWidth(_alertView.frame)-1)/2.0f;
+        CGFloat btnWidth               = (CGRectGetWidth(_alertView.frame)-0.5)/2.0f;
         if (btnTitles.count == 1) {
             btnWidth                   = CGRectGetWidth(_alertView.frame);
         }
@@ -194,8 +194,8 @@
         _btns = [btns copy];
         /** 6、两个按钮中间的竖线 */
         if (btnTitles.count == 2) {
-            UIView *verticalLine         = [[UIView alloc] initWithFrame:CGRectMake(btnWidth, btnY, 1, btnHeight)];
-            verticalLine.backgroundColor = [UIColor colorWithWhite:.9 alpha:.5];
+            UIView *verticalLine         = [[UIView alloc] initWithFrame:CGRectMake(btnWidth, btnY, 0.5, btnHeight)];
+            verticalLine.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(222, 222, 222, 0.5) darkColor:WZM_R_G_B_A(66, 66, 66, 0.5)];
             [_alertView addSubview:verticalLine];
         }
     }

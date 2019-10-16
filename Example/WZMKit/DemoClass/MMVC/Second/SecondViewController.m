@@ -32,24 +32,11 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
-//        NSInteger i = 0;
-//        while (i < 60) {
-//            NSLog(@"====%@",@(i));
-//            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-//            i ++;
-//        }
-//    });
-//    NSString *r = @"http://www.vasueyun.cn/resource/wzm_qnyh.mp4";
-//    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
-//    NSString *gifPath = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
-//    UIImage *image = [UIImage imageNamed:@"tabbar_icon_on"];
-//
-//    WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
-//    photoBrowser.delegate = self;
-//    photoBrowser.images = @[videoPath,gifPath,image,videoPath,gifPath,image,r];
-//    [self presentViewController:photoBrowser animated:YES completion:nil];
+    
+    WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+    [alertView showAnimated:YES];
+    
+    return;
     
     WZMAlbumConfig *config = [WZMAlbumConfig new];
     config.originalVideo = YES;
