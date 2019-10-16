@@ -6,9 +6,9 @@
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WZMBaseViewController.h"
 
-@interface WZMWebViewController : UIViewController
+@interface WZMWebViewController : WZMBaseViewController
 
 //加载网页
 - (instancetype)initWithUrl:(NSString *)url;
