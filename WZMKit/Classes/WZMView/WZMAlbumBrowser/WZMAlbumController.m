@@ -133,7 +133,7 @@
     
     //计算初始frame
     UICollectionViewCell *cell = [albumView.collectionView cellForItemAtIndexPath:indexPath];
-    CGRect rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
+    CGRect rect = [cell.superview convertRect:cell.frame toView:self.view.superview];
     [self resetPhotoBrowser:photoBrowser presentRect:rect ];
     [self presentViewController:photoBrowser animated:YES completion:nil];
 }
@@ -146,7 +146,7 @@
         NSArray *visibleCells = [self.albumView.collectionView visibleCells];
         CGRect rect;
         if ([visibleCells containsObject:cell]) {
-            rect = [cell.superview convertRect:cell.frame toView:self.navigationController.view];
+            rect = [cell.superview convertRect:cell.frame toView:photoBrowser.view.superview];
         }
         else {
             rect = photoBrowser.view.bounds;
