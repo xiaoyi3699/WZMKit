@@ -257,7 +257,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             params = [NSString stringWithFormat:@"%@,\"password\":\"%@\"}",params,self.shareKey];
         }
         else {
-            params = [NSString stringWithFormat:@"}"];
+            params = [NSString stringWithFormat:@"%@}",params];
         }
         [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:params callBack:^(id responseObject, NSError *error) {
             if (error || responseObject == nil) {
