@@ -33,9 +33,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    WZMActionSheet *sheet = [[WZMActionSheet alloc] initWithMessage:@"提示" titles:@[@"刘德华",@"哈哈哈哈哈哈",@"的话刘而非",@"挖的大多"]];
-    [sheet showCompletion:nil];
-    
+    NSString *str1 = @"重庆";
+    NSString *str = @"%u91CD%u5E86";
+    NSLog(@"%@==%@",[str wzm_getURLDecoded],[str1 wzm_getURLEncoded2]);
     return;
     
     WZMAlbumConfig *config = [WZMAlbumConfig new];

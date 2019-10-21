@@ -78,6 +78,7 @@
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import <AdSupport/AdSupport.h>
 
 @interface WZMAppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -107,6 +108,8 @@
                       isForceUpdate:NO];
         }
     }];
+    
+    NSLog(@"%@==%@",[UIDevice currentDevice].identifierForVendor,[[ASIdentifierManager sharedManager] advertisingIdentifier]);
     
 #if DEBUG
     //开启手机端日志悬浮图标

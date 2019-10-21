@@ -185,8 +185,22 @@
         }
     }
     else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
-        [self play];
+        [self bufferSecond];
     }
+}
+
+//用于网络视频缓冲
+- (void)bufferSecond {
+    WZMDispatch_after(0.5, ^{
+        if (self.isAllowPlay == NO) return;
+        if (self.isLocking) return;
+        if (self.player.currentItem.isPlaybackLikelyToKeepUp) {
+            [_player play];
+        }
+        else {
+            [self bufferSecond];
+        }
+    });
 }
 
 - (void)relatePlayer:(AVPlayer *)myPlayer {
