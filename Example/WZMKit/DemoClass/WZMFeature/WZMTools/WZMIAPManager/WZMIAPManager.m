@@ -107,6 +107,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.manualVerify = YES;
         self.orderId = @"restore";
         [self showLoadingMessage:@"查询中..."];
+        [self addObserver];
         [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     }
 }
