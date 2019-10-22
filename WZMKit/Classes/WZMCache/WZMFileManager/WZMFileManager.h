@@ -54,17 +54,12 @@
 /**
  获取缓存大小
  */
-+ (float)cacheSizeAtPath:(NSString *)cachePath;
++ (CGFloat)cacheSizeAtPath:(NSString *)path;
 
 /**
  获取指定路径下所有文件名
  */
 + (NSMutableArray *)getFileNamesAtPath:(NSString *)filePath;
-
-/**
- 获取指定路径下所有文件大小 byte
- */
-+ (NSInteger)getFileSizeAtPath:(NSString *)filePath;
 
 /**
   存储到info.plist

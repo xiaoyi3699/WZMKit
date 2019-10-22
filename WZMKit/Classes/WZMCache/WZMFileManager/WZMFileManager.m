@@ -146,21 +146,21 @@
     return [WZM_FILE_MANAGER moveItemAtPath:atPath toPath:toPath error:nil];
 }
 
-+ (float)cacheSizeAtPath:(NSString *)cachePath{
++ (CGFloat)cacheSizeAtPath:(NSString *)path {
     float totalSize = 0;
     BOOL isDirectory = NO;
-    if ([WZM_FILE_MANAGER fileExistsAtPath:cachePath isDirectory:&isDirectory]) {
+    if ([WZM_FILE_MANAGER fileExistsAtPath:path isDirectory:&isDirectory]) {
         if (isDirectory) {
-            NSDirectoryEnumerator *fileEnumerator = [WZM_FILE_MANAGER enumeratorAtPath:cachePath];
+            NSDirectoryEnumerator *fileEnumerator = [WZM_FILE_MANAGER enumeratorAtPath:path];
             for (NSString *fileName in fileEnumerator){
-                NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
+                NSString *filePath = [path stringByAppendingPathComponent:fileName];
                 NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
                 unsigned long long length = [attrs fileSize];
-                totalSize += length/1024.0/1024.0;
+                totalSize += length;
             }
         }
         else{
-            totalSize = [[WZM_FILE_MANAGER attributesOfItemAtPath:cachePath error:nil] fileSize];;
+            totalSize = [[WZM_FILE_MANAGER attributesOfItemAtPath:path error:nil] fileSize];;
         }
         
     }
@@ -179,19 +179,6 @@
         }
     }
     return fileNames;
-}
-
-+ (NSInteger)getFileSizeAtPath:(NSString *)filePath {
-    NSFileManager *manager = [NSFileManager defaultManager];
-    if (![manager fileExistsAtPath:filePath]) return 0;
-    NSEnumerator *child = [[manager subpathsAtPath:filePath] objectEnumerator];
-    NSString *fileName;
-    NSInteger folderSize = 0;
-    while ((fileName = [child nextObject]) != nil) {
-        NSString *path = [filePath stringByAppendingPathComponent:fileName];
-        folderSize += [[manager attributesOfItemAtPath:path error:nil] fileSize];
-    }
-    return folderSize;
 }
 
 + (BOOL)setObj:(id)obj forKey:(NSString *)key{
