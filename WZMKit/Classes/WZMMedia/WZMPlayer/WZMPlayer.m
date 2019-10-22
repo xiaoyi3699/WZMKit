@@ -184,21 +184,32 @@
             }
         }
     }
-    else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
-        [self bufferSecond];
+    else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) {
+        if (self.player.currentItem.isPlaybackBufferEmpty) {
+            [self bufferSecond];
+        }
     }
 }
 
 //用于网络视频缓冲
 - (void)bufferSecond {
+    //playbackBufferEmpty会反复进入
+    //因此在bufferingOneSecond延时播放执行完之前再调用bufferingSomeSecond都忽略
+    static BOOL isBuffering = NO;
+    if (isBuffering) {
+        return;
+    }
+    isBuffering = YES;
+    //需要先暂停一小会之后再播放,否则网络状况不好的时候时间在走,声音播放不出来
+    [self.player pause];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.isAllowPlay == NO) return;
         if (self.isLocking) return;
-        if (self.player.currentItem.isPlaybackLikelyToKeepUp) {
+        [self.player play];
+        // 如果执行了play还是没有播放则说明还没有缓存好,则再次缓存一段时间
+        isBuffering = NO;
+        if (!self.player.currentItem.isPlaybackLikelyToKeepUp) {
             [self bufferSecond];
-        }
-        else {
-            [_player play];
         }
     });
 }
