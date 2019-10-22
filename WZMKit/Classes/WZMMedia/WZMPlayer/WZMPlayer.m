@@ -25,6 +25,7 @@
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isLocking) BOOL locking;
 @property (nonatomic, assign, getter=isRelated) BOOL related;
+@property (nonatomic, assign, getter=isBuffering) BOOL buffering;
 
 @end
 
@@ -37,6 +38,7 @@
         self.playing = NO;
         self.locking = NO;
         self.related = NO;
+        self.buffering = NO;
         self.background = NO;
         self.allowPlay = YES;
         self.trackingRunLoop = YES;
@@ -65,6 +67,7 @@
 }
 
 - (void)resetConfig:(BOOL)clear {
+    self.buffering = NO;
     self.duration = 0;
     self.currentTime = 0;
     self.playProgress = 0;
@@ -195,11 +198,10 @@
 - (void)bufferSecond {
     //playbackBufferEmpty会反复进入
     //因此在bufferingOneSecond延时播放执行完之前再调用bufferingSomeSecond都忽略
-    static BOOL isBuffering = NO;
-    if (isBuffering) {
+    if (self.isBuffering) {
         return;
     }
-    isBuffering = YES;
+    self.buffering = YES;
     //需要先暂停一小会之后再播放,否则网络状况不好的时候时间在走,声音播放不出来
     [self.player pause];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -207,7 +209,7 @@
         if (self.isLocking) return;
         [self.player play];
         // 如果执行了play还是没有播放则说明还没有缓存好,则再次缓存一段时间
-        isBuffering = NO;
+        self.buffering = NO;
         if (!self.player.currentItem.isPlaybackLikelyToKeepUp) {
             [self bufferSecond];
         }
