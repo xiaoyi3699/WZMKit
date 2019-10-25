@@ -145,6 +145,7 @@
 
 //刷新相册
 - (void)reloadData {
+    if (self.allPhotos.count > 0) return;
     [self.allPhotos removeAllObjects];
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
     if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
