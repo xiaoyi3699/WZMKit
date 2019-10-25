@@ -63,6 +63,39 @@
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:alpha];
 }
 
++ (UIColor *)wzm_getDynamicColor:(UIColor *)lightColor {
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        CGFloat r=0,g=0,b=0,a=0;
+        if ([lightColor respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
+            [lightColor getRed:&r green:&g blue:&b alpha:&a];
+        }
+        else {
+            const CGFloat *components = CGColorGetComponents(lightColor.CGColor);
+            r = components[0];
+            g = components[1];
+            b = components[2];
+            a = components[3];
+        }
+        UIColor *darkColor = [UIColor colorWithRed:(255-r)/255.0
+                                             green:(255-g)/255.0
+                                              blue:(255-b)/255.0
+                                             alpha:a];
+        return [UIColor colorWithDynamicProvider:^UIColor * (UITraitCollection *traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return darkColor;
+            }
+            return lightColor;
+        }];
+    }
+    else {
+        return lightColor;
+    }
+    #else
+    return lightColor;
+    #endif
+}
+
 + (UIColor *)wzm_getDynamicColorByLightColor:(UIColor *)lightColor darkColor:(UIColor *)darkColor {
     #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
     if (@available(iOS 13.0, *)) {
