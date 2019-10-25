@@ -33,10 +33,10 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    NSString *str1 = @"重庆";
-    NSString *str = @"%u91CD%u5E86";
-    NSLog(@"%@==%@",[str wzm_getURLDecoded],[str1 wzm_getURLEncoded2]);
-    return;
+//    NSString *str1 = @"重庆";
+//    NSString *str = @"%u91CD%u5E86";
+//    NSLog(@"%@==%@",[str wzm_getURLDecoded],[str1 wzm_getURLEncoded2]);
+//    return;
     
     WZMAlbumConfig *config = [WZMAlbumConfig new];
     config.originalVideo = YES;
@@ -47,13 +47,7 @@
     config.allowDragSelect = NO;
     WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     vc.pickerDelegate = self;
-//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:vc animated:YES completion:^{
-        NSLog(@"%@==%@=2",NSStringFromCGRect(vc.view.frame),NSStringFromCGRect(vc.navigationBar.frame));
-    }];
-    NSLog(@"%@==%@=2",NSStringFromCGRect(vc.view.frame),NSStringFromCGRect(vc.navigationBar.frame));
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {

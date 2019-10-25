@@ -60,15 +60,12 @@
     self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
     self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
     if (self.onlyOne == NO) {
-        UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
-        [self.countLabel addGestureRecognizer:okTap];
-        
         if (config.allowDragSelect) {
             UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
             [self addGestureRecognizer:selectPan];
         }
-        [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
     }
+    [WZMAlbumHelper addUpdateAlbumObserver:self selector:@selector(collectionViewReloadData)];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -118,6 +115,9 @@
             self.countLabel.backgroundColor = WZM_ALBUM_COLOR;
             self.countLabel.userInteractionEnabled = YES;
             [self.toolView addSubview:self.countLabel];
+            
+            UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
+            [self.countLabel addGestureRecognizer:okTap];
             
             UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(self.config.maxCount)];
