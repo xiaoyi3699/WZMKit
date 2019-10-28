@@ -174,10 +174,8 @@
                               [alertView showAnimated:YES];
                           }
                       }
-                      else{
-                          [presentingCtrl presentViewController:sc animated:YES completion:nil];
-                      }
                   }];
+    [presentingCtrl presentViewController:sc animated:YES completion:nil];
 }
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
