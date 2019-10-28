@@ -188,11 +188,11 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
                 if (self.isRestore == NO) {
-                    [self finishTransaction:tran message:@"已购买过该商品"];
+                    [self finishTransaction:tran message:nil];
                 }
             }
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
-                [self finishTransaction:tran message:@"支付失败"];
+                [self finishTransaction:tran message:nil];
             }
         }
     });
