@@ -218,25 +218,22 @@
 #pragma mark - APP跳转相关
 //NS_DEPRECATED_IOS(2_0, 9_0)
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    [self openUrl:url];
-    return YES;
+    return [self openUrl:url];
 }
 
 //NS_DEPRECATED_IOS(4_2, 9_0)
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    [self openUrl:url];
-    return YES;
+    return [self openUrl:url];
 }
 
 //NS_AVAILABLE_IOS(9_0)
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    [self openUrl:url];
-    return YES;
+    return [self openUrl:url];
 }
 
 //自定义跳转回调
-- (void)openUrl:(NSURL *)url {
-    
+- (BOOL)openUrl:(NSURL *)url {
+    return YES;
 }
 
 #pragma mark - 推送相关
