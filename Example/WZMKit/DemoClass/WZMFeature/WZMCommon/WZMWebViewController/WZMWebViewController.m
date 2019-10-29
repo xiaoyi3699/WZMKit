@@ -84,8 +84,9 @@
 #pragma mark - life cyclic
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadUrl:_url];
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
+    [self.view addSubview:self.webView];
+    [self loadUrl:_url];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -358,8 +359,6 @@
 #else
         self.automaticallyAdjustsScrollViewInsets = NO;
 #endif
-        [self.view addSubview:_webView];
-        
         [self addObserver];
     }
     return _webView;
