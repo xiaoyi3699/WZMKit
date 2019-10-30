@@ -20,8 +20,12 @@
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
+@property (nonatomic, assign) CGFloat navBarH;
+@property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) WZMAlbumView *albumView;
+@property (nonatomic, strong) UIVisualEffectView *visualView;
 
 @end
 
@@ -30,8 +34,8 @@
 - (instancetype)initWithConfig:(WZMAlbumConfig *)config {
     self = [super init];
     if (self) {
+        self.navBarH = 0;
         self.config = config;
-        self.title = config.title;
     }
     return self;
 }
@@ -40,27 +44,55 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     
+    self.titleView = [[UIView alloc] init];
+    self.titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.titleBtn.backgroundColor = [UIColor clearColor];
+    self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [self.titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.titleBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [self.titleBtn addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.self.titleView addSubview:self.titleBtn];
+    
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
     leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
     rightItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
     
+    self.navigationItem.titleView = self.titleView;
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;
     
     self.albumView = [[WZMAlbumView alloc] initWithConfig:self.config];
     self.albumView.delegate = self;
     [self.view addSubview:self.albumView];
+    
+    UIBlurEffectStyle effectStyle;
+    if (@available(iOS 13.0, *)) {
+        effectStyle = UIBlurEffectStyleSystemUltraThinMaterial;
+    } else {
+        effectStyle = UIBlurEffectStyleLight;
+    }
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:effectStyle];
+    self.visualView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    self.visualView.hidden = YES;
+    [self.view addSubview:self.visualView];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    CGFloat navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
-    CGRect rect = self.view.bounds;
-    rect.origin.y = navBarH;
-    rect.size.height -= navBarH;
-    self.albumView.frame = rect;
+    if (self.navBarH == 0) {
+        self.navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+        if (self.navBarH == 0) return;
+        CGRect rect = self.view.bounds;
+        CGFloat y = self.navBarH;
+        CGFloat h = rect.size.height - self.navBarH;
+        rect.origin.y = y;
+        rect.size.height = h;
+        self.albumView.frame = rect;
+        self.visualView.frame = CGRectMake(0, y-h, rect.size.height, h);
+        [self updateTitleViewWithTitle:self.config.title];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -117,6 +149,33 @@
             }
         }
     }];
+}
+
+- (void)titleBtnClick:(UIButton *)btn {
+    if (self.visualView.hidden) {
+        self.visualView.hidden = NO;
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect rect = self.visualView.frame;
+            rect.origin.y = self.navBarH;
+            self.visualView.frame = rect;
+        }];
+    }
+    else {
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect rect = self.visualView.frame;
+            rect.origin.y = (self.navBarH - rect.size.height);
+            self.visualView.frame = rect;
+        } completion:^(BOOL finished) {
+            self.visualView.hidden = YES;
+        }];
+    }
+}
+
+- (void)updateTitleViewWithTitle:(NSString *)title {
+    CGFloat w = ceil([title sizeWithAttributes:@{NSFontAttributeName:self.titleBtn.titleLabel.font}].width);
+    self.titleView.frame = CGRectMake(0, 0, w, 44);
+    self.titleBtn.frame = self.titleView.bounds;
+    [self.titleBtn setTitle:title forState:UIControlStateNormal];
 }
 
 //WZMAlbumView代理
