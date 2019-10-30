@@ -8,7 +8,7 @@
 
 #import "WZMAlbumController.h"
 #import <Photos/Photos.h>
-#import "WZMAlbumNavigationController.h"
+#import "WZMButton.h"
 #import "WZMAlbumView.h"
 #import "WZMAlbumHelper.h"
 #import "WZMInline.h"
@@ -16,13 +16,14 @@
 #import "WZMLogPrinter.h"
 #import "WZMPhotoBrowser.h"
 #import "UIColor+wzmcate.h"
+#import "WZMAlbumNavigationController.h"
 #import "UIViewController+WZMModalAnimation.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
 @property (nonatomic, assign) CGFloat navBarH;
 @property (nonatomic, strong) UIView *titleView;
-@property (nonatomic, strong) UIButton *titleBtn;
+@property (nonatomic, strong) WZMButton *titleBtn;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) WZMAlbumView *albumView;
 @property (nonatomic, strong) UITableView *tableView;
@@ -45,12 +46,15 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     
+    UIImage *dropImage = [[WZMPublic imageNamed:@"album_drop_down" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.titleView = [[UIView alloc] init];
-    self.titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.titleBtn.backgroundColor = [UIColor clearColor];
+    self.titleBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
+    self.titleBtn.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:0.5] darkColor:[UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:0.5]];
     self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    self.titleBtn.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]];
     [self.titleBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    [self.titleBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [self.titleBtn setImage:dropImage forState:UIControlStateNormal];
+    [self.titleBtn setImage:dropImage forState:UIControlStateHighlighted];
     [self.titleBtn addTarget:self action:@selector(showVisualViewAction) forControlEvents:UIControlEventTouchUpInside];
     [self.titleView addSubview:self.titleBtn];
     
@@ -182,6 +186,7 @@
             CGRect rect = self.visualView.frame;
             rect.origin.y = self.navBarH;
             self.visualView.frame = rect;
+            self.titleBtn.imageView.layer.transform = CATransform3DConcat(CATransform3DIdentity, CATransform3DMakeRotation(179.99*M_PI/180.0, 0, 0, 1));
         }];
     }
     else {
@@ -189,6 +194,7 @@
             CGRect rect = self.visualView.frame;
             rect.origin.y = (self.navBarH - rect.size.height);
             self.visualView.frame = rect;
+            self.titleBtn.imageView.layer.transform = CATransform3DConcat(CATransform3DIdentity, CATransform3DMakeRotation(0, 0, 0, 1));
         } completion:^(BOOL finished) {
             self.visualView.hidden = YES;
         }];
@@ -198,9 +204,13 @@
 
 - (void)updateTitleViewWithTitle:(NSString *)title {
     CGFloat w = ceil([title sizeWithAttributes:@{NSFontAttributeName:self.titleBtn.titleLabel.font}].width);
-    self.titleView.frame = CGRectMake(0, 0, w, 44);
-    self.titleBtn.frame = self.titleView.bounds;
+    self.titleView.frame = CGRectMake(0, 0, w+40, 44);
+    self.titleBtn.frame = CGRectMake(0, 7, w+40, 30);
+    self.titleBtn.layer.cornerRadius = 15;
+    self.titleBtn.layer.masksToBounds = YES;
     [self.titleBtn setTitle:title forState:UIControlStateNormal];
+    self.titleBtn.titleFrame = CGRectMake(13, 0, w, 30);
+    self.titleBtn.imageFrame = CGRectMake(13+w+5, 12, 10, 10);
 }
 
 //WZMAlbumView代理

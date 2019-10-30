@@ -132,6 +132,7 @@
     }
     self.collectionView.wzm_height = self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT;
     self.toolView.wzm_minY = self.collectionView.wzm_maxY;
+    [self reloadData];
 }
 
 //确定按钮点击事件
@@ -149,6 +150,7 @@
 //刷新相册
 - (void)reloadData {
     if (self.allAlbums.count > 0) return;
+    if (self.collectionView == nil) return;
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
     if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
     if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
@@ -197,6 +199,10 @@
 - (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel {
     self.selectedAlbum = albumModel;
     [self.collectionView reloadData];
+    if (self.selectedAlbum.photos.count) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.selectedAlbum.photos.count-1 inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    }
 }
 
 - (void)collectionViewReloadData {
