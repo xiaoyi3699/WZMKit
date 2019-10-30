@@ -303,7 +303,9 @@
         WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
         [self.selectedPhotos addObject:model];
         [self didSelectedFinish];
-        self.selectedAlbum.selectedCount ++;
+        if (self.selectedAlbum.selectedCount < self.selectedAlbum.count) {
+            self.selectedAlbum.selectedCount ++;
+        }
     }
     else {
         WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
@@ -316,8 +318,8 @@
                 tmodel.index = tmodel.index-1;
             }
             [self.selectedPhotos removeObject:model];
-            if (self.selectedAlbum.count > 0) {
-                self.selectedAlbum.count --;
+            if (self.selectedAlbum.selectedCount > 0) {
+                self.selectedAlbum.selectedCount --;
             }
         }
         else {
@@ -329,7 +331,9 @@
             model.index = self.selectedPhotos.count+1;
             model.selected = YES;
             [self.selectedPhotos addObject:model];
-            self.selectedAlbum.selectedCount ++;
+            if (self.selectedAlbum.selectedCount < self.selectedAlbum.count) {
+                self.selectedAlbum.selectedCount ++;
+            }
         }
         [self.collectionView reloadData];
         self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
