@@ -316,7 +316,9 @@
                 tmodel.index = tmodel.index-1;
             }
             [self.selectedPhotos removeObject:model];
-            self.selectedAlbum.selectedCount --;
+            if (self.selectedAlbum.count > 0) {
+                self.selectedAlbum.count --;
+            }
         }
         else {
             if (self.selectedPhotos.count+1 > self.config.maxCount) {
