@@ -121,6 +121,7 @@
         self.albumView.frame = rect;
         self.visualView.frame = CGRectMake(0, y-h, rect.size.width, h);
         self.tableView.frame = self.visualView.bounds;
+        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
     }
 }
 
@@ -204,6 +205,7 @@
 }
 
 - (void)updateTitleViewWithTitle:(NSString *)title {
+    if (title.length == 0) return;
     CGFloat w = ceil([title sizeWithAttributes:@{NSFontAttributeName:self.titleBtn.titleLabel.font}].width);
     [UIView animateWithDuration:0.1 animations:^{
         self.titleView.frame = CGRectMake(0, 0, w+40, 44);
