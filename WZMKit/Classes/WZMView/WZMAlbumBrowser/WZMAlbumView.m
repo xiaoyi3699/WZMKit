@@ -192,8 +192,10 @@
         }];
         albumModel.count = albumModel.photos.count;
     }
-    WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
-    [self reloadDataWithAlbumModel:albumModel];
+    if (self.allAlbums.count > 0) {
+        WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
+        [self reloadDataWithAlbumModel:albumModel];
+    }
 }
 
 - (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel {

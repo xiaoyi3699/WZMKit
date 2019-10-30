@@ -121,7 +121,6 @@
         self.albumView.frame = rect;
         self.visualView.frame = CGRectMake(0, y-h, rect.size.width, h);
         self.tableView.frame = self.visualView.bounds;
-        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
     }
 }
 
@@ -275,6 +274,7 @@
 - (void)checkAlbumAuthorization {
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized){//用户之前已经授权
         [self.albumView reloadData];
+        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
     }
     else if([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusDenied){//用户之前已经拒绝授权
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请前往“设置-隐私-照片”打开应用的相册访问权限" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -285,6 +285,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (status == PHAuthorizationStatusAuthorized){//允许
                     [self.albumView reloadData];
+                    [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
                 }
                 else {//拒绝
                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
