@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMAlbumModel.h"
+#import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumConfig.h"
 @protocol WZMAlbumCellDelegate;
 
@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, weak) id<WZMAlbumCellDelegate> delegate;
 
-- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model;
+- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumPhotoModel *)model;
 
 @end
 

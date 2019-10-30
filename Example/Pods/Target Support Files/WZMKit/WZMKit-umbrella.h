@@ -105,6 +105,7 @@
 #import "WZMAlbumHelper.h"
 #import "WZMAlbumModel.h"
 #import "WZMAlbumNavigationController.h"
+#import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumView.h"
 #import "WZMAlertView.h"
 #import "WZMAnimationNumItemView.h"

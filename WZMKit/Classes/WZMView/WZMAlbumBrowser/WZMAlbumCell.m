@@ -14,7 +14,7 @@
 
 @interface WZMAlbumCell ()
 
-@property (nonatomic, strong) WZMAlbumModel *model;
+@property (nonatomic, strong) WZMAlbumPhotoModel *model;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, assign, getter=isDisplay) BOOL display;
 
@@ -110,7 +110,7 @@
     return self;
 }
 
-- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumModel *)model {
+- (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumPhotoModel *)model {
     self.model = model;
     self.config = config;
     [self setICloud:model.isICloud];

@@ -33,8 +33,6 @@
 @property (nonatomic, assign) NSInteger minCount;
 ///最大选中数量,默认9
 @property (nonatomic, assign) NSInteger maxCount;
-///相册界面title
-@property (nonatomic, strong) NSString *title;
 
 ///是否导出原图,默认YES
 @property (nonatomic, assign) BOOL originalImage;

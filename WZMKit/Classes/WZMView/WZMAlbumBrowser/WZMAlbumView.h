@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMAlbumModel.h"
+#import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumConfig.h"
 @protocol WZMAlbumViewDelegate;
 
@@ -19,12 +20,16 @@
 @property (nonatomic, weak) id<WZMAlbumViewDelegate> delegate;
 ///视图
 @property (nonatomic, readonly, strong) UICollectionView *collectionView;
-///所有图片
-@property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;
+///选中的相册
+@property (nonatomic, readonly, strong) WZMAlbumModel *selectedAlbum;
+///所有相册
+@property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *allAlbums;
 ///选中的图片
-@property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumModel *> *selectedPhotos;
+@property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 
 - (void)reloadData;
+- (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel;
+
 - (instancetype)initWithConfig:(WZMAlbumConfig *)config;
 - (instancetype)initWithFrame:(CGRect)frame config:(WZMAlbumConfig *)config;
 

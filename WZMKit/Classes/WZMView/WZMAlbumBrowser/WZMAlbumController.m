@@ -18,13 +18,14 @@
 #import "UIColor+wzmcate.h"
 #import "UIViewController+WZMModalAnimation.h"
 
-@interface WZMAlbumController ()<UIAlertViewDelegate,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
+@interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
 @property (nonatomic, assign) CGFloat navBarH;
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *titleBtn;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) WZMAlbumView *albumView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIVisualEffectView *visualView;
 
 @end
@@ -48,16 +49,16 @@
     self.titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.titleBtn.backgroundColor = [UIColor clearColor];
     self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [self.titleBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.titleBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.titleBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [self.titleBtn addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.titleBtn addTarget:self action:@selector(showVisualViewAction) forControlEvents:UIControlEventTouchUpInside];
     [self.self.titleView addSubview:self.titleBtn];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
-    leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
+//    leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
-    rightItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
+//    rightItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
     
     self.navigationItem.titleView = self.titleView;
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -77,6 +78,28 @@
     self.visualView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.visualView.hidden = YES;
     [self.view addSubview:self.visualView];
+    
+    self.tableView = [[UITableView alloc] init];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+#else
+    self.automaticallyAdjustsScrollViewInsets = NO;
+#endif
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.rowHeight = 60;
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableView.scrollsToTop = NO;
+    [self.visualView.contentView addSubview:self.tableView];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -91,7 +114,8 @@
         rect.size.height = h;
         self.albumView.frame = rect;
         self.visualView.frame = CGRectMake(0, y-h, rect.size.height, h);
-        [self updateTitleViewWithTitle:self.config.title];
+        self.tableView.frame = self.visualView.bounds;
+        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
     }
 }
 
@@ -151,7 +175,7 @@
     }];
 }
 
-- (void)titleBtnClick:(UIButton *)btn {
+- (void)showVisualViewAction {
     if (self.visualView.hidden) {
         self.visualView.hidden = NO;
         [UIView animateWithDuration:0.3 animations:^{
@@ -169,6 +193,7 @@
             self.visualView.hidden = YES;
         }];
     }
+    [self.tableView reloadData];
 }
 
 - (void)updateTitleViewWithTitle:(NSString *)title {
@@ -186,7 +211,7 @@
 - (void)albumViewWillPreview:(WZMAlbumView *)albumView atIndexPath:(NSIndexPath *)indexPath {
     WZMPhotoBrowser *photoBrowser = [[WZMPhotoBrowser alloc] init];
     photoBrowser.delegate = self;
-    photoBrowser.images = albumView.allPhotos;
+    photoBrowser.images = albumView.selectedAlbum.photos;
     photoBrowser.index = indexPath.row;
     photoBrowser.modalPresentationStyle = UIModalPresentationFullScreen;
     
@@ -260,18 +285,44 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - UITableViewDelegate,UITableViewDataSource
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self showVisualViewAction];
+    WZMAlbumModel *albumModel = [self.albumView.allAlbums objectAtIndex:indexPath.row];
+    [self updateTitleViewWithTitle:albumModel.title];
+    [self.albumView reloadDataWithAlbumModel:albumModel];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.albumView.allAlbums.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+    }
+    if (indexPath.row < self.albumView.allAlbums.count) {
+        WZMAlbumModel *albumModel = [self.albumView.allAlbums objectAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@(%@/%@)",albumModel.title,@(albumModel.selectedCount),@(albumModel.count)];
+    }
+    return cell;
+}
+
 #pragma mark - private
 ///获取图片(UIImage),GIF(NSData)或视频(NSURL)
-- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
+- (void)photosWithModels:(NSArray<WZMAlbumPhotoModel *> *)models completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
     NSMutableArray *array1 = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *array2 = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *array3 = [[NSMutableArray alloc] initWithCapacity:0];
     [self photosWithModels:models index:0 originals:array1 thumbnails:array2 assets:array3 completion:completion];
 }
 
-- (void)photosWithModels:(NSArray<WZMAlbumModel *> *)models index:(NSInteger)index originals:(NSMutableArray *)array1 thumbnails:(NSMutableArray *)array2 assets:(NSMutableArray *)array3 completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
+- (void)photosWithModels:(NSArray<WZMAlbumPhotoModel *> *)models index:(NSInteger)index originals:(NSMutableArray *)array1 thumbnails:(NSMutableArray *)array2 assets:(NSMutableArray *)array3 completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
     if (index < models.count) {
-        WZMAlbumModel *model = [models objectAtIndex:index];
+        WZMAlbumPhotoModel *model = [models objectAtIndex:index];
         [model getImageWithConfig:self.config completion:^(id obj) {
             if (obj) {
                 [array1 addObject:obj];

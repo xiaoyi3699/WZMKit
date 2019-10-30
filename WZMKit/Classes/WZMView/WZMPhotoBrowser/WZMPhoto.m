@@ -18,7 +18,7 @@
 #import "WZMVideoPlayerView.h"
 #import "WZMLogPrinter.h"
 #import "WZMPanGestureRecognizer.h"
-#import "WZMAlbumModel.h"
+#import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumHelper.h"
 #import "WZMPublic.h"
 
@@ -266,8 +266,8 @@
         NSURL *url = (NSURL *)wzm_image;
         [self setPath:url.path];
     }
-    else if ([wzm_image isKindOfClass:[WZMAlbumModel class]]) {
-        WZMAlbumModel *model = (WZMAlbumModel *)wzm_image;
+    else if ([wzm_image isKindOfClass:[WZMAlbumPhotoModel class]]) {
+        WZMAlbumPhotoModel *model = (WZMAlbumPhotoModel *)wzm_image;
         BOOL isICloud = model.isICloud;
         if (isICloud) {
             [model getThumbnailCompletion:^(UIImage *thumbnail) {

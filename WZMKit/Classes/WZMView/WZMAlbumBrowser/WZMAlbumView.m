@@ -25,8 +25,9 @@
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, assign) CGRect albumFrame;
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray<WZMAlbumModel *> *allPhotos;
-@property (nonatomic, strong) NSMutableArray<WZMAlbumModel *> *selectedPhotos;
+@property (nonatomic, strong) WZMAlbumModel *selectedAlbum;
+@property (nonatomic, strong) NSMutableArray<WZMAlbumModel *> *allAlbums;
+@property (nonatomic, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 
 @end
 
@@ -34,6 +35,7 @@
     CGSize _itemSize;
     NSInteger _lastRow;
     NSInteger _lastColumn;
+    NSInteger _selectIndex;
 }
 
 - (instancetype)initWithConfig:(WZMAlbumConfig *)config {
@@ -57,8 +59,9 @@
     self.hasViews = NO;
     self.config = config;
     self.onlyOne = (config.allowPreview == NO && config.maxCount == 1);
-    self.allPhotos = [[NSMutableArray alloc] initWithCapacity:0];
+    self.allAlbums = [[NSMutableArray alloc] initWithCapacity:0];
     self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
+    _selectIndex = 0;
     if (self.onlyOne == NO) {
         if (config.allowDragSelect) {
             UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
@@ -145,26 +148,54 @@
 
 //刷新相册
 - (void)reloadData {
-    if (self.allPhotos.count > 0) return;
-    [self.allPhotos removeAllObjects];
+    if (self.allAlbums.count > 0) return;
     PHFetchOptions *option = [[PHFetchOptions alloc] init];
     if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
     if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
     option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+    
     PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     for (PHAssetCollection *collection in smartAlbums) {
         if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
         if (collection.estimatedAssetCount <= 0) continue;
         if ([self isCameraRollAlbum:collection]) {
+            WZMAlbumModel *cameraRollAlbumModel = [[WZMAlbumModel alloc] init];
+            cameraRollAlbumModel.title = @"相机胶卷";
             PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
             [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 PHAsset *phAsset = (PHAsset *)obj;
-                WZMAlbumModel *model = [WZMAlbumModel modelWithAsset:phAsset];
-                [self.allPhotos addObject:model];
+                WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
+                model.localIdentifier = phAsset.localIdentifier;
+                [cameraRollAlbumModel.photos addObject:model];
             }];
+            cameraRollAlbumModel.count = cameraRollAlbumModel.photos.count;
+            [self.allAlbums addObject:cameraRollAlbumModel];
             break;
         }
     }
+    
+    PHFetchResult *customAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *collection in customAlbums) {
+        if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+        if (collection.estimatedAssetCount <= 0) continue;
+        WZMAlbumModel *albumModel = [[WZMAlbumModel alloc] init];
+        albumModel.title = collection.localizedTitle;
+        [self.allAlbums addObject:albumModel];
+        PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+        [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            PHAsset *phAsset = (PHAsset *)obj;
+            WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
+            model.localIdentifier = phAsset.localIdentifier;
+            [albumModel.photos addObject:model];
+        }];
+        albumModel.count = albumModel.photos.count;
+    }
+    WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
+    [self reloadDataWithAlbumModel:albumModel];
+}
+
+- (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel {
+    self.selectedAlbum = albumModel;
     [self.collectionView reloadData];
 }
 
@@ -203,21 +234,21 @@
 
 #pragma mark - UICollectionViewDelegate && UICollectionViewDataSource && UICollectionViewDelegateWaterfallLayout
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.allPhotos.count;
+    return self.selectedAlbum.photos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     WZMAlbumCell *cell = (WZMAlbumCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
     cell.indexPath = indexPath;
-    if (indexPath.row < self.allPhotos.count) {
-        [cell setConfig:self.config model:[self.allPhotos objectAtIndex:indexPath.row]];
+    if (indexPath.row < self.selectedAlbum.photos.count) {
+        [cell setConfig:self.config model:[self.selectedAlbum.photos objectAtIndex:indexPath.row]];
     }
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= self.allPhotos.count) return;
+    if (indexPath.row >= self.selectedAlbum.photos.count) return;
     if (self.config.allowPreview) {
         if ([self.delegate respondsToSelector:@selector(albumViewWillPreview:atIndexPath:)]) {
             [self.delegate albumViewWillPreview:self atIndexPath:indexPath];
@@ -247,7 +278,7 @@
 
 //检查是否是iCloud图片
 - (void)checkSelectedAtIndexPath:(NSIndexPath *)indexPath {
-    WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
+    WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
     BOOL isICloud = model.isICloud;
     BOOL isAllowSelect = (model.type == WZMAlbumPhotoTypePhoto && self.config.allowUseThumbnail);
     [model getOriginalCompletion:^(id original) {
@@ -269,21 +300,23 @@
 //选中图片
 - (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
     if (self.onlyOne) {
-        WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
+        WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
         [self.selectedPhotos addObject:model];
         [self didSelectedFinish];
+        self.selectedAlbum.selectedCount ++;
     }
     else {
-        WZMAlbumModel *model = [self.allPhotos objectAtIndex:indexPath.row];
+        WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
         if (model.isSelected) {
             model.selected = NO;
             model.index = 1;
             NSInteger index = [self.selectedPhotos indexOfObject:model];
             for (NSInteger i = index+1; i < self.selectedPhotos.count; i ++) {
-                WZMAlbumModel *tmodel = [self.selectedPhotos objectAtIndex:i];
+                WZMAlbumPhotoModel *tmodel = [self.selectedPhotos objectAtIndex:i];
                 tmodel.index = tmodel.index-1;
             }
             [self.selectedPhotos removeObject:model];
+            self.selectedAlbum.selectedCount --;
         }
         else {
             if (self.selectedPhotos.count+1 > self.config.maxCount) {
@@ -294,6 +327,7 @@
             model.index = self.selectedPhotos.count+1;
             model.selected = YES;
             [self.selectedPhotos addObject:model];
+            self.selectedAlbum.selectedCount ++;
         }
         [self.collectionView reloadData];
         self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
