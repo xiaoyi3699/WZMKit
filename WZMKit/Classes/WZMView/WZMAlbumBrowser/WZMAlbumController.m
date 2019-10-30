@@ -50,6 +50,8 @@
     self.titleView = [[UIView alloc] init];
     self.titleBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
     self.titleBtn.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:0.5] darkColor:[UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:0.5]];
+    self.titleBtn.layer.cornerRadius = 15;
+    self.titleBtn.layer.masksToBounds = YES;
     self.titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     self.titleBtn.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]];
     [self.titleBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]] forState:UIControlStateNormal];
@@ -204,13 +206,14 @@
 
 - (void)updateTitleViewWithTitle:(NSString *)title {
     CGFloat w = ceil([title sizeWithAttributes:@{NSFontAttributeName:self.titleBtn.titleLabel.font}].width);
-    self.titleView.frame = CGRectMake(0, 0, w+40, 44);
-    self.titleBtn.frame = CGRectMake(0, 7, w+40, 30);
-    self.titleBtn.layer.cornerRadius = 15;
-    self.titleBtn.layer.masksToBounds = YES;
-    [self.titleBtn setTitle:title forState:UIControlStateNormal];
-    self.titleBtn.titleFrame = CGRectMake(13, 0, w, 30);
-    self.titleBtn.imageFrame = CGRectMake(13+w+5, 12, 10, 10);
+    [UIView animateWithDuration:0.1 animations:^{
+        self.titleView.frame = CGRectMake(0, 0, w+40, 44);
+        self.titleBtn.frame = CGRectMake(0, 7, w+40, 30);
+        
+        [self.titleBtn setTitle:title forState:UIControlStateNormal];
+        self.titleBtn.titleFrame = CGRectMake(13, 0, w, 30);
+        self.titleBtn.imageFrame = CGRectMake(13+w+5, 12, 10, 10);
+    }];
 }
 
 //WZMAlbumView代理
