@@ -113,7 +113,7 @@
         rect.origin.y = y;
         rect.size.height = h;
         self.albumView.frame = rect;
-        self.visualView.frame = CGRectMake(0, y-h, rect.size.height, h);
+        self.visualView.frame = CGRectMake(0, y-h, rect.size.width, h);
         self.tableView.frame = self.visualView.bounds;
         [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
     }
