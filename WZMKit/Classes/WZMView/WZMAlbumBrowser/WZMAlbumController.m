@@ -52,7 +52,7 @@
     [self.titleBtn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [self.titleBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [self.titleBtn addTarget:self action:@selector(showVisualViewAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.self.titleView addSubview:self.titleBtn];
+    [self.titleView addSubview:self.titleBtn];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
 //    leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
