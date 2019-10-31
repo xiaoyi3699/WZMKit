@@ -63,16 +63,12 @@
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    if (indexPath.row < _newDataProvider.currentList.count) {
-//        WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-//        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
-//        webVC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:webVC animated:YES];
-//    }
-    
-    NSString *m = [self AES128Encrypt:@"abcdefghijk" key:@"wang"];
-    NSString *j = [self AES128Decrypt:m key:@"wang"];
-    NSLog(@"%@===%@",m,j);
+    if (indexPath.row < _newDataProvider.currentList.count) {
+        WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
+        webVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:webVC animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

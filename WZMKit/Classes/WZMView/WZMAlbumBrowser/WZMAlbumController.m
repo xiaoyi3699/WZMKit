@@ -16,6 +16,7 @@
 #import "WZMLogPrinter.h"
 #import "WZMPhotoBrowser.h"
 #import "UIColor+wzmcate.h"
+#import "WZMAlbumListCell.h"
 #import "WZMAlbumNavigationController.h"
 #import "UIViewController+WZMModalAnimation.h"
 
@@ -104,7 +105,9 @@
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableView.separatorColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(200, 200, 200, 0.5) darkColor:WZM_R_G_B_A(55, 55, 55, 0.5)];
     self.tableView.scrollsToTop = NO;
+    
     [self.visualView.contentView addSubview:self.tableView];
 }
 
@@ -315,14 +318,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    WZMAlbumListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell = [[WZMAlbumListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         cell.textLabel.font = [UIFont systemFontOfSize:14];
     }
     if (indexPath.row < self.albumView.allAlbums.count) {
         WZMAlbumModel *albumModel = [self.albumView.allAlbums objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@(%@/%@)",albumModel.title,@(albumModel.selectedCount),@(albumModel.count)];
+        NSString *title = [NSString stringWithFormat:@"%@(%@/%@)",albumModel.title,@(albumModel.selectedCount),@(albumModel.count)];
+        WZMAlbumPhotoModel *photoModel = albumModel.photos.lastObject;
+        if (photoModel) {
+            UIImage *image = photoModel.thumbnail;
+            if (image) {
+                [cell setConfig:image title:title];
+            }
+            else {
+                [WZMAlbumHelper wzm_getThumbnailWithAsset:photoModel.asset photoWidth:34 thumbnail:^(UIImage *photo) {
+                    [cell setConfig:photo title:title];
+                } cloud:nil];
+            }
+        }
+        else {
+            [cell setConfig:nil title:title];
+        }
     }
     return cell;
 }
