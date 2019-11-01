@@ -17,13 +17,13 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 34, 34)];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.8];
         [self addSubview:_imageView];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 0, 200, 44)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 60)];
         _titleLabel.textColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont systemFontOfSize:15];
