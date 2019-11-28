@@ -339,7 +339,6 @@
 #import "WZMVideoKeyView2.h"
 #import "WZMPanGestureRecognizer.h"
 #import "WZMSingleRotationGestureRecognizer.h"
-#import "WZMAlbumHelper.h"
 #import "WZMAlbumController.h"
 #import "WZMAlbumNavigationController.h"
 #import "WZMScannerViewController.h"

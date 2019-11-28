@@ -1,0 +1,6 @@
+framework module WZMKit {
+  umbrella header "WZMKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
