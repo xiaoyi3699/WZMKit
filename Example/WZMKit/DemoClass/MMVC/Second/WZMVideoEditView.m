@@ -7,43 +7,56 @@
 //
 
 #import "WZMVideoEditView.h"
+#import "FLLayerBuilderTool.h"
+#import "WZMNoteAnimation.h"
 
-@interface WZMVideoEditView ()
+@interface WZMVideoEditView ()<WZMPlayerDelegate>
 
+@property (nonatomic ,assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
-@property (nonatomic ,assign) CGRect videoFrame;
-@property (nonatomic, strong) UIView *watermarkView;
+///字幕配置
+@property (nonatomic, strong) NSArray<WZMNoteModel *> *noteModels;
 
 @end
 
 @implementation WZMVideoEditView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame noteModels:(NSArray<WZMNoteModel *> *)noteModels {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setConfig:self.bounds];
+        self.noteModels = noteModels;
+        [self layoutWithFrame:self.bounds];
     }
     return self;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setConfig:CGRectZero];
-    }
-    return self;
-}
-
-- (void)setConfig:(CGRect)frame {
+- (void)layoutWithFrame:(CGRect)frame {
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
     self.playView.backgroundColor = [UIColor redColor];
     [self addSubview:self.playView];
     
     self.player = [[WZMPlayer alloc] init];
+    self.player.delegate = self;
     self.player.playerView = self.playView;
+}
+
+- (void)layoutPlayView {
+    if (CGSizeEqualToSize(self.bounds.size, CGSizeZero)) return;
+    if (CGSizeEqualToSize(self.renderSize, CGSizeZero)) return;
+    CGSize playViewSize = WZMSizeRatioToMaxSize(self.renderSize, self.bounds.size);
+    CGRect playViewRect = CGRectZero;
+    playViewRect.origin.x = (self.bounds.size.width-playViewSize.width)/2;
+    playViewRect.origin.y = (self.bounds.size.height-playViewSize.height)/2;
+    playViewRect.size = playViewSize;
+    self.playView.frame = playViewRect;
+    self.videoFrame = playViewRect;
+    
+    if (self.videoUrl && self.player.isPlaying == NO) {
+        [self.player playWithURL:self.videoUrl];
+    }
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -61,35 +74,18 @@
     [self layoutPlayView];
 }
 
-- (void)layoutPlayView {
-    if (CGSizeEqualToSize(self.bounds.size, CGSizeZero)) return;
-    if (CGSizeEqualToSize(self.renderSize, CGSizeZero)) return;
-    CGSize playViewSize = WZMSizeRatioToMaxSize(self.renderSize, self.bounds.size);
-    CGRect playViewRect;
-    playViewRect.origin.x = (self.bounds.size.width-playViewSize.width)/2;
-    playViewRect.origin.y = (self.bounds.size.height-playViewSize.height)/2;
-    playViewRect.size = playViewSize;
-    self.playView.frame = playViewRect;
-    self.videoFrame = playViewRect;
-    
-    if (self.videoUrl && self.player.isPlaying == NO) {
-        [self.player playWithURL:self.videoUrl];
-    }
+- (void)showNoteAnimation:(NSInteger)index {
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    CALayer *layer = [self animationTextLayerWithFrame:noteModel.textFrame preview:YES index:index];
+    [self.playView.layer addSublayer:layer];
 }
 
-- (void)addWatermark:(UIView *)markView {
-    self.watermarkView = markView;
-    [self.playView addSubview:self.watermarkView];
+- (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
+    [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
 }
 
-- (void)exportVideoCompletion:(void(^)(NSURL *exportURL))completion {
-    if (self.watermarkView == nil) return;
-    UIImage *image = [UIImage wzm_getScreenImageByView:self.watermarkView];
-    [self addWatermark:self.videoUrl frame:self.watermarkView.frame image:image completion:completion];
-}
-
-#pragma mark -- 添加简单的水印
-- (void)addWatermark:(NSURL *)videoUrl frame:(CGRect)frame image:(UIImage *)image completion:(void(^)(NSURL *exportURL))completion {
+#pragma mark -- 添加水印、字幕、动画
+- (void)addWatermarkWithVideoUrl:(NSURL *)videoUrl completion:(void(^)(NSURL *exportURL))completion {
     //1 创建AVAsset实例 AVAsset包含了video的所有信息 self.videoUrl输入视频的路径
     AVAsset *videoAsset = [AVAsset assetWithURL:videoUrl];
     AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
@@ -109,37 +105,102 @@
     //矫正视频角度
     AVMutableVideoComposition *mainCompositionInst = [self videoCompositionVideoTrack:videoTrack videoAssetTrack:videoAssetTrack];
     //简单的水印
-    [self composition:mainCompositionInst frame:frame image:image size:mainCompositionInst.renderSize];
+    [self renderWaterMarkWithComposition:mainCompositionInst];
     
     [self videoExportComosition:mixComposition videoComposition:mainCompositionInst quality:AVAssetExportPresetHighestQuality completion:completion];
 }
 
 //添加水印
-- (void)composition:(AVMutableVideoComposition *)composition frame:(CGRect)frame image:(UIImage *)image size:(CGSize)size {
+- (void)renderWaterMarkWithComposition:(AVMutableVideoComposition *)composition {
+    CGSize renderSize = composition.renderSize;
     CALayer *parentLayer = [CALayer layer];
-    parentLayer.frame = CGRectMake(0, 0, size.width, size.height);
+    parentLayer.frame = CGRectMake(0, 0, renderSize.width, renderSize.height);
     
     CALayer *videoLayer = [CALayer layer];
-    videoLayer.frame = CGRectMake(0, 0, size.width, size.height);
+    videoLayer.frame = CGRectMake(0, 0, renderSize.width, renderSize.height);
     [parentLayer addSublayer:videoLayer];
     
-    CALayer *overlayLayer = [CALayer layer];
-    overlayLayer.frame = CGRectMake(0, 0, size.width, size.height);
-    [overlayLayer setMasksToBounds:YES];
-    [parentLayer addSublayer:overlayLayer];
-    
-    //1、视频实际尺寸/当前显示尺寸,计算出视频的缩小比例或者放大倍数
+    //1、视频实际尺寸/当前显示尺寸,计算出视频的缩放比例
+    CGFloat scale = renderSize.width/self.videoFrame.size.width;
     //2、左下角为原点,对水印图片坐标系进行转换
-    CGFloat scale = size.width/self.videoFrame.size.width;
-    CALayer *imageLayer = [[CALayer alloc] init];
-    imageLayer.contents = (id)image.CGImage;
-    imageLayer.frame = CGRectMake(frame.origin.x*scale, (self.videoFrame.size.height-(frame.origin.y+frame.size.height))*scale, frame.size.width*scale, frame.size.height*scale);
-    [overlayLayer addSublayer:imageLayer];
-    
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+        CGRect markFrame = noteModel.textFrame;
+        CGRect rect = CGRectZero;
+        rect.origin.x = markFrame.origin.x*scale;
+        rect.origin.y = (self.videoFrame.size.height-(markFrame.origin.y+markFrame.size.height))*scale;
+        rect.size.width = markFrame.size.width*scale;
+        rect.size.height = markFrame.size.height*scale;
+        
+        CALayer *layer = [self animationTextLayerWithFrame:rect preview:NO index:i];
+        [parentLayer addSublayer:layer];
+    }
     composition.animationTool = [AVVideoCompositionCoreAnimationTool
                                  videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayer:videoLayer inLayer:parentLayer];
 }
 
+//layer动画
+- (CALayer *)animationTextLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
+    CALayer *overlayLayer = [CALayer layer];
+    overlayLayer.frame = frame;
+    [overlayLayer setMasksToBounds:YES];
+    
+    CATextLayer *textLayer = [self textLayerWithFrame:overlayLayer.bounds index:index];
+    [overlayLayer addSublayer:textLayer];
+    
+    // 3.显示动画
+    NSTimeInterval animationDuration = 0.1f;
+    
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.fromValue = @0.0f;
+    fadeInAnimation.toValue = @1.0f;
+    fadeInAnimation.additive = NO;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.autoreverses = NO;
+    fadeInAnimation.fillMode = kCAFillModeBoth;
+    fadeInAnimation.duration = animationDuration;
+    
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = @1.0f;
+    fadeOutAnimation.toValue = @0.0f;
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.autoreverses = NO;
+    fadeOutAnimation.fillMode = kCAFillModeBoth;
+    fadeOutAnimation.duration = animationDuration;
+    
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    if (preview) {
+        [textLayer addAnimation:fadeInAnimation forKey:@"opacity"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(noteModel.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
+        });
+    }
+    else {
+        fadeInAnimation.beginTime = noteModel.startTime;
+        fadeOutAnimation.beginTime = (noteModel.startTime+noteModel.duration);
+        [textLayer addAnimation:fadeInAnimation forKey:@"opacity"];
+        [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
+    }
+    return overlayLayer;
+}
+
+- (CATextLayer *)textLayerWithFrame:(CGRect)frame index:(NSInteger)index {
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    CGFloat scale = (frame.size.width/noteModel.textFrame.size.width);
+    CATextLayer *textLayer = [CATextLayer layer];
+    textLayer.string = noteModel.text;
+    textLayer.font = noteModel.textFont;
+    textLayer.fontSize = noteModel.textFontSize*scale;
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.frame = frame;
+    textLayer.foregroundColor = [UIColor greenColor].CGColor;
+    textLayer.backgroundColor = [UIColor clearColor].CGColor;
+    textLayer.contentsScale = [UIScreen mainScreen].scale;
+    return textLayer;
+}
+
+#pragma mark - private method
 //视频导出
 - (void)videoExportComosition:(AVMutableComposition *)comosition videoComposition:(AVMutableVideoComposition *)mainCompositionInst quality:(NSString *)quality completion:(void(^)(NSURL *exportURL))completion {
     //合成之后的输出路径
@@ -153,7 +214,7 @@
     AVAssetExportSession * assetExport = [[AVAssetExportSession alloc] initWithAsset:comosition presetName:quality];
     assetExport.outputURL = outPutUrl;//输出路径
     assetExport.outputFileType = AVFileTypeQuickTimeMovie;//输出类型
-    assetExport.shouldOptimizeForNetworkUse = YES;//是否优化   不太明白
+    assetExport.shouldOptimizeForNetworkUse = YES;
     if (mainCompositionInst) {
         assetExport.videoComposition = mainCompositionInst;
     }
@@ -201,7 +262,7 @@
     mainInstruction.layerInstructions = [NSArray arrayWithObjects:videolayerInstruction,nil];
 
     AVMutableVideoComposition *mainCompositionInst = [AVMutableVideoComposition videoComposition];
-
+    
     CGSize naturalSize;
     if(isVideoAssetPortrait_){
         naturalSize = CGSizeMake(videoAssetTrack.naturalSize.height, videoAssetTrack.naturalSize.width);
@@ -214,8 +275,24 @@
     mainCompositionInst.renderSize = CGSizeMake(renderWidth, renderHeight);
     mainCompositionInst.instructions = [NSArray arrayWithObject:mainInstruction];
     mainCompositionInst.frameDuration = CMTimeMake(1, 30);
-
+    
     return mainCompositionInst;
+}
+
+- (void)playerPlaying:(WZMPlayer *)player {
+    static NSInteger index = 0;
+    for (NSInteger i = index; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+            if (noteModel.allowShow == NO) continue;
+            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
+                noteModel.allowShow = NO;
+                [self showNoteAnimation:i];
+                index = i+1;
+                break;
+            }
+        }
+    }
 }
 
 @end

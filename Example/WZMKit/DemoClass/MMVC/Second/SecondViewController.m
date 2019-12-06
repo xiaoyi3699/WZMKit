@@ -8,10 +8,15 @@
 
 #import "SecondViewController.h"
 #import "WZMVideoEditView.h"
+#import "WZMNoteAnimation.h"
+
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
 @interface SecondViewController ()<WZMAlbumControllerDelegate,WZMAlbumNavigationControllerDelegate>
+
+@property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) UIView *noteView;
 
 @end
 
@@ -31,18 +36,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    editView = [[WZMVideoEditView alloc] initWithFrame:CGRectMake(20, 100, WZM_SCREEN_WIDTH-40, 200)];
+    WZMNoteModel *noteModel = [[WZMNoteModel alloc] init];
+    noteModel.text = @"我是第一个字幕";
+    noteModel.noteImage = [UIImage new];
+    noteModel.textColor = [UIColor redColor];
+    noteModel.backgroundColor = [UIColor clearColor];
+    noteModel.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel.startTime = 1.0;
+    noteModel.duration = 2;
+    
+    WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
+    noteModel2.text = @"我是第二个字幕";
+    noteModel2.noteImage = [UIImage new];
+    noteModel2.textColor = [UIColor redColor];
+    noteModel2.backgroundColor = [UIColor clearColor];
+    noteModel2.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel2.startTime = 4.0;
+    noteModel2.duration = 1;
+    
+    WZMNoteModel *noteModel3 = [[WZMNoteModel alloc] init];
+    noteModel3.text = @"我是第三个字幕";
+    noteModel3.noteImage = [UIImage new];
+    noteModel3.textColor = [UIColor redColor];
+    noteModel3.backgroundColor = [UIColor clearColor];
+    noteModel3.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel3.startTime = 6.0;
+    noteModel3.duration = 3;
+    
+    editView = [[WZMVideoEditView alloc] initWithFrame:CGRectMake(10, 100, 355, 400) noteModels:@[noteModel,noteModel2,noteModel3]];
+    editView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:editView];
+    
+//    WZMNoteConfig *config = [[WZMNoteConfig alloc] init];
+//    config.text = @"我是一个字幕";
+//    config.noteImage = [UIImage new];
+//    config.textColor = [UIColor redColor];
+//    config.backgroundColor = [UIColor clearColor];
+//
+//    CGRect noteFrame = CGRectMake(10, 100, 180, 60);
+//    WZMNoteAnimation *noteAnimation = [[WZMNoteAnimation alloc] initWithFrame:noteFrame config:config];
+//    [noteAnimation startNoteAnimationInView:self.view];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//
-//    return;
-//    NSString *str1 = @"重庆";
-//    NSString *str = @"%u91CD%u5E86";
-//    NSLog(@"%@==%@",[str wzm_getURLDecoded],[str1 wzm_getURLEncoded2]);
-//    return;
-    
     WZMAlbumConfig *config = [WZMAlbumConfig new];
     config.originalVideo = YES;
     config.originalImage = YES;
@@ -54,11 +90,6 @@
     vc.pickerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
     
-    NSURL *videoUrl;
-    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
-    AVAssetTrack *track = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-    CGSize renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
-    
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
@@ -67,12 +98,9 @@
     
     editView.videoUrl = originals.firstObject;
     
-    UIView *markView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 20, 20)];
-    markView.backgroundColor = [UIColor grayColor];
-    [editView addWatermark:markView];
-    
+//    return;
     [WZMViewHandle wzm_showProgressMessage:nil];
-    [editView exportVideoCompletion:^(NSURL *exportURL) {
+    [editView exportVideoWithNoteAnimationCompletion:^(NSURL *exportURL) {
         [WZMViewHandle wzm_dismiss];
         if (exportURL) {
             [WZMAlbumHelper wzm_saveVideo:exportURL.path];
