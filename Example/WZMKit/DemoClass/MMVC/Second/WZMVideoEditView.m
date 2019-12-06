@@ -197,7 +197,7 @@
     //单个字的宽和高
     CGFloat singleW = (frame.size.width/noteModel.text.length);
     //音符上下波动间距
-    CGFloat dy = frame.size.height-singleW;
+    CGFloat dy = frame.size.height-singleW-10;
     //音符起始x、y坐标
     CGFloat startX = 0.0, startY = dy;
     
