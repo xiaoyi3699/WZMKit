@@ -126,13 +126,13 @@
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
         CGRect markFrame = noteModel.textFrame;
-        CGRect rect = CGRectZero;
-        rect.origin.x = markFrame.origin.x*scale;
-        rect.origin.y = (self.videoFrame.size.height-(markFrame.origin.y+markFrame.size.height))*scale;
-        rect.size.width = markFrame.size.width*scale;
-        rect.size.height = markFrame.size.height*scale;
+        markFrame.origin.x *= scale;
+        markFrame.origin.y *= scale;
+        markFrame.size.width *= scale;
+        markFrame.size.height *= scale;
+        markFrame = [self convertToLandscapeRect:markFrame superSize:renderSize];
         
-        CALayer *layer = [self animationTextLayerWithFrame:rect preview:NO index:i];
+        CALayer *layer = [self animationTextLayerWithFrame:markFrame preview:NO index:i];
         [parentLayer addSublayer:layer];
     }
     composition.animationTool = [AVVideoCompositionCoreAnimationTool
@@ -145,8 +145,8 @@
     overlayLayer.frame = frame;
     [overlayLayer setMasksToBounds:YES];
     
-    CATextLayer *textLayer = [self textLayerWithFrame:overlayLayer.bounds index:index];
-    [overlayLayer addSublayer:textLayer];
+    CALayer *contentLayer = [self textLayerWithFrame:overlayLayer.bounds preview:preview index:index];
+    [overlayLayer addSublayer:contentLayer];
     
     // 3.显示动画
     NSTimeInterval animationDuration = 0.1f;
@@ -155,8 +155,8 @@
     fadeInAnimation.fromValue = @0.0f;
     fadeInAnimation.toValue = @1.0f;
     fadeInAnimation.additive = NO;
-    fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.autoreverses = NO;
+    fadeInAnimation.removedOnCompletion = NO;
     fadeInAnimation.fillMode = kCAFillModeBoth;
     fadeInAnimation.duration = animationDuration;
     
@@ -164,14 +164,14 @@
     fadeOutAnimation.fromValue = @1.0f;
     fadeOutAnimation.toValue = @0.0f;
     fadeOutAnimation.additive = NO;
-    fadeOutAnimation.removedOnCompletion = NO;
     fadeOutAnimation.autoreverses = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
     fadeOutAnimation.fillMode = kCAFillModeBoth;
     fadeOutAnimation.duration = animationDuration;
     
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (preview) {
-        [textLayer addAnimation:fadeInAnimation forKey:@"opacity"];
+        [contentLayer addAnimation:fadeInAnimation forKey:@"opacity"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(noteModel.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
         });
@@ -179,25 +179,135 @@
     else {
         fadeInAnimation.beginTime = noteModel.startTime;
         fadeOutAnimation.beginTime = (noteModel.startTime+noteModel.duration);
-        [textLayer addAnimation:fadeInAnimation forKey:@"opacity"];
+        [contentLayer addAnimation:fadeInAnimation forKey:@"opacity"];
         [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
     }
     return overlayLayer;
 }
 
-- (CATextLayer *)textLayerWithFrame:(CGRect)frame index:(NSInteger)index {
+- (CALayer *)textLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
+    CALayer *contentLayer = [CALayer layer];
+    contentLayer.frame = frame;
+    contentLayer.backgroundColor = [UIColor greenColor].CGColor;
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    if (noteModel.text.length <= 0) return contentLayer;
+    
+    //缩放比例
     CGFloat scale = (frame.size.width/noteModel.textFrame.size.width);
-    CATextLayer *textLayer = [CATextLayer layer];
-    textLayer.string = noteModel.text;
-    textLayer.font = noteModel.textFont;
-    textLayer.fontSize = noteModel.textFontSize*scale;
-    textLayer.alignmentMode = kCAAlignmentCenter;
-    textLayer.frame = frame;
-    textLayer.foregroundColor = [UIColor greenColor].CGColor;
-    textLayer.backgroundColor = [UIColor clearColor].CGColor;
-    textLayer.contentsScale = [UIScreen mainScreen].scale;
-    return textLayer;
+    //单个字的宽和高
+    CGFloat singleW = (frame.size.width/noteModel.text.length);
+    //音符上下波动间距
+    CGFloat dy = frame.size.height-singleW;
+    //音符起始x、y坐标
+    CGFloat startX = 0.0, startY = dy;
+    
+    NSMutableArray *words = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *layers = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
+    for (NSInteger i = 0; i < noteModel.text.length; i ++) {
+        @autoreleasepool {
+            NSString *word = [noteModel.text substringWithRange:NSMakeRange(i, 1)];
+            [words addObject:word];
+            
+            CGRect rect = CGRectMake(startX+i*singleW, startY, singleW, singleW);
+            if (preview == NO) {
+                rect = [self convertToLandscapeRect:rect superSize:frame.size];
+            }
+            CATextLayer *textLayer = [CATextLayer layer];
+            textLayer.string = word;
+            textLayer.font = noteModel.textFont;
+            textLayer.fontSize = noteModel.textFontSize*scale;
+            textLayer.alignmentMode = kCAAlignmentCenter;
+            textLayer.frame = rect;
+            textLayer.foregroundColor = [UIColor redColor].CGColor;
+            textLayer.backgroundColor = [UIColor blueColor].CGColor;
+            textLayer.contentsScale = [UIScreen mainScreen].scale;
+            [contentLayer addSublayer:textLayer];
+            
+            CGPoint point1, point2;
+            if (preview == NO) {
+                point1 = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+                point2 = CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect)+dy);
+            }
+            else {
+                point1 = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+                point2 = CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect)-dy);
+            }
+            [points addObject:NSStringFromCGPoint(point1)];
+            [points addObject:NSStringFromCGPoint(point2)];
+        }
+    }
+    
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    bezierPath.lineWidth = 1;
+    bezierPath.lineCapStyle = kCGLineCapRound;
+    bezierPath.lineJoinStyle = kCGLineCapRound;
+    if (points.count > 1) {
+        CGPoint startPoint = CGPointFromString(points[0]);
+        [bezierPath moveToPoint:startPoint];
+        NSInteger count = points.count;
+        for (NSInteger i = 1; i < count; i ++) {
+            CGPoint endPoint = CGPointFromString(points[i]);
+            [bezierPath addLineToPoint:endPoint];
+        }
+    }
+    
+    CGRect noteRect = CGRectMake(0, 0, 10, 10);
+    if (preview == NO) {
+        noteRect.origin.x *= scale;
+        noteRect.origin.y *= scale;
+        noteRect.size.width *= scale;
+        noteRect.size.height *= scale;
+        noteRect = [self convertToLandscapeRect:noteRect superSize:frame.size];
+    }
+    CALayer *noteLayer = [CALayer layer];
+    noteLayer.frame = noteRect;
+    noteLayer.backgroundColor = [UIColor redColor].CGColor;
+    [contentLayer addSublayer:noteLayer];
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    //设置动画属性，因为是沿着贝塞尔曲线动，所以要设置为position
+    animation.keyPath = @"position";
+    //设置动画时间
+    animation.duration = noteModel.duration;
+    // 告诉在动画结束的时候不要移除
+    animation.removedOnCompletion = NO;
+    // 始终保持最新的效果
+    animation.fillMode = kCAFillModeForwards;
+    // 设置贝塞尔曲线路径
+    animation.path = bezierPath.CGPath;
+    // 将动画对象添加到视图的layer上
+    if (preview == NO) {
+        animation.beginTime = noteModel.startTime;
+    }
+    [noteLayer addAnimation:animation forKey:@"noteAnimation"];
+    
+    return contentLayer;
+}
+
+///
+- (CGPoint)convertToLandscapePoint:(CGPoint)point height:(CGFloat)height superSize:(CGSize)superSize {
+    CGPoint portraitPoint = point;
+    portraitPoint.y = (superSize.height-point.y-height);
+    return portraitPoint;
+}
+
+- (CGRect)convertToLandscapeRect:(CGRect)rect superSize:(CGSize)superSize {
+    CGRect portraitRect = rect;
+    portraitRect.origin.y = (superSize.height-rect.origin.y-rect.size.height);
+    return portraitRect;
+}
+
+- (CGPoint)convertToPortraitPoint:(CGPoint)point height:(CGFloat)height {
+    CGPoint portraitPoint = point;
+    portraitPoint.y = (point.y+height);
+    return portraitPoint;
+}
+
+- (CGRect)convertToPortraitRect:(CGRect)rect {
+    CGRect portraitRect = rect;
+    portraitRect.origin.y = (rect.origin.y+rect.size.height);
+    return portraitRect;
 }
 
 #pragma mark - private method

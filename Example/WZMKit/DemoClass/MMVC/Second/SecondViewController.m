@@ -41,7 +41,7 @@
     noteModel.noteImage = [UIImage new];
     noteModel.textColor = [UIColor redColor];
     noteModel.backgroundColor = [UIColor clearColor];
-    noteModel.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel.startTime = 1.0;
     noteModel.duration = 2;
     
@@ -50,7 +50,7 @@
     noteModel2.noteImage = [UIImage new];
     noteModel2.textColor = [UIColor redColor];
     noteModel2.backgroundColor = [UIColor clearColor];
-    noteModel2.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel2.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel2.startTime = 4.0;
     noteModel2.duration = 1;
     
@@ -59,7 +59,7 @@
     noteModel3.noteImage = [UIImage new];
     noteModel3.textColor = [UIColor redColor];
     noteModel3.backgroundColor = [UIColor clearColor];
-    noteModel3.textFrame = CGRectMake(2, 2, 120, 30);
+    noteModel3.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel3.startTime = 6.0;
     noteModel3.duration = 3;
     

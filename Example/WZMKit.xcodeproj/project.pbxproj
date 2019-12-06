@@ -20,7 +20,6 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		648B64AE238FB99400E74104 /* WZMVideoEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 648B64AD238FB99400E74104 /* WZMVideoEditView.m */; };
 		64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */; };
-		64D3E4942399F55E004DEAF6 /* 666.gif in Resources */ = {isa = PBXBuildFile; fileRef = 64D3E4932399F55E004DEAF6 /* 666.gif */; };
 		64D3E497239A2D27004DEAF6 /* WZMNoteAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E496239A2D27004DEAF6 /* WZMNoteAnimation.m */; };
 		64D3E49A239A2FE9004DEAF6 /* WZMNoteConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E499239A2FE9004DEAF6 /* WZMNoteConfig.m */; };
 		64D3E49D239A4F4A004DEAF6 /* WZMNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */; };
@@ -93,7 +92,6 @@
 		648B64AD238FB99400E74104 /* WZMVideoEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoEditView.m; sourceTree = "<group>"; };
 		64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLLayerBuilderTool.h; sourceTree = "<group>"; };
 		64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLLayerBuilderTool.m; sourceTree = "<group>"; };
-		64D3E4932399F55E004DEAF6 /* 666.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 666.gif; sourceTree = "<group>"; };
 		64D3E495239A2D27004DEAF6 /* WZMNoteAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteAnimation.h; sourceTree = "<group>"; };
 		64D3E496239A2D27004DEAF6 /* WZMNoteAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMNoteAnimation.m; sourceTree = "<group>"; };
 		64D3E498239A2FE9004DEAF6 /* WZMNoteConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteConfig.h; sourceTree = "<group>"; };
@@ -525,7 +523,6 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
-				64D3E4932399F55E004DEAF6 /* 666.gif */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 				648B64AC238FB99400E74104 /* WZMVideoEditView.h */,
@@ -682,7 +679,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64D3E4942399F55E004DEAF6 /* 666.gif in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75DA9E30230E924A0000A955 /* WZMTest.png in Resources */,
