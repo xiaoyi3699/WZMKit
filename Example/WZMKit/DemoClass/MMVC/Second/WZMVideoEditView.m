@@ -192,6 +192,8 @@
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
     
+    //单个字的动画时长
+    CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
     //缩放比例
     CGFloat scale = (frame.size.width/noteModel.textFrame.size.width);
     //单个字的宽和高
@@ -202,8 +204,9 @@
     CGFloat startX = 0.0, startY = dy;
     
     NSMutableArray *words = [[NSMutableArray alloc] initWithCapacity:0];
-    NSMutableArray *layers = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *layers = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < noteModel.text.length; i ++) {
         @autoreleasepool {
             NSString *word = [noteModel.text substringWithRange:NSMakeRange(i, 1)];
@@ -219,10 +222,43 @@
             textLayer.fontSize = noteModel.textFontSize*scale;
             textLayer.alignmentMode = kCAAlignmentCenter;
             textLayer.frame = rect;
-            textLayer.foregroundColor = [UIColor redColor].CGColor;
-            textLayer.backgroundColor = [UIColor blueColor].CGColor;
+            textLayer.foregroundColor = noteModel.textColor.CGColor;
+            textLayer.backgroundColor = noteModel.backgroundColor.CGColor;
             textLayer.contentsScale = [UIScreen mainScreen].scale;
             [contentLayer addSublayer:textLayer];
+            [layers addObject:textLayer];
+            
+            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+            animation.keyPath = @"position";
+            animation.duration = singleDuration;
+            animation.removedOnCompletion = NO;
+            animation.fillMode = kCAFillModeForwards;
+            
+            CGPoint position = textLayer.position;
+            CGFloat factor = 1;
+            if (preview == NO) {
+                factor = -1;
+            }
+            CGPoint position1 = position;
+            position1.y += (5*scale*factor);
+            
+            NSValue *v1 = [NSValue valueWithCGPoint:position1];
+            NSValue *v2 = [NSValue valueWithCGPoint:position];
+            
+            animation.values = @[v1,v2];
+            animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+            
+            CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
+            if (preview == NO) {
+                animation.beginTime = singleStartTime;
+                [textLayer addAnimation:animation forKey:@"sharkAnimation"];
+            }
+            else {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [textLayer addAnimation:animation forKey:@"sharkAnimation"];
+                });
+            }
+            [animations addObject:animation];
             
             CGPoint point1, point2;
             if (preview == NO) {
@@ -237,34 +273,51 @@
             [points addObject:NSStringFromCGPoint(point2)];
         }
     }
+    noteModel.layers = [layers copy];
+    noteModel.points = [points copy];
+    noteModel.animations = [animations copy];
     
-    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
-    bezierPath.lineWidth = 1;
-    bezierPath.lineCapStyle = kCGLineCapRound;
-    bezierPath.lineJoinStyle = kCGLineCapRound;
-    if (points.count > 1) {
-        CGPoint startPoint = CGPointFromString(points[0]);
-        [bezierPath moveToPoint:startPoint];
-        NSInteger count = points.count;
-        for (NSInteger i = 1; i < count; i ++) {
-            CGPoint endPoint = CGPointFromString(points[i]);
-            [bezierPath addLineToPoint:endPoint];
-        }
-    }
-    
+    [self showNoteAnimationInLayer:contentLayer preview:preview index:index];
+    return contentLayer;
+}
+
+/// 音符动画
+/// @param contentLayer 父layer
+/// @param preview      是否是预览
+/// @param index        字幕索引
+- (void)showNoteAnimationInLayer:(CALayer *)contentLayer
+                         preview:(BOOL)preview
+                           index:(NSInteger)index {
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    //缩放比例
+    CGFloat scale = (contentLayer.frame.size.width/noteModel.textFrame.size.width);
     CGRect noteRect = CGRectMake(0, 0, 10, 10);
     if (preview == NO) {
         noteRect.origin.x *= scale;
         noteRect.origin.y *= scale;
         noteRect.size.width *= scale;
         noteRect.size.height *= scale;
-        noteRect = [self convertToLandscapeRect:noteRect superSize:frame.size];
+        noteRect = [self convertToLandscapeRect:noteRect superSize:contentLayer.frame.size];
     }
+    //音符layer
     CALayer *noteLayer = [CALayer layer];
     noteLayer.frame = noteRect;
     noteLayer.backgroundColor = [UIColor redColor].CGColor;
     [contentLayer addSublayer:noteLayer];
-    
+    //贝塞尔曲线
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    bezierPath.lineWidth = 1;
+    bezierPath.lineCapStyle = kCGLineCapRound;
+    bezierPath.lineJoinStyle = kCGLineCapRound;
+    if (noteModel.points.count > 1) {
+        CGPoint startPoint = CGPointFromString(noteModel.points[0]);
+        [bezierPath moveToPoint:startPoint];
+        NSInteger count = noteModel.points.count;
+        for (NSInteger i = 1; i < count; i ++) {
+            CGPoint endPoint = CGPointFromString(noteModel.points[i]);
+            [bezierPath addLineToPoint:endPoint];
+        }
+    }
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
     //设置动画属性，因为是沿着贝塞尔曲线动，所以要设置为position
     animation.keyPath = @"position";
@@ -281,8 +334,6 @@
         animation.beginTime = noteModel.startTime;
     }
     [noteLayer addAnimation:animation forKey:@"noteAnimation"];
-    
-    return contentLayer;
 }
 
 ///
