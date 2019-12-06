@@ -18,6 +18,7 @@
 @property (nonatomic, assign) CFTypeRef textFont;
 @property (nonatomic, assign) CGFloat textFontSize;
 @property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UIColor *highTextColor;
 @property (nonatomic, strong) UIColor *backgroundColor;
 ///音符
 @property (nonatomic, strong) UIImage *noteImage;

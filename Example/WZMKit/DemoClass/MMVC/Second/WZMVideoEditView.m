@@ -35,7 +35,6 @@
 - (void)layoutWithFrame:(CGRect)frame {
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
-    self.playView.backgroundColor = [UIColor redColor];
     [self addSubview:self.playView];
     
     self.player = [[WZMPlayer alloc] init];
@@ -188,12 +187,9 @@
 - (CALayer *)textLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
     CALayer *contentLayer = [CALayer layer];
     contentLayer.frame = frame;
-    contentLayer.backgroundColor = [UIColor greenColor].CGColor;
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
     
-    //单个字的动画时长
-    CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
     //缩放比例
     CGFloat scale = (frame.size.width/noteModel.textFrame.size.width);
     //单个字的宽和高
@@ -206,12 +202,11 @@
     NSMutableArray *words = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *layers = [[NSMutableArray alloc] initWithCapacity:0];
-    NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < noteModel.text.length; i ++) {
         @autoreleasepool {
+            //创建字符layer
             NSString *word = [noteModel.text substringWithRange:NSMakeRange(i, 1)];
             [words addObject:word];
-            
             CGRect rect = CGRectMake(startX+i*singleW, startY, singleW, singleW);
             if (preview == NO) {
                 rect = [self convertToLandscapeRect:rect superSize:frame.size];
@@ -228,38 +223,7 @@
             [contentLayer addSublayer:textLayer];
             [layers addObject:textLayer];
             
-            CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
-            animation.keyPath = @"position";
-            animation.duration = singleDuration;
-            animation.removedOnCompletion = NO;
-            animation.fillMode = kCAFillModeForwards;
-            
-            CGPoint position = textLayer.position;
-            CGFloat factor = 1;
-            if (preview == NO) {
-                factor = -1;
-            }
-            CGPoint position1 = position;
-            position1.y += (5*scale*factor);
-            
-            NSValue *v1 = [NSValue valueWithCGPoint:position1];
-            NSValue *v2 = [NSValue valueWithCGPoint:position];
-            
-            animation.values = @[v1,v2];
-            animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
-            
-            CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
-            if (preview == NO) {
-                animation.beginTime = singleStartTime;
-                [textLayer addAnimation:animation forKey:@"sharkAnimation"];
-            }
-            else {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [textLayer addAnimation:animation forKey:@"sharkAnimation"];
-                });
-            }
-            [animations addObject:animation];
-            
+            //记录音符轨迹
             CGPoint point1, point2;
             if (preview == NO) {
                 point1 = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
@@ -275,10 +239,92 @@
     }
     noteModel.layers = [layers copy];
     noteModel.points = [points copy];
-    noteModel.animations = [animations copy];
     
+    [self showTextAnimationInLayer:contentLayer preview:preview index:index];
     [self showNoteAnimationInLayer:contentLayer preview:preview index:index];
     return contentLayer;
+}
+
+- (void)showTextAnimationInLayer:(CALayer *)contentLayer
+                         preview:(BOOL)preview
+                           index:(NSInteger)index {
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    //单个字的动画时长
+    CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
+    //缩放比例
+    CGFloat scale = (contentLayer.frame.size.width/noteModel.textFrame.size.width);
+    
+    NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
+    for (NSInteger i = 0; i < noteModel.layers.count; i ++) {
+        CATextLayer *textLayer = [noteModel.layers objectAtIndex:i];
+        
+        //下移动画
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+        animation.keyPath = @"position";
+        animation.duration = singleDuration;
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        
+        CGPoint position = textLayer.position;
+        CGFloat factor = 1;
+        if (preview == NO) {
+            factor = -1;
+        }
+        CGPoint position1 = position;
+        position1.y += (5*scale*factor);
+        
+        NSMutableArray *values = [NSMutableArray array];
+        [values addObject:[NSValue valueWithCGPoint:position1]];
+        [values addObject:[NSValue valueWithCGPoint:position]];
+        
+        animation.values = values;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
+        
+        //变色动画
+        CAKeyframeAnimation *animation2 = [CAKeyframeAnimation animation];
+        animation2.keyPath = @"foregroundColor";
+        animation2.duration = singleDuration;
+        animation2.removedOnCompletion = NO;
+        animation2.fillMode = kCAFillModeForwards;
+        
+        NSMutableArray *values2 = [NSMutableArray array];
+        [values2 addObject:(id)noteModel.highTextColor.CGColor];
+        [values2 addObject:(id)noteModel.textColor.CGColor];
+        
+        animation2.values = values2;
+        animation2.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
+        
+        //压扁动画
+        CAKeyframeAnimation *animation3 = [CAKeyframeAnimation animation];
+        animation3.keyPath = @"transform";
+        animation3.duration = singleDuration;
+        animation3.removedOnCompletion = NO;
+        animation3.fillMode = kCAFillModeForwards;
+        
+        NSMutableArray *values3 = [NSMutableArray array];
+        [values3 addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 0.6, 1.0)]];
+        [values3 addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+        
+        animation3.values = values3;
+        animation3.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+        
+        //动画组
+        CAAnimationGroup *group = [CAAnimationGroup animation];
+        group.animations = @[animation,animation2,animation3];
+        
+        CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
+        if (preview == NO) {
+            group.beginTime = singleStartTime;
+            [textLayer addAnimation:group forKey:@"sharkAnimation"];
+        }
+        else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [textLayer addAnimation:group forKey:@"sharkAnimation"];
+            });
+        }
+        [animations addObject:group];
+    }
+    noteModel.animations = [animations copy];
 }
 
 /// 音符动画

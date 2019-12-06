@@ -19,6 +19,7 @@
         self.textFont = (__bridge CFTypeRef)(@"Helvetica");
         self.textFontSize = 15;
         self.textColor = [UIColor redColor];
+        self.highTextColor = [UIColor greenColor];
         self.backgroundColor = [UIColor clearColor];
         self.noteImage = [UIImage wzm_getRoundImageByColor:[UIColor redColor] size:CGSizeMake(5, 5)];
         self.startTime = 0.0;
