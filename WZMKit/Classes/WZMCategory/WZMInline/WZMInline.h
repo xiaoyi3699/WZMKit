@@ -66,15 +66,15 @@ UIKIT_STATIC_INLINE CGRect WZMRectSafeArea() {
     return rect;
 }
 
-UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxWidth (CGSize size, CGFloat maxWidth) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxWidth(CGSize size, CGFloat maxWidth) {
     return CGSizeMake(maxWidth, size.height*maxWidth/size.width);
 }
 
-UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxHeight (CGSize size, CGFloat MaxHeight) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxHeight(CGSize size, CGFloat MaxHeight) {
     return CGSizeMake(size.width*MaxHeight/size.height, MaxHeight);
 }
 
-UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxSize (CGSize size, CGSize maxSize) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxSize(CGSize size, CGSize maxSize) {
     if (size.width/size.height >= maxSize.width/maxSize.height) {
         return WZMSizeRatioToMaxWidth(size, maxSize.width);
     }
@@ -83,11 +83,36 @@ UIKIT_STATIC_INLINE CGSize WZMSizeRatioToMaxSize (CGSize size, CGSize maxSize) {
     }
 }
 
-UIKIT_STATIC_INLINE CGSize WZMSizeRatioToFillSize (CGSize size, CGSize fillSize) {
+UIKIT_STATIC_INLINE CGSize WZMSizeRatioToFillSize(CGSize size, CGSize fillSize) {
     if (fillSize.width/fillSize.height >= size.width/size.height) {
         return CGSizeMake(fillSize.width, size.height*fillSize.width/size.width);
     }
     else {
         return CGSizeMake(size.width*fillSize.height/size.height, fillSize.height);
     }
+}
+
+///坐标系转换
+UIKIT_STATIC_INLINE CGPoint WZMConvertToLandscapePoint(CGPoint point, CGFloat height, CGSize superSize) {
+    CGPoint portraitPoint = point;
+    portraitPoint.y = (superSize.height-point.y-height);
+    return portraitPoint;
+}
+ 
+UIKIT_STATIC_INLINE CGRect WZMConvertToLandscapeRect(CGRect rect, CGSize superSize) {
+    CGRect portraitRect = rect;
+    portraitRect.origin.y = (superSize.height-rect.origin.y-rect.size.height);
+    return portraitRect;
+}
+
+UIKIT_STATIC_INLINE CGPoint WZMConvertToPortraitPoint(CGPoint point, CGFloat height) {
+    CGPoint portraitPoint = point;
+    portraitPoint.y = (point.y+height);
+    return portraitPoint;
+}
+
+UIKIT_STATIC_INLINE CGRect WZMConvertToPortraitRect(CGRect rect) {
+    CGRect portraitRect = rect;
+    portraitRect.origin.y = (rect.origin.y+rect.size.height);
+    return portraitRect;
 }

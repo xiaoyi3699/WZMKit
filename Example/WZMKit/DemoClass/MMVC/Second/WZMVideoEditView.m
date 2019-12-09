@@ -86,6 +86,23 @@
     [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
 }
 
+///播放器代理
+- (void)playerPlaying:(WZMPlayer *)player {
+    static NSInteger index = 0;
+    for (NSInteger i = index; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+            if (noteModel.allowShow == NO) continue;
+            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
+                noteModel.allowShow = NO;
+                [self showNoteAnimation:i];
+                index = i+1;
+                break;
+            }
+        }
+    }
+}
+
 #pragma mark -- 添加水印、字幕、动画
 - (void)addWatermarkWithVideoUrl:(NSURL *)videoUrl completion:(void(^)(NSURL *exportURL))completion {
     //1 创建AVAsset实例 AVAsset包含了video的所有信息 self.videoUrl输入视频的路径
@@ -132,7 +149,7 @@
         markFrame.origin.y *= scale;
         markFrame.size.width *= scale;
         markFrame.size.height *= scale;
-        markFrame = [self convertToLandscapeRect:markFrame superSize:renderSize];
+        markFrame = WZMConvertToLandscapeRect(markFrame, renderSize);
         
         CALayer *layer = [self animationTextLayerWithFrame:markFrame preview:NO index:i];
         [parentLayer addSublayer:layer];
@@ -217,7 +234,7 @@
             [words addObject:word];
             CGRect rect = CGRectMake(startX+i%columns*singleW, startY+i/columns*singleW, singleW, singleW);
             if (preview == NO) {
-                rect = [self convertToLandscapeRect:rect superSize:frame.size];
+                rect = WZMConvertToLandscapeRect(rect, frame.size);
             }
             
             CATextLayer *textLayer = [CATextLayer layer];
@@ -365,7 +382,7 @@
         noteRect.origin.y *= scale;
         noteRect.size.width *= scale;
         noteRect.size.height *= scale;
-        noteRect = [self convertToLandscapeRect:noteRect superSize:contentLayer.frame.size];
+        noteRect = WZMConvertToLandscapeRect(noteRect, contentLayer.frame.size);
     }
     //音符layer
     CALayer *noteLayer = [CALayer layer];
@@ -406,33 +423,7 @@
     [noteLayer addAnimation:animation forKey:@"noteAnimation"];
 }
 
-///
-- (CGPoint)convertToLandscapePoint:(CGPoint)point height:(CGFloat)height superSize:(CGSize)superSize {
-    CGPoint portraitPoint = point;
-    portraitPoint.y = (superSize.height-point.y-height);
-    return portraitPoint;
-}
-
-- (CGRect)convertToLandscapeRect:(CGRect)rect superSize:(CGSize)superSize {
-    CGRect portraitRect = rect;
-    portraitRect.origin.y = (superSize.height-rect.origin.y-rect.size.height);
-    return portraitRect;
-}
-
-- (CGPoint)convertToPortraitPoint:(CGPoint)point height:(CGFloat)height {
-    CGPoint portraitPoint = point;
-    portraitPoint.y = (point.y+height);
-    return portraitPoint;
-}
-
-- (CGRect)convertToPortraitRect:(CGRect)rect {
-    CGRect portraitRect = rect;
-    portraitRect.origin.y = (rect.origin.y+rect.size.height);
-    return portraitRect;
-}
-
-#pragma mark - private method
-//视频导出
+#pragma mark - 视频导出
 - (void)videoExportComosition:(AVMutableComposition *)comosition videoComposition:(AVMutableVideoComposition *)mainCompositionInst quality:(NSString *)quality completion:(void(^)(NSURL *exportURL))completion {
     //合成之后的输出路径
     NSString *outPutPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"HYVideo-%d.mov",arc4random()%1000]];
@@ -508,22 +499,6 @@
     mainCompositionInst.frameDuration = CMTimeMake(1, 30);
     
     return mainCompositionInst;
-}
-
-- (void)playerPlaying:(WZMPlayer *)player {
-    static NSInteger index = 0;
-    for (NSInteger i = index; i < self.noteModels.count; i ++) {
-        @autoreleasepool {
-            WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
-            if (noteModel.allowShow == NO) continue;
-            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
-                noteModel.allowShow = NO;
-                [self showNoteAnimation:i];
-                index = i+1;
-                break;
-            }
-        }
-    }
 }
 
 @end
