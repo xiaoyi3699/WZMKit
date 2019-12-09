@@ -11,7 +11,8 @@
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate>
 
-@property (nonatomic ,assign) CGFloat scale;
+//标记当前显示到第几句歌词了
+@property (nonatomic ,assign) NSInteger partIndex;
 @property (nonatomic ,assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
@@ -30,6 +31,7 @@
 }
 
 - (void)layoutWithFrame:(CGRect)frame {
+    self.partIndex = 0;
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
     [self addSubview:self.playView];
@@ -58,10 +60,6 @@
     playViewRect.size = playViewSize;
     self.playView.frame = playViewRect;
     self.videoFrame = playViewRect;
-    
-    self.scale = self.renderSize.width/self.videoFrame.size.width;
-    
-    NSLog(@"%@",self.videoUrl);
     if (self.videoUrl) {
         [self.player playWithURL:self.videoUrl];
     }
@@ -79,19 +77,28 @@
 }
 
 ///播放器代理
+- (void)playerBeginPlaying:(WZMPlayer *)player {
+    self.partIndex = 0;
+}
+
 - (void)playerPlaying:(WZMPlayer *)player {
     if (self.noteModels == nil || self.noteModels.count == 0) return;
-    static NSInteger index = 0;
-    for (NSInteger i = index; i < self.noteModels.count; i ++) {
+    for (NSInteger i = self.partIndex; i < self.noteModels.count; i ++) {
         @autoreleasepool {
             WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
             if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
                 [self showNoteAnimation:i];
-                index = i+1;
+                self.partIndex = i+1;
                 break;
             }
         }
     }
+}
+
+- (void)playerEndPlaying:(WZMPlayer *)player {
+    self.partIndex = 0;
+    [player seekToTime:0];
+    [player play];
 }
 
 #pragma mark -- 添加水印、字幕、动画
@@ -131,7 +138,7 @@
     [parentLayer addSublayer:videoLayer];
     
     //1、视频实际尺寸/当前显示尺寸,计算出视频的缩放比例
-    CGFloat scale = self.scale;
+    CGFloat scale = self.renderSize.width/self.videoFrame.size.width;
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
@@ -203,6 +210,15 @@
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
     
+    //移除旧的layer
+    for (CALayer *tLayer in noteModel.textLayers) {
+        [tLayer removeFromSuperlayer];
+    }
+    for (CALayer *gLayer in noteModel.graLayers) {
+        [gLayer removeFromSuperlayer];
+    }
+    
+    //创建新的layer
     //缩放比例
     CGFloat scale = (frame.size.width/[noteModel textFrame].size.width);
     //单个字的宽和高
@@ -283,7 +299,6 @@
     //缩放比例
     CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
     
-    NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < noteModel.textLayers.count; i ++) {
         CATextLayer *textLayer = [noteModel.textLayers objectAtIndex:i];
         CAGradientLayer *gradientLayer = [noteModel.graLayers objectAtIndex:i];
@@ -352,9 +367,7 @@
                 [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
             });
         }
-        [animations addObject:group];
     }
-    noteModel.animations = [animations copy];
 }
 
 /// 音符动画

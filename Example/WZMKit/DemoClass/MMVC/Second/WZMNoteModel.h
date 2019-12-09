@@ -34,8 +34,6 @@
 @property (nonatomic, strong) NSArray *graLayers;
 ///音符轨迹
 @property (nonatomic, strong) NSArray *points;
-///单个字的动画
-@property (nonatomic, strong) NSArray *animations;
 
 ///最大宽度每行字数的最大值,即列数
 - (NSInteger)textColumns;
