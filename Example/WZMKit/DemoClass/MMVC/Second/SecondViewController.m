@@ -72,10 +72,13 @@
         noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
         noteModel.textColor = [UIColor whiteColor];
         noteModel.highTextColor = [UIColor redColor];
-        noteModel.textPosition = CGPointMake(2, 2);
+        noteModel.textPosition = CGPointMake(2, 40);
         noteModel.startTime = 1.0;
         noteModel.duration = 2;
         noteModel.angle = 20;
+        noteModel.textType = WZMNoteModelTypeGradient;
+        noteModel.textAnimationType = WZMNoteTextAnimationTypeOneByOne;
+        noteModel.showNote = NO;
         
         WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
         noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";

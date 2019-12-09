@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSInteger {
+    WZMNoteModelTypeNormal = 0, //默认
+    WZMNoteModelTypeGradient,   //渐变
+} WZMNoteTextType;
+
+typedef enum : NSInteger {
+    WZMNoteTextAnimationTypeSingle,     //单字高亮
+    WZMNoteTextAnimationTypeOneByOne,   //逐字高亮(卡拉OK)
+} WZMNoteTextAnimationType;
+
 @interface WZMNoteModel : NSObject
 
 ///是否显示音符,默认YES
@@ -23,21 +33,29 @@
 ///字体、颜色相关
 @property (nonatomic, assign) CFTypeRef textFont;
 @property (nonatomic, assign) CGFloat textFontSize;
+@property (nonatomic, strong) UIColor *backgroundColor;
+///默认
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, strong) UIColor *highTextColor;
-@property (nonatomic, strong) UIColor *backgroundColor;
-///音符
-@property (nonatomic, strong) UIImage *noteImage;
-///起止时间
-@property (nonatomic, assign) CGFloat startTime;
-@property (nonatomic, assign) CGFloat duration;
+///渐变
+@property (nonatomic, strong) NSArray *textColors;
+@property (nonatomic, strong) NSArray *highTextColors;
 ///单个字
 @property (nonatomic, strong) NSArray *textLayers1; //预览时layer
 @property (nonatomic, strong) NSArray *graLayers1;  //预览时layer
 @property (nonatomic, strong) NSArray *textLayers2; //合成时layer
 @property (nonatomic, strong) NSArray *graLayers2;  //合成时layer
+///音符
+@property (nonatomic, strong) UIImage *noteImage;
 ///音符轨迹
 @property (nonatomic, strong) NSArray *points;
+///起止时间
+@property (nonatomic, assign) CGFloat startTime;
+@property (nonatomic, assign) CGFloat duration;
+
+///字幕样式
+@property (nonatomic, assign) WZMNoteTextType textType;
+@property (nonatomic, assign) WZMNoteTextAnimationType textAnimationType;
 
 ///最大宽度每行字数的最大值,即列数
 - (NSInteger)textColumns;

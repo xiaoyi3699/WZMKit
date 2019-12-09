@@ -237,7 +237,7 @@
     //单个字的宽和高
     CGFloat singleW = (noteModel.textFontSize+5)*scale;
     //音符上下波动间距
-    CGFloat dy = 30*scale;
+    CGFloat dy = (noteModel.showNote ? 30 : 0)*scale;
     //音符起始x、y坐标
     CGFloat startX = 0.0, startY = dy;
     
@@ -269,14 +269,27 @@
             [contentLayer addSublayer:textLayer];
             [textLayers addObject:textLayer];
             
+            NSArray *values;
+            if (noteModel.textType == WZMNoteModelTypeNormal) {
+                //默认
+                values = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
+            }
+            else {
+                //渐变
+                NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:0];
+                for (UIColor *color in noteModel.textColors) {
+                    [colors addObject:(id)color.CGColor];
+                }
+                values = [colors copy];
+            }
             CAGradientLayer *gradientLayer = [CAGradientLayer layer];
             gradientLayer.frame = textLayer.frame;
-            gradientLayer.colors = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
+            gradientLayer.colors = values;
             gradientLayer.startPoint = CGPointMake(0, 0);
             gradientLayer.endPoint = CGPointMake(1, 1);
+            gradientLayer.contentsScale = [UIScreen mainScreen].scale;
             gradientLayer.mask = textLayer;
             textLayer.frame = gradientLayer.bounds;
-            gradientLayer.contentsScale = [UIScreen mainScreen].scale;
             [contentLayer addSublayer:gradientLayer];
             [graLayers addObject:gradientLayer];
             
@@ -352,8 +365,35 @@
         animation2.duration = singleDuration;
         animation2.removedOnCompletion = NO;
         animation2.fillMode = kCAFillModeForwards;
-        animation2.fromValue = @[(id)noteModel.highTextColor.CGColor,(id)noteModel.highTextColor.CGColor];
-        animation2.toValue = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
+        NSArray *fromValue2, *toValue2;
+        if (noteModel.textType == WZMNoteModelTypeNormal) {
+            //默认
+            fromValue2 = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
+            toValue2 = @[(id)noteModel.highTextColor.CGColor,(id)noteModel.highTextColor.CGColor];
+        }
+        else {
+            //渐变
+            NSMutableArray *colors1 = [[NSMutableArray alloc] initWithCapacity:0];
+            NSMutableArray *colors2 = [[NSMutableArray alloc] initWithCapacity:0];
+            for (UIColor *color in noteModel.textColors) {
+                [colors1 addObject:(id)color.CGColor];
+            }
+            for (UIColor *color in noteModel.highTextColors) {
+                [colors2 addObject:(id)color.CGColor];
+            }
+            fromValue2 = [colors1 copy];
+            toValue2 = [colors2 copy];
+        }
+        if (noteModel.textAnimationType == WZMNoteTextAnimationTypeSingle) {
+            //单字高亮
+            animation2.fromValue = toValue2;
+            animation2.toValue = fromValue2;
+        }
+        else {
+            //逐字高亮
+            animation2.fromValue = fromValue2;
+            animation2.toValue = toValue2;
+        }
         animation2.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
         
         //压扁动画
@@ -376,15 +416,18 @@
         
         CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
         if (preview == NO) {
-            group.beginTime = singleStartTime;
-            [textLayer addAnimation:group forKey:@"sharkAnimation"];
-            
+            if (noteModel.showNote) {
+                group.beginTime = singleStartTime;
+                [textLayer addAnimation:group forKey:@"sharkAnimation"];
+            }
             animation2.beginTime = singleStartTime;
             [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
         }
         else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [textLayer addAnimation:group forKey:@"sharkAnimation"];
+                if (noteModel.showNote) {
+                    [textLayer addAnimation:group forKey:@"sharkAnimation"];
+                }
                 [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
             });
         }
@@ -399,6 +442,7 @@
                          preview:(BOOL)preview
                            index:(NSInteger)index {
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    if (noteModel.showNote == NO) return;
     //缩放比例
     CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
     CGRect noteRect = CGRectMake(0, 0, 10, 10);

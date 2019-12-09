@@ -13,18 +13,22 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.angle = 0.0;
         self.showNote = YES;
         self.textMaxW = 200.0;
-        self.angle = 0.0;
         self.text = @"我是一个字幕";
         self.textFont = (__bridge CFTypeRef)(@"Helvetica");
         self.textFontSize = 15;
         self.textColor = [UIColor whiteColor];
         self.highTextColor = [UIColor redColor];
+        self.textColors = @[[UIColor grayColor],[UIColor whiteColor]];
+        self.highTextColors = @[[UIColor whiteColor],[UIColor redColor]];
         self.backgroundColor = [UIColor clearColor];
-        self.noteImage = [UIImage wzm_getRoundImageByColor:[UIColor redColor] size:CGSizeMake(50, 50)];
         self.startTime = 0.0;
         self.duration = 0.0;
+        self.textType = WZMNoteModelTypeNormal;
+        self.textAnimationType = WZMNoteTextAnimationTypeSingle;
+        self.noteImage = [UIImage wzm_getRoundImageByColor:[UIColor redColor] size:CGSizeMake(50, 50)];
     }
     return self;
 }
