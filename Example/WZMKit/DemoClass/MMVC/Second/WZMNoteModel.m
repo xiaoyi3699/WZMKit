@@ -13,7 +13,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.allowShow = YES;
         self.showNote = YES;
         self.textMaxW = 200.0;
         self.text = @"我是一个字幕";

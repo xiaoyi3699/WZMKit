@@ -172,6 +172,7 @@
     AVPlayerItem *item = (AVPlayerItem *)object;
     if ([keyPath isEqualToString:@"status"]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
+            self.playing = NO;
             [self play];
         }
         else if (item.status == AVPlayerStatusFailed) {

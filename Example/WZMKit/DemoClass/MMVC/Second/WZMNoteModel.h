@@ -10,8 +10,6 @@
 
 @interface WZMNoteModel : NSObject
 
-///是否允许显示,默认YES
-@property (nonatomic, assign) BOOL allowShow;
 ///是否显示音符,默认YES
 @property (nonatomic, assign) BOOL showNote;
 ///字幕

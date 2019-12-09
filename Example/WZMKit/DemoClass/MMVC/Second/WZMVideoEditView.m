@@ -8,7 +8,6 @@
 
 #import "WZMVideoEditView.h"
 #import "FLLayerBuilderTool.h"
-#import "WZMNoteAnimation.h"
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate>
 
@@ -17,17 +16,14 @@
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
-///字幕配置
-@property (nonatomic, strong) NSArray<WZMNoteModel *> *noteModels;
 
 @end
 
 @implementation WZMVideoEditView
 
-- (instancetype)initWithFrame:(CGRect)frame noteModels:(NSArray<WZMNoteModel *> *)noteModels {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.noteModels = noteModels;
         [self layoutWithFrame:self.bounds];
     }
     return self;
@@ -43,6 +39,15 @@
     self.player.playerView = self.playView;
 }
 
+- (void)setVideoUrl:(NSURL *)videoUrl {
+    if ([_videoUrl.path isEqualToString:videoUrl.path]) return;
+    _videoUrl = videoUrl;
+    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
+    AVAssetTrack *track = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+    self.renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
+    [self layoutPlayView];
+}
+
 - (void)layoutPlayView {
     if (CGSizeEqualToSize(self.bounds.size, CGSizeZero)) return;
     if (CGSizeEqualToSize(self.renderSize, CGSizeZero)) return;
@@ -56,24 +61,10 @@
     
     self.scale = self.renderSize.width/self.videoFrame.size.width;
     
-    if (self.videoUrl && self.player.isPlaying == NO) {
+    NSLog(@"%@",self.videoUrl);
+    if (self.videoUrl) {
         [self.player playWithURL:self.videoUrl];
     }
-}
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    if (CGRectEqualToRect(self.frame, frame)) return;
-    [self layoutPlayView];
-}
-
-- (void)setVideoUrl:(NSURL *)videoUrl {
-    if ([_videoUrl.path isEqualToString:videoUrl.path]) return;
-    _videoUrl = videoUrl;
-    AVAsset *asset = [AVAsset assetWithURL:videoUrl];
-    AVAssetTrack *track = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-    self.renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
-    [self layoutPlayView];
 }
 
 - (void)showNoteAnimation:(NSInteger)index {
@@ -83,18 +74,18 @@
 }
 
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
     [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
 }
 
 ///播放器代理
 - (void)playerPlaying:(WZMPlayer *)player {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
     static NSInteger index = 0;
     for (NSInteger i = index; i < self.noteModels.count; i ++) {
         @autoreleasepool {
             WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
-            if (noteModel.allowShow == NO) continue;
             if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
-                noteModel.allowShow = NO;
                 [self showNoteAnimation:i];
                 index = i+1;
                 break;

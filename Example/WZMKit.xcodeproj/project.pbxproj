@@ -20,8 +20,6 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		648B64AE238FB99400E74104 /* WZMVideoEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 648B64AD238FB99400E74104 /* WZMVideoEditView.m */; };
 		64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */; };
-		64D3E497239A2D27004DEAF6 /* WZMNoteAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E496239A2D27004DEAF6 /* WZMNoteAnimation.m */; };
-		64D3E49A239A2FE9004DEAF6 /* WZMNoteConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E499239A2FE9004DEAF6 /* WZMNoteConfig.m */; };
 		64D3E49D239A4F4A004DEAF6 /* WZMNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
@@ -92,10 +90,6 @@
 		648B64AD238FB99400E74104 /* WZMVideoEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoEditView.m; sourceTree = "<group>"; };
 		64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLLayerBuilderTool.h; sourceTree = "<group>"; };
 		64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLLayerBuilderTool.m; sourceTree = "<group>"; };
-		64D3E495239A2D27004DEAF6 /* WZMNoteAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteAnimation.h; sourceTree = "<group>"; };
-		64D3E496239A2D27004DEAF6 /* WZMNoteAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMNoteAnimation.m; sourceTree = "<group>"; };
-		64D3E498239A2FE9004DEAF6 /* WZMNoteConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteConfig.h; sourceTree = "<group>"; };
-		64D3E499239A2FE9004DEAF6 /* WZMNoteConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMNoteConfig.m; sourceTree = "<group>"; };
 		64D3E49B239A4F4A004DEAF6 /* WZMNoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteModel.h; sourceTree = "<group>"; };
 		64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMNoteModel.m; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
@@ -527,10 +521,6 @@
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 				648B64AC238FB99400E74104 /* WZMVideoEditView.h */,
 				648B64AD238FB99400E74104 /* WZMVideoEditView.m */,
-				64D3E495239A2D27004DEAF6 /* WZMNoteAnimation.h */,
-				64D3E496239A2D27004DEAF6 /* WZMNoteAnimation.m */,
-				64D3E498239A2FE9004DEAF6 /* WZMNoteConfig.h */,
-				64D3E499239A2FE9004DEAF6 /* WZMNoteConfig.m */,
 				64D3E49B239A4F4A004DEAF6 /* WZMNoteModel.h */,
 				64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */,
 			);
@@ -771,7 +761,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				75DA9E34230E924A0000A955 /* WZMWebProgressLayer.m in Sources */,
-				64D3E497239A2D27004DEAF6 /* WZMNoteAnimation.m in Sources */,
 				75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75DA9E32230E924A0000A955 /* WZMWebViewController.m in Sources */,
@@ -791,7 +780,6 @@
 				648B64AE238FB99400E74104 /* WZMVideoEditView.m in Sources */,
 				75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
-				64D3E49A239A2FE9004DEAF6 /* WZMNoteConfig.m in Sources */,
 				75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */,
 				75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */,
 				75DA9E29230E924A0000A955 /* UINavigationController+wzmnav.m in Sources */,
