@@ -13,6 +13,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.showing = NO;
+        self.editing = NO;
         self.angle = 0.0;
         self.showNote = YES;
         self.textMaxW = 200.0;

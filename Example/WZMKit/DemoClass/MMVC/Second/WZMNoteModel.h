@@ -22,6 +22,10 @@ typedef enum : NSInteger {
 
 ///是否显示音符,默认YES
 @property (nonatomic, assign) BOOL showNote;
+///是否正在编辑
+@property (nonatomic, assign) BOOL editing;
+///是否正在显示
+@property (nonatomic, assign) BOOL showing;
 ///字幕
 @property (nonatomic, strong) NSString *text;
 ///设置字幕position,会自动换行
@@ -45,6 +49,9 @@ typedef enum : NSInteger {
 @property (nonatomic, strong) NSArray *graLayers1;  //预览时layer
 @property (nonatomic, strong) NSArray *textLayers2; //合成时layer
 @property (nonatomic, strong) NSArray *graLayers2;  //合成时layer
+///字幕整个试图
+@property (nonatomic, strong) CALayer *contentLayer1; //预览时layer
+@property (nonatomic, strong) CALayer *contentLayer2; //合成时layer
 ///音符
 @property (nonatomic, strong) UIImage *noteImage;
 ///音符轨迹

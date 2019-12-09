@@ -13,6 +13,8 @@
 
 //标记当前显示到第几句歌词了
 @property (nonatomic ,assign) NSInteger partIndex;
+//标记当前正在编辑第几句歌词
+@property (nonatomic ,assign) NSInteger editingIndex;
 @property (nonatomic ,assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
@@ -34,6 +36,7 @@
 
 - (void)layoutWithFrame:(CGRect)frame {
     self.partIndex = 0;
+    self.editingIndex = -1;
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
     [self addSubview:self.playView];
@@ -54,6 +57,27 @@
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+        if (noteModel.showing == NO) continue;
+        CGRect textFrame = [noteModel textFrame];
+        if (CGRectContainsPoint(textFrame, point)) {
+            [self.player pause];
+            self.editingIndex = i;
+            noteModel.editing = YES;
+            self.noteView.frame = textFrame;
+            self.noteView.hidden = NO;
+            if (noteModel.angle/360.0 != 0) {
+                CATransform3D transform3D = CATransform3DIdentity;
+                self.noteView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
+            }
+            return;
+        }
+    }
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:self.editingIndex];
+    noteModel.editing = NO;
+    self.noteView.hidden = YES;
+    [self.player play];
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {
@@ -82,8 +106,11 @@
 
 - (void)showNoteAnimation:(NSInteger)index {
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    noteModel.showing = YES;
+    [noteModel.contentLayer1 removeFromSuperlayer];
     CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
     [self.playView.layer addSublayer:layer];
+    noteModel.contentLayer1 = layer;
 }
 
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
@@ -164,8 +191,10 @@
         markFrame.size.height *= scale;
         markFrame = WZMConvertToLandscapeRect(markFrame, renderSize);
         
+        [noteModel.contentLayer2 removeFromSuperlayer];
         CALayer *layer = [self animationTextLayerWithFrame:markFrame preview:NO index:i];
         [parentLayer addSublayer:layer];
+        noteModel.contentLayer2 = layer;
     }
     composition.animationTool = [AVVideoCompositionCoreAnimationTool
                                  videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayer:videoLayer inLayer:parentLayer];
@@ -173,6 +202,7 @@
 
 //layer动画
 - (CALayer *)animationTextLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
+    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     CALayer *overlayLayer = [CALayer layer];
     overlayLayer.frame = frame;
     overlayLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -202,18 +232,24 @@
     fadeOutAnimation.fillMode = kCAFillModeBoth;
     fadeOutAnimation.duration = animationDuration;
     
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (preview) {
-        [contentLayer addAnimation:fadeInAnimation forKey:@"opacity"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(noteModel.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
+        [contentLayer addAnimation:fadeInAnimation forKey:@"fadeIn"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(noteModel.duration * NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), ^{
+            //处于编辑状态时休眠,等待编辑完成
+            while (noteModel.editing) {
+                [NSThread sleepForTimeInterval:0.5];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                noteModel.showing = NO;
+                [overlayLayer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
+            });
         });
     }
     else {
         fadeInAnimation.beginTime = noteModel.startTime;
         fadeOutAnimation.beginTime = (noteModel.startTime+noteModel.duration);
-        [contentLayer addAnimation:fadeInAnimation forKey:@"opacity"];
-        [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
+        [contentLayer addAnimation:fadeInAnimation forKey:@"fadeIn"];
+        [overlayLayer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
     }
     if (noteModel.angle/360.0 != 0) {
         CGFloat angle = 0.0;
@@ -235,16 +271,6 @@
     contentLayer.frame = frame;
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
-    
-    NSArray *tLayers = preview ? noteModel.textLayers1 : noteModel.textLayers2;
-    NSArray *gLayers = preview ? noteModel.graLayers1 : noteModel.graLayers2;
-    //移除旧的layer
-    for (CALayer *tLayer in tLayers) {
-        [tLayer removeFromSuperlayer];
-    }
-    for (CALayer *gLayer in gLayers) {
-        [gLayer removeFromSuperlayer];
-    }
     
     //创建新的layer
     //缩放比例
@@ -430,21 +456,27 @@
         group.animations = @[animation,animation3];
         
         CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
-        if (preview == NO) {
+        if (preview) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), ^{
+                //处于编辑状态时休眠,等待编辑完成
+                while (noteModel.editing) {
+                    [NSThread sleepForTimeInterval:0.5];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (noteModel.showNote) {
+                        [textLayer addAnimation:group forKey:@"sharkAnimation"];
+                    }
+                    [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
+                });
+            });
+        }
+        else {
             if (noteModel.showNote) {
                 group.beginTime = singleStartTime;
                 [textLayer addAnimation:group forKey:@"sharkAnimation"];
             }
             animation2.beginTime = singleStartTime;
             [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
-        }
-        else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (noteModel.showNote) {
-                    [textLayer addAnimation:group forKey:@"sharkAnimation"];
-                }
-                [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
-            });
         }
     }
 }
