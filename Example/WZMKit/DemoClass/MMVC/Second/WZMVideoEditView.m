@@ -12,6 +12,7 @@
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate>
 
+@property (nonatomic ,assign) CGFloat scale;
 @property (nonatomic ,assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
@@ -53,6 +54,8 @@
     self.playView.frame = playViewRect;
     self.videoFrame = playViewRect;
     
+    self.scale = self.renderSize.width/self.videoFrame.size.width;
+    
     if (self.videoUrl && self.player.isPlaying == NO) {
         [self.player playWithURL:self.videoUrl];
     }
@@ -75,7 +78,7 @@
 
 - (void)showNoteAnimation:(NSInteger)index {
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
-    CALayer *layer = [self animationTextLayerWithFrame:noteModel.textFrame preview:YES index:index];
+    CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
     [self.playView.layer addSublayer:layer];
 }
 
@@ -120,11 +123,11 @@
     [parentLayer addSublayer:videoLayer];
     
     //1、视频实际尺寸/当前显示尺寸,计算出视频的缩放比例
-    CGFloat scale = renderSize.width/self.videoFrame.size.width;
+    CGFloat scale = self.scale;
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
-        CGRect markFrame = noteModel.textFrame;
+        CGRect markFrame = [noteModel textFrame];
         markFrame.origin.x *= scale;
         markFrame.origin.y *= scale;
         markFrame.size.width *= scale;
@@ -193,11 +196,11 @@
     if (noteModel.text.length <= 0) return contentLayer;
     
     //缩放比例
-    CGFloat scale = (frame.size.width/noteModel.textFrame.size.width);
+    CGFloat scale = (frame.size.width/[noteModel textFrame].size.width);
     //单个字的宽和高
-    CGFloat singleW = (frame.size.width/noteModel.text.length);
+    CGFloat singleW = (noteModel.textFontSize+5)*scale;
     //音符上下波动间距
-    CGFloat dy = frame.size.height-singleW-10;
+    CGFloat dy = 30*scale;
     //音符起始x、y坐标
     CGFloat startX = 0.0, startY = dy;
     
@@ -205,12 +208,14 @@
     NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textLayers = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *graLayers = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    NSInteger columns = [noteModel textColumns];
     for (NSInteger i = 0; i < noteModel.text.length; i ++) {
         @autoreleasepool {
             //创建字符layer
             NSString *word = [noteModel.text substringWithRange:NSMakeRange(i, 1)];
             [words addObject:word];
-            CGRect rect = CGRectMake(startX+i*singleW, startY, singleW, singleW);
+            CGRect rect = CGRectMake(startX+i%columns*singleW, startY+i/columns*singleW, singleW, singleW);
             if (preview == NO) {
                 rect = [self convertToLandscapeRect:rect superSize:frame.size];
             }
@@ -268,7 +273,7 @@
     //单个字的动画时长
     CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
     //缩放比例
-    CGFloat scale = (contentLayer.frame.size.width/noteModel.textFrame.size.width);
+    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
     
     NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < noteModel.textLayers.count; i ++) {
@@ -353,7 +358,7 @@
                            index:(NSInteger)index {
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     //缩放比例
-    CGFloat scale = (contentLayer.frame.size.width/noteModel.textFrame.size.width);
+    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
     CGRect noteRect = CGRectMake(0, 0, 10, 10);
     if (preview == NO) {
         noteRect.origin.x *= scale;
