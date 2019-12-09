@@ -12,9 +12,9 @@
 @interface UILabel (wzmcate)
 
 ///文字渐变
-- (void)wzm_textGradientColors:(NSArray *)colors gradientType: (WZMGradientType)type;
+- (void)wzm_textGradientColors:(NSArray *)colors gradientType:(WZMGradientType)type;
 
 ///文字渐变
-- (void)wzm_textGradientColorWithGradientType: (WZMGradientType)type;
+- (void)wzm_textGradientColorWithGradientType:(WZMGradientType)type;
 
 @end

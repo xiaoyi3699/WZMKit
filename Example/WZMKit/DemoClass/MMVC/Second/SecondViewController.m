@@ -39,7 +39,7 @@
     WZMNoteModel *noteModel = [[WZMNoteModel alloc] init];
     noteModel.text = @"我是第一个字幕";
     noteModel.noteImage = [UIImage new];
-    noteModel.textColor = [UIColor redColor];
+    noteModel.textColor = [UIColor whiteColor];
     noteModel.backgroundColor = [UIColor clearColor];
     noteModel.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel.startTime = 1.0;
@@ -48,7 +48,7 @@
     WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
     noteModel2.text = @"我是第二个字幕";
     noteModel2.noteImage = [UIImage new];
-    noteModel2.textColor = [UIColor redColor];
+    noteModel2.textColor = [UIColor greenColor];
     noteModel2.backgroundColor = [UIColor clearColor];
     noteModel2.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel2.startTime = 4.0;
@@ -57,7 +57,7 @@
     WZMNoteModel *noteModel3 = [[WZMNoteModel alloc] init];
     noteModel3.text = @"我是第三个字幕";
     noteModel3.noteImage = [UIImage new];
-    noteModel3.textColor = [UIColor redColor];
+    noteModel3.textColor = [UIColor blueColor];
     noteModel3.backgroundColor = [UIColor clearColor];
     noteModel3.textFrame = CGRectMake(2, 2, 140, 50);
     noteModel3.startTime = 6.0;

@@ -26,7 +26,8 @@
 @property (nonatomic, assign) CGFloat startTime;
 @property (nonatomic, assign) CGFloat duration;
 ///单个字
-@property (nonatomic, strong) NSArray *layers;
+@property (nonatomic, strong) NSArray *textLayers;
+@property (nonatomic, strong) NSArray *graLayers;
 ///音符轨迹
 @property (nonatomic, strong) NSArray *points;
 ///单个字的动画

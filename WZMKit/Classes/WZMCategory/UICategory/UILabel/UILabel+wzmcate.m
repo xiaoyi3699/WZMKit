@@ -50,7 +50,7 @@
 }
 */
 
-- (void)wzm_textGradientColors:(NSArray *)colors gradientType: (WZMGradientType)type {
+- (void)wzm_textGradientColors:(NSArray *)colors gradientType:(WZMGradientType)type {
     
     NSMutableArray *CGColors = [NSMutableArray arrayWithCapacity:colors.count];
     
@@ -85,7 +85,7 @@
     self.frame = gradientLayer.bounds;
 }
 
-- (void)wzm_textGradientColorWithGradientType: (WZMGradientType)type {
+- (void)wzm_textGradientColorWithGradientType:(WZMGradientType)type {
     NSMutableArray *colorArray = [NSMutableArray new];
     for (NSInteger hue = 0; hue < 255; hue += 5) {
         UIColor *color = [UIColor colorWithHue:hue/255.0

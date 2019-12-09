@@ -201,7 +201,8 @@
     
     NSMutableArray *words = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
-    NSMutableArray *layers = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *textLayers = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *graLayers = [[NSMutableArray alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < noteModel.text.length; i ++) {
         @autoreleasepool {
             //创建字符layer
@@ -211,6 +212,7 @@
             if (preview == NO) {
                 rect = [self convertToLandscapeRect:rect superSize:frame.size];
             }
+            
             CATextLayer *textLayer = [CATextLayer layer];
             textLayer.string = word;
             textLayer.font = noteModel.textFont;
@@ -221,7 +223,17 @@
             textLayer.backgroundColor = noteModel.backgroundColor.CGColor;
             textLayer.contentsScale = [UIScreen mainScreen].scale;
             [contentLayer addSublayer:textLayer];
-            [layers addObject:textLayer];
+            [textLayers addObject:textLayer];
+            
+            CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+            gradientLayer.frame = textLayer.frame;
+            gradientLayer.colors = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
+            gradientLayer.startPoint = CGPointMake(0, 0);
+            gradientLayer.endPoint = CGPointMake(1, 1);
+            gradientLayer.mask = textLayer;
+            textLayer.frame = gradientLayer.bounds;
+            [contentLayer addSublayer:gradientLayer];
+            [graLayers addObject:gradientLayer];
             
             //记录音符轨迹
             CGPoint point1, point2;
@@ -237,7 +249,8 @@
             [points addObject:NSStringFromCGPoint(point2)];
         }
     }
-    noteModel.layers = [layers copy];
+    noteModel.textLayers = [textLayers copy];
+    noteModel.graLayers = [graLayers copy];
     noteModel.points = [points copy];
     
     [self showTextAnimationInLayer:contentLayer preview:preview index:index];
@@ -255,8 +268,9 @@
     CGFloat scale = (contentLayer.frame.size.width/noteModel.textFrame.size.width);
     
     NSMutableArray *animations = [[NSMutableArray alloc] initWithCapacity:0];
-    for (NSInteger i = 0; i < noteModel.layers.count; i ++) {
-        CATextLayer *textLayer = [noteModel.layers objectAtIndex:i];
+    for (NSInteger i = 0; i < noteModel.textLayers.count; i ++) {
+        CATextLayer *textLayer = [noteModel.textLayers objectAtIndex:i];
+        CAGradientLayer *gradientLayer = [noteModel.graLayers objectAtIndex:i];
         
         //下移动画
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
@@ -281,17 +295,13 @@
         animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
         
         //变色动画
-        CAKeyframeAnimation *animation2 = [CAKeyframeAnimation animation];
-        animation2.keyPath = @"foregroundColor";
+        CABasicAnimation *animation2 = [CABasicAnimation animation];
+        animation2.keyPath = @"colors";
         animation2.duration = singleDuration;
         animation2.removedOnCompletion = NO;
         animation2.fillMode = kCAFillModeForwards;
-        
-        NSMutableArray *values2 = [NSMutableArray array];
-        [values2 addObject:(id)noteModel.highTextColor.CGColor];
-        [values2 addObject:(id)noteModel.textColor.CGColor];
-        
-        animation2.values = values2;
+        animation2.fromValue = @[(id)noteModel.highTextColor.CGColor,(id)noteModel.highTextColor.CGColor];
+        animation2.toValue = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
         animation2.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
         
         //压扁动画
@@ -310,16 +320,20 @@
         
         //动画组
         CAAnimationGroup *group = [CAAnimationGroup animation];
-        group.animations = @[animation,animation2,animation3];
+        group.animations = @[animation,animation3];
         
         CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
         if (preview == NO) {
             group.beginTime = singleStartTime;
             [textLayer addAnimation:group forKey:@"sharkAnimation"];
+            
+            animation2.beginTime = singleStartTime;
+            [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
         }
         else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [textLayer addAnimation:group forKey:@"sharkAnimation"];
+                [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
             });
         }
         [animations addObject:group];
