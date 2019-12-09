@@ -37,31 +37,28 @@
     [super viewDidLoad];
     
     WZMNoteModel *noteModel = [[WZMNoteModel alloc] init];
-    noteModel.text = @"我是第一个字幕";
-    noteModel.noteImage = [UIImage new];
+    noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
     noteModel.textColor = [UIColor whiteColor];
-    noteModel.backgroundColor = [UIColor clearColor];
-    noteModel.textFrame = CGRectMake(2, 2, 140, 50);
+    noteModel.highTextColor = [UIColor redColor];
+    noteModel.textFrame = CGRectMake(2, 2, noteModel.text.length*20, 50);
     noteModel.startTime = 1.0;
     noteModel.duration = 2;
     
     WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
-    noteModel2.text = @"我是第二个字幕";
-    noteModel2.noteImage = [UIImage new];
+    noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
     noteModel2.textColor = [UIColor greenColor];
-    noteModel2.backgroundColor = [UIColor clearColor];
-    noteModel2.textFrame = CGRectMake(2, 2, 140, 50);
+    noteModel2.highTextColor = [UIColor blueColor];
+    noteModel2.textFrame = CGRectMake(2, 2, noteModel2.text.length*20, 50);
     noteModel2.startTime = 4.0;
-    noteModel2.duration = 1;
+    noteModel2.duration = 3;
     
     WZMNoteModel *noteModel3 = [[WZMNoteModel alloc] init];
-    noteModel3.text = @"我是第三个字幕";
-    noteModel3.noteImage = [UIImage new];
+    noteModel3.text = @"我是第三个字幕:啦啦啦啦啦啦";
     noteModel3.textColor = [UIColor blueColor];
-    noteModel3.backgroundColor = [UIColor clearColor];
-    noteModel3.textFrame = CGRectMake(2, 2, 140, 50);
-    noteModel3.startTime = 6.0;
-    noteModel3.duration = 3;
+    noteModel3.highTextColor = [UIColor greenColor];
+    noteModel3.textFrame = CGRectMake(2, 2, noteModel3.text.length*20, 50);
+    noteModel3.startTime = 8.0;
+    noteModel3.duration = 4;
     
     editView = [[WZMVideoEditView alloc] initWithFrame:CGRectMake(10, 100, 355, 400) noteModels:@[noteModel,noteModel2,noteModel3]];
     editView.backgroundColor = [UIColor grayColor];

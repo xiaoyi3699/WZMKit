@@ -142,6 +142,7 @@
 - (CALayer *)animationTextLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
     CALayer *overlayLayer = [CALayer layer];
     overlayLayer.frame = frame;
+    overlayLayer.contentsScale = [UIScreen mainScreen].scale;
     [overlayLayer setMasksToBounds:YES];
     
     CALayer *contentLayer = [self textLayerWithFrame:overlayLayer.bounds preview:preview index:index];
@@ -186,6 +187,7 @@
 
 - (CALayer *)textLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
     CALayer *contentLayer = [CALayer layer];
+    contentLayer.contentsScale = [UIScreen mainScreen].scale;
     contentLayer.frame = frame;
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
@@ -232,6 +234,7 @@
             gradientLayer.endPoint = CGPointMake(1, 1);
             gradientLayer.mask = textLayer;
             textLayer.frame = gradientLayer.bounds;
+            gradientLayer.contentsScale = [UIScreen mainScreen].scale;
             [contentLayer addSublayer:gradientLayer];
             [graLayers addObject:gradientLayer];
             
@@ -362,7 +365,9 @@
     //音符layer
     CALayer *noteLayer = [CALayer layer];
     noteLayer.frame = noteRect;
-    noteLayer.backgroundColor = [UIColor redColor].CGColor;
+    noteLayer.contentsGravity = kCAGravityResize;
+    noteLayer.contents = (__bridge id)(noteModel.noteImage.CGImage);
+    noteLayer.contentsScale = [UIScreen mainScreen].scale;
     [contentLayer addSublayer:noteLayer];
     //贝塞尔曲线
     UIBezierPath *bezierPath = [UIBezierPath bezierPath];
