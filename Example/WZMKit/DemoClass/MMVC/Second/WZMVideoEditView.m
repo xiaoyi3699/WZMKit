@@ -18,6 +18,8 @@
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
 
+@property (nonatomic, strong) UIView *noteView;
+
 @end
 
 @implementation WZMVideoEditView
@@ -39,6 +41,19 @@
     self.player = [[WZMPlayer alloc] init];
     self.player.delegate = self;
     self.player.playerView = self.playView;
+    
+    self.noteView = [[UIView alloc] init];
+    self.noteView.wzm_borderColor = [UIColor redColor];
+    self.noteView.wzm_borderWidth = 0.5;
+    self.noteView.hidden = YES;
+    [self addSubview:self.noteView];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];
+    
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {
