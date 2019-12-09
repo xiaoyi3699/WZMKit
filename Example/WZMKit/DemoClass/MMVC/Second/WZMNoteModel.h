@@ -18,6 +18,8 @@
 @property (nonatomic, assign) CGPoint textPosition;
 ///字幕的最大宽度
 @property (nonatomic, assign) CGFloat textMaxW;
+///旋转的角度
+@property (nonatomic, assign) CGFloat angle;
 ///字体、颜色相关
 @property (nonatomic, assign) CFTypeRef textFont;
 @property (nonatomic, assign) CGFloat textFontSize;
@@ -30,8 +32,10 @@
 @property (nonatomic, assign) CGFloat startTime;
 @property (nonatomic, assign) CGFloat duration;
 ///单个字
-@property (nonatomic, strong) NSArray *textLayers;
-@property (nonatomic, strong) NSArray *graLayers;
+@property (nonatomic, strong) NSArray *textLayers1; //预览时layer
+@property (nonatomic, strong) NSArray *graLayers1;  //预览时layer
+@property (nonatomic, strong) NSArray *textLayers2; //合成时layer
+@property (nonatomic, strong) NSArray *graLayers2;  //合成时layer
 ///音符轨迹
 @property (nonatomic, strong) NSArray *points;
 

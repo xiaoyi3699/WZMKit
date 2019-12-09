@@ -200,6 +200,17 @@
         [contentLayer addAnimation:fadeInAnimation forKey:@"opacity"];
         [overlayLayer addAnimation:fadeOutAnimation forKey:@"opacity"];
     }
+    if (noteModel.angle/360.0 != 0) {
+        CGFloat angle = 0.0;
+        if (preview) {
+            angle = noteModel.angle;
+        }
+        else {
+            angle = 360.0 - noteModel.angle;
+        }
+        CATransform3D transform3D = CATransform3DIdentity;
+        overlayLayer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(angle*M_PI/180.0, 0, 0, 1));
+    }
     return overlayLayer;
 }
 
@@ -210,11 +221,13 @@
     WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
     
+    NSArray *tLayers = preview ? noteModel.textLayers1 : noteModel.textLayers2;
+    NSArray *gLayers = preview ? noteModel.graLayers1 : noteModel.graLayers2;
     //移除旧的layer
-    for (CALayer *tLayer in noteModel.textLayers) {
+    for (CALayer *tLayer in tLayers) {
         [tLayer removeFromSuperlayer];
     }
-    for (CALayer *gLayer in noteModel.graLayers) {
+    for (CALayer *gLayer in gLayers) {
         [gLayer removeFromSuperlayer];
     }
     
@@ -281,8 +294,14 @@
             [points addObject:NSStringFromCGPoint(point2)];
         }
     }
-    noteModel.textLayers = [textLayers copy];
-    noteModel.graLayers = [graLayers copy];
+    if (preview) {
+        noteModel.textLayers1 = [textLayers copy];
+        noteModel.graLayers1 = [graLayers copy];
+    }
+    else {
+        noteModel.textLayers2 = [textLayers copy];
+        noteModel.graLayers2 = [graLayers copy];
+    }
     noteModel.points = [points copy];
     
     [self showTextAnimationInLayer:contentLayer preview:preview index:index];
@@ -299,9 +318,11 @@
     //缩放比例
     CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
     
-    for (NSInteger i = 0; i < noteModel.textLayers.count; i ++) {
-        CATextLayer *textLayer = [noteModel.textLayers objectAtIndex:i];
-        CAGradientLayer *gradientLayer = [noteModel.graLayers objectAtIndex:i];
+    NSArray *tLayers = preview ? noteModel.textLayers1 : noteModel.textLayers2;
+    NSArray *gLayers = preview ? noteModel.graLayers1 : noteModel.graLayers2;
+    for (NSInteger i = 0; i < tLayers.count; i ++) {
+        CATextLayer *textLayer = [tLayers objectAtIndex:i];
+        CAGradientLayer *gradientLayer = [gLayers objectAtIndex:i];
         
         //下移动画
         CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];

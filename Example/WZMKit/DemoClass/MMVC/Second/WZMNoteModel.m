@@ -15,6 +15,7 @@
     if (self) {
         self.showNote = YES;
         self.textMaxW = 200.0;
+        self.angle = 0.0;
         self.text = @"我是一个字幕";
         self.textFont = (__bridge CFTypeRef)(@"Helvetica");
         self.textFontSize = 15;

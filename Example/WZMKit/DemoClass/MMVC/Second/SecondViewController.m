@@ -75,6 +75,7 @@
         noteModel.textPosition = CGPointMake(2, 2);
         noteModel.startTime = 1.0;
         noteModel.duration = 2;
+        noteModel.angle = 20;
         
         WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
         noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
