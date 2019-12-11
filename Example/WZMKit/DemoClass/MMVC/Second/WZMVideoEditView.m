@@ -88,6 +88,7 @@
         
         [self.captionViews setObject:captionView forKey:noteModel.noteId];
     }
+    captionView.minWidth = (noteModel.textFontSize+5);
     captionView.frame = layer.frame;
     captionView.hidden = NO;
     [self.playView.layer addSublayer:layer];

@@ -66,6 +66,13 @@
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat x = rect.origin.x+point_0.x;
         CGFloat y = rect.origin.y+point_0.y;
+        
+        if (x < 0 || x > self.superview.wzm_width-tapView.frame.size.width) {
+            x = tapView.frame.origin.x;
+        }
+        if (y < 0 || y > self.superview.wzm_height-tapView.frame.size.height) {
+            y = tapView.frame.origin.y;
+        }
         tapView.frame = CGRectMake(x, y, tapView.frame.size.width, tapView.frame.size.height);
         if ([self.delegate respondsToSelector:@selector(captionView:changeFrame:)]) {
             [self.delegate captionView:self changeFrame:tapView.frame];
@@ -79,6 +86,7 @@
     }
 }
 
+//左下角调整视图宽度
 - (void)changePan:(UIPanGestureRecognizer *)recognizer {
     if (self.editing == NO) return;
     UIView *tapView = recognizer.view;
@@ -89,14 +97,35 @@
         rect = self.frame;
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        self.wzm_mutableMinX = rect.origin.x+point_0.x;
+        CGFloat x = rect.origin.x+point_0.x;
+        if (self.wzm_maxX - x < self.minWidth) {
+            x = self.wzm_maxX - self.minWidth;
+        }
+        if (x < 0) {
+            x = 0;
+        }
+        self.wzm_mutableMinX = x;
         self.changeView.frame = CGRectMake(0, self.frame.size.height-20, 20, 20);
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded ||
              recognizer.state == UIGestureRecognizerStateCancelled) {
+        //宽度调整结束
         if ([self.delegate respondsToSelector:@selector(captionView:endChangeFrame:oldFrame:)]) {
             [self.delegate captionView:self endChangeFrame:self.frame oldFrame:rect];
             self.changeView.frame = CGRectMake(0, self.frame.size.height-20, 20, 20);
+            if (self.wzm_maxY > self.superview.wzm_height) {
+                CGRect oldFrame = self.frame;
+                //当最下方超出屏幕时,改变frame
+                self.wzm_maxY = self.superview.wzm_height;
+                CGRect newFrame = self.frame;
+                if ([self.delegate respondsToSelector:@selector(captionView:changeFrame:)]) {
+                    [self.delegate captionView:self changeFrame:self.frame];
+                }
+                //改变字幕相关参数
+                if ([self.delegate respondsToSelector:@selector(captionView:endChangeFrame:oldFrame:)]) {
+                    [self.delegate captionView:self endChangeFrame:newFrame oldFrame:oldFrame];
+                }
+            }
         }
     }
 }

@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WZMCaptionView : UIView
 
-@property (nonatomic, assign) CGSize maxSize;
+///最小宽度 = 一个字的宽度
+@property (nonatomic, assign) CGFloat minWidth;
 @property (nonatomic, weak) id<WZMCaptionViewDelegate> delegate;
 
 @end

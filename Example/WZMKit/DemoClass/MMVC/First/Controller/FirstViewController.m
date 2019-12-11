@@ -52,12 +52,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView = self.superTableView;
-    _tableView.frame = WZMRectMiddleArea();
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [_tableView wzm_cleraExtraLine];
-    [self.view addSubview:_tableView];
+//    _tableView = self.superTableView;
+//    _tableView.frame = WZMRectMiddleArea();
+//    _tableView.delegate = self;
+//    _tableView.dataSource = self;
+//    [_tableView wzm_cleraExtraLine];
+//    [self.view addSubview:_tableView];
+    
+    WZMFontView *fontView = [[WZMFontView alloc] initWithFrame:WZMRectMiddleArea()];
+    [self.view addSubview:fontView];
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
