@@ -133,9 +133,22 @@
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
+    noteModel.contentLayer1.frame = frame;
+    [CATransaction commit];
+}
+
+- (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    CGPoint point = noteModel.textPosition;
+    point.x += (newFrame.origin.x-oldFrame.origin.x);
+    point.y += (newFrame.origin.y-oldFrame.origin.y);
+    noteModel.textPosition = point;
+    
     //宽度发生了改变
-    if (noteModel.textMaxW != frame.size.width) {
-        noteModel.textMaxW = frame.size.width;
+    if (newFrame.size.width != oldFrame.size.width) {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        noteModel.textMaxW = newFrame.size.width;
         CGRect newRect = [noteModel textFrame];
         captionView.frame = newRect;
         noteModel.contentLayer1.frame = newRect;
@@ -157,19 +170,8 @@
             gradientLayer.mask = textLayer;
             textLayer.frame = gradientLayer.bounds;
         }
+        [CATransaction commit];
     }
-    else {
-        noteModel.contentLayer1.frame = frame;
-    }
-    [CATransaction commit];
-}
-
-- (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
-    CGPoint point = noteModel.textPosition;
-    point.x += (newFrame.origin.x-oldFrame.origin.x);
-    point.y += (newFrame.origin.y-oldFrame.origin.y);
-    noteModel.textPosition = point;
 }
 
 ///播放器代理
