@@ -54,6 +54,7 @@ typedef enum : NSInteger {
 ///字幕整个试图
 @property (nonatomic, strong) CALayer *contentLayer1; //预览时layer
 @property (nonatomic, strong) CALayer *contentLayer2; //合成时layer
+@property (nonatomic, strong) CALayer *noteLayer;     //音符layer
 ///音符
 @property (nonatomic, strong) UIImage *noteImage;
 ///音符轨迹

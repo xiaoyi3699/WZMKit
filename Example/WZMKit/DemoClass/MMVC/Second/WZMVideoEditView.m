@@ -12,8 +12,6 @@
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
-//标记当前显示到第几句歌词了
-@property (nonatomic ,assign) NSInteger partIndex;
 //标记当前正在编辑第几句歌词
 @property (nonatomic ,assign) NSInteger editingIndex;
 @property (nonatomic ,assign) CGRect videoFrame;
@@ -36,7 +34,6 @@
 }
 
 - (void)layoutWithFrame:(CGRect)frame {
-    self.partIndex = 0;
     self.editingIndex = -1;
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
@@ -73,7 +70,8 @@
     }
 }
 
-- (void)showNoteAnimation:(NSInteger)index {
+//预览和合成字幕出现
+- (void)showCaptionAnimation:(NSInteger)index {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     noteModel.showing = YES;
     [noteModel.contentLayer1 removeFromSuperlayer];
@@ -94,6 +92,16 @@
     [self.playView.layer addSublayer:layer];
 }
 
+//预览字幕消失
+- (void)dismissCaptionAnimation:(NSInteger)index {
+    CABasicAnimation *fadeOutAnimation = [self fadeOutAnimation];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
+    noteModel.showing = NO;
+    [noteModel.contentLayer1 addAnimation:fadeOutAnimation forKey:@"fadeOut"];
+    WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
+    captionView.hidden = YES;
+}
+
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
     if (self.noteModels == nil || self.noteModels.count == 0) return;
     [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
@@ -101,21 +109,32 @@
 
 ///字幕视图代理
 - (void)captionViewBeginEdit:(WZMCaptionView *)captionView {
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     self.editingIndex = captionView.tag;
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     noteModel.editing = YES;
+    noteModel.showing = NO;
+    
     [self.player pause];
+    [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
 }
 
 - (void)captionViewEndEdit:(WZMCaptionView *)captionView {
+    self.editingIndex = -1;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     noteModel.editing = NO;
+    noteModel.showing = NO;
+    
+    [self.player seekToTime:noteModel.startTime];
     [self.player play];
+    
 }
 
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
     noteModel.contentLayer1.frame = frame;
+    [CATransaction commit];
 }
 
 - (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
@@ -128,25 +147,29 @@
 
 ///播放器代理
 - (void)playerBeginPlaying:(WZMPlayer *)player {
-    self.partIndex = 0;
+    
 }
 
 - (void)playerPlaying:(WZMPlayer *)player {
     if (self.noteModels == nil || self.noteModels.count == 0) return;
-    for (NSInteger i = self.partIndex; i < self.noteModels.count; i ++) {
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         @autoreleasepool {
             WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
             if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
-                [self showNoteAnimation:i];
-                self.partIndex = i+1;
-                break;
+                if (noteModel.showing == NO) {
+                    [self showCaptionAnimation:i];
+                }
+            }
+            if (fabs(player.currentTime - (noteModel.startTime+noteModel.duration)) <= 0.1) {
+                if (noteModel.showing) {
+                    [self dismissCaptionAnimation:i];
+                }
             }
         }
     }
 }
 
 - (void)playerEndPlaying:(WZMPlayer *)player {
-    self.partIndex = 0;
     [player seekToTime:0];
     [player play];
 }
@@ -219,43 +242,13 @@
     CALayer *contentLayer = [self textLayerWithFrame:overlayLayer.bounds preview:preview index:index];
     [overlayLayer addSublayer:contentLayer];
     
-    // 3.显示动画
-    NSTimeInterval animationDuration = 0.1f;
-    
-    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeInAnimation.fromValue = @0.0f;
-    fadeInAnimation.toValue = @1.0f;
-    fadeInAnimation.additive = NO;
-    fadeInAnimation.autoreverses = NO;
-    fadeInAnimation.removedOnCompletion = NO;
-    fadeInAnimation.fillMode = kCAFillModeBoth;
-    fadeInAnimation.duration = animationDuration;
-    
-    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = @1.0f;
-    fadeOutAnimation.toValue = @0.0f;
-    fadeOutAnimation.additive = NO;
-    fadeOutAnimation.autoreverses = NO;
-    fadeOutAnimation.removedOnCompletion = NO;
-    fadeOutAnimation.fillMode = kCAFillModeBoth;
-    fadeOutAnimation.duration = animationDuration;
-    
+    CABasicAnimation *fadeInAnimation = [self fadeInAnimation];
     if (preview) {
         [contentLayer addAnimation:fadeInAnimation forKey:@"fadeIn"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(noteModel.duration * NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), ^{
-            //处于编辑状态时休眠,等待编辑完成
-            while (noteModel.editing) {
-                [NSThread sleepForTimeInterval:0.5];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                noteModel.showing = NO;
-                [overlayLayer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
-                WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
-                captionView.hidden = YES;
-            });
-        });
     }
     else {
+        CABasicAnimation *fadeOutAnimation = [self fadeOutAnimation];
+        
         fadeInAnimation.beginTime = noteModel.startTime;
         fadeOutAnimation.beginTime = (noteModel.startTime+noteModel.duration);
         [contentLayer addAnimation:fadeInAnimation forKey:@"fadeIn"];
@@ -273,6 +266,32 @@
         overlayLayer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(angle*M_PI/180.0, 0, 0, 1));
     }
     return overlayLayer;
+}
+
+//显示动画
+- (CABasicAnimation *)fadeInAnimation {
+    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeInAnimation.fromValue = @0.0f;
+    fadeInAnimation.toValue = @1.0f;
+    fadeInAnimation.additive = NO;
+    fadeInAnimation.autoreverses = NO;
+    fadeInAnimation.removedOnCompletion = NO;
+    fadeInAnimation.fillMode = kCAFillModeBoth;
+    fadeInAnimation.duration = 0.1f;
+    return fadeInAnimation;
+}
+
+//隐藏动画
+- (CABasicAnimation *)fadeOutAnimation {
+    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOutAnimation.fromValue = @1.0f;
+    fadeOutAnimation.toValue = @0.0f;
+    fadeOutAnimation.additive = NO;
+    fadeOutAnimation.autoreverses = NO;
+    fadeOutAnimation.removedOnCompletion = NO;
+    fadeOutAnimation.fillMode = kCAFillModeBoth;
+    fadeOutAnimation.duration = 0.1;
+    return fadeOutAnimation;
 }
 
 - (CALayer *)textLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
@@ -369,7 +388,7 @@
     noteModel.points = [points copy];
     
     [self showTextAnimationInLayer:contentLayer preview:preview index:index];
-    [self showNoteAnimationInLayer:contentLayer preview:preview index:index];
+    [self showCaptionAnimationInLayer:contentLayer preview:preview index:index];
     return contentLayer;
 }
 
@@ -495,7 +514,7 @@
 /// @param contentLayer 父layer
 /// @param preview      是否是预览
 /// @param index        字幕索引
-- (void)showNoteAnimationInLayer:(CALayer *)contentLayer
+- (void)showCaptionAnimationInLayer:(CALayer *)contentLayer
                          preview:(BOOL)preview
                            index:(NSInteger)index {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
@@ -511,12 +530,14 @@
         noteRect = WZMConvertToLandscapeRect(noteRect, contentLayer.frame.size);
     }
     //音符layer
+    [noteModel.noteLayer removeFromSuperlayer];
     CALayer *noteLayer = [CALayer layer];
     noteLayer.frame = noteRect;
     noteLayer.contentsGravity = kCAGravityResize;
     noteLayer.contents = (__bridge id)(noteModel.noteImage.CGImage);
     noteLayer.contentsScale = [UIScreen mainScreen].scale;
     [contentLayer addSublayer:noteLayer];
+    noteModel.noteLayer = noteLayer;
     //贝塞尔曲线
     UIBezierPath *bezierPath = [UIBezierPath bezierPath];
     bezierPath.lineWidth = 1;
