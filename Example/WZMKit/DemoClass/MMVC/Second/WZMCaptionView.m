@@ -10,7 +10,7 @@
 
 @interface WZMCaptionView ()
 
-@property (nonatomic, assign) BOOL editing;
+@property (nonatomic, assign) BOOL showing;
 @property (nonatomic, strong) UIView *editView;
 @property (nonatomic, strong) UIView *changeView;
 
@@ -28,7 +28,7 @@
         [self addGestureRecognizer:pan];
         
         self.editView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        self.editView.backgroundColor = [UIColor grayColor];
+        self.editView.backgroundColor = [UIColor brownColor];
         [self addSubview:self.editView];
         
         UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTap:)];
@@ -46,26 +46,26 @@
 
 //显示字幕view
 - (void)captionTap:(UITapGestureRecognizer *)recognizer {
-    self.editing = !self.editing;
-    if (self.editing) {
+    self.showing = !self.showing;
+    if (self.showing) {
         self.wzm_borderWidth = 0.5;
         self.wzm_borderColor = [UIColor redColor];
-        if ([self.delegate respondsToSelector:@selector(captionViewWillShow:)]) {
-            [self.delegate captionViewWillShow:self];
+        if ([self.delegate respondsToSelector:@selector(captionViewShow:)]) {
+            [self.delegate captionViewShow:self];
         }
     }
     else {
         self.wzm_borderWidth = 0;
         self.wzm_borderColor = [UIColor clearColor];
-        if ([self.delegate respondsToSelector:@selector(captionViewWillDismiss:)]) {
-            [self.delegate captionViewWillDismiss:self];
+        if ([self.delegate respondsToSelector:@selector(captionViewDismiss:)]) {
+            [self.delegate captionViewDismiss:self];
         }
     }
 }
 
 //移动字幕
 - (void)captionPan:(UIPanGestureRecognizer *)recognizer {
-    if (self.editing == NO) return;
+    if (self.showing == NO) return;
     UIView *tapView = recognizer.view;
     CGPoint point_0 = [recognizer translationInView:tapView];
     
@@ -103,7 +103,7 @@
 
 //左下角调整视图宽度
 - (void)changePan:(UIPanGestureRecognizer *)recognizer {
-    if (self.editing == NO) return;
+    if (self.showing == NO) return;
     UIView *tapView = recognizer.view;
     CGPoint point_0 = [recognizer translationInView:tapView];
     

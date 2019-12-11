@@ -22,11 +22,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WZMCaptionViewDelegate <NSObject>
 
 @optional
-- (void)captionViewWillShow:(WZMCaptionView *)captionView;
-- (void)captionViewWillDismiss:(WZMCaptionView *)captionView;
+- (void)captionViewShow:(WZMCaptionView *)captionView;
+- (void)captionViewDismiss:(WZMCaptionView *)captionView;
+
+- (void)captionViewBeginEditing:(WZMCaptionView *)captionView;
+- (void)captionViewEndEditing:(WZMCaptionView *)captionView;
 
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame;
 - (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame;
+
+
+
 - (void)captionView:(WZMCaptionView *)captionView changeTransform:(CATransform3D)transform;
 
 @end
