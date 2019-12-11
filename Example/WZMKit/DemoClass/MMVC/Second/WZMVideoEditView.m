@@ -110,7 +110,7 @@
 }
 
 ///字幕视图代理
-- (void)captionViewBeginEdit:(WZMCaptionView *)captionView {
+- (void)captionViewWillShow:(WZMCaptionView *)captionView {
     self.editingIndex = captionView.tag;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     noteModel.editing = YES;
@@ -120,7 +120,7 @@
     [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
 }
 
-- (void)captionViewEndEdit:(WZMCaptionView *)captionView {
+- (void)captionViewWillDismiss:(WZMCaptionView *)captionView {
     self.editingIndex = -1;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     noteModel.editing = NO;

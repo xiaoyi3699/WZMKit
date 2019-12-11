@@ -11,6 +11,7 @@
 @interface WZMCaptionView ()
 
 @property (nonatomic, assign) BOOL editing;
+@property (nonatomic, strong) UIView *editView;
 @property (nonatomic, strong) UIView *changeView;
 
 @end
@@ -26,6 +27,13 @@
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(captionPan:)];
         [self addGestureRecognizer:pan];
         
+        self.editView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        self.editView.backgroundColor = [UIColor grayColor];
+        [self addSubview:self.editView];
+        
+        UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTap:)];
+        [self.editView addGestureRecognizer:editTap];
+        
         self.changeView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-20, 20, 20)];
         self.changeView.backgroundColor = [UIColor grayColor];
         [self addSubview:self.changeView];
@@ -36,24 +44,26 @@
     return self;
 }
 
+//显示字幕view
 - (void)captionTap:(UITapGestureRecognizer *)recognizer {
     self.editing = !self.editing;
     if (self.editing) {
         self.wzm_borderWidth = 0.5;
         self.wzm_borderColor = [UIColor redColor];
-        if ([self.delegate respondsToSelector:@selector(captionViewBeginEdit:)]) {
-            [self.delegate captionViewBeginEdit:self];
+        if ([self.delegate respondsToSelector:@selector(captionViewWillShow:)]) {
+            [self.delegate captionViewWillShow:self];
         }
     }
     else {
         self.wzm_borderWidth = 0;
         self.wzm_borderColor = [UIColor clearColor];
-        if ([self.delegate respondsToSelector:@selector(captionViewEndEdit:)]) {
-            [self.delegate captionViewEndEdit:self];
+        if ([self.delegate respondsToSelector:@selector(captionViewWillDismiss:)]) {
+            [self.delegate captionViewWillDismiss:self];
         }
     }
 }
 
+//移动字幕
 - (void)captionPan:(UIPanGestureRecognizer *)recognizer {
     if (self.editing == NO) return;
     UIView *tapView = recognizer.view;
@@ -84,6 +94,11 @@
             [self.delegate captionView:self endChangeFrame:tapView.frame oldFrame:rect];
         }
     }
+}
+
+//左上角编辑按钮
+- (void)editTap:(UITapGestureRecognizer *)recognizer {
+    
 }
 
 //左下角调整视图宽度
