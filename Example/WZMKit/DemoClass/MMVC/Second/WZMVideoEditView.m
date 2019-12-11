@@ -88,6 +88,7 @@
         
         [self.captionViews setObject:captionView forKey:noteModel.noteId];
     }
+    captionView.frame = layer.frame;
     captionView.hidden = NO;
     [self.playView.layer addSublayer:layer];
 }
@@ -116,6 +117,14 @@
     
     [self.player pause];
     [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGRect rect = captionView.frame;
+        rect.size.width -= 40;
+        
+        noteModel.textMaxW = rect.size.width;
+        [self showCaptionAnimation:captionView.tag];
+    });
 }
 
 - (void)captionViewEndEdit:(WZMCaptionView *)captionView {
@@ -126,7 +135,6 @@
     
     [self.player seekToTime:noteModel.startTime];
     [self.player play];
-    
 }
 
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame {
@@ -486,17 +494,14 @@
         
         CGFloat singleStartTime = noteModel.startTime+singleDuration*i;
         if (preview) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_global_queue(0, 0), ^{
-                //处于编辑状态时休眠,等待编辑完成
-                while (noteModel.editing) {
-                    [NSThread sleepForTimeInterval:0.5];
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //处于编辑状态时不添加动画
+                if (noteModel.editing == NO) {
                     if (noteModel.showNote) {
                         [textLayer addAnimation:group forKey:@"sharkAnimation"];
                     }
                     [gradientLayer addAnimation:animation2 forKey:@"colorAnimation"];
-                });
+                }
             });
         }
         else {
@@ -521,7 +526,7 @@
     if (noteModel.showNote == NO) return;
     //缩放比例
     CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
-    CGRect noteRect = CGRectMake(0, 0, 10, 10);
+    CGRect noteRect = CGRectMake(-10, -10, 10, 10);
     if (preview == NO) {
         noteRect.origin.x *= scale;
         noteRect.origin.y *= scale;
@@ -566,6 +571,9 @@
     // 将动画对象添加到视图的layer上
     if (preview == NO) {
         animation.beginTime = noteModel.startTime;
+    }
+    if (preview) {
+        if (noteModel.editing) return;
     }
     [noteLayer addAnimation:animation forKey:@"noteAnimation"];
 }
