@@ -194,8 +194,10 @@
         noteModel.textMaxW = newFrame.size.width;
         NSInteger columns;
         CGRect newRect = [noteModel textFrameWithTextColumns:&columns];
+        //当高度达到最大值时,以右边框
         if (newFrame.size.width < newRect.size.width) {
             newRect.origin.x = CGRectGetMaxX(oldFrame)-newRect.size.width;
+            noteModel.textPosition = newRect.origin;
         }
         captionView.frame = newRect;
         noteModel.contentLayer1.frame = newRect;
