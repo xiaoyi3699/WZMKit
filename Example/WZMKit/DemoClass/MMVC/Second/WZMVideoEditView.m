@@ -117,14 +117,6 @@
     
     [self.player pause];
     [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        CGRect rect = captionView.frame;
-        rect.size.width -= 40;
-        
-        noteModel.textMaxW = rect.size.width;
-        [self showCaptionAnimation:captionView.tag];
-    });
 }
 
 - (void)captionViewEndEdit:(WZMCaptionView *)captionView {
@@ -141,7 +133,34 @@
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    noteModel.contentLayer1.frame = frame;
+    //宽度发生了改变
+    if (noteModel.textMaxW != frame.size.width) {
+        noteModel.textMaxW = frame.size.width;
+        CGRect newRect = [noteModel textFrame];
+        captionView.frame = newRect;
+        noteModel.contentLayer1.frame = newRect;
+        //单个字的宽和高
+        CGFloat singleW = (noteModel.textFontSize+5)*1;
+        //音符上下波动间距
+        CGFloat dy = (noteModel.showNote ? 30 : 0)*1;
+        //音符起始x、y坐标
+        CGFloat startX = 0.0, startY = dy;
+        NSInteger columns = [noteModel textColumns];
+        for (NSInteger i = 0; i < noteModel.textLayers1.count; i ++) {
+            CGRect rect = CGRectMake(startX+i%columns*singleW, startY+i/columns*singleW, singleW, singleW);
+            
+            CATextLayer *textLayer = [noteModel.textLayers1 objectAtIndex:i];
+            textLayer.frame = rect;
+            
+            CAGradientLayer *gradientLayer = [noteModel.graLayers1 objectAtIndex:i];
+            gradientLayer.frame = textLayer.frame;
+            gradientLayer.mask = textLayer;
+            textLayer.frame = gradientLayer.bounds;
+        }
+    }
+    else {
+        noteModel.contentLayer1.frame = frame;
+    }
     [CATransaction commit];
 }
 
