@@ -72,7 +72,7 @@
         noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
         noteModel.textColor = [UIColor whiteColor];
         noteModel.highTextColor = [UIColor redColor];
-        noteModel.textPosition = CGPointMake(2, 40);
+        noteModel.textPosition = CGPointMake(10, 10);
         noteModel.startTime = 1.0;
         noteModel.duration = 2;
         noteModel.textType = WZMCaptionModelTypeGradient;
@@ -84,7 +84,7 @@
         noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
         noteModel2.textColor = [UIColor greenColor];
         noteModel2.highTextColor = [UIColor blueColor];
-        noteModel2.textPosition = CGPointMake(2, 2);
+        noteModel2.textPosition = CGPointMake(10, 10);
         noteModel2.startTime = 4.0;
         noteModel2.duration = 3;
         noteModel2.noteId = @"2";
@@ -93,7 +93,7 @@
         noteModel3.text = @"我是第三个字幕:啦啦啦啦啦啦";
         noteModel3.textColor = [UIColor blueColor];
         noteModel3.highTextColor = [UIColor greenColor];
-        noteModel3.textPosition = CGPointMake(2, 2);
+        noteModel3.textPosition = CGPointMake(10, 10);
         noteModel3.startTime = 8.0;
         noteModel3.duration = 4;
         noteModel3.noteId = @"3";

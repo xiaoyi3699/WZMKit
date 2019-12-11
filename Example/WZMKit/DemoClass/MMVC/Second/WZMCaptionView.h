@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///最小宽度 = 一个字的宽度
 @property (nonatomic, assign) CGFloat minWidth;
+///最大宽度,根据父视图计算
+@property (nonatomic, readonly ,assign) CGFloat maxWidth;
 @property (nonatomic, weak) id<WZMCaptionViewDelegate> delegate;
 
 @end
@@ -22,17 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WZMCaptionViewDelegate <NSObject>
 
 @optional
+//显示/隐藏
 - (void)captionViewShow:(WZMCaptionView *)captionView;
 - (void)captionViewDismiss:(WZMCaptionView *)captionView;
-
+//编辑文字
 - (void)captionViewBeginEditing:(WZMCaptionView *)captionView;
-- (void)captionViewEndEditing:(WZMCaptionView *)captionView;
-
+//改变位置
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame;
 - (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame;
-
-
-
+//旋转
 - (void)captionView:(WZMCaptionView *)captionView changeTransform:(CATransform3D)transform;
 
 @end

@@ -74,20 +74,27 @@
 - (void)showCaptionAnimation:(NSInteger)index {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     noteModel.showing = YES;
-    [noteModel.contentLayer1 removeFromSuperlayer];
-    CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
-    noteModel.contentLayer1 = layer;
+    
+    //字幕编辑框view
     WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
     if (captionView == nil) {
-        captionView = [[WZMCaptionView alloc] initWithFrame:layer.frame];
+        captionView = [[WZMCaptionView alloc] initWithFrame:CGRectZero];
         captionView.delegate = self;
         captionView.tag = index;
         CATransform3D transform3D = CATransform3DIdentity;
         captionView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
         [self.playView addSubview:captionView];
-        
         [self.captionViews setObject:captionView forKey:noteModel.noteId];
     }
+    CGFloat maxWidth = captionView.maxWidth;
+    if (maxWidth < noteModel.textMaxW) {
+        noteModel.textMaxW = maxWidth;
+    }
+    //创建layer
+    [noteModel.contentLayer1 removeFromSuperlayer];
+    CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
+    noteModel.contentLayer1 = layer;
+    //设置相关参数
     captionView.minWidth = (noteModel.textFontSize+5);
     captionView.frame = layer.frame;
     captionView.hidden = NO;
@@ -128,6 +135,12 @@
     
     [self.player seekToTime:noteModel.startTime];
     [self.player play];
+}
+
+- (void)captionViewBeginEditing:(WZMCaptionView *)captionView {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    noteModel.text = @"我已经改变了文字";
+    [self showCaptionAnimation:captionView.tag];
 }
 
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame {
