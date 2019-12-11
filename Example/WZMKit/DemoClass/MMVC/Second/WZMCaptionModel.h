@@ -1,5 +1,5 @@
 //
-//  WZMNoteModel.h
+//  WZMCaptionModel.h
 //  WZMKit_Example
 //
 //  Created by Zhaomeng Wang on 2019/12/6.
@@ -9,17 +9,19 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSInteger {
-    WZMNoteModelTypeNormal = 0, //默认
-    WZMNoteModelTypeGradient,   //渐变
-} WZMNoteTextType;
+    WZMCaptionModelTypeNormal = 0, //默认
+    WZMCaptionModelTypeGradient,   //渐变
+} WZMCaptionTextType;
 
 typedef enum : NSInteger {
-    WZMNoteTextAnimationTypeSingle,     //单字高亮
-    WZMNoteTextAnimationTypeOneByOne,   //逐字高亮(卡拉OK)
-} WZMNoteTextAnimationType;
+    WZMCaptionTextAnimationTypeSingle,   //单字高亮
+    WZMCaptionTextAnimationTypeOneByOne, //逐字高亮(卡拉OK)
+} WZMCaptionTextAnimationType;
 
-@interface WZMNoteModel : NSObject
+@interface WZMCaptionModel : NSObject
 
+///字幕id
+@property (nonatomic, strong) NSString *noteId;
 ///是否显示音符,默认YES
 @property (nonatomic, assign) BOOL showNote;
 ///是否正在编辑
@@ -61,8 +63,8 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) CGFloat duration;
 
 ///字幕样式
-@property (nonatomic, assign) WZMNoteTextType textType;
-@property (nonatomic, assign) WZMNoteTextAnimationType textAnimationType;
+@property (nonatomic, assign) WZMCaptionTextType textType;
+@property (nonatomic, assign) WZMCaptionTextAnimationType textAnimationType;
 
 ///最大宽度每行字数的最大值,即列数
 - (NSInteger)textColumns;

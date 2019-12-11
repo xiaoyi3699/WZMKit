@@ -8,8 +8,9 @@
 
 #import "WZMVideoEditView.h"
 #import "FLLayerBuilderTool.h"
+#import "WZMCaptionView.h"
 
-@interface WZMVideoEditView ()<WZMPlayerDelegate>
+@interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
 //标记当前显示到第几句歌词了
 @property (nonatomic ,assign) NSInteger partIndex;
@@ -20,7 +21,7 @@
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
 
-@property (nonatomic, strong) UIView *noteView;
+@property (nonatomic, strong) NSMutableDictionary *captionViews;
 
 @end
 
@@ -45,39 +46,7 @@
     self.player.delegate = self;
     self.player.playerView = self.playView;
     
-    self.noteView = [[UIView alloc] init];
-    self.noteView.wzm_borderColor = [UIColor redColor];
-    self.noteView.wzm_borderWidth = 0.5;
-    self.noteView.hidden = YES;
-    [self addSubview:self.noteView];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    
-    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
-        WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
-        if (noteModel.showing == NO) continue;
-        CGRect textFrame = [noteModel textFrame];
-        if (CGRectContainsPoint(textFrame, point)) {
-            [self.player pause];
-            self.editingIndex = i;
-            noteModel.editing = YES;
-            self.noteView.frame = textFrame;
-            self.noteView.hidden = NO;
-            if (noteModel.angle/360.0 != 0) {
-                CATransform3D transform3D = CATransform3DIdentity;
-                self.noteView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
-            }
-            return;
-        }
-    }
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:self.editingIndex];
-    noteModel.editing = NO;
-    self.noteView.hidden = YES;
-    [self.player play];
+    self.captionViews = [[NSMutableDictionary alloc] init];
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {
@@ -105,17 +74,56 @@
 }
 
 - (void)showNoteAnimation:(NSInteger)index {
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     noteModel.showing = YES;
     [noteModel.contentLayer1 removeFromSuperlayer];
     CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
-    [self.playView.layer addSublayer:layer];
     noteModel.contentLayer1 = layer;
+    WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
+    if (captionView == nil) {
+        captionView = [[WZMCaptionView alloc] initWithFrame:layer.frame];
+        captionView.delegate = self;
+        captionView.tag = index;
+        CATransform3D transform3D = CATransform3DIdentity;
+        captionView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
+        [self.playView addSubview:captionView];
+        
+        [self.captionViews setObject:captionView forKey:noteModel.noteId];
+    }
+    captionView.hidden = NO;
+    [self.playView.layer addSublayer:layer];
 }
 
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
     if (self.noteModels == nil || self.noteModels.count == 0) return;
     [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
+}
+
+///字幕视图代理
+- (void)captionViewBeginEdit:(WZMCaptionView *)captionView {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    self.editingIndex = captionView.tag;
+    noteModel.editing = YES;
+    [self.player pause];
+}
+
+- (void)captionViewEndEdit:(WZMCaptionView *)captionView {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    noteModel.editing = NO;
+    [self.player play];
+}
+
+- (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    noteModel.contentLayer1.frame = frame;
+}
+
+- (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    CGPoint point = noteModel.textPosition;
+    point.x += (newFrame.origin.x-oldFrame.origin.x);
+    point.y += (newFrame.origin.y-oldFrame.origin.y);
+    noteModel.textPosition = point;
 }
 
 ///播放器代理
@@ -127,7 +135,7 @@
     if (self.noteModels == nil || self.noteModels.count == 0) return;
     for (NSInteger i = self.partIndex; i < self.noteModels.count; i ++) {
         @autoreleasepool {
-            WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
             if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
                 [self showNoteAnimation:i];
                 self.partIndex = i+1;
@@ -183,7 +191,7 @@
     CGFloat scale = self.renderSize.width/self.videoFrame.size.width;
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
-        WZMNoteModel *noteModel = [self.noteModels objectAtIndex:i];
+        WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
         CGRect markFrame = [noteModel textFrame];
         markFrame.origin.x *= scale;
         markFrame.origin.y *= scale;
@@ -202,7 +210,7 @@
 
 //layer动画
 - (CALayer *)animationTextLayerWithFrame:(CGRect)frame preview:(BOOL)preview index:(NSInteger)index {
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     CALayer *overlayLayer = [CALayer layer];
     overlayLayer.frame = frame;
     overlayLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -242,6 +250,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 noteModel.showing = NO;
                 [overlayLayer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
+                WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
+                captionView.hidden = YES;
             });
         });
     }
@@ -269,7 +279,7 @@
     CALayer *contentLayer = [CALayer layer];
     contentLayer.contentsScale = [UIScreen mainScreen].scale;
     contentLayer.frame = frame;
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.text.length <= 0) return contentLayer;
     
     //创建新的layer
@@ -311,7 +321,7 @@
             [textLayers addObject:textLayer];
             
             NSArray *values;
-            if (noteModel.textType == WZMNoteModelTypeNormal) {
+            if (noteModel.textType == WZMCaptionModelTypeNormal) {
                 //默认
                 values = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
             }
@@ -366,7 +376,7 @@
 - (void)showTextAnimationInLayer:(CALayer *)contentLayer
                          preview:(BOOL)preview
                            index:(NSInteger)index {
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     //单个字的动画时长
     CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
     //缩放比例
@@ -407,7 +417,7 @@
         animation2.removedOnCompletion = NO;
         animation2.fillMode = kCAFillModeForwards;
         NSArray *fromValue2, *toValue2;
-        if (noteModel.textType == WZMNoteModelTypeNormal) {
+        if (noteModel.textType == WZMCaptionModelTypeNormal) {
             //默认
             fromValue2 = @[(id)noteModel.textColor.CGColor,(id)noteModel.textColor.CGColor];
             toValue2 = @[(id)noteModel.highTextColor.CGColor,(id)noteModel.highTextColor.CGColor];
@@ -425,7 +435,7 @@
             fromValue2 = [colors1 copy];
             toValue2 = [colors2 copy];
         }
-        if (noteModel.textAnimationType == WZMNoteTextAnimationTypeSingle) {
+        if (noteModel.textAnimationType == WZMCaptionTextAnimationTypeSingle) {
             //单字高亮
             animation2.fromValue = toValue2;
             animation2.toValue = fromValue2;
@@ -488,7 +498,7 @@
 - (void)showNoteAnimationInLayer:(CALayer *)contentLayer
                          preview:(BOOL)preview
                            index:(NSInteger)index {
-    WZMNoteModel *noteModel = [self.noteModels objectAtIndex:index];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.showNote == NO) return;
     //缩放比例
     CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);

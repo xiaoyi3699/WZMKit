@@ -20,7 +20,8 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		648B64AE238FB99400E74104 /* WZMVideoEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 648B64AD238FB99400E74104 /* WZMVideoEditView.m */; };
 		64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */; };
-		64D3E49D239A4F4A004DEAF6 /* WZMNoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */; };
+		64D3E49D239A4F4A004DEAF6 /* WZMCaptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */; };
+		64D3E4A823A088A9004DEAF6 /* WZMCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
@@ -90,8 +91,10 @@
 		648B64AD238FB99400E74104 /* WZMVideoEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoEditView.m; sourceTree = "<group>"; };
 		64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLLayerBuilderTool.h; sourceTree = "<group>"; };
 		64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLLayerBuilderTool.m; sourceTree = "<group>"; };
-		64D3E49B239A4F4A004DEAF6 /* WZMNoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMNoteModel.h; sourceTree = "<group>"; };
-		64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMNoteModel.m; sourceTree = "<group>"; };
+		64D3E49B239A4F4A004DEAF6 /* WZMCaptionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCaptionModel.h; sourceTree = "<group>"; };
+		64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMCaptionModel.m; sourceTree = "<group>"; };
+		64D3E4A623A088A9004DEAF6 /* WZMCaptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCaptionView.h; sourceTree = "<group>"; };
+		64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMCaptionView.m; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -521,8 +524,10 @@
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 				648B64AC238FB99400E74104 /* WZMVideoEditView.h */,
 				648B64AD238FB99400E74104 /* WZMVideoEditView.m */,
-				64D3E49B239A4F4A004DEAF6 /* WZMNoteModel.h */,
-				64D3E49C239A4F4A004DEAF6 /* WZMNoteModel.m */,
+				64D3E49B239A4F4A004DEAF6 /* WZMCaptionModel.h */,
+				64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */,
+				64D3E4A623A088A9004DEAF6 /* WZMCaptionView.h */,
+				64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -764,6 +769,7 @@
 				75DA9E4F230E9BBD0000A955 /* WZMNewsDataProvider.m in Sources */,
 				7558CBC322DF50D30043651C /* SecondViewController.m in Sources */,
 				75DA9E32230E924A0000A955 /* WZMWebViewController.m in Sources */,
+				64D3E4A823A088A9004DEAF6 /* WZMCaptionView.m in Sources */,
 				75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */,
 				75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
@@ -773,7 +779,7 @@
 				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
-				64D3E49D239A4F4A004DEAF6 /* WZMNoteModel.m in Sources */,
+				64D3E49D239A4F4A004DEAF6 /* WZMCaptionModel.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,
 				75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */,
 				75DA9E2B230E924A0000A955 /* WKWebView+WZMWebViewController.m in Sources */,

@@ -68,33 +68,35 @@
     else if (btn.tag == 1) {
         if (editView.noteModels) return;
         
-        WZMNoteModel *noteModel = [[WZMNoteModel alloc] init];
+        WZMCaptionModel *noteModel = [[WZMCaptionModel alloc] init];
         noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
         noteModel.textColor = [UIColor whiteColor];
         noteModel.highTextColor = [UIColor redColor];
         noteModel.textPosition = CGPointMake(2, 40);
         noteModel.startTime = 1.0;
         noteModel.duration = 2;
-        noteModel.angle = 20;
-        noteModel.textType = WZMNoteModelTypeGradient;
-        noteModel.textAnimationType = WZMNoteTextAnimationTypeOneByOne;
+        noteModel.textType = WZMCaptionModelTypeGradient;
+        noteModel.textAnimationType = WZMCaptionTextAnimationTypeOneByOne;
         noteModel.showNote = NO;
+        noteModel.noteId = @"1";
         
-        WZMNoteModel *noteModel2 = [[WZMNoteModel alloc] init];
+        WZMCaptionModel *noteModel2 = [[WZMCaptionModel alloc] init];
         noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
         noteModel2.textColor = [UIColor greenColor];
         noteModel2.highTextColor = [UIColor blueColor];
         noteModel2.textPosition = CGPointMake(2, 2);
         noteModel2.startTime = 4.0;
         noteModel2.duration = 3;
+        noteModel2.noteId = @"2";
         
-        WZMNoteModel *noteModel3 = [[WZMNoteModel alloc] init];
+        WZMCaptionModel *noteModel3 = [[WZMCaptionModel alloc] init];
         noteModel3.text = @"我是第三个字幕:啦啦啦啦啦啦";
         noteModel3.textColor = [UIColor blueColor];
         noteModel3.highTextColor = [UIColor greenColor];
         noteModel3.textPosition = CGPointMake(2, 2);
         noteModel3.startTime = 8.0;
         noteModel3.duration = 4;
+        noteModel3.noteId = @"3";
         
         editView.noteModels = @[noteModel,noteModel2,noteModel3];
     }

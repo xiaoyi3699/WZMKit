@@ -1,14 +1,14 @@
 //
-//  WZMNoteModel.m
+//  WZMCaptionModel.m
 //  WZMKit_Example
 //
 //  Created by Zhaomeng Wang on 2019/12/6.
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMNoteModel.h"
+#import "WZMCaptionModel.h"
 
-@implementation WZMNoteModel
+@implementation WZMCaptionModel
 
 - (instancetype)init {
     self = [super init];
@@ -28,9 +28,11 @@
         self.backgroundColor = [UIColor clearColor];
         self.startTime = 0.0;
         self.duration = 0.0;
-        self.textType = WZMNoteModelTypeNormal;
-        self.textAnimationType = WZMNoteTextAnimationTypeSingle;
+        self.textType = WZMCaptionModelTypeNormal;
+        self.textAnimationType = WZMCaptionTextAnimationTypeSingle;
         self.noteImage = [UIImage wzm_getRoundImageByColor:[UIColor redColor] size:CGSizeMake(50, 50)];
+        self.noteId = [NSString wzm_getTimeStampByDate:[NSDate date]];
+        
     }
     return self;
 }

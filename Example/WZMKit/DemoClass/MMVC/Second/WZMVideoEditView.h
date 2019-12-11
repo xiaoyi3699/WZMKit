@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMNoteModel.h"
+#import "WZMCaptionModel.h"
 
 @interface WZMVideoEditView : UIView
 
@@ -16,7 +16,7 @@
 ///视频渲染frame,添加水印、文字等均以此frame为准
 @property (nonatomic, readonly ,assign) CGRect videoFrame;
 ///字幕
-@property (nonatomic, strong) NSArray<WZMNoteModel *> *noteModels;
+@property (nonatomic, strong) NSArray<WZMCaptionModel *> *noteModels;
 
 ///初始化
 - (instancetype)initWithFrame:(CGRect)frame;
