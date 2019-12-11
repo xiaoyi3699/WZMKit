@@ -116,6 +116,36 @@
     [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
 }
 
+#pragma mark - 事件代理
+///播放器代理
+- (void)playerBeginPlaying:(WZMPlayer *)player {
+    
+}
+
+- (void)playerPlaying:(WZMPlayer *)player {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
+                if (noteModel.showing == NO) {
+                    [self showCaptionAnimation:i];
+                }
+            }
+            if (fabs(player.currentTime - (noteModel.startTime+noteModel.duration)) <= 0.1) {
+                if (noteModel.showing) {
+                    [self dismissCaptionAnimation:i];
+                }
+            }
+        }
+    }
+}
+
+- (void)playerEndPlaying:(WZMPlayer *)player {
+    [player seekToTime:0];
+    [player play];
+}
+
 ///字幕视图代理
 - (void)captionViewShow:(WZMCaptionView *)captionView {
     self.editingIndex = captionView.tag;
@@ -188,34 +218,7 @@
     }
 }
 
-///播放器代理
-- (void)playerBeginPlaying:(WZMPlayer *)player {
-    
-}
-
-- (void)playerPlaying:(WZMPlayer *)player {
-    if (self.noteModels == nil || self.noteModels.count == 0) return;
-    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
-        @autoreleasepool {
-            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
-            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
-                if (noteModel.showing == NO) {
-                    [self showCaptionAnimation:i];
-                }
-            }
-            if (fabs(player.currentTime - (noteModel.startTime+noteModel.duration)) <= 0.1) {
-                if (noteModel.showing) {
-                    [self dismissCaptionAnimation:i];
-                }
-            }
-        }
-    }
-}
-
-- (void)playerEndPlaying:(WZMPlayer *)player {
-    [player seekToTime:0];
-    [player play];
-}
+//键盘代理
 
 #pragma mark -- 添加水印、字幕、动画
 - (void)addWatermarkWithVideoUrl:(NSURL *)videoUrl completion:(void(^)(NSURL *exportURL))completion {
