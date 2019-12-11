@@ -34,6 +34,8 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) CGPoint textPosition;
 ///字幕的最大宽度
 @property (nonatomic, assign) CGFloat textMaxW;
+///字幕的最大高度
+@property (nonatomic, assign) CGFloat textMaxH;
 ///旋转的角度
 @property (nonatomic, assign) CGFloat angle;
 ///字体、颜色相关
@@ -67,11 +69,7 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) WZMCaptionTextType textType;
 @property (nonatomic, assign) WZMCaptionTextAnimationType textAnimationType;
 
-///最大宽度每行字数的最大值,即列数
-- (NSInteger)textColumns;
-///出总共有几行
-- (NSInteger)textRows;
 ///字幕坐标
-- (CGRect)textFrame;
+- (CGRect)textFrameWithTextColumns:(NSInteger *)textColumns;
 
 @end

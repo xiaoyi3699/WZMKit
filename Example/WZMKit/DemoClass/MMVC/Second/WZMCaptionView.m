@@ -169,6 +169,10 @@
     return self.superview.wzm_width-self.menuWidth*2;
 }
 
+- (CGFloat)maxHeight {
+    return self.superview.wzm_height-self.menuWidth*2;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.editView.wzm_postion = CGPointMake(-self.menuWidth, -self.menuWidth);

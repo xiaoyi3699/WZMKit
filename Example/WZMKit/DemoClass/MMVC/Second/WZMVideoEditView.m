@@ -86,13 +86,14 @@
         [self.playView addSubview:captionView];
         [self.captionViews setObject:captionView forKey:noteModel.noteId];
     }
+    noteModel.textMaxH = captionView.maxHeight;
     CGFloat maxWidth = captionView.maxWidth;
     if (maxWidth < noteModel.textMaxW) {
         noteModel.textMaxW = maxWidth;
     }
     //创建layer
     [noteModel.contentLayer1 removeFromSuperlayer];
-    CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrame] preview:YES index:index];
+    CALayer *layer = [self animationTextLayerWithFrame:[noteModel textFrameWithTextColumns:nil] preview:YES index:index];
     noteModel.contentLayer1 = layer;
     //设置相关参数
     captionView.minWidth = (noteModel.textFontSize+5);
@@ -182,18 +183,20 @@
 }
 
 - (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
+    
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
-    CGPoint point = noteModel.textPosition;
-    point.x += (newFrame.origin.x-oldFrame.origin.x);
-    point.y += (newFrame.origin.y-oldFrame.origin.y);
-    noteModel.textPosition = point;
+    noteModel.textPosition = newFrame.origin;
     
     //宽度发生了改变
     if (newFrame.size.width != oldFrame.size.width) {
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
         noteModel.textMaxW = newFrame.size.width;
-        CGRect newRect = [noteModel textFrame];
+        NSInteger columns;
+        CGRect newRect = [noteModel textFrameWithTextColumns:&columns];
+        if (CGRectGetMaxX(newRect) > captionView.maxWidth) {
+            newRect.origin.x = captionView.maxWidth-newRect.size.width;
+        }
         captionView.frame = newRect;
         noteModel.contentLayer1.frame = newRect;
         //单个字的宽和高
@@ -202,7 +205,6 @@
         CGFloat dy = (noteModel.showNote ? 30 : 0)*1;
         //音符起始x、y坐标
         CGFloat startX = 0.0, startY = dy;
-        NSInteger columns = [noteModel textColumns];
         for (NSInteger i = 0; i < noteModel.textLayers1.count; i ++) {
             CGRect rect = CGRectMake(startX+i%columns*singleW, startY+i/columns*singleW, singleW, singleW);
             
@@ -261,7 +263,7 @@
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
-        CGRect markFrame = [noteModel textFrame];
+        CGRect markFrame = [noteModel textFrameWithTextColumns:nil];
         markFrame.origin.x *= scale;
         markFrame.origin.y *= scale;
         markFrame.size.width *= scale;
@@ -349,7 +351,9 @@
     
     //创建新的layer
     //缩放比例
-    CGFloat scale = (frame.size.width/[noteModel textFrame].size.width);
+    NSInteger columns;
+    CGRect textRect = [noteModel textFrameWithTextColumns:&columns];
+    CGFloat scale = (frame.size.width/textRect.size.width);
     //单个字的宽和高
     CGFloat singleW = (noteModel.textFontSize+5)*scale;
     //音符上下波动间距
@@ -361,8 +365,6 @@
     NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *textLayers = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *graLayers = [[NSMutableArray alloc] initWithCapacity:0];
-    
-    NSInteger columns = [noteModel textColumns];
     for (NSInteger i = 0; i < noteModel.text.length; i ++) {
         @autoreleasepool {
             //创建字符layer
@@ -445,7 +447,7 @@
     //单个字的动画时长
     CGFloat singleDuration = (noteModel.duration/noteModel.text.length);
     //缩放比例
-    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
+    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrameWithTextColumns:nil].size.width);
     
     NSArray *tLayers = preview ? noteModel.textLayers1 : noteModel.textLayers2;
     NSArray *gLayers = preview ? noteModel.graLayers1 : noteModel.graLayers2;
@@ -563,7 +565,7 @@
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     if (noteModel.showNote == NO) return;
     //缩放比例
-    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrame].size.width);
+    CGFloat scale = (contentLayer.frame.size.width/[noteModel textFrameWithTextColumns:nil].size.width);
     CGRect noteRect = CGRectMake(-10, -10, 10, 10);
     if (preview == NO) {
         noteRect.origin.x *= scale;

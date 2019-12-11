@@ -37,7 +37,8 @@
     return self;
 }
 
-///最大宽度每行字数的最大值,即列数
+#pragma mark - 按最大宽度计算
+///最大宽度/字宽,即列数
 - (NSInteger)textColumns {
     return (self.textMaxW/(self.textFontSize+5));
 }
@@ -49,7 +50,7 @@
 }
 
 ///字幕坐标
-- (CGRect)textFrame {
+- (CGRect)textFrameWithTextColumns:(NSInteger *)textColumns {
     //计算出总共有几行
     NSInteger rows = [self textRows];
     //计算出字幕的frame
@@ -58,6 +59,41 @@
     markFrame.origin = self.textPosition;
     markFrame.size.width = MIN(textW, self.textMaxW);
     markFrame.size.height = rows*(self.textFontSize+5)+(self.showNote ? 30 : 0);
+    if (markFrame.size.height > self.textMaxH) {
+        markFrame = [self textFrame2];
+        if (textColumns) {
+            *textColumns = [self textColumns2];
+        }
+    }
+    else {
+        if (textColumns) {
+            *textColumns = [self textColumns];
+        }
+    }
+    return markFrame;
+}
+
+#pragma mark - 按最大高度计算
+///最大高度/字宽,即行数
+- (NSInteger)textRows2 {
+    CGFloat dy = self.showNote ? 30 : 0;
+    return ((self.textMaxH-dy)/(self.textFontSize+5));
+}
+
+///列数
+- (NSInteger)textColumns2 {
+    NSInteger textRows = [self textRows2];
+    return (self.text.length%textRows == 0) ? (self.text.length/textRows) : (self.text.length/textRows + 1);
+}
+
+- (CGRect)textFrame2 {
+    //计算出总共有几行
+    NSInteger columns = [self textColumns2];
+    //计算出字幕的frame
+    CGRect markFrame = CGRectZero;
+    markFrame.origin = self.textPosition;
+    markFrame.size.width = columns*(self.textFontSize+5);
+    markFrame.size.height = self.textMaxH;
     return markFrame;
 }
 

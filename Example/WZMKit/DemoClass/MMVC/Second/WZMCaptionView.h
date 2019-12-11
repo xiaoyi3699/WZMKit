@@ -15,8 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///最小宽度 = 一个字的宽度
 @property (nonatomic, assign) CGFloat minWidth;
-///最大宽度,根据父视图计算
+///最大宽度/高度,根据父视图计算
 @property (nonatomic, readonly ,assign) CGFloat maxWidth;
+@property (nonatomic, readonly ,assign) CGFloat maxHeight;
+///代理
 @property (nonatomic, weak) id<WZMCaptionViewDelegate> delegate;
 
 @end
