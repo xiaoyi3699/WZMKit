@@ -194,8 +194,8 @@
         noteModel.textMaxW = newFrame.size.width;
         NSInteger columns;
         CGRect newRect = [noteModel textFrameWithTextColumns:&columns];
-        if (CGRectGetMaxX(newRect) > captionView.maxWidth) {
-            newRect.origin.x = captionView.maxWidth-newRect.size.width;
+        if (newFrame.size.width < newRect.size.width) {
+            newRect.origin.x = CGRectGetMaxX(oldFrame)-newRect.size.width;
         }
         captionView.frame = newRect;
         noteModel.contentLayer1.frame = newRect;
