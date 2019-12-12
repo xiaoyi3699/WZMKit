@@ -127,7 +127,7 @@
     }
     else if (btn.tag == 1) {
         //特效
-        [self.inputView showSystemKeyboard];
+        [self.inputView chatBecomeFirstResponder];
     }
     else {
         //转场

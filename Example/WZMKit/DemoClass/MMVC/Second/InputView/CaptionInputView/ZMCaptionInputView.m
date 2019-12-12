@@ -47,7 +47,7 @@
 #pragma mark - 父类回调事件
 //点击return键
 - (BOOL)shouldReturn {
-    
+    [self chatResignFirstResponder];
     return NO;
 }
 
