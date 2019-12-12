@@ -163,28 +163,6 @@
     [self changedPlayerCurrentTime:player.currentTime];
 }
 
-- (void)changedPlayerCurrentTime:(CGFloat)currentTime {
-    if (self.noteModels == nil || self.noteModels.count == 0) return;
-    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
-        @autoreleasepool {
-            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
-            if (self.player.isPlaying) {
-//                noteModel.captionView.hidden = YES;
-            }
-            if ((currentTime > noteModel.startTime) && (currentTime < (noteModel.startTime+noteModel.duration))) {
-                if (noteModel.showing == NO) {
-                    [self showCaptionAnimation:i];
-                }
-            }
-            else {
-                if (noteModel.showing) {
-                    [self dismissCaptionAnimation:i];
-                }
-            }
-        }
-    }
-}
-
 - (void)playerEndPlaying:(WZMPlayer *)player {
     if ([self.delegate respondsToSelector:@selector(playerEndPlaying:)]) {
         [self.delegate playerEndPlaying:player];
@@ -219,23 +197,42 @@
     }
 }
 
+- (void)changedPlayerCurrentTime:(CGFloat)currentTime {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+            if (self.player.isPlaying && noteModel.editing) {
+                noteModel.editing = NO;
+                [noteModel.captionView captionViewShow:NO];
+            }
+            if ((currentTime > noteModel.startTime) && (currentTime < (noteModel.startTime+noteModel.duration))) {
+                if (noteModel.showing == NO) {
+                    [self showCaptionAnimation:i];
+                }
+            }
+            else {
+                if (noteModel.showing) {
+                    [self dismissCaptionAnimation:i];
+                }
+            }
+        }
+    }
+}
+
 ///字幕视图代理
 - (void)captionViewShow:(WZMCaptionView *)captionView {
+    [self.player pause];
     self.editingIndex = captionView.index;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = YES;
-    noteModel.showing = NO;
-    
-    [self.player pause];
     [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
 }
 
 - (void)captionViewDismiss:(WZMCaptionView *)captionView {
-    self.editingIndex = -1;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = NO;
-    noteModel.showing = NO;
-    
+    self.editingIndex = -1;
     [self.player seekToTime:noteModel.startTime];
     [self.player play];
 }

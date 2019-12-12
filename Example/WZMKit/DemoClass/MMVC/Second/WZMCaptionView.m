@@ -52,7 +52,12 @@
 //显示字幕view
 - (void)captionTap:(UITapGestureRecognizer *)recognizer {
     self.showing = !self.showing;
-    if (self.showing) {
+    [self captionViewShow:self.showing];
+}
+
+- (void)captionViewShow:(BOOL)show {
+    self.showing = show;
+    if (show) {
         self.wzm_borderWidth = 0.5;
         self.wzm_borderColor = [UIColor redColor];
         self.editView.hidden = NO;

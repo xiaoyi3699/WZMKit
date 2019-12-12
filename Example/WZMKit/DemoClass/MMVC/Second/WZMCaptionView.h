@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///代理
 @property (nonatomic, weak) id<WZMCaptionViewDelegate> delegate;
 
+- (void)captionViewShow:(BOOL)show;
+
 @end
 
 @protocol WZMCaptionViewDelegate <NSObject>

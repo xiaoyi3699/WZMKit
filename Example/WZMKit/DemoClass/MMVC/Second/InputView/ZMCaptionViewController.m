@@ -133,37 +133,27 @@
 //加载歌词
 - (void)loadCaptionWords {
     //初始化歌词
-    WZMCaptionModel *noteModel = [[WZMCaptionModel alloc] init];
-    noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
-    noteModel.textColor = [UIColor whiteColor];
-    noteModel.highTextColor = [UIColor redColor];
-    noteModel.textPosition = CGPointMake(10, 10);
-    noteModel.startTime = 0.5;
-    noteModel.duration = 1.5;
-    noteModel.textType = WZMCaptionModelTypeGradient;
-    noteModel.textAnimationType = WZMCaptionTextAnimationTypeOneByOne;
-    noteModel.showNote = NO;
-    noteModel.noteId = @"1";
     
-    WZMCaptionModel *noteModel2 = [[WZMCaptionModel alloc] init];
-    noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
-    noteModel2.textColor = [UIColor greenColor];
-    noteModel2.highTextColor = [UIColor blueColor];
-    noteModel2.textPosition = CGPointMake(10, 10);
-    noteModel2.startTime = 2.5;
-    noteModel2.duration = 2.5;
-    noteModel2.noteId = @"2";
-    
-    WZMCaptionModel *noteModel3 = [[WZMCaptionModel alloc] init];
-    noteModel3.text = @"我是第三个字幕:啦啦啦啦啦啦";
-    noteModel3.textColor = [UIColor blueColor];
-    noteModel3.highTextColor = [UIColor greenColor];
-    noteModel3.textPosition = CGPointMake(10, 10);
-    noteModel3.startTime = 5.5;
-    noteModel3.duration = 3.5;
-    noteModel3.noteId = @"3";
-    
-    self.videoView.noteModels = @[noteModel,noteModel2,noteModel3];
+    CGFloat lastTime = 0.5;
+    NSMutableArray *noteModels = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < 100; i ++) {
+        CGFloat duration = (arc4random()%5+1);
+        WZMCaptionModel *noteModel = [[WZMCaptionModel alloc] init];
+        noteModel.text = @"我是一个字幕:啦啦啦啦啦啦";
+        noteModel.textColor = [UIColor whiteColor];
+        noteModel.highTextColor = [UIColor redColor];
+        noteModel.textPosition = CGPointMake(10, 10);
+        noteModel.startTime = lastTime;
+        noteModel.duration = duration;
+        noteModel.textType = i%2;
+        noteModel.textAnimationType = i%2;
+        noteModel.showNote = (i%2 == 0);
+        noteModel.noteId = [NSString stringWithFormat:@"%@",@(i)];
+        [noteModels addObject:noteModel];
+        
+        lastTime = lastTime+duration+0.5;
+    }
+    self.videoView.noteModels = noteModels;
 }
 
 //导出视频
