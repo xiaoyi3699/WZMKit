@@ -8,6 +8,7 @@
 
 #import "ZMCaptionViewController.h"
 #import "WZMVideoEditView.h"
+#import "ZMCaptionInputView.h"
 
 @interface ZMCaptionViewController ()<WZMVideoEditViewDelegate,WZMVideoKeyView2Delegate>
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) WZMVideoKeyView2 *videoKeyView;
 @property (nonatomic, strong) WZMButton *playBtn;
+@property (nonatomic, strong) ZMCaptionInputView *inputView;
 
 @end
 
@@ -47,6 +49,7 @@
     [self initVideoView];
     [self loadCaptionWords];
     [self initToolView:toolViewH];
+    [self initInputView];
 }
 
 //播放view
@@ -112,6 +115,11 @@
     [self.toolView addSubview:self.videoKeyView];
 }
 
+- (void)initInputView {
+    self.inputView = [[ZMCaptionInputView alloc] initWithFrame:CGRectMake(0, self.view.wzm_height, self.view.wzm_width, 105+200)];
+    [self.view addSubview:self.inputView];
+}
+
 //交互事件
 - (void)itemBtnClick:(UIButton *)btn {
     if (btn.tag == 0) {
@@ -119,7 +127,7 @@
     }
     else if (btn.tag == 1) {
         //特效
-        
+        [self.inputView showSystemKeyboard];
     }
     else {
         //转场

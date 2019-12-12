@@ -7,9 +7,119 @@
 //
 
 #import "ZMCaptionInputView.h"
+#import "ZMCaptionInputToolView.h"
 
-@implementation ZMCaptionInputView
+@interface ZMCaptionInputView ()<ZMCaptionInputToolViewDelegate>
 
+@property (nonatomic, strong) UIView *colorView;
+@property (nonatomic, strong) UIView *styleView;
+@property (nonatomic, strong) UIView *fontView;
+@property (nonatomic, strong) ZMCaptionInputToolView *inputToolView;
 
+@end
+
+@implementation ZMCaptionInputView {
+    UIView *_toolView;
+    NSArray *_keyboards;
+}
+
+#pragma mark - 实现以下三个数据源方法, 供父类调用
+//设置toolView和keyboards
+- (UIView *)toolViewOfInputView {
+    if (_toolView == nil) {
+        _toolView = self.inputToolView;
+    }
+    return _toolView;
+}
+
+- (NSArray<UIView *> *)keyboardsOfInputView {
+    if (_keyboards == nil) {
+        _keyboards = @[self.colorView,self.styleView,self.fontView];
+    }
+    return _keyboards;
+}
+
+///视图的初始y值, 一般放在屏幕的最下方
+- (CGFloat)startYOfInputView {
+    return WZM_SCREEN_HEIGHT;
+}
+
+#pragma mark - 父类回调事件
+//点击return键
+- (BOOL)shouldReturn {
+    
+    return NO;
+}
+
+///开始编辑
+- (void)didBeginEditing {
+    
+}
+
+///输入框值改变
+- (void)valueDidChange {
+    
+}
+
+///还原视图
+- (void)willResetConfig {
+    
+}
+
+///视图frameb改变
+- (void)willChangeFrameWithDuration:(CGFloat)duration {
+    
+}
+
+#pragma mark - 代理
+- (void)captionInputToolView:(ZMCaptionInputToolView *)captionInputToolView didSelectedWithType:(ZMCaptionInputToolViewType)type {
+    if (type == ZMCaptionInputToolViewTypeOK) {
+        //确定
+    }
+    else if (type == ZMCaptionInputToolViewTypeSystem) {
+        //系统键盘
+        [self showSystemKeyboard];
+    }
+    else {
+        [self showKeyboardAtIndex:type duration:0.2];
+    }
+}
+
+#pragma mark - getter
+- (ZMCaptionInputToolView *)inputToolView {
+    if (_inputToolView == nil) {
+        _inputToolView = [[ZMCaptionInputToolView alloc] initWithFrame:CGRectMake(0, 0, self.wzm_width, 105)];
+        _inputToolView.delegate = self;
+        _inputToolView.backgroundColor = [UIColor colorWithRed:250/255. green:250/255. blue:250/255. alpha:1];
+    }
+    return _inputToolView;
+}
+
+- (UIView *)colorView {
+    if (_colorView == nil) {
+        _colorView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _colorView.hidden = YES;
+        _colorView.backgroundColor = [UIColor whiteColor];
+    }
+    return _colorView;
+}
+
+- (UIView *)styleView {
+    if (_styleView == nil) {
+        _styleView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _styleView.hidden = YES;
+        _styleView.backgroundColor = [UIColor redColor];
+    }
+    return _styleView;
+}
+
+- (UIView *)fontView {
+    if (_fontView == nil) {
+        _fontView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _fontView.hidden = YES;
+        _fontView.backgroundColor = [UIColor greenColor];
+    }
+    return _fontView;
+}
 
 @end

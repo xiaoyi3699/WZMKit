@@ -35,7 +35,7 @@
         
         NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:3];
         NSArray *titles = @[@"键盘",@"颜色",@"样式",@"字体"];
-        for (NSInteger i = 0; i < 3; i ++) {
+        for (NSInteger i = 0; i < titles.count; i ++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = CGRectMake(i*70, 0, 70, 40);
             btn.tag = i;
@@ -57,7 +57,7 @@
         _okBtn.frame = CGRectMake(menuView.wzm_width-70, 5, 60, 30);
         _okBtn.tag = titles.count;
         _okBtn.backgroundColor = [UIColor blueColor];
-        _okBtn.wzm_cornerRadius = 5;
+        _okBtn.wzm_cornerRadius = -1;
         [_okBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_okBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_okBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -68,7 +68,7 @@
 
 - (void)btnClick:(UIButton *)btn {
     if ([self.delegate respondsToSelector:@selector(captionInputToolView:didSelectedWithType:)]) {
-        [self.delegate captionInputToolView:self didSelectedWithType:btn.tag];
+        [self.delegate captionInputToolView:self didSelectedWithType:(btn.tag-1)];
     }
 }
 

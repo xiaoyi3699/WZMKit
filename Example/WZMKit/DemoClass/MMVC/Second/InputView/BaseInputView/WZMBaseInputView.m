@@ -156,7 +156,7 @@
 ///视图的初始y值
 - (CGFloat)startYOfInputView {
     if (self.startY == -1) {
-        self.startY = [UIScreen mainScreen].bounds.size.height-self.toolViewH;
+        self.startY = WZM_SCREEN_HEIGHT;
     }
     return self.startY;
 }
@@ -266,7 +266,7 @@
     }
     if (k) {
         self.keyboardH = k.bounds.size.height;
-        CGFloat minY = self.startY-self.keyboardH;
+        CGFloat minY = self.startY-self.keyboardH-self.toolViewH;
         [self minYWillChange:minY duration:duration dismissKeyboard:NO];
     }
 }

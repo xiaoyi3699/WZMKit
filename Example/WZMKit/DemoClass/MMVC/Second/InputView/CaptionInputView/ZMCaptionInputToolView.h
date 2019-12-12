@@ -12,11 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSInteger {
-    ZMCaptionInputToolViewTypeSystem = 0, //系统键盘
-    ZMCaptionInputToolViewTypeColor,      //颜色
-    ZMCaptionInputToolViewTypeStyle,      //样式
-    ZMCaptionInputToolViewTypeFont,       //字体
-    ZMCaptionInputToolViewTypeOK,         //确定
+    ZMCaptionInputToolViewTypeOK     = -2, //确定
+    ZMCaptionInputToolViewTypeSystem = -1, //系统键盘
+    ZMCaptionInputToolViewTypeColor  = 0,  //颜色
+    ZMCaptionInputToolViewTypeStyle  = 1,  //样式
+    ZMCaptionInputToolViewTypeFont   = 2,  //字体
+    
 } ZMCaptionInputToolViewType;
 
 @interface ZMCaptionInputToolView : UIView
