@@ -73,8 +73,8 @@
         noteModel.textColor = [UIColor whiteColor];
         noteModel.highTextColor = [UIColor redColor];
         noteModel.textPosition = CGPointMake(10, 10);
-        noteModel.startTime = 1.0;
-        noteModel.duration = 2;
+        noteModel.startTime = 0.5;
+        noteModel.duration = 1.5;
         noteModel.textType = WZMCaptionModelTypeGradient;
         noteModel.textAnimationType = WZMCaptionTextAnimationTypeOneByOne;
         noteModel.showNote = NO;
@@ -85,8 +85,8 @@
         noteModel2.textColor = [UIColor greenColor];
         noteModel2.highTextColor = [UIColor blueColor];
         noteModel2.textPosition = CGPointMake(10, 10);
-        noteModel2.startTime = 4.0;
-        noteModel2.duration = 3;
+        noteModel2.startTime = 2.5;
+        noteModel2.duration = 2.5;
         noteModel2.noteId = @"2";
         
         WZMCaptionModel *noteModel3 = [[WZMCaptionModel alloc] init];
@@ -94,8 +94,8 @@
         noteModel3.textColor = [UIColor blueColor];
         noteModel3.highTextColor = [UIColor greenColor];
         noteModel3.textPosition = CGPointMake(10, 10);
-        noteModel3.startTime = 8.0;
-        noteModel3.duration = 4;
+        noteModel3.startTime = 5.5;
+        noteModel3.duration = 3.5;
         noteModel3.noteId = @"3";
         
         editView.noteModels = @[noteModel,noteModel2,noteModel3];

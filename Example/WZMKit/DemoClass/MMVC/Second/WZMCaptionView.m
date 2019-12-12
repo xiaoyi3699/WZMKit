@@ -14,8 +14,6 @@
 @property (nonatomic, assign) CGFloat menuWidth;
 @property (nonatomic, strong) UIView *editView;
 @property (nonatomic, strong) UIView *changeView;
-///最大宽度,根据父视图计算
-@property (nonatomic ,assign) CGFloat maxWidth;
 
 @end
 
@@ -24,7 +22,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.menuWidth = 10;
+        self.menuWidth = CAP_MENU_WIDTH;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captionTap:)];
         [self addGestureRecognizer:tap];
@@ -163,14 +161,6 @@
             }
         }
     }
-}
-
-- (CGFloat)maxWidth {
-    return self.superview.wzm_width-self.menuWidth*2;
-}
-
-- (CGFloat)maxHeight {
-    return self.superview.wzm_height-self.menuWidth*2;
 }
 
 - (void)layoutSubviews {

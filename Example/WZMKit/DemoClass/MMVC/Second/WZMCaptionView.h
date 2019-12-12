@@ -11,13 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define CAP_MENU_WIDTH 10.0
 @interface WZMCaptionView : UIView
 
 ///最小宽度 = 一个字的宽度
 @property (nonatomic, assign) CGFloat minWidth;
-///最大宽度/高度,根据父视图计算
-@property (nonatomic, readonly ,assign) CGFloat maxWidth;
-@property (nonatomic, readonly ,assign) CGFloat maxHeight;
+///索引值
+@property (nonatomic, assign) NSInteger index;
 ///代理
 @property (nonatomic, weak) id<WZMCaptionViewDelegate> delegate;
 

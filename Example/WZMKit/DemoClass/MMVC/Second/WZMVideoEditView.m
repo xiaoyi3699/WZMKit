@@ -19,6 +19,9 @@
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
 
+///最大宽度/高度,根据playView计算
+@property (nonatomic ,assign) CGFloat maxWidth;
+@property (nonatomic ,assign) CGFloat maxHeight;
 @property (nonatomic, strong) NSMutableDictionary *captionViews;
 
 @end
@@ -70,7 +73,7 @@
     }
 }
 
-//预览和合成字幕出现
+//预览字幕出现
 - (void)showCaptionAnimation:(NSInteger)index {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     noteModel.showing = YES;
@@ -80,14 +83,14 @@
     if (captionView == nil) {
         captionView = [[WZMCaptionView alloc] initWithFrame:CGRectZero];
         captionView.delegate = self;
-        captionView.tag = index;
+        captionView.index = index;
         CATransform3D transform3D = CATransform3DIdentity;
         captionView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
         [self.playView addSubview:captionView];
         [self.captionViews setObject:captionView forKey:noteModel.noteId];
     }
-    noteModel.textMaxH = captionView.maxHeight;
-    CGFloat maxWidth = captionView.maxWidth;
+    noteModel.textMaxH = self.maxHeight;
+    CGFloat maxWidth = self.maxWidth;
     if (maxWidth < noteModel.textMaxW) {
         noteModel.textMaxW = maxWidth;
     }
@@ -149,8 +152,8 @@
 
 ///字幕视图代理
 - (void)captionViewShow:(WZMCaptionView *)captionView {
-    self.editingIndex = captionView.tag;
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    self.editingIndex = captionView.index;
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = YES;
     noteModel.showing = NO;
     
@@ -160,7 +163,7 @@
 
 - (void)captionViewDismiss:(WZMCaptionView *)captionView {
     self.editingIndex = -1;
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = NO;
     noteModel.showing = NO;
     
@@ -169,13 +172,13 @@
 }
 
 - (void)captionViewBeginEditing:(WZMCaptionView *)captionView {
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.text = @"我已经改变了文字";
-    [self showCaptionAnimation:captionView.tag];
+    [self showCaptionAnimation:captionView.index];
 }
 
 - (void)captionView:(WZMCaptionView *)captionView changeFrame:(CGRect)frame {
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     noteModel.contentLayer1.frame = frame;
@@ -184,7 +187,7 @@
 
 - (void)captionView:(WZMCaptionView *)captionView endChangeFrame:(CGRect)newFrame oldFrame:(CGRect)oldFrame {
     
-    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.tag];
+    WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.textPosition = newFrame.origin;
     
     //宽度发生了改变
@@ -265,6 +268,7 @@
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+        noteModel.textMaxH = self.maxHeight;
         CGRect markFrame = [noteModel textFrameWithTextColumns:nil];
         markFrame.origin.x *= scale;
         markFrame.origin.y *= scale;
@@ -696,6 +700,14 @@
     mainCompositionInst.frameDuration = CMTimeMake(1, 30);
     
     return mainCompositionInst;
+}
+
+- (CGFloat)maxWidth {
+    return self.playView.wzm_width-CAP_MENU_WIDTH*2;
+}
+
+- (CGFloat)maxHeight {
+    return self.playView.wzm_height-CAP_MENU_WIDTH*2;
 }
 
 @end
