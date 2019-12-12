@@ -187,9 +187,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self loadAppStoreReceipt];
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
-                if (self.isRestore == NO) {
-                    [self finishTransaction:tran message:nil];
-                }
+                [self finishTransaction:tran message:nil];
             }
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
                 [self finishTransaction:tran message:nil];
@@ -217,7 +215,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     //恢复购买失败
-    [self finishTransaction:nil message:@"未查询到可恢复的订单"];
+    if (self.restore) {
+        [self finishTransaction:nil message:@"未查询到可恢复的订单"];
+    }
 }
 
 #pragma mark - 订单验证
@@ -239,9 +239,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
         [self saveReceiptData];
         [self verifyPurchaseForService];
-    }
-    else {
-        [self finishTransaction:nil message:@"支付失败"];
     }
 }
 
@@ -378,7 +375,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     self.failedCount ++;
     if (self.failedCount < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单验证失败"
-                                                            message:@"请检查网络环境后重试，取消后下次点击充值时将自动验证！"
+                                                            message:@"请检查网络环境后重试，取消后下次点击充值时将自动验证，连续验证失败3次后可选择放弃订单！"
                                                            delegate:self
                                                   cancelButtonTitle:@"取消"
                                                   otherButtonTitles:@"再次验证", nil];
