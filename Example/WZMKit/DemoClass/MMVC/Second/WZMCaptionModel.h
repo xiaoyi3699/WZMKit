@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMCaptionView.h"
 
 typedef enum : NSInteger {
     WZMCaptionModelTypeNormal = 0, //默认
@@ -57,6 +58,7 @@ typedef enum : NSInteger {
 @property (nonatomic, strong) CALayer *contentLayer1; //预览时layer
 @property (nonatomic, strong) CALayer *contentLayer2; //合成时layer
 @property (nonatomic, strong) CALayer *noteLayer;     //音符layer
+@property (nonatomic, strong) WZMCaptionView *captionView; //预览编辑框
 ///音符
 @property (nonatomic, strong) UIImage *noteImage;
 ///音符轨迹

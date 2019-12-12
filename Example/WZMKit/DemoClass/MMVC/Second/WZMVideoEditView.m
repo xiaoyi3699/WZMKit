@@ -8,7 +8,6 @@
 
 #import "WZMVideoEditView.h"
 #import "FLLayerBuilderTool.h"
-#import "WZMCaptionView.h"
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
@@ -22,7 +21,6 @@
 ///最大宽度/高度,根据playView计算
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGFloat maxHeight;
-@property (nonatomic, strong) NSMutableDictionary *captionViews;
 ///是否正在导出
 @property (nonatomic, assign) BOOL exporting;
 
@@ -48,8 +46,6 @@
     self.player.delegate = self;
     self.player.playerView = self.playView;
     self.player.trackingRunLoop = NO;
-    
-    self.captionViews = [[NSMutableDictionary alloc] init];
 }
 
 - (void)setVideoUrl:(NSURL *)videoUrl {
@@ -82,7 +78,7 @@
     noteModel.showing = YES;
     
     //字幕编辑框view
-    WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
+    WZMCaptionView *captionView = noteModel.captionView;
     if (captionView == nil) {
         captionView = [[WZMCaptionView alloc] initWithFrame:CGRectZero];
         captionView.delegate = self;
@@ -90,7 +86,7 @@
         CATransform3D transform3D = CATransform3DIdentity;
         captionView.layer.transform = CATransform3DConcat(transform3D, CATransform3DMakeRotation(noteModel.angle*M_PI/180.0, 0, 0, 1));
         [self.playView addSubview:captionView];
-        [self.captionViews setObject:captionView forKey:noteModel.noteId];
+        noteModel.captionView = captionView;
     }
     noteModel.textMaxH = self.maxHeight;
     CGFloat maxWidth = self.maxWidth;
@@ -114,7 +110,7 @@
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:index];
     noteModel.showing = NO;
     [noteModel.contentLayer1 addAnimation:fadeOutAnimation forKey:@"fadeOut"];
-    WZMCaptionView *captionView = [self.captionViews objectForKey:noteModel.noteId];
+    WZMCaptionView *captionView = noteModel.captionView;
     captionView.hidden = YES;
 }
 
@@ -172,6 +168,9 @@
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         @autoreleasepool {
             WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+            if (self.player.isPlaying) {
+//                noteModel.captionView.hidden = YES;
+            }
             if ((currentTime > noteModel.startTime) && (currentTime < (noteModel.startTime+noteModel.duration))) {
                 if (noteModel.showing == NO) {
                     [self showCaptionAnimation:i];
@@ -612,7 +611,7 @@
         if (preview) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(singleDuration*i*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 //处于编辑状态时不添加动画
-                if (noteModel.editing == NO) {
+                if (noteModel.editing == NO && self.player.isPlaying) {
                     if (noteModel.showNote) {
                         [textLayer addAnimation:group forKey:@"sharkAnimation"];
                     }
@@ -684,13 +683,14 @@
     animation.fillMode = kCAFillModeForwards;
     // 设置贝塞尔曲线路径
     animation.path = bezierPath.CGPath;
-    // 将动画对象添加到视图的layer上
-    if (preview == NO) {
+    //
+    if (preview) {
+        if (noteModel.editing || (self.player.isPlaying == NO)) return;
+    }
+    else {
         animation.beginTime = noteModel.startTime;
     }
-    if (preview) {
-        if (noteModel.editing) return;
-    }
+    // 将动画对象添加到视图的layer上
     [noteLayer addAnimation:animation forKey:@"noteAnimation"];
 }
 
