@@ -7,22 +7,16 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMVideoEditView.h"
+#import "ZMCaptionViewController.h"
 
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMAlbumControllerDelegate,WZMAlbumNavigationControllerDelegate>
-
-@property (nonatomic, strong) UIView *titleView;
-@property (nonatomic, strong) UIView *noteView;
+@interface SecondViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @end
 
-@implementation SecondViewController {
-    NSInteger _time;
-    WZMVideoEditView *editView;
-}
+@implementation SecondViewController
 
 - (instancetype)init {
     self = [super init];
@@ -35,84 +29,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    editView = [[WZMVideoEditView alloc] initWithFrame:CGRectMake(10, 100, 355, 400)];
-    editView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:editView];
-    
-    NSArray *titles = @[@"导入视频",@"导入歌词",@"生成视频"];
-    for (NSInteger i = 0; i < titles.count; i ++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10+i*100, 560, 80, 40)];
-        btn.tag = i;
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [btn setTitle:titles[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 60)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [btn setTitle:@"导入视频" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
 - (void)btnClick:(UIButton *)btn {
-    if (btn.tag == 0) {
-        WZMAlbumConfig *config = [WZMAlbumConfig new];
-        config.originalVideo = YES;
-        config.originalImage = YES;
-        config.allowShowGIF = YES;
-        config.maxCount = 1;
-        config.allowPreview = YES;
-        config.allowDragSelect = NO;
-        config.allowShowImage = NO;
-        WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-        vc.pickerDelegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
-    }
-    else if (btn.tag == 1) {
-        if (editView.noteModels) return;
-        
-        WZMCaptionModel *noteModel = [[WZMCaptionModel alloc] init];
-        noteModel.text = @"我是第一个字幕:啦啦啦啦啦啦";
-        noteModel.textColor = [UIColor whiteColor];
-        noteModel.highTextColor = [UIColor redColor];
-        noteModel.textPosition = CGPointMake(10, 10);
-        noteModel.startTime = 0.5;
-        noteModel.duration = 1.5;
-        noteModel.textType = WZMCaptionModelTypeGradient;
-        noteModel.textAnimationType = WZMCaptionTextAnimationTypeOneByOne;
-        noteModel.showNote = NO;
-        noteModel.noteId = @"1";
-        
-        WZMCaptionModel *noteModel2 = [[WZMCaptionModel alloc] init];
-        noteModel2.text = @"我是第二个字幕:啦啦啦啦啦啦";
-        noteModel2.textColor = [UIColor greenColor];
-        noteModel2.highTextColor = [UIColor blueColor];
-        noteModel2.textPosition = CGPointMake(10, 10);
-        noteModel2.startTime = 2.5;
-        noteModel2.duration = 2.5;
-        noteModel2.noteId = @"2";
-        
-        WZMCaptionModel *noteModel3 = [[WZMCaptionModel alloc] init];
-        noteModel3.text = @"我是第三个字幕:啦啦啦啦啦啦";
-        noteModel3.textColor = [UIColor blueColor];
-        noteModel3.highTextColor = [UIColor greenColor];
-        noteModel3.textPosition = CGPointMake(10, 10);
-        noteModel3.startTime = 5.5;
-        noteModel3.duration = 3.5;
-        noteModel3.noteId = @"3";
-        
-        editView.noteModels = @[noteModel,noteModel2,noteModel3];
-    }
-    else {
-        [WZMViewHandle wzm_showProgressMessage:nil];
-        [editView exportVideoWithNoteAnimationCompletion:^(NSURL *exportURL) {
-            [WZMViewHandle wzm_dismiss];
-            if (exportURL) {
-                [WZMAlbumHelper wzm_saveVideo:exportURL.path];
-            }
-        }];
-    }
+    WZMAlbumConfig *config = [WZMAlbumConfig new];
+    config.originalVideo = YES;
+    config.originalImage = YES;
+    config.allowShowGIF = YES;
+    config.maxCount = 1;
+    config.allowPreview = YES;
+    config.allowDragSelect = NO;
+    config.allowShowImage = NO;
+    WZMAlbumNavigationController *vc = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+    vc.pickerDelegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    editView.videoUrl = originals.firstObject;
+    NSURL *videoUrl = originals.firstObject;;
+    if ([videoUrl isKindOfClass:[NSURL class]] == NO) return;
+    ZMCaptionViewController *captionVC = [[ZMCaptionViewController alloc] initWithVideoUrl:videoUrl];
+    captionVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:captionVC animated:YES];
 }
 
 @end

@@ -13,16 +13,18 @@
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
 //标记当前正在编辑第几句歌词
-@property (nonatomic ,assign) NSInteger editingIndex;
-@property (nonatomic ,assign) CGRect videoFrame;
+@property (nonatomic, assign) NSInteger editingIndex;
+@property (nonatomic, assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playView;
 
 ///最大宽度/高度,根据playView计算
-@property (nonatomic ,assign) CGFloat maxWidth;
-@property (nonatomic ,assign) CGFloat maxHeight;
+@property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) CGFloat maxHeight;
 @property (nonatomic, strong) NSMutableDictionary *captionViews;
+///是否正在导出
+@property (nonatomic, assign) BOOL exporting;
 
 @end
 
@@ -116,8 +118,15 @@
 }
 
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion {
+    if (self.exporting) return;
     if (self.noteModels == nil || self.noteModels.count == 0) return;
-    [self addWatermarkWithVideoUrl:self.videoUrl completion:completion];
+    self.exporting = YES;
+    @wzm_weakify(self);
+    [self addWatermarkWithVideoUrl:self.videoUrl completion:^(NSURL *exportURL2) {
+        @wzm_strongify(self);
+        self.exporting = NO;
+        if (completion) completion(exportURL2);
+    }];
 }
 
 #pragma mark - 事件代理

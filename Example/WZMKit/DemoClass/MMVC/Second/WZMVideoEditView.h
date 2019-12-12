@@ -17,6 +17,8 @@
 @property (nonatomic, readonly ,assign) CGRect videoFrame;
 ///字幕
 @property (nonatomic, strong) NSArray<WZMCaptionModel *> *noteModels;
+///是否正在导出
+@property (nonatomic, readonly, assign) BOOL exporting;
 
 ///初始化
 - (instancetype)initWithFrame:(CGRect)frame;
