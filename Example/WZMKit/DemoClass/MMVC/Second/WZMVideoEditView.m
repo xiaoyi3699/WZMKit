@@ -11,8 +11,6 @@
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
-//标记当前正在编辑第几句歌词
-@property (nonatomic, assign) NSInteger editingIndex;
 @property (nonatomic, assign) CGRect videoFrame;
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) WZMPlayer *player;
@@ -37,7 +35,6 @@
 }
 
 - (void)layoutWithFrame:(CGRect)frame {
-    self.editingIndex = -1;
     self.renderSize = CGSizeZero;
     self.playView = [[WZMPlayerView alloc] initWithFrame:frame];
     [self addSubview:self.playView];
@@ -243,7 +240,6 @@
 ///字幕视图代理
 - (void)captionViewShow:(WZMCaptionView *)captionView {
     [self.player pause];
-    self.editingIndex = captionView.index;
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = YES;
     [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
@@ -252,7 +248,6 @@
 - (void)captionViewDismiss:(WZMCaptionView *)captionView {
     WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:captionView.index];
     noteModel.editing = NO;
-    self.editingIndex = -1;
     [self.player seekToTime:noteModel.startTime];
     [self.player play];
 }
