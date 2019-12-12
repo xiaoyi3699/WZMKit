@@ -72,18 +72,18 @@
     CGFloat tx = [recognizer translationInView:self].x;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         _sliderX = self.sliderView.wzm_minX;
-        [self didChangeType:WZMCommonStateWillChanged];
+        [self didChangeType:WZMCommonStateBegan];
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat x = _sliderX+tx;
         if (x < 0) x = 0;
         if (x > self.wzm_width) x = self.wzm_width;
         self.value = (x/self.wzm_width);
-        [self didChangeType:WZMCommonStateDidChanged];
+        [self didChangeType:WZMCommonStateChanged];
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded ||
              recognizer.state == UIGestureRecognizerStateCancelled) {
-        [self didChangeType:WZMCommonStateEndChanged];
+        [self didChangeType:WZMCommonStateEnded];
     }
 }
 

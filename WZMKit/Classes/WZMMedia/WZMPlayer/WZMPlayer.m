@@ -116,7 +116,7 @@
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             @wzm_weakify(self);
-            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 10.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
+            _playTimeObserver = [_player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 30.0) queue:dispatch_get_global_queue(0, 0) usingBlock:^(CMTime time) {
                 @wzm_strongify(self);
                 while (self.isTrackingRunLoop) {
                     if ([NSRunLoop mainRunLoop].currentMode == UITrackingRunLoopMode) {
@@ -392,7 +392,7 @@
         self.currentTime = time;
         self.playProgress = self.currentTime*1.0/self.duration;
         CMTime dur = self.player.currentItem.duration;
-        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, self.playProgress) toleranceBefore:CMTimeMake(1, 10) toleranceAfter:CMTimeMake(1, 10)];
+        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, self.playProgress) toleranceBefore:CMTimeMake(1, 30) toleranceAfter:CMTimeMake(1, 30)];
     }
 }
 
@@ -404,7 +404,7 @@
         self.currentTime = time;
         self.playProgress = progress;
         CMTime dur = self.player.currentItem.duration;
-        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, progress) toleranceBefore:CMTimeMake(1, 10) toleranceAfter:CMTimeMake(1, 10)];
+        [self.player seekToTime:CMTimeMultiplyByFloat64(dur, progress) toleranceBefore:CMTimeMake(1, 30) toleranceAfter:CMTimeMake(1, 30)];
     }
 }
 

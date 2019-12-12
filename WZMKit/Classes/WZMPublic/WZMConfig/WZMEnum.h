@@ -236,9 +236,9 @@ typedef enum : NSUInteger {
 
 ///通用状态
 typedef enum : NSInteger {
-    WZMCommonStateWillChanged = 0,
-    WZMCommonStateDidChanged,
-    WZMCommonStateEndChanged,
+    WZMCommonStateBegan = 0,
+    WZMCommonStateChanged,
+    WZMCommonStateEnded,
 } WZMCommonState;
 
 #endif /* WZMEnum_h */

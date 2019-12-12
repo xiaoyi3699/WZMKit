@@ -23,6 +23,8 @@
 ///视图
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIScrollView *contentView;
+///是否是拖拽
+@property (nonatomic, assign) BOOL dragging;
 
 @end
 
@@ -75,37 +77,22 @@
     return self;
 }
 
-- (void)panGesture:(UIPanGestureRecognizer *)recognizer {
-    CGFloat tx = [recognizer translationInView:self].x;
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        _sliderX = self.keysView.wzm_minX;
-        [self didChangeType:WZMCommonStateWillChanged];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat x = _sliderX+tx;
-        if (x < (-self.contentView.wzm_width/2)) x = (-self.contentView.wzm_width/2);
-        if (x > self.contentView.wzm_width/2) x = self.contentView.wzm_width/2;
-        self.value = ((self.contentView.wzm_width/2-x)/self.contentView.wzm_width);
-        [self didChangeType:WZMCommonStateDidChanged];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded ||
-             recognizer.state == UIGestureRecognizerStateCancelled) {
-        [self didChangeType:WZMCommonStateEndChanged];
-    }
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self didChangeType:WZMCommonStateWillChanged];
+    self.dragging = YES;
+    [self didChangeType:WZMCommonStateBegan];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.dragging == NO) return;
+    [self didChangeType:WZMCommonStateChanged];
     CGFloat offsetX = scrollView.contentOffset.x;
     CGFloat tx = offsetX+scrollView.wzm_width/2-self.keysView.wzm_minX;
-    self.value = tx/self.keysView.wzm_width;
-    [self didChangeType:WZMCommonStateDidChanged];
+    CGFloat value = tx/self.keysView.wzm_width;
+    [self setValue:value draging:YES];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.dragging == NO) return;
     // 停止类型1、停止类型2
     BOOL stop = !scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
     if (stop) {
@@ -114,6 +101,7 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.dragging == NO) return;
     if (!decelerate) {
         // 停止类型3
         BOOL stop = scrollView.tracking && !scrollView.dragging && !scrollView.decelerating;
@@ -124,7 +112,8 @@
 }
 
 - (void)scrollViewDidEndScroll {
-    [self didChangeType:WZMCommonStateEndChanged];
+    self.dragging = NO;
+    [self didChangeType:WZMCommonStateEnded];
 }
 
 - (void)didChangeType:(WZMCommonState)type {
@@ -133,7 +122,8 @@
     }
 }
 
-- (void)setValue:(CGFloat)value {
+- (void)setValue:(CGFloat)value draging:(BOOL)draging {
+    self.dragging = draging;
     if (value < 0) {
         CGFloat dx = self.contentView.contentOffset.x;
         self.sliderView.wzm_minX = _sliderX-dx;
@@ -153,6 +143,15 @@
     
     self.graysView.frame = CGRectMake(x+tx, self.graysView.wzm_minY, tw, self.graysView.wzm_height);
     self.graysImageView.wzm_minX = -tx;
+    
+    if (draging == NO) {
+        CGFloat offsetX = (self.contentView.contentSize.width-self.contentView.wzm_width)*value;
+        self.contentView.contentOffset = CGPointMake(offsetX, 0);
+    }
+}
+
+- (void)setValue:(CGFloat)value {
+    [self setValue:value draging:NO];
 }
 
 - (void)setRadius:(CGFloat)radius {

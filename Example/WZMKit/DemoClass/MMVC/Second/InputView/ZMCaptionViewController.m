@@ -9,12 +9,14 @@
 #import "ZMCaptionViewController.h"
 #import "WZMVideoEditView.h"
 
-@interface ZMCaptionViewController ()
+@interface ZMCaptionViewController ()<WZMVideoEditViewDelegate,WZMVideoKeyView2Delegate>
 
 @property (nonatomic, strong) NSURL *videoUrl;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) WZMVideoEditView *videoView;
 @property (nonatomic, strong) UIView *toolView;
+@property (nonatomic, strong) WZMVideoKeyView2 *videoKeyView;
+@property (nonatomic, strong) WZMButton *playBtn;
 
 @end
 
@@ -51,6 +53,7 @@
 - (void)initVideoView {
     self.videoView = [[WZMVideoEditView alloc] initWithFrame:self.scrollView.bounds];
     self.videoView.videoUrl = self.videoUrl;
+    self.videoView.delegate = self;
     [self.scrollView addSubview:self.videoView];
 }
 
@@ -80,7 +83,33 @@
         [self.toolView addSubview:btn];
     }
     CGFloat nextMinY = itemW, nextH = self.toolView.wzm_height-itemW;
-    NSLog(@"%@==%@",@(nextMinY),@(nextH));
+    
+    //播放按钮
+    self.playBtn = [[WZMButton alloc] initWithFrame:CGRectMake(0, nextMinY, 70, 70)];
+    [self.playBtn setImage:[UIImage wzm_getRoundImageByColor:[UIColor whiteColor] size:CGSizeMake(70, 70)] forState:UIControlStateNormal];
+    [self.playBtn setImage:[UIImage wzm_getRoundImageByColor:[UIColor redColor] size:CGSizeMake(70, 70)] forState:UIControlStateSelected];
+    [self.playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolView addSubview:self.playBtn];
+    
+    //关键帧进度
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *AVAsset = [AVURLAsset URLAssetWithURL:self.videoUrl options:opts];
+    CGFloat duration = CMTimeGetSeconds(AVAsset.duration);
+    
+    CGFloat contentWidth, videoKeyViewW = self.toolView.wzm_width-80;
+    if (duration <= 60.0) {
+        contentWidth = videoKeyViewW*2;
+    }
+    else {
+        contentWidth = MIN(videoKeyViewW*2*(duration/60.0), videoKeyViewW*4);
+    }
+    self.videoKeyView = [[WZMVideoKeyView2 alloc] initWithFrame:CGRectMake(70, nextMinY+10, videoKeyViewW, nextH-20)];
+    self.videoKeyView.videoUrl = self.videoUrl;
+    self.videoKeyView.contentWidth = contentWidth;
+    self.videoKeyView.backgroundColor = [UIColor blueColor];
+    self.videoKeyView.wzm_cornerRadius = 5;
+    self.videoKeyView.delegate = self;
+    [self.toolView addSubview:self.videoKeyView];
 }
 
 //交互事件
@@ -90,10 +119,15 @@
     }
     else if (btn.tag == 1) {
         //特效
+        
     }
     else {
         //转场
     }
+}
+
+- (void)playBtnClick:(UIButton *)btn {
+    btn.selected ? [self.videoView pause] : [self.videoView play];
 }
 
 //加载歌词
@@ -143,5 +177,50 @@
         }
     }];
 }
+
+#pragma mark - 播放器代理
+///加载成功
+- (void)playerLoadSuccess:(WZMPlayer *)player {
+    
+}
+///加载失败
+- (void)playerLoadFailed:(WZMPlayer *)player error:(NSString *)error {
+    
+}
+///缓冲进度
+- (void)playerLoadProgress:(WZMPlayer *)player {
+    
+}
+///开始播放
+- (void)playerBeginPlaying:(WZMPlayer *)player {
+    
+}
+///正在播放, 多次调用
+- (void)playerPlaying:(WZMPlayer *)player {
+    if (player.isPlaying) {
+        self.videoKeyView.value = player.playProgress;
+    }
+}
+///结束播放
+- (void)playerEndPlaying:(WZMPlayer *)player {
+    
+}
+///播放状态改变
+- (void)playerChangeStatus:(WZMPlayer *)player {
+    self.playBtn.selected = player.isPlaying;
+}
+#pragma mark - 关键帧视图代理
+- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 changeType:(WZMCommonState)type {
+    if (type == WZMCommonStateBegan) {
+        [self.videoView pause];
+    }
+    else if (type == WZMCommonStateChanged) {
+        [self.videoView seekToProgress:videoKeyView2.value];
+    }
+    else {
+        [self.videoView play];
+    }
+}
+
 
 @end

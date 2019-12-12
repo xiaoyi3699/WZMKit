@@ -79,12 +79,12 @@
     static CGFloat startX;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         startX = self.leftView.wzm_minX;
-        [self valueChanged:WZMCommonStateWillChanged];
+        [self valueChanged:WZMCommonStateBegan];
     }
     else {
         CGFloat tx = [recognizer translationInView:self.leftView].x;
         BOOL end = (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled);
-        [self setLeftViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEndChanged : WZMCommonStateDidChanged)];
+        [self setLeftViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEnded : WZMCommonStateChanged)];
     }
 }
 
@@ -92,12 +92,12 @@
     static CGFloat startX;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         startX = self.rightView.wzm_minX;
-        [self valueChanged:WZMCommonStateWillChanged];
+        [self valueChanged:WZMCommonStateBegan];
     }
     else {
         CGFloat tx = [recognizer translationInView:self.rightView].x;
         BOOL end = (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled);
-        [self setRightViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEndChanged : WZMCommonStateDidChanged)];
+        [self setRightViewMinX:(startX+tx) recognizerState:(end ? WZMCommonStateEnded : WZMCommonStateChanged)];
     }
 }
 
@@ -124,12 +124,12 @@
 }
 
 - (void)valueChanged:(WZMCommonState)state {
-    if (state == WZMCommonStateWillChanged) {
+    if (state == WZMCommonStateBegan) {
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroundView.alpha = 0.5;
         }];
     }
-    else if (state == WZMCommonStateEndChanged) {
+    else if (state == WZMCommonStateEnded) {
         [UIView animateWithDuration:0.2 animations:^{
             self.backgroundView.alpha = 0.0;
         }];

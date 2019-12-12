@@ -47,6 +47,7 @@
     self.player = [[WZMPlayer alloc] init];
     self.player.delegate = self;
     self.player.playerView = self.playView;
+    self.player.trackingRunLoop = NO;
     
     self.captionViews = [[NSMutableDictionary alloc] init];
 }
@@ -129,23 +130,54 @@
     }];
 }
 
+//播放器事件
+- (void)play {
+    [self.player play];
+}
+
+- (void)pause {
+    [self.player pause];
+}
+
+- (void)stop {
+    [self.player stop];
+}
+
+- (void)seekToTime:(NSInteger)time {
+    [self.player seekToTime:time];
+    [self changedPlayerCurrentTime:self.player.currentTime];
+}
+
+- (void)seekToProgress:(CGFloat)progress {
+    [self.player seekToProgress:progress];
+}
+
 #pragma mark - 事件代理
 ///播放器代理
 - (void)playerBeginPlaying:(WZMPlayer *)player {
-    
+    if ([self.delegate respondsToSelector:@selector(playerBeginPlaying:)]) {
+        [self.delegate playerBeginPlaying:player];
+    }
 }
 
 - (void)playerPlaying:(WZMPlayer *)player {
+    if ([self.delegate respondsToSelector:@selector(playerPlaying:)]) {
+        [self.delegate playerPlaying:player];
+    }
+    [self changedPlayerCurrentTime:player.currentTime];
+}
+
+- (void)changedPlayerCurrentTime:(CGFloat)currentTime {
     if (self.noteModels == nil || self.noteModels.count == 0) return;
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         @autoreleasepool {
             WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
-            if (fabs(player.currentTime - noteModel.startTime) <= 0.1) {
+            if ((currentTime > noteModel.startTime) && (currentTime < (noteModel.startTime+noteModel.duration))) {
                 if (noteModel.showing == NO) {
                     [self showCaptionAnimation:i];
                 }
             }
-            if (fabs(player.currentTime - (noteModel.startTime+noteModel.duration)) <= 0.1) {
+            else {
                 if (noteModel.showing) {
                     [self dismissCaptionAnimation:i];
                 }
@@ -155,8 +187,37 @@
 }
 
 - (void)playerEndPlaying:(WZMPlayer *)player {
+    if ([self.delegate respondsToSelector:@selector(playerEndPlaying:)]) {
+        [self.delegate playerEndPlaying:player];
+    }
     [player seekToTime:0];
     [player play];
+}
+
+///加载成功
+- (void)playerLoadSuccess:(WZMPlayer *)player {
+    if ([self.delegate respondsToSelector:@selector(playerLoadSuccess:)]) {
+        [self.delegate playerLoadSuccess:player];
+    }
+}
+///加载失败
+- (void)playerLoadFailed:(WZMPlayer *)player error:(NSString *)error {
+    if ([self.delegate respondsToSelector:@selector(playerLoadFailed:error:)]) {
+        [self.delegate playerLoadFailed:player error:error];
+    }
+}
+///缓冲进度
+- (void)playerLoadProgress:(WZMPlayer *)player {
+    if ([self.delegate respondsToSelector:@selector(playerLoadProgress:)]) {
+        [self.delegate playerLoadProgress:player];
+    }
+}
+
+///播放状态改变
+- (void)playerChangeStatus:(WZMPlayer *)player {
+    if ([self.delegate respondsToSelector:@selector(playerChangeStatus:)]) {
+        [self.delegate playerChangeStatus:player];
+    }
 }
 
 ///字幕视图代理
