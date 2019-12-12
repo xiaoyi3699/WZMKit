@@ -31,6 +31,8 @@
 - (void)stop;
 - (void)seekToTime:(NSInteger)time;
 - (void)seekToProgress:(CGFloat)progress;
+///拖动进度结束,根据字幕调整当前播放进度
+- (void)checkPlayIfAdjustCaption;
 
 ///导出视频
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion;

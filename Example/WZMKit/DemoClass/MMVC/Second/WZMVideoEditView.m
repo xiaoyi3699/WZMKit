@@ -148,6 +148,21 @@
     [self.player seekToProgress:progress];
 }
 
+- (void)checkPlayIfAdjustCaption {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+            if ((self.player.currentTime > noteModel.startTime) && (self.player.currentTime < (noteModel.startTime+noteModel.duration))) {
+                [self.player seekToTime:noteModel.startTime];
+                [self.player play];
+                return;
+            }
+        }
+    }
+    [self.player play];
+}
+
 #pragma mark - 事件代理
 ///播放器代理
 - (void)playerBeginPlaying:(WZMPlayer *)player {
@@ -209,6 +224,11 @@
             if ((currentTime > noteModel.startTime) && (currentTime < (noteModel.startTime+noteModel.duration))) {
                 if (noteModel.showing == NO) {
                     [self showCaptionAnimation:i];
+                }
+                else {
+                    if (self.player.playing == NO) {
+                        [noteModel.noteLayer removeAnimationForKey:@"noteAnimation"];
+                    }
                 }
             }
             else {

@@ -151,7 +151,7 @@
         noteModel.noteId = [NSString stringWithFormat:@"%@",@(i)];
         [noteModels addObject:noteModel];
         
-        lastTime = lastTime+duration+0.5;
+        lastTime = lastTime+duration+1.0;
     }
     self.videoView.noteModels = noteModels;
 }
@@ -208,7 +208,7 @@
         [self.videoView seekToProgress:videoKeyView2.value];
     }
     else {
-        [self.videoView play];
+        [self.videoView checkPlayIfAdjustCaption];
     }
 }
 
