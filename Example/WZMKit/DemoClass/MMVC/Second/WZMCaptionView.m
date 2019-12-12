@@ -56,14 +56,17 @@
 }
 
 - (void)captionViewShow:(BOOL)show {
+    BOOL delegate = (self.showing == show);
     self.showing = show;
     if (show) {
         self.wzm_borderWidth = 0.5;
         self.wzm_borderColor = [UIColor redColor];
         self.editView.hidden = NO;
         self.changeView.hidden = NO;
-        if ([self.delegate respondsToSelector:@selector(captionViewShow:)]) {
-            [self.delegate captionViewShow:self];
+        if (delegate) {
+            if ([self.delegate respondsToSelector:@selector(captionViewShow:)]) {
+                [self.delegate captionViewShow:self];
+            }
         }
     }
     else {
@@ -71,10 +74,13 @@
         self.wzm_borderColor = [UIColor clearColor];
         self.editView.hidden = YES;
         self.changeView.hidden = YES;
-        if ([self.delegate respondsToSelector:@selector(captionViewDismiss:)]) {
-            [self.delegate captionViewDismiss:self];
+        if (delegate) {
+            if ([self.delegate respondsToSelector:@selector(captionViewDismiss:)]) {
+                [self.delegate captionViewDismiss:self];
+            }
         }
     }
+    
 }
 
 //移动字幕
