@@ -59,6 +59,41 @@
     self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.scrollView.wzm_maxY+10, self.view.wzm_width, toolViewH)];
     self.toolView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.toolView];
+    
+    
+    NSArray *titles = @[@"字幕",@"特效",@"转场"];
+    NSArray *images = @[@"",@"",@""];
+    CGFloat itemW = 70;
+    CGFloat itemSpacing = (self.toolView.wzm_width-itemW*titles.count)/(titles.count-1);
+    for (NSInteger i = 0; i < titles.count; i ++) {
+        CGRect rect = CGRectMake(i*(itemW+itemSpacing), 0, itemW, itemW);
+        WZMButton *btn = [[WZMButton alloc] initWithFrame:rect];
+        btn.tag = i;
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [btn setTitle:titles[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [btn setImage:[UIImage wzm_getRoundImageByColor:[UIColor blueColor] size:CGSizeMake(30, 30)] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(itemBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        btn.imageFrame = CGRectMake(20, 10, 30, 30);
+        btn.titleFrame = CGRectMake(0, 40, itemSpacing, 30);
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.toolView addSubview:btn];
+    }
+    CGFloat nextMinY = itemW, nextH = self.toolView.wzm_height-itemW;
+    NSLog(@"%@==%@",@(nextMinY),@(nextH));
+}
+
+//交互事件
+- (void)itemBtnClick:(UIButton *)btn {
+    if (btn.tag == 0) {
+        //字幕
+    }
+    else if (btn.tag == 1) {
+        //特效
+    }
+    else {
+        //转场
+    }
 }
 
 //加载歌词
