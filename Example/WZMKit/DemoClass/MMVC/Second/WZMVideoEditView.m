@@ -72,6 +72,13 @@
         self.renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
     }
     [self layoutPlayView];
+    [self setConfigNoteModels];
+}
+
+- (void)setNoteModels:(NSArray<WZMCaptionModel *> *)noteModels {
+    if (_noteModels == noteModels) return;
+    _noteModels = noteModels;
+    [self setConfigNoteModels];
 }
 
 - (void)layoutPlayView {
@@ -86,6 +93,25 @@
     self.videoFrame = playViewRect;
     if (self.videoUrl) {
         [self.player playWithURL:self.videoUrl];
+    }
+}
+
+//初始化字幕的位置
+- (void)setConfigNoteModels {
+    if (self.noteModels == nil || self.noteModels.count == 0) return;
+    if (CGSizeEqualToSize(self.playView.bounds.size, CGSizeZero)) return;
+    for (WZMCaptionModel *model in self.noteModels) {
+        if (model.textMaxW == 0 && model.textMaxH == 0) {
+            model.textMaxW = self.maxWidth;
+            model.textMaxH = self.maxHeight;
+            CGRect textFrame = [model textFrameWithTextColumns:nil];
+            CGFloat textX = (self.playView.bounds.size.width-textFrame.size.width)/2;
+            CGFloat textY = self.playView.bounds.size.height-textFrame.size.height;
+            if (textY > 10) {
+                textY -= 10;
+            }
+            model.textPosition = CGPointMake(textX, textY);
+        }
     }
 }
 
@@ -105,7 +131,6 @@
         [self.playView addSubview:captionView];
         noteModel.captionView = captionView;
     }
-    noteModel.textMaxH = self.maxHeight;
     CGFloat maxWidth = self.maxWidth;
     if (maxWidth < noteModel.textMaxW) {
         noteModel.textMaxW = maxWidth;
@@ -389,7 +414,6 @@
     //2、左下角为原点,对水印图片坐标系进行转换
     for (NSInteger i = 0; i < self.noteModels.count; i ++) {
         WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
-        noteModel.textMaxH = self.maxHeight;
         CGRect markFrame = [noteModel textFrameWithTextColumns:nil];
         markFrame.origin.x *= scale;
         markFrame.origin.y *= scale;

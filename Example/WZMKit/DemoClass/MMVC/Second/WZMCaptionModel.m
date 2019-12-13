@@ -17,7 +17,8 @@
         self.editing = NO;
         self.angle = 0.0;
         self.showNote = YES;
-        self.textMaxW = 200.0;
+        self.textMaxW = 0.0;
+        self.textMaxH = 0.0;
         self.text = @"我是一个字幕";
         self.textFont = (__bridge CFTypeRef)(@"Helvetica");
         self.textFontSize = 15;
