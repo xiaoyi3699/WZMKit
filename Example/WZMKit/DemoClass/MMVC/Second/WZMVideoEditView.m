@@ -50,7 +50,27 @@
     _videoUrl = videoUrl;
     AVAsset *asset = [AVAsset assetWithURL:videoUrl];
     AVAssetTrack *track = [[asset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
-    self.renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
+    //矫正视频角度
+    NSUInteger degress = 0;
+    CGAffineTransform t = track.preferredTransform;
+    BOOL isVideoAssetPortrait_  = NO;
+    if (t.a == 0 && t.b == 1.0 && t.c == -1.0 && t.d == 0) {
+        degress = 90;
+        isVideoAssetPortrait_ = YES;
+    } else if (t.a == 0 && t.b == -1.0 && t.c == 1.0 && t.d == 0) {
+        degress = 270;
+        isVideoAssetPortrait_ = YES;
+    } else if (t.a == 1.0 && t.b == 0 && t.c == 0 && t.d == 1.0) {
+        degress = 0;
+    } else if (t.a == -1.0 && t.b == 0 && t.c == 0 && t.d == -1.0) {
+        degress = 180;
+    }
+    if (isVideoAssetPortrait_) {
+        self.renderSize = CGSizeMake(track.naturalSize.height, track.naturalSize.width);
+    }
+    else {
+        self.renderSize = CGSizeMake(track.naturalSize.width, track.naturalSize.height);
+    }
     [self layoutPlayView];
 }
 
