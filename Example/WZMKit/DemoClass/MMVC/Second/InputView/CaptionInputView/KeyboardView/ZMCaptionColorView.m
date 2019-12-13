@@ -89,7 +89,7 @@
         UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(0, view2.wzm_maxY, self.wzm_width, 70)];
         [self addSubview:view3];
         UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 60, 20)];
-        label3.text = @"渐变色";
+        label3.text = @"炫彩";
         label3.textColor = [UIColor darkGrayColor];
         label3.textAlignment = NSTextAlignmentLeft;
         label3.font = [UIFont systemFontOfSize:13];

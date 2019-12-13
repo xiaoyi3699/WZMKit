@@ -57,7 +57,7 @@
         _okBtn.frame = CGRectMake(menuView.wzm_width-70, 5, 60, 30);
         _okBtn.tag = titles.count;
         _okBtn.backgroundColor = [UIColor blueColor];
-        _okBtn.wzm_cornerRadius = -1;
+        _okBtn.wzm_cornerRadius = 5;
         [_okBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_okBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_okBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -67,8 +67,24 @@
 }
 
 - (void)btnClick:(UIButton *)btn {
+    if (_selectedBtn == btn) return;
+    _selectedBtn.selected = NO;
+    btn.selected = YES;
+    _selectedBtn = btn;
     if ([self.delegate respondsToSelector:@selector(captionInputToolView:didSelectedWithType:)]) {
         [self.delegate captionInputToolView:self didSelectedWithType:(btn.tag-1)];
+    }
+}
+
+- (void)restoreStatus {
+    for (UIButton *btn in _toolBtns) {
+        if (btn.tag == 0) {
+            btn.selected = YES;
+            _selectedBtn = btn;
+        }
+        else {
+            btn.selected = NO;
+        }
     }
 }
 

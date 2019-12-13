@@ -24,6 +24,8 @@ typedef enum : NSInteger {
 
 @property (nonatomic, weak) id<ZMCaptionInputToolViewDelegate> delegate;
 
+- (void)restoreStatus;
+
 @end
 
 @protocol ZMCaptionInputToolViewDelegate <NSObject>

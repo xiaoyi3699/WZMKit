@@ -56,7 +56,7 @@
 
 ///开始编辑
 - (void)didBeginEditing {
-    
+    [self.inputToolView restoreStatus];
 }
 
 ///输入框值改变
@@ -100,7 +100,7 @@
 
 - (ZMCaptionColorView *)colorView {
     if (_colorView == nil) {
-        _colorView = [[ZMCaptionColorView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _colorView = [[ZMCaptionColorView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 250)];
         _colorView.hidden = YES;
         _colorView.backgroundColor = [UIColor whiteColor];
     }
@@ -109,7 +109,7 @@
 
 - (ZMCaptionStyleView *)styleView {
     if (_styleView == nil) {
-        _styleView = [[ZMCaptionStyleView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _styleView = [[ZMCaptionStyleView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 250)];
         _styleView.hidden = YES;
         _styleView.backgroundColor = [UIColor redColor];
     }
@@ -118,7 +118,7 @@
 
 - (ZMCaptionFontView *)fontView {
     if (_fontView == nil) {
-        _fontView = [[ZMCaptionFontView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _fontView = [[ZMCaptionFontView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 250)];
         _fontView.hidden = YES;
         _fontView.backgroundColor = [UIColor greenColor];
     }
