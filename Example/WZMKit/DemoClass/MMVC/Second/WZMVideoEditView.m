@@ -7,7 +7,6 @@
 //
 
 #import "WZMVideoEditView.h"
-#import "FLLayerBuilderTool.h"
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 

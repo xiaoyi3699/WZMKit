@@ -44,7 +44,6 @@
 		64BD015B23A322BA0080632A /* ZMCaptionColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015A23A322BA0080632A /* ZMCaptionColorView.m */; };
 		64BD015E23A322D50080632A /* ZMCaptionStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015D23A322D50080632A /* ZMCaptionStyleView.m */; };
 		64BD016123A322E30080632A /* ZMCaptionFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD016023A322E30080632A /* ZMCaptionFontView.m */; };
-		64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */; };
 		64D3E49D239A4F4A004DEAF6 /* WZMCaptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */; };
 		64D3E4A823A088A9004DEAF6 /* WZMCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
@@ -161,8 +160,6 @@
 		64BD015D23A322D50080632A /* ZMCaptionStyleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionStyleView.m; sourceTree = "<group>"; };
 		64BD015F23A322E30080632A /* ZMCaptionFontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMCaptionFontView.h; sourceTree = "<group>"; };
 		64BD016023A322E30080632A /* ZMCaptionFontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionFontView.m; sourceTree = "<group>"; };
-		64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLLayerBuilderTool.h; sourceTree = "<group>"; };
-		64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLLayerBuilderTool.m; sourceTree = "<group>"; };
 		64D3E49B239A4F4A004DEAF6 /* WZMCaptionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCaptionModel.h; sourceTree = "<group>"; };
 		64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMCaptionModel.m; sourceTree = "<group>"; };
 		64D3E4A623A088A9004DEAF6 /* WZMCaptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCaptionView.h; sourceTree = "<group>"; };
@@ -765,8 +762,6 @@
 			children = (
 				7558CBC422DF50E60043651C /* ThirdViewController.h */,
 				7558CBC522DF50E60043651C /* ThirdViewController.m */,
-				64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */,
-				64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */,
 			);
 			path = Third;
 			sourceTree = "<group>";
@@ -1038,7 +1033,6 @@
 				64BD014523A1E8930080632A /* WZMMoreKeyboard.m in Sources */,
 				64BD014023A1E8930080632A /* WZMEmoticonCell.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
-				64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
