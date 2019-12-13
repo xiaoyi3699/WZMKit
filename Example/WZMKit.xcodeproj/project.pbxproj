@@ -41,6 +41,9 @@
 		64BD014F23A1E9C70080632A /* ZMCaptionInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD014E23A1E9C70080632A /* ZMCaptionInputView.m */; };
 		64BD015323A1EB0E0080632A /* ZMCaptionInputToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015223A1EB0E0080632A /* ZMCaptionInputToolView.m */; };
 		64BD015623A20BF80080632A /* ZMCaptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015523A20BF70080632A /* ZMCaptionViewController.m */; };
+		64BD015B23A322BA0080632A /* ZMCaptionColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015A23A322BA0080632A /* ZMCaptionColorView.m */; };
+		64BD015E23A322D50080632A /* ZMCaptionStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD015D23A322D50080632A /* ZMCaptionStyleView.m */; };
+		64BD016123A322E30080632A /* ZMCaptionFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD016023A322E30080632A /* ZMCaptionFontView.m */; };
 		64D3E4922399E56C004DEAF6 /* FLLayerBuilderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */; };
 		64D3E49D239A4F4A004DEAF6 /* WZMCaptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */; };
 		64D3E4A823A088A9004DEAF6 /* WZMCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */; };
@@ -152,6 +155,12 @@
 		64BD015223A1EB0E0080632A /* ZMCaptionInputToolView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionInputToolView.m; sourceTree = "<group>"; };
 		64BD015423A20BF70080632A /* ZMCaptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMCaptionViewController.h; sourceTree = "<group>"; };
 		64BD015523A20BF70080632A /* ZMCaptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionViewController.m; sourceTree = "<group>"; };
+		64BD015923A322BA0080632A /* ZMCaptionColorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMCaptionColorView.h; sourceTree = "<group>"; };
+		64BD015A23A322BA0080632A /* ZMCaptionColorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionColorView.m; sourceTree = "<group>"; };
+		64BD015C23A322D50080632A /* ZMCaptionStyleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMCaptionStyleView.h; sourceTree = "<group>"; };
+		64BD015D23A322D50080632A /* ZMCaptionStyleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionStyleView.m; sourceTree = "<group>"; };
+		64BD015F23A322E30080632A /* ZMCaptionFontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMCaptionFontView.h; sourceTree = "<group>"; };
+		64BD016023A322E30080632A /* ZMCaptionFontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMCaptionFontView.m; sourceTree = "<group>"; };
 		64D3E4902399E56C004DEAF6 /* FLLayerBuilderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLLayerBuilderTool.h; sourceTree = "<group>"; };
 		64D3E4912399E56C004DEAF6 /* FLLayerBuilderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLLayerBuilderTool.m; sourceTree = "<group>"; };
 		64D3E49B239A4F4A004DEAF6 /* WZMCaptionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCaptionModel.h; sourceTree = "<group>"; };
@@ -504,12 +513,26 @@
 		64BD015023A1E9CD0080632A /* CaptionInputView */ = {
 			isa = PBXGroup;
 			children = (
+				64BD015823A322890080632A /* KeyboardView */,
 				64BD014D23A1E9C70080632A /* ZMCaptionInputView.h */,
 				64BD014E23A1E9C70080632A /* ZMCaptionInputView.m */,
 				64BD015123A1EB0E0080632A /* ZMCaptionInputToolView.h */,
 				64BD015223A1EB0E0080632A /* ZMCaptionInputToolView.m */,
 			);
 			path = CaptionInputView;
+			sourceTree = "<group>";
+		};
+		64BD015823A322890080632A /* KeyboardView */ = {
+			isa = PBXGroup;
+			children = (
+				64BD015923A322BA0080632A /* ZMCaptionColorView.h */,
+				64BD015A23A322BA0080632A /* ZMCaptionColorView.m */,
+				64BD015C23A322D50080632A /* ZMCaptionStyleView.h */,
+				64BD015D23A322D50080632A /* ZMCaptionStyleView.m */,
+				64BD015F23A322E30080632A /* ZMCaptionFontView.h */,
+				64BD016023A322E30080632A /* ZMCaptionFontView.m */,
+			);
+			path = KeyboardView;
 			sourceTree = "<group>";
 		};
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
@@ -1009,6 +1032,7 @@
 				64BD014A23A1E8930080632A /* WZMInputHelper.m in Sources */,
 				64D3E4A823A088A9004DEAF6 /* WZMCaptionView.m in Sources */,
 				75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */,
+				64BD015B23A322BA0080632A /* ZMCaptionColorView.m in Sources */,
 				75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				64BD014523A1E8930080632A /* WZMMoreKeyboard.m in Sources */,
@@ -1021,6 +1045,7 @@
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
 				64BD014423A1E8930080632A /* WZMEmojisKeyboard.m in Sources */,
 				64D3E49D239A4F4A004DEAF6 /* WZMCaptionModel.m in Sources */,
+				64BD016123A322E30080632A /* ZMCaptionFontView.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,
 				64BD013C23A1E8930080632A /* WZMRecordAnimation.m in Sources */,
 				64BD013D23A1E8930080632A /* WZMToolView.m in Sources */,
@@ -1044,6 +1069,7 @@
 				75DA9E21230E924A0000A955 /* WZMCrashManager.m in Sources */,
 				64BD014323A1E8930080632A /* WZMEmojisCell.m in Sources */,
 				64BD014B23A1E8930080632A /* WZMInputBase64.m in Sources */,
+				64BD015E23A322D50080632A /* ZMCaptionStyleView.m in Sources */,
 				75DA9E2A230E924A0000A955 /* WZMScreenShotView.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */,

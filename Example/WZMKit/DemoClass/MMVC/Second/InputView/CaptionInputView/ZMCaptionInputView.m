@@ -8,12 +8,15 @@
 
 #import "ZMCaptionInputView.h"
 #import "ZMCaptionInputToolView.h"
+#import "ZMCaptionFontView.h"
+#import "ZMCaptionStyleView.h"
+#import "ZMCaptionColorView.h"
 
 @interface ZMCaptionInputView ()<ZMCaptionInputToolViewDelegate>
 
-@property (nonatomic, strong) UIView *colorView;
-@property (nonatomic, strong) UIView *styleView;
-@property (nonatomic, strong) UIView *fontView;
+@property (nonatomic, strong) ZMCaptionColorView *colorView;
+@property (nonatomic, strong) ZMCaptionStyleView *styleView;
+@property (nonatomic, strong) ZMCaptionFontView *fontView;
 @property (nonatomic, strong) ZMCaptionInputToolView *inputToolView;
 
 @end
@@ -95,27 +98,27 @@
     return _inputToolView;
 }
 
-- (UIView *)colorView {
+- (ZMCaptionColorView *)colorView {
     if (_colorView == nil) {
-        _colorView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _colorView = [[ZMCaptionColorView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
         _colorView.hidden = YES;
         _colorView.backgroundColor = [UIColor whiteColor];
     }
     return _colorView;
 }
 
-- (UIView *)styleView {
+- (ZMCaptionStyleView *)styleView {
     if (_styleView == nil) {
-        _styleView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _styleView = [[ZMCaptionStyleView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
         _styleView.hidden = YES;
         _styleView.backgroundColor = [UIColor redColor];
     }
     return _styleView;
 }
 
-- (UIView *)fontView {
+- (ZMCaptionFontView *)fontView {
     if (_fontView == nil) {
-        _fontView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
+        _fontView = [[ZMCaptionFontView alloc] initWithFrame:CGRectMake(0, _toolView.bounds.size.height, self.wzm_width, 200)];
         _fontView.hidden = YES;
         _fontView.backgroundColor = [UIColor greenColor];
     }
