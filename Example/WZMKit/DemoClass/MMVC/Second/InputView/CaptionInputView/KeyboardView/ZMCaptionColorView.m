@@ -70,8 +70,10 @@
         [view2 addSubview:label2];
         NSMutableArray *array2 = [[NSMutableArray alloc] init];
         for (NSInteger i = 0; i < 10; i ++) {
-            UIColor *color = WZM_R_G_B(arc4random()%255, arc4random()%255, arc4random()%255);
-            [array2 addObject:color];
+            UIColor *color1 = WZM_R_G_B(arc4random()%255, arc4random()%255, arc4random()%255);
+            UIColor *color2 = WZM_R_G_B(arc4random()%255, arc4random()%255, arc4random()%255);
+            NSArray *colors = @[color1,color2];
+            [array2 addObject:colors];
         }
         NSInteger count2 = array2.count;
         UIScrollView *scrollView2 = [[UIScrollView alloc] initWithFrame:CGRectMake(10, label2.wzm_maxY, view2.wzm_width-20, view2.wzm_height-label2.wzm_maxY)];
@@ -80,7 +82,7 @@
         [view2 addSubview:scrollView2];
         for (NSInteger i = 0; i < count2; i ++) {
             UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(i*(itemW+10), 0, itemW, itemW)];
-            colorView.backgroundColor = [array2 objectAtIndex:i];
+            [colorView wzm_gradientColors:[array2 objectAtIndex:i] gradientType:WZMGradientTypeUpleftToLowright];
             colorView.wzm_cornerRadius = 5;
             [scrollView2 addSubview:colorView];
         }

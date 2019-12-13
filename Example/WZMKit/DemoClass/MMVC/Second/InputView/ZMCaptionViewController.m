@@ -19,6 +19,7 @@
 @property (nonatomic, strong) WZMVideoKeyView2 *videoKeyView;
 @property (nonatomic, strong) WZMButton *playBtn;
 @property (nonatomic, strong) ZMCaptionInputView *inputView;
+@property (nonatomic, strong) WZMCaptionModel *captionModel;
 
 @end
 
@@ -125,12 +126,19 @@
     if (btn.tag == 0) {
         //字幕
     }
-    else if (btn.tag == 1) {
-        //特效
-        [self.inputView chatBecomeFirstResponder];
-    }
     else {
-        //转场
+        self.captionModel = [self.videoView checkHasEditingModel];
+        if (self.captionModel == nil) {
+            [WZMViewHandle wzm_showInfoMessage:@"请先选中字幕"];
+            return;
+        }
+        if (btn.tag == 1) {
+            //特效
+            [self.inputView chatBecomeFirstResponder];
+        }
+        else {
+            //转场
+        }
     }
 }
 
@@ -219,6 +227,5 @@
         [self.videoView checkPlayIfAdjustCaption];
     }
 }
-
 
 @end

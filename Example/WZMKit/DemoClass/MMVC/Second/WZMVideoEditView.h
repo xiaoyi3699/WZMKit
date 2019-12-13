@@ -33,6 +33,8 @@
 - (void)seekToProgress:(CGFloat)progress;
 ///拖动进度结束,根据字幕调整当前播放进度
 - (void)checkPlayIfAdjustCaption;
+///查询当前正在编辑的字幕
+- (WZMCaptionModel *)checkHasEditingModel;
 
 ///导出视频
 - (void)exportVideoWithNoteAnimationCompletion:(void(^)(NSURL *exportURL))completion;

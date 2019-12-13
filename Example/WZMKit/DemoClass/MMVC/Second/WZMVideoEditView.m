@@ -160,6 +160,26 @@
     [self.player play];
 }
 
+- (WZMCaptionModel *)checkHasEditingModel {
+    if (self.noteModels == nil || self.noteModels.count == 0) return nil;
+    for (NSInteger i = 0; i < self.noteModels.count; i ++) {
+        @autoreleasepool {
+            WZMCaptionModel *noteModel = [self.noteModels objectAtIndex:i];
+            if ((self.player.currentTime > noteModel.startTime) && (self.player.currentTime < (noteModel.startTime+noteModel.duration))) {
+                if (noteModel.editing) {
+                    return noteModel;
+                }
+                //显示编辑框
+                [noteModel.captionView captionViewShow:YES];
+                //手动调用代理
+                [self captionViewShow:noteModel.captionView];
+                return noteModel;
+            }
+        }
+    }
+    return nil;
+}
+
 #pragma mark - 事件代理
 ///播放器代理
 - (void)playerBeginPlaying:(WZMPlayer *)player {

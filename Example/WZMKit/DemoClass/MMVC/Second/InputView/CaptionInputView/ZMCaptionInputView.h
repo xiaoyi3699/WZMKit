@@ -7,10 +7,19 @@
 //
 
 #import "WZMBaseInputView.h"
+@protocol ZMCaptionInputViewDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZMCaptionInputView : WZMBaseInputView
+
+@property (nonatomic, weak) id<ZMCaptionInputViewDelegate> delegate;
+
+@end
+
+@protocol ZMCaptionInputViewDelegate <NSObject>
+
+@optional
 
 @end
 
