@@ -128,6 +128,10 @@
         self.type = WZMKeyboardTypeSystem;
         CGFloat minY = endFrame.origin.y-self.toolView.bounds.size.height;
         [self minYWillChange:minY duration:duration dismissKeyboard:NO];
+        
+        for (UIView *view in self.keyboards) {
+            view.hidden = YES;
+        }
     }
 }
 
