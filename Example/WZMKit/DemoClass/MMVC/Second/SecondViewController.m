@@ -8,6 +8,7 @@
 
 #import "SecondViewController.h"
 #import "ZMCaptionViewController.h"
+#import "WZMTextLayer.h"
 
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
@@ -28,6 +29,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSString *str = @"床前明月光";
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor redColor];
+    shadow.shadowOffset = CGSizeMake(1, 1);
+    shadow.shadowBlurRadius = 1.0;
+
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
+    [attStr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} range:NSMakeRange(0, str.length)];
+    
+    WZMTextLayer *textLayer = [WZMTextLayer layer];
+    textLayer.string = attStr;
+    textLayer.font = (__bridge CFTypeRef _Nullable)([UIFont systemFontOfSize:20]);
+    textLayer.fontSize = 20;
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.frame = CGRectMake(10, 100, 150, 30);
+    textLayer.foregroundColor = [UIColor blueColor].CGColor;
+    textLayer.backgroundColor = [UIColor clearColor].CGColor;
+    textLayer.contentsScale = [UIScreen mainScreen].scale;
+    textLayer.wrapped = YES;
+    [self.view.layer addSublayer:textLayer];
+    
+    NSArray *values = @[(id)[UIColor blueColor].CGColor,(id)[UIColor blueColor].CGColor];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.frame = textLayer.frame;
+    gradientLayer.colors = values;
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 1);
+    gradientLayer.contentsScale = [UIScreen mainScreen].scale;
+    gradientLayer.mask = textLayer;
+    textLayer.frame = gradientLayer.bounds;
+    [self.view.layer addSublayer:gradientLayer];
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 60)];
     btn.titleLabel.font = [UIFont systemFontOfSize:15];

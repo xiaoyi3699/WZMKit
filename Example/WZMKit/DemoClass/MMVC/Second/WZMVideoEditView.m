@@ -7,6 +7,7 @@
 //
 
 #import "WZMVideoEditView.h"
+#import "WZMTextLayer.h"
 
 @interface WZMVideoEditView ()<WZMPlayerDelegate,WZMCaptionViewDelegate>
 
@@ -525,7 +526,7 @@
                 rect = WZMConvertToLandscapeRect(rect, frame.size);
             }
             
-            CATextLayer *textLayer = [CATextLayer layer];
+            WZMTextLayer *textLayer = [WZMTextLayer layer];
             textLayer.string = word;
             textLayer.font = noteModel.textFont;
             textLayer.fontSize = noteModel.textFontSize*scale;

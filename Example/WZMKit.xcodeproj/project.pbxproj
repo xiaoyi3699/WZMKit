@@ -19,6 +19,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		648B64AE238FB99400E74104 /* WZMVideoEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 648B64AD238FB99400E74104 /* WZMVideoEditView.m */; };
+		6499B8BF23A8B63A0066CA4F /* WZMTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6499B8BE23A8B63A0066CA4F /* WZMTextLayer.m */; };
 		64BD013A23A1E8930080632A /* WZMInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD010A23A1E8930080632A /* WZMInputView.m */; };
 		64BD013B23A1E8930080632A /* WZMInputBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD010D23A1E8930080632A /* WZMInputBtn.m */; };
 		64BD013C23A1E8930080632A /* WZMRecordAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 64BD011023A1E8930080632A /* WZMRecordAnimation.m */; };
@@ -113,6 +114,8 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		648B64AC238FB99400E74104 /* WZMVideoEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMVideoEditView.h; sourceTree = "<group>"; };
 		648B64AD238FB99400E74104 /* WZMVideoEditView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoEditView.m; sourceTree = "<group>"; };
+		6499B8BD23A8B63A0066CA4F /* WZMTextLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMTextLayer.h; sourceTree = "<group>"; };
+		6499B8BE23A8B63A0066CA4F /* WZMTextLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMTextLayer.m; sourceTree = "<group>"; };
 		64BD010A23A1E8930080632A /* WZMInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputView.m; sourceTree = "<group>"; };
 		64BD010D23A1E8930080632A /* WZMInputBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMInputBtn.m; sourceTree = "<group>"; };
 		64BD010E23A1E8930080632A /* WZMInputBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMInputBtn.h; sourceTree = "<group>"; };
@@ -778,6 +781,8 @@
 				64D3E49C239A4F4A004DEAF6 /* WZMCaptionModel.m */,
 				64D3E4A623A088A9004DEAF6 /* WZMCaptionView.h */,
 				64D3E4A723A088A9004DEAF6 /* WZMCaptionView.m */,
+				6499B8BD23A8B63A0066CA4F /* WZMTextLayer.h */,
+				6499B8BE23A8B63A0066CA4F /* WZMTextLayer.m */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -1068,6 +1073,7 @@
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */,
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
+				6499B8BF23A8B63A0066CA4F /* WZMTextLayer.m in Sources */,
 				75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */,
 				75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */,
 			);
