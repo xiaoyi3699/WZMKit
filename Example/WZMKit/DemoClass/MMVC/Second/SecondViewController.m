@@ -13,7 +13,7 @@
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
-@interface SecondViewController ()<WZMAlbumNavigationControllerDelegate>
+@interface SecondViewController ()<WZMAlbumNavigationControllerDelegate,WZMVideoKeyView2Delegate>
 
 @end
 
@@ -68,6 +68,26 @@
     [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    NSString *file = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
+    WZMVideoKeyView2 *keyView = [[WZMVideoKeyView2 alloc] initWithFrame:CGRectMake(10, 200, 330, 60)];
+    keyView.delegate = self;
+    keyView.videoUrl = [NSURL fileURLWithPath:file];
+    keyView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:keyView];
+}
+
+- (void)videoKeyView2:(WZMVideoKeyView2 *)videoKeyView2 changeType:(WZMCommonState)type {
+    if (type == WZMCommonStateBegan) {
+        NSLog(@"000000000");
+    }
+    else if (type == WZMCommonStateChanged) {
+        NSLog(@"111111111");
+    }
+    else {
+        NSLog(@"222222222");
+    }
+    NSLog(@"====%@",@(videoKeyView2.value));
 }
 
 - (void)btnClick:(UIButton *)btn {

@@ -29,7 +29,8 @@
 @end
 
 @implementation WZMVideoKeyView2 {
-    CGFloat _sliderX;
+    CGFloat _sliderS; //白线的初始位置占整个试图宽的比例(0-1)
+    CGFloat _sliderX; //由_sliderS的值,计算出白线的初始X坐标
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -65,7 +66,8 @@
         self.graysImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.graysView addSubview:self.graysImageView];
         
-        _sliderX = (self.wzm_width-2)/2;
+        _sliderS = 0.5;
+        _sliderX = (self.wzm_width-2)*_sliderS;
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(_sliderX, 0, 2, self.wzm_height)];
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
@@ -86,7 +88,7 @@
     if (self.dragging == NO) return;
     [self didChangeType:WZMCommonStateChanged];
     CGFloat offsetX = scrollView.contentOffset.x;
-    CGFloat tx = offsetX+scrollView.wzm_width/2-self.keysView.wzm_minX;
+    CGFloat tx = offsetX+scrollView.wzm_width*_sliderS-self.keysView.wzm_minX;
     CGFloat value = tx/self.keysView.wzm_width;
     [self setValue:value draging:YES];
 }
@@ -125,14 +127,16 @@
 - (void)setValue:(CGFloat)value draging:(BOOL)draging {
     self.dragging = draging;
     if (value < 0) {
+        if (_value == value) return;
+        value = 0;
         CGFloat dx = self.contentView.contentOffset.x;
         self.sliderView.wzm_minX = _sliderX-dx;
-        return;
     }
     if (value > 1) {
+        if (_value == value) return;
+        value = 1;
         CGFloat dx = self.contentView.contentOffset.x+self.contentView.wzm_width-self.contentView.contentSize.width;
         self.sliderView.wzm_minX = _sliderX-dx;
-        return;
     }
     if (_value == value) return;
     _value = value;
@@ -171,7 +175,7 @@
     self.contentView.contentSize = CGSizeMake(contentWidth, self.contentView.wzm_height);
     self.contentView.contentOffset = CGPointMake(0, 0);
     
-    CGRect keyRect = CGRectMake(self.contentView.wzm_width/2, 0, contentWidth-self.contentView.wzm_width, self.contentView.wzm_height);
+    CGRect keyRect = CGRectMake(self.contentView.wzm_width*_sliderS, 0, contentWidth-self.contentView.wzm_width, self.contentView.wzm_height);
     self.keysView.frame = keyRect;
     self.keysImageView.frame = self.keysView.bounds;
     self.graysView.frame = keyRect;
