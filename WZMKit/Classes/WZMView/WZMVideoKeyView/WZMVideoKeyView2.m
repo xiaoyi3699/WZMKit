@@ -140,6 +140,7 @@
     }
     if (_value == value) return;
     _value = value;
+    self.sliderView.wzm_minX = _sliderX;
     
     CGFloat tx = value*self.keysView.wzm_width;
     CGFloat x = self.keysView.wzm_minX;
