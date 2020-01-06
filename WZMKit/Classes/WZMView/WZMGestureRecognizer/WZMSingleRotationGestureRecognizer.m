@@ -54,7 +54,7 @@
         CGFloat radian = acosf(self.view.transform.a);
         // 旋转180度后，需要处理弧度的变化
         if (self.view.transform.b < 0) {
-            radian = M_PI+radian;
+            radian = 2*M_PI-radian;
         }
         self.rotation = radian;
     }
