@@ -119,6 +119,11 @@
 - (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
 - (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
 
+///绘制虚线框
+- (void)wzm_addDottedLineWithFrame:(CGRect)frame
+                         lineWidth:(CGFloat)lineWidth
+                         lineColor:(UIColor *)lineColor;
+
 ///绘制虚线
 - (void)wzm_drawlineInFrame:(CGRect)frame
                     length:(CGFloat)lineLength

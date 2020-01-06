@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMDottedLineView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -28,7 +29,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    
+    WZMDottedLineView *lineView = [[WZMDottedLineView alloc] initWithFrame:CGRectMake(10, 100, 100, 120)];
+    lineView.lineWidth = 2;
+    [self.view addSubview:lineView];
 }
 
 @end

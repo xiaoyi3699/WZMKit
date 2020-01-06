@@ -634,6 +634,27 @@ static NSString *_visualKey = @"visual";
 }
 
 /**
+绘制虚线框
+**/
+- (void)wzm_addDottedLineWithFrame:(CGRect)frame lineWidth:(CGFloat)lineWidth lineColor:(UIColor *)lineColor {
+    CAShapeLayer *border = [CAShapeLayer layer];
+    //虚线的颜色
+    border.strokeColor = lineColor.CGColor;
+    //填充的颜色
+    border.fillColor = [UIColor clearColor].CGColor;
+    //设置路径
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRect:frame];
+    border.path = bezierPath.CGPath;
+    //虚线的宽度
+    border.lineWidth = lineWidth;
+    //设置线条的样式
+    border.lineCap = @"square";
+    //虚线的间隔
+    border.lineDashPattern = @[@5, @5];
+    [self.layer addSublayer:border];
+}
+
+/**
  绘制虚线
  **/
 - (void)wzm_drawlineInFrame:(CGRect)frame
