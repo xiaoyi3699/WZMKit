@@ -296,6 +296,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     [self showInfoMessage:message];
 }
 
+//退出交易,清空本地单号,但是不关闭交易
+- (void)exitTransaction {
+    [WZMViewHandle wzm_dismiss];
+    self.paying = NO;
+    [self removeLocReceiptData];
+    if (self.isManualVerify == NO) return;
+    self.manualVerify = NO;
+    [self showInfoMessage:@"交易失败"];
+}
+
 //订单验证失败 - 由网络等原因引起的验证失败,不关闭交易
 //当下次进入APP时调用[self addObserver],即可重新验证
 - (void)verifyPurchaseFail {
@@ -399,7 +409,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
         else {
             self.failedCount = 0;
-            [self finishTransaction:nil message:@"支付失败"];
+            [self exitTransaction];
         }
     }
 }
