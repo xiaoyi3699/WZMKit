@@ -149,7 +149,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     NSArray *product = response.products;
     if([product count] == 0){
-        [self finishTransaction:nil message:@"获取商品信息失败，请检查网络后重试"];
+        [self finishTransaction:nil message:@"获取商品信息失败，请检查网络后重试" allowFinishAll:NO];
         return;
     }
     SKProduct *p = product.firstObject;
@@ -162,7 +162,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     WZMLog(@"------------------错误-----------------:%@", error);
-    [self finishTransaction:nil message:@"从Apple获取商品信息失败"];
+    [self finishTransaction:nil message:@"从Apple获取商品信息失败" allowFinishAll:NO];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -187,10 +187,10 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self loadAppStoreReceipt];
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
-                [self finishTransaction:tran message:nil];
+                [self finishTransaction:tran message:nil allowFinishAll:NO];
             }
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
-                [self finishTransaction:tran message:nil];
+                [self finishTransaction:tran message:nil allowFinishAll:NO];
             }
         }
     });
@@ -208,7 +208,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
             }
         }
         if (self.restore && restoreFail) {
-            [self finishTransaction:nil message:@"未查询到可恢复的订单，如有疑问请及时联系客服"];
+            [self finishTransaction:nil message:@"未查询到可恢复的订单，如有疑问请及时联系客服" allowFinishAll:NO];
         }
     });
 }
@@ -216,7 +216,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     //恢复购买失败
     if (self.restore) {
-        [self finishTransaction:nil message:@"未查询到可恢复的订单"];
+        [self finishTransaction:nil message:@"未查询到可恢复的订单" allowFinishAll:NO];
     }
 }
 
@@ -266,12 +266,12 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 WZMIAPResultStatus status = [WZMJSONParse getIntValueInDict:responseObject withKey:@"status"];
                 if (status == WZMIAPResultStatusSuccess) {
                     //交易成功
-                    [self finishTransaction:nil message:@"支付成功"];
+                    [self finishTransaction:nil message:@"支付成功" allowFinishAll:YES];
                 }
                 else {
                     //交易失败
                     NSString *statusStr = [NSString stringWithFormat:@"支付失败(%@)",@(status)];
-                    [self finishTransaction:nil message:statusStr];
+                    [self finishTransaction:nil message:statusStr allowFinishAll:NO];
                 }
             }
         }];
@@ -285,25 +285,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 #pragma mark - private
 //AppStore标记交易完成,关闭交易
 //调用场景:1、支付成功 2、订单失效,交易凭证错误或者其他非法因素引起的交易失败
-- (void)finishTransaction:(SKPaymentTransaction *)tran message:(NSString *)message {
+- (void)finishTransaction:(SKPaymentTransaction *)tran message:(NSString *)message allowFinishAll:(BOOL)allow {
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
-    [self removeUncompleteTransaction:tran];
-    [self removeObserver];
+    if (tran || allow) {
+        [self removeUncompleteTransaction:tran];
+    }
     [self removeLocReceiptData];
     if (self.isManualVerify == NO) return;
     self.manualVerify = NO;
     [self showInfoMessage:message];
-}
-
-//退出交易,清空本地单号,但是不关闭交易
-- (void)exitTransaction {
-    [WZMViewHandle wzm_dismiss];
-    self.paying = NO;
-    [self removeLocReceiptData];
-    if (self.isManualVerify == NO) return;
-    self.manualVerify = NO;
-    [self showInfoMessage:@"交易失败"];
 }
 
 //订单验证失败 - 由网络等原因引起的验证失败,不关闭交易
@@ -311,7 +302,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)verifyPurchaseFail {
     [WZMViewHandle wzm_dismiss];
     self.paying = NO;
-    [self removeObserver];
     if (self.isManualVerify == NO) return;
     self.manualVerify = NO;
     [self showVerifyPurchaseFail];
@@ -409,7 +399,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
         else {
             self.failedCount = 0;
-            [self exitTransaction];
+            [self finishTransaction:nil message:@"支付失败" allowFinishAll:NO];
         }
     }
 }

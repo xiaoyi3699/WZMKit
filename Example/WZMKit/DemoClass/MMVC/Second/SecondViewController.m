@@ -27,11 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor grayColor];
-    
-    WZMDottedLineView *lineView = [[WZMDottedLineView alloc] initWithFrame:CGRectMake(10, 100, 100, 120)];
-    lineView.lineWidth = 2;
-    [self.view addSubview:lineView];
+    NSString *str;
+    [str mutableCopy];
 }
 
 @end
