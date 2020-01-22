@@ -52,15 +52,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    _tableView = self.superTableView;
-//    _tableView.frame = WZMRectMiddleArea();
-//    _tableView.delegate = self;
-//    _tableView.dataSource = self;
-//    [_tableView wzm_cleraExtraLine];
-//    [self.view addSubview:_tableView];
-    
-    WZMFontView *fontView = [[WZMFontView alloc] initWithFrame:WZMRectMiddleArea()];
-    [self.view addSubview:fontView];
+    _tableView = self.superTableView;
+    _tableView.frame = WZMRectMiddleArea();
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [_tableView wzm_cleraExtraLine];
+    [self.view addSubview:_tableView];
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
@@ -68,7 +65,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.url];
+        WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.newsUrl];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];
     }
@@ -86,7 +83,7 @@
     }
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
-        cell.textLabel.text = model.title;
+        cell.textLabel.text = model.newsTitle;
     }
     return cell;
 }

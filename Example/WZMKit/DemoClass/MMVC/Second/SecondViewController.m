@@ -7,7 +7,7 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMDottedLineView.h"
+#import "WZMDottedView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -27,8 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *str;
-    [str mutableCopy];
+    
 }
 
 @end

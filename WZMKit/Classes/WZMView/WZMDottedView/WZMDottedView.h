@@ -1,5 +1,5 @@
 //
-//  WZMDottedLineView.h
+//  WZMDottedView.h
 //  WZMKit_Example
 //
 //  Created by Zhaomeng Wang on 2020/1/6.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WZMDottedLineView : UIView
+@interface WZMDottedView : UIView
 
 @property (nonatomic, assign) CGFloat lineWidth;
 @property (nonatomic, strong) UIColor *lineColor;

@@ -37,9 +37,9 @@
     
     for (NSDictionary *dic in results) {
         WZMNewsModel *model = [WZMNewsModel new];
-        model.ID    = [WZMJSONParse getStringValueInDict:dic withKey:@"id"];
-        model.title = [WZMJSONParse getStringValueInDict:dic withKey:@"title"];
-        model.url   = [WZMJSONParse getStringValueInDict:dic withKey:@"url"];
+        model.newsID    = [WZMJSONParse getStringValueInDict:dic withKey:@"id"];
+        model.newsTitle = [WZMJSONParse getStringValueInDict:dic withKey:@"title"];
+        model.newsUrl   = [WZMJSONParse getStringValueInDict:dic withKey:@"url"];
         [_currentList addObject:model];
     }
 }

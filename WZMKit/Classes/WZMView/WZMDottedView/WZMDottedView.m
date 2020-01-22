@@ -1,14 +1,14 @@
 //
-//  WZMDottedLineView.m
+//  WZMDottedView.m
 //  WZMKit_Example
 //
 //  Created by Zhaomeng Wang on 2020/1/6.
 //  Copyright © 2020 wangzhaomeng. All rights reserved.
 //
 
-#import "WZMDottedLineView.h"
+#import "WZMDottedView.h"
 
-@implementation WZMDottedLineView
+@implementation WZMDottedView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

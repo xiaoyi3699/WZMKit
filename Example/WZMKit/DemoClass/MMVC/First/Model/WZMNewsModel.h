@@ -10,8 +10,8 @@
 
 @interface WZMNewsModel : WZMBaseModel
 
-@property (nonatomic, strong) NSString *ID;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *newsID;
+@property (nonatomic, strong) NSString *newsTitle;
+@property (nonatomic, strong) NSString *newsUrl;
 
 @end
