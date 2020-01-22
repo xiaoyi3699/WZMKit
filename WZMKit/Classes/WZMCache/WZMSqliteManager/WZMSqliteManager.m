@@ -61,6 +61,27 @@
     return NO;
 }
 
+//查询表的所有字段
+- (NSArray *)tableInfo:(NSString *)tableName {
+    NSString *sql = [NSString stringWithFormat:@"PRAGMA table_info(%@)",tableName];
+    if ([self openDataBase]) {
+        sqlite3_stmt *stmt = nil;
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
+        int res = sqlite3_prepare(_sql3, sql.UTF8String, -1, &stmt, NULL);
+        if (res == SQLITE_OK) {
+            while (sqlite3_step(stmt) == SQLITE_ROW) {
+                char *nameData = (char *)sqlite3_column_text(stmt, 1);
+                NSString *columnName = [[NSString alloc] initWithUTF8String:nameData];
+                [array addObject:columnName];
+            }
+        }
+        sqlite3_finalize(stmt);
+        [self closeDataBase];
+        return [array copy];
+    }
+    return nil;
+}
+
 /**
  插入数据-模型
  */
@@ -143,12 +164,63 @@
     return ![self execute:sql];
 }
 
+- (long)insertColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
+    NSArray *exColumns = [self validColumns:columnNames tableName:tableName];
+    //拼接查询语句
+    NSMutableArray *sqls = [[NSMutableArray alloc] init];
+    for (NSString *column in exColumns) {
+        NSString *sql = [NSString stringWithFormat:@"alter table %@ add %@ text default ''",tableName,column];
+        [sqls addObject:sql];
+    }
+    return [self executes:sqls];
+}
+
+- (long)deleteColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
+    NSArray *exColumns = [self validColumns:columnNames tableName:tableName];
+    //拼接查询语句
+    NSMutableArray *sqls = [[NSMutableArray alloc] init];
+    for (NSString *column in exColumns) {
+        NSString *sql = [NSString stringWithFormat:@"alter table %@ drop column %@",tableName,column];
+        [sqls addObject:sql];
+    }
+    return [self executes:sqls];
+}
+
+- (NSArray *)validColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
+    NSMutableArray *exColumns = [columnNames mutableCopy];
+    //查询数据库现有字段
+    NSArray *columns = [self tableInfo:tableName];
+    //遍历数据库现有字段
+    for (NSString *column in columns) {
+        //判断新增字段是否存在
+        if ([exColumns containsObject:column]) {
+            [exColumns removeObject:column];
+        }
+    }
+    return [exColumns copy];
+}
+
 - (long)execute:(NSString *)sql{
     long insertId = 0;
     if ([self openDataBase]) {
         int res = sqlite3_exec(_sql3, sql.UTF8String, NULL, NULL, NULL);
         if (res == SQLITE_OK){
             insertId = (long)sqlite3_last_insert_rowid(_sql3);
+        }
+        [self closeDataBase];
+    }
+    return insertId;
+}
+
+- (long)executes:(NSArray *)sqls{
+    if (sqls.count == 0) return SQLITE_OK;
+    long insertId = 0;
+    if ([self openDataBase]) {
+        for (NSString *sql in sqls) {
+            int res = sqlite3_exec(_sql3, sql.UTF8String, NULL, NULL, NULL);
+            if (res == SQLITE_OK){
+                insertId = (long)sqlite3_last_insert_rowid(_sql3);
+            }
         }
         [self closeDataBase];
     }

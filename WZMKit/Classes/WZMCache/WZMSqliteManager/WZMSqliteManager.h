@@ -16,6 +16,9 @@
 - (BOOL)deleteModel:(id)model tableName:(NSString *)tableName primkey:(NSString *)primkey;
 - (BOOL)updateModel:(id)model tableName:(NSString *)tableName primkey:(NSString *)primkey;
 
+- (long)insertColumns:(NSArray *)columnNames tableName:(NSString *)tableName;
+- (long)deleteColumns:(NSArray *)columnNames tableName:(NSString *)tableName;
+
 - (long)execute:(NSString *)sql;
 - (BOOL)deleteDataBase:(NSError **)error;
 - (BOOL)deleteTableName:(NSString *)tableName;
