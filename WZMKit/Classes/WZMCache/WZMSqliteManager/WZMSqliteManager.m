@@ -165,7 +165,7 @@
 }
 
 - (long)insertColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
-    NSArray *exColumns = [self validColumns:columnNames tableName:tableName];
+    NSArray *exColumns = [self insertValidColumns:columnNames tableName:tableName];
     //拼接查询语句
     NSMutableArray *sqls = [[NSMutableArray alloc] init];
     for (NSString *column in exColumns) {
@@ -175,8 +175,22 @@
     return [self executes:sqls];
 }
 
+- (NSArray *)insertValidColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
+    NSMutableArray *exColumns = [columnNames mutableCopy];
+    //查询数据库现有字段
+    NSArray *columns = [self tableInfo:tableName];
+    //遍历数据库现有字段
+    for (NSString *column in columns) {
+        //判断新增字段是否存在
+        if ([exColumns containsObject:column]) {
+            [exColumns removeObject:column];
+        }
+    }
+    return [exColumns copy];
+}
+
 - (long)deleteColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
-    NSArray *exColumns = [self validColumns:columnNames tableName:tableName];
+    NSArray *exColumns = [self deleteValidColumns:columnNames tableName:tableName];
     //拼接查询语句
     NSMutableArray *sqls = [[NSMutableArray alloc] init];
     for (NSString *column in exColumns) {
@@ -186,15 +200,15 @@
     return [self executes:sqls];
 }
 
-- (NSArray *)validColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
+- (NSArray *)deleteValidColumns:(NSArray *)columnNames tableName:(NSString *)tableName {
     NSMutableArray *exColumns = [columnNames mutableCopy];
     //查询数据库现有字段
     NSArray *columns = [self tableInfo:tableName];
-    //遍历数据库现有字段
-    for (NSString *column in columns) {
-        //判断新增字段是否存在
-        if ([exColumns containsObject:column]) {
-            [exColumns removeObject:column];
+    //遍历将要删除的字段
+    for (NSString *columnName in columnNames) {
+        //判断数据库是否存在该字段
+        if ([columns containsObject:columnName] == NO) {
+            [exColumns removeObject:columnName];
         }
     }
     return [exColumns copy];
