@@ -12,6 +12,7 @@
 #import "WZMBase64.h"
 
 @implementation WZMImageCache {
+    CGFloat _cacheSize;
     NSString *_cachePath;
     NSMutableDictionary *_memoryCache;
 }
@@ -28,6 +29,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _cacheSize = 0.0;
         _cachePath = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMImageCache"];
         _memoryCache = [[NSMutableDictionary alloc] initWithCapacity:0];
         [self createDirectoryAtPath:_cachePath];
@@ -69,7 +71,7 @@
         image = [UIImage imageWithContentsOfFile:cachePath];
         if (image) {
             //存到内存
-            [_memoryCache setValue:image forKey:urlKey];
+            [self memoryCacheSetValue:image forKey:urlKey];
             return image;
         }
     }
@@ -85,7 +87,7 @@
         UIImage *urlImage = [UIImage imageWithData:imageData];
         if (urlImage) {
             //存到内存
-            [_memoryCache setValue:urlImage forKey:urlKey];
+            [self memoryCacheSetValue:urlImage forKey:urlKey];
             //存到本地
             [self writeFile:imageData toPath:cachePath];
             return urlImage;
@@ -135,7 +137,7 @@
         image = [UIImage imageWithContentsOfFile:cachePath];
         if (image) {
             //存到内存
-            [_memoryCache setValue:image forKey:urlKey];
+            [self memoryCacheSetValue:image forKey:urlKey];
             completion(image);
             return;
         }
@@ -154,7 +156,7 @@
             UIImage *urlImage = [UIImage imageWithData:imageData];
             if (urlImage) {
                 //存到内存
-                [_memoryCache setValue:urlImage forKey:urlKey];
+                [self memoryCacheSetValue:urlImage forKey:urlKey];
                 //存到本地
                 [self writeFile:imageData toPath:cachePath];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -198,7 +200,7 @@
         data = [NSData dataWithContentsOfFile:cachePath];
         if (data) {
             //存到内存
-            [_memoryCache setValue:data forKey:urlKey];
+            [self memoryCacheSetValue:data forKey:urlKey];
             return data;
         }
     }
@@ -212,7 +214,7 @@
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     if (urlData) {
         //存到内存
-        [_memoryCache setValue:urlData forKey:urlKey];
+        [self memoryCacheSetValue:urlData forKey:urlKey];
         //存到本地
         [self writeFile:urlData toPath:cachePath];
         return urlData;
@@ -262,7 +264,7 @@
         data = [NSData dataWithContentsOfFile:cachePath];
         if (data) {
             //存到内存
-            [_memoryCache setValue:data forKey:urlKey];
+            [self memoryCacheSetValue:data forKey:urlKey];
             completion(data);
             return;
         }
@@ -278,7 +280,7 @@
         NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
         if (urlData) {
             //存到内存
-            [_memoryCache setValue:urlData forKey:urlKey];
+            [self memoryCacheSetValue:urlData forKey:urlKey];
             //存到本地
             [self writeFile:urlData toPath:cachePath];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -300,7 +302,7 @@
     }
     NSString *tureKey = [self tureKey:key];
     //存到内存
-    [_memoryCache setValue:image forKey:tureKey];
+    [self memoryCacheSetValue:image forKey:tureKey];
     //存到本地
     NSString *cachePath = [_cachePath stringByAppendingPathComponent:tureKey];
     if ([self writeFile:UIImagePNGRepresentation(image) toPath:cachePath]) {
@@ -317,7 +319,7 @@
         if ([self fileExistsAtPath:cachePath]) {
             image = [UIImage imageWithContentsOfFile:cachePath];
             //存到内存
-            [_memoryCache setValue:image forKey:key];
+            [self memoryCacheSetValue:image forKey:key];
         }
     }
     return image;
@@ -330,7 +332,7 @@
     }
     NSString *tureKey = [self tureKey:key];
     //存到内存
-    [_memoryCache setValue:data forKey:tureKey];
+    [self memoryCacheSetValue:data forKey:tureKey];
     //存到本地
     NSString *cachePath = [_cachePath stringByAppendingPathComponent:tureKey];
     if ([self writeFile:data toPath:cachePath]) {
@@ -347,7 +349,7 @@
         if ([self fileExistsAtPath:cachePath]) {
             data = [NSData dataWithContentsOfFile:cachePath];
             //存到内存
-            [_memoryCache setValue:data forKey:key];
+            [self memoryCacheSetValue:data forKey:key];
         }
     }
     return data;
@@ -366,7 +368,24 @@
     return tureKey;
 }
 
+- (void)memoryCacheSetValue:(id)value forKey:(NSString *)key {
+    NSData *data;
+    if ([value isKindOfClass:[UIImage class]]) {
+        data = UIImagePNGRepresentation((UIImage *)value);
+    }
+    else if ([value isKindOfClass:[data class]]) {
+        data = (NSData *)value;
+    }
+    if (data == nil) return;
+    if (_cacheSize > 50*1000*1000) {
+        [self clearMemory];
+    }
+    _cacheSize += data.length;
+    [_cachePath setValue:data forKey:key];
+}
+
 - (void)clearMemory {
+    _cacheSize = 0.0;
     [_memoryCache removeAllObjects];
 }
 
