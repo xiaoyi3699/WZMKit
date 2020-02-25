@@ -341,6 +341,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)saveReceiptData {
+    if (self.isManualVerify == NO) return;
     if (self.orderId == nil || self.receipt == nil) return;
     NSDictionary *dic = @{@"orderId":self.orderId,@"receipt":self.receipt};
     [[NSUserDefaults standardUserDefaults] setValue:dic forKey:kSaveReceiptData];
