@@ -330,6 +330,11 @@
 #import "WZMBase64.h"
 
 /*
+字体管理
+*/
+#import "WZMFontManager.h"
+
+/*
  其他自定义控件
  */
 #import "WZMButton.h"

@@ -26,6 +26,7 @@
 #import "UIButton+wzmcate.h"
 #import "UIColor+wzmcate.h"
 #import "UIFont+wzmcate.h"
+#import "WZMFontManager.h"
 #import "UIImage+wzmcate.h"
 #import "UIImageView+wzmcate.h"
 #import "UILabel+wzmcate.h"

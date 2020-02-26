@@ -18,6 +18,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 646F21AE24064BE500B49DB1 /* WXxiari.ttf */; };
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
@@ -85,6 +86,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		646F21AE24064BE500B49DB1 /* WXxiari.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WXxiari.ttf; sourceTree = "<group>"; };
 		6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeWebController.m; sourceTree = "<group>"; };
 		6486E45D23D8451600D777D7 /* WZMRechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeModel.m; sourceTree = "<group>"; };
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 		75DA9E52230E9C7F0000A955 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				646F21AE24064BE500B49DB1 /* WXxiari.ttf */,
 				75D1ADAA2319208300C01BA1 /* jingcai.gif */,
 				75D1ADA823191C5800C01BA1 /* xmhzma.MP4 */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -678,6 +681,7 @@
 				75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
 				75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */,
+				646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */,
 				75DA9E2E230E924A0000A955 /* WZMTest.css in Resources */,
 				75DA9E2F230E924A0000A955 /* WZMTest.js in Resources */,
 			);
