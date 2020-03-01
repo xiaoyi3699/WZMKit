@@ -10,6 +10,8 @@
 
 @interface WZMFontManager : NSObject
 
+///获取字体名称
++ (NSString *)fontNameWithPath:(NSString *)path;
 ///从路径加载字体
 + (UIFont *)fontWithPath:(NSString *)path size:(CGFloat)size;
 

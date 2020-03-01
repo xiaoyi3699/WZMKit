@@ -35,8 +35,8 @@
     return self;
 }
 
-///从路径加载字体
-+ (UIFont *)fontWithPath:(NSString *)path size:(CGFloat)size {
+///获取字体名称
++ (NSString *)fontNameWithPath:(NSString *)path {
     NSString *key = [path wzm_base64EncodedString];
     NSString *fontName = [[WZMFontManager manager].fontNames objectForKey:key];
     if (fontName == nil) {
@@ -45,6 +45,12 @@
             [[WZMFontManager manager].fontNames setObject:fontName forKey:key];
         }
     }
+    return fontName;
+}
+
+///从路径加载字体
++ (UIFont *)fontWithPath:(NSString *)path size:(CGFloat)size {
+    NSString *fontName = [self fontNameWithPath:path];
     if (fontName) {
         return [UIFont fontWithName:fontName size:size];
     }
