@@ -87,6 +87,8 @@
 - (NSString *)wzm_getURLEncoded2;
 ///URLEnCode解码
 - (NSString *)wzm_getURLDecoded;
+///遍历字符(支持emjio表情遍历)
+- (void)wzm_enumerateSubstrings:(void(^)(NSString *subStr, NSRange range))completion;
 ///正则匹配
 - (NSString *)wzm_mstchStrWithRegular:(NSString *)regular;
 ///匹配两个字符之间的字符

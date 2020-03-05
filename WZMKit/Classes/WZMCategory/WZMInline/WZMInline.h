@@ -93,26 +93,14 @@ UIKIT_STATIC_INLINE CGSize WZMSizeRatioToFillSize(CGSize size, CGSize fillSize) 
 }
 
 ///坐标系转换
-UIKIT_STATIC_INLINE CGPoint WZMConvertToLandscapePoint(CGPoint point, CGFloat height, CGSize superSize) {
+UIKIT_STATIC_INLINE CGPoint WZMConvertToLandscapePoint(CGPoint point, CGSize superSize) {
     CGPoint portraitPoint = point;
-    portraitPoint.y = (superSize.height-point.y-height);
+    portraitPoint.y = (superSize.height-point.y);
     return portraitPoint;
 }
  
 UIKIT_STATIC_INLINE CGRect WZMConvertToLandscapeRect(CGRect rect, CGSize superSize) {
     CGRect portraitRect = rect;
     portraitRect.origin.y = (superSize.height-rect.origin.y-rect.size.height);
-    return portraitRect;
-}
-
-UIKIT_STATIC_INLINE CGPoint WZMConvertToPortraitPoint(CGPoint point, CGFloat height) {
-    CGPoint portraitPoint = point;
-    portraitPoint.y = (point.y+height);
-    return portraitPoint;
-}
-
-UIKIT_STATIC_INLINE CGRect WZMConvertToPortraitRect(CGRect rect) {
-    CGRect portraitRect = rect;
-    portraitRect.origin.y = (rect.origin.y+rect.size.height);
     return portraitRect;
 }

@@ -513,6 +513,11 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
+- (void)wzm_enumerateSubstrings:(void(^)(NSString *subStr, NSRange range))completion {
+    [self enumerateSubstringsInRange:NSMakeRange(0, [self length]) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+        if (completion) completion(substring,substringRange);
+    }];
+}
 
 - (NSString *)wzm_mstchStrWithRegular:(NSString *)regular {
     NSError *error;
