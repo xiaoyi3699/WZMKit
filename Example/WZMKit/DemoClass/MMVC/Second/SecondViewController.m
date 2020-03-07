@@ -28,8 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *text = @"mmmmm\n1212122";
-    
 }
 
 @end
