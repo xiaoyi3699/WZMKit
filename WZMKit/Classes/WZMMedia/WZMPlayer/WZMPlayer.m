@@ -22,6 +22,7 @@
 @property (nonatomic, assign) CGFloat currentTime;  //当前播放时间
 @property (nonatomic, assign) id playTimeObserver;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier bgTaskId;
+@property (nonatomic, assign, getter=isLoop) BOOL loop;
 @property (nonatomic, assign, getter=isPlaying) BOOL playing;
 @property (nonatomic, assign, getter=isLocking) BOOL locking;
 @property (nonatomic, assign, getter=isRelated) BOOL related;
@@ -34,6 +35,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.loop = NO;
         self.volume = 1.0;
         self.playing = NO;
         self.locking = NO;
@@ -282,7 +284,13 @@
 //监听音频播放完成
 - (void)moviePlayDidEnd:(NSNotification *)notification {
     if (notification.object == self.player.currentItem) {
-        [self wzm_endPlaying];
+        if (self.isLoop) {
+            [self seekToTime:0];
+            [self play];
+        }
+        else {
+            [self wzm_endPlaying];
+        }
     }
 }
 
