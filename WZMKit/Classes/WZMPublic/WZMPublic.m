@@ -219,10 +219,10 @@
 - (NSBundle *)resourceBundle {
     if (_resourceBundle == nil) {
         NSBundle *kitBundle = [NSBundle bundleForClass:[WZMPublic class]];
-        NSString *path = [kitBundle pathForResource:@"WZMImages" ofType:@"bundle"];
+        NSString *path = [kitBundle pathForResource:@"WZMResources" ofType:@"bundle"];
         NSBundle *bundle = [NSBundle bundleWithPath:path];
         if (bundle == nil) {
-            path = [kitBundle.bundlePath stringByAppendingPathComponent:@"WZMKit.bundle/WZMImages.bundle"];
+            path = [kitBundle.bundlePath stringByAppendingPathComponent:@"WZMKit.bundle/WZMResources.bundle"];
             bundle = [NSBundle bundleWithPath:path];
         }
         _resourceBundle = bundle;
@@ -230,9 +230,15 @@
     return _resourceBundle;
 }
 
-+ (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type {
++ (NSString *)filePathWithFolder:(NSString *)folder fileName:(NSString *)fileName {
     NSBundle *bundle = [[WZMPublic Public] resourceBundle];
-    return [UIImage imageWithContentsOfFile:[bundle pathForResource:name ofType:type]];
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",folder,fileName];
+    return [bundle pathForResource:resource ofType:nil];
+}
+
++ (UIImage *)imageWithFolder:(NSString *)folder imageName:(NSString *)imageName {
+    NSString *filePath = [self filePathWithFolder:folder fileName:imageName];
+    return [UIImage imageWithContentsOfFile:filePath];
 }
 
 @end

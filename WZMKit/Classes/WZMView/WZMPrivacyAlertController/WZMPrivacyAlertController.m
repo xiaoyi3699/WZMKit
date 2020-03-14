@@ -29,8 +29,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.yinsiUrl = @"";
-        self.yonghuUrl = @"";
+        self.yinsiUrl = [WZMPublic filePathWithFolder:@"privacy" fileName:@"privacy.html"];
+        self.yonghuUrl = [WZMPublic filePathWithFolder:@"privacy" fileName:@"agreement.html"];
     }
     return self;
 }

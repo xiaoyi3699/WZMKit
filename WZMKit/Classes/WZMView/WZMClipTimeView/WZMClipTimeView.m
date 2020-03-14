@@ -53,7 +53,7 @@
         
         self.leftView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 3, 20, self.bounds.size.height-6)];
         self.leftView.userInteractionEnabled = YES;
-        self.leftView.image = [WZMPublic imageNamed:@"clip_left" ofType:@"png"];
+        self.leftView.image = [WZMPublic imageWithFolder:@"clip" imageName:@"clip_left.png"];
         [self addSubview:self.leftView];
         
         UIPanGestureRecognizer *leftPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(leftPanRecognizer:)];
@@ -61,7 +61,7 @@
         
         self.rightView = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.size.width-20, 3, 20, self.bounds.size.height-6)];
         self.rightView.userInteractionEnabled = YES;
-        self.rightView.image = [WZMPublic imageNamed:@"clip_right" ofType:@"png"];
+        self.rightView.image = [WZMPublic imageWithFolder:@"clip" imageName:@"clip_right.png"];
         [self addSubview:self.rightView];
         
         UIPanGestureRecognizer *rightPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(rightPanRecognizer:)];

@@ -93,8 +93,9 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_playBtn setFrame:CGRectMake(5,10,20,20)];
         _playBtn.selected=YES;
-        [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_play" ofType:@"png"] forState:UIControlStateNormal];
-        [_playBtn setBackgroundImage:[WZMPublic imageNamed:@"wzm_player_pause" ofType:@"png"] forState:UIControlStateSelected];
+        
+        [_playBtn setBackgroundImage:[WZMPublic imageWithFolder:@"player" imageName:@"player_play.png"] forState:UIControlStateNormal];
+        [_playBtn setBackgroundImage:[WZMPublic imageWithFolder:@"player" imageName:@"player_pause.png"] forState:UIControlStateSelected];
         [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_toolView addSubview:_playBtn];
         

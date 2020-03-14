@@ -74,7 +74,7 @@
     [closeView addGestureRecognizer:closeTap];
     
     UIImageView *closeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 12, 12)];
-    closeImageView.image = [WZMPublic imageNamed:@"close_1" ofType:@"png"];
+    closeImageView.image = [WZMPublic imageWithFolder:@"common" imageName:@"close_1.png"];
     [closeView addSubview:closeImageView];
 }
 

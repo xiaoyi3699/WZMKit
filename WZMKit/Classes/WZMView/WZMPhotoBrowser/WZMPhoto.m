@@ -77,7 +77,7 @@
         [self addSubview:_videoView];
         
         _errorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.wzm_width-40, self.wzm_height-40, 20, 20)];
-        _errorImageView.image = [WZMPublic imageNamed:@"album_error" ofType:@"png"];
+        _errorImageView.image = [WZMPublic imageWithFolder:@"album" imageName:@"album_error.png"];
         [self addSubview:_errorImageView];
     }
     return self;

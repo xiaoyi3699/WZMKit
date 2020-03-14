@@ -42,7 +42,7 @@ NSString *const WZMRefreshMoreData             = @"WZMRefreshMoreData";
 }
 
 + (UIImage *)arrowImage {
-    return [WZMPublic imageNamed:@"wzm_arrow" ofType:@"png"];
+    return [WZMPublic imageWithFolder:@"refresh" imageName:@"arrow.png"];
 }
 
 #pragma mark - private method

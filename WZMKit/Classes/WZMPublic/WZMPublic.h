@@ -52,6 +52,7 @@
 ///document
 - (NSString *)document;
 ///资源文件
-+ (UIImage *)imageNamed:(NSString *)name ofType:(NSString *)type;
++ (NSString *)filePathWithFolder:(NSString *)folder fileName:(NSString *)fileName;
++ (UIImage *)imageWithFolder:(NSString *)folder imageName:(NSString *)imageName;
 
 @end

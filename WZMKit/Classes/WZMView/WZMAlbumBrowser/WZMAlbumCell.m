@@ -42,7 +42,7 @@
         [self addSubview:_photoImageView];
         
         _playImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.bounds.size.width-20)/2, (self.bounds.size.height-20)/2, 20, 20)];
-        _playImageView.image = [WZMPublic imageNamed:@"album_play" ofType:@"png"];
+        _playImageView.image = [WZMPublic imageWithFolder:@"album" imageName:@"album_play.png"];
         _playImageView.hidden = YES;
         [self addSubview:_playImageView];
         
@@ -58,7 +58,7 @@
         [_videoTimeView addSubview:_videoTimeLabel];
         
         UIImageView *videoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 1, 13, 13)];
-        videoImageView.image = [WZMPublic imageNamed:@"album_video" ofType:@"png"];
+        videoImageView.image = [WZMPublic imageWithFolder:@"album" imageName:@"album_video.png"];
         [_videoTimeView addSubview:videoImageView];
         
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -94,7 +94,7 @@
         _indexBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
         _indexBtn.imageFrame = CGRectMake(0, 0, 30, 30);
         _indexBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
-        [_indexBtn setImage:[WZMPublic imageNamed:@"album_normal" ofType:@"png"] forState:UIControlStateNormal];
+        [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_normal.png"] forState:UIControlStateNormal];
         [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_indexBtn];
         
@@ -102,7 +102,7 @@
         _iCloudBtn.frame = CGRectMake(0, 0, 30, 30);
         _iCloudBtn.imageFrame = CGRectMake(8, 2, 20, 20);
         _iCloudBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
-        [_iCloudBtn setImage:[[WZMPublic imageNamed:@"album_xz" ofType:@"png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_iCloudBtn setImage:[[WZMPublic imageWithFolder:@"album" imageName:@"album_xz.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
         [self addSubview:_iCloudBtn];

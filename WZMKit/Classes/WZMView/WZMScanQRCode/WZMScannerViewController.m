@@ -49,11 +49,11 @@
     [self.view addSubview:_bgView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-5, -7, 290, 364)];
-    imageView.image = [WZMPublic imageNamed:@"qrBg" ofType:@"png"];
+    imageView.image = [WZMPublic imageWithFolder:@"qrCode" imageName:@"qrBg.png"];
     [_bgView addSubview:imageView];
     
     _lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(_bgView.frame.origin.x, 74, 280, 10)];
-    _lineImageView.image = [WZMPublic imageNamed:@"qrLine" ofType:@"png"];
+    _lineImageView.image = [WZMPublic imageWithFolder:@"qrLine" imageName:@"qrBg.png"];
     _lineImageView.hidden = YES;
     [self.view addSubview:_lineImageView];
     
