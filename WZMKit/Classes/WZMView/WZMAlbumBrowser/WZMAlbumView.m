@@ -235,8 +235,10 @@
         if (_lastRow == row && _lastColumn == column) return;
         _lastRow = row; _lastColumn = column;
         NSInteger index = row*self.config.column+column;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self checkSelectedAtIndexPath:indexPath];
+        if (index < self.selectedAlbum.photos.count) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            [self checkSelectedAtIndexPath:indexPath];
+        }
     }
 }
 
