@@ -29,6 +29,9 @@
 - (void)leftButtonClick;
 - (void)rightButtonClick;
 
+///导航栏是否隐藏
+- (BOOL)navigatonBarIsHidden;
+
 ///导航栏背景图片
 - (UIImage *)navigatonBarBackgroundImage;
 

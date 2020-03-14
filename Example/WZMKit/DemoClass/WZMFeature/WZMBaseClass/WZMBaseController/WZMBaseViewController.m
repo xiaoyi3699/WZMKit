@@ -45,6 +45,7 @@
         self.navigationController.navigationBar.tintColor = [self backItemColor];
         self.navigationItem.backBarButtonItem.title = [self backItemTitle];
         self.navigationController.navLineHidden = [self navigatonIsHiddenLine];
+        self.navigationController.navigationBar.hidden = [self navigatonBarIsHidden];
     }
 }
 
@@ -87,6 +88,11 @@
 - (void)rightButtonClick{}
 
 #pragma mark - 导航栏
+//导航栏是否隐藏
+- (BOOL)navigatonBarIsHidden {
+    return NO;
+}
+
 //导航栏背景图片
 - (UIImage *)navigatonBarBackgroundImage {
     return nil;
