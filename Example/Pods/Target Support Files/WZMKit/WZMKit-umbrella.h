@@ -47,7 +47,6 @@
 #import "WZMPlayer.h"
 #import "WZMPlayerItem.h"
 #import "WZMPlayerView.h"
-#import "WZMVideoPlayerItem.h"
 #import "WZMVideoPlayerView.h"
 #import "WZMVideoPlayerViewController.h"
 #import "WZMBlock.h"

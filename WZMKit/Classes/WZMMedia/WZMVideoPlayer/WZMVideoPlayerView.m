@@ -9,7 +9,6 @@
 #import "WZMVideoPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "WZMVideoPlayerItem.h"
 #import "WZMLogPrinter.h"
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"

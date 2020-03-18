@@ -96,7 +96,7 @@
             //将加载好的资源放入AVPlayerItem 中，item中包含视频资源数据,视频资源时长、当前播放的时间点等信息
             self.locking = NO;
             WZMPlayerItem *item = [[WZMPlayerItem alloc] initWithAsset:asset];
-            item.observer = self;
+            [item addItemObserver:self];
             
             if (_player) {
                 [_player removeTimeObserver:_playTimeObserver];
@@ -107,14 +107,6 @@
             }
             _player.volume = self.volume;
             
-            //观察播放状态
-            [item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-            //观察缓冲进度
-            [item addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
-            //缓冲区空了，需要等待数据
-            [item addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
-            // 缓冲区有足够数据可以播放了
-            [item addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
             //需要时时显示播放的进度
             //根据播放的帧数、速率，进行时间的异步(在子线程中完成)获取
             @wzm_weakify(self);
@@ -172,7 +164,7 @@
     if (self.isAllowPlay == NO) return;
     if (self.isBackground == NO && self.isLocking) return;
     AVPlayerItem *item = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@"status"]) {
+    if ([keyPath isEqualToString:WZMPlayerStatus]) {
         if (item.status == AVPlayerStatusReadyToPlay) {
             self.playing = NO;
             [self play];
@@ -180,7 +172,7 @@
         else if (item.status == AVPlayerStatusFailed) {
             [self loadFailed:@"未识别的音频文件"];
         }
-    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+    } else if ([keyPath isEqualToString:WZMPlayerLoadedTimeRanges]) {
         if (self.duration > 0) {
             NSInteger timeInterval = [self availableDuration];
             float pro = timeInterval*1.0/self.duration;
@@ -190,7 +182,7 @@
             }
         }
     }
-    else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) {
+    else if ([keyPath isEqualToString:WZMPlayerPlaybackBufferEmpty]) {
         if (self.player.currentItem.isPlaybackBufferEmpty) {
             [self bufferSecond];
         }

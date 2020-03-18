@@ -8,8 +8,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+extern NSString *const WZMPlayerStatus;
+extern NSString *const WZMPlayerLoadedTimeRanges;
+extern NSString *const WZMPlayerPlaybackBufferEmpty;
+extern NSString *const WZMPlayerPlaybackLikelyToKeepUp;
 @interface WZMPlayerItem : AVPlayerItem
 
-@property (nonatomic, weak) id observer;
+- (void)addItemObserver:(id)observer;
 
 @end
