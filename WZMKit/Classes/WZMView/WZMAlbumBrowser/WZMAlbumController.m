@@ -76,11 +76,11 @@
     [self.view addSubview:self.albumView];
     
     UIBlurEffectStyle effectStyle;
-    if (@available(iOS 13.0, *)) {
-        effectStyle = UIBlurEffectStyleSystemUltraThinMaterial;
-    } else {
+//    if (@available(iOS 13.0, *)) {
+//        effectStyle = UIBlurEffectStyleSystemUltraThinMaterial;
+//    } else {
         effectStyle = UIBlurEffectStyleLight;
-    }
+//    }
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:effectStyle];
     self.visualView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.visualView.hidden = YES;
