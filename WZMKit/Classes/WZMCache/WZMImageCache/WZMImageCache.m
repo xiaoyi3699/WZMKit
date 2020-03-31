@@ -381,7 +381,7 @@
         [self clearMemory];
     }
     _cacheSize += data.length;
-    [_memoryCache setValue:data forKey:key];
+    [_memoryCache setValue:value forKey:key];
 }
 
 - (void)clearMemory {
