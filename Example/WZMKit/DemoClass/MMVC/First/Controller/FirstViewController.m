@@ -63,6 +63,12 @@
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger index = indexPath.row;
+    for (NSInteger i = 0; i < indexPath.section; i ++) {
+        index += [tableView numberOfRowsInSection:i];
+    }
+    
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.newsUrl];
