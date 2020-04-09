@@ -19,7 +19,7 @@ extern NSString * const WZMNetRequestContentTypeJson;
 ///请求返回的数据格式 - 默认值: WZMNetResultContentTypeJson, json格式
 @property (nonatomic, assign) WZMNetResultContentType resultContentType;
 
-+ (instancetype)netWorking;
++ (instancetype)shareNetWorking;
 
 - (NSURLSessionDataTask *)request:(NSURLRequest *)request callBack:(void(^)(id responseObject,NSError *error))callBack;
 

@@ -62,7 +62,7 @@
         self.dataTask = nil;
     }
     
-    self.dataTask = [[WZMNetWorking netWorking] method:method url:self.requestUrl parameters:self.requestParams callBack:^(id responseObject, NSError *error) {
+    self.dataTask = [[WZMNetWorking shareNetWorking] method:method url:self.requestUrl parameters:self.requestParams callBack:^(id responseObject, NSError *error) {
         [self handleResponseObj:responseObject
                           error:error
                        callBack:backHandler

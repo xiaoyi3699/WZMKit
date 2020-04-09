@@ -24,7 +24,7 @@
     NSString *_appId;
 }
 
-+ (instancetype)score {
++ (instancetype)shareScore {
     static WZMAppScore *score;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

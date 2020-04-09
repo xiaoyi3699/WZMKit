@@ -17,7 +17,7 @@
 
 @implementation WZMLogPrinter
 
-+ (instancetype)printer {
++ (instancetype)sharePrinter {
     static WZMLogPrinter *printer;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -27,11 +27,11 @@
 }
 
 + (void)openLogEnable:(BOOL)enable {
-    [WZMLogPrinter printer].enable = enable;
+    [WZMLogPrinter sharePrinter].enable = enable;
 }
 
 + (void)log:(NSString *)string {
-    if ([WZMLogPrinter printer].enable) {
+    if ([WZMLogPrinter sharePrinter].enable) {
         printf("%s\n\n", [[WZMLogView outputString:[NSString stringWithFormat:@"[WZMKitLog]: %@",string]] UTF8String]);
     }
 }

@@ -10,7 +10,7 @@
 
 @interface WZMPublic : NSObject
 
-+ (instancetype)Public;
++ (instancetype)sharePublic;
 
 ///还原, 如屏幕旋转时
 - (void)reset;

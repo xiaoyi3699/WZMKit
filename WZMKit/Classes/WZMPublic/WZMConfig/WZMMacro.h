@@ -10,42 +10,42 @@
 
 /*  *****系统相关*****  */
 #import "WZMPublic.h"
-#define WZM_IS_iPad   [[WZMPublic Public] iPad]
-#define WZM_IS_iPhone [[WZMPublic Public] iPhone]
+#define WZM_IS_iPad   [[WZMPublic sharePublic] iPad]
+#define WZM_IS_iPhone [[WZMPublic sharePublic] iPhone]
 #define WZM_LANGUAGE  ([[NSLocale preferredLanguages] objectAtIndex:0])
 
 #define WZM_WINDOW          [UIApplication sharedApplication].delegate.window
-#define WZM_SCREEN_BOUNDS   [[WZMPublic Public] screenBounds]
-#define WZM_SCREEN_SCALE    [[WZMPublic Public] screenScale]
-#define WZM_SCREEN_WIDTH    [[WZMPublic Public] screenW]
-#define WZM_SCREEN_HEIGHT   [[WZMPublic Public] screenH]
-#define WZM_STATUS_HEIGHT   [[WZMPublic Public] statusH]
-#define WZM_NAVBAR_HEIGHT   [[WZMPublic Public] navBarH]
-#define WZM_TABBAR_HEIGHT   [[WZMPublic Public] tabBarH]
-#define WZM_BOTTOM_HEIGHT   [[WZMPublic Public] iPhoneXBottomH]
+#define WZM_SCREEN_BOUNDS   [[WZMPublic sharePublic] screenBounds]
+#define WZM_SCREEN_SCALE    [[WZMPublic sharePublic] screenScale]
+#define WZM_SCREEN_WIDTH    [[WZMPublic sharePublic] screenW]
+#define WZM_SCREEN_HEIGHT   [[WZMPublic sharePublic] screenH]
+#define WZM_STATUS_HEIGHT   [[WZMPublic sharePublic] statusH]
+#define WZM_NAVBAR_HEIGHT   [[WZMPublic sharePublic] navBarH]
+#define WZM_TABBAR_HEIGHT   [[WZMPublic sharePublic] tabBarH]
+#define WZM_BOTTOM_HEIGHT   [[WZMPublic sharePublic] iPhoneXBottomH]
 #define WZM_TOPBAR_HEIGHT   44
 #define WZM_BOTBAR_HEIGHT   49
 
 //iOS系统版本
-#define WZM_DEVICE     [[WZMPublic Public] systemV]
+#define WZM_DEVICE     [[WZMPublic sharePublic] systemV]
 
 //APP名字
-#define WZM_APP_NAME     [[WZMPublic Public] appName]
+#define WZM_APP_NAME     [[WZMPublic sharePublic] appName]
 
 //APP Build
-#define WZM_APP_BUILD    [[WZMPublic Public] buildV]
+#define WZM_APP_BUILD    [[WZMPublic sharePublic] buildV]
 
 //APP版本
-#define WZM_APP_VERSION  [[WZMPublic Public] shortV]
+#define WZM_APP_VERSION  [[WZMPublic sharePublic] shortV]
 
 //获取沙盒Document路径
-#define WZM_DOCUMENT_PATH [[WZMPublic Public] document]
+#define WZM_DOCUMENT_PATH [[WZMPublic sharePublic] document]
 
 //获取沙盒temp路径
-#define WZM_TEMP_PATH [[WZMPublic Public] temp]
+#define WZM_TEMP_PATH [[WZMPublic sharePublic] temp]
 
 //获取沙盒Cache路径
-#define WZM_CACHE_PATH [[WZMPublic Public] cache]
+#define WZM_CACHE_PATH [[WZMPublic sharePublic] cache]
 
 #define WZM_IS_IOS13_ABOVE    (WZM_DEVICE >= 13) //是否是iOS13以上系统
 #define WZM_IS_IOS12_ABOVE    (WZM_DEVICE >= 12) //是否是iOS12以上系统

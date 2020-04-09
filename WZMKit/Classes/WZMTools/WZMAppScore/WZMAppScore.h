@@ -11,7 +11,7 @@
 
 @interface WZMAppScore : NSObject
 
-+ (instancetype)score;
++ (instancetype)shareScore;
 - (void)showScoreView:(WZMAppScoreType)type isOnce:(BOOL)isOnce;
 
 @end

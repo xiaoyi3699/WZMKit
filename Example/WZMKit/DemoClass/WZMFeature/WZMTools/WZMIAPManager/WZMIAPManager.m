@@ -257,7 +257,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         else {
             params = [NSString stringWithFormat:@"%@}",params];
         }
-        [[WZMNetWorking netWorking] POST:WZM_IAP_VERIFY parameters:params callBack:^(id responseObject, NSError *error) {
+        [[WZMNetWorking shareNetWorking] POST:WZM_IAP_VERIFY parameters:params callBack:^(id responseObject, NSError *error) {
             if (error || responseObject == nil) {
                 //订单验证失败
                 [self verifyPurchaseFail];

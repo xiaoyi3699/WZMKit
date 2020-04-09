@@ -23,7 +23,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
 #define WZMEncode(_str_) [_str_ dataUsingEncoding:NSUTF8StringEncoding]
 @implementation WZMNetWorking
 
-+ (instancetype)netWorking {
++ (instancetype)shareNetWorking {
     static WZMNetWorking *netWorking;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

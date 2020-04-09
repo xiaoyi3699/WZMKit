@@ -84,7 +84,7 @@
 //检查订单
 - (void)checkOrder:(void(^)(BOOL success))completion count:(NSInteger)count {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[WZMNetWorking netWorking] GET:@"" parameters:nil callBack:^(id responseObject, NSError *error) {
+        [[WZMNetWorking shareNetWorking] GET:@"" parameters:nil callBack:^(id responseObject, NSError *error) {
             if (error) {
                 //失败,由于支付延迟,尝试继续检查订单
                 if (count < 3) {

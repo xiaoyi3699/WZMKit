@@ -16,7 +16,7 @@
 
 @implementation WZMAppJump
 
-+ (WZMAppJump *)jump {
++ (WZMAppJump *)shareJump {
     static WZMAppJump* instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -146,7 +146,7 @@
         [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
     else {
-        [[WZMAppJump jump] openAppStoreDownloadInInnerApp:appId];
+        [[WZMAppJump shareJump] openAppStoreDownloadInInnerApp:appId];
     }
 }
 

@@ -34,7 +34,7 @@
     NSBundle *_resourceBundle;
 }
 
-+ (instancetype)Public {
++ (instancetype)sharePublic {
     static WZMPublic *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -231,7 +231,7 @@
 }
 
 + (NSString *)filePathWithFolder:(NSString *)folder fileName:(NSString *)fileName {
-    NSBundle *bundle = [[WZMPublic Public] resourceBundle];
+    NSBundle *bundle = [[WZMPublic sharePublic] resourceBundle];
     NSString *resource = [NSString stringWithFormat:@"%@/%@",folder,fileName];
     return [bundle pathForResource:resource ofType:nil];
 }

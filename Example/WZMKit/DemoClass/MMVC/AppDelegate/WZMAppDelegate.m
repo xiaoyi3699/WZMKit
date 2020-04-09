@@ -99,7 +99,7 @@
     
     //检查更新
     NSString *url = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",WZM_APP_ID];
-    [[WZMNetWorking netWorking] GET:url parameters:nil callBack:^(id responseObject, NSError *error) {
+    [[WZMNetWorking shareNetWorking] GET:url parameters:nil callBack:^(id responseObject, NSError *error) {
         if (error == nil) {
             NSDictionary *data = [[responseObject objectForKey:@"results"] firstObject];
             NSString *version = [data objectForKey:@"version"];
