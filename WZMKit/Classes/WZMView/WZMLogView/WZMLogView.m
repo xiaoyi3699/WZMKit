@@ -23,7 +23,7 @@
 
 @implementation LHYMessageView
 
-+ (instancetype)messageView {
++ (instancetype)shareMessageView {
     static LHYMessageView *logView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -220,7 +220,7 @@
 
 + (void)startLog {
     dispatch_async(dispatch_get_main_queue(), ^{
-        WZMLogView *logView = [WZMLogView logView];
+        WZMLogView *logView = [WZMLogView shareLogView];
         logView.start = YES;
         if (logView.superview == nil) {
             [[UIApplication sharedApplication].delegate.window addSubview:logView];
@@ -230,10 +230,10 @@
 
 + (NSString *)outputString:(NSString *)string {
     dispatch_async(dispatch_get_main_queue(), ^{
-        WZMLogView *logView = [WZMLogView logView];
+        WZMLogView *logView = [WZMLogView shareLogView];
         if (logView.isStart) {
             if (string) {
-                LHYMessageView *messageView = [LHYMessageView messageView];
+                LHYMessageView *messageView = [LHYMessageView shareMessageView];
                 [messageView outputString:string];
             }
         }
@@ -241,7 +241,7 @@
     return (string ? string : @"");
 }
 
-+ (instancetype)logView {
++ (instancetype)shareLogView {
     static WZMLogView *logView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -282,7 +282,7 @@
 }
 
 - (void)tapRecognizer:(UILongPressGestureRecognizer *)recognizer {
-    LHYMessageView *messageView = [LHYMessageView messageView];
+    LHYMessageView *messageView = [LHYMessageView shareMessageView];
     if (messageView.superview == nil) {
         [[UIApplication sharedApplication].delegate.window addSubview:messageView];
     }

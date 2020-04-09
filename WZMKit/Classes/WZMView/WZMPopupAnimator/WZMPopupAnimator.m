@@ -15,7 +15,7 @@
     WZMAnimationStyle _animationStyle;
 }
 
-+ (instancetype)animator {
++ (instancetype)shareAnimator {
     static dispatch_once_t onceToken;
     static WZMPopupAnimator *animator;
     dispatch_once(&onceToken, ^{

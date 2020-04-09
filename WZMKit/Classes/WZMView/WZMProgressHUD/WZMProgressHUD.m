@@ -57,7 +57,7 @@
 
 @implementation WZMProgressConfig
 
-+ (instancetype)defaultConfig {
++ (instancetype)shareConfig {
     static WZMProgressConfig *config;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -93,7 +93,7 @@
 
 @implementation WZMProgressHUD
 
-+ (instancetype)defaultHUD {
++ (instancetype)shareHUD {
     static WZMProgressHUD *hud;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -109,20 +109,20 @@
     if (self) {
         self.show = NO;
         self.userEnabled = YES;
-        self.config = [WZMProgressConfig defaultConfig];
+        self.config = [WZMProgressConfig shareConfig];
         self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
 
 + (void)setProgressConfig:(WZMProgressConfig *)config {
-    WZMProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self shareHUD];
     hud.config = config;
 }
 
 + (void)showInfoMessage:(NSString *)message {
     [self dismiss];
-    WZMProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self shareHUD];
     hud.show = YES;
     CGRect rect; CGFloat w = 30, h = 40;
     if (message.length > 0) {
@@ -161,7 +161,7 @@
 
 + (void)showProgressMessage:(NSString *)message {
     [self dismiss];
-    WZMProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self shareHUD];
     hud.show = YES;
     CGFloat w = 100, h = 100;
     if (message.length > 0) {
@@ -205,7 +205,7 @@
 }
 
 + (void)dismiss {
-    WZMProgressHUD *hud = [self defaultHUD];
+    WZMProgressHUD *hud = [self shareHUD];
     if (hud.isShow) {
         hud.show = NO;
         for (UIView *view in hud.subviews) {

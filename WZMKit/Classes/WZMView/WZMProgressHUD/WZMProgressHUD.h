@@ -27,7 +27,7 @@
 ///毛玻璃效果
 @property (nonatomic, strong) UIBlurEffect *effect;
 
-+ (instancetype)defaultConfig;
++ (instancetype)shareConfig;
 
 @end
 
@@ -38,7 +38,7 @@
 ///是否允许操作
 @property (nonatomic, assign,getter=isUserEnabled) BOOL userEnabled;
 
-+ (instancetype)defaultHUD;
++ (instancetype)shareHUD;
 + (void)setProgressConfig:(WZMProgressConfig *)config;
 + (void)showInfoMessage:(NSString *)message;
 + (void)showProgressMessage:(NSString *)message;
