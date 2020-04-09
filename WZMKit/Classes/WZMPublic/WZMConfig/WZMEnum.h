@@ -97,13 +97,13 @@ typedef enum : NSInteger {
     WZMAutoHeaderAnimationNon   = -1, //无动画
     WZMAutoHeaderAnimationScale = 0,  //按比例缩放
     WZMAutoHeaderAnimationFill  = 1,  //拉伸填充
-}WZMAutoHeaderAnimation;
+} WZMAutoHeaderAnimation;
 
 ///弹框样式
 typedef enum : NSInteger {
     WZMAlertViewTypeNormal = 0,
     WZMAlertViewTypeUpdate,
-}WZMAlertViewType;
+} WZMAlertViewType;
 
 ///弹出框动画
 typedef enum : NSInteger {
