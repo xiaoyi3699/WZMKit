@@ -92,7 +92,7 @@
     self.window.backgroundColor = [UIColor clearColor];
     [self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [WZMTabBarController tabBarController];
+    self.window.rootViewController = [WZMTabBarController shareTabBarController];
     
     //禁止多点触控
     [[UIView appearance] setExclusiveTouch:YES];
@@ -198,7 +198,7 @@
             [WZMFileManager setObj:version forKey:versionKey];
             WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:updateContent OKButtonTitle:@"立即更新" cancelButtonTitle:cancel type:WZMAlertViewTypeUpdate];
             [alertView setOKBlock:^{
-                [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppScoreTypeOpen];
+                [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppStoreTypeOpen];
                 exit(0);
             }];
             [alertView setCannelBlock:^{

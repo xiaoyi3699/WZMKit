@@ -25,7 +25,7 @@
     [self.view insertSubview:[self screenShotView] atIndex:0];
 }
 
-+ (instancetype)tabBarController {
++ (instancetype)shareTabBarController {
     static WZMTabBarController *tabBarController;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) WZMScreenShotView *screenShotView;
 
-+ (instancetype)tabBarController;
++ (instancetype)shareTabBarController;
 
 - (void)setBadgeValue:(NSString *)badgeValue atIndex:(NSInteger)index;
 

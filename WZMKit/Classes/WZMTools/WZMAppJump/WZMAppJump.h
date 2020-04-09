@@ -33,9 +33,9 @@
 + (BOOL)openAppWithAppType: (WZMAPPType)type;
 
 ///AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type: (WZMAppScoreType)type;
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type;
 
 ///AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppScoreType)type;
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type;
 
 @end

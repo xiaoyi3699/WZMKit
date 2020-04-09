@@ -18,7 +18,7 @@
 
 @implementation WZMFontManager
 
-+ (instancetype)manager {
++ (instancetype)shareManager {
     static WZMFontManager *manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -38,11 +38,11 @@
 ///获取字体名称
 + (NSString *)fontNameWithPath:(NSString *)path {
     NSString *key = [path wzm_base64EncodedString];
-    NSString *fontName = [[WZMFontManager manager].fontNames objectForKey:key];
+    NSString *fontName = [[WZMFontManager shareManager].fontNames objectForKey:key];
     if (fontName == nil) {
         fontName = [UIFont wzm_fontNameWithPath:path];
         if (fontName) {
-            [[WZMFontManager manager].fontNames setObject:fontName forKey:key];
+            [[WZMFontManager shareManager].fontNames setObject:fontName forKey:key];
         }
     }
     return fontName;

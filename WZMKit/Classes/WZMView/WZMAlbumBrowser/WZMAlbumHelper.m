@@ -31,7 +31,7 @@
 
 @implementation WZMAlbumHelper
 
-+ (instancetype)helper {
++ (instancetype)shareHelper {
     static WZMAlbumHelper *helper;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -107,7 +107,7 @@
     CGSize imageSize = CGSizeMake(pixelWidth, pixelHeight);
     
     //修复获取图片时出现的瞬间内存过高问题
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.imageOptions.networkAccessAllowed = NO;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
     int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -146,7 +146,7 @@
 
 //获取原图/原视频
 + (int32_t)wzm_getOriginalWithAsset:(id)asset completion:(void(^)(id obj))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     WZMAlbumPhotoType type = [self wzm_getAssetType:asset];
     if (type == WZMAlbumPhotoTypeVideo) {
         helper.videoOptions.networkAccessAllowed = YES;
@@ -204,7 +204,7 @@
 
 //从iCloud获取图片/视频
 + (void)wzm_getICloudWithAsset:(id)asset progressHandler:(void(^)(double progress))progressHandler completion:(void (^)(id obj))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.iCloudImageOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (progressHandler) {
@@ -259,7 +259,7 @@
 
 //导出图片
 + (void)wzm_exportImageWithAsset:(id)asset imageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.imageOptions.networkAccessAllowed = YES;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFit options:helper.imageOptions resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -278,7 +278,7 @@
 
 //导出GIF
 + (void)wzm_exportGifWithAsset:(id)asset completion:(void(^)(NSData *data))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.imageOptions.networkAccessAllowed = YES;
     helper.imageOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     [[PHImageManager defaultManager] requestImageDataForAsset:asset options:helper.iCloudImageOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
@@ -296,12 +296,12 @@
 
 //导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset640x480 outFolder:helper.videoFolder completion:completion];
 }
 
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.videoOptions.networkAccessAllowed = YES;
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
@@ -385,7 +385,7 @@
 
 ///清除视频缓存
 + (void)wzm_claerVideoCache {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     [WZMFileManager deleteFileAtPath:helper.videoFolder error:nil];
     [WZMFileManager createDirectoryAtPath:helper.videoFolder];
 }
@@ -457,7 +457,7 @@
 
 ///从iCloud获取图片失败
 + (void)showiCloudError {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     if (helper.isShowAlert) return;
     helper.showAlert = YES;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"从iCloud获取图片失败，请切换至无线网络后重试" delegate:helper cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -465,7 +465,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    WZMAlbumHelper *helper = [WZMAlbumHelper helper];
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
     helper.showAlert = NO;
 }
 

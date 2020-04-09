@@ -18,7 +18,7 @@
 @end
 
 #define LL_CUSTOM_POP 0
-#define LL_Screen_ShotView [WZMTabBarController tabBarController].screenShotView
+#define LL_Screen_ShotView [WZMTabBarController shareTabBarController].screenShotView
 @implementation WZMNavigationController {
     UIWindow *_window;
 }

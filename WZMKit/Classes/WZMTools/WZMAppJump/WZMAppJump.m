@@ -113,8 +113,8 @@
 }
 
 //AppStore评论
-+ (void)openAppStoreScore:(NSString *)appId type: (WZMAppScoreType)type{
-    if (type == WZMAppScoreTypeOpen) {
++ (void)openAppStoreScore:(NSString *)appId type: (WZMAppStoreType)type{
+    if (type == WZMAppStoreTypeOpen) {
         [self wzm_AppStoreScoreOpen:appId];
     }
     else {
@@ -140,9 +140,9 @@
 }
 
 //AppStore下载
-+ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppScoreType)type{
++ (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type{
     
-    if (type == WZMAppScoreTypeOpen) {
+    if (type == WZMAppStoreTypeOpen) {
         [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
     else {

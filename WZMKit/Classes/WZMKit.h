@@ -322,7 +322,7 @@
 /*
  显示App Store评分弹框
  */
-#import "WZMAppScore.h"
+#import "WZMAppStore.h"
 
 /*
  base64
