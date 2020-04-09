@@ -10,7 +10,7 @@
 
 @interface WZMCatchStore : NSObject
 
-+ (instancetype)store;
++ (instancetype)shareStore;
 
 - (void)setObj:(id)obj forKey:(NSString *)key;
 

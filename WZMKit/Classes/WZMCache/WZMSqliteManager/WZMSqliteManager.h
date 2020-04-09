@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface WZMSqliteManager : NSObject
-
-+ (instancetype)manager;
+///默认数据库
++ (instancetype)shareManager;
+///创建自定义路径的数据库
+- (instancetype)initWithDBPath:(NSString *)dataBasePath;
 - (BOOL)createTableName:(NSString *)tableName modelClass:(Class)modelClass;
 - (BOOL)insertModel:(id)model tableName:(NSString *)tableName;
 - (BOOL)deleteModel:(id)model tableName:(NSString *)tableName primkey:(NSString *)primkey;

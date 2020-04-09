@@ -16,7 +16,7 @@
 
 @implementation WZMCatchStore
 
-+ (instancetype)store {
++ (instancetype)shareStore {
     static WZMCatchStore *store;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -17,7 +17,7 @@
     NSMutableDictionary *_memoryCache;
 }
 
-+ (instancetype)cache {
++ (instancetype)shareCache {
     static WZMImageCache *cache;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

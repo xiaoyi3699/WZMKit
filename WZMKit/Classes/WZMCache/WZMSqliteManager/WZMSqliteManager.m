@@ -22,13 +22,22 @@
 /**
  数据库操纵单例
  */
-+ (instancetype)manager{
++ (instancetype)shareManager {
     static dispatch_once_t onceToken;
     static WZMSqliteManager *manager;
     dispatch_once(&onceToken, ^{
         manager = [[WZMSqliteManager alloc] init];
     });
     return manager;
+}
+
+//创建自定义数据库
+- (instancetype)initWithDBPath:(NSString *)dataBasePath {
+    self = [super init];
+    if (self) {
+        _dataBasePath = dataBasePath;
+    }
+    return self;
 }
 
 /**

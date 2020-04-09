@@ -134,11 +134,11 @@
                 [self setupVideoUrl:URL];
             }
             else {
-                _imageData = [[WZMImageCache cache] dataForKey:path];
+                _imageData = [[WZMImageCache shareCache] dataForKey:path];
                 if (_imageData == nil) {
                     [self showPlaceholderImage];
                     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        _imageData = [[WZMImageCache cache] getDataWithUrl:path isUseCatch:YES];
+                        _imageData = [[WZMImageCache shareCache] getDataWithUrl:path isUseCatch:YES];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self setupImageData];
                         });
