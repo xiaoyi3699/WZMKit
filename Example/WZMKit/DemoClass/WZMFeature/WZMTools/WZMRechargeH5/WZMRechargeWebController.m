@@ -8,6 +8,7 @@
 
 #import "WZMRechargeWebController.h"
 #import "WZMRechargeModel.h"
+#import "WZMDefined.h"
 #import <WebKit/WebKit.h>
 
 #define myUrlSchemes @"wzmkit"
@@ -126,7 +127,9 @@
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated &&
         [request.URL.host.lowercaseString containsString:@"我的跨域标识符"]) {
         // 对于跨域，需要手动跳转
+#if WZM_APP
         [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+#endif
         // 不允许web内跳转
         decisionHandler(WKNavigationActionPolicyCancel);
     }
@@ -137,7 +140,9 @@
         if ([url containsString:model.wxSchemes]) {
             self.allowLoad = NO;
             NSURL *openUrl = navigationAction.request.URL;
+#if WZM_APP
             [[UIApplication sharedApplication] openURL:openUrl];
+#endif
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else if ([url containsString:model.wxH5Identifier] && self.isAllowLoad) {
@@ -169,7 +174,9 @@
             //编码一下
             NSString *canUseEncodeUrl = [overUrlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
             NSURL *openUrl = [NSURL URLWithString:canUseEncodeUrl];
+#if WZM_APP
             [[UIApplication sharedApplication] openURL:openUrl];
+#endif
             decisionHandler(WKNavigationActionPolicyCancel);
         }
         else {

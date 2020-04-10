@@ -21,6 +21,7 @@
 #import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumHelper.h"
 #import "WZMPublic.h"
+#import "WZMDefined.h"
 
 #define WZMPhotoMaxSCale 3.0  //最大缩放比例
 #define WZMPhotoMinScale 1.0  //最小缩放比例
@@ -127,7 +128,10 @@
         if (URL == nil) {
             URL = [NSURL URLWithString:[path wzm_getURLEncoded]];
         }
-        BOOL isNetImage = [[UIApplication sharedApplication] canOpenURL:URL];
+        BOOL isNetImage = NO;
+#if WZM_APP
+        isNetImage = [[UIApplication sharedApplication] canOpenURL:URL];
+#endif
         if (isNetImage) {
             if ([self checkVideo:URL network:YES]) {
                 //视频

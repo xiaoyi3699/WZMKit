@@ -11,6 +11,7 @@
 #import "UIView+wzmcate.h"
 #import "UIColor+wzmcate.h"
 #import "WZMLogTableViewCell.h"
+#import "WZMDefined.h"
 
 @interface LHYMessageView : UIView<UITableViewDelegate,UITableViewDataSource> {
     BOOL _color;
@@ -219,6 +220,7 @@
 @implementation WZMLogView
 
 + (void)startLog {
+#if WZM_APP
     dispatch_async(dispatch_get_main_queue(), ^{
         WZMLogView *logView = [WZMLogView shareLogView];
         logView.start = YES;
@@ -226,6 +228,7 @@
             [[UIApplication sharedApplication].delegate.window addSubview:logView];
         }
     });
+#endif
 }
 
 + (NSString *)outputString:(NSString *)string {
@@ -282,10 +285,12 @@
 }
 
 - (void)tapRecognizer:(UILongPressGestureRecognizer *)recognizer {
+#if WZM_APP
     LHYMessageView *messageView = [LHYMessageView shareMessageView];
     if (messageView.superview == nil) {
         [[UIApplication sharedApplication].delegate.window addSubview:messageView];
     }
+#endif
 }
 
 - (void)panRecognizer:(UIPanGestureRecognizer *)recognizer {

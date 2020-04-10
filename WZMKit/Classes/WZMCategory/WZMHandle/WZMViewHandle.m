@@ -8,6 +8,7 @@
 
 #import "WZMViewHandle.h"
 #import "WZMProgressHUD.h"
+#import "WZMDefined.h"
 
 @implementation WZMViewHandle
 
@@ -29,21 +30,28 @@
 }
 
 + (void)wzm_setNetworkActivityIndicatorVisible:(BOOL)visible{
+#if WZM_APP
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:visible];
+#endif
 }
 
 + (void)wzm_beginIgnoringInteractionEventsDuration:(NSTimeInterval)duration {
+#if WZM_APP
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     });
+#endif
 }
 
 + (void)wzm_setStatusBarHidden:(BOOL)hidden {
+#if WZM_APP
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+#endif
 }
 
 + (void)wzm_setStatusBarStyle: (WZMStatusBarStyle)statusBarStyle{
+#if WZM_APP
     switch (statusBarStyle) {
         case WZMStatusBarStyleDefault:
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];//黑色
@@ -54,6 +62,7 @@
         default:
             break;
     }
+#endif
 }
 
 + (UIImageView *)wzm_findShadowImageView:(UIView *)view {

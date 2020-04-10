@@ -9,6 +9,7 @@
 #import "NSString+wzmcate.h"
 #import "NSDateFormatter+wzmcate.h"
 #import "WZMLogPrinter.h"
+#import "WZMDefined.h"
 //MD5加密
 #import <CommonCrypto/CommonCrypto.h>
 
@@ -389,6 +390,7 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 }
 
 + (NSString *)wzm_getLaunchImageName {
+#if WZM_APP
     CGSize viewSize = [UIApplication sharedApplication].delegate.window.bounds.size;
     //竖屏
     NSString *viewOrientation = @"Portrait";
@@ -401,6 +403,8 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
         }
     }
     return launchImageName;
+#endif
+    return @"";
 }
 
 + (NSString *)wzm_getStringByData:(NSData *)data {

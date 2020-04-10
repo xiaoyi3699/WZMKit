@@ -10,6 +10,7 @@
 #import "WZMTabBarController.h"
 #import "UIWindow+WZMTransformAnimation.h"
 #import "UIView+wzmcate.h"
+#import "WZMDefined.h"
 
 @interface WZMNavigationController ()<UIGestureRecognizerDelegate>
 
@@ -274,7 +275,7 @@
 
 #pragma mark - private method
 - (void)createScreenShot {
-    
+#if WZM_APP
     if (LL_CUSTOM_POP) {
         if (self.childViewControllers.count == self.childVCImages.count+1) {
             if (_window == nil) {
@@ -294,6 +295,7 @@
             [self.childVCImages addObject:image];
         }
     }
+#endif
 }
 
 #pragma mark - lazy load

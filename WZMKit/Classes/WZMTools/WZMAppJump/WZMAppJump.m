@@ -9,6 +9,7 @@
 #import "WZMAppJump.h"
 #import <StoreKit/StoreKit.h>
 #import "WZMAlertView.h"
+#import "WZMDefined.h"
 
 @interface WZMAppJump ()<SKStoreProductViewControllerDelegate>
 
@@ -37,39 +38,50 @@
 
 //拨打指定电话
 + (void)callTelePhone:(NSString *)phone {
+#if WZM_APP
     NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+#endif
 }
 
 //打开链接
 + (BOOL)openUrlStr:(NSString *)urlStr{
+#if WZM_APP
     NSURL *url = [NSURL URLWithString:urlStr];
     BOOL  canOpen = [[UIApplication sharedApplication] canOpenURL:url];
     if (canOpen) {
         [[UIApplication sharedApplication] openURL:url];
     }
     return canOpen;
+#endif
+    return NO;
 }
 
 //打开APP设置界面
 + (void)openAPPSetting{
+#if WZM_APP
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
+#endif
 }
 
 //打开QQ私聊界面
 + (BOOL)QQChatToUser:(NSString *)account{
+#if WZM_APP
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"mqq://im/chat?chat_type=wpa&uin=%@&version=1&src_type=web", account]];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
         return YES;
     }
     return NO;
+#endif
+    return NO;
 }
 
 + (BOOL)QQJoinGroup:(NSString *)group key:(NSString *)key {
+#if WZM_APP
     NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", group,key];
     NSURL *url = [NSURL URLWithString:urlStr];
     if([[UIApplication sharedApplication] canOpenURL:url]){
@@ -77,6 +89,8 @@
         return YES;
     }
     else return NO;
+#endif
+    return NO;
 }
 
 //打开应用
@@ -92,13 +106,19 @@
 }
 
 + (BOOL)checkIfAppInstalled:(NSString *)appScheme{
+#if WZM_APP
     BOOL a = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", appScheme]]];
     return a;
+#endif
+    return NO;
 }
 
 + (BOOL)openAppWithAppScheme:(NSString *)appScheme{
+#if WZM_APP
     BOOL a = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", appScheme]]];
     return a;
+#endif
+    return NO;
 }
 
 + (NSString *)getAPPSchemeName: (WZMAPPType)type{
@@ -123,11 +143,14 @@
 }
 
 + (void)wzm_AppStoreScoreOpen:(NSString *)appId {
+#if WZM_APP
     NSString *store = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?action=write-review",appId];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:store]];
+#endif
 }
 
 + (void)wzm_AppStoreScoreInApp:(NSString *)appId {
+#if WZM_APP
     if (@available(iOS 10.3, *)) {
         if([SKStoreReviewController respondsToSelector:@selector(requestReview)]) {
             [[UIApplication sharedApplication].keyWindow endEditing:YES];
@@ -137,11 +160,11 @@
     else {
         [self wzm_AppStoreScoreOpen:appId];
     }
+#endif
 }
 
 //AppStore下载
 + (void)openAppStoreDownload:(NSString *)appId type: (WZMAppStoreType)type{
-    
     if (type == WZMAppStoreTypeOpen) {
         [WZMAppJump openAppStoreDownloadInAppStore:appId];
     }
@@ -151,10 +174,13 @@
 }
 
 + (void)openAppStoreDownloadInAppStore:(NSString *)appId{
+#if WZM_APP
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appId]]];
+#endif
 }
 
 - (void)openAppStoreDownloadInInnerApp:(NSString *)appId{
+#if WZM_APP
     SKStoreProductViewController *sc = [[SKStoreProductViewController alloc] init];
     sc.delegate = self;
     UIViewController* presentingCtrl = [UIApplication sharedApplication].delegate.window.rootViewController;
@@ -176,6 +202,7 @@
                       }
                   }];
     [presentingCtrl presentViewController:sc animated:YES completion:nil];
+#endif
 }
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{

@@ -50,6 +50,7 @@
 #import "WZMVideoPlayerView.h"
 #import "WZMVideoPlayerViewController.h"
 #import "WZMBlock.h"
+#import "WZMDefined.h"
 #import "WZMEnum.h"
 #import "WZMMacro.h"
 #import "WZMTextInfo.h"

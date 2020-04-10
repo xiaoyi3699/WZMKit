@@ -11,6 +11,7 @@
 #import "WZMMacro.h"
 #import "WZMLogPrinter.h"
 #import "UIImage+wzmcate.h"
+#import "WZMDefined.h"
 
 @interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>
 
@@ -26,7 +27,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+#if WZM_APP
         self.bgImage = [UIImage wzm_getScreenImageByView:[UIApplication sharedApplication].delegate.window];
+#endif
     }
     return self;
 }

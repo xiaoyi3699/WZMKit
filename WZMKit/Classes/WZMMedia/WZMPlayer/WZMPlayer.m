@@ -12,6 +12,7 @@
 #import "WZMPlayerItem.h"
 #import "WZMMacro.h"
 #import "WZMLogPrinter.h"
+#import "WZMDefined.h"
 
 @interface WZMPlayer ()<AVAudioPlayerDelegate>
 
@@ -47,12 +48,13 @@
         
         //监听音频播放结束
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-        
+#if WZM_APP
         //监听程序进入前台
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
         
         //监听程序退到后台
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
+#endif
         
         //监听音频播放中断
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieInterruption:) name:AVAudioSessionInterruptionNotification object:nil];
@@ -62,8 +64,10 @@
         [session setCategory:AVAudioSessionCategoryPlayback error:nil];
         [session setActive:YES error:nil];
         
+#if WZM_APP
         //允许应用程序接收远程控制
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+#endif
     }
     return self;
 }
@@ -379,12 +383,15 @@
 //注册taskId
 - (UIBackgroundTaskIdentifier)backgroundPlayerID:(UIBackgroundTaskIdentifier)backTaskId {
     //设置后台任务ID
+#if WZM_APP
     UIBackgroundTaskIdentifier newTaskId=UIBackgroundTaskInvalid;
     newTaskId=[[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
     if(newTaskId!=UIBackgroundTaskInvalid&&backTaskId!=UIBackgroundTaskInvalid) {
         [[UIApplication sharedApplication] endBackgroundTask:backTaskId];
     }
     return newTaskId;
+#endif
+    return UIBackgroundTaskInvalid;
 }
 
 - (void)seekToTime:(NSInteger)time {

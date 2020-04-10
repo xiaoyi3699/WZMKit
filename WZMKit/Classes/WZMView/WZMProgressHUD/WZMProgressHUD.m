@@ -8,6 +8,7 @@
 
 #import "WZMProgressHUD.h"
 #import "WZMMacro.h"
+#import "WZMDefined.h"
 
 @interface WZMProgressView ()
 
@@ -153,7 +154,9 @@
         hud.messageView.backgroundColor = hud.config.backgroundColor;
     }
     [hud addSubview:hud.messageView];
+#if WZM_APP
     [[UIApplication sharedApplication].delegate.window addSubview:hud];
+#endif
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
@@ -198,7 +201,9 @@
         hud.progressView.backgroundColor = hud.config.backgroundColor;
     }
     [hud addSubview:hud.progressView];
+#if WZM_APP
     [[UIApplication sharedApplication].delegate.window addSubview:hud];
+#endif
     [hud.progressView startAnimation];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];

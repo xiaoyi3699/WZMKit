@@ -10,6 +10,7 @@
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
 #import "UIColor+wzmcate.h"
+#import "WZMDefined.h"
 
 @implementation WZMActionSheet {
     UIView *_messageView;
@@ -91,8 +92,10 @@
 }
 
 - (void)showCompletion:(doBlock)completion {
+#if WZM_APP
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     [self showAnimationInView:window completion:completion];
+#endif
 }
 
 - (void)showInView:(UIView *)aView completion:(doBlock)completion{

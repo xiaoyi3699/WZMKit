@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
+#import "WZMDefined.h"
 
 #define WZM_WEB_ALERT_COLOR [UIColor redColor]
 @interface WZMPrivacyAlertController ()
@@ -89,10 +90,12 @@
 }
 
 - (void)showFromController:(UIViewController *)viewController {
+#if WZM_APP
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     self.image = [self wzm_getScreenImageByView:window];
     self.modalPresentationStyle = UIModalPresentationFullScreen;
     [viewController presentViewController:self animated:NO completion:nil];
+#endif
 }
 
 - (UIImage *)wzm_getScreenImageByView:(UIView *)view {

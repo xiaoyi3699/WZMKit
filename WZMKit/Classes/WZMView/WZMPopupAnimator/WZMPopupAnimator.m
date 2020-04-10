@@ -9,6 +9,7 @@
 #import "WZMPopupAnimator.h"
 #import "WZMMacro.h"
 #import "UIView+wzmcate.h"
+#import "WZMDefined.h"
 
 @implementation WZMPopupAnimator{
     __weak UIView    *_alertView;
@@ -52,7 +53,9 @@
     }
     self.alpha = 0;
     [self addSubview:view];
+#if WZM_APP
     [[UIApplication sharedApplication].delegate.window addSubview:self];
+#endif
     [UIView animateWithDuration:duration animations:^{
         self.alpha = 1;
         if (animationStyle == WZMAnimationStyleOutFromCenterNone) {

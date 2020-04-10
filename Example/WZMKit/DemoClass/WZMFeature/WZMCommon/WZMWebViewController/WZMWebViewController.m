@@ -14,6 +14,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "WZMInline.h"
 #import "NSString+wzmcate.h"
+#import "WZMDefined.h"
 
 @interface WZMWebViewController ()<WKNavigationDelegate,WKUIDelegate,WZMScriptMessageHandler>
 
@@ -119,8 +120,9 @@
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated &&
         [request.URL.host.lowercaseString containsString:@"我的跨域标识符"]) {
         // 对于跨域，需要手动跳转
+#if WZM_APP
         [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
-
+#endif
         // 不允许web内跳转
         decisionHandler(WKNavigationActionPolicyCancel);
     }

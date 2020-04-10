@@ -9,6 +9,7 @@
 #import "WZMDownloader.h"
 #import "WZMLogPrinter.h"
 #import "NSString+wzmcate.h"
+#import "WZMDefined.h"
 
 @interface WZMDownloader ()<NSURLSessionDownloadDelegate>
 
@@ -24,11 +25,13 @@
 //- (instancetype)init {
 //    self = [super init];
 //    if (self) {
+//#if WZM_APP
 //        //监听程序进入前台
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 //
 //        //监听程序退到后台
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:)name:UIApplicationWillResignActiveNotification object:nil];
+//#endif
 //    }
 //    return self;
 //}
@@ -49,6 +52,7 @@
         if (URL == nil) {
             URL = [NSURL URLWithString:[_url wzm_getURLEncoded]];
         }
+#if WZM_APP
         if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             self.task = [self.session downloadTaskWithURL:URL];
             [self.task resume];
@@ -56,6 +60,7 @@
         else {
             WZMLog(@"无效网址");
         }
+#endif
     }
 }
 

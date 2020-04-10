@@ -9,6 +9,7 @@
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumController.h"
 #import "WZMLogPrinter.h"
+#import "WZMDefined.h"
 
 @interface WZMAlbumNavigationController ()
 
@@ -36,16 +37,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+#if WZM_APP
     self.statusStyle = [UIApplication sharedApplication].statusBarStyle;
     self.statusHidden = [UIApplication sharedApplication].statusBarHidden;
     [UIApplication sharedApplication].statusBarHidden = NO;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+#endif
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+#if WZM_APP
     [UIApplication sharedApplication].statusBarHidden = self.statusHidden;
     [UIApplication sharedApplication].statusBarStyle = self.statusStyle;
+#endif
 }
 
 - (void)dealloc {

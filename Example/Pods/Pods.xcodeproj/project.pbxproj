@@ -7,279 +7,273 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		003458F6D6A9722F0E8C51CBFDA28411 /* WZMVideoKeyView.h in Headers */ = {isa = PBXBuildFile; fileRef = C64CFB44A47A1F7257E4AC5CD45B9681 /* WZMVideoKeyView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0415E43BF9B50F85DA11CAEFED8562C6 /* WZMAlbumListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079A6AB804756C72F2F371D3A47B4F8 /* WZMAlbumListCell.m */; };
-		05EB8580E26C59B2B1B0653ABEFFE9B9 /* WZMSelectedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 75BAE8B2D6001A82A182D3509D301713 /* WZMSelectedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		08FFC602E1D4A21F13DFE6C5A7F47DD9 /* UINavigationBar+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05893FE0747702AEA1825258C37397C /* UINavigationBar+wzmcate.m */; };
-		092FD1F4986AED9B5B1551BF0B525EBD /* WZMDismissAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D6358C5FCF848B3F0CD78A2825C63560 /* WZMDismissAnimation.m */; };
-		0954A822B69F0D06388E95545335447E /* WZMPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7374C5A421DB00D373A9286DE238EF97 /* WZMPhotoBrowserCell.m */; };
-		099497B658B4D824E873855B136FE7E0 /* UITextField+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = CC36136F6C716E8F31C0538C618EA2CC /* UITextField+WZMReaction.m */; };
-		0A5FB5571A7FB7474942B5BB3CFBE2BA /* WZMRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06AA92D69D5737E8C2DF5FA7D79040AD /* WZMRefreshHeaderView.m */; };
-		0B1B079286F1AEC6786F58CF18778667 /* WZMLogPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D83AE1A96C0EDB185D6F9B9AF5375D /* WZMLogPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0CA543839C73D44758A63C38DD2DD660 /* WZMAlbumNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62BB03E9C09D1DD4C0E7E66E36A0155 /* WZMAlbumNavigationController.m */; };
-		0DDF74151516977BD1123A5B3296B31E /* WZMPopupAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B13FD335F144C1FEBCD3EFCCEA61FE29 /* WZMPopupAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0FBECC2A1EAEEBBE2AA8643677E55879 /* WZMSqliteManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A8E6338893D17D57B525C8E9F9D9FBF7 /* WZMSqliteManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		10150A6B5BEE042E67ADC3004829AF5D /* WZMFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C48393FEBCB27FE92C6C551DEB626 /* WZMFontView.m */; };
-		108F56CD4016CBE35D1812AD5294A08D /* UIView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 19EFEB3970F91898C69EBE957E832F14 /* UIView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1196115535B3F8C2EB41C603E25C1D55 /* WZMGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C5B8E0A3B528E7E1EBAAED45E04E /* WZMGifImageView.m */; };
-		12AD00718204834DB8BE93471B7DF1E8 /* UINavigationController+WZMNavAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F715163224C33DD58256AF0076AD6B /* UINavigationController+WZMNavAnimation.m */; };
-		1329DC80071059A19B8D5A93DA421294 /* WZMSegmentedCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 747BA080AD3671A97E75C9158BA5ED7E /* WZMSegmentedCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1375AE873670F7713FA344A4864538F1 /* WZMFooterView_0.m in Sources */ = {isa = PBXBuildFile; fileRef = C6425D0658B69B1C2A63B279C16BF6FF /* WZMFooterView_0.m */; };
-		1701B52D136CF247B17F3514C6BA99C0 /* UIColor+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C788B95544618CB8017AE6D8CCA39AAE /* UIColor+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1861A70F04F6C74389097F3D7887469E /* UITableView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 35F9D0BAF344E5FA72E04278AD6F54F9 /* UITableView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		193B7E3BF2FD1BE52B293DC06FB7DAA1 /* WZMNavControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9340DB21B76102FC65C82B95A8B7DDAD /* WZMNavControllerAnimator.m */; };
-		19E28F0BCC626512B7BBC29D935EC17A /* WZMFooterView_0.h in Headers */ = {isa = PBXBuildFile; fileRef = C23B7036EAB5C487CE5A5A4BA5D571B4 /* WZMFooterView_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1ACA1CB4201938AC4C83B17B4018F8AF /* WZMPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D777D0C7A2960F758242F37ECB035 /* WZMPlayerView.m */; };
-		1B3CD2DCEB2050A3ED931869CC64A20A /* UIFont+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A7FA2407CDD670FA2EED0881B3CE1A5 /* UIFont+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1BA4D504E0B5FAF62CD77E4CAC737EFA /* WZMPresentAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C27BB6452ECB6A1FC00AD9C977F773D6 /* WZMPresentAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1CC5D79EB2CD07F7CAEBB1886707DE41 /* NSDictionary+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = B81B6473797BFD69976DE9B9A829E605 /* NSDictionary+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		02D380419295DCD5E0FC8A0EC5FEDDAC /* WZMPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE4D93C89909216CF4C518BB695831D /* WZMPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03472C34D7FCEFC1EDE96221020DBB3F /* UIColor+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C788B95544618CB8017AE6D8CCA39AAE /* UIColor+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0347A223050AD73402B28F0441E3DCB7 /* UIView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 279875F868E48ADD009B258388198FA7 /* UIView+wzmcate.m */; };
+		04209D76BB69602D0F6A10452582D38A /* WZMPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C566E752A6990A5CAA5DA1281E55F0E /* WZMPanGestureRecognizer.m */; };
+		07CD20C36EE6087F5A9A85D8ED1C1052 /* WZMSignalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 16F9ED26329DF67A4967311D846C11E5 /* WZMSignalException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0829D9AF6F17D53994AF31BE6DA09203 /* WZMJSONParse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D4DDB961CFC3BD204750878CBBBF69E /* WZMJSONParse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		082D34CCEDC2841033F8D7E59587DBEB /* WZMVideoKeyView.h in Headers */ = {isa = PBXBuildFile; fileRef = C64CFB44A47A1F7257E4AC5CD45B9681 /* WZMVideoKeyView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A1585F7C323DE910BD2A601A4ECD98B /* NSObject+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = CA38BB0C785268E31D81329B68760A53 /* NSObject+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0AF555F2A22F1F6CA40ACA560C8A36EA /* WZMRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06AA92D69D5737E8C2DF5FA7D79040AD /* WZMRefreshHeaderView.m */; };
+		0B637DFBB7FF192012811A77BF886038 /* UITextView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = E68508B79FD06525C2DFF77258C3C526 /* UITextView+wzmcate.m */; };
+		0CA7BD6EA47356EFCAF372E9C8F304E6 /* WZMKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 174DBDADE942037E9EDA9E54679F6B5B /* WZMKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D6D94242104C684B6CA6CEF72853E39 /* UIView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA6C50B95DE22CB28CA3CF143CFEAF /* UIView+WZMReaction.m */; };
+		0F599355B5384231D8C74E6C37A7AF22 /* WZMBaseFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3E875A88B6AACD58F64C2419CF5A60 /* WZMBaseFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0FC36791D03FC6979047EA99AE3DD1A5 /* WZMKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BAED22907EB98DAEA01E12468D3BBE /* WZMKit-dummy.m */; };
+		0FCD55489B095DB63B9B180174E4918D /* UIImage+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B354B53393BF5923697005A70F2F905 /* UIImage+wzmcate.m */; };
+		106643BE198AAFF2DA7B7686578627BE /* WZMFooterView_0.h in Headers */ = {isa = PBXBuildFile; fileRef = C23B7036EAB5C487CE5A5A4BA5D571B4 /* WZMFooterView_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12AF67D790B1706E3FCAFB5F0DCC6DBE /* WZMBaseHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 75A398CAA5FEEDEDF5561233163D936C /* WZMBaseHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		152EEA469DC6E5E27C3C7DBA4479DFD3 /* WZMAlbumView.h in Headers */ = {isa = PBXBuildFile; fileRef = D02E661AA49D06CFDEFF2EB7B1299651 /* WZMAlbumView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		157657B819CD629B95A125583E89D3D3 /* NSArray+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8501303E66D0D2C946313F6C412541EC /* NSArray+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		164D04C2F732BB6352D3D538B9D98F4F /* WZMPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = A678C7C5C8D6ABEC4EDFCF8168BB0AD3 /* WZMPhotoBrowser.m */; };
+		1808640AA9D83486D35296BFC36BC98E /* WZMSendEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = A543EB6EBF5EF2FC4F00E58406ABE9FA /* WZMSendEmail.m */; };
+		18373357762AFF3BB831A7DF239857F1 /* WZMRefreshHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E05FA5E9063656F0BE81FF98BD296261 /* WZMRefreshHelper.m */; };
+		18597FEE1776BBD9A260100520F65D36 /* NSString+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DC773D8E6284FAD68550F280F581C7 /* NSString+wzmcate.m */; };
+		188D0893A9D561B7C63C69DBAFCE2A8E /* UIFont+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A7FA2407CDD670FA2EED0881B3CE1A5 /* UIFont+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18B351ECD71A7AB7865BFA859410D155 /* UIViewController+WZMModalAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = DBEADAD26AF7AE27C7971E7A4F360CAB /* UIViewController+WZMModalAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1943D96FBE847D37069AD9FF58156731 /* WZMPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = 106F08FF1B75A85833741E3721558EBC /* WZMPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1A9631CD23859CED3B69369DC23C6342 /* WZMPopAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC7BFA617AFF25E928ED631733474A2 /* WZMPopAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AB7BEE46ED5AB64BD7C1391BFC78356 /* UIWindow+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 185981920C60D59F423319F301DF140C /* UIWindow+wzmcate.m */; };
+		1CD1B09641ED7EE6FC788D4C2B95AAF4 /* WZMBaseComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F5089616EED866F9AAB272EEB7B15D7 /* WZMBaseComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CE7A2BD58CA0037FC681CD8B4567C27 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		1E493EA8ACED088D0B19404CCCF23FF4 /* WZMAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 179396BD617DC384EB4DD2895E618712 /* WZMAudioRecorder.m */; };
-		1EBF7C9C96AECB3D5F4C53B31B87B8F7 /* WZMDeviceUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = FC0FC10FD34383017F646774E7673BCE /* WZMDeviceUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F2B3F7400E2C0D5CF5456992BB5FD9A /* UIScrollView+WZMRefresh_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 732ECC951F2C2F9DA12A57C5E9756753 /* UIScrollView+WZMRefresh_0.m */; };
-		20565262AD3AAF2DDD7F88705092C596 /* WZMPopupAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB912469FD01890D33A6676385AE860 /* WZMPopupAnimator.m */; };
-		20CEDC5DB39849412ABE716165F86446 /* WZMResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 75F909CCEA980B1560A23A0AA0DF7A5A /* WZMResources.bundle */; };
-		21DDBB86F21FA585616E1FDEE97E465A /* WZMHeaderView_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D74314E02017B2D1C78B8483EB723FA /* WZMHeaderView_0.m */; };
-		226C95ED41D51D91868D88C882799018 /* WZMCatchStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F2504A8BC9B5276858F369BCDC1A109 /* WZMCatchStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		235A3A415EC49903861DE6F9CC4F5147 /* WZMSliderView2.m in Sources */ = {isa = PBXBuildFile; fileRef = B276291EC130AF158B5EDD6B728094E5 /* WZMSliderView2.m */; };
-		23E1A3C4E6F422698770AAF929FB1849 /* NSAttributedString+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C2FEE302928E75921381A008674AE2DC /* NSAttributedString+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		243A8A8670B029D2E5D1B9F23C51080A /* NSObject+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = E7DEA0FDF842961D9A4DFD25AAB9D608 /* NSObject+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		25471BEFE0B63BAC47388A03491F740C /* WZMNSHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B47DFDB3C3D9357F69C1F6417874969 /* WZMNSHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		254E11CABB7D1D11F24104B88D75FE13 /* WZMPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CE4D93C89909216CF4C518BB695831D /* WZMPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		258D2EBDB9B51F6F853BFD90C29C2104 /* NSData+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 36F06E358F82D6196DF7326778D5E1E3 /* NSData+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		25D76173D398F4CA1CEBAAA9A379E010 /* WZMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094E63147135D0054C46C8D87F93A9A /* WZMBase64.m */; };
-		28F906D036CC02C39E6C26B74BD671F1 /* WZMFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E4D96D890F042CF1D3134492C5B28 /* WZMFontManager.m */; };
-		2944146951FD81E02C6E6D5D67D402C9 /* WZMSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3781FFAD77355A56E34787E7C6ACD61 /* WZMSegmentedCell.m */; };
-		2A9F6DABA2711CFBB4862434C31F79AA /* WZMDismissInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8F3F7E9485549F1A27AE7756EDF15 /* WZMDismissInteractiveTransition.m */; };
-		2E0DEC4A50D77295E90E58CDE2E96B12 /* WZMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5667FA9A110FC5B44F80E26CAE8778F2 /* WZMAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2EC2DF081E221B80C06F0E03D56AE904 /* UIWindow+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 475569A1B1AF87D614C665D4D316C124 /* UIWindow+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30A420E6DF220213AAAAB4B9009C6AE8 /* WZMPrivacyAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82902E712E8F7EBF53C0DB209632E61D /* WZMPrivacyAlertController.m */; };
-		30F7402FC5860CC60017EA3DC74D0DD8 /* WZMViewControllerAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = DE0067C10C5C326D1EF40F8A17F554F5 /* WZMViewControllerAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30F8D33E2563AB7DDBA5F4C3DF22C541 /* WZMDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 313F5FC9DACA5507DCC052DFE4E3544F /* WZMDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D649A7A7F9E492D71ED5FC6BA6A5D74 /* WZMSliderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 000DE97752CC129A0D91F26E3B7FB356 /* WZMSliderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D885F4D21F07B19827A6E33C7073859 /* WZMPrivacyAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 88501BBC8C6429E848BFFEC72D84F7CE /* WZMPrivacyAlertController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DF1E2EC28019897BE5CE54870CF9F99 /* WZMFontManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DFC0FAB4455BF054013CE8187AB7335 /* WZMFontManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F2AEA82F1139F233EB274E7B379B863 /* WZMReactionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCEDBCB527818B1C8B3494DA030B0C9 /* WZMReactionManager.m */; };
+		1FBAEFD061C95EB19AED3E486F5E23DE /* WZMAlbumListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0079A6AB804756C72F2F371D3A47B4F8 /* WZMAlbumListCell.m */; };
+		2092AD3EF7271C0FD343EA3DF73A7E63 /* WZMCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 907E39801C84D5C40267AC1A81A099A7 /* WZMCycleView.m */; };
+		214897F3A634BDDD528CCC4761E3EFDA /* UIWindow+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 475569A1B1AF87D614C665D4D316C124 /* UIWindow+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22465B64795087E736843FE12293E98D /* UINavigationController+WZMNavAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D1CDBE78786D692BA5E2FF26072B4916 /* UINavigationController+WZMNavAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		232EDA7E806EE11DC0C0AD21F155FDFC /* UIViewController+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0808C3CCBEA166C74CE563B88C67F1 /* UIViewController+wzmcate.m */; };
+		2419969A354823391D154F7518CA4262 /* WZMAlbumNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C62BB03E9C09D1DD4C0E7E66E36A0155 /* WZMAlbumNavigationController.m */; };
+		257B0D4068B3D0FAF8BFF24906F9B70B /* UIView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = F8A1532C9590B27DFAC650E05AAF465D /* UIView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		259D868BA799B0EF891C234F21390F7A /* WZMAlbumModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1841C150286E702C5D172FB61431E8F7 /* WZMAlbumModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2639B7F40A436F2C7888540D3FEFE57E /* UIButton+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71056522994CCE0ABA67E6F0217C446D /* UIButton+wzmcate.m */; };
+		268075A0AD3E1711BFE657051F7AEA26 /* WZMVideoPlayerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D55AC241B96516186AE56DC23F34D48 /* WZMVideoPlayerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29010304F8F3F53C030B705F9D023846 /* WZMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 41A81013A2619C82A544498FDC00A7DD /* WZMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2913A6D6F1DE56DDF2BBDF156CA9E3A1 /* WZMDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F138781934BCB4A043F7BBB07E33F1 /* WZMDrawView.m */; };
+		2983894C4BCA2015917204B6CA28BD27 /* WZMViewControllerAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = DE0067C10C5C326D1EF40F8A17F554F5 /* WZMViewControllerAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29D338D71CD8AA688F7FECA63B62A587 /* WZMAlbumHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = BC44D5669E108B1C0EE4BC4CB6A677A9 /* WZMAlbumHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A34C807D57828CAF83F603F30BD10D8 /* WZMDismissAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8726D42CB32C82CEDB25B22C4D6B3EC6 /* WZMDismissAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A9D31445373A69A6DB7D99A6F267C47 /* WZMGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C5B8E0A3B528E7E1EBAAED45E04E /* WZMGifImageView.m */; };
+		2AFFCE3578AB73B5BE6BBEF5E0316ED6 /* WZMAlbumNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 16D46448BCA80991EE2614CC2A665301 /* WZMAlbumNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B119EB2975696631F8E018E75E450AB /* WZMClipTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA05C95555EEE054E8DC4BF50C1087 /* WZMClipTimeView.m */; };
+		2C6F351F17641F107F7FB6E2F2464B61 /* WZMBaseComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F44D6B44B0D07EB1103D4FC41E22BB3 /* WZMBaseComponent.m */; };
+		2CB2ED293E1BFC15C9A21AD05986A203 /* WZMActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 0182F4726FF34E356E078F2A7454114E /* WZMActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CB3DF5B52EBD6693F0E01CC808668E6 /* WZMGifImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6653ADFD5A5A371ADF7F6CC0D2DF8A /* WZMGifImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2FA1E35BF13B38172EBC1E72BE942BBE /* NSAttributedString+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89522F810F2F4A3C29C2D4418DCBAFD8 /* NSAttributedString+wzmcate.m */; };
+		3078A4E987F013B6D19FF393C268B79B /* NSObject+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6501C287B692236DAF9D367EAB0766C1 /* NSObject+WZMReaction.m */; };
+		309AD26138689B4B392FD8496C6A94D5 /* WZMPhotoBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 656FD05B9332FF2833A4F7C4B8F0E2EE /* WZMPhotoBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		325FB8E4A0A6C67FEBAD666C6C41C476 /* WZMDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C13CBA5CE12021575509C888C1B9CE73 /* WZMDeviceUtil.m */; };
 		32C19E5E7F244AB8CEFDC3D7773BDB9D /* Pods-WZMKit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E1DF17A22ADD484CC02E44243F4B929 /* Pods-WZMKit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		33876D0B0A6C25F833F45FDA00239EA9 /* WZMHeaderView_0.h in Headers */ = {isa = PBXBuildFile; fileRef = B9225BB8AB49A69AA42DCBA1BDFB9802 /* WZMHeaderView_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		33CC5C06488B035A489FB26F0DEA3B08 /* WZMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55EE8AC18670DD6C2D8DB954F817DD /* WZMButton.m */; };
-		34E6D96C0AB5FE37E42DAF1BCB0A2A0E /* WZMBezierView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DCA442F705F8A7BE30EC3F767432F0D /* WZMBezierView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		365584FC5A2FF6AC3F9075D3DB2BF241 /* UIImageView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = F14E53842F3F4B1335B64D7988A02F0E /* UIImageView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39355D271A9947E165348C0DBE312087 /* WZMVideoKeyView2.h in Headers */ = {isa = PBXBuildFile; fileRef = A5686E3F04B0CC1165AA1EB970BF5150 /* WZMVideoKeyView2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39EC27E8E0DD67BC7405FBB52DDFAEBB /* WZMAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3B027B9E9A54837091031C5213ECA5 /* WZMAppStore.m */; };
-		3D03F6DABB6AC06EA0DE7B81EB55184A /* WZMDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F138781934BCB4A043F7BBB07E33F1 /* WZMDrawView.m */; };
-		3E08668EC861868C46ED3285A74B48AE /* WZMPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = A678C7C5C8D6ABEC4EDFCF8168BB0AD3 /* WZMPhotoBrowser.m */; };
-		404D3836FF457839F86F38D81DC6DA65 /* WZMPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E83F5F93266F71FF7FC192C2C8F8CBE /* WZMPushAnimation.m */; };
-		40997B64FFF9EC777D302A56F80DCC2D /* WZMPanGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D8416B5813E245759F5231CBF0C608DB /* WZMPanGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4107ECE7EEE8A9B6CCCC04085275F5E7 /* WZMSendEmail.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CEB2474AE4F453C7842B564DD454860 /* WZMSendEmail.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4487B8F5259AAFFC86170DAD17AD2B96 /* NSDate+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD13DB8E75FF49A48393AB7DE9DEB66D /* NSDate+wzmcate.m */; };
-		457E28013501F330DF0C5124A690D8D5 /* WZMCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 907E39801C84D5C40267AC1A81A099A7 /* WZMCycleView.m */; };
-		46CFF5E39853EB9126DE305795F4DBBD /* WZMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 41A81013A2619C82A544498FDC00A7DD /* WZMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47A9A4A442797FF4D3F2C68811B922C5 /* WZMBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B033C562BD419C5EE41D98DA157A310 /* WZMBezierView.m */; };
-		4983BF6AAEB11CCD78EDE543DD6E398C /* UITextView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D39A35ED193B73C24A8AEEEA7831F0A /* UITextView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49B159969F6ED69EFF14E26E258EAB96 /* WZMVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417DEAB0FEC224E679CE9D9082BCB86 /* WZMVideoPlayerView.m */; };
-		49E5E66C414B5076C936430F93B85451 /* UIScrollView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = B91594D79E10FE97C116FF291EF1BE9D /* UIScrollView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		341EABD2EC6E8C22501C36262CEDB628 /* NSNull+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 843CCFE9795433F003F68EE16C02A89D /* NSNull+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34C56EC47FDE8705378A1EDFD2C2C219 /* WZMCatchStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F2504A8BC9B5276858F369BCDC1A109 /* WZMCatchStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36727EBC0CD9385EE4F100336C5C8B28 /* WZMSendEmail.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CEB2474AE4F453C7842B564DD454860 /* WZMSendEmail.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		379E17B11722539D555A847FBFFA67B8 /* WZMPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AB0978818A9D91374B38960593E49C9 /* WZMPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37A7C3FB301854D40084E5F4926E2C16 /* WZMSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD7AD00D1A79E96FCFEDFCBE2013FD94 /* WZMSelectedView.m */; };
+		37E3BA89DF808F6036B317A1E1C725C0 /* NSObject+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = E7DEA0FDF842961D9A4DFD25AAB9D608 /* NSObject+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		386F0B6E10FE4C2D9D32589C36F9D2E7 /* WZMVideoKeyView2.h in Headers */ = {isa = PBXBuildFile; fileRef = A5686E3F04B0CC1165AA1EB970BF5150 /* WZMVideoKeyView2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39B37969C410C89769ED24499AC7F08B /* WZMViewHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA666E64602B9529FDB15B5A6FA4983 /* WZMViewHandle.m */; };
+		3A35384EFAC2AD158B88503F75C92CA7 /* WZMReactionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B94C28991EF866B4E130014319CB0A /* WZMReactionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AB07A41762BF391133A066CEEC5ED28 /* UIImageView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 159432DED90A864F227E7AAA71F45FF2 /* UIImageView+wzmcate.m */; };
+		3AD98AB64FCF3D8A7AE87B767CCA6028 /* UIAlertView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9200BEE94EEEB17C8E5B06F96DD155C8 /* UIAlertView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B14C68D4C642C6A311CB76BE7EF968B /* WZMSqliteManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A8E6338893D17D57B525C8E9F9D9FBF7 /* WZMSqliteManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B68B4DC4BBBEDEA49663EF59855D1F1 /* WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = B86EFAA44ED2F4C052D2D40800CB02CD /* WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C168A184D45C9F8D49F4B24118BC667 /* WZMViewHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2015C14E2C2738B8677FF43C2FE2E /* WZMViewHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C6B3477102D8FC0C6B5C1C68E99A3D9 /* WZMNavControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9340DB21B76102FC65C82B95A8B7DDAD /* WZMNavControllerAnimator.m */; };
+		3D57639FF407E9D8A14E45865427CC0F /* WZMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCFB3D9C10D4C1FF5EE12BA946EC97A /* WZMFileManager.m */; };
+		3E7E63B1B52611472E14B9716B00BB82 /* WZMDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 313F5FC9DACA5507DCC052DFE4E3544F /* WZMDownloader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F925450205C66708032200BA93648AF /* NSDateFormatter+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1782FF00B0803D2260357E1999FF5761 /* NSDateFormatter+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		406BD4A6E5143F888DD7DC5C163219B9 /* WZMCatchStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E436C7F8701E55BACC65D1040CB7009 /* WZMCatchStore.m */; };
+		40E3E8C9413F4965EC2D44F60947DC5A /* WZMSegmentedView.h in Headers */ = {isa = PBXBuildFile; fileRef = D39327CC726396410F582B63FB1944B0 /* WZMSegmentedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4181855740C2ABAA377A8397996D7775 /* WZMLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = CA184BFCD61114D6FB38750621C9693E /* WZMLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		426E0FD59CB93F4F7B5055E68DB80EA9 /* WZMAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 179396BD617DC384EB4DD2895E618712 /* WZMAudioRecorder.m */; };
+		429BBE0CBFFFFFBA0400A6F9EEACF018 /* UIScrollView+WZMRefresh_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 732ECC951F2C2F9DA12A57C5E9756753 /* UIScrollView+WZMRefresh_0.m */; };
+		42E4F95B47634463F474F1257339FACE /* UITableView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 35F9D0BAF344E5FA72E04278AD6F54F9 /* UITableView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		430F438CFD6027D5A280C578A28BC9B9 /* WZMAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3B027B9E9A54837091031C5213ECA5 /* WZMAppStore.m */; };
+		44A3B754BEF11A65D5442DE321885CC8 /* WZMAppJump.m in Sources */ = {isa = PBXBuildFile; fileRef = C7AD1CD51C561D42BAA404DAF24A6826 /* WZMAppJump.m */; };
 		4A8700717127E973018CD1902066F092 /* Pods-WZMKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1018470D10CA0C480DEBB711547CC012 /* Pods-WZMKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4AF9F2CF7A38DE0177D006F11F194453 /* WZMSignalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 16F9ED26329DF67A4967311D846C11E5 /* WZMSignalException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B3D2BD68F4F713F43084B426CCAEED5 /* WZMSliderView2.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7B9EA92B00D90F1E8403793B6F9427 /* WZMSliderView2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B9733FA1CBCCA44D79E635A134FDC1D /* Pods-WZMKit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A17C1C3C263150012EFA638CDE3F7A92 /* Pods-WZMKit_Tests-dummy.m */; };
-		4BD6EEB1EF4A3A91DB1B6ECE0FDAB12E /* UIAlertView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9200BEE94EEEB17C8E5B06F96DD155C8 /* UIAlertView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EBC7DCFC67ABE42B12F26A87ECB2543 /* WZMNetWorking.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BFFBC79783066EE1C455845BE57FFD0 /* WZMNetWorking.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F4250CD8A00696B1557C1F9762B1322 /* UITextView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = E68508B79FD06525C2DFF77258C3C526 /* UITextView+wzmcate.m */; };
-		5006A9E1DE8D20CD7C9CF5592BDD44FA /* UINavigationController+WZMNavAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = D1CDBE78786D692BA5E2FF26072B4916 /* UINavigationController+WZMNavAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		513DC7C83A574BA13CE29C92B7086A55 /* WZMVideoPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = F813072FF62B2E242DEBC777838BF38D /* WZMVideoPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		514BA59A67E73B5E0476D2600DB678E6 /* WZMSignalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A405725DCFD4778E7BEC2DDACCF37A8 /* WZMSignalException.m */; };
-		51742607CF23D99759DEA1CA1828A968 /* WZMMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 089655BC393EE109E4E3048CA6C2065A /* WZMMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53B651BEF8682A283A9826225EA271FE /* WZMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5139C871CE781F18101301486740B5F7 /* WZMDispatch.m */; };
-		54426A06B8F4B2C3B988D7D0886AA168 /* UIImage+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 85983EC8189A2D0A1BC0054D8C977DF4 /* UIImage+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		544F6822040B1FA70EA3C8474AA0E82B /* WZMDottedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EE2FF413521B1966D2B12743DAF4CB9 /* WZMDottedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		57313DDC6942F60C25479909C5EE2EA8 /* UINavigationBar+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = EECEBB60E837A77E323A9403C6627591 /* UINavigationBar+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5742E46790A26831E681D353FCE612CF /* WZMSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B8757F67260FFE30E2EF642C420EC /* WZMSqliteManager.m */; };
-		59B5DD2A6DABC228D41EA33DA65739E8 /* UIViewController+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C5B61C2A0DE2B25C5C8A54E81821DE2 /* UIViewController+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5C94CEDE7D3C6257BC3B0AAD00694A67 /* WZMLogModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C58BACF848BB47AD3A7F3C56FD563E03 /* WZMLogModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5EAFD9424FBD4B63422D80E4B38FF393 /* WZMVideoKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7076D960CC13079650A0434750F943 /* WZMVideoKeyView.m */; };
-		5ED7B7D945D630EA63608A67C9BC7D57 /* WZMKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA5498075F4AF33DC5CB6DC8D58F43C9 /* WZMKit.bundle */; };
-		606BB9986D52AF0CEA1DDF461CEAB095 /* NSObject+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DAFA451DE4BDD0F331FBD6DC27AE4B /* NSObject+wzmcate.m */; };
-		608CA44A44882D7E0CD8F10A4B5F693F /* UIViewController+WZMModalAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = DBEADAD26AF7AE27C7971E7A4F360CAB /* UIViewController+WZMModalAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CFADEA08896CB1063AA8C8614BCDD18 /* UIButton+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = E9C56102537BFDCBB0AEEEADFE6541C3 /* UIButton+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E1FC8EE40A9F13D9714967D1E4C08F5 /* UIView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 19EFEB3970F91898C69EBE957E832F14 /* UIView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F27138BB2DC16E6A926BECBDAB84ADF /* WZMAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B504B522233C0A95F1BAE40F9493E5ED /* WZMAlbumCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51B9A20B7ACFD9C0362329A0C9357BB4 /* UIWindow+WZMTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C2B11BEB1DDC5917F1FA260F36BEAA /* UIWindow+WZMTransformAnimation.m */; };
+		51D79D8CDD0CFBEBC2B7712445798F82 /* WZMSelectedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 75BAE8B2D6001A82A182D3509D301713 /* WZMSelectedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		52694BA3973DBAC5D70B1A2F9305522F /* WZMPlayerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DEE43E43E0A787A9506CB7D30A89EE /* WZMPlayerItem.m */; };
+		5408196C163DD9DB425ECB6DF3CCE9F8 /* UIScrollView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = B91594D79E10FE97C116FF291EF1BE9D /* UIScrollView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56782B414962F622C972F3A7E46E1AB7 /* WZMDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = E11EEABF98661081097439C89571FDC2 /* WZMDispatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56EBC0917E24A2EC5EDFD8CBF7DCE260 /* WZMFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E4D96D890F042CF1D3134492C5B28 /* WZMFontManager.m */; };
+		57D6B802250ADE27AD841799DD70CD3C /* UIButton+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 419C7C39FD764EE7F8E3F6EC5663C281 /* UIButton+WZMReaction.m */; };
+		585D99FF25A8593D65BD531D152F98DB /* UIImageView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = F14E53842F3F4B1335B64D7988A02F0E /* UIImageView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59771DD830C8804181CBF041B1F861E5 /* WZMRefreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8DDD6FF6AEC5C0ACA342EB31E2988E /* WZMRefreshHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E22367ECBFA063BC1BF8872332C87F /* WZMNSHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A07821B3A9F7A70A26DCD5104E7C4B /* WZMNSHandle.m */; };
+		5A94A73BAC7FF5BC84D0DB99589C4741 /* WZMSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A57F4ECC46FFF3E91C5AF18F07CFF4 /* WZMSegmentedView.m */; };
+		5CC65F340EF6CE5BD216E4042E7E0683 /* WZMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB49F9AAC93FDB8BB3ABFA9E1ADAE71 /* WZMLocationManager.m */; };
+		5CD13DFB21BEF472419E3222BB12D5D7 /* WZMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7094E63147135D0054C46C8D87F93A9A /* WZMBase64.m */; };
+		5D24D90B1CB25EEC0EB90F67834E1D39 /* UIFont+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0F5F3D4E30A1BA0CD19D530BBB2C8C /* UIFont+wzmcate.m */; };
+		5D38F9652D6DA2CFCBD5B0B179B12945 /* WZMBaseHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3812503E7AC2E86A1F8371062D11737C /* WZMBaseHeaderView.m */; };
+		5D4AEDECCCCBD491A612E0CFE4755166 /* NSDictionary+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = B81B6473797BFD69976DE9B9A829E605 /* NSDictionary+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F8BF362BB5254C980D2ED78FDDBA279 /* NSData+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 36F06E358F82D6196DF7326778D5E1E3 /* NSData+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		600F7E28B900621CD5B79D27013B23E0 /* WZMDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5AFF56BFF7C8A0C3F79A762C8FDB0D /* WZMDownloader.m */; };
 		6091B1FF92346E3C8D7C347DD4922886 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		60E7E686DDFBF17267B6CB4EAA1B34A2 /* WZMSingleRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A236EE183A0A3D520713FC8626B314 /* WZMSingleRotationGestureRecognizer.m */; };
-		62C9DB768D62982A240D120B1A43EAA3 /* WZMCatchStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E436C7F8701E55BACC65D1040CB7009 /* WZMCatchStore.m */; };
-		62F1B7C202BE8D4707AA83B46805B75F /* WZMRefreshComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 7759C71BA65F1D691F2654E3F4CF8327 /* WZMRefreshComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6359E5AF8F5CE0C97CFCCCD4070F8824 /* WZMDismissInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 319CD7C8833191E242305B6379A1083D /* WZMDismissInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63D2FB2AEDE6779463311F41BE0468E0 /* WZMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B23EEBAFDB1B11DA221962A434C78 /* WZMScannerViewController.m */; };
-		63E9D2D84E6B2125E5C28388CBDCDFA5 /* WZMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F84E9703EF19D8EB0B955C7EB778F5 /* WZMVideoPlayerViewController.m */; };
-		6520198BDCECC122B8627F3544CC37D7 /* WZMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FB79BA523E75D6F76C8C6DD2E8BCF52F /* WZMProgressHUD.m */; };
-		6521D5065A81C6D7B3B92D68D5B3D5C9 /* WZMAnimationNumItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2711DE0974198613AEF4BE69805576 /* WZMAnimationNumItemView.m */; };
-		65D93D95ECE0895C33873481DBD6E50B /* WZMPopAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC7BFA617AFF25E928ED631733474A2 /* WZMPopAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		665717D6C2945D8D101E060182132532 /* WZMAlbumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB018F80C9EDC9E595F1624EE72C61 /* WZMAlbumController.m */; };
-		6736E5164EC37CD2365981DC02AE295C /* WZMAnimationNumItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = B7758A99A53CF94045DA9349312EA7D0 /* WZMAnimationNumItemView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		68539817E68FE8651DBFA7B5D2F4EB6F /* WZMBaseFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3E875A88B6AACD58F64C2419CF5A60 /* WZMBaseFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		68BB7BA58C972C7EB2A33A23DB50EBF4 /* NSNull+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = EB91E86859A78402233AB3B106CAEA3D /* NSNull+wzmcate.m */; };
-		6C45E374A0D6E36F875982DE50E334E7 /* UIWindow+WZMTransformAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E22BCD378F4603C9F932A8DE937AA40 /* UIWindow+WZMTransformAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6CB09E60B481C02FF579BAA8262A23A4 /* NSNull+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 843CCFE9795433F003F68EE16C02A89D /* NSNull+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6E6964F0ECA78CE7CB56B89EF0A758F5 /* WZMPlayerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DEE43E43E0A787A9506CB7D30A89EE /* WZMPlayerItem.m */; };
-		6E78C2C42E26B507C747537AECA75F3E /* UIScrollView+WZMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = D2276C3D4271E12810EC11FB47224310 /* UIScrollView+WZMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6FD49DD4F3E037DCB725933F8EE39B77 /* WZMPrivacyAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 88501BBC8C6429E848BFFEC72D84F7CE /* WZMPrivacyAlertController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		70C317091E9047595761CBDCA87D1CDC /* WZMRefreshHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E05FA5E9063656F0BE81FF98BD296261 /* WZMRefreshHelper.m */; };
-		71AE83B2EA91C6369CD06C84B05C649E /* WZMBaseComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F5089616EED866F9AAB272EEB7B15D7 /* WZMBaseComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		723DD7F97DB08C186404DDC006BA6EB8 /* UIImage+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B354B53393BF5923697005A70F2F905 /* UIImage+wzmcate.m */; };
-		7449AC7DB4CE9684F35748195137EFBE /* WZMClipTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 911FDA4E012A8937E406A2D52E029F54 /* WZMClipTimeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7636D72767252DDD697A8ED9E227F036 /* WZMInline.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D59D29FEE1BB50E5509D7325EBF0763 /* WZMInline.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		76A93CB7EC94C80AE7685CA462D3A5DF /* NSDateFormatter+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01DACD592E7A234FFA663A42D074452F /* NSDateFormatter+wzmcate.m */; };
-		76C74EC1900928A8FFD69384AE901655 /* WZMPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C566E752A6990A5CAA5DA1281E55F0E /* WZMPanGestureRecognizer.m */; };
-		7935CB7DD655E107C6FB442D45457EAD /* WZMTextInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EBBAB72F2F8715BF5ADF84A4A3B5F92A /* WZMTextInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7970924518500A79C6DD1207F7BF67FC /* WZMRefreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CAD2F9A97B02A5AA148972C39342883 /* WZMRefreshFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B93B1E505DA7C2A7AD5F5F93D7E0F99 /* UIViewController+WZMModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C24BF0AD7AC1FCBE4D025C63DDCE61 /* UIViewController+WZMModalAnimation.m */; };
-		7C88366FD758B701725737BD8A23F738 /* WZMVideoPlayerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D55AC241B96516186AE56DC23F34D48 /* WZMVideoPlayerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7E14364F314E85D4B6C1E11F607E33EE /* WZMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB49F9AAC93FDB8BB3ABFA9E1ADAE71 /* WZMLocationManager.m */; };
-		829B7EA344B7D91A37EC13FD33FB5B52 /* WZMRefreshHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8DDD6FF6AEC5C0ACA342EB31E2988E /* WZMRefreshHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		84056B049C95FB3D68903415F1B61CA6 /* WZMPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AB0978818A9D91374B38960593E49C9 /* WZMPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8862EF070AE05EBEA26472A8925E1ABD /* WZMViewControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EA89EC8BFD1400CD19CE60571FB24 /* WZMViewControllerAnimator.m */; };
-		8922E6A9C288676BFDF8B91C92757439 /* UIButton+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71056522994CCE0ABA67E6F0217C446D /* UIButton+wzmcate.m */; };
-		8932142CA33A8C74B4FB8D6072119B56 /* WZMPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = D414DE222EFE7F667A908C6D775607E5 /* WZMPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A9B27170598ADA595DADCEBC0487D8B /* WZMPhotoBrowserCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E219A9F3CA42EDAD408FCA330D7CBF1D /* WZMPhotoBrowserCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B68E5EB5073F563342793B2D802EE2F /* WZMSliderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 000DE97752CC129A0D91F26E3B7FB356 /* WZMSliderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B74206C2F04C304F39F95B4DC6AC3E3 /* WZMPhotoBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 656FD05B9332FF2833A4F7C4B8F0E2EE /* WZMPhotoBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D057BD1C31C826BEA6FA0D9BA969674 /* WZMScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7979311273AE0863708CAB70978303B /* WZMScrollImageView.m */; };
-		8D40EF2223F709A19EE3650B6A71BF67 /* NSDictionary+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C040D84CEE97EF072F2C75968588706 /* NSDictionary+wzmcate.m */; };
-		8D5A76BFEE91A49C1DA33E695D52266D /* WZMScrollImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 182419E77FFD06BBDB88A354FF1FD359 /* WZMScrollImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8DBA9969452E173E75323A2B24D3C775 /* NSObject+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6501C287B692236DAF9D367EAB0766C1 /* NSObject+WZMReaction.m */; };
-		8E3948D347C87529671467F241E405F9 /* WZMAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 064719FB5E07AA1100F42A9CA9323D2B /* WZMAlbumCell.m */; };
-		8FAA4EF3E8A99C254B055C63B06A7A46 /* WZMEnum.h in Headers */ = {isa = PBXBuildFile; fileRef = B90C5F1C3718CC5DEC10915D314114F3 /* WZMEnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9050627E624DFB93C31DB231B5C4F9C7 /* WZMDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5AFF56BFF7C8A0C3F79A762C8FDB0D /* WZMDownloader.m */; };
-		90A7AF4039F1DD1255EFCA215D565087 /* WZMJSONParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A145280EB9ABDAF733A4ADBDE72EA /* WZMJSONParse.m */; };
-		913B494F172BADB4F5EBB455824912EA /* WZMFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E066F1A9FAF85C896472EDEFEBC33CB7 /* WZMFileManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9183017F6B5AF5034C58462568B42638 /* WZMNavControllerAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = AF17DB541DA72F4719F9D962C1A71E86 /* WZMNavControllerAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		918EE5A70C30ED6AC7E5C1BC68C551AD /* WZMBaseComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F44D6B44B0D07EB1103D4FC41E22BB3 /* WZMBaseComponent.m */; };
-		91BA95CDA12550EC6AEAB20F12276676 /* WZMLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F60EE2FE6207B16607CF41685E4A2448 /* WZMLogModel.m */; };
-		91EF35F70696038DD4DF3B3AD5975F0E /* WZMSegmentedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A57F4ECC46FFF3E91C5AF18F07CFF4 /* WZMSegmentedView.m */; };
-		9305E4A28143AE15ED2FF598BA61E7AA /* WZMLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17101C723EE8EC9BC1F35CBC984ABD /* WZMLogTableViewCell.m */; };
-		973DC8E4B18A82759FD54F4490620436 /* WZMAlbumConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 334A82A364A38B40E85986E8CEFB8F9A /* WZMAlbumConfig.m */; };
-		98F05024E1025910C7302A3D50A3F12C /* WZMSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD7AD00D1A79E96FCFEDFCBE2013FD94 /* WZMSelectedView.m */; };
-		9A0CB6C7B7D855E37ABB55D62909AAC8 /* UIView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 279875F868E48ADD009B258388198FA7 /* UIView+wzmcate.m */; };
-		9B70A99CBFDBDD00B7BC3101356BF626 /* UIScrollView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 15B840D8E8E2F65E652F6AEF585DC06D /* UIScrollView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9C894508553DE6C6FCEA0253A429F480 /* WZMPushAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2B60D44E98F26B046901395F921192 /* WZMPushAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D2419DF77F6374DCEA2F3C08DB14189 /* WZMDismissAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8726D42CB32C82CEDB25B22C4D6B3EC6 /* WZMDismissAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D2EEBA07DF177D078815C62DCC36066 /* WZMViewHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E2015C14E2C2738B8677FF43C2FE2E /* WZMViewHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DA8BD07A4D11D8B48419B2F8C68BE4C /* WZMDottedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A176F5C662C3D03202587FC5B4C74EB /* WZMDottedView.m */; };
-		9ED7722E8D1D53C1848C867C4ED712EE /* UITextField+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC2ADCB36E299EA2A49EC92B83EEBB /* UITextField+wzmcate.m */; };
-		9F82C1CB5BF9D6CFED9BB531EC29615A /* NSString+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46DC773D8E6284FAD68550F280F581C7 /* NSString+wzmcate.m */; };
-		9FDD86E68D05C7DFD00D25C3B759D380 /* WZMBaseFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52129287C8AB96D4FD28F8C019E62CEB /* WZMBaseFooterView.m */; };
-		A01DCDDD1BD686B6090FD9F9641F6A1E /* WZMBaseHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 75A398CAA5FEEDEDF5561233163D936C /* WZMBaseHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A031939826BAA925F897844F8D74ECCD /* WZMAlbumModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1841C150286E702C5D172FB61431E8F7 /* WZMAlbumModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A11E90B4400A7F7F2F7AECF662FA3171 /* WZMVideoKeyView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3A0537714ED056499DF72926A029F /* WZMVideoKeyView2.m */; };
-		A153E4B5D4044471AD35F5B290CE9646 /* WZMCycleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D5EBC0862E413A2550372BE183F23B /* WZMCycleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A1CE1040D35A4F760D8137B7766B4808 /* WZMAudioRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = EF83CDAEABFCFAAF4401AA92A31E46ED /* WZMAudioRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A261322FFE3364C748D76A25958BDFC1 /* WZMLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D22DC383E15C069F76FEB14A4DFDC5 /* WZMLogView.m */; };
-		A34584714BCEEC0D90C086189E687DCC /* UIColor+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B3777A5C3F5176EC541027C39FAC7 /* UIColor+wzmcate.m */; };
-		A45279FCFD453B8A266E524D53634897 /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E70CF2C14105F37823F4986AD279E7A1 /* WZMAlbumHelper.m */; };
-		A53959A021052820B25F46393269AB48 /* WZMAutoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D454DE19D1230006CF736E640E9C0CF /* WZMAutoHeader.m */; };
-		A62527BD6ED9CF1153263C51ED16933D /* WZMFontView.h in Headers */ = {isa = PBXBuildFile; fileRef = F28EA78BF527C7B5B189A76EA455261E /* WZMFontView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A6F29360548D651073B75D8D9A594D71 /* UIWindow+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 185981920C60D59F423319F301DF140C /* UIWindow+wzmcate.m */; };
-		A82BE916A5B06186B3A603AB17F28E9E /* WZMSegmentedView.h in Headers */ = {isa = PBXBuildFile; fileRef = D39327CC726396410F582B63FB1944B0 /* WZMSegmentedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A841A350C04BD141FFE52E031497C349 /* UITextView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 741773949E9992A4CDD1F1938DB7E525 /* UITextView+WZMReaction.m */; };
-		A8A5500D52FADAEF21BB0355A0F9DE7A /* WZMSendEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = A543EB6EBF5EF2FC4F00E58406ABE9FA /* WZMSendEmail.m */; };
-		A969AC79029E9E3CEF5B128FECE8F732 /* UITextField+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 61FBF42B99F0093211775C0A00A7DB8A /* UITextField+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AA39480745131E599B4C6E267BA1093C /* UILabel+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = E08ED54F31C8016DB2D8E2189B366311 /* UILabel+wzmcate.m */; };
-		AA7765DA4318F7C872989289D0E53D67 /* UIView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = F8A1532C9590B27DFAC650E05AAF465D /* UIView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC143FDA4A48A1ECB426F3BD591CC0F0 /* WZMUncaughtException.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D717D9F464C218219818C3D4BA47701 /* WZMUncaughtException.m */; };
-		AC93B3E960EAEC56466BAAC86292188A /* WZMAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 6256B84868F9E5A83CBA9A0BEC4E2F71 /* WZMAppStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ADA3D9A88E0C9676AAE8D37ED87BA41B /* WZMClipTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EA05C95555EEE054E8DC4BF50C1087 /* WZMClipTimeView.m */; };
-		AEE9E5BB1A6877378E81C024B011ECDF /* WZMAlbumHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = BC44D5669E108B1C0EE4BC4CB6A677A9 /* WZMAlbumHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEEA9EAF642B7F41A14EF1ABDBB7A841 /* WZMAlbumConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FE6F257C737701D776F217A8C7A1EE4 /* WZMAlbumConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1BA897A7E8B44B69D49943B3B72F547 /* UIViewController+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B0808C3CCBEA166C74CE563B88C67F1 /* UIViewController+wzmcate.m */; };
-		B1D6262E2A9BD3BF2D9FDFF8755A23F1 /* WZMLogTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 57A734FBAB8A1128080169F81502AC6F /* WZMLogTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B31E9553347DAE561547FF85D903F9E3 /* WZMRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F26C77B6503500A7CEE5BB1720323491 /* WZMRefreshComponent.m */; };
-		B35989659AD94A186A75E7BF7D7FBD22 /* WZMScannerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FDACDC85426CE7126D17A44EA4C85E8C /* WZMScannerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B4847926419FFAD7C859653196B42367 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B63C798335E91FAA16A46911A2FD4BF9 /* WZMAutoHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 222ECA636D93CDB34372330A1B41FF23 /* WZMAutoHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B7714A45F7A4874673313036F69C54C4 /* WZMAlbumView.h in Headers */ = {isa = PBXBuildFile; fileRef = D02E661AA49D06CFDEFF2EB7B1299651 /* WZMAlbumView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B80483B57D1B396A0B449D68F6F2B3D9 /* WZMLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E6873E5B8758D9A6C8191FEA4BC9AE9 /* WZMLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B9DE15F782C5CB3606A1F94D9D4A9872 /* UIWindow+WZMTransformAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C2B11BEB1DDC5917F1FA260F36BEAA /* UIWindow+WZMTransformAnimation.m */; };
-		BA36A4BAEC3A25AA8095FD7CBC791682 /* WZMPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD95A7BEDC0F802A816E434838F8DBC /* WZMPopAnimation.m */; };
-		BA7E78DD0436C57DB590B62938A9A1BE /* WZMFontManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DFC0FAB4455BF054013CE8187AB7335 /* WZMFontManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BB096F949EE6A410B1E0ED70E7301008 /* NSData+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2EB1555FE3B4A670ABD3C50113F153 /* NSData+wzmcate.m */; };
-		BB3671A7D088D0FEA86FE06630C4E46B /* WZMKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BAED22907EB98DAEA01E12468D3BBE /* WZMKit-dummy.m */; };
-		BB6599F4BAB64E124CD0840075A9E5BE /* WZMDrawView.h in Headers */ = {isa = PBXBuildFile; fileRef = 58C2F77E03B7EA33BA0904E035D34388 /* WZMDrawView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC71B1BCA53391E69A85C9912B0CCB5B /* WZMRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1508DF65C894A96946E52C41DC81136 /* WZMRefreshFooterView.m */; };
-		BE81FCB56C837586888128F8B11361AF /* WZMAlbumNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 16D46448BCA80991EE2614CC2A665301 /* WZMAlbumNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BEBD8F43E9B99CD12B48A40CB54645BA /* WZMDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C13CBA5CE12021575509C888C1B9CE73 /* WZMDeviceUtil.m */; };
-		C00B12EAF2FF38BF1C3FE05808953CF6 /* NSString+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 617388A42B56C6B07DB463EA8762476A /* NSString+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C1577DBF14C5D16B05FBDE9C1E16E158 /* WZMJSONParse.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D4DDB961CFC3BD204750878CBBBF69E /* WZMJSONParse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C17D7DBE27D786CC72CC23266FF13949 /* WZMPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BA1F6CD56ED8FD16048AC6A1008C683A /* WZMPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C24136F39BF1D7BF724204ECC3ABBFF9 /* NSObject+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = CA38BB0C785268E31D81329B68760A53 /* NSObject+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2F76C84D6CFCA3ED5FCD2375F95A4E2 /* WZMCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E844A95F49A590438C52C1F1DC86A60 /* WZMCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C31AADDB8AB3570313C36A5A9BF98FBC /* WZMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79204476ED2DB847797B16FCCA58CDC0 /* WZMPlayer.m */; };
-		C35733377E7C55C780589A811B1C793C /* WZMProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 29CD4DAD1990CE0DE5940FFB2480E13B /* WZMProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C3A7DC7B3F43E247C6BAB739A0CA754D /* UITableView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2022FAED0C12DB42D33194AC4E83E78E /* UITableView+wzmcate.m */; };
-		C51BA28EEAEDC4A4738A0E18962144BD /* WZMKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 174DBDADE942037E9EDA9E54679F6B5B /* WZMKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C5448D9C74C7E81116EF3163D7A5B8AC /* WZMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = ECAA690B89FEBC78C4EC042BE73CEB53 /* WZMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60E9FB390CE22EDC7EFC69256C1F4AA5 /* WZMResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 75F909CCEA980B1560A23A0AA0DF7A5A /* WZMResources.bundle */; };
+		62FC61980CE298C271CF20CA641907CD /* UITextView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E88D59854471BEE0D3FD54D32725BBE /* UITextView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		631158B630C10C39A434F8B9EFDD7706 /* WZMBezierView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DCA442F705F8A7BE30EC3F767432F0D /* WZMBezierView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		636133B710A561E02F646C490C2C5F2E /* WZMAlbumConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FE6F257C737701D776F217A8C7A1EE4 /* WZMAlbumConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362766CFEA73D9B03B7390F6F5F013F /* WZMCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = C559DF5A008256F9AD264A2684DAA213 /* WZMCamera.m */; };
+		66ACA78DAAE5932128919844D968AB79 /* UITextField+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C8C84AC71D15AD69D342885B211D11CE /* UITextField+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66BED8FCE67830870F1F2C9C7E4C8A97 /* WZMNetWorking.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BFFBC79783066EE1C455845BE57FFD0 /* WZMNetWorking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		672F8431552DAC1B786BE4F8FD21E2F5 /* WZMAnimationNumItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = B7758A99A53CF94045DA9349312EA7D0 /* WZMAnimationNumItemView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		67839D9445BB379868DACD73CD1463FD /* WZMDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5139C871CE781F18101301486740B5F7 /* WZMDispatch.m */; };
+		67A3CDDAE621824D06ADAEE9CAC3AE85 /* WZMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5B23EEBAFDB1B11DA221962A434C78 /* WZMScannerViewController.m */; };
+		67C845666EA2F8166F3112C3D6298429 /* WZMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = ECAA690B89FEBC78C4EC042BE73CEB53 /* WZMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		681688D27CFB6B0ACA9EEB22855BD569 /* WZMMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = FB6BBA0694BE0BBB13CE37E49A827175 /* WZMMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68EF63CCE763515D4001BD40DA673744 /* WZMAudioRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = EF83CDAEABFCFAAF4401AA92A31E46ED /* WZMAudioRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A034AAC1DFC2340E64BB258246D5108 /* WZMBezierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B033C562BD419C5EE41D98DA157A310 /* WZMBezierView.m */; };
+		6A03BB315790B53B1087EDCBC1840E29 /* UIScrollView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCFF63BEA21005E0BDD96C9CA80036E /* UIScrollView+WZMReaction.m */; };
+		6B76CA4ABCB785C12CD20542B76E3482 /* WZMTextInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DD5D7172187BF006193E084F51EA8A03 /* WZMTextInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BEE286E75EFB33634873F033757658B /* UIAlertView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = D863AF334DD36D14C9124ED700586800 /* UIAlertView+WZMReaction.m */; };
+		6C3B0110351246D20AAA4415133C88A2 /* WZMCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E844A95F49A590438C52C1F1DC86A60 /* WZMCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6CED36F79A86271DAD35874B029A3203 /* WZMPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D777D0C7A2960F758242F37ECB035 /* WZMPlayerView.m */; };
+		6D7DA481994B933665D5D3123C053B78 /* WZMScannerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FDACDC85426CE7126D17A44EA4C85E8C /* WZMScannerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DACA165E072F8F8D6162596F3831EB3 /* WZMSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3781FFAD77355A56E34787E7C6ACD61 /* WZMSegmentedCell.m */; };
+		6FED2E258969D2CEBF70BC0FF4611134 /* WZMAlbumListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C120058EE727E0DBC10FA81C7DDE54 /* WZMAlbumListCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		719A6B4A327F002F9C8104E0E232BD45 /* WZMClipTimeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 911FDA4E012A8937E406A2D52E029F54 /* WZMClipTimeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72D2303B2212F696BDD92FD114162198 /* WZMKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA5498075F4AF33DC5CB6DC8D58F43C9 /* WZMKit.bundle */; };
+		748DB3CED58BC8C2D2680924FD994F70 /* WZMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = E58D780521E668D6C9A4A07EB66E1F59 /* WZMAlbumView.m */; };
+		74A9ACC4C525D2C09DB6F73C10233FD1 /* NSDate+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD13DB8E75FF49A48393AB7DE9DEB66D /* NSDate+wzmcate.m */; };
+		755376C9094468F18A9B7555DD61781C /* WZMLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E6873E5B8758D9A6C8191FEA4BC9AE9 /* WZMLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		767149EB475DAAE5DE5914BE17E417EC /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D872B26C1A16D072CBEBE3FF025364D2 /* WZMAlbumModel.m */; };
+		77022E406320D59ACFA4F40C71AC716D /* WZMPanGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D8416B5813E245759F5231CBF0C608DB /* WZMPanGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		775925BF64C9536090F33CE11A6E350C /* UIScrollView+WZMRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E70CD0FA79A0CED089EAA1190D69A2AD /* UIScrollView+WZMRefresh.m */; };
+		77AD493ECCE86BABB6437B2BF49EBBB1 /* WZMAppStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 6256B84868F9E5A83CBA9A0BEC4E2F71 /* WZMAppStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7833A2CFB730DC4223EFF69A7164087E /* UINavigationBar+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = EECEBB60E837A77E323A9403C6627591 /* UINavigationBar+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A4FCEEEA367F49CEEED8B2D7BC27D50 /* WZMVideoKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D7076D960CC13079650A0434750F943 /* WZMVideoKeyView.m */; };
+		7ADAC30B664A8AE1BD400C7AC590CCB9 /* WZMPhotoBrowserCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E219A9F3CA42EDAD408FCA330D7CBF1D /* WZMPhotoBrowserCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7AE58D0C8FAB3C6A9F80C2FB8B443736 /* WZMDottedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EE2FF413521B1966D2B12743DAF4CB9 /* WZMDottedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C1AEAB4701F5DE7CC15CA1673F29673 /* WZMAutoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D454DE19D1230006CF736E640E9C0CF /* WZMAutoHeader.m */; };
+		7E73D3C916B4B70985A90C13EF25956A /* NSDate+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D4E6F4984B0C22243871A15B3515C41 /* NSDate+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7ED1E48C9E0D696F771A0A8894433E6B /* WZMAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 064719FB5E07AA1100F42A9CA9323D2B /* WZMAlbumCell.m */; };
+		810C28E6A8E50C4A4E36BBF8CFCAC3E0 /* WZMPopupAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B13FD335F144C1FEBCD3EFCCEA61FE29 /* WZMPopupAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81AF6D5B80BE936F583F9B9A7596EB98 /* WZMLogTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 57A734FBAB8A1128080169F81502AC6F /* WZMLogTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		830007FAB177464DD2AA47D360EEE7CA /* WZMUncaughtException.h in Headers */ = {isa = PBXBuildFile; fileRef = C79DCE5E63A376A2C863BA94A4DBF268 /* WZMUncaughtException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84C80570C7514858EB0BB3ACE606C7DA /* UINavigationController+WZMNavAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F715163224C33DD58256AF0076AD6B /* UINavigationController+WZMNavAnimation.m */; };
+		8750899DEE3A7E504591020080E34E07 /* NSArray+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C42A8965BBF938A4AD7B6912DB1B00 /* NSArray+wzmcate.m */; };
+		87C74B307B52CA9D91344A9B93DB4A58 /* UIScrollView+WZMRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = D2276C3D4271E12810EC11FB47224310 /* UIScrollView+WZMRefresh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		888DC04588B330EE0E7195D3D501635D /* NSString+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 617388A42B56C6B07DB463EA8762476A /* NSString+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88C02CFE89B1690E1540C3519D4C650F /* WZMNSHandle.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B47DFDB3C3D9357F69C1F6417874969 /* WZMNSHandle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A1682222672DC3A02563E13868558C1 /* WZMSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3569A22C51254C8F9A520F6D17AE9D8C /* WZMSliderView.m */; };
+		8D74372D53FC5FC0B027566A16699527 /* UIScrollView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 15B840D8E8E2F65E652F6AEF585DC06D /* UIScrollView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F31879C8FA260864E01E780035BFB01 /* NSObject+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DAFA451DE4BDD0F331FBD6DC27AE4B /* NSObject+wzmcate.m */; };
+		8F48A155BA5F7958989C4DA67B8F5C84 /* WZMVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F84E9703EF19D8EB0B955C7EB778F5 /* WZMVideoPlayerViewController.m */; };
+		8FC0978962304DF1EA16D49B3070BA06 /* WZMHeaderView_0.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D74314E02017B2D1C78B8483EB723FA /* WZMHeaderView_0.m */; };
+		922F39A4B8C979B5245D5FDD9B2DD086 /* WZMDismissInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 319CD7C8833191E242305B6379A1083D /* WZMDismissInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		964EF3119A3FAE506FB9A8C13C3EBC51 /* WZMFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C48393FEBCB27FE92C6C551DEB626 /* WZMFontView.m */; };
+		96C9AA23C9B4FD1A9F8183B0DA52BF2E /* WZMAlbumController.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE7314FE5A9E3B05046B00B955D403 /* WZMAlbumController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		97ADBC822683BF80A4867F6A850D8915 /* UITextField+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CC2ADCB36E299EA2A49EC92B83EEBB /* UITextField+wzmcate.m */; };
+		97B2E42B4F6882423381CB6C9B6FF103 /* WZMFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E066F1A9FAF85C896472EDEFEBC33CB7 /* WZMFileManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		98F3C972D434CDDBC647DF5639447697 /* UITextView+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D39A35ED193B73C24A8AEEEA7831F0A /* UITextView+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D27FC3B45655C5320C6641216499B8 /* WZMPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD95A7BEDC0F802A816E434838F8DBC /* WZMPopAnimation.m */; };
+		9A0C56C66D1B55DDE046B0A6AD4176A7 /* WZMBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = FDD519856606D935BF1595097ED39239 /* WZMBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A5B11DFD4895265A6FDB96EB885CEED /* WZMUncaughtException.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D717D9F464C218219818C3D4BA47701 /* WZMUncaughtException.m */; };
+		9AA94484770284DE7BBD539584DD139D /* WZMSignalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A405725DCFD4778E7BEC2DDACCF37A8 /* WZMSignalException.m */; };
+		9CE66F260C9B7156425DF330CEAD5F18 /* WZMVideoKeyView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3A0537714ED056499DF72926A029F /* WZMVideoKeyView2.m */; };
+		9DEB64CB9BB5BA521BEFF0B56EB983EF /* WZMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5667FA9A110FC5B44F80E26CAE8778F2 /* WZMAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9E250C9D6734FB1E05A892251AAFC055 /* WZMLogPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D83AE1A96C0EDB185D6F9B9AF5375D /* WZMLogPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9EC1C26912E16AC9B06C1FD47A1C360E /* WZMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBD3BC97198524BE7CCAFBC26E7E9A8 /* WZMImageCache.m */; };
+		A00B66688CCAF7A30547A8D53870996C /* WZMViewControllerAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 203EA89EC8BFD1400CD19CE60571FB24 /* WZMViewControllerAnimator.m */; };
+		A0183F0786732A17CA71F5C36BD561FE /* WZMPlayerItem.h in Headers */ = {isa = PBXBuildFile; fileRef = DBB88D42CAF107E8C326F20815D037F3 /* WZMPlayerItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A030251966C8EC0027348C72D4387CFF /* WZMVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0417DEAB0FEC224E679CE9D9082BCB86 /* WZMVideoPlayerView.m */; };
+		A06B92CF0E4F02C2BB0EBBDE0C812A4F /* WZMScrollImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 182419E77FFD06BBDB88A354FF1FD359 /* WZMScrollImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A070E13F7FC30CF6545E13FFF92D63F7 /* WZMSqliteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B8757F67260FFE30E2EF642C420EC /* WZMSqliteManager.m */; };
+		A08CB7DB96FCA70B6D785565667E8D8F /* WZMDismissInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE8F3F7E9485549F1A27AE7756EDF15 /* WZMDismissInteractiveTransition.m */; };
+		A0B1E5DB9AE8775267568B583ADF9514 /* WZMNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF08C2D12A0727B6FFCB20F8DB8128F /* WZMNetWorking.m */; };
+		A11CC9E588117C6DBF3E38091EA1DB89 /* WZMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC995135AC1EF47AD4C918C26B7FFB3 /* WZMAlertView.m */; };
+		A2A7C82D5278CB8A8F0D1697EE834A2F /* UIScrollView+WZMRefresh_0.h in Headers */ = {isa = PBXBuildFile; fileRef = A5D9A0D2FE7B7948E094F08BD9EAE4C1 /* UIScrollView+WZMRefresh_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A3817A208C13304F50DBF76F04E687EC /* WZMAlbumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E70CF2C14105F37823F4986AD279E7A1 /* WZMAlbumHelper.m */; };
+		A3A65B322BBB54A3A2572357E7331BFF /* WZMAlbumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BB018F80C9EDC9E595F1624EE72C61 /* WZMAlbumController.m */; };
+		A566190102463A4B3992AA486747C21B /* NSData+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2EB1555FE3B4A670ABD3C50113F153 /* NSData+wzmcate.m */; };
+		A67D944DA74A857CF6E2AEED513D0728 /* WZMAnimationNumItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2711DE0974198613AEF4BE69805576 /* WZMAnimationNumItemView.m */; };
+		A770147336664540F2F620DAF1CE63F2 /* WZMDeviceUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = FC0FC10FD34383017F646774E7673BCE /* WZMDeviceUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7DD91D02D6C0F4608C96868423B5F02 /* WZMDrawView.h in Headers */ = {isa = PBXBuildFile; fileRef = 58C2F77E03B7EA33BA0904E035D34388 /* WZMDrawView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A82ACEC94E3B25D6F5694BF47A6B6BAC /* UILabel+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 476E4C8C2E2E3048D6FFFCB8B94E28B7 /* UILabel+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A88DB0430251E76AF4D540F491F0915A /* WZMBaseFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52129287C8AB96D4FD28F8C019E62CEB /* WZMBaseFooterView.m */; };
+		A8EA8ECD7549A301D7985E041785FD64 /* WZMEnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 48F8FC8F753449DD33C5CB7AB37BFCD0 /* WZMEnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA50D1362B64D8C76AFE1C77254C479E /* NSAttributedString+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C2FEE302928E75921381A008674AE2DC /* NSAttributedString+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB4FF8A0F515FF55F70F6E72E1242AE9 /* WZMPresentAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = C27BB6452ECB6A1FC00AD9C977F773D6 /* WZMPresentAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD1DFD4D4C09C7042868147C227298EC /* WZMRefreshHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 699EBCF54A953CC3FA7501FE19DB20E1 /* WZMRefreshHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEF992DF8AC8103FA48B2EB804E7484E /* WZMInline.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D59D29FEE1BB50E5509D7325EBF0763 /* WZMInline.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B12EF7E12BA7998ED1E70324D4D0DF4B /* WZMPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C91735E74B066893B06C4F93E195DE24 /* WZMPhoto.m */; };
+		B34201AE8B24B2CBB5BCD66487D4F4C5 /* WZMDottedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A176F5C662C3D03202587FC5B4C74EB /* WZMDottedView.m */; };
+		B4BE09938D8B30454CA86A9205D1C442 /* UIViewController+WZMModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C24BF0AD7AC1FCBE4D025C63DDCE61 /* UIViewController+WZMModalAnimation.m */; };
+		B54BC4C263976EF5142B15365A5750F7 /* UIColor+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B3777A5C3F5176EC541027C39FAC7 /* UIColor+wzmcate.m */; };
+		B5D440612779400F7C6DB4194482A932 /* WZMScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7979311273AE0863708CAB70978303B /* WZMScrollImageView.m */; };
+		B6AFBE43EA2E3AC9E7BA4BEEC204E73B /* WZMSliderView2.m in Sources */ = {isa = PBXBuildFile; fileRef = B276291EC130AF158B5EDD6B728094E5 /* WZMSliderView2.m */; };
+		B6DAAE5855E065BAFA400D52886FF14E /* UIViewController+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C5B61C2A0DE2B25C5C8A54E81821DE2 /* UIViewController+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B72B7FF0BD6654AA0B5CE800BD6E97AD /* WZMNavControllerAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = AF17DB541DA72F4719F9D962C1A71E86 /* WZMNavControllerAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE0D771ECF18F115D0FBA98B6471C078 /* NSNull+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = EB91E86859A78402233AB3B106CAEA3D /* NSNull+wzmcate.m */; };
+		C21C2CCC84EFE4CC8925ED84FA575479 /* UITextField+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 61FBF42B99F0093211775C0A00A7DB8A /* UITextField+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2416FECC66254131C29E518BDC5C9F3 /* WZMLogModel.h in Headers */ = {isa = PBXBuildFile; fileRef = C58BACF848BB47AD3A7F3C56FD563E03 /* WZMLogModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C24E70B8D94BFA22996A127B71413100 /* WZMProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 29CD4DAD1990CE0DE5940FFB2480E13B /* WZMProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2909E140AEF7409B7B0FCF9BBD3395F /* WZMFooterView_0.m in Sources */ = {isa = PBXBuildFile; fileRef = C6425D0658B69B1C2A63B279C16BF6FF /* WZMFooterView_0.m */; };
+		C37A5A4FAC7017EB3D9A67D401D946B0 /* WZMCycleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D5EBC0862E413A2550372BE183F23B /* WZMCycleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C3EE5CF6C28BD63C90D84B0414E73340 /* WZMImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E4FCA7D4355E9E31F55076049361701 /* WZMImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5217CA1D333A0747CB205196F5D92CD /* UITextField+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = CC36136F6C716E8F31C0538C618EA2CC /* UITextField+WZMReaction.m */; };
+		C527E6938B28A251FC586D14F251B4D0 /* WZMRefreshFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CAD2F9A97B02A5AA148972C39342883 /* WZMRefreshFooterView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C5672FFC48E24338E6951904DA8E4DA0 /* Pods-WZMKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A4FBD65C3C4CBFC86C674F1ED05F0B /* Pods-WZMKit_Example-dummy.m */; };
-		C57EE38A6B34240C8470C3224C5D7E07 /* WZMBaseHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3812503E7AC2E86A1F8371062D11737C /* WZMBaseHeaderView.m */; };
-		C5943C8168BD27DBBC2C0C77E1851A38 /* UIButton+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 86B7634ADB11206CF92DF6CBAC520DF8 /* UIButton+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C6103AD5E1A8A66DA8158DAC92387F3A /* NSAttributedString+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89522F810F2F4A3C29C2D4418DCBAFD8 /* NSAttributedString+wzmcate.m */; };
-		C6AF6E821FDF29974BF675C9A22CDA06 /* WZMPresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA71DBCA7A434BC82F72505D2D6146 /* WZMPresentAnimation.m */; };
-		C707BC693877126491C1999F381CF7B4 /* WZMAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B504B522233C0A95F1BAE40F9493E5ED /* WZMAlbumCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C71EED07A3A555A3F1C96E20B21C23A3 /* WZMGifImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6653ADFD5A5A371ADF7F6CC0D2DF8A /* WZMGifImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C7F6C215BB24AAB84131FD13341EEA99 /* WZMPlayerItem.h in Headers */ = {isa = PBXBuildFile; fileRef = DBB88D42CAF107E8C326F20815D037F3 /* WZMPlayerItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C9196CDDDC44AD991AD9AAFB0B13BE10 /* WZMReactionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCEDBCB527818B1C8B3494DA030B0C9 /* WZMReactionManager.m */; };
-		C997B4FA21FC3EA770809CDFB3135A74 /* UIImageView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 159432DED90A864F227E7AAA71F45FF2 /* UIImageView+wzmcate.m */; };
-		CB24FB0E82259123C94C21720E4319E4 /* WZMAlbumListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A6C120058EE727E0DBC10FA81C7DDE54 /* WZMAlbumListCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CBB54BA4576C0BDFCAE959CABB55D70D /* WZMAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = E58D780521E668D6C9A4A07EB66E1F59 /* WZMAlbumView.m */; };
-		CC67C9994EAD194FC90C56E7383FD7E5 /* WZMNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF08C2D12A0727B6FFCB20F8DB8128F /* WZMNetWorking.m */; };
-		CCF6C1DC5BE97735B59EA995BCAD4730 /* UIButton+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 419C7C39FD764EE7F8E3F6EC5663C281 /* UIButton+WZMReaction.m */; };
-		CCFECB58654E88D74458AE0BBAAC4A85 /* WZMButton.h in Headers */ = {isa = PBXBuildFile; fileRef = ADEFF66995339C389091217C4096BDE4 /* WZMButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD63D193ACD5059B9229705732C26A4C /* WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = B86EFAA44ED2F4C052D2D40800CB02CD /* WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDD228513DDE162639258AB1E1D3AACC /* WZMAlbumController.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE7314FE5A9E3B05046B00B955D403 /* WZMAlbumController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE7F1170CE79674C39AEA0CEBA2BBB64 /* UIButton+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = E9C56102537BFDCBB0AEEEADFE6541C3 /* UIButton+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CEF4465F1514AE401B42EDC9126C4221 /* WZMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 59130A0FD34C560AF05978AF6EE23E49 /* WZMBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CF22350A305CF0913CF17547A83280F1 /* WZMActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 0182F4726FF34E356E078F2A7454114E /* WZMActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D17F9DDF8DE8E3822CA6AEE7ADAE87BF /* WZMPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C91735E74B066893B06C4F93E195DE24 /* WZMPhoto.m */; };
-		D31B1B0BDB90CB0712727316F881DF34 /* WZMSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3569A22C51254C8F9A520F6D17AE9D8C /* WZMSliderView.m */; };
-		D4B77E9A423099D14C02428CA66353D8 /* WZMAnimationNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 229941F2380C6076CD7365CF3EFCB18F /* WZMAnimationNumView.m */; };
-		D752CF9D0C325E5F261C26C857526230 /* WZMCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = C559DF5A008256F9AD264A2684DAA213 /* WZMCamera.m */; };
-		D7D7D69B1F45F6A919EFBBDDDD043F44 /* WZMDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = E11EEABF98661081097439C89571FDC2 /* WZMDispatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D7D7F09C80FEA71E1F6665F4091316F7 /* NSDate+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D4E6F4984B0C22243871A15B3515C41 /* NSDate+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D801F7B16796DCFDE63FBE93EDBBAC2F /* UIView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA6C50B95DE22CB28CA3CF143CFEAF /* UIView+WZMReaction.m */; };
-		D83159BECA05759A4758D4C09B398377 /* WZMAppJump.m in Sources */ = {isa = PBXBuildFile; fileRef = C7AD1CD51C561D42BAA404DAF24A6826 /* WZMAppJump.m */; };
-		D9F753B4B9C727DBE73A06B1569C4816 /* WZMAnimationNumView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5084B259ACE8ADA67B8B3285B42F9C24 /* WZMAnimationNumView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DADEBEA0CC2C785CE31EC7B5C81871D4 /* WZMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBD3BC97198524BE7CCAFBC26E7E9A8 /* WZMImageCache.m */; };
-		DBF8142A22E1A1760788FBF0237D8A07 /* UIScrollView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BB31819F82476795DD345D96A62599 /* UIScrollView+wzmcate.m */; };
-		DC9113D2EBCE243EEB84FBA9CD54DA23 /* WZMLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = CA184BFCD61114D6FB38750621C9693E /* WZMLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DDD645FEAE384E8B87E7D4C68A8567F1 /* UIScrollView+WZMRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E70CD0FA79A0CED089EAA1190D69A2AD /* UIScrollView+WZMRefresh.m */; };
-		DE93DC144825A3C54AF1D2E02AE1CEA3 /* UITextView+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E88D59854471BEE0D3FD54D32725BBE /* UITextView+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E085D9D20B3799D4FEEA37BC784EB37F /* WZMAlbumPhotoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE3F0354ECF4DAC3205795D7757EF8 /* WZMAlbumPhotoModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1156055DD75F63DCC466CFA2DCD4E63 /* WZMAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D872B26C1A16D072CBEBE3FF025364D2 /* WZMAlbumModel.m */; };
-		E1A70460D2249C96CF8CE49A5198834F /* NSDateFormatter+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1782FF00B0803D2260357E1999FF5761 /* NSDateFormatter+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1CF95DA921F4356265FE7FFD0C441BB /* WZMPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 50169395F3D4156F216AE5BDCE7A1A4B /* WZMPublic.m */; };
-		E1E7DA507A86543706E325F7BA1BCC2C /* WZMNSHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A07821B3A9F7A70A26DCD5104E7C4B /* WZMNSHandle.m */; };
-		E3640CF9A110E74FB756EA3DC9709EAC /* WZMAlbumPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05473C8266809CA39A320E809E3E3C1B /* WZMAlbumPhotoModel.m */; };
-		E5F158262222FC575B207F51D610A9CC /* WZMSingleRotationGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBDD48B28C29E7F2B2DBBFA355BD732 /* WZMSingleRotationGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E70D7FBD586902496EA3F7789AA75A99 /* WZMReactionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B94C28991EF866B4E130014319CB0A /* WZMReactionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E79F0EA044A2A228D16189E1FB78B3AB /* WZMLogPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819ADFFD4013FCC7CED93004189CD86 /* WZMLogPrinter.m */; };
-		E823F7DEDEE01B9B70584753A32C52F8 /* WZMRefreshHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 699EBCF54A953CC3FA7501FE19DB20E1 /* WZMRefreshHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E89283142234AAAC2F0BC04622CC6350 /* UIScrollView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FCFF63BEA21005E0BDD96C9CA80036E /* UIScrollView+WZMReaction.m */; };
-		E9111929906E32CB022E3CCD0362B3F7 /* WZMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCFB3D9C10D4C1FF5EE12BA946EC97A /* WZMFileManager.m */; };
-		EA4F8459AF66EE5D3A6C0B78A9E4BC48 /* UIScrollView+WZMRefresh_0.h in Headers */ = {isa = PBXBuildFile; fileRef = A5D9A0D2FE7B7948E094F08BD9EAE4C1 /* UIScrollView+WZMRefresh_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EB6B1BBDDCD48FF9CB8E9F2D23C2DE0D /* WZMAppJump.h in Headers */ = {isa = PBXBuildFile; fileRef = 717996A59326FE3BBDD86AB712BDDCB2 /* WZMAppJump.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED02A0EC11F1812A2DD56966EF86E8CD /* NSArray+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8501303E66D0D2C946313F6C412541EC /* NSArray+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE9153F5B72CEC494F2A79B8F77997CF /* WZMImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E4FCA7D4355E9E31F55076049361701 /* WZMImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EF3CD108EF6CCBD9480F73F4D0A17840 /* WZMUncaughtException.h in Headers */ = {isa = PBXBuildFile; fileRef = C79DCE5E63A376A2C863BA94A4DBF268 /* WZMUncaughtException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0459C1B966B8198970D18A95059CC96 /* UITextField+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = C8C84AC71D15AD69D342885B211D11CE /* UITextField+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F305AE0F1E0497FCA236A690EEC2A98E /* NSArray+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C42A8965BBF938A4AD7B6912DB1B00 /* NSArray+wzmcate.m */; };
-		F3E0ED35C0C752DBB0EF9D911C71E18A /* WZMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC995135AC1EF47AD4C918C26B7FFB3 /* WZMAlertView.m */; };
-		F776AF0EDA8085D939F5341395A84E45 /* WZMBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 14D58D147DC3AFE87E40752E786BA143 /* WZMBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F7ECCC0A68B6C67434BE8B2D55BBADA1 /* UIAlertView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = D863AF334DD36D14C9124ED700586800 /* UIAlertView+WZMReaction.m */; };
-		F909289623E7E1B663AFCD8D4ABA3C55 /* UILabel+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 476E4C8C2E2E3048D6FFFCB8B94E28B7 /* UILabel+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9E3C9C54FFF41E25343CD62FAF29F4A /* WZMViewHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DA666E64602B9529FDB15B5A6FA4983 /* WZMViewHandle.m */; };
-		FBDAB96895A5AD613FD39ADF8E61032C /* UIFont+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD0F5F3D4E30A1BA0CD19D530BBB2C8C /* UIFont+wzmcate.m */; };
-		FC03F3E9B69B1AA72E979A619994C924 /* WZMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF6BC2AD7C71E0E5521F6DCCCF032B /* WZMActionSheet.m */; };
-		FC22E567DAAA1B23159F894D1735DBFD /* WZMSliderView2.h in Headers */ = {isa = PBXBuildFile; fileRef = BF7B9EA92B00D90F1E8403793B6F9427 /* WZMSliderView2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6EC89D5B6A15C3E4E99D0BE5F5323F7 /* WZMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79204476ED2DB847797B16FCCA58CDC0 /* WZMPlayer.m */; };
+		C7FCC70C0E2D7C6BFBA7466761B0E4BD /* UIWindow+WZMTransformAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E22BCD378F4603C9F932A8DE937AA40 /* UIWindow+WZMTransformAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C806411E7BC9BFE0E3C03C3000135500 /* WZMLogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17101C723EE8EC9BC1F35CBC984ABD /* WZMLogTableViewCell.m */; };
+		C9C3FDE5BC83202A402C867733443940 /* WZMPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = BA1F6CD56ED8FD16048AC6A1008C683A /* WZMPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA392CB31FFBA27F37BC76A24B4A2037 /* WZMDefined.h in Headers */ = {isa = PBXBuildFile; fileRef = F3715ED05153CD0B7B157D025F0580CD /* WZMDefined.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAA3F6762334D560AEEE8C7DF70A4B11 /* NSDictionary+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C040D84CEE97EF072F2C75968588706 /* NSDictionary+wzmcate.m */; };
+		CCB99DF134CC72A14B578705E613D902 /* WZMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FB79BA523E75D6F76C8C6DD2E8BCF52F /* WZMProgressHUD.m */; };
+		CCC9D2D1554241DAF741F65DFEF57803 /* WZMPrivacyAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82902E712E8F7EBF53C0DB209632E61D /* WZMPrivacyAlertController.m */; };
+		CD44A7360C3DE3EDAFF7218A16EAE9BB /* WZMRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F26C77B6503500A7CEE5BB1720323491 /* WZMRefreshComponent.m */; };
+		CFB320AB45885CA9480D3B7935AE1139 /* WZMPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7374C5A421DB00D373A9286DE238EF97 /* WZMPhotoBrowserCell.m */; };
+		D0011D3CC8BE09EE57AD20763E572622 /* WZMSingleRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A236EE183A0A3D520713FC8626B314 /* WZMSingleRotationGestureRecognizer.m */; };
+		D0CE63363436E1EB321CEB9FAE7FAEE4 /* WZMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BF6BC2AD7C71E0E5521F6DCCCF032B /* WZMActionSheet.m */; };
+		D41FCBBC0900CBF07AC0EE884AE875D5 /* WZMFontView.h in Headers */ = {isa = PBXBuildFile; fileRef = F28EA78BF527C7B5B189A76EA455261E /* WZMFontView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4E371B46402499A536008D5CC8C85BA /* WZMAlbumPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05473C8266809CA39A320E809E3E3C1B /* WZMAlbumPhotoModel.m */; };
+		D75059E197B7D3060911DC6854A4FEB8 /* WZMAlbumConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 334A82A364A38B40E85986E8CEFB8F9A /* WZMAlbumConfig.m */; };
+		D78508EC48ED8742E28BD40BE6E58D3A /* WZMPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A99A67C0DEDB21D58B2069F97743654 /* WZMPublic.m */; };
+		D94A384A57FA7C2F1A9BA907A62C2E02 /* WZMButton.h in Headers */ = {isa = PBXBuildFile; fileRef = ADEFF66995339C389091217C4096BDE4 /* WZMButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE56E2B495BB2E3D298911617548C33B /* WZMHeaderView_0.h in Headers */ = {isa = PBXBuildFile; fileRef = B9225BB8AB49A69AA42DCBA1BDFB9802 /* WZMHeaderView_0.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE67AB7DBDD9D546467DB70D15380CA1 /* WZMRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1508DF65C894A96946E52C41DC81136 /* WZMRefreshFooterView.m */; };
+		E0C0806394FCC6ACF0ADFA3A8C6E16F3 /* WZMAnimationNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 229941F2380C6076CD7365CF3EFCB18F /* WZMAnimationNumView.m */; };
+		E2371130F28799BC3542851165058694 /* WZMSingleRotationGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBDD48B28C29E7F2B2DBBFA355BD732 /* WZMSingleRotationGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2899DCA1C2AB941B06363F5536F5CF0 /* UITableView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2022FAED0C12DB42D33194AC4E83E78E /* UITableView+wzmcate.m */; };
+		E4C44D84733BD60142D06E04FB9824B0 /* UITextView+WZMReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 741773949E9992A4CDD1F1938DB7E525 /* UITextView+WZMReaction.m */; };
+		E4F2F0852AC656FAAC663737A72BDAC1 /* WZMPushAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2B60D44E98F26B046901395F921192 /* WZMPushAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E70C9E1B8E0F4D97F35336CD7A3DF154 /* WZMPopupAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB912469FD01890D33A6676385AE860 /* WZMPopupAnimator.m */; };
+		E84B264E695505AB03B130C759C3AC89 /* WZMLogPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819ADFFD4013FCC7CED93004189CD86 /* WZMLogPrinter.m */; };
+		E850E9C06E304566A669BA421490F355 /* WZMPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E83F5F93266F71FF7FC192C2C8F8CBE /* WZMPushAnimation.m */; };
+		E858F005E960D89F82FCFC1C981767DC /* WZMRefreshComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 7759C71BA65F1D691F2654E3F4CF8327 /* WZMRefreshComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E86C5D92F3A7D66DA28A4E2519C6A4FF /* WZMPresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA71DBCA7A434BC82F72505D2D6146 /* WZMPresentAnimation.m */; };
+		E8949B040710F79D2546A710D87AF70E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		E9C26DEA4AC2C1F9DF6AEF7846FE76E6 /* UIImage+wzmcate.h in Headers */ = {isa = PBXBuildFile; fileRef = 85983EC8189A2D0A1BC0054D8C977DF4 /* UIImage+wzmcate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBAF88F23A375DC09F7E1DDDEEFB1FD1 /* UILabel+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = E08ED54F31C8016DB2D8E2189B366311 /* UILabel+wzmcate.m */; };
+		EE83B09A728C8C4AADA0F3B11EFEEECC /* WZMAutoHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 222ECA636D93CDB34372330A1B41FF23 /* WZMAutoHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F37F0C15C0D662EAFCB4703450E110F6 /* WZMLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F60EE2FE6207B16607CF41685E4A2448 /* WZMLogModel.m */; };
+		F7281C262C4D96A9591F17D85376E482 /* UIScrollView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6BB31819F82476795DD345D96A62599 /* UIScrollView+wzmcate.m */; };
+		F76DFB82BE5DA716946873F1FF65C94A /* WZMLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D22DC383E15C069F76FEB14A4DFDC5 /* WZMLogView.m */; };
+		F7BA946BEB9BBAD49C25634B10ADF64D /* WZMAppJump.h in Headers */ = {isa = PBXBuildFile; fileRef = 717996A59326FE3BBDD86AB712BDDCB2 /* WZMAppJump.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7BFB7A0DA52D9D7DF5C544B47B7EC0B /* WZMVideoPlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = F813072FF62B2E242DEBC777838BF38D /* WZMVideoPlayerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8B8F6E1BF793464594DC4CBBF72EE46 /* WZMDismissAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = D6358C5FCF848B3F0CD78A2825C63560 /* WZMDismissAnimation.m */; };
+		FA44CDDC35473594C89DAAF2702B456C /* WZMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 59130A0FD34C560AF05978AF6EE23E49 /* WZMBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA759D8343D62F1E0F6407FDDC192F1D /* NSDateFormatter+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01DACD592E7A234FFA663A42D074452F /* NSDateFormatter+wzmcate.m */; };
+		FA84DB650C7A7B86DE32CF52D4D70FC3 /* UIButton+WZMReaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 86B7634ADB11206CF92DF6CBAC520DF8 /* UIButton+WZMReaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCB849623FA97797A67E1846FB6EB2DE /* WZMAlbumPhotoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CAE3F0354ECF4DAC3205795D7757EF8 /* WZMAlbumPhotoModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE222C5A3B709A69EA3C55E082903237 /* WZMSegmentedCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 747BA080AD3671A97E75C9158BA5ED7E /* WZMSegmentedCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE5BB63E874187ED7B845FFFDEA13E12 /* WZMAnimationNumView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5084B259ACE8ADA67B8B3285B42F9C24 /* WZMAnimationNumView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FF950FA80175CE5F134A0A87775D8D98 /* UINavigationBar+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05893FE0747702AEA1825258C37397C /* UINavigationBar+wzmcate.m */; };
+		FFC90C807F01D8DFE5B362538248B3C2 /* WZMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55EE8AC18670DD6C2D8DB954F817DD /* WZMButton.m */; };
+		FFE20D3F5F2435C886B212ACEB116799 /* WZMJSONParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C50A145280EB9ABDAF733A4ADBDE72EA /* WZMJSONParse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		089A94385AECFE95E15E66294EFAF300 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 09DBC00BDB18B603B87BD98A54A4F03E;
-			remoteInfo = "WZMKit-WZMKit";
-		};
 		AD6B59A4E1F1E2E10C074B338281EB9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -294,6 +288,13 @@
 			remoteGlobalIDString = 53B08DDF6978FCBCD40757E0B061A17B;
 			remoteInfo = WZMKit;
 		};
+		E23A101ABC800390416617B8E5E95BBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09DBC00BDB18B603B87BD98A54A4F03E;
+			remoteInfo = "WZMKit-WZMKit";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -306,7 +307,6 @@
 		064719FB5E07AA1100F42A9CA9323D2B /* WZMAlbumCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumCell.m; sourceTree = "<group>"; };
 		0648E5F8DE3572159D863A107CBCA95D /* WZMKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "WZMKit-Info.plist"; sourceTree = "<group>"; };
 		06AA92D69D5737E8C2DF5FA7D79040AD /* WZMRefreshHeaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMRefreshHeaderView.m; sourceTree = "<group>"; };
-		089655BC393EE109E4E3048CA6C2065A /* WZMMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMMacro.h; sourceTree = "<group>"; };
 		0B354B53393BF5923697005A70F2F905 /* UIImage+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+wzmcate.m"; sourceTree = "<group>"; };
 		0B3F62159B35ABB1E9D485941ED5542C /* Pods-WZMKit_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-WZMKit_Example.modulemap"; sourceTree = "<group>"; };
 		0CAD2F9A97B02A5AA148972C39342883 /* WZMRefreshFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefreshFooterView.h; sourceTree = "<group>"; };
@@ -317,10 +317,10 @@
 		0FE8F3F7E9485549F1A27AE7756EDF15 /* WZMDismissInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMDismissInteractiveTransition.m; sourceTree = "<group>"; };
 		0FF08C2D12A0727B6FFCB20F8DB8128F /* WZMNetWorking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMNetWorking.m; sourceTree = "<group>"; };
 		1018470D10CA0C480DEBB711547CC012 /* Pods-WZMKit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-WZMKit_Example-umbrella.h"; sourceTree = "<group>"; };
+		106F08FF1B75A85833741E3721558EBC /* WZMPublic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPublic.h; sourceTree = "<group>"; };
 		11BF6BC2AD7C71E0E5521F6DCCCF032B /* WZMActionSheet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMActionSheet.m; sourceTree = "<group>"; };
 		149EE873E2664868F437E54C16F6A18A /* WZMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WZMKit.framework; path = WZMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BB018F80C9EDC9E595F1624EE72C61 /* WZMAlbumController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMAlbumController.m; sourceTree = "<group>"; };
-		14D58D147DC3AFE87E40752E786BA143 /* WZMBlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMBlock.h; sourceTree = "<group>"; };
 		159432DED90A864F227E7AAA71F45FF2 /* UIImageView+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+wzmcate.m"; sourceTree = "<group>"; };
 		15B840D8E8E2F65E652F6AEF585DC06D /* UIScrollView+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+wzmcate.h"; sourceTree = "<group>"; };
 		16D46448BCA80991EE2614CC2A665301 /* WZMAlbumNavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAlbumNavigationController.h; sourceTree = "<group>"; };
@@ -371,6 +371,7 @@
 		46DC773D8E6284FAD68550F280F581C7 /* NSString+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+wzmcate.m"; sourceTree = "<group>"; };
 		475569A1B1AF87D614C665D4D316C124 /* UIWindow+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIWindow+wzmcate.h"; sourceTree = "<group>"; };
 		476E4C8C2E2E3048D6FFFCB8B94E28B7 /* UILabel+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UILabel+wzmcate.h"; sourceTree = "<group>"; };
+		48F8FC8F753449DD33C5CB7AB37BFCD0 /* WZMEnum.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMEnum.h; sourceTree = "<group>"; };
 		49D5EBC0862E413A2550372BE183F23B /* WZMCycleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMCycleView.h; sourceTree = "<group>"; };
 		4BEA71DBCA7A434BC82F72505D2D6146 /* WZMPresentAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPresentAnimation.m; sourceTree = "<group>"; };
 		4C040D84CEE97EF072F2C75968588706 /* NSDictionary+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+wzmcate.m"; sourceTree = "<group>"; };
@@ -378,7 +379,6 @@
 		4D74314E02017B2D1C78B8483EB723FA /* WZMHeaderView_0.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMHeaderView_0.m; sourceTree = "<group>"; };
 		4E2B60D44E98F26B046901395F921192 /* WZMPushAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPushAnimation.h; sourceTree = "<group>"; };
 		4FCFB3D9C10D4C1FF5EE12BA946EC97A /* WZMFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMFileManager.m; sourceTree = "<group>"; };
-		50169395F3D4156F216AE5BDCE7A1A4B /* WZMPublic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPublic.m; sourceTree = "<group>"; };
 		5084B259ACE8ADA67B8B3285B42F9C24 /* WZMAnimationNumView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAnimationNumView.h; sourceTree = "<group>"; };
 		5139C871CE781F18101301486740B5F7 /* WZMDispatch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMDispatch.m; sourceTree = "<group>"; };
 		51D22DC383E15C069F76FEB14A4DFDC5 /* WZMLogView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMLogView.m; sourceTree = "<group>"; };
@@ -428,6 +428,7 @@
 		7759C71BA65F1D691F2654E3F4CF8327 /* WZMRefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefreshComponent.h; sourceTree = "<group>"; };
 		79204476ED2DB847797B16FCCA58CDC0 /* WZMPlayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPlayer.m; sourceTree = "<group>"; };
 		79AA6C50B95DE22CB28CA3CF143CFEAF /* UIView+WZMReaction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZMReaction.m"; sourceTree = "<group>"; };
+		7A99A67C0DEDB21D58B2069F97743654 /* WZMPublic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPublic.m; sourceTree = "<group>"; };
 		7CE4D93C89909216CF4C518BB695831D /* WZMPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPlayerView.h; sourceTree = "<group>"; };
 		7D2533C942FAEB0914D42CD174E59076 /* WZMKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WZMKit.modulemap; sourceTree = "<group>"; };
 		7D55AC241B96516186AE56DC23F34D48 /* WZMVideoPlayerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMVideoPlayerViewController.h; sourceTree = "<group>"; };
@@ -489,7 +490,6 @@
 		B81B6473797BFD69976DE9B9A829E605 /* NSDictionary+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+wzmcate.h"; sourceTree = "<group>"; };
 		B86EFAA44ED2F4C052D2D40800CB02CD /* WZMReaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMReaction.h; sourceTree = "<group>"; };
 		B8E4ED1E4ABCF4360B8BF0BC24B9C241 /* Pods_WZMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_WZMKit_Example.framework; path = "Pods-WZMKit_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B90C5F1C3718CC5DEC10915D314114F3 /* WZMEnum.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMEnum.h; sourceTree = "<group>"; };
 		B91594D79E10FE97C116FF291EF1BE9D /* UIScrollView+WZMReaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WZMReaction.h"; sourceTree = "<group>"; };
 		B9225BB8AB49A69AA42DCBA1BDFB9802 /* WZMHeaderView_0.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMHeaderView_0.h; sourceTree = "<group>"; };
 		BA1F6CD56ED8FD16048AC6A1008C683A /* WZMPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPlayer.h; sourceTree = "<group>"; };
@@ -533,7 +533,6 @@
 		D1CDBE78786D692BA5E2FF26072B4916 /* UINavigationController+WZMNavAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WZMNavAnimation.h"; sourceTree = "<group>"; };
 		D2276C3D4271E12810EC11FB47224310 /* UIScrollView+WZMRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WZMRefresh.h"; sourceTree = "<group>"; };
 		D39327CC726396410F582B63FB1944B0 /* WZMSegmentedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMSegmentedView.h; sourceTree = "<group>"; };
-		D414DE222EFE7F667A908C6D775607E5 /* WZMPublic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPublic.h; sourceTree = "<group>"; };
 		D4A4FBD65C3C4CBFC86C674F1ED05F0B /* Pods-WZMKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WZMKit_Example-dummy.m"; sourceTree = "<group>"; };
 		D53D777D0C7A2960F758242F37ECB035 /* WZMPlayerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMPlayerView.m; sourceTree = "<group>"; };
 		D6358C5FCF848B3F0CD78A2825C63560 /* WZMDismissAnimation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMDismissAnimation.m; sourceTree = "<group>"; };
@@ -546,6 +545,7 @@
 		DBB88D42CAF107E8C326F20815D037F3 /* WZMPlayerItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPlayerItem.h; sourceTree = "<group>"; };
 		DBEADAD26AF7AE27C7971E7A4F360CAB /* UIViewController+WZMModalAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WZMModalAnimation.h"; sourceTree = "<group>"; };
 		DD06960D1F06335C1AC439F87A828F48 /* WZMKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = WZMKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DD5D7172187BF006193E084F51EA8A03 /* WZMTextInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMTextInfo.h; sourceTree = "<group>"; };
 		DE0067C10C5C326D1EF40F8A17F554F5 /* WZMViewControllerAnimator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMViewControllerAnimator.h; sourceTree = "<group>"; };
 		E05FA5E9063656F0BE81FF98BD296261 /* WZMRefreshHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMRefreshHelper.m; sourceTree = "<group>"; };
 		E066F1A9FAF85C896472EDEFEBC33CB7 /* WZMFileManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMFileManager.h; sourceTree = "<group>"; };
@@ -565,7 +565,6 @@
 		E9C56102537BFDCBB0AEEEADFE6541C3 /* UIButton+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIButton+wzmcate.h"; sourceTree = "<group>"; };
 		EADE7314FE5A9E3B05046B00B955D403 /* WZMAlbumController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMAlbumController.h; sourceTree = "<group>"; };
 		EB91E86859A78402233AB3B106CAEA3D /* NSNull+wzmcate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSNull+wzmcate.m"; sourceTree = "<group>"; };
-		EBBAB72F2F8715BF5ADF84A4A3B5F92A /* WZMTextInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMTextInfo.h; sourceTree = "<group>"; };
 		ECAA690B89FEBC78C4EC042BE73CEB53 /* WZMRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefresh.h; sourceTree = "<group>"; };
 		EDB49F9AAC93FDB8BB3ABFA9E1ADAE71 /* WZMLocationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMLocationManager.m; sourceTree = "<group>"; };
 		EDC7BFA617AFF25E928ED631733474A2 /* WZMPopAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMPopAnimation.h; sourceTree = "<group>"; };
@@ -575,13 +574,16 @@
 		F14E53842F3F4B1335B64D7988A02F0E /* UIImageView+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImageView+wzmcate.h"; sourceTree = "<group>"; };
 		F26C77B6503500A7CEE5BB1720323491 /* WZMRefreshComponent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMRefreshComponent.m; sourceTree = "<group>"; };
 		F28EA78BF527C7B5B189A76EA455261E /* WZMFontView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMFontView.h; sourceTree = "<group>"; };
+		F3715ED05153CD0B7B157D025F0580CD /* WZMDefined.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMDefined.h; sourceTree = "<group>"; };
 		F3781FFAD77355A56E34787E7C6ACD61 /* WZMSegmentedCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedCell.m; sourceTree = "<group>"; };
 		F60EE2FE6207B16607CF41685E4A2448 /* WZMLogModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMLogModel.m; sourceTree = "<group>"; };
 		F813072FF62B2E242DEBC777838BF38D /* WZMVideoPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMVideoPlayerView.h; sourceTree = "<group>"; };
 		F8A1532C9590B27DFAC650E05AAF465D /* UIView+WZMReaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+WZMReaction.h"; sourceTree = "<group>"; };
+		FB6BBA0694BE0BBB13CE37E49A827175 /* WZMMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMMacro.h; sourceTree = "<group>"; };
 		FB79BA523E75D6F76C8C6DD2E8BCF52F /* WZMProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMProgressHUD.m; sourceTree = "<group>"; };
 		FC0FC10FD34383017F646774E7673BCE /* WZMDeviceUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMDeviceUtil.h; sourceTree = "<group>"; };
 		FDACDC85426CE7126D17A44EA4C85E8C /* WZMScannerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMScannerViewController.h; sourceTree = "<group>"; };
+		FDD519856606D935BF1595097ED39239 /* WZMBlock.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMBlock.h; sourceTree = "<group>"; };
 		FE3B027B9E9A54837091031C5213ECA5 /* WZMAppStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WZMAppStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -602,36 +604,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D09061B41CBB6CD9D28A8A0B47A7704B /* Frameworks */ = {
+		7DDC1B54DEB0B1988833B95BDC277BC2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4847926419FFAD7C859653196B42367 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E4E90AF35E1EE83FD0361281D4C5E9E8 /* Frameworks */ = {
+		91F62A37CC2AAB7BFF1C19C9ABF2C6A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8949B040710F79D2546A710D87AF70E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01EE96171BFB3284C18ABB2153727003 /* WZMConfig */ = {
-			isa = PBXGroup;
-			children = (
-				14D58D147DC3AFE87E40752E786BA143 /* WZMBlock.h */,
-				B90C5F1C3718CC5DEC10915D314114F3 /* WZMEnum.h */,
-				089655BC393EE109E4E3048CA6C2065A /* WZMMacro.h */,
-				EBBAB72F2F8715BF5ADF84A4A3B5F92A /* WZMTextInfo.h */,
-			);
-			name = WZMConfig;
-			path = WZMConfig;
-			sourceTree = "<group>";
-		};
 		03B46A3321A23D01CC13D428B5DB0F3B /* NSObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -1189,7 +1179,7 @@
 				C8220F6F52633516FFEE9191E6843E21 /* WZMCache */,
 				7BD26D791F7473064C570AC3E0296994 /* WZMCategory */,
 				4963B2692A9BC5133CFFB28F8BB6D77B /* WZMMedia */,
-				D12456ED18F39AFFA4C1AE889A4C82BE /* WZMPublic */,
+				8242DFBA14BA87C45BED5B754DD6A0C0 /* WZMPublic */,
 				7013CA280651F539C3CE52FA7AB7D2FA /* WZMReaction */,
 				A3FF30DDC582FDAE2F46B91C3679B76D /* WZMRefresh */,
 				19FFAA3A715199944CFDE60376CE43CB /* WZMTools */,
@@ -1288,6 +1278,17 @@
 			);
 			name = UILabel;
 			path = UILabel;
+			sourceTree = "<group>";
+		};
+		8242DFBA14BA87C45BED5B754DD6A0C0 /* WZMPublic */ = {
+			isa = PBXGroup;
+			children = (
+				106F08FF1B75A85833741E3721558EBC /* WZMPublic.h */,
+				7A99A67C0DEDB21D58B2069F97743654 /* WZMPublic.m */,
+				BE59A73862CC28D3B43922E15400BC42 /* WZMConfig */,
+			);
+			name = WZMPublic;
+			path = WZMKit/Classes/WZMPublic;
 			sourceTree = "<group>";
 		};
 		8578FAFBCE2052973C1DFF313026E2DE /* UIButton */ = {
@@ -1519,6 +1520,19 @@
 			path = NSNull;
 			sourceTree = "<group>";
 		};
+		BE59A73862CC28D3B43922E15400BC42 /* WZMConfig */ = {
+			isa = PBXGroup;
+			children = (
+				FDD519856606D935BF1595097ED39239 /* WZMBlock.h */,
+				F3715ED05153CD0B7B157D025F0580CD /* WZMDefined.h */,
+				48F8FC8F753449DD33C5CB7AB37BFCD0 /* WZMEnum.h */,
+				FB6BBA0694BE0BBB13CE37E49A827175 /* WZMMacro.h */,
+				DD5D7172187BF006193E084F51EA8A03 /* WZMTextInfo.h */,
+			);
+			name = WZMConfig;
+			path = WZMConfig;
+			sourceTree = "<group>";
+		};
 		BE9388D4C58B241E8161DC4DF33C512F /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,17 +1625,6 @@
 				455FD3A68E9B6FD339A88B18E8248EAC /* Products */,
 				527FC9D0EC86CBAB01B6A1064C18EFE7 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D12456ED18F39AFFA4C1AE889A4C82BE /* WZMPublic */ = {
-			isa = PBXGroup;
-			children = (
-				D414DE222EFE7F667A908C6D775607E5 /* WZMPublic.h */,
-				50169395F3D4156F216AE5BDCE7A1A4B /* WZMPublic.m */,
-				01EE96171BFB3284C18ABB2153727003 /* WZMConfig */,
-			);
-			name = WZMPublic;
-			path = WZMKit/Classes/WZMPublic;
 			sourceTree = "<group>";
 		};
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
@@ -1790,149 +1793,150 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		495A0D91641B5F6F137732DA021A28FE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				157657B819CD629B95A125583E89D3D3 /* NSArray+wzmcate.h in Headers */,
+				AA50D1362B64D8C76AFE1C77254C479E /* NSAttributedString+wzmcate.h in Headers */,
+				5F8BF362BB5254C980D2ED78FDDBA279 /* NSData+wzmcate.h in Headers */,
+				7E73D3C916B4B70985A90C13EF25956A /* NSDate+wzmcate.h in Headers */,
+				3F925450205C66708032200BA93648AF /* NSDateFormatter+wzmcate.h in Headers */,
+				5D4AEDECCCCBD491A612E0CFE4755166 /* NSDictionary+wzmcate.h in Headers */,
+				341EABD2EC6E8C22501C36262CEDB628 /* NSNull+wzmcate.h in Headers */,
+				37E3BA89DF808F6036B317A1E1C725C0 /* NSObject+wzmcate.h in Headers */,
+				0A1585F7C323DE910BD2A601A4ECD98B /* NSObject+WZMReaction.h in Headers */,
+				888DC04588B330EE0E7195D3D501635D /* NSString+wzmcate.h in Headers */,
+				3AD98AB64FCF3D8A7AE87B767CCA6028 /* UIAlertView+WZMReaction.h in Headers */,
+				4CFADEA08896CB1063AA8C8614BCDD18 /* UIButton+wzmcate.h in Headers */,
+				FA84DB650C7A7B86DE32CF52D4D70FC3 /* UIButton+WZMReaction.h in Headers */,
+				03472C34D7FCEFC1EDE96221020DBB3F /* UIColor+wzmcate.h in Headers */,
+				188D0893A9D561B7C63C69DBAFCE2A8E /* UIFont+wzmcate.h in Headers */,
+				E9C26DEA4AC2C1F9DF6AEF7846FE76E6 /* UIImage+wzmcate.h in Headers */,
+				585D99FF25A8593D65BD531D152F98DB /* UIImageView+wzmcate.h in Headers */,
+				A82ACEC94E3B25D6F5694BF47A6B6BAC /* UILabel+wzmcate.h in Headers */,
+				7833A2CFB730DC4223EFF69A7164087E /* UINavigationBar+wzmcate.h in Headers */,
+				22465B64795087E736843FE12293E98D /* UINavigationController+WZMNavAnimation.h in Headers */,
+				8D74372D53FC5FC0B027566A16699527 /* UIScrollView+wzmcate.h in Headers */,
+				5408196C163DD9DB425ECB6DF3CCE9F8 /* UIScrollView+WZMReaction.h in Headers */,
+				87C74B307B52CA9D91344A9B93DB4A58 /* UIScrollView+WZMRefresh.h in Headers */,
+				A2A7C82D5278CB8A8F0D1697EE834A2F /* UIScrollView+WZMRefresh_0.h in Headers */,
+				42E4F95B47634463F474F1257339FACE /* UITableView+wzmcate.h in Headers */,
+				66ACA78DAAE5932128919844D968AB79 /* UITextField+wzmcate.h in Headers */,
+				C21C2CCC84EFE4CC8925ED84FA575479 /* UITextField+WZMReaction.h in Headers */,
+				98F3C972D434CDDBC647DF5639447697 /* UITextView+wzmcate.h in Headers */,
+				62FC61980CE298C271CF20CA641907CD /* UITextView+WZMReaction.h in Headers */,
+				4E1FC8EE40A9F13D9714967D1E4C08F5 /* UIView+wzmcate.h in Headers */,
+				257B0D4068B3D0FAF8BFF24906F9B70B /* UIView+WZMReaction.h in Headers */,
+				B6DAAE5855E065BAFA400D52886FF14E /* UIViewController+wzmcate.h in Headers */,
+				18B351ECD71A7AB7865BFA859410D155 /* UIViewController+WZMModalAnimation.h in Headers */,
+				214897F3A634BDDD528CCC4761E3EFDA /* UIWindow+wzmcate.h in Headers */,
+				C7FCC70C0E2D7C6BFBA7466761B0E4BD /* UIWindow+WZMTransformAnimation.h in Headers */,
+				2CB2ED293E1BFC15C9A21AD05986A203 /* WZMActionSheet.h in Headers */,
+				4F27138BB2DC16E6A926BECBDAB84ADF /* WZMAlbumCell.h in Headers */,
+				636133B710A561E02F646C490C2C5F2E /* WZMAlbumConfig.h in Headers */,
+				96C9AA23C9B4FD1A9F8183B0DA52BF2E /* WZMAlbumController.h in Headers */,
+				29D338D71CD8AA688F7FECA63B62A587 /* WZMAlbumHelper.h in Headers */,
+				6FED2E258969D2CEBF70BC0FF4611134 /* WZMAlbumListCell.h in Headers */,
+				259D868BA799B0EF891C234F21390F7A /* WZMAlbumModel.h in Headers */,
+				2AFFCE3578AB73B5BE6BBEF5E0316ED6 /* WZMAlbumNavigationController.h in Headers */,
+				FCB849623FA97797A67E1846FB6EB2DE /* WZMAlbumPhotoModel.h in Headers */,
+				152EEA469DC6E5E27C3C7DBA4479DFD3 /* WZMAlbumView.h in Headers */,
+				9DEB64CB9BB5BA521BEFF0B56EB983EF /* WZMAlertView.h in Headers */,
+				672F8431552DAC1B786BE4F8FD21E2F5 /* WZMAnimationNumItemView.h in Headers */,
+				FE5BB63E874187ED7B845FFFDEA13E12 /* WZMAnimationNumView.h in Headers */,
+				F7BA946BEB9BBAD49C25634B10ADF64D /* WZMAppJump.h in Headers */,
+				77AD493ECCE86BABB6437B2BF49EBBB1 /* WZMAppStore.h in Headers */,
+				68EF63CCE763515D4001BD40DA673744 /* WZMAudioRecorder.h in Headers */,
+				EE83B09A728C8C4AADA0F3B11EFEEECC /* WZMAutoHeader.h in Headers */,
+				FA44CDDC35473594C89DAAF2702B456C /* WZMBase64.h in Headers */,
+				1CD1B09641ED7EE6FC788D4C2B95AAF4 /* WZMBaseComponent.h in Headers */,
+				0F599355B5384231D8C74E6C37A7AF22 /* WZMBaseFooterView.h in Headers */,
+				12AF67D790B1706E3FCAFB5F0DCC6DBE /* WZMBaseHeaderView.h in Headers */,
+				631158B630C10C39A434F8B9EFDD7706 /* WZMBezierView.h in Headers */,
+				9A0C56C66D1B55DDE046B0A6AD4176A7 /* WZMBlock.h in Headers */,
+				D94A384A57FA7C2F1A9BA907A62C2E02 /* WZMButton.h in Headers */,
+				6C3B0110351246D20AAA4415133C88A2 /* WZMCamera.h in Headers */,
+				34C56EC47FDE8705378A1EDFD2C2C219 /* WZMCatchStore.h in Headers */,
+				719A6B4A327F002F9C8104E0E232BD45 /* WZMClipTimeView.h in Headers */,
+				C37A5A4FAC7017EB3D9A67D401D946B0 /* WZMCycleView.h in Headers */,
+				CA392CB31FFBA27F37BC76A24B4A2037 /* WZMDefined.h in Headers */,
+				A770147336664540F2F620DAF1CE63F2 /* WZMDeviceUtil.h in Headers */,
+				2A34C807D57828CAF83F603F30BD10D8 /* WZMDismissAnimation.h in Headers */,
+				922F39A4B8C979B5245D5FDD9B2DD086 /* WZMDismissInteractiveTransition.h in Headers */,
+				56782B414962F622C972F3A7E46E1AB7 /* WZMDispatch.h in Headers */,
+				7AE58D0C8FAB3C6A9F80C2FB8B443736 /* WZMDottedView.h in Headers */,
+				3E7E63B1B52611472E14B9716B00BB82 /* WZMDownloader.h in Headers */,
+				A7DD91D02D6C0F4608C96868423B5F02 /* WZMDrawView.h in Headers */,
+				A8EA8ECD7549A301D7985E041785FD64 /* WZMEnum.h in Headers */,
+				97B2E42B4F6882423381CB6C9B6FF103 /* WZMFileManager.h in Headers */,
+				1DF1E2EC28019897BE5CE54870CF9F99 /* WZMFontManager.h in Headers */,
+				D41FCBBC0900CBF07AC0EE884AE875D5 /* WZMFontView.h in Headers */,
+				106643BE198AAFF2DA7B7686578627BE /* WZMFooterView_0.h in Headers */,
+				2CB3DF5B52EBD6693F0E01CC808668E6 /* WZMGifImageView.h in Headers */,
+				DE56E2B495BB2E3D298911617548C33B /* WZMHeaderView_0.h in Headers */,
+				C3EE5CF6C28BD63C90D84B0414E73340 /* WZMImageCache.h in Headers */,
+				AEF992DF8AC8103FA48B2EB804E7484E /* WZMInline.h in Headers */,
+				0829D9AF6F17D53994AF31BE6DA09203 /* WZMJSONParse.h in Headers */,
+				0CA7BD6EA47356EFCAF372E9C8F304E6 /* WZMKit-umbrella.h in Headers */,
+				29010304F8F3F53C030B705F9D023846 /* WZMKit.h in Headers */,
+				755376C9094468F18A9B7555DD61781C /* WZMLocationManager.h in Headers */,
+				C2416FECC66254131C29E518BDC5C9F3 /* WZMLogModel.h in Headers */,
+				9E250C9D6734FB1E05A892251AAFC055 /* WZMLogPrinter.h in Headers */,
+				81AF6D5B80BE936F583F9B9A7596EB98 /* WZMLogTableViewCell.h in Headers */,
+				4181855740C2ABAA377A8397996D7775 /* WZMLogView.h in Headers */,
+				681688D27CFB6B0ACA9EEB22855BD569 /* WZMMacro.h in Headers */,
+				B72B7FF0BD6654AA0B5CE800BD6E97AD /* WZMNavControllerAnimator.h in Headers */,
+				66BED8FCE67830870F1F2C9C7E4C8A97 /* WZMNetWorking.h in Headers */,
+				88C02CFE89B1690E1540C3519D4C650F /* WZMNSHandle.h in Headers */,
+				77022E406320D59ACFA4F40C71AC716D /* WZMPanGestureRecognizer.h in Headers */,
+				379E17B11722539D555A847FBFFA67B8 /* WZMPhoto.h in Headers */,
+				309AD26138689B4B392FD8496C6A94D5 /* WZMPhotoBrowser.h in Headers */,
+				7ADAC30B664A8AE1BD400C7AC590CCB9 /* WZMPhotoBrowserCell.h in Headers */,
+				C9C3FDE5BC83202A402C867733443940 /* WZMPlayer.h in Headers */,
+				A0183F0786732A17CA71F5C36BD561FE /* WZMPlayerItem.h in Headers */,
+				02D380419295DCD5E0FC8A0EC5FEDDAC /* WZMPlayerView.h in Headers */,
+				1A9631CD23859CED3B69369DC23C6342 /* WZMPopAnimation.h in Headers */,
+				810C28E6A8E50C4A4E36BBF8CFCAC3E0 /* WZMPopupAnimator.h in Headers */,
+				AB4FF8A0F515FF55F70F6E72E1242AE9 /* WZMPresentAnimation.h in Headers */,
+				1D885F4D21F07B19827A6E33C7073859 /* WZMPrivacyAlertController.h in Headers */,
+				C24E70B8D94BFA22996A127B71413100 /* WZMProgressHUD.h in Headers */,
+				1943D96FBE847D37069AD9FF58156731 /* WZMPublic.h in Headers */,
+				E4F2F0852AC656FAAC663737A72BDAC1 /* WZMPushAnimation.h in Headers */,
+				3B68B4DC4BBBEDEA49663EF59855D1F1 /* WZMReaction.h in Headers */,
+				3A35384EFAC2AD158B88503F75C92CA7 /* WZMReactionManager.h in Headers */,
+				67C845666EA2F8166F3112C3D6298429 /* WZMRefresh.h in Headers */,
+				E858F005E960D89F82FCFC1C981767DC /* WZMRefreshComponent.h in Headers */,
+				C527E6938B28A251FC586D14F251B4D0 /* WZMRefreshFooterView.h in Headers */,
+				59771DD830C8804181CBF041B1F861E5 /* WZMRefreshHeaderView.h in Headers */,
+				AD1DFD4D4C09C7042868147C227298EC /* WZMRefreshHelper.h in Headers */,
+				6D7DA481994B933665D5D3123C053B78 /* WZMScannerViewController.h in Headers */,
+				A06B92CF0E4F02C2BB0EBBDE0C812A4F /* WZMScrollImageView.h in Headers */,
+				FE222C5A3B709A69EA3C55E082903237 /* WZMSegmentedCell.h in Headers */,
+				40E3E8C9413F4965EC2D44F60947DC5A /* WZMSegmentedView.h in Headers */,
+				51D79D8CDD0CFBEBC2B7712445798F82 /* WZMSelectedView.h in Headers */,
+				36727EBC0CD9385EE4F100336C5C8B28 /* WZMSendEmail.h in Headers */,
+				07CD20C36EE6087F5A9A85D8ED1C1052 /* WZMSignalException.h in Headers */,
+				E2371130F28799BC3542851165058694 /* WZMSingleRotationGestureRecognizer.h in Headers */,
+				1D649A7A7F9E492D71ED5FC6BA6A5D74 /* WZMSliderView.h in Headers */,
+				4B3D2BD68F4F713F43084B426CCAEED5 /* WZMSliderView2.h in Headers */,
+				3B14C68D4C642C6A311CB76BE7EF968B /* WZMSqliteManager.h in Headers */,
+				6B76CA4ABCB785C12CD20542B76E3482 /* WZMTextInfo.h in Headers */,
+				830007FAB177464DD2AA47D360EEE7CA /* WZMUncaughtException.h in Headers */,
+				082D34CCEDC2841033F8D7E59587DBEB /* WZMVideoKeyView.h in Headers */,
+				386F0B6E10FE4C2D9D32589C36F9D2E7 /* WZMVideoKeyView2.h in Headers */,
+				F7BFB7A0DA52D9D7DF5C544B47B7EC0B /* WZMVideoPlayerView.h in Headers */,
+				268075A0AD3E1711BFE657051F7AEA26 /* WZMVideoPlayerViewController.h in Headers */,
+				2983894C4BCA2015917204B6CA28BD27 /* WZMViewControllerAnimator.h in Headers */,
+				3C168A184D45C9F8D49F4B24118BC667 /* WZMViewHandle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A3B3C8F75A194840A281E53887E5F209 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				32C19E5E7F244AB8CEFDC3D7773BDB9D /* Pods-WZMKit_Tests-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B7EDE4A91B6017F7C0F5875142B1392C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED02A0EC11F1812A2DD56966EF86E8CD /* NSArray+wzmcate.h in Headers */,
-				23E1A3C4E6F422698770AAF929FB1849 /* NSAttributedString+wzmcate.h in Headers */,
-				258D2EBDB9B51F6F853BFD90C29C2104 /* NSData+wzmcate.h in Headers */,
-				D7D7F09C80FEA71E1F6665F4091316F7 /* NSDate+wzmcate.h in Headers */,
-				E1A70460D2249C96CF8CE49A5198834F /* NSDateFormatter+wzmcate.h in Headers */,
-				1CC5D79EB2CD07F7CAEBB1886707DE41 /* NSDictionary+wzmcate.h in Headers */,
-				6CB09E60B481C02FF579BAA8262A23A4 /* NSNull+wzmcate.h in Headers */,
-				243A8A8670B029D2E5D1B9F23C51080A /* NSObject+wzmcate.h in Headers */,
-				C24136F39BF1D7BF724204ECC3ABBFF9 /* NSObject+WZMReaction.h in Headers */,
-				C00B12EAF2FF38BF1C3FE05808953CF6 /* NSString+wzmcate.h in Headers */,
-				4BD6EEB1EF4A3A91DB1B6ECE0FDAB12E /* UIAlertView+WZMReaction.h in Headers */,
-				CE7F1170CE79674C39AEA0CEBA2BBB64 /* UIButton+wzmcate.h in Headers */,
-				C5943C8168BD27DBBC2C0C77E1851A38 /* UIButton+WZMReaction.h in Headers */,
-				1701B52D136CF247B17F3514C6BA99C0 /* UIColor+wzmcate.h in Headers */,
-				1B3CD2DCEB2050A3ED931869CC64A20A /* UIFont+wzmcate.h in Headers */,
-				54426A06B8F4B2C3B988D7D0886AA168 /* UIImage+wzmcate.h in Headers */,
-				365584FC5A2FF6AC3F9075D3DB2BF241 /* UIImageView+wzmcate.h in Headers */,
-				F909289623E7E1B663AFCD8D4ABA3C55 /* UILabel+wzmcate.h in Headers */,
-				57313DDC6942F60C25479909C5EE2EA8 /* UINavigationBar+wzmcate.h in Headers */,
-				5006A9E1DE8D20CD7C9CF5592BDD44FA /* UINavigationController+WZMNavAnimation.h in Headers */,
-				9B70A99CBFDBDD00B7BC3101356BF626 /* UIScrollView+wzmcate.h in Headers */,
-				49E5E66C414B5076C936430F93B85451 /* UIScrollView+WZMReaction.h in Headers */,
-				6E78C2C42E26B507C747537AECA75F3E /* UIScrollView+WZMRefresh.h in Headers */,
-				EA4F8459AF66EE5D3A6C0B78A9E4BC48 /* UIScrollView+WZMRefresh_0.h in Headers */,
-				1861A70F04F6C74389097F3D7887469E /* UITableView+wzmcate.h in Headers */,
-				F0459C1B966B8198970D18A95059CC96 /* UITextField+wzmcate.h in Headers */,
-				A969AC79029E9E3CEF5B128FECE8F732 /* UITextField+WZMReaction.h in Headers */,
-				4983BF6AAEB11CCD78EDE543DD6E398C /* UITextView+wzmcate.h in Headers */,
-				DE93DC144825A3C54AF1D2E02AE1CEA3 /* UITextView+WZMReaction.h in Headers */,
-				108F56CD4016CBE35D1812AD5294A08D /* UIView+wzmcate.h in Headers */,
-				AA7765DA4318F7C872989289D0E53D67 /* UIView+WZMReaction.h in Headers */,
-				59B5DD2A6DABC228D41EA33DA65739E8 /* UIViewController+wzmcate.h in Headers */,
-				608CA44A44882D7E0CD8F10A4B5F693F /* UIViewController+WZMModalAnimation.h in Headers */,
-				2EC2DF081E221B80C06F0E03D56AE904 /* UIWindow+wzmcate.h in Headers */,
-				6C45E374A0D6E36F875982DE50E334E7 /* UIWindow+WZMTransformAnimation.h in Headers */,
-				CF22350A305CF0913CF17547A83280F1 /* WZMActionSheet.h in Headers */,
-				C707BC693877126491C1999F381CF7B4 /* WZMAlbumCell.h in Headers */,
-				AEEA9EAF642B7F41A14EF1ABDBB7A841 /* WZMAlbumConfig.h in Headers */,
-				CDD228513DDE162639258AB1E1D3AACC /* WZMAlbumController.h in Headers */,
-				AEE9E5BB1A6877378E81C024B011ECDF /* WZMAlbumHelper.h in Headers */,
-				CB24FB0E82259123C94C21720E4319E4 /* WZMAlbumListCell.h in Headers */,
-				A031939826BAA925F897844F8D74ECCD /* WZMAlbumModel.h in Headers */,
-				BE81FCB56C837586888128F8B11361AF /* WZMAlbumNavigationController.h in Headers */,
-				E085D9D20B3799D4FEEA37BC784EB37F /* WZMAlbumPhotoModel.h in Headers */,
-				B7714A45F7A4874673313036F69C54C4 /* WZMAlbumView.h in Headers */,
-				2E0DEC4A50D77295E90E58CDE2E96B12 /* WZMAlertView.h in Headers */,
-				6736E5164EC37CD2365981DC02AE295C /* WZMAnimationNumItemView.h in Headers */,
-				D9F753B4B9C727DBE73A06B1569C4816 /* WZMAnimationNumView.h in Headers */,
-				EB6B1BBDDCD48FF9CB8E9F2D23C2DE0D /* WZMAppJump.h in Headers */,
-				AC93B3E960EAEC56466BAAC86292188A /* WZMAppStore.h in Headers */,
-				A1CE1040D35A4F760D8137B7766B4808 /* WZMAudioRecorder.h in Headers */,
-				B63C798335E91FAA16A46911A2FD4BF9 /* WZMAutoHeader.h in Headers */,
-				CEF4465F1514AE401B42EDC9126C4221 /* WZMBase64.h in Headers */,
-				71AE83B2EA91C6369CD06C84B05C649E /* WZMBaseComponent.h in Headers */,
-				68539817E68FE8651DBFA7B5D2F4EB6F /* WZMBaseFooterView.h in Headers */,
-				A01DCDDD1BD686B6090FD9F9641F6A1E /* WZMBaseHeaderView.h in Headers */,
-				34E6D96C0AB5FE37E42DAF1BCB0A2A0E /* WZMBezierView.h in Headers */,
-				F776AF0EDA8085D939F5341395A84E45 /* WZMBlock.h in Headers */,
-				CCFECB58654E88D74458AE0BBAAC4A85 /* WZMButton.h in Headers */,
-				C2F76C84D6CFCA3ED5FCD2375F95A4E2 /* WZMCamera.h in Headers */,
-				226C95ED41D51D91868D88C882799018 /* WZMCatchStore.h in Headers */,
-				7449AC7DB4CE9684F35748195137EFBE /* WZMClipTimeView.h in Headers */,
-				A153E4B5D4044471AD35F5B290CE9646 /* WZMCycleView.h in Headers */,
-				1EBF7C9C96AECB3D5F4C53B31B87B8F7 /* WZMDeviceUtil.h in Headers */,
-				9D2419DF77F6374DCEA2F3C08DB14189 /* WZMDismissAnimation.h in Headers */,
-				6359E5AF8F5CE0C97CFCCCD4070F8824 /* WZMDismissInteractiveTransition.h in Headers */,
-				D7D7D69B1F45F6A919EFBBDDDD043F44 /* WZMDispatch.h in Headers */,
-				544F6822040B1FA70EA3C8474AA0E82B /* WZMDottedView.h in Headers */,
-				30F8D33E2563AB7DDBA5F4C3DF22C541 /* WZMDownloader.h in Headers */,
-				BB6599F4BAB64E124CD0840075A9E5BE /* WZMDrawView.h in Headers */,
-				8FAA4EF3E8A99C254B055C63B06A7A46 /* WZMEnum.h in Headers */,
-				913B494F172BADB4F5EBB455824912EA /* WZMFileManager.h in Headers */,
-				BA7E78DD0436C57DB590B62938A9A1BE /* WZMFontManager.h in Headers */,
-				A62527BD6ED9CF1153263C51ED16933D /* WZMFontView.h in Headers */,
-				19E28F0BCC626512B7BBC29D935EC17A /* WZMFooterView_0.h in Headers */,
-				C71EED07A3A555A3F1C96E20B21C23A3 /* WZMGifImageView.h in Headers */,
-				33876D0B0A6C25F833F45FDA00239EA9 /* WZMHeaderView_0.h in Headers */,
-				EE9153F5B72CEC494F2A79B8F77997CF /* WZMImageCache.h in Headers */,
-				7636D72767252DDD697A8ED9E227F036 /* WZMInline.h in Headers */,
-				C1577DBF14C5D16B05FBDE9C1E16E158 /* WZMJSONParse.h in Headers */,
-				C51BA28EEAEDC4A4738A0E18962144BD /* WZMKit-umbrella.h in Headers */,
-				46CFF5E39853EB9126DE305795F4DBBD /* WZMKit.h in Headers */,
-				B80483B57D1B396A0B449D68F6F2B3D9 /* WZMLocationManager.h in Headers */,
-				5C94CEDE7D3C6257BC3B0AAD00694A67 /* WZMLogModel.h in Headers */,
-				0B1B079286F1AEC6786F58CF18778667 /* WZMLogPrinter.h in Headers */,
-				B1D6262E2A9BD3BF2D9FDFF8755A23F1 /* WZMLogTableViewCell.h in Headers */,
-				DC9113D2EBCE243EEB84FBA9CD54DA23 /* WZMLogView.h in Headers */,
-				51742607CF23D99759DEA1CA1828A968 /* WZMMacro.h in Headers */,
-				9183017F6B5AF5034C58462568B42638 /* WZMNavControllerAnimator.h in Headers */,
-				4EBC7DCFC67ABE42B12F26A87ECB2543 /* WZMNetWorking.h in Headers */,
-				25471BEFE0B63BAC47388A03491F740C /* WZMNSHandle.h in Headers */,
-				40997B64FFF9EC777D302A56F80DCC2D /* WZMPanGestureRecognizer.h in Headers */,
-				84056B049C95FB3D68903415F1B61CA6 /* WZMPhoto.h in Headers */,
-				8B74206C2F04C304F39F95B4DC6AC3E3 /* WZMPhotoBrowser.h in Headers */,
-				8A9B27170598ADA595DADCEBC0487D8B /* WZMPhotoBrowserCell.h in Headers */,
-				C17D7DBE27D786CC72CC23266FF13949 /* WZMPlayer.h in Headers */,
-				C7F6C215BB24AAB84131FD13341EEA99 /* WZMPlayerItem.h in Headers */,
-				254E11CABB7D1D11F24104B88D75FE13 /* WZMPlayerView.h in Headers */,
-				65D93D95ECE0895C33873481DBD6E50B /* WZMPopAnimation.h in Headers */,
-				0DDF74151516977BD1123A5B3296B31E /* WZMPopupAnimator.h in Headers */,
-				1BA4D504E0B5FAF62CD77E4CAC737EFA /* WZMPresentAnimation.h in Headers */,
-				6FD49DD4F3E037DCB725933F8EE39B77 /* WZMPrivacyAlertController.h in Headers */,
-				C35733377E7C55C780589A811B1C793C /* WZMProgressHUD.h in Headers */,
-				8932142CA33A8C74B4FB8D6072119B56 /* WZMPublic.h in Headers */,
-				9C894508553DE6C6FCEA0253A429F480 /* WZMPushAnimation.h in Headers */,
-				CD63D193ACD5059B9229705732C26A4C /* WZMReaction.h in Headers */,
-				E70D7FBD586902496EA3F7789AA75A99 /* WZMReactionManager.h in Headers */,
-				C5448D9C74C7E81116EF3163D7A5B8AC /* WZMRefresh.h in Headers */,
-				62F1B7C202BE8D4707AA83B46805B75F /* WZMRefreshComponent.h in Headers */,
-				7970924518500A79C6DD1207F7BF67FC /* WZMRefreshFooterView.h in Headers */,
-				829B7EA344B7D91A37EC13FD33FB5B52 /* WZMRefreshHeaderView.h in Headers */,
-				E823F7DEDEE01B9B70584753A32C52F8 /* WZMRefreshHelper.h in Headers */,
-				B35989659AD94A186A75E7BF7D7FBD22 /* WZMScannerViewController.h in Headers */,
-				8D5A76BFEE91A49C1DA33E695D52266D /* WZMScrollImageView.h in Headers */,
-				1329DC80071059A19B8D5A93DA421294 /* WZMSegmentedCell.h in Headers */,
-				A82BE916A5B06186B3A603AB17F28E9E /* WZMSegmentedView.h in Headers */,
-				05EB8580E26C59B2B1B0653ABEFFE9B9 /* WZMSelectedView.h in Headers */,
-				4107ECE7EEE8A9B6CCCC04085275F5E7 /* WZMSendEmail.h in Headers */,
-				4AF9F2CF7A38DE0177D006F11F194453 /* WZMSignalException.h in Headers */,
-				E5F158262222FC575B207F51D610A9CC /* WZMSingleRotationGestureRecognizer.h in Headers */,
-				8B68E5EB5073F563342793B2D802EE2F /* WZMSliderView.h in Headers */,
-				FC22E567DAAA1B23159F894D1735DBFD /* WZMSliderView2.h in Headers */,
-				0FBECC2A1EAEEBBE2AA8643677E55879 /* WZMSqliteManager.h in Headers */,
-				7935CB7DD655E107C6FB442D45457EAD /* WZMTextInfo.h in Headers */,
-				EF3CD108EF6CCBD9480F73F4D0A17840 /* WZMUncaughtException.h in Headers */,
-				003458F6D6A9722F0E8C51CBFDA28411 /* WZMVideoKeyView.h in Headers */,
-				39355D271A9947E165348C0DBE312087 /* WZMVideoKeyView2.h in Headers */,
-				513DC7C83A574BA13CE29C92B7086A55 /* WZMVideoPlayerView.h in Headers */,
-				7C88366FD758B701725737BD8A23F738 /* WZMVideoPlayerViewController.h in Headers */,
-				30F7402FC5860CC60017EA3DC74D0DD8 /* WZMViewControllerAnimator.h in Headers */,
-				9D2EEBA07DF177D078815C62DCC36066 /* WZMViewHandle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1949,11 +1953,11 @@
 /* Begin PBXNativeTarget section */
 		09DBC00BDB18B603B87BD98A54A4F03E /* WZMKit-WZMKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E5036F298762A8F1BEA5011AF174621B /* Build configuration list for PBXNativeTarget "WZMKit-WZMKit" */;
+			buildConfigurationList = DBCA5A192FDA9B20E5A8942CCB95C40E /* Build configuration list for PBXNativeTarget "WZMKit-WZMKit" */;
 			buildPhases = (
-				F6BD729A911CE52559D39D486194EBC5 /* Sources */,
-				E4E90AF35E1EE83FD0361281D4C5E9E8 /* Frameworks */,
-				EE2F17F75145925D738F270AA8B3AB57 /* Resources */,
+				60BC6F5120FE1C2488B96FB7CCAEA777 /* Sources */,
+				7DDC1B54DEB0B1988833B95BDC277BC2 /* Frameworks */,
+				BB34A4A2107F1AD7D25DDE7535117E42 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -2004,17 +2008,17 @@
 		};
 		53B08DDF6978FCBCD40757E0B061A17B /* WZMKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A49447DAC781522BE94170D9F0B4F58B /* Build configuration list for PBXNativeTarget "WZMKit" */;
+			buildConfigurationList = 3AEEA008FBF67934898D85F56D9BC071 /* Build configuration list for PBXNativeTarget "WZMKit" */;
 			buildPhases = (
-				B7EDE4A91B6017F7C0F5875142B1392C /* Headers */,
-				6B69C195DBFE962A9DFB98D7EC4A2AA7 /* Sources */,
-				D09061B41CBB6CD9D28A8A0B47A7704B /* Frameworks */,
-				25F2849D86EDEE8AE6CD3A9225E1A856 /* Resources */,
+				495A0D91641B5F6F137732DA021A28FE /* Headers */,
+				97AD8A8847EAB495BD1F60CE8D57CF4B /* Sources */,
+				91F62A37CC2AAB7BFF1C19C9ABF2C6A3 /* Frameworks */,
+				89A56C6B7DC47BCFF431013C59300C1C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9F53D76C2E048E9A9A7560B901F559E8 /* PBXTargetDependency */,
+				DEDD4621887BEA04517525BE86097D5B /* PBXTargetDependency */,
 			);
 			name = WZMKit;
 			productName = WZMKit;
@@ -2059,11 +2063,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		25F2849D86EDEE8AE6CD3A9225E1A856 /* Resources */ = {
+		89A56C6B7DC47BCFF431013C59300C1C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ED7B7D945D630EA63608A67C9BC7D57 /* WZMKit.bundle in Resources */,
+				72D2303B2212F696BDD92FD114162198 /* WZMKit.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB34A4A2107F1AD7D25DDE7535117E42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60E9FB390CE22EDC7EFC69256C1F4AA5 /* WZMResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2074,144 +2086,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE2F17F75145925D738F270AA8B3AB57 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				20CEDC5DB39849412ABE716165F86446 /* WZMResources.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6B69C195DBFE962A9DFB98D7EC4A2AA7 /* Sources */ = {
+		60BC6F5120FE1C2488B96FB7CCAEA777 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F305AE0F1E0497FCA236A690EEC2A98E /* NSArray+wzmcate.m in Sources */,
-				C6103AD5E1A8A66DA8158DAC92387F3A /* NSAttributedString+wzmcate.m in Sources */,
-				BB096F949EE6A410B1E0ED70E7301008 /* NSData+wzmcate.m in Sources */,
-				4487B8F5259AAFFC86170DAD17AD2B96 /* NSDate+wzmcate.m in Sources */,
-				76A93CB7EC94C80AE7685CA462D3A5DF /* NSDateFormatter+wzmcate.m in Sources */,
-				8D40EF2223F709A19EE3650B6A71BF67 /* NSDictionary+wzmcate.m in Sources */,
-				68BB7BA58C972C7EB2A33A23DB50EBF4 /* NSNull+wzmcate.m in Sources */,
-				606BB9986D52AF0CEA1DDF461CEAB095 /* NSObject+wzmcate.m in Sources */,
-				8DBA9969452E173E75323A2B24D3C775 /* NSObject+WZMReaction.m in Sources */,
-				9F82C1CB5BF9D6CFED9BB531EC29615A /* NSString+wzmcate.m in Sources */,
-				F7ECCC0A68B6C67434BE8B2D55BBADA1 /* UIAlertView+WZMReaction.m in Sources */,
-				8922E6A9C288676BFDF8B91C92757439 /* UIButton+wzmcate.m in Sources */,
-				CCF6C1DC5BE97735B59EA995BCAD4730 /* UIButton+WZMReaction.m in Sources */,
-				A34584714BCEEC0D90C086189E687DCC /* UIColor+wzmcate.m in Sources */,
-				FBDAB96895A5AD613FD39ADF8E61032C /* UIFont+wzmcate.m in Sources */,
-				723DD7F97DB08C186404DDC006BA6EB8 /* UIImage+wzmcate.m in Sources */,
-				C997B4FA21FC3EA770809CDFB3135A74 /* UIImageView+wzmcate.m in Sources */,
-				AA39480745131E599B4C6E267BA1093C /* UILabel+wzmcate.m in Sources */,
-				08FFC602E1D4A21F13DFE6C5A7F47DD9 /* UINavigationBar+wzmcate.m in Sources */,
-				12AD00718204834DB8BE93471B7DF1E8 /* UINavigationController+WZMNavAnimation.m in Sources */,
-				DBF8142A22E1A1760788FBF0237D8A07 /* UIScrollView+wzmcate.m in Sources */,
-				E89283142234AAAC2F0BC04622CC6350 /* UIScrollView+WZMReaction.m in Sources */,
-				DDD645FEAE384E8B87E7D4C68A8567F1 /* UIScrollView+WZMRefresh.m in Sources */,
-				1F2B3F7400E2C0D5CF5456992BB5FD9A /* UIScrollView+WZMRefresh_0.m in Sources */,
-				C3A7DC7B3F43E247C6BAB739A0CA754D /* UITableView+wzmcate.m in Sources */,
-				9ED7722E8D1D53C1848C867C4ED712EE /* UITextField+wzmcate.m in Sources */,
-				099497B658B4D824E873855B136FE7E0 /* UITextField+WZMReaction.m in Sources */,
-				4F4250CD8A00696B1557C1F9762B1322 /* UITextView+wzmcate.m in Sources */,
-				A841A350C04BD141FFE52E031497C349 /* UITextView+WZMReaction.m in Sources */,
-				9A0CB6C7B7D855E37ABB55D62909AAC8 /* UIView+wzmcate.m in Sources */,
-				D801F7B16796DCFDE63FBE93EDBBAC2F /* UIView+WZMReaction.m in Sources */,
-				B1BA897A7E8B44B69D49943B3B72F547 /* UIViewController+wzmcate.m in Sources */,
-				7B93B1E505DA7C2A7AD5F5F93D7E0F99 /* UIViewController+WZMModalAnimation.m in Sources */,
-				A6F29360548D651073B75D8D9A594D71 /* UIWindow+wzmcate.m in Sources */,
-				B9DE15F782C5CB3606A1F94D9D4A9872 /* UIWindow+WZMTransformAnimation.m in Sources */,
-				FC03F3E9B69B1AA72E979A619994C924 /* WZMActionSheet.m in Sources */,
-				8E3948D347C87529671467F241E405F9 /* WZMAlbumCell.m in Sources */,
-				973DC8E4B18A82759FD54F4490620436 /* WZMAlbumConfig.m in Sources */,
-				665717D6C2945D8D101E060182132532 /* WZMAlbumController.m in Sources */,
-				A45279FCFD453B8A266E524D53634897 /* WZMAlbumHelper.m in Sources */,
-				0415E43BF9B50F85DA11CAEFED8562C6 /* WZMAlbumListCell.m in Sources */,
-				E1156055DD75F63DCC466CFA2DCD4E63 /* WZMAlbumModel.m in Sources */,
-				0CA543839C73D44758A63C38DD2DD660 /* WZMAlbumNavigationController.m in Sources */,
-				E3640CF9A110E74FB756EA3DC9709EAC /* WZMAlbumPhotoModel.m in Sources */,
-				CBB54BA4576C0BDFCAE959CABB55D70D /* WZMAlbumView.m in Sources */,
-				F3E0ED35C0C752DBB0EF9D911C71E18A /* WZMAlertView.m in Sources */,
-				6521D5065A81C6D7B3B92D68D5B3D5C9 /* WZMAnimationNumItemView.m in Sources */,
-				D4B77E9A423099D14C02428CA66353D8 /* WZMAnimationNumView.m in Sources */,
-				D83159BECA05759A4758D4C09B398377 /* WZMAppJump.m in Sources */,
-				39EC27E8E0DD67BC7405FBB52DDFAEBB /* WZMAppStore.m in Sources */,
-				1E493EA8ACED088D0B19404CCCF23FF4 /* WZMAudioRecorder.m in Sources */,
-				A53959A021052820B25F46393269AB48 /* WZMAutoHeader.m in Sources */,
-				25D76173D398F4CA1CEBAAA9A379E010 /* WZMBase64.m in Sources */,
-				918EE5A70C30ED6AC7E5C1BC68C551AD /* WZMBaseComponent.m in Sources */,
-				9FDD86E68D05C7DFD00D25C3B759D380 /* WZMBaseFooterView.m in Sources */,
-				C57EE38A6B34240C8470C3224C5D7E07 /* WZMBaseHeaderView.m in Sources */,
-				47A9A4A442797FF4D3F2C68811B922C5 /* WZMBezierView.m in Sources */,
-				33CC5C06488B035A489FB26F0DEA3B08 /* WZMButton.m in Sources */,
-				D752CF9D0C325E5F261C26C857526230 /* WZMCamera.m in Sources */,
-				62C9DB768D62982A240D120B1A43EAA3 /* WZMCatchStore.m in Sources */,
-				ADA3D9A88E0C9676AAE8D37ED87BA41B /* WZMClipTimeView.m in Sources */,
-				457E28013501F330DF0C5124A690D8D5 /* WZMCycleView.m in Sources */,
-				BEBD8F43E9B99CD12B48A40CB54645BA /* WZMDeviceUtil.m in Sources */,
-				092FD1F4986AED9B5B1551BF0B525EBD /* WZMDismissAnimation.m in Sources */,
-				2A9F6DABA2711CFBB4862434C31F79AA /* WZMDismissInteractiveTransition.m in Sources */,
-				53B651BEF8682A283A9826225EA271FE /* WZMDispatch.m in Sources */,
-				9DA8BD07A4D11D8B48419B2F8C68BE4C /* WZMDottedView.m in Sources */,
-				9050627E624DFB93C31DB231B5C4F9C7 /* WZMDownloader.m in Sources */,
-				3D03F6DABB6AC06EA0DE7B81EB55184A /* WZMDrawView.m in Sources */,
-				E9111929906E32CB022E3CCD0362B3F7 /* WZMFileManager.m in Sources */,
-				28F906D036CC02C39E6C26B74BD671F1 /* WZMFontManager.m in Sources */,
-				10150A6B5BEE042E67ADC3004829AF5D /* WZMFontView.m in Sources */,
-				1375AE873670F7713FA344A4864538F1 /* WZMFooterView_0.m in Sources */,
-				1196115535B3F8C2EB41C603E25C1D55 /* WZMGifImageView.m in Sources */,
-				21DDBB86F21FA585616E1FDEE97E465A /* WZMHeaderView_0.m in Sources */,
-				DADEBEA0CC2C785CE31EC7B5C81871D4 /* WZMImageCache.m in Sources */,
-				90A7AF4039F1DD1255EFCA215D565087 /* WZMJSONParse.m in Sources */,
-				BB3671A7D088D0FEA86FE06630C4E46B /* WZMKit-dummy.m in Sources */,
-				7E14364F314E85D4B6C1E11F607E33EE /* WZMLocationManager.m in Sources */,
-				91BA95CDA12550EC6AEAB20F12276676 /* WZMLogModel.m in Sources */,
-				E79F0EA044A2A228D16189E1FB78B3AB /* WZMLogPrinter.m in Sources */,
-				9305E4A28143AE15ED2FF598BA61E7AA /* WZMLogTableViewCell.m in Sources */,
-				A261322FFE3364C748D76A25958BDFC1 /* WZMLogView.m in Sources */,
-				193B7E3BF2FD1BE52B293DC06FB7DAA1 /* WZMNavControllerAnimator.m in Sources */,
-				CC67C9994EAD194FC90C56E7383FD7E5 /* WZMNetWorking.m in Sources */,
-				E1E7DA507A86543706E325F7BA1BCC2C /* WZMNSHandle.m in Sources */,
-				76C74EC1900928A8FFD69384AE901655 /* WZMPanGestureRecognizer.m in Sources */,
-				D17F9DDF8DE8E3822CA6AEE7ADAE87BF /* WZMPhoto.m in Sources */,
-				3E08668EC861868C46ED3285A74B48AE /* WZMPhotoBrowser.m in Sources */,
-				0954A822B69F0D06388E95545335447E /* WZMPhotoBrowserCell.m in Sources */,
-				C31AADDB8AB3570313C36A5A9BF98FBC /* WZMPlayer.m in Sources */,
-				6E6964F0ECA78CE7CB56B89EF0A758F5 /* WZMPlayerItem.m in Sources */,
-				1ACA1CB4201938AC4C83B17B4018F8AF /* WZMPlayerView.m in Sources */,
-				BA36A4BAEC3A25AA8095FD7CBC791682 /* WZMPopAnimation.m in Sources */,
-				20565262AD3AAF2DDD7F88705092C596 /* WZMPopupAnimator.m in Sources */,
-				C6AF6E821FDF29974BF675C9A22CDA06 /* WZMPresentAnimation.m in Sources */,
-				30A420E6DF220213AAAAB4B9009C6AE8 /* WZMPrivacyAlertController.m in Sources */,
-				6520198BDCECC122B8627F3544CC37D7 /* WZMProgressHUD.m in Sources */,
-				E1CF95DA921F4356265FE7FFD0C441BB /* WZMPublic.m in Sources */,
-				404D3836FF457839F86F38D81DC6DA65 /* WZMPushAnimation.m in Sources */,
-				C9196CDDDC44AD991AD9AAFB0B13BE10 /* WZMReactionManager.m in Sources */,
-				B31E9553347DAE561547FF85D903F9E3 /* WZMRefreshComponent.m in Sources */,
-				BC71B1BCA53391E69A85C9912B0CCB5B /* WZMRefreshFooterView.m in Sources */,
-				0A5FB5571A7FB7474942B5BB3CFBE2BA /* WZMRefreshHeaderView.m in Sources */,
-				70C317091E9047595761CBDCA87D1CDC /* WZMRefreshHelper.m in Sources */,
-				63D2FB2AEDE6779463311F41BE0468E0 /* WZMScannerViewController.m in Sources */,
-				8D057BD1C31C826BEA6FA0D9BA969674 /* WZMScrollImageView.m in Sources */,
-				2944146951FD81E02C6E6D5D67D402C9 /* WZMSegmentedCell.m in Sources */,
-				91EF35F70696038DD4DF3B3AD5975F0E /* WZMSegmentedView.m in Sources */,
-				98F05024E1025910C7302A3D50A3F12C /* WZMSelectedView.m in Sources */,
-				A8A5500D52FADAEF21BB0355A0F9DE7A /* WZMSendEmail.m in Sources */,
-				514BA59A67E73B5E0476D2600DB678E6 /* WZMSignalException.m in Sources */,
-				60E7E686DDFBF17267B6CB4EAA1B34A2 /* WZMSingleRotationGestureRecognizer.m in Sources */,
-				D31B1B0BDB90CB0712727316F881DF34 /* WZMSliderView.m in Sources */,
-				235A3A415EC49903861DE6F9CC4F5147 /* WZMSliderView2.m in Sources */,
-				5742E46790A26831E681D353FCE612CF /* WZMSqliteManager.m in Sources */,
-				AC143FDA4A48A1ECB426F3BD591CC0F0 /* WZMUncaughtException.m in Sources */,
-				5EAFD9424FBD4B63422D80E4B38FF393 /* WZMVideoKeyView.m in Sources */,
-				A11E90B4400A7F7F2F7AECF662FA3171 /* WZMVideoKeyView2.m in Sources */,
-				49B159969F6ED69EFF14E26E258EAB96 /* WZMVideoPlayerView.m in Sources */,
-				63E9D2D84E6B2125E5C28388CBDCDFA5 /* WZMVideoPlayerViewController.m in Sources */,
-				8862EF070AE05EBEA26472A8925E1ABD /* WZMViewControllerAnimator.m in Sources */,
-				F9E3C9C54FFF41E25343CD62FAF29F4A /* WZMViewHandle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2223,18 +2104,141 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97AD8A8847EAB495BD1F60CE8D57CF4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8750899DEE3A7E504591020080E34E07 /* NSArray+wzmcate.m in Sources */,
+				2FA1E35BF13B38172EBC1E72BE942BBE /* NSAttributedString+wzmcate.m in Sources */,
+				A566190102463A4B3992AA486747C21B /* NSData+wzmcate.m in Sources */,
+				74A9ACC4C525D2C09DB6F73C10233FD1 /* NSDate+wzmcate.m in Sources */,
+				FA759D8343D62F1E0F6407FDDC192F1D /* NSDateFormatter+wzmcate.m in Sources */,
+				CAA3F6762334D560AEEE8C7DF70A4B11 /* NSDictionary+wzmcate.m in Sources */,
+				BE0D771ECF18F115D0FBA98B6471C078 /* NSNull+wzmcate.m in Sources */,
+				8F31879C8FA260864E01E780035BFB01 /* NSObject+wzmcate.m in Sources */,
+				3078A4E987F013B6D19FF393C268B79B /* NSObject+WZMReaction.m in Sources */,
+				18597FEE1776BBD9A260100520F65D36 /* NSString+wzmcate.m in Sources */,
+				6BEE286E75EFB33634873F033757658B /* UIAlertView+WZMReaction.m in Sources */,
+				2639B7F40A436F2C7888540D3FEFE57E /* UIButton+wzmcate.m in Sources */,
+				57D6B802250ADE27AD841799DD70CD3C /* UIButton+WZMReaction.m in Sources */,
+				B54BC4C263976EF5142B15365A5750F7 /* UIColor+wzmcate.m in Sources */,
+				5D24D90B1CB25EEC0EB90F67834E1D39 /* UIFont+wzmcate.m in Sources */,
+				0FCD55489B095DB63B9B180174E4918D /* UIImage+wzmcate.m in Sources */,
+				3AB07A41762BF391133A066CEEC5ED28 /* UIImageView+wzmcate.m in Sources */,
+				EBAF88F23A375DC09F7E1DDDEEFB1FD1 /* UILabel+wzmcate.m in Sources */,
+				FF950FA80175CE5F134A0A87775D8D98 /* UINavigationBar+wzmcate.m in Sources */,
+				84C80570C7514858EB0BB3ACE606C7DA /* UINavigationController+WZMNavAnimation.m in Sources */,
+				F7281C262C4D96A9591F17D85376E482 /* UIScrollView+wzmcate.m in Sources */,
+				6A03BB315790B53B1087EDCBC1840E29 /* UIScrollView+WZMReaction.m in Sources */,
+				775925BF64C9536090F33CE11A6E350C /* UIScrollView+WZMRefresh.m in Sources */,
+				429BBE0CBFFFFFBA0400A6F9EEACF018 /* UIScrollView+WZMRefresh_0.m in Sources */,
+				E2899DCA1C2AB941B06363F5536F5CF0 /* UITableView+wzmcate.m in Sources */,
+				97ADBC822683BF80A4867F6A850D8915 /* UITextField+wzmcate.m in Sources */,
+				C5217CA1D333A0747CB205196F5D92CD /* UITextField+WZMReaction.m in Sources */,
+				0B637DFBB7FF192012811A77BF886038 /* UITextView+wzmcate.m in Sources */,
+				E4C44D84733BD60142D06E04FB9824B0 /* UITextView+WZMReaction.m in Sources */,
+				0347A223050AD73402B28F0441E3DCB7 /* UIView+wzmcate.m in Sources */,
+				0D6D94242104C684B6CA6CEF72853E39 /* UIView+WZMReaction.m in Sources */,
+				232EDA7E806EE11DC0C0AD21F155FDFC /* UIViewController+wzmcate.m in Sources */,
+				B4BE09938D8B30454CA86A9205D1C442 /* UIViewController+WZMModalAnimation.m in Sources */,
+				1AB7BEE46ED5AB64BD7C1391BFC78356 /* UIWindow+wzmcate.m in Sources */,
+				51B9A20B7ACFD9C0362329A0C9357BB4 /* UIWindow+WZMTransformAnimation.m in Sources */,
+				D0CE63363436E1EB321CEB9FAE7FAEE4 /* WZMActionSheet.m in Sources */,
+				7ED1E48C9E0D696F771A0A8894433E6B /* WZMAlbumCell.m in Sources */,
+				D75059E197B7D3060911DC6854A4FEB8 /* WZMAlbumConfig.m in Sources */,
+				A3A65B322BBB54A3A2572357E7331BFF /* WZMAlbumController.m in Sources */,
+				A3817A208C13304F50DBF76F04E687EC /* WZMAlbumHelper.m in Sources */,
+				1FBAEFD061C95EB19AED3E486F5E23DE /* WZMAlbumListCell.m in Sources */,
+				767149EB475DAAE5DE5914BE17E417EC /* WZMAlbumModel.m in Sources */,
+				2419969A354823391D154F7518CA4262 /* WZMAlbumNavigationController.m in Sources */,
+				D4E371B46402499A536008D5CC8C85BA /* WZMAlbumPhotoModel.m in Sources */,
+				748DB3CED58BC8C2D2680924FD994F70 /* WZMAlbumView.m in Sources */,
+				A11CC9E588117C6DBF3E38091EA1DB89 /* WZMAlertView.m in Sources */,
+				A67D944DA74A857CF6E2AEED513D0728 /* WZMAnimationNumItemView.m in Sources */,
+				E0C0806394FCC6ACF0ADFA3A8C6E16F3 /* WZMAnimationNumView.m in Sources */,
+				44A3B754BEF11A65D5442DE321885CC8 /* WZMAppJump.m in Sources */,
+				430F438CFD6027D5A280C578A28BC9B9 /* WZMAppStore.m in Sources */,
+				426E0FD59CB93F4F7B5055E68DB80EA9 /* WZMAudioRecorder.m in Sources */,
+				7C1AEAB4701F5DE7CC15CA1673F29673 /* WZMAutoHeader.m in Sources */,
+				5CD13DFB21BEF472419E3222BB12D5D7 /* WZMBase64.m in Sources */,
+				2C6F351F17641F107F7FB6E2F2464B61 /* WZMBaseComponent.m in Sources */,
+				A88DB0430251E76AF4D540F491F0915A /* WZMBaseFooterView.m in Sources */,
+				5D38F9652D6DA2CFCBD5B0B179B12945 /* WZMBaseHeaderView.m in Sources */,
+				6A034AAC1DFC2340E64BB258246D5108 /* WZMBezierView.m in Sources */,
+				FFC90C807F01D8DFE5B362538248B3C2 /* WZMButton.m in Sources */,
+				6362766CFEA73D9B03B7390F6F5F013F /* WZMCamera.m in Sources */,
+				406BD4A6E5143F888DD7DC5C163219B9 /* WZMCatchStore.m in Sources */,
+				2B119EB2975696631F8E018E75E450AB /* WZMClipTimeView.m in Sources */,
+				2092AD3EF7271C0FD343EA3DF73A7E63 /* WZMCycleView.m in Sources */,
+				325FB8E4A0A6C67FEBAD666C6C41C476 /* WZMDeviceUtil.m in Sources */,
+				F8B8F6E1BF793464594DC4CBBF72EE46 /* WZMDismissAnimation.m in Sources */,
+				A08CB7DB96FCA70B6D785565667E8D8F /* WZMDismissInteractiveTransition.m in Sources */,
+				67839D9445BB379868DACD73CD1463FD /* WZMDispatch.m in Sources */,
+				B34201AE8B24B2CBB5BCD66487D4F4C5 /* WZMDottedView.m in Sources */,
+				600F7E28B900621CD5B79D27013B23E0 /* WZMDownloader.m in Sources */,
+				2913A6D6F1DE56DDF2BBDF156CA9E3A1 /* WZMDrawView.m in Sources */,
+				3D57639FF407E9D8A14E45865427CC0F /* WZMFileManager.m in Sources */,
+				56EBC0917E24A2EC5EDFD8CBF7DCE260 /* WZMFontManager.m in Sources */,
+				964EF3119A3FAE506FB9A8C13C3EBC51 /* WZMFontView.m in Sources */,
+				C2909E140AEF7409B7B0FCF9BBD3395F /* WZMFooterView_0.m in Sources */,
+				2A9D31445373A69A6DB7D99A6F267C47 /* WZMGifImageView.m in Sources */,
+				8FC0978962304DF1EA16D49B3070BA06 /* WZMHeaderView_0.m in Sources */,
+				9EC1C26912E16AC9B06C1FD47A1C360E /* WZMImageCache.m in Sources */,
+				FFE20D3F5F2435C886B212ACEB116799 /* WZMJSONParse.m in Sources */,
+				0FC36791D03FC6979047EA99AE3DD1A5 /* WZMKit-dummy.m in Sources */,
+				5CC65F340EF6CE5BD216E4042E7E0683 /* WZMLocationManager.m in Sources */,
+				F37F0C15C0D662EAFCB4703450E110F6 /* WZMLogModel.m in Sources */,
+				E84B264E695505AB03B130C759C3AC89 /* WZMLogPrinter.m in Sources */,
+				C806411E7BC9BFE0E3C03C3000135500 /* WZMLogTableViewCell.m in Sources */,
+				F76DFB82BE5DA716946873F1FF65C94A /* WZMLogView.m in Sources */,
+				3C6B3477102D8FC0C6B5C1C68E99A3D9 /* WZMNavControllerAnimator.m in Sources */,
+				A0B1E5DB9AE8775267568B583ADF9514 /* WZMNetWorking.m in Sources */,
+				59E22367ECBFA063BC1BF8872332C87F /* WZMNSHandle.m in Sources */,
+				04209D76BB69602D0F6A10452582D38A /* WZMPanGestureRecognizer.m in Sources */,
+				B12EF7E12BA7998ED1E70324D4D0DF4B /* WZMPhoto.m in Sources */,
+				164D04C2F732BB6352D3D538B9D98F4F /* WZMPhotoBrowser.m in Sources */,
+				CFB320AB45885CA9480D3B7935AE1139 /* WZMPhotoBrowserCell.m in Sources */,
+				C6EC89D5B6A15C3E4E99D0BE5F5323F7 /* WZMPlayer.m in Sources */,
+				52694BA3973DBAC5D70B1A2F9305522F /* WZMPlayerItem.m in Sources */,
+				6CED36F79A86271DAD35874B029A3203 /* WZMPlayerView.m in Sources */,
+				99D27FC3B45655C5320C6641216499B8 /* WZMPopAnimation.m in Sources */,
+				E70C9E1B8E0F4D97F35336CD7A3DF154 /* WZMPopupAnimator.m in Sources */,
+				E86C5D92F3A7D66DA28A4E2519C6A4FF /* WZMPresentAnimation.m in Sources */,
+				CCC9D2D1554241DAF741F65DFEF57803 /* WZMPrivacyAlertController.m in Sources */,
+				CCB99DF134CC72A14B578705E613D902 /* WZMProgressHUD.m in Sources */,
+				D78508EC48ED8742E28BD40BE6E58D3A /* WZMPublic.m in Sources */,
+				E850E9C06E304566A669BA421490F355 /* WZMPushAnimation.m in Sources */,
+				1F2AEA82F1139F233EB274E7B379B863 /* WZMReactionManager.m in Sources */,
+				CD44A7360C3DE3EDAFF7218A16EAE9BB /* WZMRefreshComponent.m in Sources */,
+				DE67AB7DBDD9D546467DB70D15380CA1 /* WZMRefreshFooterView.m in Sources */,
+				0AF555F2A22F1F6CA40ACA560C8A36EA /* WZMRefreshHeaderView.m in Sources */,
+				18373357762AFF3BB831A7DF239857F1 /* WZMRefreshHelper.m in Sources */,
+				67A3CDDAE621824D06ADAEE9CAC3AE85 /* WZMScannerViewController.m in Sources */,
+				B5D440612779400F7C6DB4194482A932 /* WZMScrollImageView.m in Sources */,
+				6DACA165E072F8F8D6162596F3831EB3 /* WZMSegmentedCell.m in Sources */,
+				5A94A73BAC7FF5BC84D0DB99589C4741 /* WZMSegmentedView.m in Sources */,
+				37A7C3FB301854D40084E5F4926E2C16 /* WZMSelectedView.m in Sources */,
+				1808640AA9D83486D35296BFC36BC98E /* WZMSendEmail.m in Sources */,
+				9AA94484770284DE7BBD539584DD139D /* WZMSignalException.m in Sources */,
+				D0011D3CC8BE09EE57AD20763E572622 /* WZMSingleRotationGestureRecognizer.m in Sources */,
+				8A1682222672DC3A02563E13868558C1 /* WZMSliderView.m in Sources */,
+				B6AFBE43EA2E3AC9E7BA4BEEC204E73B /* WZMSliderView2.m in Sources */,
+				A070E13F7FC30CF6545E13FFF92D63F7 /* WZMSqliteManager.m in Sources */,
+				9A5B11DFD4895265A6FDB96EB885CEED /* WZMUncaughtException.m in Sources */,
+				7A4FCEEEA367F49CEEED8B2D7BC27D50 /* WZMVideoKeyView.m in Sources */,
+				9CE66F260C9B7156425DF330CEAD5F18 /* WZMVideoKeyView2.m in Sources */,
+				A030251966C8EC0027348C72D4387CFF /* WZMVideoPlayerView.m in Sources */,
+				8F48A155BA5F7958989C4DA67B8F5C84 /* WZMVideoPlayerViewController.m in Sources */,
+				A00B66688CCAF7A30547A8D53870996C /* WZMViewControllerAnimator.m in Sources */,
+				39B37969C410C89769ED24499AC7F08B /* WZMViewHandle.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E5D5AB9AE701F2438338B789E685C042 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C5672FFC48E24338E6951904DA8E4DA0 /* Pods-WZMKit_Example-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F6BD729A911CE52559D39D486194EBC5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2247,17 +2251,17 @@
 			target = 4EB0DE7F1E4BDCAEE3771F3E12846A99 /* Pods-WZMKit_Example */;
 			targetProxy = AD6B59A4E1F1E2E10C074B338281EB9B /* PBXContainerItemProxy */;
 		};
-		9F53D76C2E048E9A9A7560B901F559E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "WZMKit-WZMKit";
-			target = 09DBC00BDB18B603B87BD98A54A4F03E /* WZMKit-WZMKit */;
-			targetProxy = 089A94385AECFE95E15E66294EFAF300 /* PBXContainerItemProxy */;
-		};
 		A6681DA226ECF27D6CF6C218EE378FBD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = WZMKit;
 			target = 53B08DDF6978FCBCD40757E0B061A17B /* WZMKit */;
 			targetProxy = C4875E8C824478F9EB57383B3A86E8A6 /* PBXContainerItemProxy */;
+		};
+		DEDD4621887BEA04517525BE86097D5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "WZMKit-WZMKit";
+			target = 09DBC00BDB18B603B87BD98A54A4F03E /* WZMKit-WZMKit */;
+			targetProxy = E23A101ABC800390416617B8E5E95BBE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2293,23 +2297,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		418296406FBC73B017ABDF98739851D5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/WZMKit";
-				IBSC_MODULE = WZMKit;
-				INFOPLIST_FILE = "Target Support Files/WZMKit/ResourceBundle-WZMKit-WZMKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = WZMKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -2373,7 +2360,7 @@
 			};
 			name = Release;
 		};
-		5B07B812C809932C6EBF80805830E920 /* Release */ = {
+		6FA8376717438D53F92FB09909A7583C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
 			buildSettings = {
@@ -2404,37 +2391,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		60A712E423934893B2CA91AA05EFCCA9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/WZMKit/WZMKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/WZMKit/WZMKit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/WZMKit/WZMKit.modulemap";
-				PRODUCT_MODULE_NAME = WZMKit;
-				PRODUCT_NAME = WZMKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		725AB2A3F8132A7C81E506DC21ADE5CE /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2469,6 +2425,37 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		79D7BF7C02709D4F39DFE89427E0B58D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/WZMKit/WZMKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/WZMKit/WZMKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/WZMKit/WZMKit.modulemap";
+				PRODUCT_MODULE_NAME = WZMKit;
+				PRODUCT_NAME = WZMKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2534,6 +2521,23 @@
 			};
 			name = Debug;
 		};
+		B36C1D5836C983D39E8ADCE8BAA343CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/WZMKit";
+				IBSC_MODULE = WZMKit;
+				INFOPLIST_FILE = "Target Support Files/WZMKit/ResourceBundle-WZMKit-WZMKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = WZMKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		B822E953D5966FBEBC61FDA8A8442659 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2456945AFC4E87DF1D2D94AAC3DAEC36 /* Pods-WZMKit_Tests.debug.xcconfig */;
@@ -2567,7 +2571,7 @@
 			};
 			name = Debug;
 		};
-		DCFAAD875FA35546C5DA01C00683FFA1 /* Debug */ = {
+		CD8D7F28334E5729820B53333AE71AA4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3C4A1433C84E6816EF7AD14DC1589A7D /* WZMKit.xcconfig */;
 			buildSettings = {
@@ -2582,7 +2586,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
 			};
-			name = Debug;
+			name = Release;
 		};
 		DD6B02D3B3621CCE7BF1F9754AC485F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2620,6 +2624,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3AEEA008FBF67934898D85F56D9BC071 /* Build configuration list for PBXNativeTarget "WZMKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79D7BF7C02709D4F39DFE89427E0B58D /* Debug */,
+				6FA8376717438D53F92FB09909A7583C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2629,20 +2642,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A49447DAC781522BE94170D9F0B4F58B /* Build configuration list for PBXNativeTarget "WZMKit" */ = {
+		DBCA5A192FDA9B20E5A8942CCB95C40E /* Build configuration list for PBXNativeTarget "WZMKit-WZMKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				60A712E423934893B2CA91AA05EFCCA9 /* Debug */,
-				5B07B812C809932C6EBF80805830E920 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E5036F298762A8F1BEA5011AF174621B /* Build configuration list for PBXNativeTarget "WZMKit-WZMKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DCFAAD875FA35546C5DA01C00683FFA1 /* Debug */,
-				418296406FBC73B017ABDF98739851D5 /* Release */,
+				B36C1D5836C983D39E8ADCE8BAA343CF /* Debug */,
+				CD8D7F28334E5729820B53333AE71AA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -28,7 +28,7 @@
 #import <arpa/inet.h>
 //以下一个类是获取iPhone型号需要用
 #import "sys/utsname.h"
-
+#import "WZMDefined.h"
 
 @implementation WZMDeviceUtil
 
@@ -66,6 +66,7 @@ char* printEnv(void){
  判断系统是否允许应用接收推送消息
  */
 + (BOOL)checkRemoteNotificationIsAllowed {
+#if WZM_APP
     if ([self getDeviceSystemMajorVersion] >= 8.0) {//iOS8
         UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
         if (UIUserNotificationTypeNone != setting.types) {
@@ -80,6 +81,8 @@ char* printEnv(void){
             return YES;
 #pragma clang diagnostic pop
     }
+    return NO;
+#endif
     return NO;
 }
 
@@ -178,7 +181,9 @@ char* printEnv(void){
 }
 
 + (void)isLockScreenDisabled:(BOOL)disabled {
+#if WZM_APP
     [[UIApplication sharedApplication] setIdleTimerDisabled:disabled];
+#endif
 }
 
 ///CPU使用量
@@ -311,7 +316,7 @@ char* printEnv(void){
  获取当前网络状态
  */
 + (NSString *)netStatus {
-    
+#if WZM_APP
     NSArray *subviews = [[self value:[UIApplication sharedApplication]] subviews];
     
     int type = 0;
@@ -327,6 +332,8 @@ char* printEnv(void){
         case 5: return @"WIFI";
         default: return @"unknown";
     }
+#endif
+    return @"";
 }
 
 + (id)value:(id)value {
@@ -371,10 +378,12 @@ char* printEnv(void){
 }
 
 + (void)openAPPSetting{
+#if WZM_APP
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
+#endif
 }
 
 @end

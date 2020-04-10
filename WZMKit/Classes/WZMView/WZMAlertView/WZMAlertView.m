@@ -12,6 +12,7 @@
 #import "NSString+wzmcate.h"
 #import "UIColor+wzmcate.h"
 #import "UIImage+wzmcate.h"
+#import "WZMDefined.h"
 
 @interface WZMAlertView(){
     doBlock  _OKBlock;
@@ -203,10 +204,12 @@
 }
 
 - (void)showAnimated:(BOOL)animated{
+#if WZM_APP
     [[UIApplication sharedApplication].delegate.window addSubview:self];
     if (animated) {
         [_alertView wzm_outFromCenterAnimationWithDuration:.35];
     }
+#endif
 }
 
 - (void)setCannelBlock:(doBlock)cannelBlock{

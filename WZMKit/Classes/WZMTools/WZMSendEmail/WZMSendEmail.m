@@ -9,6 +9,7 @@
 #import "WZMSendEmail.h"
 #import "WZMLogPrinter.h"
 #import "NSString+wzmcate.h"
+#import "WZMDefined.h"
 
 @implementation WZMSendEmail
 
@@ -23,7 +24,9 @@
         if (URL == nil) {
             URL = [NSURL URLWithString:[mailUrl wzm_getURLEncoded]];
         }
+#if WZM_APP
         [[UIApplication sharedApplication]openURL:URL];
+#endif
     }
 }
 
