@@ -91,7 +91,8 @@
 }
 
 - (void)showCompletion:(doBlock)completion {
-    [self showAnimationInView:WZM_WINDOW completion:completion];
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    [self showAnimationInView:window completion:completion];
 }
 
 - (void)showInView:(UIView *)aView completion:(doBlock)completion{

@@ -153,7 +153,7 @@
         hud.messageView.backgroundColor = hud.config.backgroundColor;
     }
     [hud addSubview:hud.messageView];
-    [WZM_WINDOW addSubview:hud];
+    [[UIApplication sharedApplication].delegate.window addSubview:hud];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:2];
@@ -198,7 +198,7 @@
         hud.progressView.backgroundColor = hud.config.backgroundColor;
     }
     [hud addSubview:hud.progressView];
-    [WZM_WINDOW addSubview:hud];
+    [[UIApplication sharedApplication].delegate.window addSubview:hud];
     [hud.progressView startAnimation];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];

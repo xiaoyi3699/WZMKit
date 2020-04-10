@@ -14,7 +14,6 @@
 #define WZM_IS_iPhone [[WZMPublic sharePublic] iPhone]
 #define WZM_LANGUAGE  ([[NSLocale preferredLanguages] objectAtIndex:0])
 
-#define WZM_WINDOW          [UIApplication sharedApplication].delegate.window
 #define WZM_SCREEN_BOUNDS   [[WZMPublic sharePublic] screenBounds]
 #define WZM_SCREEN_SCALE    [[WZMPublic sharePublic] screenScale]
 #define WZM_SCREEN_WIDTH    [[WZMPublic sharePublic] screenW]
