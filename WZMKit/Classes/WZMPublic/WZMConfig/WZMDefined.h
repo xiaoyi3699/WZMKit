@@ -8,6 +8,6 @@
 #ifndef WZMDefined_h
 #define WZMDefined_h
 
-#define WZM_APP 0
+#define WZM_APP 1
 
 #endif /* WZMDefined_h */

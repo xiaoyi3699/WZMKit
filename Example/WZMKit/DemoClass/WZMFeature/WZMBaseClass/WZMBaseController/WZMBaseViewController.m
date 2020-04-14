@@ -7,6 +7,7 @@
 //
 
 #import "WZMBaseViewController.h"
+#import "UIColor+wzmcate.h"
 #import "UINavigationController+wzmnav.h"
 
 @implementation UIViewController (WZMBaseViewController)

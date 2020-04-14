@@ -25,11 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"666.gif" ofType:nil];
-    WZMGifImageView *gifView = [[WZMGifImageView alloc] initWithFrame:CGRectMake(10, 100, 200, 200)];
-    gifView.gifData = [[NSData alloc] initWithContentsOfFile:path];
-    [self.view addSubview:gifView];
-    [gifView startGif];
 }
 
 @end

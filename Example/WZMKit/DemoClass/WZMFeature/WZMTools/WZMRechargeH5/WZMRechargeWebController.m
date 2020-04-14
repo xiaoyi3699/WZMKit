@@ -10,6 +10,10 @@
 #import "WZMRechargeModel.h"
 #import "WZMDefined.h"
 #import <WebKit/WebKit.h>
+#import "WZMViewHandle.h"
+#import "WZMNetWorking.h"
+#import "NSString+wzmcate.h"
+#import "WZMInline.h"
 
 #define myUrlSchemes @"wzmkit"
 #define paidNotificationKey @"paidNotification"

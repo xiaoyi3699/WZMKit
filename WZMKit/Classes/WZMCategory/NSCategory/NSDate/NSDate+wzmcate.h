@@ -27,7 +27,4 @@
 ///第一天是周几
 + (NSInteger)wzm_getFirstWeekdayByDate:(NSDate *)date;
 
-
-
-
 @end

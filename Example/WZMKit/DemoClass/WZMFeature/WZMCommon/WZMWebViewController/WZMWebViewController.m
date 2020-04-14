@@ -14,6 +14,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "WZMInline.h"
 #import "NSString+wzmcate.h"
+#import "UIColor+wzmcate.h"
 #import "WZMDefined.h"
 
 @interface WZMWebViewController ()<WKNavigationDelegate,WKUIDelegate,WZMScriptMessageHandler>
