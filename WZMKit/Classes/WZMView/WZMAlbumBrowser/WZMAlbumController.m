@@ -21,7 +21,11 @@
 #import "UIViewController+WZMModalAnimation.h"
 #import "WZMDefined.h"
 
+#if WZM_APP
 @interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
+#else
+@interface WZMAlbumController ()<UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
+#endif
 
 @property (nonatomic, assign) CGFloat navBarH;
 @property (nonatomic, strong) UIView *titleView;
@@ -282,6 +286,7 @@
 
 //相册权限
 - (void)checkAlbumAuthorization {
+#if WZM_APP
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized){//用户之前已经授权
         [self.albumView reloadData];
         [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
@@ -303,11 +308,14 @@
             });
         }];
     }
+#endif
 }
 
+#if WZM_APP
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+#endif
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

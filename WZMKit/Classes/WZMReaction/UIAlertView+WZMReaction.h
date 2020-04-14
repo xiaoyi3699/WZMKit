@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMReactionManager.h"
 
 @interface UIAlertView (WZMReaction)
@@ -15,3 +17,4 @@
 - (void)wzm_executeAlert:(alertAction)action;
 
 @end
+#endif

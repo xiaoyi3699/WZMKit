@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
+#import "WZMDefined.h"
 
 typedef void(^nextAction)(id param_);
+#if WZM_APP
 typedef void(^alertAction)(UIAlertView *alert_, NSInteger index_);
+#endif
 typedef void(^eventAction)(UIButton *button_, UIControlEvents event_);
 typedef void(^gestureAction)(UIView *view_, WZMGestureRecognizerType gesture_);
 typedef void(^scrollAction)(UIScrollView *scrollView_, WZMScrollType scrollType_);
@@ -20,10 +23,16 @@ typedef BOOL(^textFieldShouldChangeAction)(UITextField *textField_, NSRange rang
 typedef void(^textViewInputAction)(UITextView *textView_, WZMTextInputType textInput_);
 typedef BOOL(^textViewShouldAction)(UITextView *textView_, WZMTextShouldType textShould_);
 typedef BOOL(^textViewShouldChangeAction)(UITextView *textView_, NSRange range_, NSString *string_);
+#if WZM_APP
 @interface WZMReactionManager : NSObject<UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate,UIAlertViewDelegate>
+#else
+@interface WZMReactionManager : NSObject<UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate>
+#endif
 
 @property (nonatomic, copy) nextAction next;
+#if WZM_APP
 @property (nonatomic, copy) alertAction alert;
+#endif
 @property (nonatomic, copy) eventAction event;
 @property (nonatomic, copy) gestureAction gesture;
 @property (nonatomic, copy) scrollAction scroll;

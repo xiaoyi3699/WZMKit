@@ -7,6 +7,7 @@
 //
 
 #import "UIAlertView+WZMReaction.h"
+#if WZM_APP
 #import "NSObject+WZMReaction.h"
 
 @implementation UIAlertView (WZMReaction)
@@ -21,3 +22,4 @@
 }
 
 @end
+#endif

@@ -13,8 +13,10 @@
 @implementation WZMViewHandle
 
 + (void)wzm_showAlertMessage:(NSString *)message {
+#if WZM_APP
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alertView show];
+#endif
 }
 
 + (void)wzm_showInfoMessage:(NSString *)message{

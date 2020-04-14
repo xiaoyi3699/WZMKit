@@ -11,12 +11,15 @@
 #import "WZMAppJump.h"
 #import "WZMDispatch.h"
 #import "WZMViewHandle.h"
-
+#import "WZMDefined.h"
 //评分
 #define WZM_STORE_KEY @"wzmStoreKey"
 #define WZM_BAD_KEY   @"wzmBadKey"
+#if WZM_APP
 @interface WZMAppStore ()<UIAlertViewDelegate>
-
+#else
+@interface WZMAppStore ()
+#endif
 @end
 
 @implementation WZMAppStore {
@@ -41,15 +44,18 @@
     return self;
 }
 
-- (void)showScoreView: (WZMAppStoreType)type isOnce:(BOOL)isOnce {
+- (void)showScoreView:(WZMAppStoreType)type isOnce:(BOOL)isOnce {
+#if WZM_APP
     _type = type;
     BOOL isStore = [[WZMFileManager objForKey:WZM_STORE_KEY] boolValue];
     if (isOnce && isStore) return;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"您的每一次反馈都非常重要" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"五星好评",@"我要吐槽", nil];
     [alertView show];
     [WZMFileManager setObj:@(YES) forKey:WZM_STORE_KEY];
+#endif
 }
 
+#if WZM_APP
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         [WZMAppJump openAppStoreScore:_appId type:_type];
@@ -69,5 +75,6 @@
         });
     }
 }
+#endif
 
 @end

@@ -245,11 +245,13 @@
 }
 
 #pragma mark - UIAlertView
+#if WZM_APP
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (self.alert) {
         self.alert(alertView,buttonIndex);
     }
 }
+#endif
 
 #pragma mark - reaction method
 - (void)addObserverWithName:(NSString *)name sel:(SEL)sel obj:(id)obj {
