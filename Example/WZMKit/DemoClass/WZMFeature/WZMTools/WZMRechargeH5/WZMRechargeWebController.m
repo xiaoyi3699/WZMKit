@@ -104,8 +104,10 @@
 }
 
 - (void)showAlertViewWithMessage:(NSString *)message {
+#if WZM_APP
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alertView show];
+#endif
 }
 
 //处理Appdelegate内handleUrl

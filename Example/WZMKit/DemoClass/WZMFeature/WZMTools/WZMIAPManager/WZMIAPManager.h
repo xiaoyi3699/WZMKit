@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "WZMDefined.h"
+#if WZM_APP
 @interface WZMIAPManager : NSObject
 
 ///支付结果
@@ -57,3 +58,4 @@ typedef enum : NSInteger {
 - (void)restoreCompletedTransactions;
 
 @end
+#endif

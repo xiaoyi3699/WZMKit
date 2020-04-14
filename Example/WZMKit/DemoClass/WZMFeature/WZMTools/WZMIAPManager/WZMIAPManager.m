@@ -7,6 +7,7 @@
 //
 
 #import "WZMIAPManager.h"
+#if WZM_APP
 #import <StoreKit/StoreKit.h>
 #import "WZMDeviceUtil.h"
 #import "WZMViewHandle.h"
@@ -410,3 +411,4 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 @end
+#endif
