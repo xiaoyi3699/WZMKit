@@ -7,7 +7,7 @@
 //
 
 #import "WZMNavControllerAnimator.h"
-
+#if WZM_APP
 @interface WZMNavControllerAnimator ()
 
 @end
@@ -25,3 +25,4 @@
 }
 
 @end
+#endif

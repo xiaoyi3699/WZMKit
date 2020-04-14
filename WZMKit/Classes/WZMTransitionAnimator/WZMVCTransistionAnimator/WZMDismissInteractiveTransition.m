@@ -7,6 +7,7 @@
 //
 
 #import "WZMDismissInteractiveTransition.h"
+#if WZM_APP
 #import "WZMMacro.h"
 
 @interface WZMDismissInteractiveTransition ()<UIGestureRecognizerDelegate>
@@ -104,3 +105,4 @@
 }
 
 @end
+#endif

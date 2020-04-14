@@ -7,6 +7,8 @@
 //  手势管理者
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMEnum.h"
 
 @interface WZMDismissInteractiveTransition : UIPercentDrivenInteractiveTransition
@@ -17,3 +19,4 @@
 - (void)wireToViewController:(UIViewController*)viewController;
 
 @end
+#endif

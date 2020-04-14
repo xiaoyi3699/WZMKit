@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMEnum.h"
 
 @interface UINavigationController (WZMNavAnimation)
@@ -17,3 +19,4 @@
 - (void)openPushAnimation:(WZMNavAnimationType)type;
 
 @end
+#endif

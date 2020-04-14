@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMEnum.h"
 
 @interface WZMDismissAnimation : NSObject<UIViewControllerAnimatedTransitioning>
@@ -16,3 +18,4 @@
 @property (nonatomic, assign) WZMModalAnimationType type;
 
 @end
+#endif

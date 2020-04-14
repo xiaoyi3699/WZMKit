@@ -7,6 +7,8 @@
 //  动画管理者
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMPresentAnimation.h"
 #import "WZMDismissAnimation.h"
 
@@ -18,3 +20,4 @@
 @property (nonatomic, strong) WZMDismissAnimation *dismissAnimation;
 
 @end
+#endif

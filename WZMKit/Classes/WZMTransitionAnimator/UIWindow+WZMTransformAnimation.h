@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WZMDefined.h"
+#if WZM_APP
 @interface UIWindow (WZMTransformAnimation)
 
 - (UIImage *)screenImage;
@@ -18,3 +19,4 @@
 - (void)ll_closeTearAnimation:(void(^)(void))completion;
 
 @end
+#endif

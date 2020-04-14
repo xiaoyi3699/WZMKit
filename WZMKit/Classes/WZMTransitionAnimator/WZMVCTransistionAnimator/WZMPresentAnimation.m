@@ -7,6 +7,7 @@
 //
 
 #import "WZMPresentAnimation.h"
+#if WZM_APP
 #import "WZMMacro.h"
 
 @interface WZMPresentAnimation ()<UIViewControllerAnimatedTransitioning>
@@ -67,3 +68,4 @@
 }
 
 @end
+#endif

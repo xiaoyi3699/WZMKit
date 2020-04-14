@@ -19,6 +19,7 @@
 #import "WZMAlbumListCell.h"
 #import "WZMAlbumNavigationController.h"
 #import "UIViewController+WZMModalAnimation.h"
+#import "WZMDefined.h"
 
 @interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 
@@ -263,16 +264,20 @@
 
 //设置present动画
 - (void)resetPhotoBrowser:(WZMPhotoBrowser *)photoBrowser presentRect:(CGRect)rect {
+#if WZM_APP
     photoBrowser.wzm_showFromFrame = rect;
     photoBrowser.wzm_showToFrame = [UIScreen mainScreen].bounds;
     photoBrowser.wzm_presentAnimationType = WZMModalAnimationTypeZoom;
+#endif
 }
 
 //设置dismiss动画
 - (void)resetPhotoBrowser:(WZMPhotoBrowser *)photoBrowser dismissRect:(CGRect)rect {
+#if WZM_APP
     photoBrowser.wzm_dismissFromFrame = [UIScreen mainScreen].bounds;
     photoBrowser.wzm_dismissToFrame = rect;
     photoBrowser.wzm_dismissAnimationType = WZMModalAnimationTypeZoom;
+#endif
 }
 
 //相册权限

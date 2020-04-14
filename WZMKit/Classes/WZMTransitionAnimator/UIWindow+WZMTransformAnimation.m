@@ -7,6 +7,7 @@
 //
 
 #import "UIWindow+WZMTransformAnimation.h"
+#if WZM_APP
 #import <objc/runtime.h>
 #import "WZMMacro.h"
 #import "UIImage+wzmcate.h"
@@ -107,3 +108,4 @@ static NSString *_rightImageViewKey = @"rightImageView";
 }
 
 @end
+#endif

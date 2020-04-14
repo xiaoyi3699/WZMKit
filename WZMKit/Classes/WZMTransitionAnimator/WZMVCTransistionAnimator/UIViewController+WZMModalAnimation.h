@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMEnum.h"
 
 @interface UIViewController (WZMModalAnimation)
@@ -28,3 +30,4 @@
 - (WZMModalAnimationType)wzm_dismissAnimationType;
 
 @end
+#endif

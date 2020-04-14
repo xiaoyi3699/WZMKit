@@ -7,6 +7,7 @@
 //
 
 #import "UINavigationController+WZMNavAnimation.h"
+#if WZM_APP
 #import "WZMNavControllerAnimator.h"
 #import <objc/runtime.h>
 
@@ -53,3 +54,4 @@ static NSString *_oldDelegate = @"oldDelegate";
 }
 
 @end
+#endif

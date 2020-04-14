@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WZMDefined.h"
+#if WZM_APP
 #import "WZMEnum.h"
 
 @interface WZMPopAnimation : NSObject<UIViewControllerAnimatedTransitioning>
@@ -14,3 +16,4 @@
 @property (nonatomic, assign) WZMNavAnimationType type;
 
 @end
+#endif

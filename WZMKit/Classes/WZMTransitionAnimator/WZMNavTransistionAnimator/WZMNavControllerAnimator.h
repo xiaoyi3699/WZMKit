@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "WZMPushAnimation.h"
 #import "WZMPopAnimation.h"
-
+#import "WZMDefined.h"
+#if WZM_APP
 @interface WZMNavControllerAnimator : NSObject<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) WZMPushAnimation *pushAnimation;
 @property (nonatomic, strong) WZMPopAnimation *popAnimation;
 
 @end
+#endif

@@ -7,6 +7,7 @@
 //
 
 #import "WZMViewControllerAnimator.h"
+#if WZM_APP
 #import "WZMDismissInteractiveTransition.h"
 
 @interface WZMViewControllerAnimator ()
@@ -52,3 +53,4 @@
 }
 
 @end
+#endif
