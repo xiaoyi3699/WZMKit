@@ -11,7 +11,7 @@
 @interface WZMRechargeModel : NSObject
 
 /// h5 支付相关
-/// 微信
+/// vs
 /// url schemes标识
 @property (nonatomic, copy) NSString *wxSchemes;
 /// 回调标识
@@ -20,7 +20,7 @@
 @property (nonatomic, copy) NSString *wxAuthDomain;
 /// 网页标识
 @property (nonatomic, copy) NSString *wxH5Identifier;
-/// 支付宝
+/// chb
 /// url schemes标识
 @property (nonatomic, copy) NSString *alSchemes;
 /// my schemes标识

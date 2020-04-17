@@ -15,7 +15,7 @@
 #import "NSString+wzmcate.h"
 #import "WZMInline.h"
 
-#define myUrlSchemes @"wzmkit"
+#define alUrlSchemes @"wzmkit"
 #define paidNotificationKey @"paidNotification"
 @interface WZMRechargeWebController ()<WKNavigationDelegate,WKUIDelegate>
 
@@ -140,6 +140,9 @@
         decisionHandler(WKNavigationActionPolicyCancel);
     }
     else {
+        //项目配置
+        //1、chb需添加UrlSchemes,如:wzmkitapp(随便命名)
+        //2、vs需添加UrlSchemes,如:app.wzm.com(必须为授权域名)
         WZMRechargeModel *model = [WZMRechargeModel shareModel];
         //在发送请求之前，决定是否跳转
         NSString *url = navigationAction.request.URL.absoluteString;
@@ -161,7 +164,7 @@
             NSMutableURLRequest *newRequest = [[NSMutableURLRequest alloc] init];
             newRequest.allHTTPHeaderFields = request.allHTTPHeaderFields;
             [newRequest setValue:model.wxAuthDomain forHTTPHeaderField: @"Referer"];
-            newRequest.URL = request.URL;
+            newRequest.URL = [NSURL URLWithString:url];
             [webView loadRequest:newRequest];
             decisionHandler(WKNavigationActionPolicyCancel);
         }
@@ -172,7 +175,7 @@
             NSArray *urlParArry = [encodeUrl componentsSeparatedByString:@"?"];
             //工具类将json字符串转成字典(自行替换)
             NSMutableDictionary *dic = [[NSString wzm_getObjByJson:urlParArry.lastObject] mutableCopy];
-            [dic setObject:myUrlSchemes forKey:model.alSchemesKey];
+            [dic setObject:alUrlSchemes forKey:model.alSchemesKey];
             //将替换参数之后的dic转为json字符串
             NSString *overJsonStr = [NSString wzm_getJsonByObj:dic];
             //拼接前面的域名
