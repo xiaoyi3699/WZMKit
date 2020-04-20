@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum{
+typedef NS_ENUM(NSInteger, WZMFontStyle){
     WZMFontStyleCustom,     //用户自定义字体
     WZMFontStyleSystems     //系统默认字体,会跟随系统设置改变字体大小,一般不使用
-} WZMFontStyle;
+};
 
 @interface WZMAttributeTextView : UITextView
 

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMRechargeType) {
     WZMRechargeTypeWX = 0,
     WZMRechargeTypeZFB,
-} WZMRechargeType;
+};
 @interface WZMRechargeWebController : UIViewController
 
 @property (nonatomic, strong) NSString *orderNum;

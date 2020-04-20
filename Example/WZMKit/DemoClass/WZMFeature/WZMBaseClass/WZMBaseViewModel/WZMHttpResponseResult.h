@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 ///自定义状态码
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMHttpResponseCode) {
     WZMHttpResponseCodeFail    = -1, //请求失败
     WZMHttpResponseCodeSuccess = 0,  //请求成功
-} WZMHttpResponseCode;
+};
 
 @interface WZMHttpResponseResult : NSObject
 

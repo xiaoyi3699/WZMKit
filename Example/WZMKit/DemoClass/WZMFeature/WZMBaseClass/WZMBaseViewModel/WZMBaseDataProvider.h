@@ -11,14 +11,14 @@
 #import "WZMDataProviderProtocol.h"
 
 ///网络请求方式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMHttpRequestMethod) {
     WZMHttpRequestMethodGet = 0,  //HTTP Get请求
     WZMHttpRequestMethodPost,     //HTTP Post请求
     WZMHttpRequestMethodPut,      //HTTP Put请求
     WZMHttpRequestMethodDelete,   //HTTP Delet请求
     WZMHttpRequestMethodPatch,    //HTTP Patch请求
     WZMHttpRequestMethodHead,     //HTTP Head请求
-} WZMHttpRequestMethod;
+};
 
 #define WZM_LOADING @"加载中..."
 #define WZM_NO_NET  @"请检查网络连接后重试"

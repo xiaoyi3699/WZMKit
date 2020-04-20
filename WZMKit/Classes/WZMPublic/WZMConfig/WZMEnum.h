@@ -10,56 +10,56 @@
 #define WZMEnum_h
 
 ///导航栏颜色
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMStatusBarStyle) {
     WZMStatusBarStyleDefault         = 0, //黑色
-    WZMStatusBarStyleLightContent,        //白色
-} WZMStatusBarStyle;
+    WZMStatusBarStyleLightContent         //白色
+};
 
 ///打开AppStore的方式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAppStoreType) {
     WZMAppStoreTypeOpen  = 0,//AppStore
-    WZMAppStoreTypeInApp,    //应用内
-} WZMAppStoreType;
+    WZMAppStoreTypeInApp     //应用内
+};
 
 ///手势类型
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMGestureRecognizerType) {
     WZMGestureRecognizerTypeSingle  = 0,
     WZMGestureRecognizerTypeDouble,
     WZMGestureRecognizerTypeLong,
-    WZMGestureRecognizerTypeClose,
-} WZMGestureRecognizerType;
+    WZMGestureRecognizerTypeClose
+};
 
 ///手势方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMPanGestureRecognizerDirection) {
     WZMPanGestureRecognizerDirectionAll = 0,
     WZMPanGestureRecognizerDirectionVertical,
     WZMPanGestureRecognizerDirectionHorizontal,
     WZMPanGestureRecognizerDirectionNone
-} WZMPanGestureRecognizerDirection;
+};
 
 ///垂直手势方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMPanGestureRecognizerVerticalDirection) {
     WZMPanGestureRecognizerVerticalDirectionAll = 0,
     WZMPanGestureRecognizerVerticalDirectionUp,
     WZMPanGestureRecognizerVerticalDirectionDown
-} WZMPanGestureRecognizerVerticalDirection;
+};
 
 ///水平手势方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMPanGestureRecognizerHorizontalDirection) {
     WZMPanGestureRecognizerHorizontalDirectionAll = 0,
     WZMPanGestureRecognizerHorizontalDirectionLeft,
     WZMPanGestureRecognizerHorizontalDirectionRight
-} WZMPanGestureRecognizerHorizontalDirection;
+};
 
 ///滑动状态
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMScrollType) {
     WZMScrollTypeBeginScroll  = 0,
     WZMScrollTypeScrolling,
-    WZMScrollTypeEndScroll,
-} WZMScrollType;
+    WZMScrollTypeEndScroll
+};
 
 ///转场动画
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, AnimationType) {
     Fade                = 1,   //淡入淡出
     Push,                      //推挤
     Reveal,                    //揭开
@@ -75,170 +75,169 @@ typedef enum : NSInteger {
     CurlDown,                  //下翻页
     CurlUp,                    //上翻页
     FlipFromLeft,              //左翻转
-    FlipFromRight,             //右翻转
-} AnimationType;
+    FlipFromRight              //右翻转
+};
 
 ///导航转场动滑类型
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMNavAnimationType) {
     WZMNavAnimationTypeNormal = 0,
     WZMNavAnimationTypeScroll,
-    WZMNavAnimationTypeAlbum,
-} WZMNavAnimationType;
+    WZMNavAnimationTypeAlbum
+};
 
 ///模态转场动滑类型
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMModalAnimationType) {
     WZMModalAnimationTypeNormal = 0,
     WZMModalAnimationTypeScroll,
-    WZMModalAnimationTypeZoom,
-} WZMModalAnimationType;
+    WZMModalAnimationTypeZoom
+};
 
 ///tableHeaderView动画
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAutoHeaderAnimation) {
     WZMAutoHeaderAnimationNon   = -1, //无动画
     WZMAutoHeaderAnimationScale = 0,  //按比例缩放
-    WZMAutoHeaderAnimationFill  = 1,  //拉伸填充
-} WZMAutoHeaderAnimation;
+    WZMAutoHeaderAnimationFill  = 1   //拉伸填充
+};
 
 ///弹框样式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAlertViewType) {
     WZMAlertViewTypeNormal = 0,
-    WZMAlertViewTypeUpdate,
-} WZMAlertViewType;
+    WZMAlertViewTypeUpdate
+};
 
 ///弹出框动画
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAnimationStyle) {
     WZMAnimationStyleOutFromCenterNone = 0,  //从中心，由小到大弹出，无弹性动画
     WZMAnimationStyleOutFromCenterAnimation, //从中心，由小到大弹出，有弹性动画
-    WZMAnimationStyleFromDownAnimation,      //从底部弹出
-    
-} WZMAnimationStyle;
+    WZMAnimationStyleFromDownAnimation       //从底部弹出
+};
 
 ///阴影样式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMShadowType) {
     WZMShadowTypeAll,         //四个边阴影
     WZMShadowTypeTopLeft,     //两个变阴影(左上角)
     WZMShadowTypeTopRight,    //两个变阴影(右上角)
     WZMShadowTypeBottomLeft,  //两个变阴影(左下角)
     WZMShadowTypeBottomRight  //两个变阴影(右下角)
-} WZMShadowType;
+};
 
 ///屏幕方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMLaunchImageType) {
     WZMLaunchImageTypePortrait = 0, //竖屏
     WZMLaunchImageTypeLandscape     //横屏
-} WZMLaunchImageType;
+};
 
 ///梯度方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMGradientType) {
     WZMGradientTypeLeftToRight = 0,       //从左到右
     WZMGradientTypeTopToBottom = 1,       //从上到下
     WZMGradientTypeUpleftToLowright = 2,  //左上到右下
-    WZMGradientTypeUprightToLowleft = 3,  //右上到左下
-} WZMGradientType;
+    WZMGradientTypeUprightToLowleft = 3   //右上到左下
+};
 
 ///摄像头方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMCaptureDevicePosition) {
     WZMCaptureDevicePositionUnspecified = 0,
     WZMCaptureDevicePositionBack        = 1,
-    WZMCaptureDevicePositionFront       = 2,
-} WZMCaptureDevicePosition;
+    WZMCaptureDevicePositionFront       = 2
+};
 
 ///键盘上方工具栏样式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMInputAccessoryType) {
     WZMInputAccessoryTypeDone,
     WZMInputAccessoryTypeCancel,
-    WZMInputAccessoryTypeAll,
-} WZMInputAccessoryType;
+    WZMInputAccessoryTypeAll
+};
 
 ///输入框MenuItem样式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMPerformActionType) {
     WZMPerformActionTypeNormal,
-    WZMPerformActionTypeNone,
-} WZMPerformActionType;
+    WZMPerformActionTypeNone
+};
 
 ///输入框事件
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, WZMTextInputType) {
     WZMTextInputTypeBegin = 0,
     WZMTextInputTypeChange,
-    WZMTextInputTypeEnd,
-} WZMTextInputType;
+    WZMTextInputTypeEnd
+};
 
 ///输入框事件
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, WZMTextShouldType) {
     WZMTextShouldTypeBegin = 0,
     WZMTextShouldTypeEnd,
     WZMTextShouldTypeReturn,
-    WZMTextShouldTypeClear, //textField
-} WZMTextShouldType;
+    WZMTextShouldTypeClear  //textField
+};
 
 ///取值方式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMTakingValueStyle) {
     WZMTakingValueStyleMin, //最小值
     WZMTakingValueStyleMax, //最大值
     WZMTakingValueStyleAvg, //平均值
-    WZMTakingValueStyleSum, //求和
-} WZMTakingValueStyle;
+    WZMTakingValueStyleSum  //求和
+};
 
 ///网络状态
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMNetWorkStatus) {
     WZMNetWorkStatusUnknown,
     WZMNetWorkStatus2G,
     WZMNetWorkStatus3G,
     WZMNetWorkStatus4G,
-    WZMNetWorkStatusWifi,
-} WZMNetWorkStatus;
+    WZMNetWorkStatusWifi
+};
 
 //数据返回格式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMNetResultContentType) {
     WZMNetResultContentTypeJson = 0, //json
-    WZMNetResultContentTypeData,     //源数据
-} WZMNetResultContentType;
+    WZMNetResultContentTypeData      //源数据
+};
 
 ///文件管理
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMFileManagerError) {
     WZMNotFound          = 404, //路径未找到
     WZMIsNotDirectory           //不是文件夹
-}WZMFileManagerError;
+};
 
 ///应用类型
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAPPType) {
     mqq           = 0, //QQ
     weixin,            //微信
     sinaweibo,         //新浪微博
     alipay,            //支付宝
-    taobao,            //淘宝
-} WZMAPPType;
+    taobao             //淘宝
+};
 
 ///图片格式
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMImageType) {
     WZMImageTypeUnknown  = -1,
     WZMImageTypePNG      = 0,
     WZMImageTypeJPEG,
     WZMImageTypeGIF,
     WZMImageTypeTIFF,
-    WZMImageTypeWEBP,
-} WZMImageType;
+    WZMImageTypeWEBP
+};
 
 ///图片拼接
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMAddImageType) {
     WZMAddImageTypeHorizontal= 0,
-    WZMAddImageTypeVertical,
-} WZMAddImageType;
+    WZMAddImageTypeVertical
+};
 
 ///相册资源文件格式
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, WZMAlbumPhotoType) {
     WZMAlbumPhotoTypePhoto = 0,
     WZMAlbumPhotoTypeLivePhoto,
     WZMAlbumPhotoTypePhotoGif,
     WZMAlbumPhotoTypeVideo,
     WZMAlbumPhotoTypeAudio
-} WZMAlbumPhotoType;
+};
 
 ///通用状态
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMCommonState) {
     WZMCommonStateBegan = 0,
     WZMCommonStateChanged,
-    WZMCommonStateEnded,
-} WZMCommonState;
+    WZMCommonStateEnded
+};
 
 #endif /* WZMEnum_h */

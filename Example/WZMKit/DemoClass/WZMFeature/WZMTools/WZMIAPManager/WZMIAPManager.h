@@ -12,7 +12,7 @@
 @interface WZMIAPManager : NSObject
 
 ///支付结果
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMIAPResultStatus) {
     WZMIAPResultStatusSuccess           = 0,     //成功
     WZMIAPResultStatusErrorJson         = 21000, //AppStore无法读取提供的JSON数据
     WZMIAPResultStatusErrorReceipt1     = 21002, //收据数据不符合格式
@@ -21,14 +21,14 @@ typedef enum : NSInteger {
     WZMIAPResultStatusErrorService      = 21005, //收据服务器当前不可用
     WZMIAPResultStatusErrorExpires      = 21006, //收据是有效的,但订阅服务已经过期
     WZMIAPResultStatusErrorEnvironment1 = 21007, //收据信息是测试用,但却被发送到产品环境中验证
-    WZMIAPResultStatusErrorEnvironment2 = 21008, //收据信息是产品环境中使用,但却被发送到测试环境中验证
-} WZMIAPResultStatus;
+    WZMIAPResultStatusErrorEnvironment2 = 21008  //收据信息是产品环境中使用,但却被发送到测试环境中验证
+};
 
 ///支付类型
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, WZMIAPType) {
     WZMIAPTypeNormal = 0,   //非订阅
-    WZMIAPTypeSubscription, //订阅
-} WZMIAPType;
+    WZMIAPTypeSubscription  //订阅
+};
 
 ///IAP类型
 @property (nonatomic, assign) WZMIAPType type;

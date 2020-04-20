@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSInteger {
-    WZMAnimationPlacehloderTypeFront     = 0, //占位符在前面
-    WZMStatusBarStyleLightContentEnd,         //占位符在结尾
-} WZMAnimationPlacehloderType;
+typedef NS_ENUM(NSInteger, WZMAnimationPlacehloderType) {
+    WZMAnimationPlacehloderTypeFront  = 0, //占位符在前面
+    WZMStatusBarStyleLightContentEnd       //占位符在结尾
+};
 
 @interface WZMAnimationNumView : UIView
 
