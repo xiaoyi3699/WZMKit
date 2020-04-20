@@ -85,6 +85,12 @@
 
 @interface WZMProgressHUD ()
 
+typedef NS_ENUM(NSInteger, WZMProgressHUDType) {
+    WZMProgressHUDTypeNormal = 0,
+    WZMProgressHUDTypeProgress
+};
+
+@property (nonatomic, assign) WZMProgressHUDType type;
 @property (nonatomic, strong) WZMProgressConfig *config;
 @property (nonatomic, strong) WZMProgressView *progressView;
 @property (nonatomic, strong) UILabel *messageView;
@@ -101,6 +107,7 @@
         hud = [[WZMProgressHUD alloc] init];
         hud.layer.cornerRadius = 3;
         hud.layer.masksToBounds = YES;
+        hud.type = WZMProgressHUDTypeNormal;
     });
     return hud;
 }
@@ -125,6 +132,7 @@
     [self dismiss];
     WZMProgressHUD *hud = [self shareHUD];
     hud.show = YES;
+    hud.type = WZMProgressHUDTypeNormal;
     CGRect rect; CGFloat w = 30, h = 40;
     if (message.length > 0) {
         w = [message sizeWithAttributes:@{NSFontAttributeName:hud.config.font}].width+30;
@@ -163,50 +171,55 @@
 }
 
 + (void)showProgressMessage:(NSString *)message {
-    [self dismiss];
     WZMProgressHUD *hud = [self shareHUD];
-    hud.show = YES;
-    CGFloat w = 100, h = 100;
-    if (message.length > 0) {
-        CGFloat msgW = [message sizeWithAttributes:@{NSFontAttributeName:hud.config.font}].width+20;
-        if (msgW > 100) {
-            w = msgW;
-        }
-    }
-    CGRect rect;
-    if (hud.isUserEnabled) {
-        hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
-        rect = hud.bounds;
+    if (hud.show == YES && hud.type == WZMProgressHUDTypeProgress) {
+        hud.progressView.messageLabel.text = message;
     }
     else {
-        hud.frame = WZM_SCREEN_BOUNDS;
-        rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
-    }
-    hud.progressView.frame = rect;
-    hud.progressView.activityView.color = hud.config.progressColor;
-    hud.progressView.messageLabel.hidden = (message.length == 0);
-    hud.progressView.messageLabel.text = message;
-    hud.progressView.messageLabel.font = hud.config.font;
-    hud.progressView.messageLabel.textColor = hud.config.textColor;
-    hud.progressView.messageLabel.textAlignment = NSTextAlignmentCenter;
-    if (hud.config.isBlur) {
-        hud.effectView.frame = hud.bounds;
-        if (hud.config.effect) {
-            hud.effectView.effect = hud.config.effect;
+        [self dismiss];
+        hud.show = YES;
+        hud.type = WZMProgressHUDTypeProgress;
+        CGFloat w = 100, h = 100;
+        if (message.length > 0) {
+            CGFloat msgW = [message sizeWithAttributes:@{NSFontAttributeName:hud.config.font}].width+20;
+            if (msgW > 100) {
+                w = msgW;
+            }
         }
-        hud.effectView.backgroundColor = hud.config.backgroundColor;
-        [hud addSubview:hud.effectView];
+        CGRect rect;
+        if (hud.isUserEnabled) {
+            hud.frame = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
+            rect = hud.bounds;
+        }
+        else {
+            hud.frame = WZM_SCREEN_BOUNDS;
+            rect = CGRectMake((WZM_SCREEN_WIDTH-w)/2.0, (WZM_SCREEN_HEIGHT-h)/2.0, w, h);
+        }
+        hud.progressView.frame = rect;
+        hud.progressView.activityView.color = hud.config.progressColor;
+        hud.progressView.messageLabel.hidden = (message.length == 0);
+        hud.progressView.messageLabel.text = message;
+        hud.progressView.messageLabel.font = hud.config.font;
+        hud.progressView.messageLabel.textColor = hud.config.textColor;
+        hud.progressView.messageLabel.textAlignment = NSTextAlignmentCenter;
+        if (hud.config.isBlur) {
+            hud.effectView.frame = hud.bounds;
+            if (hud.config.effect) {
+                hud.effectView.effect = hud.config.effect;
+            }
+            hud.effectView.backgroundColor = hud.config.backgroundColor;
+            [hud addSubview:hud.effectView];
+        }
+        else {
+            hud.progressView.backgroundColor = hud.config.backgroundColor;
+        }
+        [hud addSubview:hud.progressView];
+        #if WZM_APP
+        [[UIApplication sharedApplication].delegate.window addSubview:hud];
+        #endif
+        [hud.progressView startAnimation];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
     }
-    else {
-        hud.progressView.backgroundColor = hud.config.backgroundColor;
-    }
-    [hud addSubview:hud.progressView];
-#if WZM_APP
-    [[UIApplication sharedApplication].delegate.window addSubview:hud];
-#endif
-    [hud.progressView startAnimation];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismiss) object:nil];
 }
 
 + (void)dismiss {
