@@ -6,7 +6,7 @@
 //  Copyright © 2018年 WangZhaomeng. All rights reserved.
 //
 
-#import "WZMAppStore.h"
+#import "WZMAppScore.h"
 #import "WZMFileManager.h"
 #import "WZMAppJump.h"
 #import "WZMDispatch.h"
@@ -16,22 +16,22 @@
 #define WZM_STORE_KEY @"wzmStoreKey"
 #define WZM_BAD_KEY   @"wzmBadKey"
 #if WZM_APP
-@interface WZMAppStore ()<UIAlertViewDelegate>
+@interface WZMAppScore ()<UIAlertViewDelegate>
 #else
-@interface WZMAppStore ()
+@interface WZMAppScore ()
 #endif
 @end
 
-@implementation WZMAppStore {
+@implementation WZMAppScore {
     WZMAppStoreType _type;
     NSString *_appId;
 }
 
-+ (instancetype)shareStore {
-    static WZMAppStore *score;
++ (instancetype)shareScore {
+    static WZMAppScore *score;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        score = [[WZMAppStore alloc] initWithAppId:@""];
+        score = [[WZMAppScore alloc] initWithAppId:@""];
     });
     return score;
 }
