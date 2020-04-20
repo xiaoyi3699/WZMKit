@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, WZMHttpRequestMethod) {
     WZMHttpRequestMethodPut,      //HTTP Put请求
     WZMHttpRequestMethodDelete,   //HTTP Delet请求
     WZMHttpRequestMethodPatch,    //HTTP Patch请求
-    WZMHttpRequestMethodHead,     //HTTP Head请求
+    WZMHttpRequestMethodHead      //HTTP Head请求
 };
 
 #define WZM_LOADING @"加载中..."
