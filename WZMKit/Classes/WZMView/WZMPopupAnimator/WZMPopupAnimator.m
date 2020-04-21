@@ -33,7 +33,7 @@
     return self;
 }
 
-- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
     
     if (_alertView.superview) {
         [_alertView removeFromSuperview];
@@ -74,9 +74,9 @@
     }];
 }
 
-- (void)dismiss:(BOOL)animated completion:(doBlock)completion{
+- (void)dismiss:(BOOL)animated completion:(wzm_doBlock)completion{
     if (animated) {
-        doBlock animation;
+        wzm_doBlock animation;
         if (_animationStyle == WZMAnimationStyleOutFromCenterNone) {
             animation = ^(){
                 [_alertView wzm_dismissToCenterNoneWithDuration:.2];
@@ -106,7 +106,7 @@
     }
 }
 
-- (void)removeCurrentViewCompletion:(doBlock)completion {
+- (void)removeCurrentViewCompletion:(wzm_doBlock)completion {
     if ([self.delegate respondsToSelector:@selector(dismissAnimationCompletion)]) {
         [self.delegate dismissAnimationCompletion];
     }

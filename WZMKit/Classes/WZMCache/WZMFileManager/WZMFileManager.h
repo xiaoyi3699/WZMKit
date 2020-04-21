@@ -39,7 +39,7 @@
 /**
  清空文件夹
  */
-+ (void)deleteFileInPath:(NSString *)filePath completion:(doBlock)completion;
++ (void)deleteFileInPath:(NSString *)filePath completion:(wzm_doBlock)completion;
 
 /**
  移动文件

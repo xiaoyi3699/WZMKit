@@ -16,8 +16,8 @@
 @property (nonatomic, weak) id<WZMActionSheetDelegate> delegete;
 
 - (instancetype)initWithMessage:(NSString *)message titles:(NSArray *)titles;
-- (void)showCompletion:(doBlock)completion;
-- (void)showInView:(UIView *)aView completion:(doBlock)completion;
+- (void)showCompletion:(wzm_doBlock)completion;
+- (void)showInView:(UIView *)aView completion:(wzm_doBlock)completion;
 - (void)dismiss;
 
 @end

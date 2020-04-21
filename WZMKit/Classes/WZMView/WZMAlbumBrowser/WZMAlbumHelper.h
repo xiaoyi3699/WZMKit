@@ -31,7 +31,7 @@
 + (void)wzm_saveVideo:(NSString *)path;
 ///保存图片到系统相册
 + (void)wzm_saveImage:(UIImage *)image;
-+ (void)wzm_saveImageData:(NSData *)data completion:(doBlock)completion;
++ (void)wzm_saveImageData:(NSData *)data completion:(wzm_doBlock)completion;
 ///清除视频缓存
 + (void)wzm_claerVideoCache;
 ///从iCloud获取图片失败

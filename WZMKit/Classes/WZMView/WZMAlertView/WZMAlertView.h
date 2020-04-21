@@ -22,11 +22,11 @@
 /**
  设置取消按钮的点击事件
  */
-- (void)setCannelBlock:(doBlock)cannelBlock;
+- (void)setCannelBlock:(wzm_doBlock)cannelBlock;
 
 /**
  设置确定按钮的点击事件
  */
-- (void)setOKBlock:(doBlock)OKBlock;
+- (void)setOKBlock:(wzm_doBlock)OKBlock;
 
 @end

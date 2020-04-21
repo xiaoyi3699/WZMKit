@@ -114,10 +114,10 @@
 ///放大系数(x、y、z)
 - (void)wzm_transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
 ///转场动画
-- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
-- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion;
+- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
+- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
+- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
+- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
 
 ///绘制虚线框
 - (void)wzm_addDottedLineWithFrame:(CGRect)frame

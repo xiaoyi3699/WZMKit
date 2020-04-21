@@ -21,6 +21,6 @@
 ///清理内存
 - (void)clearMemory;
 ///清理所有数据
-- (void)clearAllCacheCompletion:(doBlock)completion;
+- (void)clearAllCacheCompletion:(wzm_doBlock)completion;
 
 @end

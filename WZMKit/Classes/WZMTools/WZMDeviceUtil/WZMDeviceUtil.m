@@ -89,7 +89,7 @@ char* printEnv(void){
 /**
  判断当前设备是否获取麦克风授权
  */
-+ (void)checkMicrophoneEnableBlock:(doBlock)enable disableBlock:(doBlock)disable{
++ (void)checkMicrophoneEnableBlock:(wzm_doBlock)enable disableBlock:(wzm_doBlock)disable{
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {

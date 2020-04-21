@@ -379,7 +379,7 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 }
 
-+ (void)wzm_saveImageData:(NSData *)data completion:(doBlock)completion {
++ (void)wzm_saveImageData:(NSData *)data completion:(wzm_doBlock)completion {
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     [assetsLibrary writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
         if (completion) {

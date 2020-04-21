@@ -15,8 +15,8 @@
 #import "WZMDefined.h"
 
 @interface WZMAlertView(){
-    doBlock  _OKBlock;
-    doBlock  _cannelBlock;
+    wzm_doBlock  _OKBlock;
+    wzm_doBlock  _cannelBlock;
     NSString *_OKButtonTitle;
     NSString *_cancelButtonTitle;
     UIView   *_alertView;
@@ -212,11 +212,11 @@
 #endif
 }
 
-- (void)setCannelBlock:(doBlock)cannelBlock{
+- (void)setCannelBlock:(wzm_doBlock)cannelBlock{
     _cannelBlock = cannelBlock;
 }
 
-- (void)setOKBlock:(doBlock)OKBlock{
+- (void)setOKBlock:(wzm_doBlock)OKBlock{
     _OKBlock = OKBlock;
 }
 

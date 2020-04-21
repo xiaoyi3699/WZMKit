@@ -162,7 +162,7 @@
  @param isForce  是否强制确定
  @param OKBlock  确定按钮事件
  */
-- (void)compareWithKey:(NSString *)key title:(NSString *)title message:(NSString *)message OKTitle:(NSString *)OKTitle cancelTitle:(NSString *)cancelTitle isForce:(BOOL)isForce OKBlock:(doBlock)OKBlock {
+- (void)compareWithKey:(NSString *)key title:(NSString *)title message:(NSString *)message OKTitle:(NSString *)OKTitle cancelTitle:(NSString *)cancelTitle isForce:(BOOL)isForce OKBlock:(wzm_doBlock)OKBlock {
     NSString *time = [WZMFileManager objForKey:key];
     if (time == nil || [NSDate wzm_isInTime:time days:7] == NO) {
         WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:message OKButtonTitle:OKTitle cancelButtonTitle:cancelTitle type:WZMAlertViewTypeUpdate];

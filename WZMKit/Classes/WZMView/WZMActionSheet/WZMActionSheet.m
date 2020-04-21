@@ -91,19 +91,19 @@
     }];
 }
 
-- (void)showCompletion:(doBlock)completion {
+- (void)showCompletion:(wzm_doBlock)completion {
 #if WZM_APP
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     [self showAnimationInView:window completion:completion];
 #endif
 }
 
-- (void)showInView:(UIView *)aView completion:(doBlock)completion{
+- (void)showInView:(UIView *)aView completion:(wzm_doBlock)completion{
     [self showAnimationInView:aView completion:completion];
 }
 
 #pragma mark - private method
-- (void)showAnimationInView:(UIView *)aView completion:(doBlock)completion{
+- (void)showAnimationInView:(UIView *)aView completion:(wzm_doBlock)completion{
     [aView addSubview:self];
     if(!CGRectEqualToRect(aView.bounds, self.bounds)) {
         self.frame = aView.bounds;

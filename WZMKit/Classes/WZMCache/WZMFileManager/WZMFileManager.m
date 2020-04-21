@@ -116,7 +116,7 @@
     }
 }
 
-+ (void)deleteFileInPath:(NSString *)filePath completion:(doBlock)completion{
++ (void)deleteFileInPath:(NSString *)filePath completion:(wzm_doBlock)completion{
     if ([WZM_FILE_MANAGER fileExistsAtPath:filePath]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [WZM_FILE_MANAGER removeItemAtPath:filePath error:nil];

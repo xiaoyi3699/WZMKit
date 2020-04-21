@@ -17,8 +17,8 @@
 @property (nonatomic, weak) id<WZMPopupAnimatorDelegate> delegate;
 
 + (instancetype)shareAnimator;
-- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(doBlock)completion;
-- (void)dismiss:(BOOL)animated completion:(doBlock)completion;
+- (void)popUpView:(UIView *)view animationStyle: (WZMAnimationStyle)animationStyle duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
+- (void)dismiss:(BOOL)animated completion:(wzm_doBlock)completion;
 
 @end
 

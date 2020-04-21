@@ -569,7 +569,7 @@ static NSString *_visualKey = @"visual";
     self.layer.transform = CATransform3DMakeScale(x, y, z);
 }
 
-- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -585,7 +585,7 @@ static NSString *_visualKey = @"visual";
     }];
 }
 
-- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -601,7 +601,7 @@ static NSString *_visualKey = @"visual";
     }];
 }
 
-- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
@@ -617,7 +617,7 @@ static NSString *_visualKey = @"visual";
     }];
 }
 
-- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(doBlock)completion{
+- (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
     [UIView animateWithDuration:duration animations:^{
         CATransition *animation = [CATransition animation];
         animation.type = [self getType:type];
