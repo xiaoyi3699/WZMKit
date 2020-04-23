@@ -47,6 +47,10 @@ typedef NS_ENUM(NSInteger, WZMIAPType) {
 
 + (instancetype)shareManager;
 
+///首次启动APP时调用,检查历史订单
+- (void)addIAPObserver;
+///移除支付监听
+- (void)removeIAPObserver;
 /**
  根据商品ID请求支付信息
  

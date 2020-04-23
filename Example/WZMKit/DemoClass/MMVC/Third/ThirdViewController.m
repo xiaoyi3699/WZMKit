@@ -8,7 +8,7 @@
 
 #import "ThirdViewController.h"
 
-@interface ThirdViewController ()<UITextFieldDelegate>
+@interface ThirdViewController ()
 
 @end
 
