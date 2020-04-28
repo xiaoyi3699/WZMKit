@@ -482,9 +482,10 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
 ///unicode解码
 - (NSString *)wzm_getUniDecode {
     NSString *tempStr1 = [self stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
-    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
-    NSData   *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\%u" withString:@"\\U"];
+    NSString *tempStr3 = [tempStr2 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr4 = [[@"\"" stringByAppendingString:tempStr3] stringByAppendingString:@"\""];
+    NSData   *tempData = [tempStr4 dataUsingEncoding:NSUTF8StringEncoding];
     NSString *returnStr = [NSPropertyListSerialization propertyListWithData:tempData
                                                                     options:NSPropertyListImmutable
                                                                      format:NULL
