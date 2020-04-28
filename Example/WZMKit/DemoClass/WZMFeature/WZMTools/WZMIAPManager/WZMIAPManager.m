@@ -8,7 +8,7 @@
 
 #import "WZMIAPManager.h"
 #if WZM_APP
-#import "WZMPaymentQueue.h"
+#import <StoreKit/StoreKit.h>
 #import "WZMDeviceUtil.h"
 #import "WZMViewHandle.h"
 #import "WZMLogPrinter.h"
@@ -20,7 +20,7 @@
 #else
 #define WZM_IAP_VERIFY @"https://buy.itunes.apple.com/verifyReceipt"
 #endif
-@interface WZMIAPManager ()<SKProductsRequestDelegate,UIAlertViewDelegate,WZMPaymentTransactionObserver>
+@interface WZMIAPManager ()<SKProductsRequestDelegate,UIAlertViewDelegate,SKPaymentTransactionObserver>
 
 //是否正在支付
 @property (nonatomic, assign, getter=isPaying) BOOL paying;
@@ -36,7 +36,7 @@
 //是否是恢复购买
 @property (nonatomic, assign, getter=isRestore) BOOL restore;
 //支付队列
-@property (nonatomic, strong) WZMPaymentQueue *defaultQueue;
+@property (nonatomic, strong) SKPaymentQueue *defaultQueue;
 
 @end
 
@@ -63,6 +63,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.failedCount = 0;
         self.shareKey = @"123456789";
         self.type = WZMIAPTypeNormal;
+        self.defaultQueue = [SKPaymentQueue defaultQueue];
     }
     return self;
 }
@@ -109,7 +110,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.manualVerify = YES;
         self.orderId = @"restore";
         [self showLoadingMessage:@"查询中..."];
-        self.defaultQueue = [[WZMPaymentQueue alloc] initWithObserver:self];
         [self.defaultQueue restoreCompletedTransactions];
     }
 }
@@ -158,7 +158,6 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:p];
     payment.quantity = 1;
     //payment.applicationUsername = self.orderId;
-    self.defaultQueue = [[WZMPaymentQueue alloc] initWithObserver:self];
     [self.defaultQueue addPayment:payment];
 }
 
@@ -173,7 +172,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 #pragma mark -- 监听AppStore支付状态
-- (void)wzm_paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
     WZMLog(@"监听AppStore支付状态");
     dispatch_async(dispatch_get_main_queue(), ^{
         for(SKPaymentTransaction *tran in transactions) {
@@ -190,20 +189,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self loadAppStoreReceipt];
             }
             else if (tran.transactionState == SKPaymentTransactionStateRestored) {
-                if (self.isManualVerify) {
-                    [self finishTransaction:tran message:nil allowFinishAll:NO];
-                }
+                [self finishTransaction:tran message:nil allowFinishAll:NO];
             }
             else if (tran.transactionState == SKPaymentTransactionStateFailed) {
-                if (self.isManualVerify) {
-                    [self finishTransaction:tran message:nil allowFinishAll:NO];
-                }
+                [self finishTransaction:tran message:nil allowFinishAll:NO];
             }
         }
     });
 }
 
-- (void)wzm_paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
     //恢复购买完成
     WZMLog(@"监听恢复购买完成");
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -220,7 +215,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     });
 }
 
-- (void)wzm_paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
     //恢复购买失败
     if (self.restore) {
         [self finishTransaction:nil message:@"未查询到可恢复的订单" allowFinishAll:NO];
@@ -320,35 +315,29 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 //结束未完成的交易
 - (void)removeUncompleteTransaction:(SKPaymentTransaction *)tran {
     if (tran) {
-        if (tran.transactionState == SKPaymentTransactionStatePurchased ||
-            tran.transactionState == SKPaymentTransactionStateRestored) {
-            [self.defaultQueue finishTransaction:tran];
-        }
+        [self.defaultQueue finishTransaction:tran];
     }
     else {
         NSArray *transactions = self.defaultQueue.transactions;
         for (SKPaymentTransaction *transaction in transactions) {
-            if (transaction.transactionState == SKPaymentTransactionStatePurchased ||
-                transaction.transactionState == SKPaymentTransactionStateRestored) {
-                [self.defaultQueue finishTransaction:transaction];
-            }
+            [self.defaultQueue finishTransaction:transaction];
         }
     }
 }
 
 - (void)addIAPObserver {
+    self.manualVerify = NO;
     if (self.isAddObserver == NO) {
         self.addObserver = YES;
-        self.manualVerify = NO;
-        self.defaultQueue = [[WZMPaymentQueue alloc] initWithObserver:self];
+        [self.defaultQueue addTransactionObserver:self];
     }
 }
 
 - (void)removeIAPObserver {
+    self.manualVerify = NO;
     if (self.isAddObserver) {
         self.addObserver = NO;
-        self.manualVerify = NO;
-        self.defaultQueue = nil;
+        [self.defaultQueue removeTransactionObserver:self];
     }
 }
 
