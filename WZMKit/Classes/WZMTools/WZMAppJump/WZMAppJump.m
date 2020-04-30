@@ -122,14 +122,15 @@
 }
 
 + (NSString *)getAPPSchemeName: (WZMAPPType)type{
-    switch (type) {
-        case 0:  return @"mqq://";
-        case 1:  return @"weixin://";
-        case 2:  return @"sinaweibo://";
-        case 3:  return @"alipay://";
-        case 4:  return @"taobao://";
-        default: break;
-    }
+//    switch (type) {
+//        case 0:  return @"mqq://";
+//        case 1:  return @"weixin://";
+//        case 2:  return @"sinaweibo://";
+//        case 3:  return @"alipay://";
+//        case 4:  return @"taobao://";
+//        default: break;
+//    }
+    return @"";
 }
 
 //AppStore评论

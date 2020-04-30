@@ -201,11 +201,11 @@ typedef NS_ENUM(NSInteger, WZMFileManagerError) {
 
 ///应用类型
 typedef NS_ENUM(NSInteger, WZMAPPType) {
-    mqq           = 0, //QQ
-    weixin,            //微信
-    sinaweibo,         //新浪微博
-    alipay,            //支付宝
-    taobao             //淘宝
+    WZMAPPTypeOICQ = 0, //QQ
+    WZMAPPTypeVaS,      //微信
+    WZMAPPTypeVaB,      //新浪微博
+    WZMAPPTypeCHP,      //支付宝
+    WZMAPPTypeToB       //淘宝
 };
 
 ///图片格式
