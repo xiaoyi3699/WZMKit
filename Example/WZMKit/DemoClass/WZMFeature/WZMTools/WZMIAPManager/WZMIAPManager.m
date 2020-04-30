@@ -92,7 +92,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 /**开始支付流程*/
 - (void)requestProductWithOrderId:(NSString *)orderId productId:(NSString *)productId {
     if (orderId == nil || productId == nil) {
-        [self showInfoMessage:@"订单号/商品号有误"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showInfoMessage:@"订单号/商品号有误"];
+        });
         return;
     }
     if ([self canRequestIAP]) {
