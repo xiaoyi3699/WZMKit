@@ -107,6 +107,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     if ([self canRequestIAP]) {
         self.paying = YES;
         self.restore = YES;
+        [self addIAPObserver];
         self.manualVerify = YES;
         self.orderId = @"restore";
         [self showLoadingMessage:@"查询中..."];
@@ -137,6 +138,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 - (void)requestProductData:(NSString *)productId {
     self.paying = YES;
     self.restore = NO;
+    [self addIAPObserver];
     self.manualVerify = YES;
     NSArray *product = [[NSArray alloc] initWithObjects:productId,nil];
     NSSet *nsset = [NSSet setWithArray:product];
@@ -297,6 +299,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         }
         [self removeLocReceiptData];
         if (self.isManualVerify == NO) return;
+        self.manualVerify = NO;
         [self showInfoMessage:message];
     });
 }
@@ -308,6 +311,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         [WZMViewHandle wzm_dismiss];
         self.paying = NO;
         if (self.isManualVerify == NO) return;
+        self.manualVerify = NO;
         [self showVerifyPurchaseFail];
     });
 }

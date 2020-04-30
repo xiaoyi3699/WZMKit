@@ -23,12 +23,17 @@
 /// chb
 /// url schemes标识
 @property (nonatomic, copy) NSString *alSchemes;
-/// my schemes标识
+/// from schemes标识
 @property (nonatomic, copy) NSString *alSchemesKey;
 /// 支付回调标识
 @property (nonatomic, copy) NSString *alUrlKey;
+///本应用的url schemes
+@property (nonatomic, copy) NSString *mySchemes;
 
 /// 单例
+#if DEBUG
+//请查看.m中对应的注释
 + (instancetype)shareModel;
+#endif
 
 @end

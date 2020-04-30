@@ -15,7 +15,6 @@
 #import "NSString+wzmcate.h"
 #import "WZMInline.h"
 
-#define alUrlSchemes @"wzmkit"
 #define paidNotificationKey @"paidNotification"
 @interface WZMRechargeWebController ()<WKNavigationDelegate,WKUIDelegate>
 
@@ -175,7 +174,7 @@
             NSArray *urlParArry = [encodeUrl componentsSeparatedByString:@"?"];
             //工具类将json字符串转成字典(自行替换)
             NSMutableDictionary *dic = [[NSString wzm_getObjByJson:urlParArry.lastObject] mutableCopy];
-            [dic setObject:alUrlSchemes forKey:model.alSchemesKey];
+            [dic setObject:model.mySchemes forKey:model.alSchemesKey];
             //将替换参数之后的dic转为json字符串
             NSString *overJsonStr = [NSString wzm_getJsonByObj:dic];
             //拼接前面的域名

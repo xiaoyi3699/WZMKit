@@ -10,7 +10,7 @@
 
 @implementation WZMRechargeModel
 
-///以下仅供测试使用,正式环境应该为从服务端获取
+///以下仅供测试使用,正式环境应该为从服务端获取,否则会被拒
 + (instancetype)shareModel {
     static WZMRechargeModel *model;
     static dispatch_once_t onceToken;
@@ -24,6 +24,8 @@
         model.alSchemes = @"alipay://";
         model.alSchemesKey = @"fromAppUrlScheme";
         model.alUrlKey = @"safepay";
+        
+        model.mySchemes = @"wzmkit";
     });
     return model;
 }
