@@ -927,7 +927,10 @@
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
 				INFOPLIST_FILE = "WZMKit/WZMKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WZMKit/DemoClass/MMVC/Third/OpenInstallSDK2.3.1",
+				);
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -955,7 +958,10 @@
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
 				INFOPLIST_FILE = "WZMKit/WZMKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WZMKit/DemoClass/MMVC/Third/OpenInstallSDK2.3.1",
+				);
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
