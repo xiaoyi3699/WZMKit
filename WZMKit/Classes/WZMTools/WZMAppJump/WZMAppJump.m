@@ -10,6 +10,7 @@
 #import <StoreKit/StoreKit.h>
 #import "WZMAlertView.h"
 #import "WZMDefined.h"
+#import "WZMBase64.h"
 
 @interface WZMAppJump ()<SKStoreProductViewControllerDelegate>
 
@@ -94,8 +95,8 @@
 }
 
 //打开应用
-+ (BOOL)openAppWithAppType: (WZMAPPType)type{
-    NSString *APPSchemeName = [self getAPPSchemeName:type];
++ (BOOL)openAppWithAppType:(WZMAPPType)type {
+    NSString *APPSchemeName = [[self getAPPSchemeName:type] wzm_base64DecodedString];
     if ([self checkIfAppInstalled:APPSchemeName]) {
         [self openAppWithAppScheme:APPSchemeName];
         return YES;
@@ -121,16 +122,15 @@
     return NO;
 }
 
-+ (NSString *)getAPPSchemeName: (WZMAPPType)type{
-//    switch (type) {
-//        case 0:  return @"mqq://";
-//        case 1:  return @"weixin://";
-//        case 2:  return @"sinaweibo://";
-//        case 3:  return @"alipay://";
-//        case 4:  return @"taobao://";
-//        default: break;
-//    }
-    return @"";
++ (NSString *)getAPPSchemeName:(WZMAPPType)type{
+    switch (type) {
+        case 0:  return @"bXFxOi8v";
+        case 1:  return @"d2VpeGluOi8v";
+        case 2:  return @"c2luYXdlaWJvOi8v";
+        case 3:  return @"YWxpcGF5Oi8v";
+        case 4:  return @"dGFvYmFvOi8v";
+        default: return @"";
+    }
 }
 
 //AppStore评论

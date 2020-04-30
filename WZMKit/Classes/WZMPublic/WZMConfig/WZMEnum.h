@@ -203,9 +203,9 @@ typedef NS_ENUM(NSInteger, WZMFileManagerError) {
 typedef NS_ENUM(NSInteger, WZMAPPType) {
     WZMAPPTypeOICQ = 0, //QQ
     WZMAPPTypeVaS,      //微信
-    WZMAPPTypeVaB,      //新浪微博
-    WZMAPPTypeCHP,      //支付宝
-    WZMAPPTypeToB       //淘宝
+    WZMAPPTypeVaB,      //新浪
+    WZMAPPTypeCHP,      //支宝
+    WZMAPPTypeToB       //掏宝
 };
 
 ///图片格式
