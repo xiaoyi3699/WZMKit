@@ -6,7 +6,7 @@
 //  Copyright © 2019 wangzhaomeng. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "WZMEnum.h"
 #import "WZMBlock.h"
 

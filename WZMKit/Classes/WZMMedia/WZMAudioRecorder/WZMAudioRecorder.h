@@ -6,7 +6,7 @@
 //  Copyright © 2017年 WangZhaomeng. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @protocol WZMAudioRecorderDelegate;
 
 @interface WZMAudioRecorder : NSObject
