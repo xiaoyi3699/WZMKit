@@ -34,5 +34,6 @@ typedef NS_ENUM(NSInteger, WZMHttpRequestMethod) {
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 @property (nonatomic, strong) WZMHttpResponseResult *httpResponseResult;
 @property (nonatomic, assign, getter=isUseLocalCache) BOOL useLocalCache;
+@property (nonatomic, assign, getter=isPageEnable) BOOL pageEnable;
 
 @end

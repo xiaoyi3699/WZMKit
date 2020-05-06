@@ -16,6 +16,7 @@
 - (id)init{
     self = [super init];
     if (self) {
+        self.pageEnable = NO;
         self.useLocalCache = NO;
         self.httpResponseResult = [[WZMHttpResponseResult alloc] init];
     }
@@ -61,7 +62,18 @@
         [self.dataTask cancel];
         self.dataTask = nil;
     }
-    
+    if (self.isPageEnable) {
+        //拼接分页信息
+        NSMutableDictionary *params;
+        if (self.requestParams == nil) {
+            params = [[NSMutableDictionary alloc] init];
+        }
+        else {
+            params = [self.requestParams mutableCopy];
+        }
+        [params setValue:@(self.page) forKey:@"page"];
+        self.requestParams = [params copy];
+    }
     self.dataTask = [[WZMNetWorking shareNetWorking] method:method url:self.requestUrl parameters:self.requestParams callBack:^(id responseObject, NSError *error) {
         [self handleResponseObj:responseObject
                           error:error
