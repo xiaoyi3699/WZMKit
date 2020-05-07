@@ -11,7 +11,7 @@
 @protocol WZMBaseViewControllerProtocol <NSObject>
 @optional
 ///返回当前ViewController支持的屏幕方向
-- (UIInterfaceOrientationMask)ll_supportedInterfaceOrientations;
+- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations;
 @end
 
 @interface UIViewController (WZMBaseViewController) <WZMBaseViewControllerProtocol>

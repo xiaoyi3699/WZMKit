@@ -75,7 +75,7 @@
 }
 
 ///导航返回相关
-- (BOOL)ll_navigationShouldPop {
+- (BOOL)wzm_navigationShouldPop {
     if (self.webView.canGoBack) {
         [self.webView goBack];
         return NO;

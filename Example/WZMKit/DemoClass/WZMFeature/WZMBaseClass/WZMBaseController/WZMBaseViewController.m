@@ -51,7 +51,7 @@
 }
 
 #pragma mark - custom method
-- (UIInterfaceOrientationMask)ll_supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 

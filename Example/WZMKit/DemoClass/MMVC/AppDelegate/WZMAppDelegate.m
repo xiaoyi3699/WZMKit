@@ -137,13 +137,13 @@
     UIViewController *presentedVC = rootVC.presentedViewController;
     
     if (presentedVC.isBeingDismissed) {
-        if ([rootVC respondsToSelector:@selector(ll_supportedInterfaceOrientations)]) {
-            return [rootVC ll_supportedInterfaceOrientations];
+        if ([rootVC respondsToSelector:@selector(wzm_supportedInterfaceOrientations)]) {
+            return [rootVC wzm_supportedInterfaceOrientations];
         }
     }
     else {
-        if ([presentedVC respondsToSelector:@selector(ll_supportedInterfaceOrientations)]) {
-            return [presentedVC ll_supportedInterfaceOrientations];
+        if ([presentedVC respondsToSelector:@selector(wzm_supportedInterfaceOrientations)]) {
+            return [presentedVC wzm_supportedInterfaceOrientations];
         }
     }
     return UIInterfaceOrientationMaskPortrait;
@@ -181,7 +181,7 @@
 
 #pragma mark -  APP检查更新
 - (void)updateWithVersion:(NSString *)version updateContent:(NSString *)updateContent isForceUpdate:(BOOL)isForceUpdate {
-    static NSString *versionKey = @"ll_version";
+    static NSString *versionKey = @"wzm_version";
     //沙盒存储的version
     NSString * docVersion = [WZMFileManager objForKey:versionKey];
     if ([self compareVersion:version otherVersion:docVersion]) {

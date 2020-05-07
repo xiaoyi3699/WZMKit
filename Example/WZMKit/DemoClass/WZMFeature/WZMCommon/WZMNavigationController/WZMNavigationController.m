@@ -18,8 +18,8 @@
 
 @end
 
-#define LL_CUSTOM_POP 0
-#define LL_Screen_ShotView [WZMTabBarController shareTabBarController].screenShotView
+#define WZM_CUSTOM_POP 0
+#define WZM_Screen_ShotView [WZMTabBarController shareTabBarController].screenShotView
 @implementation WZMNavigationController {
     UIWindow *_window;
 }
@@ -52,9 +52,9 @@
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         //添加截图到最后面
-        LL_Screen_ShotView.hidden = NO;
-        LL_Screen_ShotView.maskView.alpha = 0.5;
-        LL_Screen_ShotView.imageView.image = [self.childVCImages lastObject];
+        WZM_Screen_ShotView.hidden = NO;
+        WZM_Screen_ShotView.maskView.alpha = 0.5;
+        WZM_Screen_ShotView.imageView.image = [self.childVCImages lastObject];
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged){
         //移动view
@@ -62,26 +62,26 @@
             //在x方向上移动的距离除以屏幕的宽度
             CGFloat width_scale = (tx-10)/self.view.bounds.size.width;
             self.view.transform = CGAffineTransformMakeTranslation(tx-10, 0);
-            LL_Screen_ShotView.maskView.alpha = 0.5-width_scale*0.5;
+            WZM_Screen_ShotView.maskView.alpha = 0.5-width_scale*0.5;
         }
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded) {
         //决定pop还是还原
         if (tx >= 100) {
             [UIView animateWithDuration:0.25 animations:^{
-                LL_Screen_ShotView.maskView.alpha = 0;
+                WZM_Screen_ShotView.maskView.alpha = 0;
                 self.view.transform = CGAffineTransformMakeTranslation(self.view.bounds.size.width, 0);
             } completion:^(BOOL finished) {
                 [self popViewControllerAnimated:NO];
-                LL_Screen_ShotView.hidden = YES;
+                WZM_Screen_ShotView.hidden = YES;
                 self.view.transform = CGAffineTransformIdentity;
             }];
         } else {
             [UIView animateWithDuration:0.25 animations:^{
                 self.view.transform = CGAffineTransformIdentity;
-                LL_Screen_ShotView.maskView.alpha = 0.5;
+                WZM_Screen_ShotView.maskView.alpha = 0.5;
             } completion:^(BOOL finished) {
-                LL_Screen_ShotView.hidden = YES;
+                WZM_Screen_ShotView.hidden = YES;
             }];
         }
     }
@@ -112,16 +112,16 @@
         self.view.layer.anchorPoint = CGPointMake(anchorX, anchorY);
         
         //添加截图到最后面
-        LL_Screen_ShotView.hidden = NO;
-        LL_Screen_ShotView.maskView.alpha = 0.5;
-        LL_Screen_ShotView.imageView.image = [self.childVCImages lastObject];
+        WZM_Screen_ShotView.hidden = NO;
+        WZM_Screen_ShotView.maskView.alpha = 0.5;
+        WZM_Screen_ShotView.imageView.image = [self.childVCImages lastObject];
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged){
         //移动view
         if (tx>10) {
             //在x方向上移动的距离除以屏幕的宽度
             CGFloat width_scale = (tx-10)/self.view.bounds.size.width;
-            LL_Screen_ShotView.maskView.alpha = 0.5-width_scale*0.5;
+            WZM_Screen_ShotView.maskView.alpha = 0.5-width_scale*0.5;
             
             CGFloat pop_scale = popL/self.view.bounds.size.width;
             
@@ -134,7 +134,7 @@
     else if (recognizer.state == UIGestureRecognizerStateEnded) {
         
         void(^restoration)(void) = ^{
-            LL_Screen_ShotView.hidden = YES;
+            WZM_Screen_ShotView.hidden = YES;
             self.view.layer.anchorPoint = CGPointMake(0.5, 0.5);
             [self.view wzm_transform3DMakeRotationX:0 Y:0 Z:0];
             CGRect rect = self.view.frame;
@@ -148,7 +148,7 @@
             [UIView animateWithDuration:0.25 animations:^{
                 self.view.alpha = 0;
                 [self.view wzm_transform3DMakeRotationX:0 Y:0 Z:angle];
-                LL_Screen_ShotView.maskView.alpha = 0;
+                WZM_Screen_ShotView.maskView.alpha = 0;
             } completion:^(BOOL finished) {
                 self.view.alpha = 1;
                 [self popViewControllerAnimated:NO];
@@ -157,7 +157,7 @@
         } else {
             [UIView animateWithDuration:0.25 animations:^{
                 [self.view wzm_transform3DMakeRotationX:0 Y:0 Z:0];
-                LL_Screen_ShotView.maskView.alpha = 0.5;
+                WZM_Screen_ShotView.maskView.alpha = 0.5;
             } completion:^(BOOL finished) {
                 restoration();
             }];
@@ -276,7 +276,7 @@
 #pragma mark - private method
 - (void)createScreenShot {
 #if WZM_APP
-    if (LL_CUSTOM_POP) {
+    if (WZM_CUSTOM_POP) {
         if (self.childViewControllers.count == self.childVCImages.count+1) {
             if (_window == nil) {
                 _window = [UIApplication sharedApplication].delegate.window;

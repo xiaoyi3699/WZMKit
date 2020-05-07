@@ -55,8 +55,8 @@ static NSString *_lineImageViewKey = @"lineImage";
     
     BOOL shouldPop = YES;
     UIViewController *vc = [self topViewController];
-    if([vc respondsToSelector:@selector(ll_navigationShouldPop)]) {
-        shouldPop = [vc ll_navigationShouldPop];
+    if([vc respondsToSelector:@selector(wzm_navigationShouldPop)]) {
+        shouldPop = [vc wzm_navigationShouldPop];
     }
     
     if(shouldPop) {

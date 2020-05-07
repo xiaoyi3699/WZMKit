@@ -38,7 +38,7 @@ static NSString *_rightImageViewKey = @"rightImageView";
     objc_setAssociatedObject(self, &_leftImageViewKey, leftImageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)ll_setLeftImage:(UIImage *)leftImage
+- (void)wzm_setLeftImage:(UIImage *)leftImage
 {
     if (self.leftImageView) {
         self.leftImageView.frame = CGRectMake(0, 0, WZM_SCREEN_WIDTH/2, WZM_SCREEN_HEIGHT);
@@ -59,7 +59,7 @@ static NSString *_rightImageViewKey = @"rightImageView";
     objc_setAssociatedObject(self, &_rightImageViewKey, rightImageView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)ll_setRightImage:(UIImage *)rightImage
+- (void)wzm_setRightImage:(UIImage *)rightImage
 {
     if (self.rightImageView) {
         self.rightImageView.frame = CGRectMake(WZM_SCREEN_WIDTH/2, 0, WZM_SCREEN_WIDTH/2, WZM_SCREEN_HEIGHT);
@@ -70,13 +70,13 @@ static NSString *_rightImageViewKey = @"rightImageView";
     self.rightImageView.image = rightImage;
 }
 
-- (void)ll_openTearAnimation:(BOOL)hasClose {
+- (void)wzm_openTearAnimation:(BOOL)hasClose {
     self.screenImage = [UIImage wzm_getScreenImageByView:self];
     CGRect rect = WZM_SCREEN_BOUNDS;
     rect.size.width /= 2.0;
-    [self ll_setLeftImage:[self.screenImage wzm_clipImageWithRect:rect]];
+    [self wzm_setLeftImage:[self.screenImage wzm_clipImageWithRect:rect]];
     rect.origin.x += rect.size.width;
-    [self ll_setRightImage:[self.screenImage wzm_clipImageWithRect:rect]];
+    [self wzm_setRightImage:[self.screenImage wzm_clipImageWithRect:rect]];
     if (self.leftImageView.superview == nil) {
         [self addSubview:self.leftImageView];
     }
@@ -94,7 +94,7 @@ static NSString *_rightImageViewKey = @"rightImageView";
     }];
 }
 
-- (void)ll_closeTearAnimation:(void(^)(void))completion {
+- (void)wzm_closeTearAnimation:(void(^)(void))completion {
     [UIView animateWithDuration:.5 animations:^{
         self.leftImageView.wzm_minX = 0;
         self.rightImageView.wzm_minX = WZM_SCREEN_WIDTH/2;

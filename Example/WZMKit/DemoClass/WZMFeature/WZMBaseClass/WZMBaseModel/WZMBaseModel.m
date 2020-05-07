@@ -119,7 +119,7 @@
 }
 
 ///解档
-+ (instancetype)ll_unarchiveObjectWithData:(NSData *)data {
++ (instancetype)wzm_unarchiveObjectWithData:(NSData *)data {
     
     if ([self conformsToProtocol:@protocol(NSCoding)] && data) {
         
@@ -176,7 +176,7 @@
 @implementation NSData (WZMBaseModel)
 
 ///归档
-+ (NSData *)ll_archivedDataWithModel:(WZMBaseModel *)model {
++ (NSData *)wzm_archivedDataWithModel:(WZMBaseModel *)model {
     if ([model conformsToProtocol:@protocol(NSCoding)] && model) {
         if ([model respondsToSelector:@selector(encodeWithCoder:)]) {
             return [NSKeyedArchiver archivedDataWithRootObject:model];

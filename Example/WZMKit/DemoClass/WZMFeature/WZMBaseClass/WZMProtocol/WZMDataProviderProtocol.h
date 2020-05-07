@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define LL_START_PAGE 1
+#define WZM_START_PAGE 1
 typedef void(^doHandler)(void);
 
 @protocol WZMDataProviderProtocol <NSObject>

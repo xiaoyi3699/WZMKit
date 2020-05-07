@@ -69,6 +69,7 @@
     
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
+        model.newsUrl = @"http://58.17.133.26:6002/app/html/login.html";
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.newsUrl];
         webVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:webVC animated:YES];

@@ -38,7 +38,7 @@ static NSTimeInterval const LLFastTimeInterval = 0.01;
 - (void)startLoad {
     [WZMViewHandle wzm_setNetworkActivityIndicatorVisible:YES];
     _loadTime = 0.0;
-    [self LL_SetStrokeEnd:0];
+    [self WZM_SetStrokeEnd:0];
     if (!_timer) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:LLFastTimeInterval
                                                   target:self
@@ -76,7 +76,7 @@ static NSTimeInterval const LLFastTimeInterval = 0.01;
     self.strokeEnd = 1.0;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(0.25*NSEC_PER_SEC)),
                    dispatch_get_main_queue(),^{
-                       [self LL_SetStrokeEnd:0];
+                       [self WZM_SetStrokeEnd:0];
                    });
 }
 
@@ -89,7 +89,7 @@ static NSTimeInterval const LLFastTimeInterval = 0.01;
 }
 
 //无动画
-- (void)LL_SetStrokeEnd:(CGFloat)strokeEnd{
+- (void)WZM_SetStrokeEnd:(CGFloat)strokeEnd{
     if (strokeEnd < self.strokeEnd) {
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
@@ -101,7 +101,7 @@ static NSTimeInterval const LLFastTimeInterval = 0.01;
 
 - (void)removeFromSuperlayer{
     [self closeTimer];
-    [self LL_SetStrokeEnd:0];
+    [self WZM_SetStrokeEnd:0];
     [super removeFromSuperlayer];
 }
 

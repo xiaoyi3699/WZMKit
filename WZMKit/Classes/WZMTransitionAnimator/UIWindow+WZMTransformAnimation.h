@@ -14,9 +14,9 @@
 - (UIImage *)screenImage;
 - (void)setScreenImage:(UIImage *)screenImage;
 
-- (void)ll_openTearAnimation:(BOOL)hasClose;
+- (void)wzm_openTearAnimation:(BOOL)hasClose;
 
-- (void)ll_closeTearAnimation:(void(^)(void))completion;
+- (void)wzm_closeTearAnimation:(void(^)(void))completion;
 
 @end
 #endif

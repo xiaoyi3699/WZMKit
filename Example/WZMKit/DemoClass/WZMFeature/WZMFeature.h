@@ -27,6 +27,6 @@
 #import "WZMTabBarController.h"
 
 //接口相关
-#define LL_BASE_URL     @"http://www.vasueyun.cn/apro/"
+#define WZM_BASE_URL     @"http://www.vasueyun.cn/apro/"
 
 #endif /* WZMFeature_h */

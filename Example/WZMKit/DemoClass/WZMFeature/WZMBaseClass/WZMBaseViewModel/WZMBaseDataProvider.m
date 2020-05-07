@@ -123,7 +123,7 @@
 
 #pragma mark - 数据解析
 - (void)parseJSON:(id)json{
-    if (self.page == LL_START_PAGE+1) {
+    if (self.page == WZM_START_PAGE+1) {
         [self clearMemoryData];
     }
 }
@@ -133,7 +133,7 @@
 }
 
 - (void)refreshData {
-    self.page = LL_START_PAGE;
+    self.page = WZM_START_PAGE;
 }
 
 - (BOOL)isDataEmpty {
