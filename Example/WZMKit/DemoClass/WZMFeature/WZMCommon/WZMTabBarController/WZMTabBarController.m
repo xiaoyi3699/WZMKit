@@ -51,9 +51,7 @@
     NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
-    for (NSInteger i = 0; i < self.viewControllers.count; i ++) {
-        
-        UIViewController *viewController = self.viewControllers[i];
+    for (NSInteger i = 0; i < self.tabBar.items.count; i ++) {
         
         NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
         NSDictionary *selAtts = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
@@ -61,18 +59,19 @@
         UIImage *img = [[UIImage imageNamed:normalImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
-        viewController.tabBarItem.title = titles[i];
-        viewController.tabBarItem.image = img;
-        viewController.tabBarItem.selectedImage = selImg;
-        [viewController.tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
-        [viewController.tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
+        UITabBarItem *tabBarItem = self.tabBar.items[i];
+        tabBarItem.title = titles[i];
+        tabBarItem.image = img;
+        tabBarItem.selectedImage = selImg;
+        [tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
+        [tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
     }
 }
 
-- (void)setBadgeValue:(NSString *)badgeValue atIndex:(NSInteger)index{
-    if (index < self.viewControllers.count) {
-        UIViewController *vc = [self.viewControllers objectAtIndex:index];
-        vc.tabBarItem.badgeValue = badgeValue;
+- (void)setBadgeValue:(NSString *)badgeValue atIndex:(NSInteger)index {
+    if (index < self.tabBar.items.count) {
+        UITabBarItem *tabBarItem = self.tabBar.items[index];
+        tabBarItem.badgeValue = badgeValue;
     }
 }
 
