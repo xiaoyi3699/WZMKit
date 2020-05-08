@@ -48,11 +48,12 @@
 }
 
 - (void)setConfig {
+    //修复iOS13下,push返回后选中色无效的bug
+    self.tabBar.tintColor = [UIColor redColor];
     NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
     for (NSInteger i = 0; i < self.tabBar.items.count; i ++) {
-        
         NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
         NSDictionary *selAtts = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
         
