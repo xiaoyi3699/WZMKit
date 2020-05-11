@@ -12,6 +12,10 @@
 #import "UIView+wzmcate.h"
 #import "WZMDefined.h"
 
+@implementation UIViewController (WZMNavigationPop)
+
+@end
+
 @interface WZMNavigationController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray<UIImage *> *childVCImages; //保存截屏的数组
@@ -210,6 +214,35 @@
 
 - (UIViewController *)childViewControllerForScreenEdgesDeferringSystemGestures {
     return self.topViewController;
+}
+
+#pragma mark - UINavigationBarDelegate
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
+    
+    if([self.viewControllers count] < [navigationBar.items count]) {
+        return YES;
+    }
+    
+    BOOL shouldPop = YES;
+    UIViewController *vc = [self topViewController];
+    if([vc respondsToSelector:@selector(wzm_navigationShouldPop)]) {
+        shouldPop = [vc wzm_navigationShouldPop];
+    }
+    
+    if(shouldPop) {
+        [self popViewControllerAnimated:YES];
+    }
+    else {
+        //取消pop后，复原返回按钮的状态
+        for(UIView *subview in [navigationBar subviews]) {
+            if(0. < subview.alpha && subview.alpha < 1.) {
+                [UIView animateWithDuration:.25 animations:^{
+                    subview.alpha = 1.;
+                }];
+            }
+        }
+    }
+    return NO;
 }
 
 #pragma mark - UIGestureRecognizerDelegate

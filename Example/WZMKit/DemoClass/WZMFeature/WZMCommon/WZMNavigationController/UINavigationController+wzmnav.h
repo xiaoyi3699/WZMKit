@@ -7,11 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WZMNavigationPopProtocol.h"
-
-@interface UIViewController (WZMNavigationPop) <WZMNavigationPopProtocol>
-
-@end
 
 @interface UINavigationController (wzmnav)
 

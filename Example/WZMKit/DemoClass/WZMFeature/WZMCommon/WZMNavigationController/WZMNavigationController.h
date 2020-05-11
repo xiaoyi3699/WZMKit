@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "WZMScreenShotView.h"
 #import "UINavigationController+wzmnav.h"
+#import "WZMNavigationPopProtocol.h"
+
+@interface UIViewController (WZMNavigationPop) <WZMNavigationPopProtocol>
+
+@end
 
 @interface WZMNavigationController : UINavigationController
 
