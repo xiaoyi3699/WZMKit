@@ -8,7 +8,7 @@
 
 #import "SecondViewController.h"
 #import "WZMIAPManager.h"
-#import "WZMMenuView.h"
+#import "WZMMenuView/WZMMenuView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 

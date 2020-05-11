@@ -21,7 +21,6 @@
 }
 
 - (void)setTitles:(NSArray *)titles {
-    if (_titles == titles) return;
     _titles = titles;
     for (UIButton *itemBtn in _itemBtns) {
         [itemBtn removeFromSuperview];
@@ -34,24 +33,28 @@
     UIFont *font = [UIFont systemFontOfSize:13.0];
     for (NSInteger i = 0; i < titles.count; i ++) {
         NSString *title = [titles objectAtIndex:i];
-        CGFloat itemW = MAX(ceil([title sizeWithAttributes:@{NSFontAttributeName:font}].width)+20.0, 60);
+        CGFloat itemW = MIN(MAX(ceil([title sizeWithAttributes:@{NSFontAttributeName:font}].width)+20.0, 60), maxW);
         if (minX + itemW > maxW) {
             minX = startMinX;
             minY = minY + itemH + vSpacing;
         }
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(minX, minY, itemW, itemH)];
+        WZMButton *btn = [[WZMButton alloc] initWithFrame:CGRectMake(minX, minY, itemW, itemH)];
         btn.tag = i;
         btn.titleLabel.font = font;
         btn.backgroundColor = WZM_R_G_B(247, 247, 247);
         btn.wzm_cornerRadius = itemH/2.0;
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        btn.titleFrame = CGRectMake(5.0, 0.0, itemW-10.0, itemH);
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [btn addTarget:self action:@selector(itemBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
         minX = minX + itemW + hSpacing;
         if (i == titles.count - 1) {
             menuH = btn.wzm_maxY + startMinY;
         }
+        [_itemBtns addObject:btn];
     }
     self.wzm_height = menuH;
 }

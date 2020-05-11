@@ -18,7 +18,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		642407C624663CC50075F919 /* WZMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642407C524663CC50075F919 /* WZMMenuView.m */; };
+		64240800246938510075F919 /* WZMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642407FF246938510075F919 /* WZMMenuView.m */; };
 		646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 646F21AE24064BE500B49DB1 /* WXxiari.ttf */; };
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
@@ -88,8 +88,8 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		642407C424663CC50075F919 /* WZMMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMMenuView.h; sourceTree = "<group>"; };
-		642407C524663CC50075F919 /* WZMMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMMenuView.m; sourceTree = "<group>"; };
+		642407FE246938510075F919 /* WZMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMMenuView.h; sourceTree = "<group>"; };
+		642407FF246938510075F919 /* WZMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMMenuView.m; sourceTree = "<group>"; };
 		646F21AE24064BE500B49DB1 /* WXxiari.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WXxiari.ttf; sourceTree = "<group>"; };
 		6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeWebController.m; sourceTree = "<group>"; };
 		6486E45D23D8451600D777D7 /* WZMRechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeModel.m; sourceTree = "<group>"; };
@@ -282,6 +282,15 @@
 				0EE2092771CDE724AD1E5C17 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		642407FD246938510075F919 /* WZMMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				642407FE246938510075F919 /* WZMMenuView.h */,
+				642407FF246938510075F919 /* WZMMenuView.m */,
+			);
+			path = WZMMenuView;
 			sourceTree = "<group>";
 		};
 		6486E45B23D8451600D777D7 /* WZMRechargeH5 */ = {
@@ -533,10 +542,9 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
+				642407FD246938510075F919 /* WZMMenuView */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
-				642407C424663CC50075F919 /* WZMMenuView.h */,
-				642407C524663CC50075F919 /* WZMMenuView.m */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -792,7 +800,7 @@
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,
 				75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */,
-				642407C624663CC50075F919 /* WZMMenuView.m in Sources */,
+				64240800246938510075F919 /* WZMMenuView.m in Sources */,
 				75DA9E2B230E924A0000A955 /* WKWebView+WZMWebViewController.m in Sources */,
 				75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
@@ -933,10 +941,7 @@
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
 				INFOPLIST_FILE = "WZMKit/WZMKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/WZMKit/DemoClass/MMVC/Third/OpenInstallSDK2.3.1",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -964,10 +969,7 @@
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
 				INFOPLIST_FILE = "WZMKit/WZMKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/WZMKit/DemoClass/MMVC/Third/OpenInstallSDK2.3.1",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
