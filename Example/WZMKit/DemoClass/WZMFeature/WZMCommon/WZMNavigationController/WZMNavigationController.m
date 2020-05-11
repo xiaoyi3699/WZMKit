@@ -170,6 +170,9 @@
     if (self.childViewControllers.count > 0) {
         [self createScreenShot];
     }
+    if (self.childViewControllers.count == 1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
     [super pushViewController:viewController animated:animated];
 }
 
