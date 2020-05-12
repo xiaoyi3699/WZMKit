@@ -52,8 +52,8 @@
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
     for (NSInteger i = 0; i < self.tabBar.items.count; i ++) {
-        NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
-        NSDictionary *selAtts = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:12]};
+        NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:12.0]};
+        NSDictionary *selAtts = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:12.0]};
         
         UIImage *img = [[UIImage imageNamed:normalImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -64,7 +64,6 @@
             appearance.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
             appearance.stackedLayoutAppearance.normal.titleTextAttributes = atts;
             appearance.stackedLayoutAppearance.selected.titleTextAttributes = selAtts;
-            
             tabBarItem.standardAppearance = appearance;
         }
         else {
