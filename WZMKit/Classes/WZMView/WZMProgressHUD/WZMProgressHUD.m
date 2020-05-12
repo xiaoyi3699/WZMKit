@@ -130,6 +130,7 @@ typedef NS_ENUM(NSInteger, WZMProgressHUDType) {
 
 + (void)showInfoMessage:(NSString *)message {
     [self dismiss];
+    if (message == nil || message.length <= 0) return;
     WZMProgressHUD *hud = [self shareHUD];
     hud.show = YES;
     hud.type = WZMProgressHUDTypeNormal;
