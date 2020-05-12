@@ -89,6 +89,7 @@
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     [self.view addSubview:self.webView];
     [self loadUrl:_url];
+    [self setRightItemImage:[WZMPublic imageWithFolder:@"common" imageName:@"reload.png"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -104,6 +105,10 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.progressLayer removeFromSuperlayer];
+}
+
+- (void)rightButtonClick {
+    [self.webView reload];
 }
 
 #pragma mark - WZMScriptMessageHandler

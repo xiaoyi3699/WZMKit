@@ -338,6 +338,7 @@
  其他自定义控件
  */
 #import "WZMButton.h"
+#import "WZMMenuView.h"
 #import "WZMDottedView.h"
 #import "WZMSliderView.h"
 #import "WZMSliderView2.h"
@@ -350,6 +351,7 @@
 #import "WZMAlbumNavigationController.h"
 #import "WZMScannerViewController.h"
 #import "WZMPrivacyAlertController.h"
+#import "WZMScreenViewController.h"
 
 /********************************************************/
 /********************** ↓ 扩展类 ↓ **********************/
