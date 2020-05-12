@@ -22,6 +22,7 @@
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
+		64C03D9A246AC795003EBE79 /* wzmReload.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C03D99246AC795003EBE79 /* wzmReload.png */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
@@ -93,6 +94,7 @@
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
 		6486E45F23D8451600D777D7 /* WZMRechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeModel.h; sourceTree = "<group>"; };
 		649C2C5124581F1D00FF7635 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		64C03D99246AC795003EBE79 /* wzmReload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzmReload.png; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 		75DA9DEB230E924A0000A955 /* WZMWebResouce */ = {
 			isa = PBXGroup;
 			children = (
+				64C03D99246AC795003EBE79 /* wzmReload.png */,
 				75DA9DEC230E924A0000A955 /* WZMTest.css */,
 				75DA9DED230E924A0000A955 /* WZMTest.js */,
 				75DA9DEE230E924A0000A955 /* WZMTest.png */,
@@ -683,6 +686,7 @@
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				75DA9E30230E924A0000A955 /* WZMTest.png in Resources */,
 				75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */,
+				64C03D9A246AC795003EBE79 /* wzmReload.png in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
 				75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */,
 				646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */,

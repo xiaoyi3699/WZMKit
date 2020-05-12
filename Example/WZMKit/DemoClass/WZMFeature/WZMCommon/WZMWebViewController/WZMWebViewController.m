@@ -89,7 +89,7 @@
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     [self.view addSubview:self.webView];
     [self loadUrl:_url];
-    [self setRightItemImage:[WZMPublic imageWithFolder:@"common" imageName:@"reload.png"]];
+    [self setRightItemImage:[UIImage imageNamed:@"wzmReload"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
