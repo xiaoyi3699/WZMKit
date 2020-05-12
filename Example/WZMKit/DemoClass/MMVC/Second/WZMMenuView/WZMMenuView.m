@@ -60,7 +60,9 @@
 }
 
 - (void)itemBtnClick:(UIButton *)btn {
-    
+    if ([self.delegate respondsToSelector:@selector(menuView:didSelectedText:)]) {
+        [self.delegate menuView:self didSelectedText:[self.titles objectAtIndex:btn.tag]];
+    }
 }
 
 @end
