@@ -48,8 +48,6 @@
 }
 
 - (void)setConfig {
-    //修复iOS13下,push返回后选中色无效的bug
-    self.tabBar.tintColor = [UIColor redColor];
     NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
@@ -61,11 +59,21 @@
         UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         UITabBarItem *tabBarItem = self.tabBar.items[i];
+        if (@available(iOS 13.0, *)) {
+            UITabBarAppearance *appearance = [UITabBarAppearance new];
+            appearance.backgroundColor = [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = atts;
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = selAtts;
+            
+            tabBarItem.standardAppearance = appearance;
+        }
+        else {
+            [tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
+            [tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
+        }
         tabBarItem.title = titles[i];
         tabBarItem.image = img;
         tabBarItem.selectedImage = selImg;
-        [tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
-        [tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
     }
 }
 
