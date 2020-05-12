@@ -33,6 +33,7 @@ function LoadUrl(url){
 
 //js交互方式二: 使用js传值
 function JSClick(array) {
+//    alert(JSON.stringify(GetDeviceSysInfo()))
     window.webkit.messageHandlers.universal.postMessage(array);
 }
 
@@ -54,4 +55,27 @@ function getQueryString(key) {
     var qulist = _url.match(new RegExp('[^\?&]*' + key + '=+[^&]*'));
     var v = qulist ? qulist[0].split('=')[1] : null;
     alert(v + "v");
+}
+
+//获取WebGL版本
+function GetDeviceSysInfo() {
+    var canvasObj = document.createElement("canvas");
+    if (canvasObj && "function" == typeof canvasObj.getContext)
+        //根据不同的渲染支持
+        for (var webgls = ["webgl", "webgl2", "experimental-webgl2", "experimental-webgl"], r = 0; r < webgls.length; r++) {
+            var webgl = webgls[r],
+                cavContext = canvasObj.getContext(webgl);
+            if (cavContext) { //获取canvas的上下文成功
+                var params = {};
+                params.context = webgl,
+                    params.version = cavContext.getParameter(cavContext.VERSION),
+                    params.vendor = cavContext.getParameter(cavContext.VENDOR),
+                    params.sl_version = cavContext.getParameter(cavContext.SHADING_LANGUAGE_VERSION),
+                    params.max_texture_size = cavContext.getParameter(cavContext.MAX_TEXTURE_SIZE);
+                var debugInfo = cavContext.getExtension("WEBGL_debug_renderer_info");
+                return debugInfo && (params.vendor = cavContext.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+                    params.renderer = cavContext.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)), params
+            }
+        }
+    return {}
 }
