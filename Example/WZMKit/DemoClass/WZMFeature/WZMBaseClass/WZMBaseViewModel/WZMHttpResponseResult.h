@@ -10,8 +10,8 @@
 
 ///自定义状态码
 typedef NS_ENUM(NSInteger, WZMHttpResponseCode) {
-    WZMHttpResponseCodeFail    = -1, //请求失败
-    WZMHttpResponseCodeSuccess = 0,  //请求成功
+    WZMHttpResponseCodeFail    = 0, //请求失败
+    WZMHttpResponseCodeSuccess = 1, //请求成功
 };
 
 @interface WZMHttpResponseResult : NSObject
