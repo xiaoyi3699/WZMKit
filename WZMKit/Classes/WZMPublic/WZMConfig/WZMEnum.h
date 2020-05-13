@@ -112,15 +112,6 @@ typedef NS_ENUM(NSInteger, WZMAnimationStyle) {
     WZMAnimationStyleFromDownAnimation       //从底部弹出
 };
 
-///阴影样式
-typedef NS_ENUM(NSInteger, WZMShadowType) {
-    WZMShadowTypeAll,         //四个边阴影
-    WZMShadowTypeTopLeft,     //两个变阴影(左上角)
-    WZMShadowTypeTopRight,    //两个变阴影(右上角)
-    WZMShadowTypeBottomLeft,  //两个变阴影(左下角)
-    WZMShadowTypeBottomRight  //两个变阴影(右下角)
-};
-
 ///屏幕方向
 typedef NS_ENUM(NSInteger, WZMLaunchImageType) {
     WZMLaunchImageTypePortrait = 0, //竖屏

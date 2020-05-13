@@ -255,68 +255,15 @@ static NSString *_visualKey = @"visual";
 }
 
 - (void)wzm_setShadowRadius:(CGFloat)radius offset:(CGFloat)offset color:(UIColor *)color alpha:(CGFloat)alpha {
-    self.layer.shadowColor = color.CGColor;
-    self.layer.shadowOffset = CGSizeMake(0,0);
-    self.layer.shadowOpacity = alpha;
-    self.layer.shadowRadius = radius;
-    
-    //阴影路径
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    
-    CGRect rect = self.bounds;
-    float width = rect.size.width;
-    float height = rect.size.height;
-    float x = rect.origin.x;
-    float y = rect.origin.y;
-    
-    CGPoint topLeft,topMiddle,topRight,rightMiddle,bottomRight,bottomMiddle,bottomLeft,leftMiddle;
-    topLeft = rect.origin;
-    topLeft.x -= offset;
-    topLeft.y -= offset;
-    topMiddle    = CGPointMake(x+(width/2),y-offset);
-    topRight     = CGPointMake(x+width+offset,y-offset);
-    rightMiddle  = CGPointMake(x+width+offset,y+(height/2));
-    bottomRight  = CGPointMake(x+width+offset,y+height+offset);
-    bottomMiddle = CGPointMake(x+(width/2),y+height+offset);
-    bottomLeft   = CGPointMake(x-offset,y+height+offset);
-    leftMiddle   = CGPointMake(x-offset,y+(height/2));
-    
-    [path moveToPoint:topLeft];
-    //添加四个二元曲线
-    [path addQuadCurveToPoint:topRight
-                 controlPoint:topMiddle];
-    [path addQuadCurveToPoint:bottomRight
-                 controlPoint:rightMiddle];
-    [path addQuadCurveToPoint:bottomLeft
-                 controlPoint:bottomMiddle];
-    [path addQuadCurveToPoint:topLeft
-                 controlPoint:leftMiddle];
-    //设置阴影路径
-    self.layer.shadowPath = path.CGPath;
-}
-
-- (void)wzm_setShadowOffset:(CGFloat)offset color:(UIColor *)color opacity:(CGFloat)opacity shadowType: (WZMShadowType)shadowType {
-    
-    self.layer.shadowColor = color.CGColor; //阴影颜色
-    self.layer.shadowOpacity = opacity;     //不透明度
-    self.layer.shadowRadius = 5;            //模糊半径
-    
-    //设置偏移距离
-    if (shadowType == WZMShadowTypeAll) {
-        self.layer.shadowOffset = CGSizeMake(0, 0);
-    }
-    else if (shadowType == WZMShadowTypeTopLeft) {
-        self.layer.shadowOffset = CGSizeMake(-offset, -offset);
-    }
-    else if (shadowType == WZMShadowTypeTopRight) {
-        self.layer.shadowOffset = CGSizeMake(offset, -offset);
-    }
-    else if (shadowType == WZMShadowTypeBottomLeft) {
-        self.layer.shadowOffset = CGSizeMake(-offset, offset);
-    }
-    else {
-        self.layer.shadowOffset = CGSizeMake(offset, offset);
-    }
+    CALayer *subLayer = [CALayer layer];
+    subLayer.frame = self.frame;
+    subLayer.cornerRadius = radius;
+    subLayer.backgroundColor = color.CGColor;
+    subLayer.shadowColor = color.CGColor;
+    subLayer.shadowOffset = CGSizeMake(offset,offset);
+    subLayer.shadowOpacity = alpha;
+    subLayer.shadowRadius = radius;
+    [self.superview.layer insertSublayer:subLayer below:self.layer];
 }
 
 //遮罩效果
