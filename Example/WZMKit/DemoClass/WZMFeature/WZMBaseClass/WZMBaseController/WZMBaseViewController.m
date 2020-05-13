@@ -43,9 +43,9 @@
             [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         }
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[self navigatonBarTitleColor]}];
-        self.navigationController.navigationBar.tintColor = [self backItemColor];
-        self.navigationItem.backBarButtonItem.title = [self backItemTitle];
-        self.navigationController.navLineHidden = [self navigatonIsHiddenLine];
+        self.navigationController.navigationBar.tintColor = [self navigatonBarBackItemColor];
+        self.navigationItem.backBarButtonItem.title = [self navigatonBarBackItemTitle];
+        self.navigationController.navLineHidden = [self navigatonBarIsHiddenLine];
         self.navigationController.navigationBar.hidden = [self navigatonBarIsHidden];
     }
 }
@@ -100,7 +100,7 @@
 }
 
 //导航栏是否隐藏线条
-- (BOOL)navigatonIsHiddenLine {
+- (BOOL)navigatonBarIsHiddenLine {
     return NO;
 }
 
@@ -110,12 +110,12 @@
 }
 
 //返回按钮颜色
-- (UIColor *)backItemColor {
+- (UIColor *)navigatonBarBackItemColor {
     return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
 //返回按钮文字
-- (NSString *)backItemTitle {
+- (NSString *)navigatonBarBackItemTitle {
     return @"";
 }
 

@@ -31,8 +31,12 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *ip = [WZMDeviceUtil IPAddress];
-    
+    if (APP_IS_DARK) {
+        NSLog(@"是的");
+    }
+    else {
+        NSLog(@"不是");
+    }
 }
 
 @end

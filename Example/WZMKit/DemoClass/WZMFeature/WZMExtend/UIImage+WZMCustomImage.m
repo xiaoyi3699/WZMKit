@@ -16,7 +16,7 @@
     static UIImage *bgImage;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        bgImage = [UIImage wzm_getImageByColor:[UIColor whiteColor]];
+        bgImage = [UIImage wzm_getImageByColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:8.0/255.0 green:8.0/255.0 blue:8.0/255.0 alpha:1.0]]];
     });
     return bgImage;
 }

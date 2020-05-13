@@ -28,6 +28,9 @@
 //iOS系统版本
 #define WZM_DEVICE     [[WZMPublic sharePublic] systemV]
 
+//是否是暗黑模式
+#define APP_IS_DARK (WZM_DEVICE >= 13.0 && [UIScreen mainScreen].traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+
 //APP名字
 #define WZM_APP_NAME     [[WZMPublic sharePublic] appName]
 

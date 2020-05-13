@@ -36,15 +36,15 @@
 - (UIImage *)navigatonBarBackgroundImage;
 
 ///导航栏是否隐藏线条
-- (BOOL)navigatonIsHiddenLine;
+- (BOOL)navigatonBarIsHiddenLine;
 
 ///title颜色
 - (UIColor *)navigatonBarTitleColor;
 
 ///返回按钮颜色
-- (UIColor *)backItemColor;
+- (UIColor *)navigatonBarBackItemColor;
 
 ///返回按钮文字
-- (NSString *)backItemTitle;
+- (NSString *)navigatonBarBackItemTitle;
 
 @end
