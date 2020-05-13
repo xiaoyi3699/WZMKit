@@ -99,6 +99,14 @@
     return self.selectedViewController;
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    //模式切换,重新设置
+    [self setConfig];
+}
+#endif
+
 #pragma mark - lazy load
 - (WZMScreenShotView *)screenShotView {
     if (_screenShotView == nil) {

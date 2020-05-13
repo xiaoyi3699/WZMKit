@@ -85,6 +85,10 @@
 - (void)rightButtonClick{}
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
+    return UIUserInterfaceStyleUnspecified;
+}
+
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
         [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
