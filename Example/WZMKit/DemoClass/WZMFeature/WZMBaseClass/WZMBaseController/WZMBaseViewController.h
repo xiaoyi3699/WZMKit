@@ -33,7 +33,7 @@
 - (BOOL)navigatonBarIsHidden;
 
 ///导航栏背景图片
-- (UIImage *)navigatonBarBackgroundImage;
+- (UIColor *)navigatonBarBackgroundColor;
 
 ///导航栏是否隐藏线条
 - (BOOL)navigatonBarIsHiddenLine;

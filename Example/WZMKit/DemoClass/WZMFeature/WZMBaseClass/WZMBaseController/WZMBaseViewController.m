@@ -34,14 +34,10 @@
     [super viewWillAppear:animated];
     
     if (self.navigationController) {
-        UIImage *navBGImage = [self navigatonBarBackgroundImage];
-        if (navBGImage) {
-            self.navigationController.navigationBar.translucent = YES;
-            [self.navigationController.navigationBar setBackgroundImage:navBGImage forBarMetrics:UIBarMetricsDefault];
-        }
-        else {
-            [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-        }
+        UIColor *navBGColor = [self navigatonBarBackgroundColor];
+        self.extendedLayoutIncludesOpaqueBars = YES;
+        self.navigationController.navigationBar.translucent = NO;
+        self.navigationController.navigationBar.backgroundColor = navBGColor;
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[self navigatonBarTitleColor]}];
         self.navigationController.navigationBar.tintColor = [self navigatonBarBackItemColor];
         self.navigationItem.backBarButtonItem.title = [self navigatonBarBackItemTitle];
@@ -94,27 +90,27 @@
     return NO;
 }
 
-//导航栏背景图片
-- (UIImage *)navigatonBarBackgroundImage {
-    return [UIImage defaultNavBGImage];
-}
-
 //导航栏是否隐藏线条
 - (BOOL)navigatonBarIsHiddenLine {
     return NO;
 }
 
-//title颜色
+//导航栏背景色
+- (UIColor *)navigatonBarBackgroundColor {
+    return [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:8.0/255.0 green:8.0/255.0 blue:8.0/255.0 alpha:1.0]];
+}
+
+//导航栏title颜色
 - (UIColor *)navigatonBarTitleColor {
     return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
-//返回按钮颜色
+//导航栏返回按钮颜色
 - (UIColor *)navigatonBarBackItemColor {
     return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
-//返回按钮文字
+//导航栏返回按钮文字
 - (NSString *)navigatonBarBackItemTitle {
     return @"";
 }
