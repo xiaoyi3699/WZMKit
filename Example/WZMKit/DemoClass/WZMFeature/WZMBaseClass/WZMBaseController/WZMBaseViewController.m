@@ -84,6 +84,18 @@
 - (void)leftButtonClick{}
 - (void)rightButtonClick{}
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
+    }
+    else {
+        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleLight];
+    }
+}
+- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
+#endif
+
 #pragma mark - 导航栏
 //导航栏是否隐藏
 - (BOOL)navigatonBarIsHidden {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMEnum.h"
 
 @protocol WZMBaseViewControllerProtocol <NSObject>
 @optional
@@ -29,22 +30,25 @@
 - (void)leftButtonClick;
 - (void)rightButtonClick;
 
+///明亮/暗黑
+- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style;
+
 ///导航栏是否隐藏
 - (BOOL)navigatonBarIsHidden;
-
-///导航栏背景图片
-- (UIColor *)navigatonBarBackgroundColor;
 
 ///导航栏是否隐藏线条
 - (BOOL)navigatonBarIsHiddenLine;
 
-///title颜色
+///导航栏背景颜色
+- (UIColor *)navigatonBarBackgroundColor;
+
+///导航栏title颜色
 - (UIColor *)navigatonBarTitleColor;
 
-///返回按钮颜色
+///导航栏返回按钮颜色
 - (UIColor *)navigatonBarBackItemColor;
 
-///返回按钮文字
+///导航栏返回按钮文字
 - (NSString *)navigatonBarBackItemTitle;
 
 @end

@@ -31,12 +31,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if (APP_IS_DARK) {
-        NSLog(@"是的");
-    }
-    else {
-        NSLog(@"不是");
-    }
+    
 }
 
 @end

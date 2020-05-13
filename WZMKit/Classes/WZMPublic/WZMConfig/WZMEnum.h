@@ -231,4 +231,10 @@ typedef NS_ENUM(NSInteger, WZMCommonState) {
     WZMCommonStateEnded
 };
 
+///暗黑模式
+typedef NS_ENUM(NSInteger ,WZMUserInterfaceStyle) {
+    WZMUserInterfaceStyleLight = 0,
+    WZMUserInterfaceStyleDark
+};
+
 #endif /* WZMEnum_h */
