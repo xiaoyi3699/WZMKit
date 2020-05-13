@@ -96,7 +96,7 @@
 
 //导航栏背景图片
 - (UIImage *)navigatonBarBackgroundImage {
-    return nil;
+    return [UIImage defaultNavBGImage];
 }
 
 //导航栏是否隐藏线条
