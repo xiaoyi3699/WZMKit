@@ -22,13 +22,14 @@
 @interface WZMBaseViewController : UIViewController
 
 ///设置导航栏左侧item
-- (void)setLeftItemImage:(UIImage *)image;
+- (UIImage *)navigatonLeftItemImage;
+- (UIView *)navigatonLeftItemView;
+- (void)navigatonLeftButtonClick;
 
 ///设置导航栏右侧item
-- (void)setRightItemImage:(UIImage *)image;
-
-- (void)leftButtonClick;
-- (void)rightButtonClick;
+- (UIImage *)navigatonRightItemImage;
+- (UIView *)navigatonRightItemView;
+- (void)navigatonRightButtonClick;
 
 ///明亮/暗黑
 - (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style;

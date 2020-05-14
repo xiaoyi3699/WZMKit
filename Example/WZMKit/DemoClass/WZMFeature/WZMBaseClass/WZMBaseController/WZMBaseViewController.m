@@ -32,7 +32,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     if (self.navigationController) {
         UIColor *navBGColor = [self navigatonBarBackgroundColor];
         self.extendedLayoutIncludesOpaqueBars = YES;
@@ -43,62 +42,69 @@
         self.navigationItem.backBarButtonItem.title = [self navigatonBarBackItemTitle];
         self.navigationController.navLineHidden = [self navigatonBarIsHiddenLine];
         self.navigationController.navigationBar.hidden = [self navigatonBarIsHidden];
+        [self setNavigatonLeftItemImage:[self navigatonLeftItemImage]];
+        [self setNavigatonRightItemImage:[self navigatonRightItemImage]];
     }
 }
 
 #pragma mark - custom method
-- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 //设置导航栏左侧item
-- (void)setLeftItemImage:(UIImage *)image {
-    
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftButtonClick)];
-    [leftView addGestureRecognizer:tap];
-    
+- (void)setNavigatonLeftItemImage:(UIImage *)image {
+    UIView *leftView = [self navigatonLeftItemView];
+    if (leftView == nil) {
+        leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigatonLeftButtonClick)];
+        [leftView addGestureRecognizer:tap];
+    }
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 7, 30, 30)];
     imageView.image = image;
     [leftView addSubview:imageView];
-    
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
 }
 
 //设置导航栏右侧item
-- (void)setRightItemImage:(UIImage *)image {
-    
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightButtonClick)];
-    [rightView addGestureRecognizer:tap];
-    
+- (void)setNavigatonRightItemImage:(UIImage *)image {
+    UIView *rightView = [self navigatonRightItemView];
+    if (rightView == nil) {
+        rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigatonRightButtonClick)];
+        [rightView addGestureRecognizer:tap];
+    }
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 7, 30, 30)];
     imageView.image = image;
     [rightView addSubview:imageView];
-    
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
-- (void)leftButtonClick{}
-- (void)rightButtonClick{}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-- (UIUserInterfaceStyle)overrideUserInterfaceStyle {
-    return UIUserInterfaceStyleUnspecified;
+#pragma mark - 子类回调
+- (UIView *)navigatonLeftItemView {
+    return nil;
 }
 
-- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
-    }
-    else {
-        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleLight];
-    }
+- (UIView *)navigatonRightItemView {
+    return nil;
 }
-- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
-#endif
+
+- (UIImage *)navigatonLeftItemImage {
+    if (self.navigationController.childViewControllers.count > 1) {
+        return [UIImage imageNamed:@"wzm_back_dark"];
+    }
+    return nil;
+}
+
+- (UIImage *)navigatonRightItemImage {
+    return nil;
+}
+
+- (void)navigatonLeftButtonClick{
+    [self wzm_goBack];
+}
+
+- (void)navigatonRightButtonClick{
+    
+}
 
 #pragma mark - 导航栏
 //导航栏是否隐藏
@@ -132,6 +138,23 @@
 }
 
 #pragma mark - super method
+//屏幕方向
+- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
+    }
+    else {
+        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleLight];
+    }
+}
+- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
+#endif
+
 //屏蔽屏幕底部的系统手势
 - (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
     return  UIRectEdgeNone;

@@ -89,7 +89,6 @@
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     [self.view addSubview:self.webView];
     [self loadUrl:_url];
-    [self setRightItemImage:[UIImage imageNamed:@"wzmReload"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -383,6 +382,10 @@
         }
     }
     return _progressLayer;
+}
+
+- (UIImage *)navigatonRightItemImage {
+    return [UIImage imageNamed:@"wzmReload"];
 }
 
 - (void)dealloc {
