@@ -27,12 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    
-    WZMVideoKeyView *keyView = [[WZMVideoKeyView alloc] initWithFrame:CGRectMake(0.0, 100.0, 375.0, 60.0)];
-    keyView.videoUrl = url;
-    [self.view addSubview:keyView];
 }
 
 @end

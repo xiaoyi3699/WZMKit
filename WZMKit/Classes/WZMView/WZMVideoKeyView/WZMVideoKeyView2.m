@@ -69,6 +69,7 @@
         _sliderS = 0.5;
         _sliderX = (self.wzm_width-2)*_sliderS;
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(_sliderX, 0, 2, self.wzm_height)];
+        self.sliderView.hidden = YES;
         self.sliderView.backgroundColor = [UIColor whiteColor];
         self.sliderView.wzm_cornerRadius = 1;
         [self addSubview:self.sliderView];
@@ -197,20 +198,25 @@
 }
 
 - (void)loadKeyImages {
-    UIImage *fImage = [[UIImage wzm_getImagesByUrl:_videoUrl count:1] firstObject];
-    CGFloat imageViewH = self.keysView.wzm_height;
-    CGFloat imageViewW = fImage.size.width*imageViewH/fImage.size.height;
-    CGFloat c = self.keysView.wzm_width/imageViewW;
-    NSInteger count = (NSInteger)c;
-    if (c > count) {
-        count ++;
-    }
-    NSArray *images = [UIImage wzm_getImagesByUrl:self.videoUrl count:count];
-    UIImage *keysImage = [UIImage wzm_getImageByImages:images type:WZMAddImageTypeHorizontal];
-    UIImage *graysImage = [keysImage wzm_getGrayImage];
-    
-    self.keysImageView.image = keysImage;
-    self.graysImageView.image = graysImage;
+    CGSize size = self.keysView.bounds.size;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UIImage *fImage = [[UIImage wzm_getImagesByUrl:_videoUrl count:1] firstObject];
+        CGFloat imageViewH = size.height;
+        CGFloat imageViewW = fImage.size.width*imageViewH/fImage.size.height;
+        CGFloat c = size.width/imageViewW;
+        NSInteger count = (NSInteger)c;
+        if (c > count) {
+            count ++;
+        }
+        NSArray *images = [UIImage wzm_getImagesByUrl:self.videoUrl count:count];
+        UIImage *keysImage = [UIImage wzm_getImageByImages:images type:WZMAddImageTypeHorizontal];
+        UIImage *graysImage = [keysImage wzm_getGrayImage];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.sliderView.hidden = NO;
+            self.keysImageView.image = keysImage;
+            self.graysImageView.image = graysImage;
+        });
+    });
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
