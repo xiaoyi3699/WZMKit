@@ -49,7 +49,7 @@
     }
 }
 
-#pragma mark - custom method
+#pragma mark - private method
 //设置导航栏左侧item
 - (void)setNavigatonLeftItemImage:(UIImage *)image {
     if (image == nil) return;
