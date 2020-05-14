@@ -22,17 +22,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    if (self.navigationController) {
-        //自定义返回按钮
-        self.navigationItem.backBarButtonItem = [UIBarButtonItem new];
+    self.userInterfaceStyle = WZMUserInterfaceStyleLight;
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.userInterfaceStyle = WZMUserInterfaceStyleDark;
+        }
     }
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.navigationController) {
+    if (self.navigationController != nil) {
         UIColor *navBGColor = [self navigatonBarBackgroundColor];
         self.extendedLayoutIncludesOpaqueBars = YES;
         self.navigationController.navigationBar.translucent = NO;
@@ -50,6 +52,7 @@
 #pragma mark - custom method
 //设置导航栏左侧item
 - (void)setNavigatonLeftItemImage:(UIImage *)image {
+    if (image == nil) return;
     UIView *leftView = [self navigatonLeftItemView];
     if (leftView == nil) {
         leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -65,6 +68,7 @@
 
 //设置导航栏右侧item
 - (void)setNavigatonRightItemImage:(UIImage *)image {
+    if (image == nil) return;
     UIView *rightView = [self navigatonRightItemView];
     if (rightView == nil) {
         rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
@@ -89,7 +93,12 @@
 
 - (UIImage *)navigatonLeftItemImage {
     if (self.navigationController.childViewControllers.count > 1) {
-        return [UIImage imageNamed:@"wzm_back_dark"];
+        if (self.userInterfaceStyle == WZMUserInterfaceStyleLight) {
+            return [UIImage imageNamed:@"wzm_back_black"];
+        }
+        else {
+            return [UIImage imageNamed:@"wzm_back_white"];
+        }
     }
     return nil;
 }
@@ -146,13 +155,21 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        self.userInterfaceStyle = WZMUserInterfaceStyleDark;
         [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
     }
     else {
+        self.userInterfaceStyle = WZMUserInterfaceStyleLight;
         [self userInterfaceStyleDidChange:WZMUserInterfaceStyleLight];
     }
+    if (self.navigationController) {
+        [self setNavigatonLeftItemImage:[self navigatonLeftItemImage]];
+        [self setNavigatonRightItemImage:[self navigatonRightItemImage]];
+    }
 }
-- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
+- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {
+    
+}
 #endif
 
 //屏蔽屏幕底部的系统手势

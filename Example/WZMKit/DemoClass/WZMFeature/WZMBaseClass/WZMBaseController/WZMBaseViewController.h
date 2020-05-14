@@ -21,6 +21,8 @@
 
 @interface WZMBaseViewController : UIViewController
 
+@property (nonatomic, assign) WZMUserInterfaceStyle userInterfaceStyle;
+
 ///设置导航栏左侧item
 - (UIImage *)navigatonLeftItemImage;
 - (UIView *)navigatonLeftItemView;

@@ -106,7 +106,7 @@
     [self.progressLayer removeFromSuperlayer];
 }
 
-- (void)rightButtonClick {
+- (void)navigatonRightButtonClick {
     [self.webView reload];
 }
 
@@ -385,7 +385,10 @@
 }
 
 - (UIImage *)navigatonRightItemImage {
-    return [UIImage imageNamed:@"wzmReload"];
+    if (self.userInterfaceStyle == WZMUserInterfaceStyleLight) {
+        return [UIImage imageNamed:@"wzm_reload_black"];
+    }
+    return [UIImage imageNamed:@"wzm_reload_white"];
 }
 
 - (void)dealloc {
