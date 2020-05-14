@@ -101,20 +101,20 @@
 
 - (void)handleResponseObj:(id)responseObject error:(NSError *)error callBack:(doHandler)backHandler {
     [WZMViewHandle wzm_setNetworkActivityIndicatorVisible:NO];
-    self.response.responseObject = responseObject;
+    self.response.data = responseObject;
     if (error) {
         //自定义返回信息和状态码
         self.response.error = error;
-        self.response.code    = WZMURLResponseCodeFail;
+        self.response.code = WZMURLResponseCodeFail;
         self.response.message = WZM_NO_NET;
         [self clearLastData];
     }
     else {
         if ([responseObject isKindOfClass:[NSData class]]) {
-            self.response.responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            self.response.dataStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         }
         //mark: 自定义返回信息和状态码
-        self.response.code    = WZMURLResponseCodeSuccess;
+        self.response.code = WZMURLResponseCodeSuccess;
         self.response.message = @"自定义message";
         //mark: 自定义返回信息和状态码
         

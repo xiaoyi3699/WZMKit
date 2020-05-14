@@ -21,9 +21,9 @@ typedef NS_ENUM(NSInteger, WZMURLResponseCode) {
 ///提示信息
 @property (nonatomic, strong) NSString *message;
 ///请求返回值
-@property (nonatomic, assign) id responseObject;
+@property (nonatomic, assign) id data;
 ///请求返回值字符串
-@property (nonatomic, strong) NSString *responseStr;
+@property (nonatomic, strong) NSString *dataStr;
 ///请求返回的错误信息
 @property (nonatomic, strong) NSError *error;
 ///服务器获取的时间
