@@ -26,7 +26,7 @@
 - (void)showLoadingView;
 - (void)dismissLoadingView;
 ///子类如果需要实现自己页面特定需求的数据加载后的处理,重载以下方法即可
-- (void)didLoadDataWithResponseResult:(WZMHttpResponseResult *)responseResult;
+- (void)didLoadDataWithResponseResult:(WZMURLResponse *)responseResult;
 - (UIView *)badView;
 - (void)badViewAction;
 - (UIImage *)badViewImage;

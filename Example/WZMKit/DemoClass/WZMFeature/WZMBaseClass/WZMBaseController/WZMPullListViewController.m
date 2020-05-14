@@ -105,7 +105,7 @@
 
 - (void)backHandler {
     [self dismissLoadingView];
-    [self didLoadDataWithResponseResult:_superDataProvider.httpResponseResult];
+    [self didLoadDataWithResponseResult:_superDataProvider.response];
     [self endRefresh];
 }
 
@@ -133,13 +133,13 @@
 }
 
 //子类如果需要实现自己页面特定需求的数据加载后的处理,重载该方法即可
-- (void)didLoadDataWithResponseResult:(WZMHttpResponseResult *)responseResult {
+- (void)didLoadDataWithResponseResult:(WZMURLResponse *)responseResult {
     BOOL isDataEmpty = [_superDataProvider isDataEmpty];
     _superTableView.hidden = isDataEmpty;
     _superCollectionView.hidden = isDataEmpty;
     [self showBadView:isDataEmpty];
     
-    if (responseResult.code != WZMHttpResponseCodeSuccess) {
+    if (responseResult.code != WZMURLResponseCodeSuccess) {
         [WZMViewHandle wzm_showInfoMessage:responseResult.message];
     }
 }
@@ -249,14 +249,14 @@
 }
 
 - (NSString *)badViewMessage {
-    if (_superDataProvider.httpResponseResult.code == WZMHttpResponseCodeFail) {
+    if (_superDataProvider.response.code == WZMURLResponseCodeFail) {
         return WZM_NO_NET;
     }
     return WZM_NO_NET;
 }
 
 - (UIImage *)badViewImage {
-    if (_superDataProvider.httpResponseResult.code == WZMHttpResponseCodeFail) {
+    if (_superDataProvider.response.code == WZMURLResponseCodeFail) {
         return [UIImage imageNamed:@"ll_no_net"];
     }
     return [UIImage imageNamed:@"ll_no_data"];

@@ -37,7 +37,7 @@
 		75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DC1230E924A0000A955 /* WZMIAPManager.m */; };
 		75DA9E21230E924A0000A955 /* WZMCrashManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DC4230E924A0000A955 /* WZMCrashManager.m */; };
 		75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DC9230E924A0000A955 /* WZMProviderDataCache.m */; };
-		75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DCB230E924A0000A955 /* WZMHttpResponseResult.m */; };
+		75DA9E23230E924A0000A955 /* WZMURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DCB230E924A0000A955 /* WZMURLResponse.m */; };
 		75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DCC230E924A0000A955 /* WZMBaseDataProvider.m */; };
 		75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DCF230E924A0000A955 /* WZMBaseViewController.m */; };
 		75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DA9DD0230E924A0000A955 /* WZMPullListViewController.m */; };
@@ -119,10 +119,10 @@
 		75DA9DC2230E924A0000A955 /* WZMIAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMIAPManager.h; sourceTree = "<group>"; };
 		75DA9DC4230E924A0000A955 /* WZMCrashManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMCrashManager.m; sourceTree = "<group>"; };
 		75DA9DC5230E924A0000A955 /* WZMCrashManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMCrashManager.h; sourceTree = "<group>"; };
-		75DA9DC8230E924A0000A955 /* WZMHttpResponseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMHttpResponseResult.h; sourceTree = "<group>"; };
+		75DA9DC8230E924A0000A955 /* WZMURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMURLResponse.h; sourceTree = "<group>"; };
 		75DA9DC9230E924A0000A955 /* WZMProviderDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMProviderDataCache.m; sourceTree = "<group>"; };
 		75DA9DCA230E924A0000A955 /* WZMBaseDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMBaseDataProvider.h; sourceTree = "<group>"; };
-		75DA9DCB230E924A0000A955 /* WZMHttpResponseResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMHttpResponseResult.m; sourceTree = "<group>"; };
+		75DA9DCB230E924A0000A955 /* WZMURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMURLResponse.m; sourceTree = "<group>"; };
 		75DA9DCC230E924A0000A955 /* WZMBaseDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMBaseDataProvider.m; sourceTree = "<group>"; };
 		75DA9DCD230E924A0000A955 /* WZMProviderDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMProviderDataCache.h; sourceTree = "<group>"; };
 		75DA9DCF230E924A0000A955 /* WZMBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMBaseViewController.m; sourceTree = "<group>"; };
@@ -370,10 +370,10 @@
 		75DA9DC7230E924A0000A955 /* WZMBaseViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				75DA9DC8230E924A0000A955 /* WZMURLResponse.h */,
+				75DA9DCB230E924A0000A955 /* WZMURLResponse.m */,
 				75DA9DCA230E924A0000A955 /* WZMBaseDataProvider.h */,
 				75DA9DCC230E924A0000A955 /* WZMBaseDataProvider.m */,
-				75DA9DC8230E924A0000A955 /* WZMHttpResponseResult.h */,
-				75DA9DCB230E924A0000A955 /* WZMHttpResponseResult.m */,
 				75DA9DCD230E924A0000A955 /* WZMProviderDataCache.h */,
 				75DA9DC9230E924A0000A955 /* WZMProviderDataCache.m */,
 			);
@@ -787,7 +787,7 @@
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
-				75DA9E23230E924A0000A955 /* WZMHttpResponseResult.m in Sources */,
+				75DA9E23230E924A0000A955 /* WZMURLResponse.m in Sources */,
 				6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,

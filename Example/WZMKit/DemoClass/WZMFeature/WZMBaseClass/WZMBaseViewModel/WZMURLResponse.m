@@ -1,13 +1,13 @@
 //
-//  WZMHttpResponseResult.m
+//  WZMURLResponse.m
 //  LLFoundation
 //
 //  Created by wangzhaomeng on 16/8/17.
 //  Copyright © 2016年 MaoChao Network Co. Ltd. All rights reserved.
 //
 
-#import "WZMHttpResponseResult.h"
+#import "WZMURLResponse.h"
 
-@implementation WZMHttpResponseResult
+@implementation WZMURLResponse
 
 @end

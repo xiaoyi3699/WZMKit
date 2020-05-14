@@ -14,11 +14,8 @@
 @interface WZMBaseDataProvider ()
 
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic, strong) NSError *error;
-@property (nonatomic, assign) id responseObject;
-@property (nonatomic, strong) NSString *responseStr;
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
-@property (nonatomic, strong) WZMHttpResponseResult *httpResponseResult;
+@property (nonatomic, strong) WZMURLResponse *response;
 
 @end
 
@@ -30,7 +27,7 @@
         self.pageEnable = NO;
         self.useLocalCache = NO;
         self.page = WZM_START_PAGE;
-        self.httpResponseResult = [[WZMHttpResponseResult alloc] init];
+        self.response = [[WZMURLResponse alloc] init];
     }
     return self;
 }
@@ -51,22 +48,22 @@
         }
     }
     NSString *method = @"";
-    if (self.httpRequestMethod == WZMHttpRequestMethodGet) {
+    if (self.method == WZMURLRequestMethodGet) {
         method = @"GET";
     }
-    else if (self.httpRequestMethod == WZMHttpRequestMethodPost) {
+    else if (self.method == WZMURLRequestMethodPost) {
         method = @"POST";
     }
-    else if (self.httpRequestMethod == WZMHttpRequestMethodPut) {
+    else if (self.method == WZMURLRequestMethodPut) {
         method = @"PUT";
     }
-    else if (self.httpRequestMethod == WZMHttpRequestMethodDelete) {
+    else if (self.method == WZMURLRequestMethodDelete) {
         method = @"DELETE";
     }
-    else if (self.httpRequestMethod == WZMHttpRequestMethodPatch) {
+    else if (self.method == WZMURLRequestMethodPatch) {
         method = @"PATCH";
     }
-    else if (self.httpRequestMethod == WZMHttpRequestMethodHead) {
+    else if (self.method == WZMURLRequestMethodHead) {
         method = @"HEAD";
     }
     
@@ -104,24 +101,24 @@
 
 - (void)handleResponseObj:(id)responseObject error:(NSError *)error callBack:(doHandler)backHandler {
     [WZMViewHandle wzm_setNetworkActivityIndicatorVisible:NO];
-    self.responseObject = responseObject;
+    self.response.responseObject = responseObject;
     if (error) {
         //自定义返回信息和状态码
-        self.error = error;
-        self.httpResponseResult.code    = WZMHttpResponseCodeFail;
-        self.httpResponseResult.message = WZM_NO_NET;
+        self.response.error = error;
+        self.response.code    = WZMURLResponseCodeFail;
+        self.response.message = WZM_NO_NET;
         [self clearLastData];
     }
     else {
         if ([responseObject isKindOfClass:[NSData class]]) {
-            self.responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            self.response.responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         }
         //mark: 自定义返回信息和状态码
-        self.httpResponseResult.code    = WZMHttpResponseCodeSuccess;
-        self.httpResponseResult.message = @"自定义message";
+        self.response.code    = WZMURLResponseCodeSuccess;
+        self.response.message = @"自定义message";
         //mark: 自定义返回信息和状态码
         
-        if (self.httpResponseResult.code == WZMHttpResponseCodeSuccess) {
+        if (self.response.code == WZMURLResponseCodeSuccess) {
             if (self.page == WZM_START_PAGE) {
                 [self clearLastData];
             }

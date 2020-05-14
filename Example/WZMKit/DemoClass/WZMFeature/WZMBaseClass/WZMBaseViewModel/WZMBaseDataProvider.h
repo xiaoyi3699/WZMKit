@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WZMHttpResponseResult.h"
+#import "WZMURLResponse.h"
 
 ///网络请求方式
-typedef NS_ENUM(NSInteger, WZMHttpRequestMethod) {
-    WZMHttpRequestMethodGet = 0,  //HTTP Get请求
-    WZMHttpRequestMethodPost,     //HTTP Post请求
-    WZMHttpRequestMethodPut,      //HTTP Put请求
-    WZMHttpRequestMethodDelete,   //HTTP Delet请求
-    WZMHttpRequestMethodPatch,    //HTTP Patch请求
-    WZMHttpRequestMethodHead      //HTTP Head请求
+typedef NS_ENUM(NSInteger, WZMURLRequestMethod) {
+    WZMURLRequestMethodGet = 0,  //HTTP Get请求
+    WZMURLRequestMethodPost,     //HTTP Post请求
+    WZMURLRequestMethodPut,      //HTTP Put请求
+    WZMURLRequestMethodDelete,   //HTTP Delet请求
+    WZMURLRequestMethodPatch,    //HTTP Patch请求
+    WZMURLRequestMethodHead      //HTTP Head请求
 };
 typedef void(^doHandler)(void);
 #define WZM_START_PAGE 1
@@ -31,25 +31,17 @@ typedef void(^doHandler)(void);
 ///请求头的参数
 @property (nonatomic, strong) NSDictionary *headerParams;
 ///请求方式
-@property (nonatomic, assign) WZMHttpRequestMethod httpRequestMethod;
+@property (nonatomic, assign) WZMURLRequestMethod method;
 ///是否支持分页
 @property (nonatomic, assign, getter=isPageEnable) BOOL pageEnable;
 ///是否本地缓存
 @property (nonatomic, assign, getter=isUseLocalCache) BOOL useLocalCache;
 ///页码,当pageEnable = YES时生效
 @property (nonatomic, readonly, assign) NSInteger page;
-///请求返回值
-@property (nonatomic, readonly, assign) id responseObject;
-///请求返回值字符串
-@property (nonatomic, readonly, strong) NSString *responseStr;
-///请求返回的错误信息
-@property (nonatomic, readonly, strong) NSError *error;
 ///本次请求的dataTask
 @property (nonatomic, readonly, strong) NSURLSessionDataTask *dataTask;
 ///请求结果
-@property (nonatomic, readonly, strong) WZMHttpResponseResult *httpResponseResult;
-
-
+@property (nonatomic, readonly, strong) WZMURLResponse *response;
 
 #pragma mark - 子类回调
 ///加载数据
