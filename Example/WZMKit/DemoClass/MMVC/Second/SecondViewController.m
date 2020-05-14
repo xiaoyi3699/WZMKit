@@ -33,7 +33,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    WZMPhotoBrowser *vc = [[WZMPhotoBrowser alloc] init];
+    vc.images = @[@"http://www.vasueyun.cn/resource/wzm_qnyh.mp4"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end

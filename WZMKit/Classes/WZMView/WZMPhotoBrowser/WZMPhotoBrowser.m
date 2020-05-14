@@ -30,6 +30,7 @@
 #if WZM_APP
         self.bgImage = [UIImage wzm_getScreenImageByView:[UIApplication sharedApplication].delegate.window];
 #endif
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     return self;
 }
