@@ -24,17 +24,32 @@ typedef void(^doHandler)(void);
 #define WZM_NO_NET  @"请检查网络连接后重试"
 @interface WZMBaseDataProvider : NSObject
 
-@property (nonatomic, assign) NSInteger    page;           //请求的页码
-@property (nonatomic, strong) NSString     *requestUrl;    //请求的URL
-@property (nonatomic, strong) NSDictionary *requestParams; //请求的参数
-@property (nonatomic, strong) NSDictionary *headerParams;  //请求头的参数
-@property (nonatomic, assign) WZMHttpRequestMethod httpRequestMethod; //请求方式
-
-@property (nonatomic, assign) id responseObject;
-@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
-@property (nonatomic, strong) WZMHttpResponseResult *httpResponseResult;
-@property (nonatomic, assign, getter=isUseLocalCache) BOOL useLocalCache;
+///请求的URL
+@property (nonatomic, strong) NSString *requestUrl;
+///请求的参数
+@property (nonatomic, strong) NSDictionary *requestParams;
+///请求头的参数
+@property (nonatomic, strong) NSDictionary *headerParams;
+///请求方式
+@property (nonatomic, assign) WZMHttpRequestMethod httpRequestMethod;
+///是否支持分页
 @property (nonatomic, assign, getter=isPageEnable) BOOL pageEnable;
+///是否本地缓存
+@property (nonatomic, assign, getter=isUseLocalCache) BOOL useLocalCache;
+///页码,当pageEnable = YES时生效
+@property (nonatomic, readonly, assign) NSInteger page;
+///请求返回值
+@property (nonatomic, readonly, assign) id responseObject;
+///请求返回值字符串
+@property (nonatomic, readonly, strong) NSString *responseStr;
+///请求返回的错误信息
+@property (nonatomic, readonly, strong) NSError *error;
+///本次请求的dataTask
+@property (nonatomic, readonly, strong) NSURLSessionDataTask *dataTask;
+///请求结果
+@property (nonatomic, readonly, strong) WZMHttpResponseResult *httpResponseResult;
+
+
 
 #pragma mark - 子类回调
 ///加载数据

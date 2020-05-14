@@ -11,6 +11,17 @@
 #import "WZMNetWorking.h"
 #import "WZMViewHandle.h"
 
+@interface WZMBaseDataProvider ()
+
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSError *error;
+@property (nonatomic, assign) id responseObject;
+@property (nonatomic, strong) NSString *responseStr;
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
+@property (nonatomic, strong) WZMHttpResponseResult *httpResponseResult;
+
+@end
+
 @implementation WZMBaseDataProvider
 
 - (id)init{
@@ -96,11 +107,15 @@
     self.responseObject = responseObject;
     if (error) {
         //自定义返回信息和状态码
+        self.error = error;
         self.httpResponseResult.code    = WZMHttpResponseCodeFail;
         self.httpResponseResult.message = WZM_NO_NET;
         [self clearLastData];
     }
     else {
+        if ([responseObject isKindOfClass:[NSData class]]) {
+            self.responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        }
         //mark: 自定义返回信息和状态码
         self.httpResponseResult.code    = WZMHttpResponseCodeSuccess;
         self.httpResponseResult.message = @"自定义message";
