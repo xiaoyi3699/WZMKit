@@ -77,9 +77,9 @@
             b = components[2];
             a = components[3];
         }
-        UIColor *darkColor = [UIColor colorWithRed:(255-r)/255.0
-                                             green:(255-g)/255.0
-                                              blue:(255-b)/255.0
+        UIColor *darkColor = [UIColor colorWithRed:(1.0-r)
+                                             green:(1.0-g)
+                                              blue:(1.0-b)
                                              alpha:a];
         return [UIColor colorWithDynamicProvider:^UIColor * (UITraitCollection *traitCollection) {
             if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {

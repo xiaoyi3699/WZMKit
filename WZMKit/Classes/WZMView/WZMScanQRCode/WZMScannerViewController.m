@@ -9,6 +9,7 @@
 #import "WZMScannerViewController.h"
 #import "WZMLogPrinter.h"
 #import "WZMPublic.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMScannerViewController ()<AVCaptureMetadataOutputObjectsDelegate> {
     dispatch_queue_t _dispatchQueue;
@@ -28,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor whiteColor]];
     _a = 74;
     [self createViews];
 }
@@ -45,7 +46,7 @@
 
 - (void)createViews{
     _bgView = [[UIView alloc] initWithFrame:CGRectMake((self.view.bounds.size.width-280)/2, _a, 280, 350)];
-    _bgView.backgroundColor = [UIColor grayColor];
+    _bgView.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor grayColor]];
     [self.view addSubview:_bgView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-5, -7, 290, 364)];
@@ -58,7 +59,7 @@
     [self.view addSubview:_lineImageView];
     
     _statuesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_bgView.frame)+27, self.view.bounds.size.width, 21)];
-    _statuesLabel.textColor = [UIColor blackColor];
+    _statuesLabel.textColor = [UIColor wzm_getDynamicColor:[UIColor blackColor]];
     _statuesLabel.text = @"将取景框对准二维码，即可自动扫描";
     _statuesLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_statuesLabel];
