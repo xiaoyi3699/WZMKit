@@ -131,7 +131,6 @@
 		75DA9DD2230E924A0000A955 /* WZMPullListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMPullListViewController.h; sourceTree = "<group>"; };
 		75DA9DD4230E924A0000A955 /* WZMBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMBaseModel.h; sourceTree = "<group>"; };
 		75DA9DD5230E924A0000A955 /* WZMBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMBaseModel.m; sourceTree = "<group>"; };
-		75DA9DD7230E924A0000A955 /* WZMDataProviderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMDataProviderProtocol.h; sourceTree = "<group>"; };
 		75DA9DDA230E924A0000A955 /* WZMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMNavigationController.m; sourceTree = "<group>"; };
 		75DA9DDB230E924A0000A955 /* UINavigationController+wzmnav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+wzmnav.m"; sourceTree = "<group>"; };
 		75DA9DDD230E924A0000A955 /* WZMScreenShotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMScreenShotView.m; sourceTree = "<group>"; };
@@ -364,7 +363,6 @@
 				75DA9DD3230E924A0000A955 /* WZMBaseModel */,
 				75DA9DC7230E924A0000A955 /* WZMBaseViewModel */,
 				75DA9DCE230E924A0000A955 /* WZMBaseController */,
-				75DA9DD6230E924A0000A955 /* WZMProtocol */,
 			);
 			path = WZMBaseClass;
 			sourceTree = "<group>";
@@ -402,14 +400,6 @@
 				75DA9DD5230E924A0000A955 /* WZMBaseModel.m */,
 			);
 			path = WZMBaseModel;
-			sourceTree = "<group>";
-		};
-		75DA9DD6230E924A0000A955 /* WZMProtocol */ = {
-			isa = PBXGroup;
-			children = (
-				75DA9DD7230E924A0000A955 /* WZMDataProviderProtocol.h */,
-			);
-			path = WZMProtocol;
 			sourceTree = "<group>";
 		};
 		75DA9DD8230E924A0000A955 /* WZMCommon */ = {

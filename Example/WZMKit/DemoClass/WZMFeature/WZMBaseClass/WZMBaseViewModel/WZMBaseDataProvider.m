@@ -18,6 +18,7 @@
     if (self) {
         self.pageEnable = NO;
         self.useLocalCache = NO;
+        self.page = WZM_START_PAGE;
         self.httpResponseResult = [[WZMHttpResponseResult alloc] init];
     }
     return self;
@@ -97,7 +98,7 @@
         //自定义返回信息和状态码
         self.httpResponseResult.code    = WZMHttpResponseCodeFail;
         self.httpResponseResult.message = WZM_NO_NET;
-        [self clearMemoryData];
+        [self clearLastData];
     }
     else {
         //mark: 自定义返回信息和状态码
@@ -106,14 +107,19 @@
         //mark: 自定义返回信息和状态码
         
         if (self.httpResponseResult.code == WZMHttpResponseCodeSuccess) {
-            self.page ++;
+            if (self.page == WZM_START_PAGE) {
+                [self clearLastData];
+            }
+            if (self.isPageEnable) {
+                self.page ++;
+            }
             if ([self respondsToSelector:@selector(parseJSON:)]) {
                 [self parseJSON:responseObject];
             }
             //NSAssert(0, @"Sub dataprovider must implement parseJSON:");
         }
         else {
-            [self clearMemoryData];
+            [self clearLastData];
         }
     }
     if (backHandler) {
@@ -123,21 +129,29 @@
 
 #pragma mark - 数据解析
 - (void)parseJSON:(id)json{
-    if (self.page == WZM_START_PAGE+1) {
-        [self clearMemoryData];
-    }
-}
-
-- (void)clearMemoryData {
     
 }
 
-- (void)refreshData {
-    self.page = WZM_START_PAGE;
+- (void)clearLastData {
+    
 }
 
 - (BOOL)isDataEmpty {
     return YES;
+}
+
+#pragma mark - 页面交互使用
+//下拉刷新调用
+- (void)headerLoadData:(doHandler)loadHandler
+              callBack:(doHandler)backHandler {
+    self.page = WZM_START_PAGE;
+    [self loadData:loadHandler callBack:backHandler];
+}
+
+//上拉加载调用
+- (void)footerLoadData:(doHandler)loadHandler
+              callBack:(doHandler)backHandler {
+    [self loadData:loadHandler callBack:backHandler];
 }
 
 - (void)dealloc {

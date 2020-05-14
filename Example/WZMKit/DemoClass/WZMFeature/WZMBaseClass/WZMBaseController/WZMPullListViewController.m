@@ -84,22 +84,29 @@
 }
 
 - (void)refreshHeader {
-    [_superDataProvider refreshData];
-    [self reloadData];
+    [_superDataProvider headerLoadData:^{
+        [self loadHandler];
+    } callBack:^{
+        [self backHandler];
+    }];
 }
 
 - (void)refreshFooter {
-    [self reloadData];
+    [_superDataProvider footerLoadData:^{
+        [self loadHandler];
+    } callBack:^{
+        [self backHandler];
+    }];
 }
 
-//加载数据
-- (void)reloadData {
-    [_superDataProvider loadData:^{
-        [self showLoadingView];
-    } callBack:^{
-        [self didLoadDataWithResponseResult:_superDataProvider.httpResponseResult];
-        [self endRefresh];
-    }];
+- (void)loadHandler {
+    [self showLoadingView];
+}
+
+- (void)backHandler {
+    [self dismissLoadingView];
+    [self didLoadDataWithResponseResult:_superDataProvider.httpResponseResult];
+    [self endRefresh];
 }
 
 //结束加载动画
@@ -127,7 +134,6 @@
 
 //子类如果需要实现自己页面特定需求的数据加载后的处理,重载该方法即可
 - (void)didLoadDataWithResponseResult:(WZMHttpResponseResult *)responseResult {
-    [self dismissLoadingView];
     BOOL isDataEmpty = [_superDataProvider isDataEmpty];
     _superTableView.hidden = isDataEmpty;
     _superCollectionView.hidden = isDataEmpty;

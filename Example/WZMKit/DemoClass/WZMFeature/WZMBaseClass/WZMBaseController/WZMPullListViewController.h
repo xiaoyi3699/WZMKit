@@ -18,9 +18,9 @@
 
 ///UITableViewStyle
 - (UITableViewStyle)tableViewStyle;
-///刷新数据
+///下拉刷新
 - (void)refreshHeader;
-///加载更多
+///上拉加载
 - (void)refreshFooter;
 ///子类如果需要实现自己页面特定的页面加载动画,重载该方法即可
 - (void)showLoadingView;

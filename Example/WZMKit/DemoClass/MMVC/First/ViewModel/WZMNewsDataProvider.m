@@ -23,9 +23,8 @@
 }
 
 - (void)loadData:(doHandler)loadHandler callBack:(doHandler)backHandler {
-    
+    self.pageEnable = YES;
     self.httpRequestMethod = WZMHttpRequestMethodGet;
-    
     self.requestUrl = [NSString stringWithFormat:@"http://www.vasueyun.cn/apro/%@",_fileName];
     [super loadData:loadHandler callBack:backHandler];
 }
@@ -44,9 +43,9 @@
     }
 }
 
-- (void)clearMemoryData
+- (void)clearLastData
 {
-    [super clearMemoryData];
+    [super clearLastData];
     [_currentList removeAllObjects];
 }
 
