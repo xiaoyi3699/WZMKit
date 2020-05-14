@@ -27,7 +27,7 @@
         UIColor *lineColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(200, 200, 200, .5) darkColor:WZM_R_G_B_A(66, 66, 66, .5)];
         CGFloat btnBeginY = 0;
         if (message.length > 0) {
-            _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+2)*44+WZM_BOTTOM_HEIGHT);
+            _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+2)*60+WZM_BOTTOM_HEIGHT);
             
             UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 43.5)];
             messageLabel.text = message;
@@ -43,14 +43,15 @@
             btnBeginY = lineView.wzm_maxY;
         }
         else {
-            _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+1)*44+WZM_BOTTOM_HEIGHT);
+            _messageView.frame = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, (titles.count+1)*60+WZM_BOTTOM_HEIGHT);
         }
+        [_messageView wzm_addCorners:UIRectCornerTopLeft|UIRectCornerTopRight radius:5.0];
         [self addSubview:_messageView];
         
         for (NSInteger i = 0; i < titles.count; i ++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = i;
-            btn.frame = CGRectMake(0, btnBeginY+i%titles.count*44, self.bounds.size.width, 43.5);
+            btn.frame = CGRectMake(0, btnBeginY+i%titles.count*60, self.bounds.size.width, 59.5);
             btn.titleLabel.font = [UIFont systemFontOfSize:16];
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(50, 50, 50) darkColor:WZM_R_G_B(205, 205, 205)] forState:UIControlStateNormal];
@@ -64,7 +65,7 @@
         
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         cancelBtn.tag = -1;
-        cancelBtn.frame = CGRectMake(0, _messageView.bounds.size.height-44-WZM_BOTTOM_HEIGHT, self.bounds.size.width, 44);
+        cancelBtn.frame = CGRectMake(0, _messageView.bounds.size.height-60-WZM_BOTTOM_HEIGHT, self.bounds.size.width, 60);
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
