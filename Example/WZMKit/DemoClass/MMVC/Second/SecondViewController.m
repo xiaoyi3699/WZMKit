@@ -27,15 +27,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WZMSegmentedView *view = [[WZMSegmentedView alloc] initWithFrame:CGRectMake(0.0, 100.0, 375.0, 60.0)];
-    view.titles = @[@"w吊袜带哇",@"大娃娃多",@"我打哇",@"我打到无大哇",@"带娃奥无大无",@"带娃",@"吊袜带啊"];
-    [self.view addSubview:view];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
+    NSURL *url = [NSURL fileURLWithPath:path];
     
-    WZMScannerViewController *vc = [[WZMScannerViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    WZMVideoKeyView *keyView = [[WZMVideoKeyView alloc] initWithFrame:CGRectMake(0.0, 100.0, 375.0, 60.0)];
+    keyView.videoUrl = url;
+    [self.view addSubview:keyView];
 }
 
 @end
