@@ -167,9 +167,7 @@
         [self setNavigatonRightItemImage:[self navigatonRightItemImage]];
     }
 }
-- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {
-    
-}
+- (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
 #endif
 
 //屏蔽屏幕底部的系统手势
