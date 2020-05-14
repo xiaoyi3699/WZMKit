@@ -30,8 +30,8 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMActionSheet *sheet = [[WZMActionSheet alloc] initWithMessage:@"提示" titles:@[@"刘德华",@"普公 等我啊用",@"的恩爱的",@"带娃大无大无"]];
-    [sheet showCompletion:nil];
+    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:[WZMAlbumConfig new]];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end
