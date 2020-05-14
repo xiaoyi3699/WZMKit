@@ -7,6 +7,7 @@
 //
 
 #import "WZMScreenViewController.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMScreenViewController ()
 
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor whiteColor]];
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.imageView.image = self.image;
     [self.view addSubview:self.imageView];

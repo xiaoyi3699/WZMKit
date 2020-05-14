@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WZMMenuView *view = [[WZMMenuView alloc] initWithFrame:WZMRectMiddleArea()];
+    WZMSegmentedView *view = [[WZMSegmentedView alloc] initWithFrame:CGRectMake(0.0, 100.0, 375.0, 60.0)];
     view.titles = @[@"w吊袜带哇",@"大娃娃多",@"我打哇",@"我打到无大哇",@"带娃奥无大无",@"带娃",@"吊袜带啊"];
     [self.view addSubview:view];
 }

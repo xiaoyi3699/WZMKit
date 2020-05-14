@@ -7,6 +7,7 @@
 //
 
 #import "WZMSelectedView.h"
+#import "UIColor+wzmcate.h"
 
 @implementation WZMSelectedView {
     NSMutableArray *_btns;
@@ -18,15 +19,15 @@
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles titleFont:(UIFont *)font index:(NSInteger)index{
     self = [super initWithFrame:frame];
     if (self) {
-        
+
         if (index < 0 || index >= titles.count) {
             index = 0;
         }
         _selectedIndex      = index;
-        _titleColor         = [UIColor darkTextColor];
+        _titleColor         = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
         _selectedTitleColor = [UIColor redColor];
         _selectedLineColor  = [UIColor redColor];
-        _lineColor          = [UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1.0];
+        _lineColor          = [UIColor wzm_getDynamicColor:[UIColor colorWithRed:200/255. green:200/255. blue:200/255. alpha:1.0]];
         
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-0.5, frame.size.width, 0.5)];
         _lineView.backgroundColor = _lineColor;

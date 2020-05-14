@@ -9,6 +9,7 @@
 #import "WZMSegmentedView.h"
 #import "UIView+wzmcate.h"
 #import "WZMSegmentedCell.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMSegmentedView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -32,7 +33,7 @@
 
 - (void)createViews {
     _font = [UIFont systemFontOfSize:15];
-    _normalColor = [UIColor darkTextColor];
+    _normalColor = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
     _selectedColor = [UIColor redColor];
     _lineColor = [UIColor redColor];
     [self refreshTitleWidth];
