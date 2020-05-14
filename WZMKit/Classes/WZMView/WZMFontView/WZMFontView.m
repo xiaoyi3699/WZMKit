@@ -84,7 +84,6 @@
     NSInteger row = indexPath.row;
     NSString *fontName = [[_fonts objectAtIndex:section] objectAtIndex:row];
     cell.textLabel.text = @"字体展示abcABC123";
-    cell.textLabel.textColor = [UIColor blackColor];
     cell.textLabel.font = [UIFont fontWithName:fontName size:15];
     NSString* fontFamilyName = [_familys objectAtIndex:section];
     fontFamilyName = [fontFamilyName stringByReplacingOccurrencesOfString:@" " withString:@""];

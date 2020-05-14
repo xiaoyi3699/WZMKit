@@ -27,11 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    WZMMenuView *view = [[WZMMenuView alloc] initWithFrame:WZMRectMiddleArea()];
+    view.titles = @[@"w吊袜带哇",@"大娃娃多",@"我打哇",@"我打到无大哇",@"带娃奥无大无",@"带娃",@"吊袜带啊"];
+    [self.view addSubview:view];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:[WZMAlbumConfig new]];
-    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 @end

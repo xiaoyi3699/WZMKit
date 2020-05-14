@@ -10,6 +10,7 @@
 #import "WZMButton.h"
 #import "UIView+wzmcate.h"
 #import "WZMMacro.h"
+#import "UIColor+wzmcate.h"
 
 @implementation WZMMenuView {
     NSMutableArray *_itemBtns;
@@ -44,10 +45,10 @@
         WZMButton *btn = [[WZMButton alloc] initWithFrame:CGRectMake(minX, minY, itemW, itemH)];
         btn.tag = i;
         btn.titleLabel.font = font;
-        btn.backgroundColor = WZM_R_G_B(247, 247, 247);
+        btn.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(233.0, 233.0, 233.0) darkColor:WZM_R_G_B(44.0, 44.0, 44.0)];
         btn.wzm_cornerRadius = itemH/2.0;
         [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor lightTextColor]] forState:UIControlStateNormal];
         btn.titleFrame = CGRectMake(5.0, 0.0, itemW-10.0, itemH);
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         btn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
