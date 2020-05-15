@@ -9,6 +9,7 @@
 #import "WZMNetWorking.h"
 #import "WZMLogPrinter.h"
 #import "NSString+wzmcate.h"
+#import "NSURLRequest+wzmcate.h"
 
 NSString * const WZMNetRequestContentTypeForm = @"application/x-www-form-urlencoded";
 NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8";
@@ -146,7 +147,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
 
 //处理请求头等
 - (NSURLRequest *)handlingRequest:(NSMutableURLRequest *)request {
-    return [request copy];
+    return [request wzm_handlingRequest];
 }
 
 ///参数解析

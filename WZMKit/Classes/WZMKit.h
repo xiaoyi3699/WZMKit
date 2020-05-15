@@ -369,6 +369,7 @@
 #import "NSData+wzmcate.h"
 #import "NSArray+wzmcate.h"
 #import "NSDictionary+wzmcate.h"
+#import "NSURLRequest+wzmcate.h"
 
 #import "UIImage+wzmcate.h"
 #import "UIView+wzmcate.h"

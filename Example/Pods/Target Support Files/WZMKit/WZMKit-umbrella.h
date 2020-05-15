@@ -23,6 +23,7 @@
 #import "NSNull+wzmcate.h"
 #import "NSObject+wzmcate.h"
 #import "NSString+wzmcate.h"
+#import "NSURLRequest+wzmcate.h"
 #import "UIButton+wzmcate.h"
 #import "UIColor+wzmcate.h"
 #import "UIFont+wzmcate.h"

@@ -12,6 +12,4 @@
 
 + (NSURLRequest *)handlingUrl:(NSString *)url;
 
-+ (NSURLRequest *)handlingRequest:(NSMutableURLRequest *)request;
-
 @end

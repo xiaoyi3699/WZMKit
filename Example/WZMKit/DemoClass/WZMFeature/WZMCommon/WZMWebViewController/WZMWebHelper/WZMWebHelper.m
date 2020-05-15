@@ -8,6 +8,7 @@
 
 #import "WZMWebHelper.h"
 #import "NSString+wzmcate.h"
+#import "NSURLRequest+wzmcate.h"
 
 @implementation WZMWebHelper
 
@@ -18,18 +19,12 @@
     }
     else {
         URL = [NSURL URLWithString:url];
-        
         if (URL == nil) {
             URL = [NSURL URLWithString:[url wzm_getURLEncoded]];
         }
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    return [self handlingRequest:request];
-}
-
-+ (NSURLRequest *)handlingRequest:(NSMutableURLRequest *)request {
-    
-    return [request copy];
+    return [request wzm_handlingRequest];
 }
 
 @end
