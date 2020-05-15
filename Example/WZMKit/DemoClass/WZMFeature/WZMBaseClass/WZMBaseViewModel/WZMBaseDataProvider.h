@@ -43,16 +43,14 @@ typedef void(^doHandler)(void);
 ///请求结果
 @property (nonatomic, readonly, strong) WZMURLResponse *response;
 
-#pragma mark - 子类回调
+#pragma mark - 子类重载
 ///加载数据
 - (void)loadData:(doHandler)loadHandler
         callBack:(doHandler)backHandler;
 ///解析服务端返回的字符串数据
 - (void)parseJSON:(id)json;
-
 ///清空已有数据
 - (void)clearLastData;
-
 ///是否为空的,默认空
 - (BOOL)isDataEmpty;
 

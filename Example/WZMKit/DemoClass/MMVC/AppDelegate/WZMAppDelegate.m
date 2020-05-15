@@ -132,18 +132,16 @@
 
 #pragma mark - 屏幕旋转处理
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    
     UIViewController *rootVC = self.window.rootViewController;
     UIViewController *presentedVC = rootVC.presentedViewController;
-    
     if (presentedVC.isBeingDismissed) {
-        if ([rootVC respondsToSelector:@selector(wzm_supportedInterfaceOrientations)]) {
-            return [rootVC wzm_supportedInterfaceOrientations];
+        if ([rootVC respondsToSelector:@selector(supportedInterfaceOrientations)]) {
+            return [rootVC supportedInterfaceOrientations];
         }
     }
     else {
-        if ([presentedVC respondsToSelector:@selector(wzm_supportedInterfaceOrientations)]) {
-            return [presentedVC wzm_supportedInterfaceOrientations];
+        if ([presentedVC respondsToSelector:@selector(supportedInterfaceOrientations)]) {
+            return [presentedVC supportedInterfaceOrientations];
         }
     }
     return UIInterfaceOrientationMaskPortrait;

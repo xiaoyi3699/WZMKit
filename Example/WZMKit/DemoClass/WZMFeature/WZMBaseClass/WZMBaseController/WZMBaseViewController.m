@@ -10,10 +10,6 @@
 #import "UIColor+wzmcate.h"
 #import "UINavigationController+wzmnav.h"
 
-@implementation UIViewController (WZMBaseViewController)
-
-@end
-
 @interface WZMBaseViewController ()
 
 @end
@@ -82,7 +78,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
-#pragma mark - 子类回调
+#pragma mark - 子类重载
 - (UIView *)navigatonLeftItemView {
     return nil;
 }
@@ -148,17 +144,20 @@
 
 #pragma mark - super method
 //屏幕方向
-- (UIInterfaceOrientationMask)wzm_supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        self.userInterfaceStyle = WZMUserInterfaceStyleDark;
-        [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
+    BOOL isLight = YES;
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            isLight = NO;
+            self.userInterfaceStyle = WZMUserInterfaceStyleDark;
+            [self userInterfaceStyleDidChange:WZMUserInterfaceStyleDark];
+        }
     }
-    else {
+    if (isLight) {
         self.userInterfaceStyle = WZMUserInterfaceStyleLight;
         [self userInterfaceStyleDidChange:WZMUserInterfaceStyleLight];
     }
@@ -168,7 +167,6 @@
     }
 }
 - (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}
-#endif
 
 //屏蔽屏幕底部的系统手势
 - (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
