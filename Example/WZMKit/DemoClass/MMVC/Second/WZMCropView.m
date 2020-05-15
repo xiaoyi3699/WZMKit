@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
 
 @interface WZMCropView ()
 
+@property (nonatomic, assign) CGRect startFrame;
 @property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat cornerLenght;
 @property (nonatomic, assign) WZMCropMoveType moveType;
@@ -130,19 +131,22 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     CGPoint point = [touch locationInView:self];
     if (CGRectContainsPoint(self.cropFrame, point)) {
         self.startPoint = point;
-        if (CGRectContainsPoint(CGRectMake(0.0, 0.0, 40.0, 40.0), point)) {
+        self.startFrame = self.cropFrame;
+        CGFloat minX = CGRectGetMinX(self.cropFrame);
+        CGFloat minY = CGRectGetMinY(self.cropFrame);
+        if (CGRectContainsPoint(CGRectMake(minX, minY, 40.0, 40.0), point)) {
             //左上
             self.moveType = WZMCropMoveTypeLeftTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(self.cropFrame.size.width-40, 0.0, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY, 40.0, 40.0), point)) {
             //右上
             self.moveType = WZMCropMoveTypeRightTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(0.0, self.cropFrame.size.height-40, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX, minY+self.cropFrame.size.height-40, 40.0, 40.0), point)) {
             //左下
             self.moveType = WZMCropMoveTypeLeftDowm;
         }
-        else if (CGRectContainsPoint(CGRectMake(self.cropFrame.size.width-40, self.cropFrame.size.height-40, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY+self.cropFrame.size.height-40, 40.0, 40.0), point)) {
             //右下
             self.moveType = WZMCropMoveTypeRightDown;
         }
@@ -166,6 +170,13 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     NSLog(@"x====%@==y====%@",@(dx),@(dy));
     if (self.moveType == WZMCropMoveTypeLeftTop) {
         //左上
+        CGRect cropFrame = self.startFrame;
+        cropFrame.origin.x += dx;
+        cropFrame.origin.y += dy;
+        cropFrame.size.width -= dx;
+        cropFrame.size.height -= dy;
+        self.cropFrame = cropFrame;
+        [self setNeedsDisplay];
     }
     else if (self.moveType == WZMCropMoveTypeRightTop) {
         //右上
