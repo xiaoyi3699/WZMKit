@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMCropView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -27,6 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    WZMCropView *cropView = [[WZMCropView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 355.0)];
+    cropView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:cropView];
 }
 
 @end
