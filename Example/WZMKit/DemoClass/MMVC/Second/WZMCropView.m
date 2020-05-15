@@ -168,9 +168,15 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     CGFloat dx = movePoint.x - self.startPoint.x;
     CGFloat dy = movePoint.y - self.startPoint.y;
     NSLog(@"x====%@==y====%@",@(dx),@(dy));
+    CGRect cropFrame = self.startFrame;
     if (self.moveType == WZMCropMoveTypeLeftTop) {
         //左上
-        CGRect cropFrame = self.startFrame;
+        if (cropFrame.origin.x + dx <= 0.0) {
+            dx = 0.0;
+        }
+        if (cropFrame.origin.y + dy <= 0.0) {
+            dy = 0.0;
+        }
         cropFrame.origin.x += dx;
         cropFrame.origin.y += dy;
         cropFrame.size.width -= dx;
