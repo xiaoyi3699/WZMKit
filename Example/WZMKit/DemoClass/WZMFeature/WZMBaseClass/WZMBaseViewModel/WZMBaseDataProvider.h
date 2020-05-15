@@ -22,6 +22,7 @@ typedef void(^doHandler)(void);
 #define WZM_START_PAGE 1
 #define WZM_LOADING @"加载中..."
 #define WZM_NO_NET  @"请检查网络连接后重试"
+#define WZM_NO_DATA @"暂无数据"
 @interface WZMBaseDataProvider : NSObject
 
 ///请求的URL

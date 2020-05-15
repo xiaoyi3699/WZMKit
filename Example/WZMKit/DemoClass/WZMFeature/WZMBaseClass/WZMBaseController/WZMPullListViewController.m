@@ -250,16 +250,20 @@
 
 - (NSString *)badViewMessage {
     if (_superDataProvider.response.code == WZMURLResponseCodeFail) {
+        //无网络
         return WZM_NO_NET;
     }
-    return WZM_NO_NET;
+    //无数据
+    return WZM_NO_DATA;
 }
 
 - (UIImage *)badViewImage {
     if (_superDataProvider.response.code == WZMURLResponseCodeFail) {
-        return [UIImage imageNamed:@"ll_no_net"];
+        //无网络
+        return nil;
     }
-    return [UIImage imageNamed:@"ll_no_data"];
+    //无数据
+    return nil;
 }
 
 - (NSArray<UIView *> *)badViewFront {
