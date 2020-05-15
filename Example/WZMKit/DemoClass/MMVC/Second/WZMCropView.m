@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
 
 @interface WZMCropView ()
 
+@property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat cornerLenght;
 @property (nonatomic, assign) WZMCropMoveType moveType;
 
@@ -57,18 +58,20 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
         CGContextSetLineWidth(context, self.edgeWidth);
         //边缘线
-        CGRect rect2 = self.bounds;
-        rect2.origin.x = self.edgeWidth;
-        rect2.origin.y = self.edgeWidth;
-        rect2.size.width -= self.edgeWidth*2;
-        rect2.size.height -= self.edgeWidth*2;
-        CGContextAddRect(context, rect2);
+        CGRect cropFrame = self.cropFrame;
+        cropFrame.origin.x += self.edgeWidth;
+        cropFrame.origin.y += self.edgeWidth;
+        cropFrame.size.width -= self.edgeWidth*2;
+        cropFrame.size.height -= self.edgeWidth*2;
+        CGContextAddRect(context, cropFrame);
         CGContextStrokePath(context);
     }
     //绘制分割线
     if (self.isShowSeparate) {
-        CGFloat w = rect.size.width;
-        CGFloat h = rect.size.height;
+        CGFloat w = self.cropFrame.size.width;
+        CGFloat h = self.cropFrame.size.height;
+        CGFloat minX = CGRectGetMinX(self.cropFrame);
+        CGFloat minY = CGRectGetMinY(self.cropFrame);
         //分割线设置为虚线
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGFloat lengths2[]= {6.0, 4.0};
@@ -77,21 +80,23 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         CGContextSetLineWidth(context, self.separateWidth);
         CGContextSetLineDash(context, 0.0, lengths2, 2);
         //横向分割线
-        CGContextMoveToPoint(context, 0.0, w/3.0);
-        CGContextAddLineToPoint(context, w, w/3.0);
-        CGContextMoveToPoint(context, 0.0, w*2.0/3.0);
-        CGContextAddLineToPoint(context, w, w*2.0/3.0);
+        CGContextMoveToPoint(context, minX, minY+h/3.0);
+        CGContextAddLineToPoint(context, minX+w, minY+h/3.0);
+        CGContextMoveToPoint(context, minX, minY+h*2.0/3.0);
+        CGContextAddLineToPoint(context, minX+w, minY+h*2.0/3.0);
         //纵向分割线
-        CGContextMoveToPoint(context, h/3.0, 0.0);
-        CGContextAddLineToPoint(context, h/3.0, w);
-        CGContextMoveToPoint(context, h*2.0/3.0, 0.0);
-        CGContextAddLineToPoint(context, h*2.0/3.0, w);
+        CGContextMoveToPoint(context, minX+w/3.0, minY);
+        CGContextAddLineToPoint(context, minX+w/3.0, minY+h);
+        CGContextMoveToPoint(context, minX+w*2.0/3.0, minY);
+        CGContextAddLineToPoint(context, minX+w*2.0/3.0, minY+h);
         CGContextStrokePath(context);
     }
     //绘制顶点线
     if (self.isShowCorner) {
-        CGFloat w = rect.size.width;
-        CGFloat h = rect.size.height;
+        CGFloat w = self.cropFrame.size.width;
+        CGFloat h = self.cropFrame.size.height;
+        CGFloat minX = CGRectGetMinX(self.cropFrame);
+        CGFloat minY = CGRectGetMinY(self.cropFrame);
         //顶点配置取消虚线
         CGFloat lengths3[]= {};
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -100,21 +105,21 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         CGContextSetLineWidth(context, self.cornerWidth);
         CGContextSetLineDash(context, 0.0, lengths3, 0);
         //左上
-        CGContextMoveToPoint(context, self.cornerWidth/2.0, self.cornerLenght);
-        CGContextAddLineToPoint(context, self.cornerWidth/2.0, self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, self.cornerLenght, self.cornerWidth/2.0);
+        CGContextMoveToPoint(context, minX+self.cornerWidth/2.0, minY+self.cornerLenght);
+        CGContextAddLineToPoint(context, minX+self.cornerWidth/2.0, minY+self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+self.cornerLenght, minY+self.cornerWidth/2.0);
         //右上
-        CGContextMoveToPoint(context, w-self.cornerLenght, self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, w-self.cornerWidth/2.0, self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, w-self.cornerWidth/2.0, self.cornerLenght);
+        CGContextMoveToPoint(context, minX+w-self.cornerLenght, minY+self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+w-self.cornerWidth/2.0, minY+self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+w-self.cornerWidth/2.0, minY+self.cornerLenght);
         //左下
-        CGContextMoveToPoint(context, self.cornerWidth/2.0, h-self.cornerLenght);
-        CGContextAddLineToPoint(context, self.cornerWidth/2.0, h-self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, self.cornerLenght, h-self.cornerWidth/2.0);
+        CGContextMoveToPoint(context, minX+self.cornerWidth/2.0, minY+h-self.cornerLenght);
+        CGContextAddLineToPoint(context, minX+self.cornerWidth/2.0, minY+h-self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+self.cornerLenght, minY+h-self.cornerWidth/2.0);
         //右下
-        CGContextMoveToPoint(context, w-self.cornerLenght, h-self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, w-self.cornerWidth/2.0, h-self.cornerWidth/2.0);
-        CGContextAddLineToPoint(context, w-self.cornerWidth/2.0, h-self.cornerLenght);
+        CGContextMoveToPoint(context, minX+w-self.cornerLenght, minY+h-self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+w-self.cornerWidth/2.0, minY+h-self.cornerWidth/2.0);
+        CGContextAddLineToPoint(context, minX+w-self.cornerWidth/2.0, minY+h-self.cornerLenght);
         CGContextStrokePath(context);
     }
 }
@@ -124,6 +129,7 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     UITouch *touch = touches.anyObject;
     CGPoint point = [touch locationInView:self];
     if (CGRectContainsPoint(self.cropFrame, point)) {
+        self.startPoint = point;
         if (CGRectContainsPoint(CGRectMake(0.0, 0.0, 40.0, 40.0), point)) {
             //左上
             self.moveType = WZMCropMoveTypeLeftTop;
@@ -153,6 +159,11 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
     if (self.moveType == WZMCropMoveTypeNone) return;
+    UITouch *touch = touches.anyObject;
+    CGPoint movePoint = [touch locationInView:self];
+    CGFloat dx = movePoint.x - self.startPoint.x;
+    CGFloat dy = movePoint.y - self.startPoint.y;
+    NSLog(@"x====%@==y====%@",@(dx),@(dy));
     if (self.moveType == WZMCropMoveTypeLeftTop) {
         //左上
     }
