@@ -10,8 +10,9 @@
 
 ///自定义状态码
 typedef NS_ENUM(NSInteger, WZMURLResponseCode) {
-    WZMURLResponseCodeFail    = 0, //请求失败
-    WZMURLResponseCodeSuccess = 1, //请求成功
+    WZMURLResponseCodeCancel  = -1, //请求取消
+    WZMURLResponseCodeFail    = 0,  //请求失败
+    WZMURLResponseCodeSuccess = 1,  //请求成功
 };
 
 @interface WZMURLResponse : NSObject

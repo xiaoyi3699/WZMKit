@@ -104,9 +104,15 @@
     self.response.data = responseObject;
     if (error) {
         //自定义返回信息和状态码
+        if (error.code == -999) {
+            self.response.message = nil;
+            self.response.code = WZMURLResponseCodeCancel;
+        }
+        else {
+            self.response.message = WZM_NO_NET;
+            self.response.code = WZMURLResponseCodeFail;
+        }
         self.response.error = error;
-        self.response.code = WZMURLResponseCodeFail;
-        self.response.message = WZM_NO_NET;
         [self clearLastData];
     }
     else {
