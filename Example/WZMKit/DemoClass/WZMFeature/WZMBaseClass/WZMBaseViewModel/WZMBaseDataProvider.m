@@ -66,11 +66,6 @@
     else if (self.method == WZMURLRequestMethodHead) {
         method = @"HEAD";
     }
-    
-    if (self.dataTask) {
-        [self.dataTask cancel];
-        self.dataTask = nil;
-    }
     if (self.isPageEnable) {
         //拼接分页信息
         NSMutableDictionary *params;
