@@ -23,7 +23,7 @@
 }
 
 //拦截url
-- (WKNavigationActionPolicy)wzm_decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction startHandler:(void (^)())startHandler {
+- (WKNavigationActionPolicy)wzm_decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction startHandler:(void(^)(void))startHandler {
     NSURLRequest *request = navigationAction.request;
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated &&
         [request.URL.host.lowercaseString containsString:@"我的跨域标识符"]) {

@@ -138,15 +138,15 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             //左上
             self.moveType = WZMCropMoveTypeLeftTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40.0, minY, 40.0, 40.0), point)) {
             //右上
             self.moveType = WZMCropMoveTypeRightTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX, minY+self.cropFrame.size.height-40, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX, minY+self.cropFrame.size.height-40.0, 40.0, 40.0), point)) {
             //左下
             self.moveType = WZMCropMoveTypeLeftDowm;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY+self.cropFrame.size.height-40, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY+self.cropFrame.size.height-40.0, 40.0, 40.0), point)) {
             //右下
             self.moveType = WZMCropMoveTypeRightDown;
         }
@@ -172,10 +172,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     if (self.moveType == WZMCropMoveTypeLeftTop) {
         //左上
         if (cropFrame.origin.x + dx <= 0.0) {
-            dx = 0.0;
+            dx = -cropFrame.origin.x;
         }
         if (cropFrame.origin.y + dy <= 0.0) {
-            dy = 0.0;
+            dy = -cropFrame.origin.y;
+        }
+        if (cropFrame.size.width - dx <= 40.0*2) {
+            dx = cropFrame.size.width - 40.0*2;
+        }
+        if (cropFrame.size.height - dy <= 40.0*2) {
+            dy = cropFrame.size.height - 40.0*2;
         }
         cropFrame.origin.x += dx;
         cropFrame.origin.y += dy;

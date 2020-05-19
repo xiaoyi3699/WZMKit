@@ -15,7 +15,7 @@
 ///WKScriptMessageHandler
 - (void)wzm_userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message;
 ///拦截url
-- (WKNavigationActionPolicy)wzm_decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction startHandler:(void (^)())startHandler;
+- (WKNavigationActionPolicy)wzm_decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction startHandler:(void(^)(void))startHandler;
 ///以字符串的方式注入JS
 - (void)wzm_evaluateJavaScriptWithString:(NSString *)string;
 ///以文件的方式注入JS
