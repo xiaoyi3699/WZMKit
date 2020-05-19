@@ -100,6 +100,7 @@
         if (@available(iOS 11.0, *)) {
             collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
+        collectionView.showsVerticalScrollIndicator = NO;
         [collectionView registerClass:[WZMAlbumCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:collectionView];
         self.collectionView = collectionView;
