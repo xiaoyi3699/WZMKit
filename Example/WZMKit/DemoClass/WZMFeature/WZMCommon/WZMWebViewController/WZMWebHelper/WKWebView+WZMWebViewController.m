@@ -38,7 +38,7 @@
         NSString *word = [request.URL.absoluteString wzm_getURLDecoded];
         if ([word hasPrefix:@"app"]) {
             NSString *script = [NSString stringWithFormat:@"alert('%@')",word];
-            [self evaluateJavaScriptWithString:script];
+            [self wzm_evaluateJavaScriptWithString:script];
         }
         else {
             if (startHandler) startHandler();
@@ -49,12 +49,12 @@
 }
 
 //以字符串的方式注入JS
-- (void)evaluateJavaScriptWithString:(NSString *)string {
+- (void)wzm_evaluateJavaScriptWithString:(NSString *)string {
     [self evaluateJavaScript:string completionHandler:nil];
 }
 
 //以文件的方式注入JS
-- (void)evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type {
+- (void)wzm_evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *filePath = [bundle pathForResource:resource ofType:type];
     NSString *script = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];

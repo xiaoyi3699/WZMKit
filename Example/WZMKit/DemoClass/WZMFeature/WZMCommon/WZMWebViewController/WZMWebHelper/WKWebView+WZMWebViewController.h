@@ -17,8 +17,8 @@
 ///拦截url
 - (WKNavigationActionPolicy)wzm_decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction startHandler:(void (^)())startHandler;
 ///以字符串的方式注入JS
-- (void)evaluateJavaScriptWithString:(NSString *)string;
+- (void)wzm_evaluateJavaScriptWithString:(NSString *)string;
 ///以文件的方式注入JS
-- (void)evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type;
+- (void)wzm_evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type;
 
 @end

@@ -10,11 +10,11 @@
 
 @interface WZMWebViewController : WZMBaseViewController
 
-//加载网页
+///加载网页
 - (instancetype)initWithUrl:(NSString *)url;
 - (instancetype)initWithFrame:(CGRect)frame url:(NSString *)url;
 
-//加载本地html
+///加载本地html
 - (id)initWithHtml:(NSString *)html;
 - (id)initWithFrame:(CGRect)frame html:(NSString *)html;
 
@@ -22,8 +22,8 @@
 - (void)webGoback;
 - (void)loadUrl:(NSString *)url;
 
-//注入JS
-- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script;
-- (void)registerJSWithResource:(NSString *)resource ofType:(NSString *)type;
+///注入JS
+- (void)evaluateJavaScriptWithString:(NSString *)string;
+- (void)evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type;
 
 @end

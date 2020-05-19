@@ -235,17 +235,14 @@
 }
 
 #pragma mark - public method
-/** 以文件的方式注入JS */
-- (void)registerJSWithResource:(NSString *)resource ofType:(NSString *)type {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *filePath = [bundle pathForResource:resource ofType:type];
-    NSString *script = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    [self.webView evaluateJavaScript:script completionHandler:nil];
+//以字符串的方式注入JS
+- (void)evaluateJavaScriptWithString:(NSString *)string {
+    [self.webView wzm_evaluateJavaScriptWithString:string];
 }
 
-/** 以字符串的方式注入JS */
-- (void)stringByEvaluatingJavaScriptFromString:(NSString *)script {
-    [self.webView evaluateJavaScript:script completionHandler:nil];
+//以文件的方式注入JS
+- (void)evaluateJavaScriptWithResource:(NSString *)resource ofType:(NSString *)type {
+    [self.webView wzm_evaluateJavaScriptWithResource:resource ofType:type];
 }
 
 - (void)loadUrl:(NSString *)url {
