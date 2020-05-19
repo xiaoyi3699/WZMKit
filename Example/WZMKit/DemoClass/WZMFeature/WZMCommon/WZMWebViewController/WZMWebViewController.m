@@ -112,37 +112,17 @@
 
 #pragma mark - WZMScriptMessageHandler
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSString *name = message.name;
-    NSLog(@"==%@=%@",name,message.body);
+    [self.webView wzm_userContentController:userContentController didReceiveScriptMessage:message];
 }
 
 #pragma mark - WKNavigationDelegate
 // 请求开始前，会先调用此代理方法
 //- (BOOL)webView:shouldStartLoadWithRequest:navigationType:
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
-    NSURLRequest *request = navigationAction.request;
-    if (navigationAction.navigationType == WKNavigationTypeLinkActivated &&
-        [request.URL.host.lowercaseString containsString:@"我的跨域标识符"]) {
-        // 对于跨域，需要手动跳转
-#if WZM_APP
-        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
-#endif
-        // 不允许web内跳转
-        decisionHandler(WKNavigationActionPolicyCancel);
-    }
-    else {
-        NSString *word = [request.URL.absoluteString wzm_getURLDecoded];
-        if ([word hasPrefix:@"app"]) {
-            NSString *script = [NSString stringWithFormat:@"alert('%@')",word];
-            [self stringByEvaluatingJavaScriptFromString:script];
-        }
-        else {
-            [self.progressLayer startLoad];
-        }
-        //允许web内跳转
-        decisionHandler(WKNavigationActionPolicyAllow);
-    }
+    WKNavigationActionPolicy policy = [self.webView wzm_decidePolicyForNavigationAction:navigationAction startHandler:^{
+        [self.progressLayer startLoad];
+    }];
+    decisionHandler(policy);
 }
 
 // 在响应完成时，会回调此方法
