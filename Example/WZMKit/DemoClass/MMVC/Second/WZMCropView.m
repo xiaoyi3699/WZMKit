@@ -167,6 +167,7 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     CGPoint movePoint = [touch locationInView:self];
     CGFloat dx = movePoint.x - self.startPoint.x;
     CGFloat dy = movePoint.y - self.startPoint.y;
+    CGFloat dw = 0.0, dh = 0.0;
     NSLog(@"x====%@==y====%@",@(dx),@(dy));
     CGRect cropFrame = self.startFrame;
     if (self.moveType == WZMCropMoveTypeLeftTop) {
@@ -183,25 +184,81 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         if (cropFrame.size.height - dy <= 40.0*2) {
             dy = cropFrame.size.height - 40.0*2;
         }
-        cropFrame.origin.x += dx;
-        cropFrame.origin.y += dy;
-        cropFrame.size.width -= dx;
-        cropFrame.size.height -= dy;
-        self.cropFrame = cropFrame;
-        [self setNeedsDisplay];
+        dw = dx, dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeRightTop) {
         //右上
+        dw = -dx;
+        if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+            dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+        }
+        if (cropFrame.origin.y + dy <= 0.0) {
+            dy = -cropFrame.origin.y;
+        }
+        if (cropFrame.size.width - dw <= 40.0*2) {
+            dw = cropFrame.size.width - 40.0*2;
+        }
+        if (cropFrame.size.height - dy <= 40.0*2) {
+            dy = cropFrame.size.height - 40.0*2;
+        }
+        dx = 0.0; dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeLeftDowm) {
         //左下
+        dh = -dy;
+        if (cropFrame.origin.x + dx <= 0.0) {
+            dx = -cropFrame.origin.x;
+        }
+        if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+            dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+        }
+        if (cropFrame.size.width - dx <= 40.0*2) {
+            dx = cropFrame.size.width - 40.0*2;
+        }
+        if (cropFrame.size.height - dh <= 40.0*2) {
+            dh = cropFrame.size.height - 40.0*2;
+        }
+        dy = 0.0; dw = dx;
     }
     else if (self.moveType == WZMCropMoveTypeRightDown) {
         //右下
+        dw = -dx; dh = -dy;
+        if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+            dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+        }
+        if (cropFrame.size.width - dw <= 40.0*2) {
+            dw = cropFrame.size.width - 40.0*2;
+        }
+        if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+            dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+        }
+        if (cropFrame.size.height - dh <= 40.0*2) {
+            dh = cropFrame.size.height - 40.0*2;
+        }
+        dx = 0.0; dy = 0.0;
     }
     else {
-        //其余
+        //整体移动
+        if (cropFrame.origin.x + dx <= 0.0) {
+            dx = -cropFrame.origin.x;
+        }
+        if (cropFrame.origin.y + dy <= 0.0) {
+            dy = -cropFrame.origin.y;
+        }
+        if (cropFrame.origin.x + cropFrame.size.width + dx >= self.bounds.size.width) {
+            dx = self.bounds.size.width - (cropFrame.origin.x + cropFrame.size.width);
+        }
+        if (cropFrame.origin.y + cropFrame.size.height + dy >= self.bounds.size.height) {
+            dy = self.bounds.size.height - (cropFrame.origin.y + cropFrame.size.height);
+        }
+        dw = 0.0; dh = 0.0;
     }
+    cropFrame.origin.x += dx;
+    cropFrame.origin.y += dy;
+    cropFrame.size.width -= dw;
+    cropFrame.size.height -= dh;
+    self.cropFrame = cropFrame;
+    [self setNeedsDisplay];
 }
 
 @end
