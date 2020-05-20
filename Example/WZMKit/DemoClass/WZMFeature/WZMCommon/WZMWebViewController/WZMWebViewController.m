@@ -283,6 +283,7 @@
                    forKeyPath:@"estimatedProgress"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    //canGoBack, canGoForward
 }
 
 // 移除KVO监听
