@@ -30,6 +30,7 @@
     if (self.imageView != nil) {
         self.imageView.image = image;
     }
+    _image = image;
 }
 
 - (BOOL)prefersStatusBarHidden {

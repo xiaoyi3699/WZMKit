@@ -94,7 +94,7 @@ typedef NS_ENUM(NSInteger, WZMModalAnimationType) {
 
 ///tableHeaderView动画
 typedef NS_ENUM(NSInteger, WZMAutoHeaderAnimation) {
-    WZMAutoHeaderAnimationNon   = -1, //无动画
+    WZMAutoHeaderAnimationNone  = -1, //无动画
     WZMAutoHeaderAnimationScale = 0,  //按比例缩放
     WZMAutoHeaderAnimationFill  = 1   //拉伸填充
 };

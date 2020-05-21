@@ -45,7 +45,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.hidden) return;
-    if (self.headerAnimation == WZMAutoHeaderAnimationNon) return;
+    if (self.headerAnimation == WZMAutoHeaderAnimationNone) return;
     
     if ([keyPath isEqualToString:WZM_AUTO_CONTENT_OFF_SET]) {
         
