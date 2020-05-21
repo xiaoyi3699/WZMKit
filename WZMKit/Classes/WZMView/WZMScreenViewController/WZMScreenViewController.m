@@ -22,6 +22,7 @@
     self.view.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor whiteColor]];
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.imageView.image = self.image;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:self.imageView];
 }
 
