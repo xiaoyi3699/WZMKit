@@ -32,12 +32,9 @@
     [super viewWillAppear:animated];
     if (self.navigationController != nil) {
         UIColor *navBGColor = [self navigatonBarBackgroundColor];
-        self.extendedLayoutIncludesOpaqueBars = YES;
-        self.navigationController.navigationBar.translucent = NO;
-        self.navigationController.navigationBar.backgroundColor = navBGColor;
+        self.navigationController.navigationBar.translucent = YES;
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage wzm_getImageByColor:navBGColor] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[self navigatonBarTitleColor]}];
-        self.navigationController.navigationBar.tintColor = [self navigatonBarBackItemColor];
-        self.navigationItem.backBarButtonItem.title = [self navigatonBarBackItemTitle];
         self.navigationController.navLineHidden = [self navigatonBarIsHiddenLine];
         self.navigationController.navigationBar.hidden = [self navigatonBarIsHidden];
         [self setNavigatonLeftItemImage:[self navigatonLeftItemImage]];
@@ -103,11 +100,11 @@
     return nil;
 }
 
-- (void)navigatonLeftButtonClick{
+- (void)navigatonLeftButtonClick {
     [self wzm_goBack];
 }
 
-- (void)navigatonRightButtonClick{
+- (void)navigatonRightButtonClick {
     
 }
 
@@ -132,16 +129,6 @@
     return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
 }
 
-//导航栏返回按钮颜色
-- (UIColor *)navigatonBarBackItemColor {
-    return [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
-}
-
-//导航栏返回按钮文字
-- (NSString *)navigatonBarBackItemTitle {
-    return @"";
-}
-
 #pragma mark - super method
 //屏幕方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -164,6 +151,8 @@
     if (self.navigationController) {
         [self setNavigatonLeftItemImage:[self navigatonLeftItemImage]];
         [self setNavigatonRightItemImage:[self navigatonRightItemImage]];
+        UIColor *navBGColor = [self navigatonBarBackgroundColor];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage wzm_getImageByColor:navBGColor] forBarMetrics:UIBarMetricsDefault];
     }
 }
 - (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style {}

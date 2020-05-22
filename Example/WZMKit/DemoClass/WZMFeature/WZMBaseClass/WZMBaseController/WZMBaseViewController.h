@@ -31,10 +31,6 @@
 - (UIColor *)navigatonBarBackgroundColor;
 ///导航栏title颜色
 - (UIColor *)navigatonBarTitleColor;
-///导航栏返回按钮颜色
-- (UIColor *)navigatonBarBackItemColor;
-///导航栏返回按钮文字
-- (NSString *)navigatonBarBackItemTitle;
 ///明亮/暗黑
 - (void)userInterfaceStyleDidChange:(WZMUserInterfaceStyle)style;
 

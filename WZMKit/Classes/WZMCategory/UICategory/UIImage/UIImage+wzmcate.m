@@ -19,6 +19,7 @@
 
 #pragma mark - 类方法
 + (UIImage *)wzm_getImageByColor:(UIColor *)color {
+    if (color == nil) return nil;
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -30,6 +31,7 @@
 }
 
 + (UIImage *)wzm_getRoundImageByColor:(UIColor *)color size:(CGSize)size {
+    if (color == nil) return nil;
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -41,6 +43,7 @@
 }
 
 + (UIImage *)wzm_getRectImageByColor:(UIColor *)color size:(CGSize)size {
+    if (color == nil) return nil;
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
