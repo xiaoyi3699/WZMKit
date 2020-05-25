@@ -169,7 +169,7 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
         }
     }
     else if ([parameters isKindOfClass:[NSString class]]) {
-        return (NSString *)parameters;
+        return [(NSString *)parameters wzm_getURLEncoded2];
     }
     else if ([parameters isKindOfClass:[NSNumber class]]) {
         return [NSString stringWithFormat:@"%@",parameters];
