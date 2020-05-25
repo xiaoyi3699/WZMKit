@@ -162,6 +162,7 @@
  简单定位
  */
 #import "WZMLocationManager.h"
+#import "MKMapView+WZMLocation.h"
 
 /*
  崩溃日志采集

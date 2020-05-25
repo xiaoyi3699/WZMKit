@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WZMEnum.h"
+#import <CoreLocation/CoreLocation.h>
 @class WZMAlbumConfig;
 
 @interface WZMAlbumPhotoModel : NSObject
@@ -25,6 +26,7 @@
 @property (nonatomic, assign, getter=isSelected) BOOL selected;
 @property (nonatomic, assign, getter=isAnimated) BOOL animated;
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 + (instancetype)modelWithAsset:(id)asset;
 

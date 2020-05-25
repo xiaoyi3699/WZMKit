@@ -11,6 +11,7 @@
 #import <Photos/Photos.h>
 #import "WZMPublic.h"
 #import "WZMButton.h"
+#import "WZMAlbumLocalView.h"
 
 @interface WZMAlbumCell ()
 
@@ -27,6 +28,7 @@
     UILabel *_videoTimeLabel;
     UIImageView *_playImageView;
     UILabel *_indexLabel;
+    WZMButton *_localBtn;
     WZMButton *_iCloudBtn;
     WZMButton *_indexBtn;
     CAKeyframeAnimation *_animation;
@@ -106,6 +108,15 @@
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
         [self addSubview:_iCloudBtn];
+        
+        _localBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
+        _localBtn.frame = CGRectMake(0.0, self.bounds.size.height-30.0, 30.0, 30.0);
+        _localBtn.imageFrame = CGRectMake(5.0, 5.0, 20, 20);
+        _localBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
+        [_localBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_dw.png"] forState:UIControlStateNormal];
+        [_localBtn addTarget:self action:@selector(localBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _localBtn.hidden = YES;
+        [self addSubview:_localBtn];
     }
     return self;
 }
@@ -113,6 +124,7 @@
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumPhotoModel *)model {
     self.model = model;
     self.config = config;
+    _localBtn.hidden = (CLLocationCoordinate2DIsValid(model.coordinate) == NO);
     [self setICloud:model.isICloud];
     if (model.thumbnail) {
         _photoImageView.image = model.thumbnail;
@@ -210,6 +222,14 @@
     if ([self.delegate respondsToSelector:@selector(albumPhotoCellDidSelectedIndexBtn:)]) {
         [self.delegate albumPhotoCellDidSelectedIndexBtn:self];
     }
+}
+
+//位置点击事件
+- (void)localBtnClick:(UIButton *)btn {
+    NSLog(@"经度===%@",@(self.model.coordinate.longitude));
+    NSLog(@"维度===%@",@(self.model.coordinate.latitude));
+    WZMAlbumLocalView *localView = [[WZMAlbumLocalView alloc] initWithModel:self.model];
+    [localView show];
 }
 
 //iCloud按钮点击事件

@@ -169,6 +169,9 @@
                 PHAsset *phAsset = (PHAsset *)obj;
                 WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
                 model.localIdentifier = phAsset.localIdentifier;
+                if (phAsset.location != nil) {
+                    model.coordinate = phAsset.location.coordinate;
+                }
                 [cameraRollAlbumModel.photos addObject:model];
             }];
             cameraRollAlbumModel.count = cameraRollAlbumModel.photos.count;

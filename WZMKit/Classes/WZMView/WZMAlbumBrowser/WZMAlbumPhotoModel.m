@@ -21,6 +21,7 @@
     model.selected = NO;
     model.animated = NO;
     model.downloading = NO;
+    model.coordinate = kCLLocationCoordinate2DInvalid;
     model.type = [WZMAlbumHelper wzm_getAssetType:asset];
     if (model.type == WZMAlbumPhotoTypeVideo) {
         model.duration = [(PHAsset *)asset duration];

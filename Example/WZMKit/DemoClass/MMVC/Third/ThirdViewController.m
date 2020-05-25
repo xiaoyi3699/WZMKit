@@ -27,4 +27,15 @@
     
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    config.minCount = 1;
+    config.maxCount = 10;
+    config.allowShowGIF = NO;
+    config.allowShowVideo = NO;
+    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+    //nav.pickerDelegate = self;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 @end
