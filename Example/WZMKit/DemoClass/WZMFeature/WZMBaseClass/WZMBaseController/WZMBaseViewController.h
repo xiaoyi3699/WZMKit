@@ -23,6 +23,8 @@
 - (UIView *)navigatonRightItemView;
 - (void)navigatonRightButtonClick;
 
+///是否接管导航栏
+- (BOOL)capturesNavigatonBar;
 ///导航栏是否隐藏
 - (BOOL)navigatonBarIsHidden;
 ///导航栏是否隐藏线条

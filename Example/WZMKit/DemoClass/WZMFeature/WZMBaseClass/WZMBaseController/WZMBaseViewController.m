@@ -30,7 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.navigationController != nil) {
+    if (self.navigationController != nil && [self capturesNavigatonBar]) {
         UIColor *navBGColor = [self navigatonBarBackgroundColor];
         self.navigationController.navigationBar.translucent = YES;
         [self.navigationController.navigationBar setBackgroundImage:[UIImage wzm_getImageByColor:navBGColor] forBarMetrics:UIBarMetricsDefault];
@@ -109,6 +109,11 @@
 }
 
 #pragma mark - 导航栏
+//是否接管导航栏
+- (BOOL)capturesNavigatonBar {
+    return YES;
+}
+
 //导航栏是否隐藏
 - (BOOL)navigatonBarIsHidden {
     return NO;
