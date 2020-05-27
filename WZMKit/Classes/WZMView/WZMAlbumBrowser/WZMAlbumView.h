@@ -10,6 +10,7 @@
 #import "WZMAlbumModel.h"
 #import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumConfig.h"
+#import "WZMBlock.h"
 @protocol WZMAlbumViewDelegate;
 
 @interface WZMAlbumView : UIView
@@ -27,7 +28,7 @@
 ///选中的图片
 @property (nonatomic, readonly, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 
-- (void)reloadData;
+- (void)reloadData:(wzm_doBlock)completion;
 - (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel;
 
 - (instancetype)initWithConfig:(WZMAlbumConfig *)config;

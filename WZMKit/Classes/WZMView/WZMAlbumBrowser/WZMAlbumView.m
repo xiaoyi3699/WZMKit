@@ -133,7 +133,7 @@
     }
     self.collectionView.wzm_height = self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT;
     self.toolView.wzm_minY = self.collectionView.wzm_maxY;
-    [self reloadData];
+    //[self reloadData];
 }
 
 //确定按钮点击事件
@@ -149,57 +149,59 @@
 }
 
 //刷新相册
-- (void)reloadData {
+- (void)reloadData:(wzm_doBlock)completion {
     if (self.allAlbums.count > 0) return;
     if (self.collectionView == nil) return;
-    PHFetchOptions *option = [[PHFetchOptions alloc] init];
-    if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
-    if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
-    option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    for (PHAssetCollection *collection in smartAlbums) {
-        if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
-        if (collection.estimatedAssetCount <= 0) continue;
-        if ([self isCameraRollAlbum:collection]) {
-            WZMAlbumModel *cameraRollAlbumModel = [[WZMAlbumModel alloc] init];
-            cameraRollAlbumModel.title = @"相机胶卷";
-            PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-            [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                PHAsset *phAsset = (PHAsset *)obj;
-                WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
-                model.localIdentifier = phAsset.localIdentifier;
-                if (phAsset.location != nil) {
-                    model.coordinate = phAsset.location.coordinate;
-                }
-                [cameraRollAlbumModel.photos addObject:model];
-            }];
-            cameraRollAlbumModel.count = cameraRollAlbumModel.photos.count;
-            [self.allAlbums addObject:cameraRollAlbumModel];
-            break;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        PHFetchOptions *option = [[PHFetchOptions alloc] init];
+        if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
+        if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
+        option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+        for (PHAssetCollection *collection in smartAlbums) {
+            if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+            if (collection.estimatedAssetCount <= 0) continue;
+            if ([self isCameraRollAlbum:collection]) {
+                WZMAlbumModel *cameraRollAlbumModel = [[WZMAlbumModel alloc] init];
+                cameraRollAlbumModel.title = @"相机胶卷";
+                PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+                [self photoModelWithFetchResult:fetchResult albumModel:cameraRollAlbumModel];
+                cameraRollAlbumModel.count = cameraRollAlbumModel.photos.count;
+                [self.allAlbums addObject:cameraRollAlbumModel];
+                break;
+            }
         }
-    }
-    
-    PHFetchResult *customAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    for (PHAssetCollection *collection in customAlbums) {
-        if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
-        if (collection.estimatedAssetCount <= 0) continue;
-        WZMAlbumModel *albumModel = [[WZMAlbumModel alloc] init];
-        albumModel.title = collection.localizedTitle;
-        [self.allAlbums addObject:albumModel];
-        PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-        [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            PHAsset *phAsset = (PHAsset *)obj;
-            WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
-            model.localIdentifier = phAsset.localIdentifier;
-            [albumModel.photos addObject:model];
-        }];
-        albumModel.count = albumModel.photos.count;
-    }
-    if (self.allAlbums.count > 0) {
-        WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
-        [self reloadDataWithAlbumModel:albumModel];
-    }
+        PHFetchResult *customAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+        for (PHAssetCollection *collection in customAlbums) {
+            if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+            if (collection.estimatedAssetCount <= 0) continue;
+            WZMAlbumModel *albumModel = [[WZMAlbumModel alloc] init];
+            albumModel.title = collection.localizedTitle;
+            [self.allAlbums addObject:albumModel];
+            PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+            [self photoModelWithFetchResult:fetchResult albumModel:albumModel];
+            albumModel.count = albumModel.photos.count;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.allAlbums.count > 0) {
+                WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
+                [self reloadDataWithAlbumModel:albumModel];
+            }
+            if (completion) completion();
+        });
+    });
+}
+
+- (void)photoModelWithFetchResult:(PHFetchResult *)fetchResult albumModel:(WZMAlbumModel *)albumModel {
+    [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PHAsset *phAsset = (PHAsset *)obj;
+        WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
+        model.localIdentifier = phAsset.localIdentifier;
+        if (phAsset.location != nil) {
+            model.coordinate = phAsset.location.coordinate;
+        }
+        [albumModel.photos addObject:model];
+    }];
 }
 
 - (void)reloadDataWithAlbumModel:(WZMAlbumModel *)albumModel {

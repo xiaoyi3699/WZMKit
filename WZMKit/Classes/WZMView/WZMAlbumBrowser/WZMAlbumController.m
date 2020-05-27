@@ -133,8 +133,8 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self checkAlbumAuthorization];
 }
 
@@ -288,8 +288,9 @@
 - (void)checkAlbumAuthorization {
 #if WZM_APP
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized){//用户之前已经授权
-        [self.albumView reloadData];
-        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
+        [self.albumView reloadData:^{
+            [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
+        }];
     }
     else if([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusDenied){//用户之前已经拒绝授权
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请前往“设置-隐私-照片”打开应用的相册访问权限" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -299,8 +300,9 @@
         [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (status == PHAuthorizationStatusAuthorized){//允许
-                    [self.albumView reloadData];
-                    [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
+                    [self.albumView reloadData:^{
+                        [self updateTitleViewWithTitle:self.albumView.selectedAlbum.title];
+                    }];
                 }
                 else {//拒绝
                     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
