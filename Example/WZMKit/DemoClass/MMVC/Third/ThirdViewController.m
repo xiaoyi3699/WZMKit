@@ -35,7 +35,6 @@
     config.maxCount = 10;
     config.allowShowGIF = NO;
     config.allowShowVideo = NO;
-    config.allowShowLocation = NO;
     config.selectedPhotos = self.selectedModels;
     WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     nav.pickerDelegate = self;
