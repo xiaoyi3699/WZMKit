@@ -124,7 +124,9 @@
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumPhotoModel *)model {
     self.model = model;
     self.config = config;
-    _localBtn.hidden = (CLLocationCoordinate2DIsValid(model.coordinate) == NO);
+    if (config.allowShowLocation) {
+        _localBtn.hidden = (CLLocationCoordinate2DIsValid(model.coordinate) == NO);
+    }
     [self setICloud:model.isICloud];
     if (model.thumbnail) {
         _photoImageView.image = model.thumbnail;
