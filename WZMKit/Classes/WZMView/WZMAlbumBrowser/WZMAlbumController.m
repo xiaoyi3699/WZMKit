@@ -44,6 +44,7 @@
     if (self) {
         self.navBarH = 0;
         self.config = config;
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
     }
     return self;
 }
