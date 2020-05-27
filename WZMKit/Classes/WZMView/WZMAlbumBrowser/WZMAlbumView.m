@@ -203,6 +203,8 @@
         PHAsset *phAsset = (PHAsset *)obj;
         WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
         model.localIdentifier = phAsset.localIdentifier;
+        model.creationDate = phAsset.creationDate;
+        model.modificationDate = phAsset.modificationDate;
         //位置信息
         if (phAsset.location != nil) {
             model.coordinate = phAsset.location.coordinate;

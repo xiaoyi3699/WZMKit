@@ -113,7 +113,7 @@
         _localBtn.frame = CGRectMake(0.0, self.bounds.size.height-30.0, 30.0, 30.0);
         _localBtn.imageFrame = CGRectMake(5.0, 5.0, 20, 20);
         _localBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
-        [_localBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_dw.png"] forState:UIControlStateNormal];
+        [_localBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_dw@3x.png"] forState:UIControlStateNormal];
         [_localBtn addTarget:self action:@selector(localBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _localBtn.hidden = YES;
         [self addSubview:_localBtn];

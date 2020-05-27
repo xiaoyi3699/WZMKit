@@ -27,6 +27,11 @@
 @property (nonatomic, assign, getter=isAnimated) BOOL animated;
 @property (nonatomic, assign, getter=isDownloading) BOOL downloading;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) NSDate *creationDate;
+@property (nonatomic, strong) NSDate *modificationDate;
+@property (nonatomic, strong) NSString *orgFilename;
+@property (nonatomic, assign) NSInteger cacheSize;
+@property (nonatomic, assign) CGSize imageSize;
 
 + (instancetype)modelWithAsset:(id)asset;
 
