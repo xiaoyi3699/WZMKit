@@ -40,5 +40,7 @@
 - (void)exportImageWithImageSize:(CGSize)imageSize completion:(void(^)(UIImage *image))completion;
 ///根据相册配置,获取图片
 - (void)getImageWithConfig:(WZMAlbumConfig *)config completion:(void(^)(id obj))completion;
+///排序
+- (NSComparisonResult)compareOtherModel:(WZMAlbumPhotoModel *)otherModel;
 
 @end

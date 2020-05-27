@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMAlbumPhotoModel.h"
 
 #define WZM_ALBUM_COLOR [UIColor redColor]
 @interface WZMAlbumConfig : NSObject
@@ -33,16 +34,16 @@
 @property (nonatomic, assign) NSInteger minCount;
 ///最大选中数量,默认9
 @property (nonatomic, assign) NSInteger maxCount;
-
 ///是否导出原图,默认YES
 @property (nonatomic, assign) BOOL originalImage;
 ///导出的最大尺寸(像素),默认600x600,非原图时生效
 @property (nonatomic, assign) CGSize imageSize;
-
 ///是否是源视频(源视频路径为虚拟镜像路径),默认YES
 @property (nonatomic, assign) BOOL originalVideo;
 ///导出的视频存储路径(文件夹),非源视频时生效,默认tmp
 @property (nonatomic, strong) NSString *videoFolder;
+///选中的图片
+@property (nonatomic, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 /*
  导出的视频尺寸,非源视频时生效,默认AVAssetExportPreset640x480
  参数设置:

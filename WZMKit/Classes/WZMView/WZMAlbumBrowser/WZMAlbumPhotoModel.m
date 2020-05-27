@@ -176,4 +176,8 @@
     return time;
 }
 
+- (NSComparisonResult)compareOtherModel:(WZMAlbumPhotoModel *)otherModel {
+    return self.index > otherModel.index;
+}
+
 @end

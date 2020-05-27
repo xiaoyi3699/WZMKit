@@ -8,7 +8,9 @@
 
 #import "ThirdViewController.h"
 
-@interface ThirdViewController ()
+@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
+
+@property (nonatomic, strong) NSMutableArray *selectedModels;
 
 @end
 
@@ -33,9 +35,15 @@
     config.maxCount = 10;
     config.allowShowGIF = NO;
     config.allowShowVideo = NO;
+    config.selectedPhotos = self.selectedModels;
     WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    //nav.pickerDelegate = self;
+    nav.pickerDelegate = self;
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    self.selectedModels = albumNavigationController.config.selectedPhotos;
+    NSLog(@"%@",self.selectedModels);
 }
 
 @end

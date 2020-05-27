@@ -153,6 +153,7 @@
     if (self.allAlbums.count > 0) return;
     if (self.collectionView == nil) return;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray<WZMAlbumPhotoModel *> *selPhotos = [[NSMutableArray alloc] init];
         PHFetchOptions *option = [[PHFetchOptions alloc] init];
         if (!self.config.allowShowImage) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
         if (!self.config.allowShowVideo) option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
@@ -165,7 +166,7 @@
                 WZMAlbumModel *cameraRollAlbumModel = [[WZMAlbumModel alloc] init];
                 cameraRollAlbumModel.title = @"相机胶卷";
                 PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-                [self photoModelWithFetchResult:fetchResult albumModel:cameraRollAlbumModel];
+                [self photoModelWithFetchResult:fetchResult albumModel:cameraRollAlbumModel selPhotos:selPhotos];
                 cameraRollAlbumModel.count = cameraRollAlbumModel.photos.count;
                 [self.allAlbums addObject:cameraRollAlbumModel];
                 break;
@@ -179,26 +180,39 @@
             albumModel.title = collection.localizedTitle;
             [self.allAlbums addObject:albumModel];
             PHFetchResult *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-            [self photoModelWithFetchResult:fetchResult albumModel:albumModel];
+            [self photoModelWithFetchResult:fetchResult albumModel:albumModel selPhotos:selPhotos];
             albumModel.count = albumModel.photos.count;
         }
+        [selPhotos sortUsingSelector:@selector(compareOtherModel:)];
+        self.config.selectedPhotos = selPhotos;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.allAlbums.count > 0) {
                 WZMAlbumModel *albumModel = [self.allAlbums objectAtIndex:0];
                 [self reloadDataWithAlbumModel:albumModel];
+            }
+            for (WZMAlbumPhotoModel *m in self.config.selectedPhotos) {
+                [self didSelectedModel:m updateConfig:NO];
             }
             if (completion) completion();
         });
     });
 }
 
-- (void)photoModelWithFetchResult:(PHFetchResult *)fetchResult albumModel:(WZMAlbumModel *)albumModel {
+- (void)photoModelWithFetchResult:(PHFetchResult *)fetchResult albumModel:(WZMAlbumModel *)albumModel selPhotos:(NSMutableArray<WZMAlbumPhotoModel *> *)selPhotos {
     [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PHAsset *phAsset = (PHAsset *)obj;
         WZMAlbumPhotoModel *model = [WZMAlbumPhotoModel modelWithAsset:phAsset];
         model.localIdentifier = phAsset.localIdentifier;
+        //位置信息
         if (phAsset.location != nil) {
             model.coordinate = phAsset.location.coordinate;
+        }
+        //是否被选中
+        for (WZMAlbumPhotoModel *m in self.config.selectedPhotos) {
+            if ([model.localIdentifier isEqualToString:m.localIdentifier]) {
+                model.index = [self.config.selectedPhotos indexOfObject:m];
+                [selPhotos addObject:model];
+            }
         }
         [albumModel.photos addObject:model];
     }];
@@ -315,16 +329,22 @@
 
 //选中图片
 - (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
+    [self didSelectedModel:model updateConfig:YES];
+}
+
+- (void)didSelectedModel:(WZMAlbumPhotoModel *)model updateConfig:(BOOL)updateConfig {
     if (self.onlyOne) {
-        WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
         [self.selectedPhotos addObject:model];
+        if (updateConfig) {
+            [self.config.selectedPhotos addObject:model];
+        }
         [self didSelectedFinish];
         if (self.selectedAlbum.selectedCount < self.selectedAlbum.count) {
             self.selectedAlbum.selectedCount ++;
         }
     }
     else {
-        WZMAlbumPhotoModel *model = [self.selectedAlbum.photos objectAtIndex:indexPath.row];
         if (model.isSelected) {
             model.selected = NO;
             model.index = 1;
@@ -334,6 +354,9 @@
                 tmodel.index = tmodel.index-1;
             }
             [self.selectedPhotos removeObject:model];
+            if (updateConfig) {
+                [self.config.selectedPhotos removeObject:model];
+            }
             if (self.selectedAlbum.selectedCount > 0) {
                 self.selectedAlbum.selectedCount --;
             }
@@ -347,6 +370,9 @@
             model.index = self.selectedPhotos.count+1;
             model.selected = YES;
             [self.selectedPhotos addObject:model];
+            if (updateConfig) {
+                [self.config.selectedPhotos addObject:model];
+            }
             if (self.selectedAlbum.selectedCount < self.selectedAlbum.count) {
                 self.selectedAlbum.selectedCount ++;
             }
