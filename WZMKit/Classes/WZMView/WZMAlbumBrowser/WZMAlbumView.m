@@ -208,8 +208,17 @@
             model.coordinate = phAsset.location.coordinate;
         }
         //是否被选中
+        NSMutableArray<WZMAlbumPhotoModel *> *selPhotos2 = selPhotos;
         for (WZMAlbumPhotoModel *m in self.config.selectedPhotos) {
             if ([model.localIdentifier isEqualToString:m.localIdentifier]) {
+                BOOL exist = NO;
+                for (WZMAlbumPhotoModel *m2 in selPhotos2) {
+                    if ([model.localIdentifier isEqualToString:m2.localIdentifier]) {
+                        exist = YES;
+                        break;
+                    }
+                }
+                if (exist) continue;
                 model.index = [self.config.selectedPhotos indexOfObject:m];
                 [selPhotos addObject:model];
             }
