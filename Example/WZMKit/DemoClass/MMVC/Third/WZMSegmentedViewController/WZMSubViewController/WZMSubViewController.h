@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger fixedHeight;
 @property (nonatomic, weak) WZMSegmentedViewController *superViewController;
 
+///视图将要出现
 - (void)didDisplay;
 
 @end

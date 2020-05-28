@@ -12,6 +12,7 @@
 
 @interface WZMSubViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, assign) BOOL loaded;
 @property (nonatomic, assign) BOOL dragged;
 @property (nonatomic, assign) BOOL allowNotification;
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,6 +27,7 @@
     self = [super init];
     if (self) {
         self.title = @"第一页";
+        self.loaded = NO;
         self.dragged = NO;
         self.allowNotification = YES;
         self.newsDataProvider = [[WZMNewsDataProvider alloc] initWithFileName:@"article.json"];
@@ -50,7 +52,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewOffsetChanged:) name:notificationKey object:nil];
 }
 
+//视图将要出现
 - (void)didDisplay {
+    [self adjustTableViewOffset];
+}
+
+//调整偏移量
+- (void)adjustTableViewOffset {
+    if (self.loaded == NO) return;
     CGFloat willOffsetY = -self.superViewController.headerView.wzm_minY;
     if (willOffsetY > 0.0) {
         CGFloat contentH = self.tableView.contentSize.height;
@@ -70,6 +79,17 @@
         self.tableView.contentOffset = CGPointMake(0.0, willOffsetY);
         [self scrollViewDidEndScroll];
     }
+    else {
+        self.tableView.contentOffset = CGPointMake(0.0, willOffsetY);
+    }
+}
+
+#pragma mark - 数据加载完毕
+- (void)endRefresh {
+    [super endRefresh];
+    if (self.loaded) return;
+    self.loaded = YES;
+    [self adjustTableViewOffset];
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

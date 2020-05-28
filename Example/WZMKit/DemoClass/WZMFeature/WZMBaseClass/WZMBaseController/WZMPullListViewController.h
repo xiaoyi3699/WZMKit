@@ -24,6 +24,8 @@
 - (void)refreshHeader;
 ///上拉加载
 - (void)refreshFooter;
+///结束刷新/加载
+- (void)endRefresh;
 ///子类如果需要实现自己页面特定的页面加载动画,重载该方法即可
 - (void)showLoadingView;
 - (void)dismissLoadingView;
