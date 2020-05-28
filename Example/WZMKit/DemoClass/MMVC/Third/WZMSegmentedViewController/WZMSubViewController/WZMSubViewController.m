@@ -12,6 +12,7 @@
 
 @interface WZMSubViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, assign) BOOL dragged;
 @property (nonatomic, assign) BOOL allowNotification;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WZMNewsDataProvider *newsDataProvider;
@@ -25,6 +26,7 @@
     self = [super init];
     if (self) {
         self.title = @"第一页";
+        self.dragged = NO;
         self.allowNotification = YES;
         self.newsDataProvider = [[WZMNewsDataProvider alloc] initWithFileName:@"article.json"];
         self.superDataProvider = self.newsDataProvider;
@@ -48,20 +50,26 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewOffsetChanged:) name:notificationKey object:nil];
 }
 
-- (void)scrollViewOffsetChanged:(NSNotification *)n {
-    if (self.allowNotification == NO) {
-        self.allowNotification = YES;
-        return;
+- (void)didDisplay {
+    CGFloat willOffsetY = -self.superViewController.headerView.wzm_minY;
+    if (willOffsetY > 0.0) {
+        CGFloat contentH = self.tableView.contentSize.height;
+        if (contentH < self.tableView.wzm_height) {
+            willOffsetY = 0.0;
+        }
+        else {
+            if (contentH - willOffsetY < self.tableView.wzm_height) {
+                willOffsetY = contentH - self.tableView.wzm_height;
+            }
+        }
     }
-    CGFloat offsetY = [n.object floatValue];
-    CGPoint offset = self.tableView.contentOffset;
-    if (offsetY > (self.superViewController.headerView.wzm_height - self.fixedHeight)) {
-        offset.y = (self.superViewController.headerView.wzm_height - self.fixedHeight);
+    willOffsetY = MAX(willOffsetY, 0.0);
+    if (self.superViewController.headerView.wzm_minY != -willOffsetY) {
+        self.superViewController.headerView.wzm_minY = -willOffsetY;
+        [self scrollViewWillBeginDragging];
+        self.tableView.contentOffset = CGPointMake(0.0, willOffsetY);
+        [self scrollViewDidEndScroll];
     }
-    else {
-        offset.y = offsetY;
-    }
-    self.tableView.contentOffset = offset;
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
@@ -96,11 +104,33 @@
     return cell;
 }
 
+#pragma - mark UIScrollView相关
 - (void)scrollToTop {
     [self.tableView wzm_scrollsToTopAnimated:YES];
 }
 
+- (void)scrollViewOffsetChanged:(NSNotification *)n {
+    if (self.allowNotification == NO) {
+        self.allowNotification = YES;
+        return;
+    }
+    CGFloat offsetY = [n.object floatValue];
+    CGPoint offset = self.tableView.contentOffset;
+    if (offsetY > -self.superViewController.headerView.wzm_minY) {
+        offset.y = -self.superViewController.headerView.wzm_minY;
+    }
+    else {
+        offset.y = offsetY;
+    }
+    self.tableView.contentOffset = offset;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self scrollViewWillBeginDragging];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.dragged == NO) return;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (self.superViewController.headerView.wzm_height-offsetY < self.fixedHeight) {
         offsetY = self.superViewController.headerView.wzm_height - self.fixedHeight;
@@ -126,14 +156,23 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging {
+    self.dragged = YES;
+    self.allowNotification = NO;
+}
+
 - (void)scrollViewDidEndScroll {
     //结束滑动，刷新偏移量
-    self.allowNotification = NO;
+    self.dragged = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:@(self.tableView.contentOffset.y)];
 }
 
 - (BOOL)capturesNavigatonBar {
     return NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [self.superViewController preferredStatusBarStyle];
 }
 
 @end

@@ -42,6 +42,7 @@
         subVC.superViewController = self;
         subVC.fixedHeight = WZM_STATUS_HEIGHT+44.0;
         [self.viewControllers addObject:subVC];
+        [self addChildViewController:subVC];
     }
     //分区视图
     self.collectionView.bounces = NO;
@@ -82,6 +83,7 @@
         vc.frame = [self collectionViewFrame];
         [cell addSubview:vc.view];
         vc.view.tag = 99;
+        [vc didDisplay];
     }
 }
 
