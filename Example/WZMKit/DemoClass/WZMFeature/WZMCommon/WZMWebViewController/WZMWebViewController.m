@@ -153,7 +153,13 @@
 
 // 导航完成时，会回调（也就是页面载入完成了）
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-
+    //document.body.scrollHeight 高度
+    //document.body.offsetHeight 偏移量
+    [webView evaluateJavaScript:@"document.body.scrollHeight"
+              completionHandler:^(id result, NSError *_Nullable error) {
+        NSLog(@"height==%@",result);
+    }];
+    [self.progressLayer finishedLoad];;
 }
 
 // 导航失败时会回调

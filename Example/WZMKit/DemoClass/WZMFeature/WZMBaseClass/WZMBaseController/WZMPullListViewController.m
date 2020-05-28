@@ -25,9 +25,9 @@
     [super viewDidLoad];
 }
 
-- (UITableView *)superTableView {
+- (WZMBaseTableView *)superTableView {
     if (_superTableView == nil) {
-        _superTableView = [[UITableView alloc] initWithFrame:CGRectNull style:[self tableViewStyle]];
+        _superTableView = [[WZMBaseTableView alloc] initWithFrame:CGRectZero style:[self tableViewStyle]];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 11.0, *)) {
             _superTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -50,9 +50,9 @@
     return UITableViewStylePlain;
 }
 
-- (UICollectionView *)superCollectionView {
+- (WZMBaseCollectionView *)superCollectionView {
     if (_superCollectionView == nil) {
-        _superCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
+        _superCollectionView = [[WZMBaseCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
         _superCollectionView.backgroundColor = [UIColor whiteColor];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         if (@available(iOS 11.0, *)) {

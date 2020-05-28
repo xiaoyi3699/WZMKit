@@ -7,8 +7,9 @@
 //
 
 #import "ThirdViewController.h"
+#import "WZMSegmentedViewController.h"
 
-@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
+@interface ThirdViewController ()
 
 @property (nonatomic, strong) NSMutableArray *selectedModels;
 
@@ -27,23 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.minCount = 1;
-    config.maxCount = 10;
-    config.allowShowGIF = NO;
-    config.allowShowVideo = NO;
-    config.selectedPhotos = self.selectedModels;
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    nav.pickerDelegate = self;
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    self.selectedModels = albumNavigationController.config.selectedPhotos;
-    NSLog(@"%@",self.selectedModels);
+    WZMSegmentedViewController *vc = [[WZMSegmentedViewController alloc] init];
+    vc.modalPresentationStyle = 0;
+//    [self presentViewController:vc animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -8,11 +8,13 @@
 
 #import "WZMBaseViewController.h"
 #import "WZMBaseDataProvider.h"
+#import "WZMBaseTableView.h"
+#import "WZMBaseCollectionView.h"
 
 @interface WZMPullListViewController : WZMBaseViewController
 
-@property (nonatomic, strong) UITableView *superTableView;
-@property (nonatomic, strong) UICollectionView *superCollectionView;
+@property (nonatomic, strong) WZMBaseTableView *superTableView;
+@property (nonatomic, strong) WZMBaseCollectionView *superCollectionView;
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) WZMBaseDataProvider *superDataProvider;
 

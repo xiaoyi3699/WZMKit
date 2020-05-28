@@ -56,6 +56,8 @@
     _tableView.dataSource = self;
     [_tableView wzm_cleraExtraLine];
     [self.view addSubview:_tableView];
+    
+    NSLog(@"===%@",self.superCollectionView.panGestureRecognizer.delegate);
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
