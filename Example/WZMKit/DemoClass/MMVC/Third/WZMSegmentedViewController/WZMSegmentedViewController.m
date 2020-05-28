@@ -9,7 +9,7 @@
 #import "WZMSegmentedViewController.h"
 #import "WZMSubViewController.h"
 
-@interface WZMSegmentedViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMScrollImageViewDelegage>
+@interface WZMSegmentedViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMSegmentedViewDelegate>
 
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) WZMSegmentedView *segmentedView;
@@ -29,11 +29,18 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, WZM_SCREEN_WIDTH, WZM_NAVBAR_HEIGHT+200.0)];
     self.headerView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.headerView];
+    
+    self.segmentedView = [[WZMSegmentedView alloc] initWithFrame:CGRectMake(0.0, self.headerView.wzm_height-44.0, WZM_SCREEN_WIDTH, 44.0)];
+    self.segmentedView.titles = @[@"测试一",@"测试二",@"测试三",@"测试四",@"测试五",@"测试六",@"测试七",@"测试八",@"测试九",@"测试十"];
+    self.segmentedView.delegate = self;
+    [self.headerView addSubview:self.segmentedView];
+    
     //列表子视图
     self.viewControllers = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < 3; i ++) {
+    for (NSInteger i = 0; i < self.segmentedView.titles.count; i ++) {
         WZMSubViewController *subVC = [[WZMSubViewController alloc] init];
         subVC.superViewController = self;
+        subVC.fixedHeight = WZM_STATUS_HEIGHT+44.0;
         [self.viewControllers addObject:subVC];
     }
     //分区视图
@@ -45,6 +52,14 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"collectionCell"];
     [self.view insertSubview:self.collectionView belowSubview:self.headerView];
+}
+
+#pragma mark - WZMSegmentedViewDelegate
+- (void)segmentedView:(WZMSegmentedView *)segmentedView selectedAtIndex:(NSInteger)index {
+    if (self.viewControllers.count) {
+        NSInteger spacing = ABS(segmentedView.index - index);
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:(spacing == 1)];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource

@@ -17,7 +17,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         CGRect rect = self.bounds;
         rect.size.height -= 2;
         
@@ -26,7 +25,7 @@
         _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_titleLabel];
         
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _titleLabel.wzm_maxY, self.wzm_width, 2)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(5.0, _titleLabel.wzm_maxY, self.wzm_width-10.0, 2.0)];
         _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_lineView];
     }
@@ -37,7 +36,6 @@
                 titleColor:(UIColor *)titleColor
                  titleFont:(UIFont *)titleFont
                  lineColor:(UIColor *)lineColor {
-    
     _titleLabel.text = title;
     _titleLabel.font = titleFont;
     _titleLabel.textColor = titleColor;

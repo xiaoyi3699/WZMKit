@@ -32,7 +32,7 @@
 }
 
 - (void)createViews {
-    _font = [UIFont systemFontOfSize:15];
+    _font = [UIFont systemFontOfSize:15.0];
     _normalColor = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
     _selectedColor = [UIColor redColor];
     _lineColor = [UIColor redColor];
@@ -54,7 +54,6 @@
 - (void)setIndex:(NSInteger)index {
     if (_index == index) return;
     _index = index;
-    
     [self animationWithIndex:_index];
 }
 
@@ -85,24 +84,21 @@
 }
 
 - (void)refreshTitleWidth {
-    
-    NSInteger totalWidth = 0;
+    NSInteger totalWidth = 0.0;
     NSMutableArray *titleWidths = [NSMutableArray arrayWithCapacity:_titles.count];
     for (NSString *title in _titles) {
-        NSInteger titleW = (ceil([title sizeWithAttributes:@{NSFontAttributeName:_font}].width)+10);
+        NSInteger titleW = (ceil([title sizeWithAttributes:@{NSFontAttributeName:_font}].width)+10.0);
         [titleWidths addObject:@(titleW)];
         totalWidth += titleW;
     }
     _titleWidths = [titleWidths copy];
-    
     if (_flowLayout == nil) {
         _flowLayout = [[UICollectionViewFlowLayout alloc] init];
         _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        _flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 10.0, 0.0, 10.0);
     }
-    
     if (_titles.count <= 1) {
-        _flowLayout.minimumInteritemSpacing = 0;
+        _flowLayout.minimumInteritemSpacing = 0.0;
     }
     else {
         NSInteger tureW = totalWidth + (_titles.count-1)*20 + 20;
@@ -158,14 +154,11 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     return _titles.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    WZMSegmentedCell *cell = (WZMSegmentedCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WZMSegmentedCell"
-                                                                                         forIndexPath:indexPath];
+    WZMSegmentedCell *cell = (WZMSegmentedCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WZMSegmentedCell" forIndexPath:indexPath];
     if (indexPath.item < _titles.count) {
         NSString *title = _titles[indexPath.item];
         if (self.index == indexPath.item) {

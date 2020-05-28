@@ -155,11 +155,10 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     //document.body.scrollHeight 高度
     //document.body.offsetHeight 偏移量
-    [webView evaluateJavaScript:@"document.body.scrollHeight"
-              completionHandler:^(id result, NSError *_Nullable error) {
-        NSLog(@"height==%@",result);
-    }];
-    [self.progressLayer finishedLoad];;
+//    [webView evaluateJavaScript:@"document.body.scrollHeight"
+//              completionHandler:^(id result, NSError *_Nullable error) {
+//        NSLog(@"height==%@",result);
+//    }];
 }
 
 // 导航失败时会回调
