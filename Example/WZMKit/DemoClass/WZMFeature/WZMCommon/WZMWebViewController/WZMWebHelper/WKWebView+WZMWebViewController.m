@@ -7,6 +7,7 @@
 //
 
 #import "WKWebView+WZMWebViewController.h"
+#import "NSString+wzmcate.h"
 #import "WZMWebHelper.h"
 
 @implementation WKWebView (WZMWebViewController)

@@ -7,7 +7,9 @@
 //
 
 #import "WZMBaseViewController.h"
+#import "UIImage+wzmcate.h"
 #import "UIColor+wzmcate.h"
+#import "UIViewController+wzmcate.h"
 #import "UINavigationController+wzmnav.h"
 
 @interface WZMBaseViewController ()
