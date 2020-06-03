@@ -228,8 +228,6 @@
 
 //位置点击事件
 - (void)localBtnClick:(UIButton *)btn {
-    NSLog(@"经度===%@",@(self.model.coordinate.longitude));
-    NSLog(@"维度===%@",@(self.model.coordinate.latitude));
     WZMAlbumLocalView *localView = [[WZMAlbumLocalView alloc] initWithModel:self.model];
     [localView show];
 }
