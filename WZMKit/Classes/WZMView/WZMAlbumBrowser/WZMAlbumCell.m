@@ -97,6 +97,7 @@
         _indexBtn.imageFrame = CGRectMake(0, 0, 30, 30);
         _indexBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_normal.png"] forState:UIControlStateNormal];
+        [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_seleced.png"] forState:UIControlStateSelected];
         [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_indexBtn];
         
@@ -158,44 +159,56 @@
         _playImageView.hidden = YES;
         _videoTimeLabel.text = @"";
     }
-    
-    if (model.isSelected) {
+    if (config.isOnlyOne) {
         _indexBtn.hidden = YES;
-        _indexLabel.hidden = NO;
-        if (config.allowShowIndex) {
-            NSString *indexStr = [NSString stringWithFormat:@"%@",@(model.index)];
-            if (indexStr.length > 1) {
-                _indexLabel.font = [UIFont systemFontOfSize:13];
+        _indexLabel.hidden = YES;
+        _indexLabel.hidden = YES;
+    }
+    else {
+        if (model.isSelected) {
+            if (config.allowShowIndex) {
+                _indexBtn.hidden = YES;
+                _indexLabel.hidden = NO;
+                if (config.allowShowIndex) {
+                    NSString *indexStr = [NSString stringWithFormat:@"%@",@(model.index)];
+                    if (indexStr.length > 1) {
+                        _indexLabel.font = [UIFont systemFontOfSize:13];
+                    }
+                    else {
+                        _indexLabel.font = [UIFont systemFontOfSize:17];
+                    }
+                    _indexLabel.text = indexStr;
+                }
+                else {
+                    _indexLabel.text = @"";
+                }
             }
             else {
-                _indexLabel.font = [UIFont systemFontOfSize:17];
+                _indexLabel.hidden = YES;
+                _indexBtn.hidden = NO;
+                _indexBtn.selected = YES;
             }
-            _indexLabel.text = indexStr;
+            if (model.isAnimated == NO) {
+                model.animated = YES;
+                [self startAnimation];
+            }
         }
         else {
-            _indexLabel.text = @"";
+            if (config.allowShowIndex) {
+                _indexBtn.hidden = NO;
+                _indexLabel.hidden = YES;
+                _indexLabel.text = @"";
+            }
+            else {
+                _indexLabel.hidden = YES;
+                _indexBtn.hidden = NO;
+                _indexBtn.selected = NO;
+            }
+            if (model.isAnimated) {
+                model.animated = NO;
+                [self removeAnimation];
+            }
         }
-        if (model.isAnimated == NO) {
-            model.animated = YES;
-            [self startAnimation];
-        }
-    }
-    else {
-        _indexBtn.hidden = NO;
-        _indexLabel.hidden = YES;
-        _indexLabel.text = @"";
-        if (model.isAnimated) {
-            model.animated = NO;
-            [self removeAnimation];
-        }
-    }
-    
-    if (config.allowShowIndex == NO) {
-        _indexLabel.text = @"";
-        _indexLabel.hidden = !model.isSelected;
-    }
-    else {
-        
     }
 }
 
@@ -260,13 +273,23 @@
         [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
         
         _animation.values = values;
-        _animation.timingFunction = [CAMediaTimingFunction functionWithName: @"easeInEaseOut"];
+        _animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
     }
-    [_indexLabel.layer addAnimation:_animation forKey:@"index.animation"];
+    if (self.config.allowShowIndex) {
+        [_indexLabel.layer addAnimation:_animation forKey:@"index.animation"];
+    }
+    else {
+        [_indexBtn.layer addAnimation:_animation forKey:@"index.animation"];
+    }
 }
 
 - (void)removeAnimation {
-    [_indexLabel.layer removeAnimationForKey:@"index.animation"];
+    if (self.config.allowShowIndex) {
+        [_indexLabel.layer removeAnimationForKey:@"index.animation"];
+    }
+    else {
+        [_indexBtn.layer removeAnimationForKey:@"index.animation"];
+    }
 }
 
 @end

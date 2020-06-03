@@ -20,9 +20,10 @@
 #import "WZMAlbumNavigationController.h"
 #import "UIViewController+WZMModalAnimation.h"
 #import "WZMDefined.h"
+#import "WZMAlbumEditViewController.h"
 
 #if WZM_APP
-@interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
+@interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate,WZMAlbumEditViewControllerDelegate>
 #else
 @interface WZMAlbumController ()<UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 #endif
@@ -170,24 +171,41 @@
     [self photosWithModels:self.albumView.selectedPhotos completion:^(NSArray *originals, NSArray *thumbnails, NSArray *assets) {
         [WZMViewHandle wzm_dismiss];
         self.navigationController.view.userInteractionEnabled = YES;
-        if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
-            WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
-            if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedOriginals:thumbnails:assets:)]) {
-                [picker.pickerDelegate albumNavigationController:picker didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
-            }
-            if (self.config.autoDismiss) {
-                [picker dismissViewControllerAnimated:YES completion:nil];
-            }
+        if (self.config.isOnlyOne && self.config.allowEdit) {
+            //允许编辑
+            WZMAlbumEditViewController *editVC = [[WZMAlbumEditViewController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets];
+            editVC.delegate = self;
+            [self.navigationController pushViewController:editVC animated:YES];
         }
         else {
-            if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedOriginals:thumbnails:assets:)]) {
-                [self.pickerDelegate albumController:self didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
-            }
-            if (self.config.autoDismiss) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+            [self handleOriginals:originals thumbnails:thumbnails assets:assets];
         }
     }];
+}
+
+- (void)albumEditViewController:(WZMAlbumEditViewController *)albumEditViewController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    [albumEditViewController.navigationController popViewControllerAnimated:YES];
+    [self handleOriginals:originals thumbnails:thumbnails assets:assets];
+}
+
+- (void)handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
+        WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
+        if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationController:didSelectedOriginals:thumbnails:assets:)]) {
+            [picker.pickerDelegate albumNavigationController:picker didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
+        }
+        if (self.config.autoDismiss) {
+            [picker dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else {
+        if ([self.pickerDelegate respondsToSelector:@selector(albumController:didSelectedOriginals:thumbnails:assets:)]) {
+            [self.pickerDelegate albumController:self didSelectedOriginals:originals thumbnails:thumbnails assets:assets];
+        }
+        if (self.config.autoDismiss) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 - (void)showVisualViewAction {

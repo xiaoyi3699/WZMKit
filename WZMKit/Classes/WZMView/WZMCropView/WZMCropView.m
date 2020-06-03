@@ -54,8 +54,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     return self;
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    self.cropFrame = self.bounds;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     //绘制边缘线
+    if (CGRectEqualToRect(self.bounds, CGRectZero)) return;
+    if (CGRectEqualToRect(self.cropFrame, CGRectZero)) return;
     if (self.isShowEdge) {
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetStrokeColorWithColor(context, self.edgeColor.CGColor);

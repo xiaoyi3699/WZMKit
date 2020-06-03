@@ -18,6 +18,8 @@
 @property (nonatomic, assign) BOOL autoDismiss;
 ///是否允许预览,默认YES
 @property (nonatomic, assign) BOOL allowPreview;
+///是否允许编辑,默认NO,当图片最大选择数量为1,且不允许预览时生效
+@property (nonatomic, assign) BOOL allowEdit;
 ///选中图片时,是否显示索引,默认YES
 @property (nonatomic, assign) BOOL allowShowIndex;
 ///是否显示位置信息,默认YES
@@ -63,5 +65,7 @@
  AVAssetExportPresetHEVC1920x1080
  */
 @property (nonatomic, assign) NSString *videoPreset;
+///其他
+@property (nonatomic, readonly, assign, getter=isOnlyOne) BOOL onlyOne;
 
 @end

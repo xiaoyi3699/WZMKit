@@ -105,6 +105,7 @@
 #import "WZMAlbumCell.h"
 #import "WZMAlbumConfig.h"
 #import "WZMAlbumController.h"
+#import "WZMAlbumEditViewController.h"
 #import "WZMAlbumHelper.h"
 #import "WZMAlbumListCell.h"
 #import "WZMAlbumLocalView.h"

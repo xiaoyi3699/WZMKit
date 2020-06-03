@@ -19,7 +19,6 @@
 @interface WZMAlbumView ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMAlbumCellDelegate>
 
 @property (nonatomic, assign) BOOL hasViews;
-@property (nonatomic, assign) BOOL onlyOne;
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) UILabel *countLabel;
@@ -58,11 +57,10 @@
 - (void)setupConfig:(WZMAlbumConfig *)config {
     self.hasViews = NO;
     self.config = config;
-    self.onlyOne = (config.allowPreview == NO && config.maxCount == 1);
     self.allAlbums = [[NSMutableArray alloc] initWithCapacity:0];
     self.selectedPhotos = [[NSMutableArray alloc] initWithCapacity:0];
     _selectIndex = 0;
-    if (self.onlyOne == NO) {
+    if (self.config.isOnlyOne == NO) {
         if (config.allowDragSelect) {
             UIPanGestureRecognizer *selectPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selectPanGesture:)];
             [self addGestureRecognizer:selectPan];
@@ -77,7 +75,7 @@
     if (CGRectEqualToRect(frame, self.frame)) return;
     [super setFrame:frame];
     CGFloat toolHeight = 50;
-    if (self.onlyOne) {
+    if (self.config.isOnlyOne) {
         toolHeight = 0;
     }
     if (self.hasViews == NO) {
@@ -105,7 +103,7 @@
         [self addSubview:collectionView];
         self.collectionView = collectionView;
         
-        if (self.onlyOne == NO) {
+        if (self.config.isOnlyOne == NO) {
             self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.collectionView.wzm_maxY, self.bounds.size.width, toolHeight)];
             self.toolView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(235, 235, 235) darkColor:WZM_R_G_B(20, 20, 20)];
             [self addSubview:self.toolView];
@@ -345,15 +343,10 @@
 }
 
 - (void)didSelectedModel:(WZMAlbumPhotoModel *)model updateConfig:(BOOL)updateConfig {
-    if (self.onlyOne) {
+    if (self.config.isOnlyOne) {
+        [self.selectedPhotos removeAllObjects];
         [self.selectedPhotos addObject:model];
-        if (updateConfig) {
-            [self.config.selectedPhotos addObject:model];
-        }
         [self didSelectedFinish];
-        if (self.selectedAlbum.selectedCount < self.selectedAlbum.count) {
-            self.selectedAlbum.selectedCount ++;
-        }
     }
     else {
         if (model.isSelected) {

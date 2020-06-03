@@ -10,6 +10,12 @@
 #import "WZMAlbumHelper.h"
 #import <AVFoundation/AVFoundation.h>
 
+@interface WZMAlbumConfig ()
+
+@property (nonatomic, assign, getter=isOnlyOne) BOOL onlyOne;
+
+@end
+
 @implementation WZMAlbumConfig
 
 - (instancetype)init {
@@ -18,6 +24,7 @@
         self.column = 3;
         self.minCount = 0;
         self.maxCount = 9;
+        self.allowEdit = NO;
         self.autoDismiss = YES;
         self.allowPreview = YES;
         self.allowShowIndex = YES;
@@ -34,6 +41,10 @@
         self.videoFolder = NSTemporaryDirectory();
     }
     return self;
+}
+
+- (BOOL)isOnlyOne {
+    return (self.allowPreview == NO && self.maxCount == 1);
 }
 
 - (void)setColumn:(NSInteger)column {
