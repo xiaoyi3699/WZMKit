@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, AnimationType) {
 typedef NS_ENUM(NSInteger, WZMNavAnimationType) {
     WZMNavAnimationTypeNormal = 0,
     WZMNavAnimationTypeScroll,
-    WZMNavAnimationTypeAlbum
+    WZMNavAnimationTypeZoom
 };
 
 ///模态转场动滑类型
