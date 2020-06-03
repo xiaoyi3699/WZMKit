@@ -31,6 +31,9 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.WHScale = 0.0;
+        self.MinWHScale = 0.1;
+        self.MaxWHScale = 10.0;
         self.showCorner = YES;
         self.cornerWidth = 5.0;
         self.cornerColor = [UIColor greenColor];
@@ -168,74 +171,156 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     CGFloat dx = movePoint.x - self.startPoint.x;
     CGFloat dy = movePoint.y - self.startPoint.y;
     CGFloat dw = 0.0, dh = 0.0;
-    NSLog(@"x====%@==y====%@",@(dx),@(dy));
     CGRect cropFrame = self.startFrame;
     if (self.moveType == WZMCropMoveTypeLeftTop) {
         //左上
-        if (cropFrame.origin.x + dx <= 0.0) {
-            dx = -cropFrame.origin.x;
+        if (self.WHScale > 0.0) {
+            if (cropFrame.origin.x + dx <= 0.0) {
+                dx = -cropFrame.origin.x;
+            }
+            if (cropFrame.size.width - dx <= 40.0*2) {
+                dx = cropFrame.size.width - 40.0*2;
+            }
+            dy = dx/self.WHScale;
+            if (cropFrame.origin.y + dy <= 0.0) {
+                dy = -cropFrame.origin.y;
+                dx = dy*self.WHScale;
+            }
+            if (cropFrame.size.height - dy <= 40.0*2) {
+                dy = cropFrame.size.height - 40.0*2;
+                dx = dy*self.WHScale;
+            }
+            dw = dx, dh = dy;
         }
-        if (cropFrame.origin.y + dy <= 0.0) {
-            dy = -cropFrame.origin.y;
+        else {
+            if (cropFrame.origin.x + dx <= 0.0) {
+                dx = -cropFrame.origin.x;
+            }
+            if (cropFrame.origin.y + dy <= 0.0) {
+                dy = -cropFrame.origin.y;
+            }
+            if (cropFrame.size.width - dx <= 40.0*2) {
+                dx = cropFrame.size.width - 40.0*2;
+            }
+            if (cropFrame.size.height - dy <= 40.0*2) {
+                dy = cropFrame.size.height - 40.0*2;
+            }
+            dw = dx, dh = dy;
         }
-        if (cropFrame.size.width - dx <= 40.0*2) {
-            dx = cropFrame.size.width - 40.0*2;
-        }
-        if (cropFrame.size.height - dy <= 40.0*2) {
-            dy = cropFrame.size.height - 40.0*2;
-        }
-        dw = dx, dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeRightTop) {
         //右上
-        dw = -dx;
-        if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
-            dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+        if (self.WHScale > 0.0) {
+            dw = -dx;
+            if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+                dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+            }
+            if (cropFrame.size.width - dw <= 40.0*2) {
+                dw = cropFrame.size.width - 40.0*2;
+            }
+            dy = dw/self.WHScale;
+            if (cropFrame.origin.y + dy <= 0.0) {
+                dy = -cropFrame.origin.y;
+                dw = dy*self.WHScale;
+            }
+            if (cropFrame.size.height - dy <= 40.0*2) {
+                dy = cropFrame.size.height - 40.0*2;
+                dw = dy*self.WHScale;
+            }
+            dx = 0.0; dh = dy;
         }
-        if (cropFrame.origin.y + dy <= 0.0) {
-            dy = -cropFrame.origin.y;
+        else {
+            dw = -dx;
+            if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+                dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+            }
+            if (cropFrame.origin.y + dy <= 0.0) {
+                dy = -cropFrame.origin.y;
+            }
+            if (cropFrame.size.width - dw <= 40.0*2) {
+                dw = cropFrame.size.width - 40.0*2;
+            }
+            if (cropFrame.size.height - dy <= 40.0*2) {
+                dy = cropFrame.size.height - 40.0*2;
+            }
+            dx = 0.0; dh = dy;
         }
-        if (cropFrame.size.width - dw <= 40.0*2) {
-            dw = cropFrame.size.width - 40.0*2;
-        }
-        if (cropFrame.size.height - dy <= 40.0*2) {
-            dy = cropFrame.size.height - 40.0*2;
-        }
-        dx = 0.0; dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeLeftDowm) {
         //左下
-        dh = -dy;
-        if (cropFrame.origin.x + dx <= 0.0) {
-            dx = -cropFrame.origin.x;
+        if (self.WHScale > 0.0) {
+            dh = -dy;
+            if (cropFrame.origin.x + dx <= 0.0) {
+                dx = -cropFrame.origin.x;
+            }
+            if (cropFrame.size.width - dx <= 40.0*2) {
+                dx = cropFrame.size.width - 40.0*2;
+            }
+            dh = dx/self.WHScale;
+            if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+                dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+                dx = dh*self.WHScale;
+            }
+            if (cropFrame.size.height - dh <= 40.0*2) {
+                dh = cropFrame.size.height - 40.0*2;
+                dx = dh*self.WHScale;
+            }
+            dy = 0.0; dw = dx;
         }
-        if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
-            dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+        else {
+            dh = -dy;
+            if (cropFrame.origin.x + dx <= 0.0) {
+                dx = -cropFrame.origin.x;
+            }
+            if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+                dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+            }
+            if (cropFrame.size.width - dx <= 40.0*2) {
+                dx = cropFrame.size.width - 40.0*2;
+            }
+            if (cropFrame.size.height - dh <= 40.0*2) {
+                dh = cropFrame.size.height - 40.0*2;
+            }
+            dy = 0.0; dw = dx;
         }
-        if (cropFrame.size.width - dx <= 40.0*2) {
-            dx = cropFrame.size.width - 40.0*2;
-        }
-        if (cropFrame.size.height - dh <= 40.0*2) {
-            dh = cropFrame.size.height - 40.0*2;
-        }
-        dy = 0.0; dw = dx;
     }
     else if (self.moveType == WZMCropMoveTypeRightDown) {
         //右下
-        dw = -dx; dh = -dy;
-        if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
-            dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+        if (self.WHScale > 0.0) {
+            dw = -dx; dh = -dy;
+            if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+                dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+            }
+            if (cropFrame.size.width - dw <= 40.0*2) {
+                dw = cropFrame.size.width - 40.0*2;
+            }
+            dh = dw/self.WHScale;
+            if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+                dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+                dw = dh*self.WHScale;
+            }
+            if (cropFrame.size.height - dh <= 40.0*2) {
+                dh = cropFrame.size.height - 40.0*2;
+                dw = dh*self.WHScale;
+            }
+            dx = 0.0; dy = 0.0;
         }
-        if (cropFrame.size.width - dw <= 40.0*2) {
-            dw = cropFrame.size.width - 40.0*2;
+        else {
+            dw = -dx; dh = -dy;
+            if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
+                dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
+            }
+            if (cropFrame.size.width - dw <= 40.0*2) {
+                dw = cropFrame.size.width - 40.0*2;
+            }
+            if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
+                dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
+            }
+            if (cropFrame.size.height - dh <= 40.0*2) {
+                dh = cropFrame.size.height - 40.0*2;
+            }
+            dx = 0.0; dy = 0.0;
         }
-        if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
-            dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
-        }
-        if (cropFrame.size.height - dh <= 40.0*2) {
-            dh = cropFrame.size.height - 40.0*2;
-        }
-        dx = 0.0; dy = 0.0;
     }
     else {
         //整体移动
@@ -258,6 +343,35 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
     cropFrame.size.width -= dw;
     cropFrame.size.height -= dh;
     self.cropFrame = cropFrame;
+    [self setNeedsDisplay];
+}
+
+- (void)setWHScale:(CGFloat)WHScale {
+    if (WHScale <= 0.0 || WHScale < self.MinWHScale) {
+        WHScale = 0.0;
+    }
+    else if (WHScale > self.MaxWHScale) {
+        WHScale = self.MaxWHScale;
+    }
+    if (_WHScale == WHScale) return;
+    _WHScale = WHScale;
+    self.cropFrame = self.bounds;
+    if (_WHScale > 0.0) {
+        CGFloat w = self.cropFrame.size.width;
+        CGFloat h = self.cropFrame.size.height;
+        if (w/h > _WHScale) {
+            w = h*_WHScale;
+        }
+        else {
+            h = w/_WHScale;
+        }
+        CGRect rect = self.cropFrame;
+        rect.origin.x = (rect.size.width-w)/2.0;
+        rect.origin.y = (rect.size.height-h)/2.0;
+        rect.size.width = w;
+        rect.size.height = h;
+        self.cropFrame = rect;
+    }
     [self setNeedsDisplay];
 }
 

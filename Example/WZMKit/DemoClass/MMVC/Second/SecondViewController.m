@@ -31,8 +31,13 @@
     [super viewDidLoad];
     
     WZMCropView *cropView = [[WZMCropView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 355.0)];
+    //cropView.WHScale = 0.5;
     cropView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:cropView];
+    
+    WZMDispatch_after(0.5, ^{
+        cropView.WHScale = 1.0;
+    });
 }
 
 @end

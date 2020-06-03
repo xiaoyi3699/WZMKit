@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat separateWidth;
 @property (nonatomic, strong) UIColor *separateColor;
 @property (nonatomic, assign, getter=isShowSeparate) BOOL showSeparate;
+///宽高比,默认0,自由剪裁,最大值默认10.0,最小值默认0.1
+@property (nonatomic, assign) CGFloat WHScale;
+@property (nonatomic, assign) CGFloat MinWHScale;
+@property (nonatomic, assign) CGFloat MaxWHScale;
 
 @end
 
