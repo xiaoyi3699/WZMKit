@@ -190,7 +190,6 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
                 dy = cropFrame.size.height - 40.0*2;
                 dx = dy*self.WHScale;
             }
-            dw = dx, dh = dy;
         }
         else {
             if (cropFrame.origin.x + dx <= 0.0) {
@@ -205,8 +204,8 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.size.height - dy <= 40.0*2) {
                 dy = cropFrame.size.height - 40.0*2;
             }
-            dw = dx, dh = dy;
         }
+        dw = dx; dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeRightTop) {
         //右上
@@ -227,7 +226,6 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
                 dy = cropFrame.size.height - 40.0*2;
                 dw = dy*self.WHScale;
             }
-            dx = 0.0; dh = dy;
         }
         else {
             dw = -dx;
@@ -243,8 +241,8 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.size.height - dy <= 40.0*2) {
                 dy = cropFrame.size.height - 40.0*2;
             }
-            dx = 0.0; dh = dy;
         }
+        dx = 0.0; dh = dy;
     }
     else if (self.moveType == WZMCropMoveTypeLeftDowm) {
         //左下
@@ -265,7 +263,6 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
                 dh = cropFrame.size.height - 40.0*2;
                 dx = dh*self.WHScale;
             }
-            dy = 0.0; dw = dx;
         }
         else {
             dh = -dy;
@@ -281,8 +278,8 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.size.height - dh <= 40.0*2) {
                 dh = cropFrame.size.height - 40.0*2;
             }
-            dy = 0.0; dw = dx;
         }
+        dy = 0.0; dw = dx;
     }
     else if (self.moveType == WZMCropMoveTypeRightDown) {
         //右下
@@ -303,7 +300,6 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
                 dh = cropFrame.size.height - 40.0*2;
                 dw = dh*self.WHScale;
             }
-            dx = 0.0; dy = 0.0;
         }
         else {
             dw = -dx; dh = -dy;
@@ -319,8 +315,8 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.size.height - dh <= 40.0*2) {
                 dh = cropFrame.size.height - 40.0*2;
             }
-            dx = 0.0; dy = 0.0;
         }
+        dx = 0.0; dy = 0.0;
     }
     else {
         //整体移动

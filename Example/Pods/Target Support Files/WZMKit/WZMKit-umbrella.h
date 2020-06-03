@@ -118,6 +118,7 @@
 #import "WZMAutoHeader.h"
 #import "WZMButton.h"
 #import "WZMClipTimeView.h"
+#import "WZMCropView.h"
 #import "WZMBezierView.h"
 #import "WZMCycleView.h"
 #import "WZMDottedView.h"
