@@ -11,7 +11,7 @@
 
 @interface WZMCamera : NSObject
 
-- (instancetype)initWithPosition: (WZMCaptureDevicePosition)position;
+- (instancetype)initWithPosition:(WZMCaptureDevicePosition)position;
 
 //开始
 - (void)startInView:(UIView *)view;

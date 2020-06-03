@@ -18,7 +18,7 @@
 
 @implementation WZMCamera
 
-- (instancetype)initWithPosition: (WZMCaptureDevicePosition)position {
+- (instancetype)initWithPosition:(WZMCaptureDevicePosition)position {
     self = [super init];
     if (self) {
         
