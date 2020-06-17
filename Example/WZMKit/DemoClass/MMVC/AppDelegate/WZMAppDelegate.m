@@ -82,6 +82,10 @@
 
 @interface WZMAppDelegate ()<UNUserNotificationCenterDelegate>
 
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger time;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier backIden;
+
 @end
 
 @implementation WZMAppDelegate
@@ -288,9 +292,54 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {}
-- (void)applicationDidEnterBackground:(UIApplication *)application {}
 - (void)applicationWillEnterForeground:(UIApplication *)application {}
-- (void)applicationDidBecomeActive:(UIApplication *)application {}
+
 - (void)applicationWillTerminate:(UIApplication *)application {}
+
+#pragma mark - 后台运行
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self beginTask];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self endBack];
+}
+
+- (void)beginTask {
+    [self timerFire];
+    self.backIden = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        //如果在系统规定时间内任务还没有完成，在时间到之前会调用到这个方法，一般是10分钟
+        [self endBack];
+   }];
+}
+
+- (void)endBack {
+    [self timerInvalidate];
+    [[UIApplication sharedApplication] endBackgroundTask:self.backIden];
+    self.backIden = UIBackgroundTaskInvalid;
+}
+
+- (void)timerFire {
+    if (self.timer == nil) {
+        self.time = 0;
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
+        [self.timer fire];
+    }
+}
+
+- (void)timerInvalidate {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+}
+
+-(void)timerRun:(NSTimer *)timer {
+    if (self.time == 6) {
+        //任务执行完毕，主动调用该方法结束任务
+        [self endBack];
+    }
+    self.time ++;
+}
 
 @end

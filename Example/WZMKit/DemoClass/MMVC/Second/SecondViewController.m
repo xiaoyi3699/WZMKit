@@ -32,14 +32,16 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.maxCount = 1;
-    config.allowEdit = YES;
-    config.allowPreview = NO;
-    config.allowShowIndex = YES;
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    nav.pickerDelegate = self;
-    [self presentViewController:nav animated:YES completion:nil];
+    NSString *s = @"sjdia/sdklas/upload";
+    NSLog(@"%@",s.lastPathComponent);
+//    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+//    config.maxCount = 1;
+//    config.allowEdit = YES;
+//    config.allowPreview = NO;
+//    config.allowShowIndex = YES;
+//    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+//    nav.pickerDelegate = self;
+//    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
