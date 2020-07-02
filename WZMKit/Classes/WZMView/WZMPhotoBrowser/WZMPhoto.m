@@ -36,6 +36,7 @@
     BOOL           _display;
     CGRect         _startFrame;
     UIImageView    *_errorImageView;
+    WZMPanGestureRecognizer *_panClick;
 }
 @end
 
@@ -63,10 +64,10 @@
         UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
         [self addGestureRecognizer:longClick];
         
-        WZMPanGestureRecognizer *panClick = [[WZMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panClick:)];
-        panClick.direction = WZMPanGestureRecognizerDirectionVertical;
-        panClick.verticalDirection = WZMPanGestureRecognizerVerticalDirectionDown;
-        [self addGestureRecognizer:panClick];
+        _panClick = [[WZMPanGestureRecognizer alloc] initWithTarget:self action:@selector(panClick:)];
+        _panClick.direction = WZMPanGestureRecognizerDirectionVertical;
+        _panClick.verticalDirection = WZMPanGestureRecognizerVerticalDirectionDown;
+        [self addGestureRecognizer:_panClick];
         
         _imageView = [[WZMGifImageView alloc] init];
         _imageView.hidden = YES;
@@ -175,6 +176,12 @@
 - (void)setupImageView {
     _imageView.hidden = NO;
     _imageView.frame = [self imageFrame];
+    if (_imageView.bounds.size.height/_imageView.bounds.size.width > 2.0) {
+        self.maximumZoomScale = (self.bounds.size.width/_imageView.bounds.size.width);
+    }
+    else {
+        self.maximumZoomScale = WZMPhotoMaxSCale;
+    }
     if (_isGif) {
         _imageView.gifData = _imageData;
     }
@@ -331,6 +338,7 @@
     else {
         _imageView.center = center;
     }
+    _panClick.enabled = (scrollView.zoomScale <= 1.0);
 }
 
 #pragma mark - 手势交互
