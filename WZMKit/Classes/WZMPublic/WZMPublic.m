@@ -62,14 +62,10 @@
 }
 
 - (void)reset {
-    _statusH = -1;
-    _navBarH = -1;
-    _tabBarH = -1;
     _screenW = -1;
     _screenH = -1;
     _screenScale = -1;
     _screenBounds = CGRectNull;
-    _iPhoneXBottomH = -1;
 }
 
 ///是否是iPad
