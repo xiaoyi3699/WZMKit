@@ -50,6 +50,9 @@
         _iPhone  = -1;
         _iPhoneX = -1;
         _systemV = -1;
+        _statusH = -1;
+        _navBarH = -1;
+        _tabBarH = -1;
         _iPhoneXBottomH = -1;
         _buildV = nil;
         _shortV = nil;
