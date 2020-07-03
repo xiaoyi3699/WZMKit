@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
         [self addSubview:self.brightnessSlider];
         
         //底部view
-        _toolView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height-40, frame.size.width, 40)];
+        _toolView = [[UIView alloc]initWithFrame:CGRectMake(0.0, frame.size.height-(40.0+WZM_BOTTOM_HEIGHT), frame.size.width, (40.0+WZM_BOTTOM_HEIGHT))];
         _toolView.backgroundColor = [UIColor clearColor];
         _toolView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
         [self addSubview:_toolView];

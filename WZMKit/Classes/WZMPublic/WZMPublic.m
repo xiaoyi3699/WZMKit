@@ -50,6 +50,7 @@
         _iPhone  = -1;
         _iPhoneX = -1;
         _systemV = -1;
+        _iPhoneXBottomH = -1;
         _buildV = nil;
         _shortV = nil;
         _appName = nil;
