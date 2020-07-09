@@ -10,6 +10,15 @@
 
 @implementation WZMButton
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.titleFrame = CGRectNull;
+        self.imageFrame = CGRectNull;
+    }
+    return self;
+}
+
 - (CGRect)imageRectForContentRect:(CGRect)contentRect {
     if (CGRectIsNull(self.imageFrame)) {
         return [super imageRectForContentRect:contentRect];
