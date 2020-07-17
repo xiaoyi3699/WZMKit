@@ -10,8 +10,8 @@
 
 @implementation WZMButton
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         self.titleFrame = CGRectNull;
         self.imageFrame = CGRectNull;
