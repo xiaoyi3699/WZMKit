@@ -98,7 +98,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         return;
     }
     if ([self canRequestIAP]) {
-        [self removeUncompleteTransaction:nil];
+        //[self removeUncompleteTransaction:nil];
         self.orderId = orderId;
         [self requestProductData:productId];
     }
