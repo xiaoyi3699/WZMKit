@@ -321,12 +321,16 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 //结束未完成的交易
 - (void)removeUncompleteTransaction:(SKPaymentTransaction *)tran {
     if (tran) {
-        [self.defaultQueue finishTransaction:tran];
+        if (tran.transactionState != SKPaymentTransactionStatePurchasing) {
+            [self.defaultQueue finishTransaction:tran];
+        }
     }
     else {
         NSArray *transactions = self.defaultQueue.transactions;
         for (SKPaymentTransaction *transaction in transactions) {
-            [self.defaultQueue finishTransaction:transaction];
+            if (transaction.transactionState != SKPaymentTransactionStatePurchasing) {
+                [self.defaultQueue finishTransaction:transaction];
+            }
         }
     }
 }
