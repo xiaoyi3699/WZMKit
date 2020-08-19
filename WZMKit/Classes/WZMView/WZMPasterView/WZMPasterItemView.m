@@ -7,6 +7,7 @@
 //
 
 #import "WZMPasterItemView.h"
+#import "WZMPublic.h"
 
 #define PASTER_SLIDE        150.0
 #define FLEX_SLIDE          15.0
@@ -42,8 +43,7 @@
 #pragma mark -- Initial
 - (instancetype)initWithBgView:(WZMPasterView *)bgView
                       pasterID:(int)pasterID
-                           img:(UIImage *)img
-{
+                           img:(UIImage *)img {
     self = [super init];
     if (self) {
         self.pasterID = pasterID;
@@ -62,23 +62,18 @@
     return self;
 }
 
-
-- (void)setFrame:(CGRect)newFrame
-{
+- (void)setFrame:(CGRect)newFrame {
     [super setFrame:newFrame];
-    
     CGRect rect = CGRectZero;
     CGFloat sliderContent = PASTER_SLIDE - FLEX_SLIDE * 2;
     rect.origin = CGPointMake(FLEX_SLIDE, FLEX_SLIDE);
     rect.size = CGSizeMake(sliderContent, sliderContent);
     self.imgContentView.frame = rect;
-    
     self.imgContentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 
-- (void)resizeTranslate:(UIPanGestureRecognizer *)recognizer
-{
+- (void)resizeTranslate:(UIPanGestureRecognizer *)recognizer {
     if ([recognizer state] == UIGestureRecognizerStateBegan) {
         prevPoint = [recognizer locationInView:self];
         [self setNeedsDisplay];
@@ -130,23 +125,18 @@
     }
 }
 
-- (void)setImagePaster:(UIImage *)imagePaster
-{
+- (void)setImagePaster:(UIImage *)imagePaster {
     _imagePaster = imagePaster;
-    
     self.imgContentView.image = imagePaster;
 }
 
 
-- (void)setupWithBGFrame:(CGRect)bgFrame
-{
+- (void)setupWithBGFrame:(CGRect)bgFrame {
     CGRect rect = CGRectZero;
     rect.size = CGSizeMake(PASTER_SLIDE, PASTER_SLIDE);
     self.frame = rect;
     self.center = CGPointMake(bgFrame.size.width / 2, bgFrame.size.height / 2);
     self.backgroundColor = nil;
-//    UIPanGestureRecognizer *panResizeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panTranslate:)];
-//    [self addGestureRecognizer:panResizeGesture];
     self.userInteractionEnabled = YES;
     minWidth   = self.bounds.size.width * 0.5;
     minHeight  = self.bounds.size.height * 0.5;
@@ -156,30 +146,7 @@
 
 }
 
-//- (void)panTranslate:(UIPanGestureRecognizer *)recognizer {
-////    self.isOnFirst = YES;
-//    CGPoint curP = [recognizer translationInView:recognizer.view];
-//    recognizer.view.transform = CGAffineTransformTranslate(recognizer.view.transform, curP.x, curP.y);
-//    // 复位,一定要复位
-//    [recognizer setTranslation:CGPointZero inView:recognizer.view];
-//    if (recognizer.state==UIGestureRecognizerStateBegan) {
-//        touchStart = [recognizer translationInView:self.superview];
-//    }else if (recognizer.state==UIGestureRecognizerStateChanged) {
-//        CGPoint touchLocation = [recognizer translationInView:recognizer.view];
-//        if (CGRectContainsPoint(self.btSizeCtrl.frame, touchLocation)) {
-//            return;
-//        }
-////        CGPoint touch = [recognizer translationInView:self.superview];
-////        [self translateUsingTouchLocation:touch];
-//    }else if (recognizer.state==UIGestureRecognizerStateEnded) {
-//        CGPoint touch = [recognizer translationInView:self.superview];
-//        self.center = touch;
-//        touchStart = touch;
-//    }
-//}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     self.isOnFirst = YES;
     [self.delegate makePasterBecomeFirstRespond:self.pasterID];
     [self.delegate stickerTouchesBegan:touches withEvent:event];
@@ -187,8 +154,7 @@
     touchStart = [touch locationInView:self.superview];
 }
 
-- (void)translateUsingTouchLocation:(CGPoint)touchPoint
-{
+- (void)translateUsingTouchLocation:(CGPoint)touchPoint {
     CGPoint newCenter = CGPointMake(self.center.x + touchPoint.x - touchStart.x,
                                     self.center.y + touchPoint.y - touchStart.y);
     
@@ -270,7 +236,7 @@
     if (!_btSizeCtrl) {
         _btSizeCtrl = [[UIImageView alloc]initWithFrame:CGRectMake(self.frame.size.width - BT_SLIDE  , self.frame.size.height - BT_SLIDE , BT_SLIDE , BT_SLIDE)];
         _btSizeCtrl.userInteractionEnabled = YES;
-        _btSizeCtrl.image = [UIImage imageNamed:@"bt_paster_transform"];
+        _btSizeCtrl.image = [WZMPublic imageWithFolder:@"paster" imageName:@"zoom.png"];
 
         UIPanGestureRecognizer *panResizeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(resizeTranslate:)];
         [_btSizeCtrl addGestureRecognizer:panResizeGesture];
@@ -290,7 +256,7 @@
 
         _btDelete = [[UIImageView alloc]initWithFrame:btRect];
         _btDelete.userInteractionEnabled = YES;
-        _btDelete.image = [UIImage imageNamed:@"bt_paster_delete"];
+        _btDelete.image = [WZMPublic imageWithFolder:@"paster" imageName:@"delete.png"];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(btDeletePressed:)];
         [_btDelete addGestureRecognizer:tap];
@@ -302,15 +268,8 @@
     return _btDelete;
 }
 
-- (void)btDeletePressed:(id)btDel
-{
-    NSLog(@"btDel");
+- (void)btDeletePressed:(id)btDel {
     [self remove];
 }
-
-//- (void)btOriginalAction
-//{
-//    [self.delegate clickOriginalButton];
-//}
 
 @end

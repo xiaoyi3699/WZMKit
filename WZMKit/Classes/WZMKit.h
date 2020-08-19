@@ -341,6 +341,7 @@
 #import "WZMButton.h"
 #import "WZMMenuView.h"
 #import "WZMCropView.h"
+#import "WZMPasterView.h"
 #import "WZMDottedView.h"
 #import "WZMSliderView.h"
 #import "WZMSliderView2.h"

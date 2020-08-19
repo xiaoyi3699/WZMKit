@@ -17,23 +17,16 @@
     NSMutableArray  *m_listPaster;
 }
 
-@property (nonatomic,strong) UIButton *bgButton;
-@property (nonatomic,strong) UIImageView *imgView;
-@property (nonatomic,strong) WZMPasterItemView *pasterCurrent;
 @property (nonatomic,assign) int newPasterID;
+@property (nonatomic,strong) UIButton *bgButton;
+@property (nonatomic,strong) WZMPasterItemView *pasterCurrent;
+
 
 @end
 
 @implementation WZMPasterView
 
 @synthesize m_filterPaster;
-
-- (void)setOriginImage:(UIImage *)originImage
-{
-    _originImage = originImage;
-    self.imgView.image = originImage;
-}
-
 
 - (int)newPasterID
 {
@@ -64,32 +57,20 @@
     return _bgButton;
 }
 
-- (UIImageView *)imgView
-{
-    if (!_imgView) {
-        CGRect rect = CGRectZero;
-        rect.size.width = self.frame.size.width;
-        rect.size.height = self.frame.size.height;
-//        rect.origin.y = (self.frame.size.height - self.frame.size.width)/2.0;
-        _imgView = [[UIImageView alloc] initWithFrame:rect];
-//        _imgView.contentMode = UIViewContentModeScaleAspectFit;
-        if (![_imgView superview]) {
-            [self addSubview:_imgView];
-        }
-    }
-    return _imgView;
-}
-
 #pragma mark - initial
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         m_listPaster = [[NSMutableArray alloc] initWithCapacity:1];
-        [self imgView];
         [self bgButton];
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    _bgButton.frame = self.bounds;
 }
 
 #pragma mark - public
@@ -101,30 +82,8 @@
     [m_listPaster addObject:_pasterCurrent];
 }
 
-- (UIImage *)doneEdit
-{
-    [self clearAllOnFirst];
-//    NSLog(@"self.originImage.size : %@",NSStringFromCGSize(self.originImage.size));
-    CGFloat org_width = self.originImage.size.width;
-    CGFloat org_heigh = self.originImage.size.height;
-    CGFloat rateOfScreen = org_width / org_heigh;
-    CGFloat inScreenH = self.frame.size.width / rateOfScreen;
-    
-    CGRect rect = CGRectZero;
-    rect.size = CGSizeMake(APPFRAME.size.width, inScreenH);
-    rect.origin = CGPointMake(0, (self.frame.size.height - inScreenH) / 2);
-    
-    UIImage *imgTemp = [UIImage getImageFromView:self];
-//    NSLog(@"imgTemp.size : %@",NSStringFromCGSize(imgTemp.size));
-    UIImage *imgCut = [UIImage squareImageFromImage:imgTemp scaledToSize:rect.size.width];
-    
-    return imgCut;
-}
-
-
 - (void)backgroundClicked:(UIButton *)btBg
 {
-    NSLog(@"back clicked");
     [self clearAllOnFirst];
 }
 
