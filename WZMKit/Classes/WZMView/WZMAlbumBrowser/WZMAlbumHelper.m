@@ -9,12 +9,11 @@
 #import "WZMAlbumHelper.h"
 #import <Photos/Photos.h>
 #import <ImageIO/ImageIO.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "WZMMacro.h"
 #import "WZMFileManager.h"
 #import "WZMLogPrinter.h"
-#import "NSDateFormatter+wzmcate.h"
 #import "WZMDefined.h"
+#import "NSDateFormatter+wzmcate.h"
 
 #if WZM_APP
 @interface WZMAlbumHelper ()<UIAlertViewDelegate>
@@ -370,22 +369,46 @@
 }
 
 //保存视频到系统相册
-+ (void)wzm_saveVideo:(NSString *)path {
-    UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
++ (void)wzm_saveVideoWithPath:(NSString *)path completion:(void(^)(NSError *error))completion {
+    if (path == nil || path.length == 0) return;
+    if ([[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            NSURL *url = [NSURL fileURLWithPath:path];
+            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(error);
+            });
+        }];
+    }
 }
 
 //保存图片到系统相册
-+ (void)wzm_saveImage:(UIImage *)image {
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
++ (void)wzm_saveImage:(UIImage *)image completion:(void(^)(NSError *error))completion {
+    if (image == nil) return;
+    if ([image isKindOfClass:[UIImage class]]) {
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(error);
+            });
+        }];
+    }
 }
 
-+ (void)wzm_saveImageData:(NSData *)data completion:(wzm_doBlock)completion {
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-    [assetsLibrary writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (completion) {
-            completion();
-        }
-    }];
++ (void)wzm_saveImageWithPath:(NSString *)path completion:(void(^)(NSError *error))completion {
+    if (path == nil || path.length == 0) return;
+    if ([[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            NSURL *url = [NSURL fileURLWithPath:path];
+            [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(error);
+            });
+        }];
+    }
 }
 
 ///清除视频缓存
@@ -395,7 +418,39 @@
     [WZMFileManager createDirectoryAtPath:helper.videoFolder];
 }
 
-//private修正图片转向
+///从iCloud获取图片失败
++ (void)showiCloudError {
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
+    if (helper.isShowAlert) return;
+    helper.showAlert = YES;
+#if WZM_APP
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"从iCloud获取图片失败，请切换至无线网络后重试" delegate:helper cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+#endif
+}
+
+#if WZM_APP
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
+    helper.showAlert = NO;
+}
+#endif
+
+#pragma mark - 刷新相册通知
++ (void)postUpdateAlbumNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WZMUpdateAlbum" object:nil];
+}
+
++ (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector {
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:@"WZMUpdateAlbum" object:nil];
+}
+
++ (void)removeUpdateAlbumObserver:(id)observer {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+}
+
+#pragma mark - other
+//修正图片转向
 + (UIImage *)wzm_fixOrientation:(UIImage *)aImage {
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
@@ -460,35 +515,72 @@
     return img;
 }
 
-///从iCloud获取图片失败
-+ (void)showiCloudError {
-    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
-    if (helper.isShowAlert) return;
-    helper.showAlert = YES;
-#if WZM_APP
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"从iCloud获取图片失败，请切换至无线网络后重试" delegate:helper cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-#endif
+//修正视频转向
++ (AVMutableVideoComposition *)fixedCompositionWithAsset:(AVAsset *)videoAsset {
+    AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
+    // 视频转向
+    int degrees = [self degressFromVideoFileWithAsset:videoAsset];
+    if (degrees != 0) {
+        CGAffineTransform translateToCenter;
+        CGAffineTransform mixedTransform;
+        videoComposition.frameDuration = CMTimeMake(1, 30);
+        
+        NSArray *tracks = [videoAsset tracksWithMediaType:AVMediaTypeVideo];
+        AVAssetTrack *videoTrack = [tracks objectAtIndex:0];
+        
+        AVMutableVideoCompositionInstruction *roateInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+        roateInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, [videoAsset duration]);
+        AVMutableVideoCompositionLayerInstruction *roateLayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
+        
+        if (degrees == 90) {
+            // 顺时针旋转90°
+            translateToCenter = CGAffineTransformMakeTranslation(videoTrack.naturalSize.height, 0.0);
+            mixedTransform = CGAffineTransformRotate(translateToCenter,M_PI_2);
+            videoComposition.renderSize = CGSizeMake(videoTrack.naturalSize.height,videoTrack.naturalSize.width);
+            [roateLayerInstruction setTransform:mixedTransform atTime:kCMTimeZero];
+        } else if(degrees == 180){
+            // 顺时针旋转180°
+            translateToCenter = CGAffineTransformMakeTranslation(videoTrack.naturalSize.width, videoTrack.naturalSize.height);
+            mixedTransform = CGAffineTransformRotate(translateToCenter,M_PI);
+            videoComposition.renderSize = CGSizeMake(videoTrack.naturalSize.width,videoTrack.naturalSize.height);
+            [roateLayerInstruction setTransform:mixedTransform atTime:kCMTimeZero];
+        } else if(degrees == 270){
+            // 顺时针旋转270°
+            translateToCenter = CGAffineTransformMakeTranslation(0.0, videoTrack.naturalSize.width);
+            mixedTransform = CGAffineTransformRotate(translateToCenter,M_PI_2*3.0);
+            videoComposition.renderSize = CGSizeMake(videoTrack.naturalSize.height,videoTrack.naturalSize.width);
+            [roateLayerInstruction setTransform:mixedTransform atTime:kCMTimeZero];
+        }
+        
+        roateInstruction.layerInstructions = @[roateLayerInstruction];
+        // 加入视频方向信息
+        videoComposition.instructions = @[roateInstruction];
+    }
+    return videoComposition;
 }
 
-#if WZM_APP
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
-    helper.showAlert = NO;
-}
-#endif
-
-#pragma mark - 刷新相册通知
-+ (void)postUpdateAlbumNotification {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WZMUpdateAlbum" object:nil];
-}
-
-+ (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector {
-    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:@"WZMUpdateAlbum" object:nil];
-}
-
-+ (void)removeUpdateAlbumObserver:(id)observer {
-    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+/// 获取视频角度
++ (int)degressFromVideoFileWithAsset:(AVAsset *)asset {
+    int degress = 0;
+    NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+    if([tracks count] > 0) {
+        AVAssetTrack *videoTrack = [tracks objectAtIndex:0];
+        CGAffineTransform t = videoTrack.preferredTransform;
+        if(t.a == 0 && t.b == 1.0 && t.c == -1.0 && t.d == 0){
+            // Portrait
+            degress = 90;
+        } else if(t.a == 0 && t.b == -1.0 && t.c == 1.0 && t.d == 0){
+            // PortraitUpsideDown
+            degress = 270;
+        } else if(t.a == 1.0 && t.b == 0 && t.c == 0 && t.d == 1.0){
+            // LandscapeRight
+            degress = 0;
+        } else if(t.a == -1.0 && t.b == 0 && t.c == 0 && t.d == -1.0){
+            // LandscapeLeft
+            degress = 180;
+        }
+    }
+    return degress;
 }
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "WZMEnum.h"
-#import "WZMBlock.h"
 
 @interface WZMAlbumHelper : NSObject
 
@@ -28,18 +28,22 @@
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///保存视频到系统相册
-+ (void)wzm_saveVideo:(NSString *)path;
++ (void)wzm_saveVideoWithPath:(NSString *)path completion:(void(^)(NSError *error))completion;
 ///保存图片到系统相册
-+ (void)wzm_saveImage:(UIImage *)image;
-+ (void)wzm_saveImageData:(NSData *)data completion:(wzm_doBlock)completion;
++ (void)wzm_saveImage:(UIImage *)image completion:(void(^)(NSError *error))completion;
++ (void)wzm_saveImageWithPath:(NSString *)path completion:(void(^)(NSError *error))completion;
 ///清除视频缓存
 + (void)wzm_claerVideoCache;
 ///从iCloud获取图片失败
 + (void)showiCloudError;
-
 #pragma mark - 刷新相册通知
 + (void)postUpdateAlbumNotification;
 + (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector;
 + (void)removeUpdateAlbumObserver:(id)observer;
+#pragma mark - other
+///修正图片转向
++ (UIImage *)wzm_fixOrientation:(UIImage *)aImage;
+///修正视频转向
++ (AVMutableVideoComposition *)fixedCompositionWithAsset:(AVAsset *)videoAsset;
 
 @end
