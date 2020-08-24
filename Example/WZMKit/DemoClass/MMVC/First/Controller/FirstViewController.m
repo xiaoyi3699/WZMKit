@@ -50,12 +50,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     _tableView = self.superTableView;
     _tableView.frame = WZMRectMiddleArea();
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView wzm_cleraExtraLine];
     [self.view addSubview:_tableView];
+    
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

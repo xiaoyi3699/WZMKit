@@ -12,7 +12,8 @@
 @interface WZMAutoHeader : UIView
 
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) WZMAutoHeaderAnimation headerAnimation;
+@property (nonatomic, assign) CGRect imageFrame;
+@property (nonatomic, assign) WZMAutoHeaderAnimation animation;
 
 @end
 

@@ -10,71 +10,82 @@
 
 #define WZM_AUTO_CONTENT_OFF_SET @"contentOffset"
 @implementation WZMAutoHeader {
-    UIImageView  *_imageView;
+    BOOL _addObserver;
+    UIImageView *_imageView;
     UIScrollView *_scrollView;
 }
 
-- (void)setImage:(UIImage *)image {
-    if (_image == image) return;
-    _image = image;
-    if (_imageView) {
-        _imageView.image = image;
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _addObserver = NO;
+        self.imageFrame = CGRectZero;
+        
+        _imageView = [[UIImageView alloc] init];
+        _imageView.clipsToBounds = YES;
+        [self addSubview:_imageView];
     }
+    return self;
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-    
+    [super willMoveToSuperview:newSuperview];
     if ([newSuperview isKindOfClass:[UIScrollView class]]) {
+        [self removeObserver];
         _scrollView = (UIScrollView *)newSuperview;
         _scrollView.alwaysBounceVertical = YES;
+        [self addObserver];
         
-        if (_imageView == nil) {
-            _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-            _imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-            [self insertSubview:_imageView atIndex:0];
+        if (CGRectEqualToRect(CGRectZero, self.imageFrame)) {
+            self.imageFrame = self.bounds;
         }
-        if (self.image) {
-            _imageView.image = self.image;
-        }
-        [_scrollView addObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET options:NSKeyValueObservingOptionNew context:nil];
+        _imageView.frame = self.imageFrame;
     }
-    
-    [super willMoveToSuperview:newSuperview];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (self.hidden) return;
-    if (self.headerAnimation == WZMAutoHeaderAnimationNone) return;
-    
+    if (self.animation == WZMAutoHeaderAnimationNone) return;
     if ([keyPath isEqualToString:WZM_AUTO_CONTENT_OFF_SET]) {
-        
         CGFloat y = _scrollView.contentOffset.y;
-        
         if (y <= 0) {
-            CGFloat oldH = self.bounds.size.height;
+            CGFloat oldH = self.imageFrame.size.height;
             CGFloat newH = oldH - y;
             CGFloat scale = newH/oldH;
-            
-            CGFloat oldW = self.bounds.size.width;
+            CGFloat oldW = self.imageFrame.size.width;
             CGFloat newW = oldW * scale;
-            
-            if (self.headerAnimation == WZMAutoHeaderAnimationScale) {
-                _imageView.frame = CGRectMake((oldW-newW)/2.0, y, newW, newH);
+            if (self.animation == WZMAutoHeaderAnimationScale) {
+                _imageView.frame = CGRectMake(self.imageFrame.origin.x+(oldW-newW)/2.0, self.imageFrame.origin.y+y, newW, newH);
             }
             else {
-                _imageView.frame = CGRectMake(0, y, oldW, newH);
+                _imageView.frame = CGRectMake(self.imageFrame.origin.x, self.imageFrame.origin.y+y, oldW, newH);
             }
         }
     }
+}
+
+- (void)setImage:(UIImage *)image {
+    if (_imageView) {
+        _imageView.image = image;
+    }
+    _image = image;
+}
+
+- (void)addObserver {
+    if (_addObserver) return;
+    _addObserver = YES;
+    [_scrollView addObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)removeObserver {
+    if (_addObserver == NO) return;
+    _addObserver = NO;
+    [_scrollView removeObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET];
 }
 
 - (void)removeFromSuperview {
-    if ([_scrollView isKindOfClass:[UIScrollView class]]) {
-        [_scrollView removeObserver:self forKeyPath:WZM_AUTO_CONTENT_OFF_SET];
-        _scrollView = nil;
-    }
     [super removeFromSuperview];
+    [self removeObserver];
 }
 
 @end
