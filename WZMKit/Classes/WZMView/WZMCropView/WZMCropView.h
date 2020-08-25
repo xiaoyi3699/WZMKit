@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMCropView : UIView
 
 ///剪裁框
@@ -32,5 +30,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat MaxWHScale;
 
 @end
-
-NS_ASSUME_NONNULL_END

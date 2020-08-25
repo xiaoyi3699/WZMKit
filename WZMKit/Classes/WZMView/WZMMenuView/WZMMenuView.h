@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 @protocol WZMMenuViewDelegate;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMMenuView : UIView
 
 @property (nonatomic, strong) NSArray *titles;
@@ -24,5 +22,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)menuView:(WZMMenuView *)menuView didSelectedText:(NSString *)text;
 
 @end
-
-NS_ASSUME_NONNULL_END

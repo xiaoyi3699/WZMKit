@@ -42,8 +42,8 @@
 + (void)removeUpdateAlbumObserver:(id)observer;
 #pragma mark - other
 ///修正图片转向
-+ (UIImage *)wzm_fixOrientation:(UIImage *)aImage;
++ (UIImage *)wzm_fixImageOrientation:(UIImage *)aImage;
 ///修正视频转向
-+ (AVMutableVideoComposition *)fixedCompositionWithAsset:(AVAsset *)videoAsset;
++ (AVMutableVideoComposition *)wzm_fixVideoOrientation:(AVAsset *)videoAsset;
 
 @end

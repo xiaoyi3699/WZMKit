@@ -18,6 +18,7 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		6434C6F124F3ED62007248B5 /* WZMVideoEditer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6434C6F024F3ED62007248B5 /* WZMVideoEditer.m */; };
 		646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B4247E643200F96689 /* WZMSegmentedViewController.m */; };
 		646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B7247E6EF900F96689 /* WZMBaseTableView.m */; };
 		646A10BC247F49BF00F96689 /* WZMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BB247F49BF00F96689 /* WZMSubViewController.m */; };
@@ -27,6 +28,7 @@
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
 		64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C03D99246AC795003EBE79 /* wzm_reload_black.png */; };
+		64D52FBD24F4E9DF002B2E49 /* WZMEditerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D52FBC24F4E9DF002B2E49 /* WZMEditerModel.m */; };
 		64E84A37246CD967008958FF /* wzm_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A35246CD967008958FF /* wzm_back_white.png */; };
 		64E84A38246CD967008958FF /* wzm_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A36246CD967008958FF /* wzm_back_black.png */; };
 		64E84A3A246CE199008958FF /* wzm_reload_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A39246CE199008958FF /* wzm_reload_white.png */; };
@@ -95,6 +97,8 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6434C6EF24F3ED62007248B5 /* WZMVideoEditer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMVideoEditer.h; sourceTree = "<group>"; };
+		6434C6F024F3ED62007248B5 /* WZMVideoEditer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMVideoEditer.m; sourceTree = "<group>"; };
 		646A10B3247E643200F96689 /* WZMSegmentedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMSegmentedViewController.h; sourceTree = "<group>"; };
 		646A10B4247E643200F96689 /* WZMSegmentedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedViewController.m; sourceTree = "<group>"; };
 		646A10B6247E6EF900F96689 /* WZMBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseTableView.h; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 		6486E45F23D8451600D777D7 /* WZMRechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeModel.h; sourceTree = "<group>"; };
 		649C2C5124581F1D00FF7635 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		64C03D99246AC795003EBE79 /* wzm_reload_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_reload_black.png; sourceTree = "<group>"; };
+		64D52FBB24F4E9DF002B2E49 /* WZMEditerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMEditerModel.h; sourceTree = "<group>"; };
+		64D52FBC24F4E9DF002B2E49 /* WZMEditerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMEditerModel.m; sourceTree = "<group>"; };
 		64E84A35246CD967008958FF /* wzm_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_white.png; sourceTree = "<group>"; };
 		64E84A36246CD967008958FF /* wzm_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_black.png; sourceTree = "<group>"; };
 		64E84A39246CE199008958FF /* wzm_reload_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_reload_white.png; sourceTree = "<group>"; };
@@ -559,6 +565,10 @@
 				75DA9E4C230E9BBC0000A955 /* Model */,
 				75DA9E49230E9BBC0000A955 /* ViewModel */,
 				75DA9E51230E9BC00000A955 /* Controller */,
+				6434C6EF24F3ED62007248B5 /* WZMVideoEditer.h */,
+				6434C6F024F3ED62007248B5 /* WZMVideoEditer.m */,
+				64D52FBB24F4E9DF002B2E49 /* WZMEditerModel.h */,
+				64D52FBC24F4E9DF002B2E49 /* WZMEditerModel.m */,
 			);
 			path = First;
 			sourceTree = "<group>";
@@ -831,6 +841,7 @@
 				6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
+				64D52FBD24F4E9DF002B2E49 /* WZMEditerModel.m in Sources */,
 				646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMURLResponse.m in Sources */,
@@ -842,6 +853,7 @@
 				75DA9E26230E924A0000A955 /* WZMPullListViewController.m in Sources */,
 				75DA9E2B230E924A0000A955 /* WKWebView+WZMWebViewController.m in Sources */,
 				75DA9E33230E924A0000A955 /* WZMUserContentController.m in Sources */,
+				6434C6F124F3ED62007248B5 /* WZMVideoEditer.m in Sources */,
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
 				75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */,
 				75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */,

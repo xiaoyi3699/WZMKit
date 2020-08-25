@@ -9,8 +9,6 @@
 #import "WZMPullListViewController.h"
 @class WZMSegmentedViewController;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMSubViewController : WZMPullListViewController
 
 @property (nonatomic, assign) CGRect frame;
@@ -21,5 +19,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didDisplay;
 
 @end
-
-NS_ASSUME_NONNULL_END

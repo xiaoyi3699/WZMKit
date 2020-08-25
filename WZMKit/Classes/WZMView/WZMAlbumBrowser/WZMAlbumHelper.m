@@ -121,7 +121,7 @@
         else {
             BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
             if (downloadFinined && result) {
-                result = [self wzm_fixOrientation:result];
+                result = [self wzm_fixImageOrientation:result];
                 if (thumbnail) thumbnail(result);
             }
         }
@@ -196,7 +196,7 @@
                 else {
                     BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
                     if (downloadFinined && result) {
-                        result = [self wzm_fixOrientation:result];
+                        result = [self wzm_fixImageOrientation:result];
                         if (completion) completion(result);
                     }
                 }
@@ -253,7 +253,7 @@
             else {
                 BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
                 if (downloadFinined && result) {
-                    result = [self wzm_fixOrientation:result];
+                    result = [self wzm_fixImageOrientation:result];
                     if (completion) completion(result);
                 }
             }
@@ -273,7 +273,7 @@
         else {
             BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue]);
             if (downloadFinined && result) {
-                result = [self wzm_fixOrientation:result];
+                result = [self wzm_fixImageOrientation:result];
                 if (completion) completion(result);
             }
         }
@@ -451,7 +451,7 @@
 
 #pragma mark - other
 //修正图片转向
-+ (UIImage *)wzm_fixOrientation:(UIImage *)aImage {
++ (UIImage *)wzm_fixImageOrientation:(UIImage *)aImage {
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
     CGAffineTransform transform = CGAffineTransformIdentity;
@@ -516,7 +516,7 @@
 }
 
 //修正视频转向
-+ (AVMutableVideoComposition *)fixedCompositionWithAsset:(AVAsset *)videoAsset {
++ (AVMutableVideoComposition *)wzm_fixVideoOrientation:(AVAsset *)videoAsset {
     AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoComposition];
     // 视频转向
     int degrees = [self degressFromVideoFileWithAsset:videoAsset];

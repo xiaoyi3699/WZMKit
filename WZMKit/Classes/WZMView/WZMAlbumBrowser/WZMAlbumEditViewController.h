@@ -8,8 +8,6 @@
 #import <UIKit/UIKit.h>
 @protocol WZMAlbumEditViewControllerDelegate;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMAlbumEditViewController : UIViewController
 
 @property (nonatomic, weak) id<WZMAlbumEditViewControllerDelegate> delegate;
@@ -24,5 +22,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)albumEditViewController:(WZMAlbumEditViewController *)albumEditViewController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets;
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -9,12 +9,8 @@
 #import "WZMBaseViewController.h"
 @class WZMSubViewController;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMSegmentedViewController : WZMBaseViewController
 
 @property (nonatomic, readonly ,strong) UIView *headerView;
 
 @end
-
-NS_ASSUME_NONNULL_END

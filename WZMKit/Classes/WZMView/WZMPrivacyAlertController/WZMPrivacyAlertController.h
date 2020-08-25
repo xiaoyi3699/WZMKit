@@ -8,12 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface WZMPrivacyAlertController : UIViewController
 
 + (void)showAlertFromController:(UIViewController *)viewController;
 
 @end
-
-NS_ASSUME_NONNULL_END
