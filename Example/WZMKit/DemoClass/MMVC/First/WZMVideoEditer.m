@@ -25,9 +25,12 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.volume = 1.0;
+        self.volume2 = 1.0;
         self.start = 0.0;
         self.duration = 0.0;
         self.exporting = NO;
+        self.cropFrame = CGRectZero;
     }
     return self;
 }

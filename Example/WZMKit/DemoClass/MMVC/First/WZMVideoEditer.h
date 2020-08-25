@@ -17,11 +17,9 @@
 @property (nonatomic, assign) CGFloat start;
 @property (nonatomic, assign) CGFloat duration;
 @property (nonatomic, assign) CGRect cropFrame;
-@property (nonatomic, strong) NSString *videoPath;
 
 #pragma mark - 配音
 @property (nonatomic, assign) CGFloat volume2;
-@property (nonatomic, strong) NSString *videoPath2;
 @property (nonatomic, assign, getter=isLoop2) BOOL loop2;
 
 #pragma mark - other

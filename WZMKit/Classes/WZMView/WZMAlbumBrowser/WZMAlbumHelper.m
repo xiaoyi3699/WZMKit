@@ -371,16 +371,14 @@
 //保存视频到系统相册
 + (void)wzm_saveVideoWithPath:(NSString *)path completion:(void(^)(NSError *error))completion {
     if (path == nil || path.length == 0) return;
-    if ([[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-            NSURL *url = [NSURL fileURLWithPath:path];
-            [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
-        } completionHandler:^(BOOL success, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) completion(error);
-            });
-        }];
-    }
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        NSURL *url = [NSURL fileURLWithPath:path];
+        [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) completion(error);
+        });
+    }];
 }
 
 //保存图片到系统相册
@@ -399,16 +397,14 @@
 
 + (void)wzm_saveImageWithPath:(NSString *)path completion:(void(^)(NSError *error))completion {
     if (path == nil || path.length == 0) return;
-    if ([[NSFileManager defaultManager] isExecutableFileAtPath:path]) {
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-            NSURL *url = [NSURL fileURLWithPath:path];
-            [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
-        } completionHandler:^(BOOL success, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) completion(error);
-            });
-        }];
-    }
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        NSURL *url = [NSURL fileURLWithPath:path];
+        [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:url];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) completion(error);
+        });
+    }];
 }
 
 ///清除视频缓存
