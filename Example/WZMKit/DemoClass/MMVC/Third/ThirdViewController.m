@@ -7,11 +7,8 @@
 //
 
 #import "ThirdViewController.h"
-#import "WZMSegmentedViewController.h"
-
+#import <Photos/Photos.h>
 @interface ThirdViewController ()
-
-@property (nonatomic, strong) NSMutableArray *selectedModels;
 
 @end
 
@@ -32,10 +29,8 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMSegmentedViewController *vc = [[WZMSegmentedViewController alloc] init];
-    vc.modalPresentationStyle = 0;
-//    [self presentViewController:vc animated:YES completion:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    NSMutableAttributedString *attStr;
+    
 }
 
 @end

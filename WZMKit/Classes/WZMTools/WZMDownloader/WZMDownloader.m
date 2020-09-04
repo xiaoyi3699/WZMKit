@@ -132,6 +132,12 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
     
 }
 
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
+    if (error) {
+        NSLog(@"=%@=",error);
+    }
+}
+
 //通知监听
 - (void)applicationDidBecomeActive:(NSNotification *)n {
     [self start];

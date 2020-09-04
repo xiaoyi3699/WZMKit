@@ -501,21 +501,65 @@ NSString *const UNKNOW        = @"Unknow";        //未识别
     return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSString *)wzm_getURLEncoded2 {
-    CFStringRef cfUrlEncodedString = CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                (CFStringRef)self,NULL,
-                                                (CFStringRef)@"!#$%&'()*+,/:;=?@[]",
-                                                kCFStringEncodingUTF8);
-    NSString *str = (__bridge NSString *)cfUrlEncodedString;
-    CFRelease(cfUrlEncodedString);
-    return str;
-}
-
 - (NSString *)wzm_getURLDecoded {
     if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
         return [self stringByRemovingPercentEncoding];
     }
     return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)wzm_getURLEncoded2 {
+    if ([self respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)]) {
+        //does not include "?" or "/" due to RFC 3986 - Section 3.4
+        static NSString * const kAFCharactersGeneralDelimitersToEncode = @":#[]@";
+        static NSString * const kAFCharactersSubDelimitersToEncode = @"!$&'()*+,;=";
+        NSMutableCharacterSet * allowedCharacterSet = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+        [allowedCharacterSet removeCharactersInString:[kAFCharactersGeneralDelimitersToEncode stringByAppendingString:kAFCharactersSubDelimitersToEncode]];
+        static NSUInteger const batchSize = 50;
+        NSUInteger index = 0;
+        NSMutableString *escaped = @"".mutableCopy;
+        while (index < self.length) {
+            NSUInteger length = MIN(self.length - index, batchSize);
+            NSRange range = NSMakeRange(index, length);
+            // To avoid breaking up character sequences such as 👴🏻👮🏽
+            range = [self rangeOfComposedCharacterSequencesForRange:range];
+            NSString *substring = [self substringWithRange:range];
+            NSString *encoded = [substring stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+            [escaped appendString:encoded];
+            
+            index += range.length;
+        }
+        return escaped;
+    }
+    else {
+        CFStringEncoding cfEncoding = CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
+        NSString *encoded = (__bridge_transfer NSString *)
+        CFURLCreateStringByAddingPercentEscapes(
+                                                kCFAllocatorDefault,
+                                                (__bridge CFStringRef)self,
+                                                NULL,
+                                                CFSTR("!#$&'()*+,/:;=?@[]"),
+                                                cfEncoding);
+        return encoded;
+    }
+}
+
+- (NSString *)wzm_getURLDecoded2 {
+    if ([self respondsToSelector:@selector(stringByRemovingPercentEncoding)]) {
+        return [self stringByRemovingPercentEncoding];
+    }
+    else {
+        CFStringEncoding en = CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
+        NSString *decoded = [self stringByReplacingOccurrencesOfString:@"+"
+                                                            withString:@" "];
+        decoded = (__bridge_transfer NSString *)
+        CFURLCreateStringByReplacingPercentEscapesUsingEncoding(
+                                                                NULL,
+                                                                (__bridge CFStringRef)decoded,
+                                                                CFSTR(""),
+                                                                en);
+        return decoded;
+    }
 }
 
 - (void)wzm_enumerateSubstrings:(void(^)(NSString *subStr, NSRange range))completion {

@@ -36,10 +36,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    nav.pickerDelegate = self;
-    [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
@@ -51,9 +48,11 @@
 }
 
 - (void)videoEditerDidExported:(WZMVideoEditer *)videoEditer {
-    [WZMAlbumHelper wzm_saveVideoWithPath:videoEditer.exportPath completion:^(NSError *error) {
-        
-    }];
+    if (videoEditer.exportPath) {
+        NSURL *url = [NSURL fileURLWithPath:videoEditer.exportPath];
+        WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end
