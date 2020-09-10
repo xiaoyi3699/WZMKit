@@ -43,6 +43,7 @@
                 CGContextTranslateCTM(ctx, self.strokeWidth/2.0, self.strokeWidth/4.0);
             }
         }
+        CGContextSetAlpha(ctx, 1.0);
         CGContextSetTextDrawingMode(ctx, kCGTextStroke);
         CGContextSetStrokeColorWithColor(ctx, self.strokeColor.CGColor);
         [super drawInContext:ctx];
@@ -50,6 +51,7 @@
         CGContextScaleCTM(ctx, 1.0, -1.0);
         CGContextTranslateCTM(ctx, 0.0, -self.bounds.size.height);
         //画内文字
+        CGContextSetAlpha(ctx, 1.0);
         CGContextSetTextDrawingMode(ctx, kCGTextFill);
         CGContextSetFillColorWithColor(ctx, self.foregroundColor);
         [super drawInContext:ctx];

@@ -43,11 +43,13 @@
                 CGContextTranslateCTM(c, self.strokeWidth/2.0, 0.0);
             }
         }
+        CGContextSetAlpha(c, 1.0);
         CGContextSetTextDrawingMode(c, kCGTextStroke);
         self.textColor = self.strokeColor;
         [super drawTextInRect:rect];
         
         //画内文字
+        CGContextSetAlpha(c, 1.0);
         CGContextSetTextDrawingMode(c, kCGTextFill);
         self.textColor = textColor;
         self.shadowOffset = CGSizeMake(0, 0);
