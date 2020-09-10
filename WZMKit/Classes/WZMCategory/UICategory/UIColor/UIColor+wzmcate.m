@@ -114,4 +114,11 @@
     #endif
 }
 
+- (BOOL)wzm_isisEqualToColor:(UIColor *)color {
+    if (color == nil) {
+        return NO;
+    }
+    return CGColorEqualToColor(self.CGColor, color.CGColor);
+}
+
 @end
