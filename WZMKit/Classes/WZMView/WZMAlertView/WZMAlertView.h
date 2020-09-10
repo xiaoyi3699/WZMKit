@@ -12,8 +12,9 @@
 
 @interface WZMAlertView : UIView
 
-@property (nonatomic, strong) UIColor *cancelColor;
 @property (nonatomic, strong) UIColor *OKColor;
+@property (nonatomic, strong) UIColor *cancelColor;
+@property (nonatomic, strong, readonly) UITextView *textView;
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type;
 
@@ -27,6 +28,6 @@
 /**
  设置确定按钮的点击事件
  */
-- (void)setOKBlock:(wzm_doBlock)OKBlock;
+- (void)setOKBlock:(wzm_doBlock1)OKBlock;
 
 @end

@@ -195,7 +195,7 @@
                           //没有打开内部App Store弹窗
                           if (presentingCtrl.presentedViewController == sc) {
                               WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:@"温馨提示" message:@"无法显示该应用,是否跳转到AppStore内查看" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
-                              [alertView setOKBlock:^{
+                              [alertView setOKBlock:^(id obj) {
                                   [WZMAppJump openAppStoreDownloadInAppStore:appId];
                               }];
                               [alertView showAnimated:YES];

@@ -102,7 +102,8 @@ typedef NS_ENUM(NSInteger, WZMAutoHeaderAnimation) {
 ///弹框样式
 typedef NS_ENUM(NSInteger, WZMAlertViewType) {
     WZMAlertViewTypeNormal = 0,
-    WZMAlertViewTypeUpdate
+    WZMAlertViewTypeUpdate,
+    WZMAlertViewTypeTextView
 };
 
 ///弹出框动画

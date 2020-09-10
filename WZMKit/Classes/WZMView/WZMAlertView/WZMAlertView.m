@@ -14,14 +14,16 @@
 #import "UIImage+wzmcate.h"
 #import "WZMDefined.h"
 
-@interface WZMAlertView(){
-    wzm_doBlock  _OKBlock;
+@interface WZMAlertView()<UITextViewDelegate> {
+    wzm_doBlock1 _OKBlock;
     wzm_doBlock  _cannelBlock;
     NSString *_OKButtonTitle;
     NSString *_cancelButtonTitle;
     UIView   *_alertView;
     NSArray  *_btns;
+    UITextView *_placeholderView;
 }
+@property (nonatomic, strong) UITextView *textView;
 @end
 
 #define THEME_COLOR_UP [UIColor redColor]
@@ -108,7 +110,13 @@
         }
         
         CGFloat width         = size.width-leftEdge*2;
-        CGFloat messageHeight = [NSString wzm_heightWithStr:message width:(width-20) font:[UIFont systemFontOfSize:messageFont]];
+        CGFloat messageHeight;
+        if (type == WZMAlertViewTypeTextView) {
+            messageHeight = 100.0;
+        }
+        else {
+            messageHeight = [NSString wzm_heightWithStr:message width:(width-20) font:[UIFont systemFontOfSize:messageFont]];
+        }
         CGFloat height        = titleHeight+messageHeight+16+btnHeight;
         CGFloat x             = (size.width-width)/2.0f;
         CGFloat y             = (size.height-height)/2.0f;
@@ -118,6 +126,9 @@
             messageColor = [UIColor darkGrayColor];
         }
         else {
+            if (type == WZMAlertViewTypeTextView) {
+                y -= height/2.0;
+            }
             titleColor   = [UIColor wzm_getDynamicColorByLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
             messageColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(55, 55, 55) darkColor:WZM_R_G_B(200, 200, 200)];
         }
@@ -138,31 +149,65 @@
         [_alertView addSubview:titleLabel];
         
         /** 3、提示信息label */
-        UILabel *messageLabel          = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame), CGRectGetWidth(_alertView.frame)-20, messageHeight)];
-        messageLabel.text              = message;
-        messageLabel.textColor         = messageColor;
-        messageLabel.font              = [UIFont systemFontOfSize:messageFont];
-        messageLabel.textAlignment     = NSTextAlignmentCenter;
-        messageLabel.numberOfLines     = 0;
-        [_alertView addSubview:messageLabel];
+        CGFloat messageMaxY;
+        if (type == WZMAlertViewTypeTextView) {
+            UIView *borderView = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame), CGRectGetWidth(_alertView.frame)-20, messageHeight)];
+            borderView.layer.borderColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(222, 222, 222, 0.5) darkColor:WZM_R_G_B_A(66, 66, 66, 0.5)].CGColor;
+            borderView.layer.borderWidth = 0.5;
+            borderView.layer.masksToBounds = YES;
+            borderView.layer.cornerRadius = 5.0;
+            [_alertView addSubview:borderView];
+            messageMaxY = CGRectGetMaxY(borderView.frame);
+            
+            CGRect textRect = borderView.bounds;
+            textRect.origin.x += 5.0;
+            textRect.size.width -= 10.0;
+            UITextView *messageTextView    = [[UITextView alloc] initWithFrame:textRect];
+            messageTextView.delegate       = self;
+            messageTextView.textColor      = messageColor;
+            messageTextView.font           = [UIFont systemFontOfSize:messageFont];
+            [borderView addSubview:messageTextView];
+            messageTextView.backgroundColor = [UIColor clearColor];
+            self.textView = messageTextView;
+            
+            _placeholderView = [[UITextView alloc] initWithFrame:textRect];
+            _placeholderView.text = message;
+            _placeholderView.textColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(180, 180, 180, 1.0) darkColor:WZM_R_G_B_A(75, 75, 75, 1.0)];
+            _placeholderView.font = [UIFont systemFontOfSize:messageFont];
+            _placeholderView.userInteractionEnabled = NO;
+            _placeholderView.backgroundColor = [UIColor clearColor];
+            [borderView addSubview:_placeholderView];
+        }
+        else {
+            UILabel *messageLabel          = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame), CGRectGetWidth(_alertView.frame)-20, messageHeight)];
+            messageLabel.text              = message;
+            messageLabel.textColor         = messageColor;
+            messageLabel.font              = [UIFont systemFontOfSize:messageFont];
+            messageLabel.textAlignment     = NSTextAlignmentCenter;
+            messageLabel.numberOfLines     = 0;
+            [_alertView addSubview:messageLabel];
+            messageMaxY = CGRectGetMaxY(messageLabel.frame);
+        }
         
         /** 4、提示信息label下的横线 */
-        UIView *horizontalLine        = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(messageLabel.frame)+15.5, CGRectGetWidth(_alertView.frame), 0.5)];
+        UIView *horizontalLine        = [[UIView alloc] initWithFrame:CGRectMake(0, messageMaxY+15.5, CGRectGetWidth(_alertView.frame), 0.5)];
         horizontalLine.backgroundColor= [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B_A(222, 222, 222, 0.5) darkColor:WZM_R_G_B_A(66, 66, 66, 0.5)];
         [_alertView addSubview:horizontalLine];
         
         NSMutableArray *btnTitles     = [[NSMutableArray alloc] initWithCapacity:2];
-        if (OKButtonTitle.length) {
-            [btnTitles addObject:OKButtonTitle];
-            _OKButtonTitle = OKButtonTitle;
-        }
-        if (cancelButtonTitle.length) {
-            [btnTitles addObject:cancelButtonTitle];
-            _cancelButtonTitle = cancelButtonTitle;
-        }
-        if (!cancelButtonTitle.length && !OKButtonTitle.length) {
+        if (cancelButtonTitle.length == 0 && OKButtonTitle.length == 0) {
             [btnTitles addObject:@"确定"];
             _cancelButtonTitle = @"确定";
+        }
+        else {
+            if (cancelButtonTitle.length) {
+                [btnTitles addObject:cancelButtonTitle];
+                _cancelButtonTitle = cancelButtonTitle;
+            }
+            if (OKButtonTitle.length) {
+                [btnTitles addObject:OKButtonTitle];
+                _OKButtonTitle = OKButtonTitle;
+            }
         }
         /** 5、计算按钮的宽和y坐标，for循环创建btn */
         CGFloat btnWidth               = (CGRectGetWidth(_alertView.frame)-0.5)/2.0f;
@@ -205,6 +250,9 @@
 
 - (void)showAnimated:(BOOL)animated{
 #if WZM_APP
+    if (self.textView) {
+        [self.textView becomeFirstResponder];
+    }
     [[UIApplication sharedApplication].delegate.window addSubview:self];
     if (animated) {
         [_alertView wzm_outFromCenterAnimationWithDuration:.35];
@@ -216,7 +264,7 @@
     _cannelBlock = cannelBlock;
 }
 
-- (void)setOKBlock:(wzm_doBlock)OKBlock{
+- (void)setOKBlock:(wzm_doBlock1)OKBlock {
     _OKBlock = OKBlock;
 }
 
@@ -242,11 +290,15 @@
     }
 }
 
+- (void)textViewDidChange:(UITextView *)textView {
+    _placeholderView.hidden = (textView.text.length > 0);
+}
+
 #pragma mark - 私有方法
 - (void)btnClick:(UIButton *)btn{
     if ([btn.titleLabel.text isEqualToString:_OKButtonTitle]) {
         if (_OKBlock) {
-            _OKBlock();
+            _OKBlock(self.textView.text);
         }
     }
     else{
@@ -259,6 +311,9 @@
 
 #pragma mark - 消失动画
 - (void)dismiss{
+    if (self.textView) {
+        [self.textView endEditing:YES];
+    }
     [UIView animateWithDuration:.2 animations:^{
         [_alertView wzm_dismissToCenterAnimationWithDuration:.2];
         self.alpha = 0;

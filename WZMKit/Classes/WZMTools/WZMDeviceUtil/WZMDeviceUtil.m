@@ -362,7 +362,7 @@ char* printEnv(void){
                                                   OKButtonTitle:@"去设置"
                                               cancelButtonTitle:@"取消"
                                                            type:WZMAlertViewTypeNormal];
-    [alertView setOKBlock:^{
+    [alertView setOKBlock:^(id obj) {
         [self openAPPSetting];
     }];
     [alertView showAnimated:YES];

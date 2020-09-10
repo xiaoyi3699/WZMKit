@@ -168,7 +168,9 @@
     NSString *time = [WZMFileManager objForKey:key];
     if (time == nil || [NSDate wzm_isInTime:time days:7] == NO) {
         WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:message OKButtonTitle:OKTitle cancelButtonTitle:cancelTitle type:WZMAlertViewTypeUpdate];
-        [alertView setOKBlock:OKBlock];
+        [alertView setOKBlock:^(id obj) {
+            if (OKBlock) OKBlock();
+        }];
         [alertView setCannelBlock:^{
             if (isForce) {
                 exit(0);
@@ -199,7 +201,7 @@
             }
             [WZMFileManager setObj:version forKey:versionKey];
             WZMAlertView *alertView = [[WZMAlertView alloc] initWithTitle:title message:updateContent OKButtonTitle:@"立即更新" cancelButtonTitle:cancel type:WZMAlertViewTypeUpdate];
-            [alertView setOKBlock:^{
+            [alertView setOKBlock:^(id obj) {
                 [WZMAppJump openAppStoreDownload:WZM_APP_ID type:WZMAppStoreTypeOpen];
                 exit(0);
             }];
