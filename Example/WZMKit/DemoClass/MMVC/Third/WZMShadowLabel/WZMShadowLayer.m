@@ -23,7 +23,7 @@
         self.fontSize = 17.0;
         //self.font = (__bridge CFTypeRef)(@"Helvetica");
         self.contentsScale = [UIScreen mainScreen].scale;
-        //self.alignmentMode = @"center";
+        self.wrapped = YES;
     }
     return self;
 }
@@ -35,7 +35,14 @@
         CGContextSetLineWidth(ctx, self.strokeWidth);
         CGContextSetLineJoin(ctx, kCGLineJoinRound);
         //画外边
-        CGContextTranslateCTM(ctx, self.strokeWidth/2.0, self.strokeWidth/4.0);
+        if ([self.alignmentMode isEqualToString:@"right"]) {
+            CGContextTranslateCTM(ctx, -self.strokeWidth/2.0, self.strokeWidth/4.0);
+        }
+        else {
+            if ([self.alignmentMode isEqualToString:@"center"] == NO) {
+                CGContextTranslateCTM(ctx, self.strokeWidth/2.0, self.strokeWidth/4.0);
+            }
+        }
         CGContextSetTextDrawingMode(ctx, kCGTextStroke);
         CGContextSetStrokeColorWithColor(ctx, self.strokeColor.CGColor);
         [super drawInContext:ctx];

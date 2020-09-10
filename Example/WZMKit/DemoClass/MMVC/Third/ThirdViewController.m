@@ -7,17 +7,12 @@
 //
 
 #import "ThirdViewController.h"
-#import "WZMShadowLabel.h"
-#import "WZMShadowLayer.h"
 
 @interface ThirdViewController ()
 
 @end
 
-@implementation ThirdViewController {
-    WZMShadowLabel *_shadowLabel;
-    WZMShadowLayer *_shadowLayer;
-}
+@implementation ThirdViewController
 
 - (instancetype)init {
     self = [super init];
@@ -30,18 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _shadowLabel = [[WZMShadowLabel alloc] init];
-    _shadowLabel.frame = CGRectMake(100, 100, 200, 60);
-    _shadowLabel.text = @"挨打的哇大无无无";
-    _shadowLabel.strokeWidth = 10.0;
-    _shadowLabel.strokeColor = [UIColor redColor];
-    _shadowLabel.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:_shadowLabel];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSMutableAttributedString *attStr;
-    _shadowLabel.strokeColor = [UIColor greenColor];
+    
 }
 
 @end

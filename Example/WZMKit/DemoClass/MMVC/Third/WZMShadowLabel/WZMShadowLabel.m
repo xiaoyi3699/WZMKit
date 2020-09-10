@@ -35,7 +35,14 @@
         CGContextSetLineJoin(c, kCGLineJoinRound);
         
         //画外边
-        CGContextTranslateCTM(c, self.strokeWidth/2.0, 0.0);
+        if (self.textAlignment == NSTextAlignmentRight) {
+            CGContextTranslateCTM(c, -self.strokeWidth/2.0, 0.0);
+        }
+        else {
+            if (self.textAlignment != NSTextAlignmentCenter) {
+                CGContextTranslateCTM(c, self.strokeWidth/2.0, 0.0);
+            }
+        }
         CGContextSetTextDrawingMode(c, kCGTextStroke);
         self.textColor = self.strokeColor;
         [super drawTextInRect:rect];
