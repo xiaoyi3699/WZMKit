@@ -62,6 +62,15 @@
     return image;
 }
 
+- (UIImage *)wzm_getScreenImageByLayer:(CALayer *)layer {
+    UIGraphicsBeginImageContextWithOptions(layer.bounds.size, layer.opaque, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 + (UIImage *)wzm_getImageByBase64:(NSString *)str {
     str = [str componentsSeparatedByString:@","].lastObject;
     NSData *data = [[NSData alloc] initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];

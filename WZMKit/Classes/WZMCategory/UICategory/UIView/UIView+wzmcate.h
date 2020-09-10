@@ -17,6 +17,14 @@
 ///判断view是不是指定视图的子视图
 - (BOOL)wzm_isDescendantOfView:(UIView *)otherView;
 
+@property (nonatomic, assign) CGFloat wzm_scaleX;
+@property (nonatomic, assign) CGFloat wzm_scaleY;
+@property (nonatomic, assign) CGFloat wzm_rotation;
+@property (nonatomic, assign) CGFloat wzm_translationX;
+@property (nonatomic, assign) CGFloat wzm_translationY;
+
+- (void)wzm_removeAllSubviews;
+
 //设置位置(宽和高保持不变)
 - (CGFloat)wzm_minX;
 - (void)setWzm_minX:(CGFloat)wzm_minX;
@@ -95,8 +103,6 @@
 ///渐变
 - (void)wzm_gradientColorWithGradientType: (WZMGradientType)type;
 - (void)wzm_gradientColors:(NSArray *)colors gradientType: (WZMGradientType)type;
-///将一个view保存为pdf格式
-- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename;
 
 ///alertView弹出动画
 - (void)wzm_outFromCenterNoneWithDuration:(NSTimeInterval)duration;
@@ -104,19 +110,21 @@
 ///alertView消失动画
 - (void)wzm_dismissToCenterNoneWithDuration:(NSTimeInterval)duration;
 - (void)wzm_dismissToCenterAnimationWithDuration:(NSTimeInterval)duration;
-///有3d效果的旋转背景动画
-- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration;
-///旋转动画(参数axis:坐标轴x,y,z 小写)
-- (void)wzm_startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount;
 ///旋转角度(x、y、z)
 - (void)wzm_transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ;
 ///放大系数(x、y、z)
 - (void)wzm_transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
+///平移举例(x、y、z)
+- (void)wzm_transform3DMakeTranslation:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
 ///转场动画
 - (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
 - (void)wzm_transitionFromRightWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
 - (void)wzm_transitionFromTopWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
 - (void)wzm_transitionFromBottomWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion;
+///有3d效果的旋转背景动画
+- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration;
+///旋转动画(参数axis:坐标轴x,y,z 小写)
+- (void)wzm_rotationAnimation:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount;
 
 ///绘制虚线框
 - (void)wzm_addDottedLineWithFrame:(CGRect)frame

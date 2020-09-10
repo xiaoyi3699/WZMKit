@@ -21,6 +21,7 @@
 + (UIImage *)wzm_getRectImageByColor:(UIColor *)color size:(CGSize)size;
 ///截屏
 + (UIImage *)wzm_getScreenImageByView:(UIView *)view;
+- (UIImage *)wzm_getScreenImageByLayer:(CALayer *)layer;
 ///base64编码转换为图片
 + (UIImage *)wzm_getImageByBase64:(NSString *)str;
 ///创建一个动态图片，动态图片持续的时间为duration

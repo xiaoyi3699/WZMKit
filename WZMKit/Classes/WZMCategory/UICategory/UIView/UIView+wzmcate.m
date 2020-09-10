@@ -29,6 +29,72 @@ static NSString *_visualKey = @"visual";
     return [self isDescendantOfView:otherView];
 }
 
+- (CGFloat)wzm_scaleX {
+    CGAffineTransform transform = self.transform;
+    return sqrt(transform.a * transform.a + transform.c * transform.c);
+}
+
+- (void)setWzm_scaleX:(CGFloat)wzm_scaleX {
+    self.transform = CGAffineTransformMakeScale(wzm_scaleX, self.wzm_scaleY);
+}
+
+- (CGFloat)wzm_scaleY {
+    CGAffineTransform transform = self.transform;
+    return sqrt(transform.b * transform.b + transform.d * transform.d);
+}
+
+- (void)setWzm_scaleY:(CGFloat)wzm_scaleY {
+    self.transform = CGAffineTransformMakeScale(self.wzm_scaleX, wzm_scaleY);
+}
+
+- (CGFloat)wzm_rotation {
+    CGAffineTransform transform = self.transform;
+    return atan2(transform.b, transform.a);
+}
+
+- (void)setWzm_rotation:(CGFloat)wzm_rotation {
+    self.transform = CGAffineTransformMakeRotation(wzm_rotation);
+}
+
+- (CGFloat)wzm_translationX {
+    return self.transform.tx;
+}
+
+- (void)setWzm_translationX:(CGFloat)wzm_translationX {
+    self.transform = CGAffineTransformMakeTranslation(wzm_translationX, self.wzm_translationY);
+}
+
+- (CGFloat)wzm_translationY {
+    return self.transform.ty;
+}
+
+- (void)setWzm_translationY:(CGFloat)wzm_translationY {
+    self.transform = CGAffineTransformMakeTranslation(self.wzm_translationX, wzm_translationY);
+}
+
+- (NSData *)wzm_snapshotPDF {
+    CGRect bounds = self.bounds;
+    NSMutableData *data = [NSMutableData data];
+    CGDataConsumerRef consumer = CGDataConsumerCreateWithCFData((__bridge CFMutableDataRef)data);
+    CGContextRef context = CGPDFContextCreate(consumer, &bounds, NULL);
+    CGDataConsumerRelease(consumer);
+    if (!context) return nil;
+    CGPDFContextBeginPage(context, NULL);
+    CGContextTranslateCTM(context, 0, bounds.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    [self.layer renderInContext:context];
+    CGPDFContextEndPage(context);
+    CGPDFContextClose(context);
+    CGContextRelease(context);
+    return data;
+}
+
+- (void)wzm_removeAllSubviews {
+    while (self.subviews.count) {
+        [self.subviews.lastObject removeFromSuperview];
+    }
+}
+
 //设置位置(宽和高保持不变)
 - (CGFloat)wzm_minX {
     return CGRectGetMinX(self.frame);
@@ -356,19 +422,6 @@ static NSString *_visualKey = @"visual";
     [self.layer insertSublayer:gradient atIndex:0];
 }
 
-- (BOOL)wzm_savePDFToDocumentsWithFileName:(NSString *)aFilename {
-    NSMutableData *pdfData = [NSMutableData data];
-    UIGraphicsBeginPDFContextToData(pdfData, self.bounds, nil);
-    UIGraphicsBeginPDFPage();
-    CGContextRef pdfContext = UIGraphicsGetCurrentContext();
-    [self.layer renderInContext:pdfContext];
-    UIGraphicsEndPDFContext();
-    
-    NSString *document = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *documentDirectoryFilename = [document stringByAppendingPathComponent:aFilename];
-    return [pdfData writeToFile:documentDirectoryFilename atomically:YES];
-}
-
 - (void)wzm_outFromCenterNoneWithDuration:(NSTimeInterval)duration{
     CAKeyframeAnimation * animation;
     animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
@@ -447,58 +500,7 @@ static NSString *_visualKey = @"visual";
     [self.layer addAnimation:animation forKey:@"wzm_dismiss"];
 }
 
-- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration {
-    if (show) {
-        CGFloat x = self.center.x;
-        CGFloat y = self.frame.origin.y;
-        self.layer.anchorPoint = CGPointMake(0.5, 0);
-        self.layer.position = CGPointMake(x, y);
-        
-        //起始值
-        CATransform3D fromValue = CATransform3DIdentity;
-        fromValue.m34 = -1.f / 300;
-        fromValue = CATransform3DRotate(fromValue, 0, 1, 0, 0);
-        
-        // 结束值
-        CATransform3D toValue = CATransform3DIdentity;
-        toValue.m34 = -1.f / 300;
-        toValue = CATransform3DRotate(toValue, 25.f, 1, 0, 0);
-        
-        // 添加3D动画
-        CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
-        transform3D.duration  = duration;
-        transform3D.fromValue = [NSValue valueWithCATransform3D:fromValue];
-        transform3D.toValue   = [NSValue valueWithCATransform3D:toValue];
-        self.layer.transform  = toValue;
-        [self.layer addAnimation:transform3D forKey:@"transform3D"];
-    }
-    else {
-        CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
-        transform3D.duration  = duration;
-        CATransform3D toValue = CATransform3DIdentity;
-        toValue = CATransform3DRotate(toValue, 0, 1, 0, 0);
-        self.layer.transform  = toValue;
-        [self.layer addAnimation:transform3D forKey:@"transform3D"];
-    }
-}
-
-- (void)wzm_startRotationAxis:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount{
-    NSString *transformName = [NSString stringWithFormat:@"transform.rotation.%@",axis];
-    CABasicAnimation* rotationAnimation;
-    rotationAnimation = [CABasicAnimation animationWithKeyPath:transformName];
-    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI*2.0 ];
-    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    rotationAnimation.duration = duration;
-    rotationAnimation.repeatCount = repeatCount;
-    rotationAnimation.autoreverses = NO;
-    rotationAnimation.cumulative = NO;
-    rotationAnimation.removedOnCompletion = NO;
-    rotationAnimation.fillMode = kCAFillModeForwards;
-    [self.layer addAnimation:rotationAnimation forKey:@"Rotation"];
-}
-
 - (void)wzm_transform3DMakeRotationX:(CGFloat)angleX Y:(CGFloat)angleY Z:(CGFloat)angleZ {
-    
     CATransform3D transform3D = CATransform3DIdentity;
     if (angleX != 0) {
         transform3D = CATransform3DConcat(transform3D, CATransform3DMakeRotation(angleX*M_PI/180.0, 1, 0, 0));
@@ -514,6 +516,10 @@ static NSString *_visualKey = @"visual";
 
 - (void)wzm_transform3DMakeScaleX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z {
     self.layer.transform = CATransform3DMakeScale(x, y, z);
+}
+
+- (void)wzm_transform3DMakeTranslation:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z {
+    self.layer.transform = CATransform3DMakeTranslation(x, y, z);
 }
 
 - (void)wzm_transitionFromLeftWithType:(AnimationType)type duration:(NSTimeInterval)duration completion:(wzm_doBlock)completion{
@@ -578,6 +584,56 @@ static NSString *_visualKey = @"visual";
             completion();
         }
     }];
+}
+
+- (void)wzm_3dBackgroundAnimation:(BOOL)show duration:(CGFloat)duration {
+    if (show) {
+        CGFloat x = self.center.x;
+        CGFloat y = self.frame.origin.y;
+        self.layer.anchorPoint = CGPointMake(0.5, 0);
+        self.layer.position = CGPointMake(x, y);
+        
+        //起始值
+        CATransform3D fromValue = CATransform3DIdentity;
+        fromValue.m34 = -1.f / 300;
+        fromValue = CATransform3DRotate(fromValue, 0, 1, 0, 0);
+        
+        // 结束值
+        CATransform3D toValue = CATransform3DIdentity;
+        toValue.m34 = -1.f / 300;
+        toValue = CATransform3DRotate(toValue, 25.f, 1, 0, 0);
+        
+        // 添加3D动画
+        CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
+        transform3D.duration  = duration;
+        transform3D.fromValue = [NSValue valueWithCATransform3D:fromValue];
+        transform3D.toValue   = [NSValue valueWithCATransform3D:toValue];
+        self.layer.transform  = toValue;
+        [self.layer addAnimation:transform3D forKey:@"transform3D"];
+    }
+    else {
+        CABasicAnimation *transform3D = [CABasicAnimation animationWithKeyPath:@"transform"];
+        transform3D.duration  = duration;
+        CATransform3D toValue = CATransform3DIdentity;
+        toValue = CATransform3DRotate(toValue, 0, 1, 0, 0);
+        self.layer.transform  = toValue;
+        [self.layer addAnimation:transform3D forKey:@"transform3D"];
+    }
+}
+
+- (void)wzm_rotationAnimation:(NSString *)axis duration:(NSTimeInterval)duration repeatCount:(NSInteger)repeatCount{
+    NSString *transformName = [NSString stringWithFormat:@"transform.rotation.%@",axis];
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:transformName];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI*2.0 ];
+    [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    rotationAnimation.duration = duration;
+    rotationAnimation.repeatCount = repeatCount;
+    rotationAnimation.autoreverses = NO;
+    rotationAnimation.cumulative = NO;
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    [self.layer addAnimation:rotationAnimation forKey:@"Rotation"];
 }
 
 /**
