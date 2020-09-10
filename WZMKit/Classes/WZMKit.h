@@ -344,6 +344,8 @@
 #import "WZMPasterView.h"
 #import "WZMDottedView.h"
 #import "WZMSliderView.h"
+#import "WZMShadowLayer.h"
+#import "WZMShadowLabel.h"
 #import "WZMSliderView2.h"
 #import "WZMVideoKeyView.h"
 #import "WZMVideoKeyView2.h"
@@ -363,6 +365,8 @@
 /*
  定义了一些常用的函数
  */
+#import "CALayer+wzmcate.h"
+
 #import "NSNull+wzmcate.h"
 #import "NSObject+wzmcate.h"
 #import "NSDateFormatter+wzmcate.h"
