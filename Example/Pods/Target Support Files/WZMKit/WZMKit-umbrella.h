@@ -114,6 +114,7 @@
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumPhotoModel.h"
 #import "WZMAlbumView.h"
+#import "WZMAlertQueue.h"
 #import "WZMAlertView.h"
 #import "WZMAnimationNumItemView.h"
 #import "WZMAnimationNumView.h"

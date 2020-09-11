@@ -10,7 +10,7 @@
 #import "WZMEditerModel.h"
 
 @interface WZMVideoEditer ()
-///视频处理
+@property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) NSString *exportPath;
 @property (nonatomic, strong) AVAudioMix *audioMix;
@@ -31,6 +31,9 @@
         self.duration = 0.0;
         self.exporting = NO;
         self.cropFrame = CGRectZero;
+        self.exportFileType = AVFileTypeMPEG4;
+        self.renderSize = CGSizeZero;
+        self.exportRenderSize = CGSizeZero;
     }
     return self;
 }
@@ -131,7 +134,8 @@
         self.audioMix = [self createAudioMixWithVideoTrack:audioTrack VideoVolume:self.volume BGMTrack:audioTrack2 BGMVolume:self.volume2];
     }
     //矫正视频角度、剪裁、设置透明度等操作
-    AVMutableVideoComposition *mainCompositionInst = [self videoCompositionVideoTrack:videoTrack videoAssetTrack:editer.video];
+    CGAffineTransform transform = [self videoCompositionVideoAssetTrack:videoTrack];
+    AVMutableVideoComposition *mainCompositionInst = [self videoCompositionVideoTrack:videoTrack videoAssetTrack:editer.video transform:transform];
     //添加视图动画等
     if ([self.delegate respondsToSelector:@selector(videoEditer:renderLayerWithComposition:)]) {
         [self.delegate videoEditer:self renderLayerWithComposition:mainCompositionInst];
@@ -177,10 +181,8 @@
 }
 
 //矫正视频角度
-- (AVMutableVideoComposition *)videoCompositionVideoTrack:(AVMutableCompositionTrack *)videoTrack videoAssetTrack:(AVAssetTrack *)videoAssetTrack {
-    AVMutableVideoCompositionInstruction *mainInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
-    mainInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, videoAssetTrack.asset.duration);
-    AVMutableVideoCompositionLayerInstruction *videolayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
+- (CGAffineTransform)videoCompositionVideoAssetTrack:(AVAssetTrack *)videoAssetTrack {
+    //获取视频方向
     UIImageOrientation videoAssetOrientation_  = UIImageOrientationUp;
     BOOL isVideoAssetPortrait_  = NO;
     CGAffineTransform videoTransform = videoAssetTrack.preferredTransform;
@@ -198,6 +200,20 @@
     if (videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0) {
         videoAssetOrientation_ = UIImageOrientationDown;
     }
+    //视频转向调整
+    CGSize naturalSize;
+    if(isVideoAssetPortrait_){
+        naturalSize = CGSizeMake(videoAssetTrack.naturalSize.height, videoAssetTrack.naturalSize.width);
+    } else {
+        naturalSize = videoAssetTrack.naturalSize;
+    }
+    //原视频的渲染尺寸
+    self.renderSize = naturalSize;
+    if ([self.delegate respondsToSelector:@selector(videoEditerDidLoad:)]) {
+        [self.delegate videoEditerDidLoad:self];
+    }
+    //剪裁视频的尺寸
+    CGFloat renderWidth, renderHeight;
     CGRect cropRect = self.cropFrame;
     CGAffineTransform transform;
     if (CGPointEqualToPoint(CGPointZero, cropRect.origin)) {
@@ -207,16 +223,6 @@
         CGPoint point = cropRect.origin;
         transform = CGAffineTransformMakeTranslation(-point.x, -point.y);
     }
-    [videolayerInstruction setTransform:transform atTime:kCMTimeZero];
-    mainInstruction.layerInstructions = [NSArray arrayWithObjects:videolayerInstruction,nil];
-    AVMutableVideoComposition *mainCompositionInst = [AVMutableVideoComposition videoComposition];
-    CGSize naturalSize;
-    if(isVideoAssetPortrait_){
-        naturalSize = CGSizeMake(videoAssetTrack.naturalSize.height, videoAssetTrack.naturalSize.width);
-    } else {
-        naturalSize = videoAssetTrack.naturalSize;
-    }
-    float renderWidth, renderHeight;
     if (cropRect.size.width == 0 || cropRect.size.height == 0) {
         renderWidth = naturalSize.width;
         renderHeight = naturalSize.height;
@@ -226,7 +232,30 @@
         renderWidth = size.width;
         renderHeight = size.height;
     }
-    mainCompositionInst.renderSize = CGSizeMake(renderWidth, renderHeight);
+    //修改视频的渲染尺寸
+    CGSize cropSize = CGSizeMake(renderWidth, renderHeight);
+    CGFloat scaleX = 1.0, scaleY = 1.0;
+    if (self.exportRenderSize.width != 0.0 && self.exportRenderSize.height != 0.0) {
+        scaleX = self.exportRenderSize.width/cropSize.width;
+        scaleY = self.exportRenderSize.height/cropSize.height;
+        CGAffineTransform transform2 = CGAffineTransformMakeScale(scaleX, scaleY);
+        transform = CGAffineTransformConcat(transform, transform2);
+    }
+    else {
+        self.exportRenderSize = cropSize;
+    }
+    return transform;
+}
+
+//视频重新合成
+- (AVMutableVideoComposition *)videoCompositionVideoTrack:(AVMutableCompositionTrack *)videoTrack videoAssetTrack:(AVAssetTrack *)videoAssetTrack transform:(CGAffineTransform)transform {
+    AVMutableVideoCompositionInstruction *mainInstruction = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
+    mainInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, videoAssetTrack.asset.duration);
+    AVMutableVideoCompositionLayerInstruction *videolayerInstruction = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:videoTrack];
+    [videolayerInstruction setTransform:transform atTime:kCMTimeZero];
+    mainInstruction.layerInstructions = [NSArray arrayWithObjects:videolayerInstruction,nil];
+    AVMutableVideoComposition *mainCompositionInst = [AVMutableVideoComposition videoComposition];
+    mainCompositionInst.renderSize = [self handleVideoSize:self.exportRenderSize];
     mainCompositionInst.instructions = [NSArray arrayWithObject:mainInstruction];
     mainCompositionInst.frameDuration = CMTimeMake(1, 30);
     return mainCompositionInst;
@@ -247,7 +276,7 @@
     //创建输出
     AVAssetExportSession * assetExport = [[AVAssetExportSession alloc] initWithAsset:comosition presetName:quality];
     assetExport.outputURL = outPutUrl;//输出路径
-    assetExport.outputFileType = AVFileTypeMPEG4;//输出类型
+    assetExport.outputFileType = self.exportFileType;//输出类型
     assetExport.shouldOptimizeForNetworkUse = YES;
     if (mainCompositionInst) {
         assetExport.videoComposition = mainCompositionInst;
@@ -324,11 +353,9 @@
 }
 
 ///视频的宽高必须是16的倍数
-- (CGRect)handleVideoRect:(CGRect)rect {
-    NSInteger x = rect.origin.x;
-    NSInteger y = rect.origin.y;
-    NSInteger w = rect.size.width;
-    NSInteger h = rect.size.height;
+- (CGSize)handleVideoSize:(CGSize)size {
+    NSInteger w = size.width;
+    NSInteger h = size.height;
     NSInteger dw = w%16;
     NSInteger dh = h%16;
     if (dw != 0) {
@@ -337,7 +364,7 @@
     if (dh != 0) {
         h -= dh;
     }
-    return CGRectMake(x, y, w, h);
+    return CGSizeMake(w, h);
 }
 
 - (CGFloat)volume {

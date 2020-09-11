@@ -336,6 +336,11 @@
 #import "WZMFontManager.h"
 
 /*
+其他
+*/
+#import "WZMAlertQueue.h"
+
+/*
  其他自定义控件
  */
 #import "WZMButton.h"
