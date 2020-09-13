@@ -7,9 +7,11 @@
 //
 
 #import "NSString+wzmcate.h"
+#import "WZMFileManager.h"
 #import "NSDateFormatter+wzmcate.h"
 #import "WZMLogPrinter.h"
 #import "WZMDefined.h"
+#import "WZMMacro.h"
 //MD5加密
 #import <CommonCrypto/CommonCrypto.h>
 
@@ -18,6 +20,31 @@ NSString *const CHINA_TELECOM = @"China Telecom"; //中国电信
 NSString *const CHINA_UNICOM  = @"China Unicom";  //中国联通
 NSString *const UNKNOW        = @"Unknow";        //未识别
 @implementation NSString (wzmcate)
+
+//文件管理
++ (NSString *)wzm_tempFolder {
+    NSString *folder = [WZM_TEMP_PATH stringByAppendingPathComponent:@"WZMTemp"];
+    [WZMFileManager createDirectoryAtPath:folder];
+    return folder;
+}
+
++ (NSString *)wzm_filePath:(WZMFileNameType)nameType extension:(NSString *)extension {
+    NSString *fileName;
+    if (nameType == WZMFileNameTypeUnique) {
+        fileName = [self wzm_getTimeStampByDate:[NSDate date]];
+    }
+    else {
+        fileName = @"WZMFileName";
+    }
+    if ([self wzm_isBlankString:extension] == NO) {
+        fileName = [NSString stringWithFormat:@"%@.%@",fileName,extension];
+    }
+    NSString *filePath = [[self wzm_tempFolder] stringByAppendingPathComponent:fileName];
+    if (nameType == WZMFileNameTypeSame) {
+        [WZMFileManager deleteFileAtPath:filePath error:nil];
+    }
+    return filePath;
+}
 
 #pragma mark - 进制转换
 + (NSString *)wzm_getHexByDecimal:(NSString *)decimal {

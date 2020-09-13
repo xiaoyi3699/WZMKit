@@ -8,14 +8,13 @@
 
 #import "WZMVideoEditer.h"
 #import "WZMEditerModel.h"
+#import "WZMAssetExportSession.h"
 
-@interface WZMVideoEditer ()
+@interface WZMVideoEditer ()<WZMAssetExportSessionDelegate>
 @property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) NSString *exportPath;
 @property (nonatomic, strong) AVAudioMix *audioMix;
-@property (nonatomic, strong) CADisplayLink *displayLink;
-@property (nonatomic, weak) AVAssetExportSession *exportSession;
 @property (nonatomic, assign, getter=isExporting) BOOL exporting;
 @property (nonatomic, strong) AVMutableComposition *mixComposition;
 @end
@@ -274,7 +273,8 @@
         [[NSFileManager defaultManager] removeItemAtPath:outPutPath error:nil];
     }
     //创建输出
-    AVAssetExportSession * assetExport = [[AVAssetExportSession alloc] initWithAsset:comosition presetName:quality];
+    WZMAssetExportSession *assetExport = [[WZMAssetExportSession alloc] initWithAsset:comosition presetName:quality];
+    assetExport.delegate = self;
     assetExport.outputURL = outPutUrl;//输出路径
     assetExport.outputFileType = self.exportFileType;//输出类型
     assetExport.shouldOptimizeForNetworkUse = YES;
@@ -284,64 +284,35 @@
     if (self.audioMix) {
         assetExport.audioMix = self.audioMix;
     }
-    self.exportSession = assetExport;
-    [assetExport addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    [assetExport exportAsynchronouslyWithCompletionHandler:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (assetExport.status == AVAssetExportSessionStatusCompleted) {
-                [self exportFinish:assetExport.outputURL.path];
-            }
-            else if (assetExport.status == AVAssetExportSessionStatusFailed ||
-                     assetExport.status == AVAssetExportSessionStatusCancelled){
-                NSLog(@"%@",assetExport.error);
-                [self exportFinish:nil];
-            }
-        });
-    }];
+    [assetExport startExport];
 }
 
-///ObserveValue && DisplayLinkEvent
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"status"]) {
-        NSNumber *value = change[NSKeyValueChangeNewKey];
-        AVAssetExportSessionStatus status = value.integerValue;
-        if (status == AVAssetExportSessionStatusExporting) {
-            self.displayLink.paused = NO;
-        } else if (status == AVAssetExportSessionStatusCompleted || status == AVAssetExportSessionStatusFailed || status == AVAssetExportSessionStatusCancelled) {
-            self.displayLink.paused = YES;
-            if (status == AVAssetExportSessionStatusCompleted) {
-                
-            }
-        }
-    }
-}
-
-- (CADisplayLink *)displayLink {
-    if (!_displayLink) {
-        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(linkRun:)];
-        displayLink.paused = YES;
-        [displayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-        _displayLink = displayLink;
-    }
-    return _displayLink;
-}
-
-- (void)linkRun:(CADisplayLink *)link {
-    if (link.isPaused || !self.exporting) return;
-    self.progress = self.exportSession.progress;
+//视频导出代理
+- (void)assetExportSessionExporting:(WZMAssetExportSession *)exportSession {
+    self.progress = exportSession.progress;
     if ([self.delegate respondsToSelector:@selector(videoEditerExporting:)]) {
         [self.delegate videoEditerExporting:self];
     }
 }
 
+- (void)assetExportSessionExportSuccess:(WZMAssetExportSession *)exportSession {
+    [self exportFinish:exportSession.outputURL.path];
+}
+
+- (void)assetExportSessionExportFail:(WZMAssetExportSession *)exportSession {
+    NSLog(@"导出视频失败:%@",exportSession.error);
+    [self exportFinish:nil];
+}
+
 - (void)exportFinish:(NSString *)path {
-    self.exportPath = path;
     self.exporting = NO;
+    self.exportPath = path;
     if ([self.delegate respondsToSelector:@selector(videoEditerDidExported:)]) {
         [self.delegate videoEditerDidExported:self];
     }
 }
 
+//private method
 - (AVMutableCompositionTrack *)addVideoTrack {
     return [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
                                             preferredTrackID:kCMPersistentTrackID_Invalid];

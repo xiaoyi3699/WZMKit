@@ -191,6 +191,11 @@ typedef NS_ENUM(NSInteger, WZMFileManagerError) {
     WZMIsNotDirectory           //不是文件夹
 };
 
+typedef NS_ENUM(NSInteger, WZMFileNameType) {
+    WZMFileNameTypeUnique = 0, //文件名唯一
+    WZMFileNameTypeSame        //文件名一样
+};
+
 ///应用类型
 typedef NS_ENUM(NSInteger, WZMAPPType) {
     WZMAPPTypeOICQ = 0, //QQ

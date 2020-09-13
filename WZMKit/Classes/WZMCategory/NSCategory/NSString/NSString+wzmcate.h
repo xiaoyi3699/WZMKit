@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WZMEnum.h"
 
 @interface NSString (wzmcate)
 
+//文件管理
++ (NSString *)wzm_tempFolder;
++ (NSString *)wzm_filePath:(WZMFileNameType)nameType extension:(NSString *)extension;
 #pragma mark - 进制转换
 ///10进制转换成16进制
 + (NSString *)wzm_getHexByDecimal:(NSString *)decimal;
