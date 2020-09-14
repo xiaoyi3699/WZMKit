@@ -33,10 +33,31 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    albumNav.pickerDelegate = self;
-    [self presentViewController:albumNav animated:YES completion:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView];
+    
+    WZMAlertView *alertView2 = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"你还好吗" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView2];
+    
+    UIAlertView *alertView3 = [[UIAlertView alloc] initWithTitle:@"" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView3];
+    
+    WZMAlertView *alertView4 = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"你还好吗" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView4];
+    
+    WZMAlertView *alertView5 = [[WZMAlertView alloc] initWithTitle:@"提示" message:@"你还好吗" OKButtonTitle:@"确定" cancelButtonTitle:@"取消" type:WZMAlertViewTypeNormal];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView5];
+    
+    UIAlertView *alertView6 = [[UIAlertView alloc] initWithTitle:@"" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView6];
+    
+    UIAlertView *alertView7 = [[UIAlertView alloc] initWithTitle:@"" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [[WZMAlertQueue shareQueue] showAlertView:alertView7];
+    
+//    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+//    WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+//    albumNav.pickerDelegate = self;
+//    [self presentViewController:albumNav animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {

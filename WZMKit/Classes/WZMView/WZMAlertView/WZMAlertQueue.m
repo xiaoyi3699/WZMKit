@@ -10,8 +10,9 @@
 #import "WZMAlertView.h"
 
 @interface WZMAlertQueue()
+@property (nonatomic, assign) BOOL showing;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, weak) UIView *alertView;
+@property (nonatomic, assign) NSInteger index;
 @end
 
 @implementation WZMAlertQueue
@@ -28,39 +29,42 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.index = -1;
+        self.showing = NO;
         self.queues = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)showAlertView:(UIView *)alertView {
+    if (self.showing) return;
     if (alertView == nil) return;
     [self.queues addObject:alertView];
-    if (self.alertView) {
-        [self timerFire];
-    }
-    else {
-        self.alertView = alertView;
-        if ([alertView isKindOfClass:[UIAlertView class]]) {
-            [(UIAlertView *)alertView show];
-        }
-        else if ([alertView isKindOfClass:[WZMAlertView class]]) {
-            [(WZMAlertView *)alertView showAnimated:YES];
-        }
-        [self timerFire];
-    }
+    [self showAlertViewAtIndex:0];
 }
 
-- (void)removeAlertView {
-    if (self.alertView == nil) return;
-    [self.queues removeObject:self.alertView];
-    self.alertView = nil;
+- (void)showAlertViewAtIndex:(NSInteger)index {
+    if (index >= self.queues.count) {
+        [self timerInvalidate];
+        [self.queues removeAllObjects];
+        return;
+    }
+    if (self.index == index) return;
+    self.index = index;
+    UIView *alertView = [self.queues objectAtIndex:index];
+    if ([alertView isKindOfClass:[UIAlertView class]]) {
+        [(UIAlertView *)alertView show];
+    }
+    else if ([alertView isKindOfClass:[WZMAlertView class]]) {
+        [(WZMAlertView *)alertView showAnimated:YES];
+    }
+    [self timerFire];
 }
 
 #pragma mark - timer
 - (void)timerFire {
     if (self.timer == nil) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
     }
 }
 
@@ -69,17 +73,20 @@
         [self.timer invalidate];
         self.timer = nil;
     }
-    [self removeAlertView];
-    if (self.queues.count) {
-        [self showAlertView:self.queues.firstObject];
-    }
+    self.showing = NO;
 }
 
 - (void)timerRun:(NSTimer *)timer {
-    if (self.alertView.superview == nil) {
-        [self timerInvalidate];
+    self.showing = YES;
+    UIView *alertView = [self.queues objectAtIndex:self.index];
+    if ([alertView isKindOfClass:[UIAlertView class]]) {
+        if ([(UIAlertView *)alertView isVisible] == NO) {
+            [self showAlertViewAtIndex:(self.index+1)];
+        }
     }
-    WZMLog(@"========2121212==2=1==1212");
+    else if (alertView.superview == nil) {
+        [self showAlertViewAtIndex:(self.index+1)];
+    }
 }
 
 @end
