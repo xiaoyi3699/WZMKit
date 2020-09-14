@@ -116,7 +116,7 @@
     NSLog(@"%@==%@",[UIDevice currentDevice].identifierForVendor,[[ASIdentifierManager sharedManager] advertisingIdentifier]);
     
 #if DEBUG
-    //开启对象释放监听
+    //监听对象(UIViewController)释放
     [NSObject wzm_loadDealloc];
     //开启手机端日志悬浮图标
     [WZMLogView startLog];
