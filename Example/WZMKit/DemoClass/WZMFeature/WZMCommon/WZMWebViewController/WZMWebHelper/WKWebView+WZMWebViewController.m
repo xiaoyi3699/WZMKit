@@ -20,7 +20,7 @@
 //WKScriptMessageHandler
 - (void)wzm_userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSString *name = message.name;
-    NSLog(@"==%@=%@",name,message.body);
+    WZMLog(@"==%@=%@",name,message.body);
 }
 
 //拦截url

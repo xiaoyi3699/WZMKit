@@ -134,7 +134,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
     if (error) {
-        NSLog(@"=%@=",error);
+        WZMLog(@"=%@=",error);
     }
 }
 

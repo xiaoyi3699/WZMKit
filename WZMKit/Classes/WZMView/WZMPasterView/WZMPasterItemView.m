@@ -8,6 +8,7 @@
 
 #import "WZMPasterItemView.h"
 #import "WZMPublic.h"
+#import "WZMLogPrinter.h"
 
 #define PASTER_SLIDE        150.0
 #define FLEX_SLIDE          15.0
@@ -206,7 +207,7 @@
     self.btSizeCtrl.hidden = !isOnFirst;
     self.imgContentView.layer.borderWidth = isOnFirst ? BORDER_LINE_WIDTH : 0.0f;
     if (isOnFirst){
-        NSLog(@"pasterID : %d is On",self.pasterID);
+        WZMLog(@"pasterID : %d is On",self.pasterID);
     }
 }
 

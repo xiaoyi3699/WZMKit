@@ -157,7 +157,7 @@
     //document.body.offsetHeight 偏移量
 //    [webView evaluateJavaScript:@"document.body.scrollHeight"
 //              completionHandler:^(id result, NSError *_Nullable error) {
-//        NSLog(@"height==%@",result);
+//        WZMLog(@"height==%@",result);
 //    }];
 }
 
@@ -304,13 +304,13 @@
                         change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context {
     if ([keyPath isEqualToString:@"loading"]) {
-        NSLog(@"loading...");
+        WZMLog(@"loading...");
     }
     else if ([keyPath isEqualToString:@"title"]) {
         self.title = self.webView.title;
     }
     else if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        NSLog(@"progress: %f", self.webView.estimatedProgress);
+        WZMLog(@"progress: %f", self.webView.estimatedProgress);
     }
     // 加载完成
     if (self.webView.loading == NO) {

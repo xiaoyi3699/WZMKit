@@ -300,7 +300,7 @@
 }
 
 - (void)assetExportSessionExportFail:(WZMAssetExportSession *)exportSession {
-    NSLog(@"导出视频失败:%@",exportSession.error);
+    WZMLog(@"导出视频失败:%@",exportSession.error);
     [self exportFinish:nil];
 }
 

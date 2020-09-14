@@ -8,6 +8,7 @@
 
 #import "NSObject+wzmcate.h"
 #import <objc/runtime.h>
+#import "WZMLogPrinter.h"
 
 @implementation NSObject (wzmcate)
 static NSString *_tag = @"wzm_tag";
@@ -32,7 +33,7 @@ static NSString *_tag = @"wzm_tag";
 
 - (void)wzm_dealloc {
     if ([self isKindOfClass:[UIViewController class]]) {
-        NSLog(@"%@释放了",NSStringFromClass(self.class));
+        WZMLog(@"%@释放了",NSStringFromClass(self.class));
     }
     [self wzm_dealloc];
 }

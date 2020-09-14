@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, WZMFontStyle){
 
 /* textView点击链接的代理
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
-    NSLog(@"=============%@",URL);
+    WZMLog(@"=============%@",URL);
     return NO;
 }
 */
