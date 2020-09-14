@@ -113,6 +113,7 @@
 #import "WZMAlbumModel.h"
 #import "WZMAlbumNavigationController.h"
 #import "WZMAlbumPhotoModel.h"
+#import "WZMAlbumScaleView.h"
 #import "WZMAlbumView.h"
 #import "WZMAlertQueue.h"
 #import "WZMAlertView.h"

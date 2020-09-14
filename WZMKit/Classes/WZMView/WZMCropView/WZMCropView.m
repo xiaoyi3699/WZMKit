@@ -71,10 +71,10 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         CGContextSetLineWidth(context, self.edgeWidth);
         //边缘线
         CGRect cropFrame = self.cropFrame;
-        cropFrame.origin.x += self.edgeWidth;
-        cropFrame.origin.y += self.edgeWidth;
-        cropFrame.size.width -= self.edgeWidth*2;
-        cropFrame.size.height -= self.edgeWidth*2;
+        cropFrame.origin.x += self.edgeWidth/2.0;
+        cropFrame.origin.y += self.edgeWidth/2.0;
+        cropFrame.size.width -= self.edgeWidth;
+        cropFrame.size.height -= self.edgeWidth;
         CGContextAddRect(context, cropFrame);
         CGContextStrokePath(context);
     }
