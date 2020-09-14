@@ -26,7 +26,6 @@ NSString *const WZMPlayerPlaybackLikelyToKeepUp = @"playbackLikelyToKeepUp";
 //实现kvo自动释放
 - (void)dealloc {
     [self removeItemObserver];
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 - (void)addItemObserver:(id)observer {

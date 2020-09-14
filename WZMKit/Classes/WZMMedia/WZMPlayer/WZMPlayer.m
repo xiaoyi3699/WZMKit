@@ -419,7 +419,6 @@
 
 //移除相关监听
 - (void)dealloc {
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
     [_player removeTimeObserver:_playTimeObserver];
     [_player replaceCurrentItemWithPlayerItem:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];

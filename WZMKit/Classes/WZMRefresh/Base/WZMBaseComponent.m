@@ -144,7 +144,6 @@
 
 - (void)dealloc {
     [self removeObservers];
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
 }
 
 @end

@@ -79,8 +79,4 @@ int const static WZMDirectionPanThreshold = 5;
     [super reset];
 }
 
-- (void)dealloc {
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
-}
-
 @end

@@ -375,7 +375,6 @@
 }
 
 - (void)dealloc {
-    NSLog(@"%@释放了",NSStringFromClass(self.class));
     if (_webView) {
         [self removeObserver];
         [(WZMUserContentController *)self.webView.configuration.userContentController removeScriptMessageHandler:_scriptNames];

@@ -379,8 +379,4 @@ typedef NS_ENUM(NSUInteger, WZMDirection) {
     WZMLog(@"视频播放完毕！");
 }
 
-- (void)dealloc {
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
-}
-
 @end

@@ -167,8 +167,4 @@
     [self loadData:loadHandler callBack:backHandler];
 }
 
-- (void)dealloc {
-    NSLog(@"%@释放了",NSStringFromClass(self.class));
-}
-
 @end

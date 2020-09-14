@@ -10,6 +10,10 @@
 
 @interface NSObject (wzmcate)
 
+#if DEBUG
++ (void)wzm_loadDealloc;
+#endif
+
 - (void)setWzm_tag:(int)wzm_tag;
 - (int)wzm_tag;
 

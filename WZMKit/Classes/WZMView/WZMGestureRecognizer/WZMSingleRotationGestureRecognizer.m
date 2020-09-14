@@ -76,8 +76,4 @@
     [self setState:UIGestureRecognizerStateFailed];
 }
 
-- (void)dealloc {
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
-}
-
 @end

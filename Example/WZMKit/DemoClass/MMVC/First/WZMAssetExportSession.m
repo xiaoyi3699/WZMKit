@@ -75,7 +75,6 @@
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"status"];
-    NSLog(@"====shifangle0000");
 }
 
 @end

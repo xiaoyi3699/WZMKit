@@ -455,8 +455,4 @@
     }
 }
 
-- (void)dealloc {
-    WZMLog(@"%@释放了",NSStringFromClass(self.class));
-}
-
 @end
