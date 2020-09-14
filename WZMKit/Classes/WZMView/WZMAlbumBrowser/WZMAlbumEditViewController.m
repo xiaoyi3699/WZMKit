@@ -12,6 +12,7 @@
 #import "WZMMacro.h"
 #import "WZMAlbumScaleView.h"
 #import "UIView+wzmcate.h"
+#import "UIImage+wzmcate.h"
 
 @interface WZMAlbumEditViewController ()<WZMAlbumScaleViewDelegate>
 
@@ -70,7 +71,18 @@
 }
 
 - (void)rightItemClick {
-    
+    //图片缩放比例
+    if (self.image == nil) return;
+    CGFloat scale = self.image.size.width/self.imageView.wzm_width;
+    CGRect rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.imageView];
+    rect.origin.x *= scale;
+    rect.origin.y *= scale;
+    rect.size.width *= scale;
+    rect.size.height *= scale;
+    UIImage *image = [self.image wzm_clipImageWithRect:rect];
+    if ([self.delegate respondsToSelector:@selector(albumEditViewController:handleOriginals:thumbnails:assets:)]) {
+        [self.delegate albumEditViewController:self handleOriginals:@[image] thumbnails:nil assets:nil];
+    }
 }
 
 - (void)scaleView:(WZMAlbumScaleView *)scaleView didChangeScale:(CGFloat)scale {

@@ -184,7 +184,6 @@
 }
 
 - (void)albumEditViewController:(WZMAlbumEditViewController *)albumEditViewController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    [albumEditViewController.navigationController popViewControllerAnimated:YES];
     [self handleOriginals:originals thumbnails:thumbnails assets:assets];
 }
 
