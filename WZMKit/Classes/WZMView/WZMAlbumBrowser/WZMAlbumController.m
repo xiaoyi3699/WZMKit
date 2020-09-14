@@ -161,6 +161,7 @@
 }
 
 - (void)rightItemClick {
+    if (self.albumView.selectedPhotos.count == 0) return;
     if (self.albumView.selectedPhotos.count < self.config.minCount) {
         NSString *msg = [NSString stringWithFormat:@"请至少选择%@张照片",@(self.config.minCount)];
         [WZMViewHandle wzm_showInfoMessage:msg];
