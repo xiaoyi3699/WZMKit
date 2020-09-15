@@ -14,7 +14,8 @@
 #import "WZMLogPrinter.h"
 #import "WZMDefined.h"
 #import "NSDateFormatter+wzmcate.h"
-
+#import "WZMVideoEditer.h"
+#import "WZMViewHandle.h"
 #if WZM_APP
 @interface WZMAlbumHelper ()<UIAlertViewDelegate>
 #else
@@ -24,6 +25,7 @@
 @property (nonatomic, assign) CGFloat screenScale;
 @property (nonatomic, assign) CGFloat screenWidth;
 @property (nonatomic, strong) NSString *videoFolder;
+@property (nonatomic, strong) NSMutableArray *editers;
 @property (nonatomic, assign, getter=isShowAlert) BOOL showAlert;
 @property (nonatomic, strong) PHImageRequestOptions *imageOptions;
 @property (nonatomic, strong) PHVideoRequestOptions *videoOptions;
@@ -48,6 +50,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.editers = [[NSMutableArray alloc] init];
         self.screenScale = 2.0;
         self.screenWidth = [UIScreen mainScreen].bounds.size.width;
         if (self.screenWidth > 700) {
@@ -59,7 +62,7 @@
         
         self.videoOptions = [[PHVideoRequestOptions alloc] init];
         self.videoOptions.version = PHVideoRequestOptionsVersionOriginal;
-        self.videoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        self.videoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
         
         self.iCloudImageOptions = [[PHImageRequestOptions alloc] init];
         self.iCloudImageOptions.networkAccessAllowed = YES;
@@ -69,7 +72,7 @@
         self.iCloudVideoOptions = [[PHVideoRequestOptions alloc] init];
         self.iCloudVideoOptions.networkAccessAllowed = YES;
         self.iCloudVideoOptions.version = PHVideoRequestOptionsVersionOriginal;
-        self.iCloudVideoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        self.iCloudVideoOptions.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
         
         self.videoFolder = [WZM_CACHE_PATH stringByAppendingPathComponent:@"WZMAlbum"];
         [WZMFileManager createDirectoryAtPath:self.videoFolder];
@@ -227,7 +230,9 @@
             else {
                 AVURLAsset *videoAsset = (AVURLAsset*)avasset;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (completion) completion(videoAsset.URL);
+                    if (completion) {
+                        completion(videoAsset.URL);
+                    }
                 });
             }
         }];
@@ -310,12 +315,14 @@
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
         if ([presets containsObject:preset]) {
-            AVMutableVideoComposition *composition = [self wzm_fixVideoOrientation:avasset];
+            //矫正角度,这里只是将视频角度强制更改,其实是错误的显示,矫正处理统一写在了选中图片后,点击确定的那一步操作中
+            //处理方法:首先判断视频转向,之后按该转向重新生成视频,生成后的视频即为正确的视频,同时重新生成缩略图
+//            AVMutableVideoComposition *composition = [self wzm_fixVideoOrientation:avasset];
             AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
-            if (composition.renderSize.width) {
-                // 修正视频转向
-                session.videoComposition = composition;
-            }
+//            if (composition.renderSize.width) {
+//                // 修正视频转向
+//                session.videoComposition = composition;
+//            }
             NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
             NSString *videoName = [NSString stringWithFormat:@"%@.mp4",[formater stringFromDate:[NSDate date]]];
             NSString *outputPath = [outFolder stringByAppendingPathComponent:videoName];
@@ -371,6 +378,30 @@
             });
         }
     }];
+}
+
+//导出矫正转向的视频
++ (void)wzm_exportVideoWithUrl:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion {
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    if ([self degressFromVideoFileWithAsset:asset] == 0) {
+        if (completion) completion(url);
+    }
+    else {
+        [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
+        WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
+        WZMVideoEditer *editer = [[WZMVideoEditer alloc] init];
+        [helper.editers addObject:editer];
+        editer.completion = ^(WZMVideoEditer *obj) {
+            [WZMViewHandle wzm_dismiss];
+            NSURL *url;
+            if (obj.exportPath) {
+                url = [NSURL fileURLWithPath:obj.exportPath];
+            }
+            if (completion) completion(url);
+            [helper.editers removeObject:obj];
+        };
+        [editer handleVideoWithPath:url.path];
+    }
 }
 
 //保存视频到系统相册

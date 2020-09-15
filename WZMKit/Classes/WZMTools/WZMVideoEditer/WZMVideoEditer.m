@@ -303,8 +303,13 @@
 - (void)exportFinish:(NSString *)path {
     self.exporting = NO;
     self.exportPath = path;
-    if ([self.delegate respondsToSelector:@selector(videoEditerDidExported:)]) {
-        [self.delegate videoEditerDidExported:self];
+    if (self.completion) {
+        self.completion(self);
+    }
+    else {
+        if ([self.delegate respondsToSelector:@selector(videoEditerDidExported:)]) {
+            [self.delegate videoEditerDidExported:self];
+        }
     }
 }
 
@@ -352,6 +357,11 @@
         _volume2 = 1.0;
     }
     return _volume2;
+}
+
+- (void)dealloc
+{
+    NSLog(@"释放");
 }
 
 @end

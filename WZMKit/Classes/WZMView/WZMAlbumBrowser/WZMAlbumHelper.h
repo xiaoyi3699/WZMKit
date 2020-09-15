@@ -25,6 +25,7 @@
 ///导出GIF
 + (void)wzm_exportGifWithAsset:(id)asset completion:(void(^)(NSData *data))completion;
 ///导出视频
++ (void)wzm_exportVideoWithUrl:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion;
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///保存视频到系统相册

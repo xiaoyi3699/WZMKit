@@ -18,6 +18,7 @@
 #import "WZMVideoEditer.h"
 #import "WZMViewHandle.h"
 #import <Photos/Photos.h>
+#import "WZMAlbumHelper.h"
 
 @interface WZMAlbumEditViewController ()<WZMAlbumScaleViewDelegate,WZMClipTimeViewDelegate,WZMVideoEditerDelegate,WZMPlayerDelegate>
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) NSArray *thumbnails;
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) WZMCropView *cropView;
 @property (nonatomic, strong) WZMAlbumScaleView *scaleView;
 //图片
@@ -72,6 +74,9 @@
     
     self.contentView = [[UIView alloc] init];
     [self.view addSubview:self.contentView];
+    
+    self.toolView = [[UIView alloc] init];
+    [self.contentView addSubview:self.toolView];
     
     if (self.type == 0) {
         self.imageView = [[UIImageView alloc] init];
@@ -219,13 +224,11 @@
         self.navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
         if (self.navBarH == 0) return;
         CGRect rect = self.view.bounds;
-        rect.origin.x = 10.0;
-        rect.origin.y = (self.navBarH + 10.0);
-        rect.size.height -= (self.navBarH + 20.0 + WZM_BOTTOM_HEIGHT);
-        rect.size.width -= 20.0;
+        rect.origin.y = (self.navBarH);
+        rect.size.height -= (self.navBarH + WZM_BOTTOM_HEIGHT);
         self.contentView.frame = rect;
-        CGFloat toolH = 60.0 + (self.type == 0 ? 0.0 : 80.0);
-        CGSize size = WZMSizeRatioToMaxSize(self.image.size, CGSizeMake(rect.size.width, rect.size.height-toolH-10.0));
+        CGFloat toolH = 60.0 + (self.type == 0 ? 0.0 : 70.0);
+        CGSize size = WZMSizeRatioToMaxSize(self.image.size, CGSizeMake(rect.size.width-10.0, rect.size.height-toolH-10.0));
         CGRect previewRect = CGRectZero;
         previewRect.origin.x = (rect.size.width-size.width)/2.0;
         previewRect.origin.y = (rect.size.height-toolH-size.height)/2.0;
@@ -237,16 +240,19 @@
             self.playerView.frame = previewRect;
         }
         self.cropView.frame = previewRect;
+        self.toolView.frame = CGRectMake(0.0, self.contentView.wzm_height-toolH, self.contentView.wzm_width, toolH);
         if (self.scaleView == nil) {
-            self.scaleView = [[WZMAlbumScaleView alloc] initWithFrame:CGRectMake(0.0, self.contentView.wzm_height-toolH, self.contentView.wzm_width, 60.0)];
+            self.scaleView = [[WZMAlbumScaleView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.contentView.wzm_width, 60.0)];
             self.scaleView.delegate = self;
-            [self.contentView addSubview:self.scaleView];
+            [self.toolView addSubview:self.scaleView];
         }
-        if (self.type == 1) {
-            self.clipTimeView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(0.0, self.scaleView.wzm_maxY+10.0, self.contentView.wzm_width, 60.0)];
+        if (self.type == 1 && self.clipTimeView == nil) {
+            self.clipTimeView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(0.0, self.scaleView.wzm_maxY+5.0, self.contentView.wzm_width, 60.0)];
             self.clipTimeView.delegate = self;
             self.clipTimeView.videoUrl = self.videoUrl;
-            [self.contentView addSubview:self.clipTimeView];
+            self.clipTimeView.foregroundBorderColor = [UIColor brownColor];
+            self.clipTimeView.backgroundBorderColor = [UIColor brownColor];
+            [self.toolView addSubview:self.clipTimeView];
         }
     }
 }

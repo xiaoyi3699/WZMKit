@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "WZMBlock.h"
 @protocol WZMVideoEditerDelegate;
 
 @interface WZMVideoEditer : NSObject
@@ -40,7 +41,7 @@
 ///other
 @property (nonatomic, weak) id<WZMVideoEditerDelegate> delegate;
 @property (nonatomic, assign, readonly ,getter=isExporting) BOOL exporting;
-
+@property (nonatomic, copy) wzm_doBlock1 completion;
 #pragma mark - 视频处理
 ///视频时长、尺寸剪裁
 - (void)handleVideoWithPath:(NSString *)path;
