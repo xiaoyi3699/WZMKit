@@ -301,7 +301,7 @@
 //导出视频
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion {
     WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
-    [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset640x480 outFolder:helper.videoFolder completion:completion];
+    [self wzm_exportVideoWithAsset:asset preset:AVAssetExportPreset1280x720 outFolder:helper.videoFolder completion:completion];
 }
 
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
