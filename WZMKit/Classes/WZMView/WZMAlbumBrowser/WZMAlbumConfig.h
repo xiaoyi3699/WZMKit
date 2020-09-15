@@ -49,7 +49,7 @@
 ///选中的图片
 @property (nonatomic, strong) NSMutableArray<WZMAlbumPhotoModel *> *selectedPhotos;
 /*
- 导出的视频尺寸,非源视频时生效,默认AVAssetExportPreset640x480
+ 导出的视频尺寸,非源视频时生效,默认AVAssetExportPreset1280x720
  参数设置:
  AVAssetExportPreset1920x1080,
  AVAssetExportPresetLowQuality,

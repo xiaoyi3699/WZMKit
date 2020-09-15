@@ -37,7 +37,7 @@
         self.originalImage = YES;
         self.originalVideo = YES;
         self.imageSize = CGSizeMake(600, 600);
-        self.videoPreset = AVAssetExportPreset640x480;
+        self.videoPreset = AVAssetExportPreset1280x720;
         self.videoFolder = NSTemporaryDirectory();
     }
     return self;
