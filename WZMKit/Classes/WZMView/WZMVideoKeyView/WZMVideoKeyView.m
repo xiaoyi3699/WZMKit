@@ -89,13 +89,18 @@
 }
 
 - (void)didChangeType:(WZMCommonState)type {
-    if ([self.delegate respondsToSelector:@selector(videoKeyView:changeType:)]) {
-        [self.delegate videoKeyView:self changeType:type];
+    if ([self.delegate respondsToSelector:@selector(videoKeyView:valueChanged:)]) {
+        [self.delegate videoKeyView:self valueChanged:type];
     }
 }
 
 - (void)setValue:(CGFloat)value {
-    if (value < 0 || value > 1) return;
+    if (value < 0) {
+        value = 0;
+    }
+    else if (value > 1) {
+        value = 1;
+    }
     if (_value == value) return;
     _value = value;
     CGFloat x = value*self.wzm_width;

@@ -120,8 +120,8 @@
 }
 
 - (void)didChangeType:(WZMCommonState)type {
-    if ([self.delegate respondsToSelector:@selector(videoKeyView2:changeType:)]) {
-        [self.delegate videoKeyView2:self changeType:type];
+    if ([self.delegate respondsToSelector:@selector(videoKeyView2:valueChanged:)]) {
+        [self.delegate videoKeyView2:self valueChanged:type];
     }
 }
 
@@ -133,7 +133,7 @@
         CGFloat dx = self.contentView.contentOffset.x;
         self.sliderView.wzm_minX = _sliderX-dx;
     }
-    if (value > 1) {
+    else if (value > 1) {
         if (_value == value) return;
         value = 1;
         CGFloat dx = self.contentView.contentOffset.x+self.contentView.wzm_width-self.contentView.contentSize.width;

@@ -9,7 +9,7 @@
 #import "ThirdViewController.h"
 #import "WZMAlertQueue.h"
 #import <Photos/Photos.h>
-@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
+@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate,WZMClipTimeViewDelegate>
 
 @end
 
@@ -27,24 +27,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor grayColor];
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 355.0)];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:_imageView];
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0, 200.0, 100.0, 50.0)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [btn setTitle:@"hhaah" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)btnClick:(UIButton *)btn {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
     config.maxCount = 1;
-    config.allowEdit = YES;
-    config.allowPreview = NO;
+//    config.allowEdit = YES;
+//    config.allowPreview = NO;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;
     [self presentViewController:albumNav animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    _imageView.image = originals.firstObject;
+    
+    WZMClipTimeView *clipView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 60.0)];
+    clipView.videoUrl = originals.firstObject;
+    clipView.delegate = self;
+    [self.view addSubview:clipView];
+}
+
+- (void)clipView:(WZMClipTimeView *)clipView clipChanged:(WZMCommonState)state {
+    NSLog(@"1=======%@====%@====%@====%@",@(state),@(clipView.value),@(clipView.startValue),@(clipView.endValue));
+}
+
+- (void)clipView:(WZMClipTimeView *)clipView valueChanged:(WZMCommonState)state {
+    NSLog(@"2=======%@====%@====%@====%@",@(state),@(clipView.value),@(clipView.startValue),@(clipView.endValue));
 }
 
 @end

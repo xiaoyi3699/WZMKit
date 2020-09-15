@@ -13,6 +13,8 @@
 @interface WZMClipTimeView : UIView
 
 ///取值0~1, 默认值0
+@property (nonatomic, assign) CGFloat value;
+///取值0~1, 默认值0
 @property (nonatomic, readonly, assign) CGFloat startValue;
 ///取值0~1, 默认值1
 @property (nonatomic, readonly, assign) CGFloat endValue;
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) UIColor *foregroundBorderColor;
 ///背景色
 @property (nonatomic, strong) UIColor *backgroundBorderColor;
+///视频地址
+@property (nonatomic, strong) NSURL *videoUrl;
 ///代理
 @property (nonatomic, weak) id<WZMClipTimeViewDelegate> delegate;
 
@@ -28,6 +32,7 @@
 @protocol WZMClipTimeViewDelegate <NSObject>
 
 @optional
-- (void)clipView:(WZMClipTimeView *)clipView valueState:(WZMCommonState)state;
+- (void)clipView:(WZMClipTimeView *)clipView clipChanged:(WZMCommonState)state;
+- (void)clipView:(WZMClipTimeView *)clipView valueChanged:(WZMCommonState)state;
 
 @end

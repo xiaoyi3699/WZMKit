@@ -12,7 +12,7 @@
 
 @interface WZMVideoKeyView : UIView
 
-///音频地址
+///视频地址
 @property (nonatomic, strong) NSURL *videoUrl;
 ///0-1
 @property (nonatomic, assign) CGFloat value;
@@ -26,6 +26,6 @@
 @protocol WZMVideoKeyViewDelegate <NSObject>
 
 @optional
-- (void)videoKeyView:(WZMVideoKeyView *)videoKeyView changeType:(WZMCommonState)type;
+- (void)videoKeyView:(WZMVideoKeyView *)videoKeyView valueChanged:(WZMCommonState)type;
 
 @end
