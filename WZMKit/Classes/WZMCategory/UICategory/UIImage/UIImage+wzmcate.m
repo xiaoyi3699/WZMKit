@@ -276,13 +276,15 @@
     return resultUIImage;
 }
 
-+ (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count {
++ (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count original:(BOOL)original {
     NSDictionary *opts = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
     AVURLAsset *AVAsset = [AVURLAsset URLAssetWithURL:url options:opts];
     NSMutableArray *keyImages = [[NSMutableArray alloc] initWithCapacity:0];
     AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:AVAsset];
     generator.appliesPreferredTrackTransform = YES;
-    generator.maximumSize = CGSizeMake(300,300);
+    if (original == NO) {
+        generator.maximumSize = CGSizeMake(300,300);
+    }
     for (NSInteger i = 0; i < count; i ++) {
         CGFloat progress = i*1.0/count;
         CMTime dur = AVAsset.duration;
@@ -295,12 +297,14 @@
     return keyImages;
 }
 
-+ (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress {
++ (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress original:(BOOL)original {
     NSDictionary *opts = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
     AVURLAsset *AVAsset = [AVURLAsset URLAssetWithURL:url options:opts];
     AVAssetImageGenerator *generator = [AVAssetImageGenerator assetImageGeneratorWithAsset:AVAsset];
     generator.appliesPreferredTrackTransform = YES;
-    generator.maximumSize = CGSizeMake(300,300);
+    if (original == NO) {
+        generator.maximumSize = CGSizeMake(300,300);
+    }
     CMTime dur = AVAsset.duration;
     CMTime time = CMTimeMultiplyByFloat64(dur, progress);
     CGImageRef img = [generator copyCGImageAtTime:time actualTime:NULL error:nil];

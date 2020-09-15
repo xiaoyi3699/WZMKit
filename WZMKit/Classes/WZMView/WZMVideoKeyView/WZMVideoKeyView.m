@@ -124,7 +124,7 @@
     _videoUrl = videoUrl;
     CGSize size = self.keysView.bounds.size;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UIImage *fImage = [[UIImage wzm_getImagesByUrl:_videoUrl count:1] firstObject];
+        UIImage *fImage = [[UIImage wzm_getImagesByUrl:_videoUrl count:1 original:NO] firstObject];
         CGFloat imageViewH = size.height;
         CGFloat imageViewW = fImage.size.width*imageViewH/fImage.size.height;
         CGFloat c = size.width/imageViewW;
@@ -132,7 +132,7 @@
         if (c > count) {
             count ++;
         }
-        NSArray *images = [UIImage wzm_getImagesByUrl:self.videoUrl count:count];
+        NSArray *images = [UIImage wzm_getImagesByUrl:self.videoUrl count:count original:NO];
         UIImage *keysImage = [UIImage wzm_getImageByImages:images type:WZMAddImageTypeHorizontal];
         UIImage *graysImage = [keysImage wzm_getGrayImage];
         dispatch_async(dispatch_get_main_queue(), ^{

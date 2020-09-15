@@ -21,8 +21,6 @@
 @property (nonatomic, assign) CGFloat duration;
 ///剪裁区域,相对于渲染尺寸
 @property (nonatomic, assign) CGRect cropFrame;
-///渲染尺寸,当代理函数videoEditerDidLoad被调用后被赋值
-@property (nonatomic, assign, readonly) CGSize renderSize;
 
 #pragma mark - 配音
 ///音量
@@ -54,7 +52,6 @@
 @protocol WZMVideoEditerDelegate <NSObject>
 
 @optional
-- (void)videoEditerDidLoad:(WZMVideoEditer *)videoEditer;
 - (void)videoEditerExporting:(WZMVideoEditer *)videoEditer;
 - (void)videoEditerDidExported:(WZMVideoEditer *)videoEditer;
 - (void)videoEditer:(WZMVideoEditer *)videoEditer renderLayerWithComposition:(AVMutableVideoComposition *)composition;

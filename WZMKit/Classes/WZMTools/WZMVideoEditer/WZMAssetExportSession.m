@@ -36,14 +36,18 @@
         } else if (status == AVAssetExportSessionStatusCompleted || status == AVAssetExportSessionStatusFailed || status == AVAssetExportSessionStatusCancelled) {
             [self linkInvalidate];
             if (status == AVAssetExportSessionStatusCompleted) {
-                if ([self.delegate respondsToSelector:@selector(assetExportSessionExportSuccess:)]) {
-                    [self.delegate assetExportSessionExportSuccess:self];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([self.delegate respondsToSelector:@selector(assetExportSessionExportSuccess:)]) {
+                        [self.delegate assetExportSessionExportSuccess:self];
+                    }
+                });
             }
             else {
-                if ([self.delegate respondsToSelector:@selector(assetExportSessionExportFail:)]) {
-                    [self.delegate assetExportSessionExportFail:self];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([self.delegate respondsToSelector:@selector(assetExportSessionExportFail:)]) {
+                        [self.delegate assetExportSessionExportFail:self];
+                    }
+                });
             }
         }
     }

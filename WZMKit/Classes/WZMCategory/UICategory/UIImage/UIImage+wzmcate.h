@@ -35,9 +35,9 @@
 ///合并图片
 + (UIImage *)wzm_mergeImage:(UIImage*)firstImage otherImage:(UIImage*)secondImage;
 ///视频中获取图片
-+ (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count;
++ (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count original:(BOOL)original;
 ///视频中获取图片
-+ (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress;
++ (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress original:(BOOL)original;
 #pragma mark - 二维码
 ///生成二维码图片
 + (UIImage *)wzm_getQRCodeByString:(NSString *)string size:(CGFloat)size;

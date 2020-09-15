@@ -7,7 +7,6 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMVideoEditer.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -45,7 +44,7 @@
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    [self.videoEditer handleVideoWithPath:[originals.firstObject path] otherPath:[originals.lastObject path]];
+    [self.videoEditer handleVideoWithPath:[originals.firstObject path]];
 }
 
 - (void)videoEditerExporting:(WZMVideoEditer *)videoEditer {

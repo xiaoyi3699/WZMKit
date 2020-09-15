@@ -9,9 +9,9 @@
 #import "WZMVideoEditer.h"
 #import "WZMEditerModel.h"
 #import "WZMAssetExportSession.h"
+#import "WZMLogPrinter.h"
 
 @interface WZMVideoEditer ()<WZMAssetExportSessionDelegate>
-@property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) NSString *exportPath;
 @property (nonatomic, strong) AVAudioMix *audioMix;
@@ -31,7 +31,6 @@
         self.exporting = NO;
         self.cropFrame = CGRectZero;
         self.exportFileType = AVFileTypeMPEG4;
-        self.renderSize = CGSizeZero;
         self.exportRenderSize = CGSizeZero;
     }
     return self;
@@ -63,6 +62,8 @@
         self.start = 0.0;
         self.duration = duration;
     }
+    self.start = ceil(self.start);
+    self.duration = floor(self.duration);
     CMTime t1 = CMTimeMakeWithSeconds(self.start, 30);
     CMTime t2 = CMTimeMakeWithSeconds((self.start+self.duration), 30);
     CMTimeRange range = CMTimeRangeFromTimeToTime(t1, t2);
@@ -205,11 +206,6 @@
         naturalSize = CGSizeMake(videoAssetTrack.naturalSize.height, videoAssetTrack.naturalSize.width);
     } else {
         naturalSize = videoAssetTrack.naturalSize;
-    }
-    //原视频的渲染尺寸
-    self.renderSize = naturalSize;
-    if ([self.delegate respondsToSelector:@selector(videoEditerDidLoad:)]) {
-        [self.delegate videoEditerDidLoad:self];
     }
     //剪裁视频的尺寸
     CGFloat renderWidth, renderHeight;

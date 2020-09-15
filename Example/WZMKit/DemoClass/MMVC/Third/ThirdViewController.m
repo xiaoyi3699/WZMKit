@@ -45,19 +45,24 @@
 - (void)btnClick:(UIButton *)btn {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
     config.maxCount = 1;
-//    config.allowEdit = YES;
-//    config.allowPreview = NO;
+    config.allowEdit = YES;
+    config.allowPreview = NO;
+    config.originalVideo = NO;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;
     [self presentViewController:albumNav animated:YES completion:nil];
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    NSURL *url = [originals firstObject];
+    [WZMAlbumHelper wzm_saveVideoWithPath:url.path completion:^(NSError *error) {
+        NSLog(@"===%@",error);
+    }];
     
-    WZMClipTimeView *clipView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 60.0)];
-    clipView.videoUrl = originals.firstObject;
-    clipView.delegate = self;
-    [self.view addSubview:clipView];
+//    WZMClipTimeView *clipView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 60.0)];
+//    clipView.videoUrl = originals.firstObject;
+//    clipView.delegate = self;
+//    [self.view addSubview:clipView];
 }
 
 - (void)clipView:(WZMClipTimeView *)clipView clipChanged:(WZMCommonState)state {

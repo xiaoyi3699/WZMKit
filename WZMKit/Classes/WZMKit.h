@@ -341,6 +341,12 @@
 #import "WZMAlertQueue.h"
 
 /*
+视频剪裁
+*/
+#import "WZMVideoEditer.h"
+#import "WZMAssetExportSession.h"
+
+/*
  其他自定义控件
  */
 #import "WZMButton.h"
