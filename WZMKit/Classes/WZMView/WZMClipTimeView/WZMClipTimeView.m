@@ -88,7 +88,7 @@
         [self.keysView addSubview:self.keysImageView];
         
         self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(self.keysView.wzm_minX, -3.0, 2.0, self.wzm_height+6.0)];
-        self.sliderView.backgroundColor = [UIColor whiteColor];
+        self.sliderView.backgroundColor = [UIColor blueColor];
         self.sliderView.wzm_cornerRadius = 1.0;
         [self addSubview:self.sliderView];
         
