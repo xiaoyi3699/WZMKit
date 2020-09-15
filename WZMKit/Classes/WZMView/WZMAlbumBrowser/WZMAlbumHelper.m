@@ -310,7 +310,12 @@
     [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
         NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
         if ([presets containsObject:preset]) {
+            AVMutableVideoComposition *composition = [self wzm_fixVideoOrientation:avasset];
             AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
+            if (composition.renderSize.width) {
+                // 修正视频转向
+                session.videoComposition = composition;
+            }
             NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
             NSString *videoName = [NSString stringWithFormat:@"%@.mp4",[formater stringFromDate:[NSDate date]]];
             NSString *outputPath = [outFolder stringByAppendingPathComponent:videoName];
