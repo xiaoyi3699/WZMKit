@@ -14,8 +14,6 @@
 #import "WZMLogPrinter.h"
 #import "WZMDefined.h"
 #import "NSDateFormatter+wzmcate.h"
-#import "WZMVideoEditer.h"
-#import "WZMViewHandle.h"
 #if WZM_APP
 @interface WZMAlbumHelper ()<UIAlertViewDelegate>
 #else
@@ -310,97 +308,81 @@
 }
 
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
-    WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
-    helper.videoOptions.networkAccessAllowed = YES;
-    [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
-        NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
-        if ([presets containsObject:preset]) {
-            //矫正角度,这里只是将视频角度强制更改,其实是错误的显示,矫正处理统一写在了选中图片后,点击确定的那一步操作中
-            //处理方法:首先判断视频转向,之后按该转向重新生成视频,生成后的视频即为正确的视频,同时重新生成缩略图
-//            AVMutableVideoComposition *composition = [self wzm_fixVideoOrientation:avasset];
-            AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
-//            if (composition.renderSize.width) {
-//                // 修正视频转向
-//                session.videoComposition = composition;
-//            }
-            NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
-            NSString *videoName = [NSString stringWithFormat:@"%@.mp4",[formater stringFromDate:[NSDate date]]];
-            NSString *outputPath = [outFolder stringByAppendingPathComponent:videoName];
-            session.shouldOptimizeForNetworkUse = true;
-            NSArray *supportedTypeArray = session.supportedFileTypes;
-            if (supportedTypeArray.count == 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (completion) {
-                        WZMLog(@"该视频类型暂不支持导出");
-                        completion(nil);
-                    }
-                });
-                return;
-            }
-            else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
-                session.outputFileType = AVFileTypeMPEG4;
-            } else {
-                AVURLAsset *videoAsset = (AVURLAsset*)avasset;
-                session.outputFileType = [supportedTypeArray objectAtIndex:0];
-                if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
-                    outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
-                }
-            }
-            session.outputURL = [NSURL fileURLWithPath:outputPath];
-            [session exportAsynchronouslyWithCompletionHandler:^(void) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    switch (session.status) {
-                        case AVAssetExportSessionStatusCompleted: {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                if (completion) {
-                                    completion([NSURL fileURLWithPath:outputPath]);
-                                }
-                            });
-                        }  break;
-                        default: {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                if (completion) {
-                                    WZMLog(@"%@",session.error.description);
-                                    completion(nil);
-                                }
-                            });
-                        };
-                    }
-                });
-            }];
-        } else {
+    if ([asset isKindOfClass:[PHAsset class]]) {
+        WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
+        helper.videoOptions.networkAccessAllowed = YES;
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:helper.videoOptions resultHandler:^(AVAsset *avasset, AVAudioMix *audioMix, NSDictionary *info) {
+            [self wzm_exportVideoWithAVAsset:avasset preset:preset outFolder:outFolder completion:completion];
+        }];
+    }
+    else {
+        [self wzm_exportVideoWithAVAsset:asset preset:preset outFolder:outFolder completion:completion];
+    }
+}
+
+//private 从AVURLAsset中导出视频
++ (void)wzm_exportVideoWithAVAsset:(AVAsset *)avasset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
+    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
+    if ([presets containsObject:preset]) {
+        //修正视频转向
+        AVMutableVideoComposition *composition = [self wzm_fixVideoOrientation:avasset];
+        AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:avasset presetName:preset];
+        if (composition.renderSize.width) {
+            session.videoComposition = composition;
+        }
+        NSDateFormatter *formater = [NSDateFormatter wzm_dateFormatter:@"yyyy-MM-dd-HH:mm:ss-SSS"];
+        NSString *videoName = [NSString stringWithFormat:@"%@.mp4",[formater stringFromDate:[NSDate date]]];
+        NSString *outputPath = [outFolder stringByAppendingPathComponent:videoName];
+        session.shouldOptimizeForNetworkUse = true;
+        NSArray *supportedTypeArray = session.supportedFileTypes;
+        if (supportedTypeArray.count == 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {
-                    NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", preset];
-                    WZMLog(@"%@",des);
+                    WZMLog(@"该视频类型暂不支持导出");
                     completion(nil);
                 }
             });
+            return;
         }
-    }];
-}
-
-//导出矫正转向的视频
-+ (void)wzm_exportVideoWithUrl:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion {
-    AVAsset *asset = [AVAsset assetWithURL:url];
-    if ([self degressFromVideoFileWithAsset:asset] == 0) {
-        if (completion) completion(url);
-    }
-    else {
-        [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
-        WZMAlbumHelper *helper = [WZMAlbumHelper shareHelper];
-        WZMVideoEditer *editer = [[WZMVideoEditer alloc] init];
-        [helper.editers addObject:editer];
-        editer.completion = ^(WZMVideoEditer *obj) {
-            [WZMViewHandle wzm_dismiss];
-            NSURL *url;
-            if (obj.exportPath) {
-                url = [NSURL fileURLWithPath:obj.exportPath];
+        else if ([supportedTypeArray containsObject:AVFileTypeMPEG4]) {
+            session.outputFileType = AVFileTypeMPEG4;
+        } else {
+            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+            session.outputFileType = [supportedTypeArray objectAtIndex:0];
+            if (videoAsset.URL && videoAsset.URL.lastPathComponent) {
+                outputPath = [outputPath stringByReplacingOccurrencesOfString:@".mp4" withString:[NSString stringWithFormat:@"-%@", videoAsset.URL.lastPathComponent]];
             }
-            if (completion) completion(url);
-            [helper.editers removeObject:obj];
-        };
-        [editer handleVideoWithPath:url.path];
+        }
+        session.outputURL = [NSURL fileURLWithPath:outputPath];
+        [session exportAsynchronouslyWithCompletionHandler:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                switch (session.status) {
+                    case AVAssetExportSessionStatusCompleted: {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (completion) {
+                                completion([NSURL fileURLWithPath:outputPath]);
+                            }
+                        });
+                    }  break;
+                    default: {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (completion) {
+                                WZMLog(@"%@",session.error.description);
+                                completion(nil);
+                            }
+                        });
+                    };
+                }
+            });
+        }];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@", preset];
+                WZMLog(@"%@",des);
+                completion(nil);
+            }
+        });
     }
 }
 
@@ -545,6 +527,17 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+//修正视频转向
++ (void)wzm_fixVideoOrientation:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion {
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    if ([self degressFromVideoFileWithAsset:asset] == 0) {
+        if (completion) completion(url);
+    }
+    else {
+        [self wzm_exportVideoWithAsset:asset completion:completion];
+    }
 }
 
 //修正视频转向

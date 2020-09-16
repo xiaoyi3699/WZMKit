@@ -10,6 +10,8 @@
 #import "WZMEditerModel.h"
 #import "WZMAssetExportSession.h"
 #import "WZMLogPrinter.h"
+#import "WZMAlbumHelper.h"
+#import "WZMViewHandle.h"
 
 @interface WZMVideoEditer ()<WZMAssetExportSessionDelegate>
 @property (nonatomic, assign) CGFloat progress;
@@ -38,7 +40,14 @@
 
 #pragma mark - 视频处理
 - (void)handleVideoWithPath:(NSString *)path {
-    [self handleVideoWithPath:path otherPath:nil];
+    if (path == nil) return;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) return;
+    NSURL *url = [NSURL fileURLWithPath:path];
+    [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
+    [WZMAlbumHelper wzm_fixVideoOrientation:url completion:^(NSURL *videoURL) {
+        [WZMViewHandle wzm_dismiss];
+        [self handleVideoWithPath:videoURL.path otherPath:nil];
+    }];
 }
 
 - (void)handleVideoWithPath:(NSString *)path otherPath:(NSString *)path2 {
@@ -180,34 +189,9 @@
                                  videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayer:videoLayer inLayer:parentLayer];
 }
 
-//矫正视频角度
+//剪裁视频的尺寸
 - (CGAffineTransform)videoCompositionVideoAssetTrack:(AVAssetTrack *)videoAssetTrack {
-    //获取视频方向
-    UIImageOrientation videoAssetOrientation_  = UIImageOrientationUp;
-    BOOL isVideoAssetPortrait_  = NO;
-    CGAffineTransform videoTransform = videoAssetTrack.preferredTransform;
-    if (videoTransform.a == 0 && videoTransform.b == 1.0 && videoTransform.c == -1.0 && videoTransform.d == 0) {
-        videoAssetOrientation_ = UIImageOrientationRight;
-        isVideoAssetPortrait_ = YES;
-    }
-    if (videoTransform.a == 0 && videoTransform.b == -1.0 && videoTransform.c == 1.0 && videoTransform.d == 0) {
-        videoAssetOrientation_ =  UIImageOrientationLeft;
-        isVideoAssetPortrait_ = YES;
-    }
-    if (videoTransform.a == 1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == 1.0) {
-        videoAssetOrientation_ =  UIImageOrientationUp;
-    }
-    if (videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0) {
-        videoAssetOrientation_ = UIImageOrientationDown;
-    }
-    //视频转向调整
-    CGSize naturalSize;
-    if(isVideoAssetPortrait_){
-        naturalSize = CGSizeMake(videoAssetTrack.naturalSize.height, videoAssetTrack.naturalSize.width);
-    } else {
-        naturalSize = videoAssetTrack.naturalSize;
-    }
-    //剪裁视频的尺寸
+    CGSize naturalSize = videoAssetTrack.naturalSize;
     CGFloat renderWidth, renderHeight;
     CGRect cropRect = self.cropFrame;
     CGAffineTransform transform;

@@ -54,12 +54,12 @@
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-//    NSURL *url = [originals firstObject];
-//    [WZMAlbumHelper wzm_saveVideoWithPath:url.path completion:^(NSError *error) {
-//        NSLog(@"===%@",error);
-//    }];
+    NSURL *url = [originals firstObject];
+    [WZMAlbumHelper wzm_saveVideoWithPath:url.path completion:^(NSError *error) {
+        NSLog(@"===%@",error);
+    }];
     
-    _imageView.image = originals.firstObject;
+    //_imageView.image = originals.firstObject;
     
 //    WZMClipTimeView *clipView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 60.0)];
 //    clipView.videoUrl = originals.firstObject;

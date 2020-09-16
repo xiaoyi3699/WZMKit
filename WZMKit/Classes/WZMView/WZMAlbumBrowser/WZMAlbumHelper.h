@@ -25,7 +25,6 @@
 ///导出GIF
 + (void)wzm_exportGifWithAsset:(id)asset completion:(void(^)(NSData *data))completion;
 ///导出视频
-+ (void)wzm_exportVideoWithUrl:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion;
 + (void)wzm_exportVideoWithAsset:(id)asset completion:(void(^)(NSURL *videoURL))completion;
 + (void)wzm_exportVideoWithAsset:(id)asset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion;
 ///保存视频到系统相册
@@ -45,6 +44,6 @@
 ///修正图片转向
 + (UIImage *)wzm_fixImageOrientation:(UIImage *)aImage;
 ///修正视频转向
-+ (AVMutableVideoComposition *)wzm_fixVideoOrientation:(AVAsset *)videoAsset;
++ (void)wzm_fixVideoOrientation:(NSURL *)url completion:(void(^)(NSURL *videoURL))completion;
 
 @end

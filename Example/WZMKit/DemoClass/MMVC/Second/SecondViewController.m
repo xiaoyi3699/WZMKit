@@ -32,8 +32,8 @@
     self.videoEditer = [[WZMVideoEditer alloc] init];
     self.videoEditer.loop2 = YES;
     self.videoEditer.delegate = self;
-//    self.videoEditer.cropFrame = CGRectMake(100.0, 100.0, 400, 400);
-//    self.videoEditer.exportRenderSize = CGSizeMake(1000.0, 500.0);
+    self.videoEditer.cropFrame = CGRectMake(100.0, 100.0, 400, 400);
+    self.videoEditer.exportRenderSize = CGSizeMake(1000.0, 500.0);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

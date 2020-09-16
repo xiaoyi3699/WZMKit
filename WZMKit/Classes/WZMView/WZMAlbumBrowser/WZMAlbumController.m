@@ -395,26 +395,10 @@
         WZMAlbumPhotoModel *model = [models objectAtIndex:index];
         [model getImageWithConfig:self.config completion:^(id obj) {
             if (obj) {
-                if (model.type == WZMAlbumPhotoTypeVideo) {
-                    [WZMAlbumHelper wzm_exportVideoWithUrl:obj completion:^(NSURL *videoURL) {
-                        [array1 addObject:videoURL];
-                        if (obj == videoURL) {
-                            [array2 addObject:model.thumbnail];
-                        }
-                        else {
-                            UIImage *t = [UIImage wzm_getImageByUrl:videoURL progress:0.0 original:NO];
-                            [array2 addObject:t];
-                        }
-                        [array3 addObject:model.asset];
-                        [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
-                    }];
-                }
-                else {
-                    [array1 addObject:obj];
-                    [array2 addObject:model.thumbnail];
-                    [array3 addObject:model.asset];
-                    [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
-                }
+                [array1 addObject:obj];
+                [array2 addObject:model.thumbnail];
+                [array3 addObject:model.asset];
+                [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
             }
         }];
     }
