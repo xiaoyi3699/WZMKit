@@ -220,7 +220,7 @@
 //计算imageView的frame
 - (CGRect)imageFrame {
     CGRect imageFrame;
-    if (_currentImage.size.width > self.bounds.size.width || _currentImage.size.height > self.bounds.size.height) {
+//    if (_currentImage.size.width > self.bounds.size.width || _currentImage.size.height > self.bounds.size.height) {
         CGFloat imageRatio = _currentImage.size.width/_currentImage.size.height;
         CGFloat photoRatio = self.bounds.size.width/self.bounds.size.height;
         
@@ -234,12 +234,12 @@
             imageFrame.origin.x = (self.bounds.size.width-imageFrame.size.width)/2.0;
             imageFrame.origin.y = 0;
         }
-    }
-    else {
-        imageFrame.size = _currentImage.size;
-        imageFrame.origin.x = (self.bounds.size.width-_currentImage.size.width)/2.0;
-        imageFrame.origin.y = (self.bounds.size.height-_currentImage.size.height)/2.0;
-    }
+//    }
+//    else {
+//        imageFrame.size = _currentImage.size;
+//        imageFrame.origin.x = (self.bounds.size.width-_currentImage.size.width)/2.0;
+//        imageFrame.origin.y = (self.bounds.size.height-_currentImage.size.height)/2.0;
+//    }
     return imageFrame;
 }
 
