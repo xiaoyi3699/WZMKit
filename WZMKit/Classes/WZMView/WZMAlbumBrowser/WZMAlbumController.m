@@ -71,10 +71,10 @@
     [self.titleView addSubview:self.titleBtn];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
-//    leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
+    leftItem.tintColor = self.config.navItemColor;
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
-//    rightItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
+    rightItem.tintColor = self.config.themeColor;
     
     self.navigationItem.titleView = self.titleView;
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -176,7 +176,7 @@
         self.navigationController.view.userInteractionEnabled = YES;
         if (self.config.isOnlyOne && self.config.allowEdit) {
             //允许编辑
-            WZMAlbumEditViewController *editVC = [[WZMAlbumEditViewController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets];
+            WZMAlbumEditViewController *editVC = [[WZMAlbumEditViewController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets config:self.config];
             editVC.delegate = self;
             [self.navigationController pushViewController:editVC animated:YES];
         }

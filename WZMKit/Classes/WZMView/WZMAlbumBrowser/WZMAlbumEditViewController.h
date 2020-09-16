@@ -6,13 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WZMAlbumConfig;
 @protocol WZMAlbumEditViewControllerDelegate;
 
 @interface WZMAlbumEditViewController : UIViewController
 
 @property (nonatomic, weak) id<WZMAlbumEditViewControllerDelegate> delegate;
 
-- (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets;
+- (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets config:(WZMAlbumConfig *)config;
 
 @end
 

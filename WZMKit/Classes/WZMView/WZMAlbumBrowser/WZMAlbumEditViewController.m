@@ -19,9 +19,11 @@
 #import "WZMViewHandle.h"
 #import <Photos/Photos.h>
 #import "WZMAlbumHelper.h"
+#import "WZMAlbumConfig.h"
 
 @interface WZMAlbumEditViewController ()<WZMAlbumScaleViewDelegate,WZMClipTimeViewDelegate,WZMVideoEditerDelegate,WZMPlayerDelegate>
 
+@property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, assign) BOOL loadVideo;
 @property (nonatomic, assign) CGFloat navBarH;
 @property (nonatomic, strong) NSArray *originals;
@@ -47,9 +49,10 @@
 
 @implementation WZMAlbumEditViewController
 
-- (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+- (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets config:(WZMAlbumConfig *)config {
     self = [super init];
     if (self) {
+        self.config = config;
         self.loadVideo = NO;
         self.title = @"图片编辑";
         self.originals = originals;
@@ -96,10 +99,10 @@
     [self.contentView addSubview:self.cropView];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
-//    leftItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor blueColor] darkColor:[UIColor whiteColor]];
+    leftItem.tintColor = self.config.navItemColor;
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
-//    rightItem.tintColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
+    rightItem.tintColor = self.config.themeColor;
     
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;

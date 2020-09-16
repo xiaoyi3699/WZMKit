@@ -28,7 +28,7 @@
         self.autoDismiss = YES;
         self.allowPreview = YES;
         self.allowShowIndex = YES;
-        self.allowShowLocation = YES;
+        self.allowShowLocation = NO;
         self.allowShowGIF = YES;
         self.allowShowImage = YES;
         self.allowShowVideo = YES;
@@ -36,6 +36,9 @@
         self.allowUseThumbnail = YES;
         self.originalImage = YES;
         self.originalVideo = YES;
+        self.themeColor = [UIColor blueColor];
+        self.navBGColor = [UIColor darkTextColor];
+        self.navItemColor = [UIColor darkGrayColor];
         self.imageSize = CGSizeMake(600, 600);
         self.videoPreset = AVAssetExportPreset1280x720;
         self.videoFolder = NSTemporaryDirectory();

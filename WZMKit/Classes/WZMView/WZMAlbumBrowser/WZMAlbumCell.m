@@ -81,7 +81,6 @@
         _indexLabel.text = @"1";
         _indexLabel.font = [UIFont boldSystemFontOfSize:17];
         _indexLabel.textColor = [UIColor whiteColor];
-        _indexLabel.backgroundColor = WZM_ALBUM_COLOR;
         _indexLabel.textAlignment = NSTextAlignmentCenter;
         _indexLabel.hidden = YES;
         _indexLabel.layer.masksToBounds = YES;
@@ -95,7 +94,6 @@
         _indexBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _indexBtn.frame = CGRectMake(self.bounds.size.width-30, 0, 30, 30);
         _indexBtn.imageFrame = CGRectMake(0, 0, 30, 30);
-        _indexBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_normal.png"] forState:UIControlStateNormal];
         [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_seleced.png"] forState:UIControlStateSelected];
         [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,7 +102,6 @@
         _iCloudBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(0, 0, 30, 30);
         _iCloudBtn.imageFrame = CGRectMake(8, 2, 20, 20);
-        _iCloudBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_iCloudBtn setImage:[[WZMPublic imageWithFolder:@"album" imageName:@"album_xz.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
@@ -113,7 +110,6 @@
         _localBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _localBtn.frame = CGRectMake(0.0, self.bounds.size.height-30.0, 30.0, 30.0);
         _localBtn.imageFrame = CGRectMake(5.0, 5.0, 20, 20);
-        _localBtn.tintColor = [WZM_ALBUM_COLOR colorWithAlphaComponent:0.5];
         [_localBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_dw@3x.png"] forState:UIControlStateNormal];
         [_localBtn addTarget:self action:@selector(localBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _localBtn.hidden = YES;
@@ -125,6 +121,10 @@
 - (void)setConfig:(WZMAlbumConfig *)config model:(WZMAlbumPhotoModel *)model {
     self.model = model;
     self.config = config;
+    _indexLabel.backgroundColor = config.themeColor;
+    _indexBtn.tintColor = [config.themeColor colorWithAlphaComponent:0.5];
+    _iCloudBtn.tintColor = [config.themeColor colorWithAlphaComponent:0.5];
+    _localBtn.tintColor = [config.themeColor colorWithAlphaComponent:0.5];
     if (config.allowShowLocation) {
         _localBtn.hidden = (CLLocationCoordinate2DIsValid(model.coordinate) == NO);
     }

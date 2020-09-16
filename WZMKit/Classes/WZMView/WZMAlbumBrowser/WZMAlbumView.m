@@ -114,7 +114,7 @@
             self.countLabel.textColor = [UIColor whiteColor];
             self.countLabel.textAlignment = NSTextAlignmentCenter;
             self.countLabel.wzm_cornerRadius = 5;
-            self.countLabel.backgroundColor = WZM_ALBUM_COLOR;
+            self.countLabel.backgroundColor = self.config.themeColor;
             self.countLabel.userInteractionEnabled = YES;
             [self.toolView addSubview:self.countLabel];
             
@@ -124,7 +124,7 @@
             UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(self.config.maxCount)];
             msgLabel.font = [UIFont systemFontOfSize:13];
-            msgLabel.textColor = [UIColor wzm_getDynamicColorByLightColor:WZM_ALBUM_COLOR darkColor:[UIColor whiteColor]];
+            msgLabel.textColor = self.config.themeColor;
             msgLabel.textAlignment = NSTextAlignmentLeft;
             [self.toolView addSubview:msgLabel];
         }
