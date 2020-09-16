@@ -18,6 +18,8 @@
 @property (nonatomic, readonly, assign) CGFloat startValue;
 ///取值0~1, 默认值1
 @property (nonatomic, readonly, assign) CGFloat endValue;
+///指针颜色
+@property (nonatomic, strong) UIColor *sliderColor;
 ///前景色
 @property (nonatomic, strong) UIColor *foregroundBorderColor;
 ///背景色

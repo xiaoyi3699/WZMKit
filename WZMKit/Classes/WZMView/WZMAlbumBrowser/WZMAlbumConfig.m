@@ -8,6 +8,7 @@
 
 #import "WZMAlbumConfig.h"
 #import "WZMAlbumHelper.h"
+#import "UIColor+wzmcate.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface WZMAlbumConfig ()
@@ -36,9 +37,9 @@
         self.allowUseThumbnail = YES;
         self.originalImage = YES;
         self.originalVideo = YES;
-        self.themeColor = [UIColor blueColor];
+        self.themeColor = [UIColor colorWithRed:36.0/255.0 green:189.0/255.0 blue:72.0/255.0 alpha:1.0];
         //self.navBGColor = [UIColor darkTextColor];
-        self.navItemColor = [UIColor darkGrayColor];
+        self.navItemColor = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
         self.imageSize = CGSizeMake(600, 600);
         self.videoPreset = AVAssetExportPreset1280x720;
         self.videoFolder = NSTemporaryDirectory();

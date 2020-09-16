@@ -10,6 +10,7 @@
 #import "UIView+wzmcate.h"
 #import "WZMButton.h"
 #import "WZMPublic.h"
+#import "UIColor+wzmcate.h"
 
 @interface WZMAlbumScaleView ()
 @property (nonatomic, strong) UIButton *selectedBtn;
@@ -24,9 +25,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        self.normalColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0];
-        self.selectedColor = [UIColor colorWithRed:120.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:1.0];
+        self.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor whiteColor]];
+        self.normalColor = [UIColor wzm_getDynamicColor:[UIColor colorWithRed:180.0/255.0 green:180.0/255.0 blue:180.0/255.0 alpha:1.0]];
+        self.selectedColor = [UIColor wzm_getDynamicColor:[UIColor colorWithRed:120.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:1.0]];
         self.btns = [[NSMutableArray alloc] init];
         self.scales = @[@(0.0),@(1.0),@(3.0/4.0),@(4.0/3.0),@(9.0/16.0),@(16.0/9.0)];
         NSArray *titles = @[@"自由",@"1:1",@"3:4",@"4:3",@"9:16",@"16:9"];

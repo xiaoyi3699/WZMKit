@@ -73,7 +73,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1.0]];
     
     self.contentView = [[UIView alloc] init];
     [self.view addSubview:self.contentView];
@@ -96,6 +96,9 @@
     }
     
     self.cropView = [[WZMCropView alloc] initWithFrame:CGRectZero];
+    self.cropView.edgeColor = self.config.themeColor;
+    self.cropView.cornerColor = self.config.themeColor;
+    self.cropView.separateColor = self.config.themeColor;
     [self.contentView addSubview:self.cropView];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
@@ -253,8 +256,7 @@
             self.clipTimeView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(0.0, self.scaleView.wzm_maxY+5.0, self.contentView.wzm_width, 60.0)];
             self.clipTimeView.delegate = self;
             self.clipTimeView.videoUrl = self.videoUrl;
-            self.clipTimeView.foregroundBorderColor = [UIColor brownColor];
-            self.clipTimeView.backgroundBorderColor = [UIColor brownColor];
+            self.clipTimeView.sliderColor = self.config.themeColor;
             [self.toolView addSubview:self.clipTimeView];
         }
     }
