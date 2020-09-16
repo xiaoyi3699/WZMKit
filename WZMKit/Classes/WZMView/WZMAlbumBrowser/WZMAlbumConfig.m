@@ -37,7 +37,7 @@
         self.originalImage = YES;
         self.originalVideo = YES;
         self.themeColor = [UIColor blueColor];
-        self.navBGColor = [UIColor darkTextColor];
+        //self.navBGColor = [UIColor darkTextColor];
         self.navItemColor = [UIColor darkGrayColor];
         self.imageSize = CGSizeMake(600, 600);
         self.videoPreset = AVAssetExportPreset1280x720;

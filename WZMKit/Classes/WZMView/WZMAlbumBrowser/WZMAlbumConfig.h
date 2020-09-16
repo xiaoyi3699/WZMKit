@@ -13,7 +13,7 @@
 
 ///颜色
 @property (nonatomic, strong) UIColor *themeColor;
-@property (nonatomic, strong) UIColor *navBGColor;
+//@property (nonatomic, strong) UIColor *navBGColor;
 @property (nonatomic, strong) UIColor *navItemColor;
 ///列数,默认3,最大5
 @property (nonatomic, assign) NSInteger column;
