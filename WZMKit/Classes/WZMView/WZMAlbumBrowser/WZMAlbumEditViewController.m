@@ -54,7 +54,7 @@
     if (self) {
         self.config = config;
         self.loadVideo = NO;
-        self.title = @"图片编辑";
+        self.title = @"剪裁";
         self.originals = originals;
         self.thumbnails = thumbnails;
         self.assets = assets;
