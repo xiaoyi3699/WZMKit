@@ -303,9 +303,9 @@
                 [WZMAlbumHelper postUpdateAlbumNotification];
             }
         }];
-        if (isICloud) {
-            [WZMAlbumHelper postUpdateAlbumNotification];
-        }
+//        if (isICloud) {
+//            [WZMAlbumHelper postUpdateAlbumNotification];
+//        }
     }
     else {
         [self showPlaceholderImage];

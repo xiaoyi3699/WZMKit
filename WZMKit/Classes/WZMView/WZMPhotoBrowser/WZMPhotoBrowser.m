@@ -12,9 +12,15 @@
 #import "WZMLogPrinter.h"
 #import "UIImage+wzmcate.h"
 #import "WZMDefined.h"
+#import "UIColor+wzmcate.h"
+#import "WZMButton.h"
 
 @interface WZMPhotoBrowser ()<UICollectionViewDelegate,UICollectionViewDataSource,WZMPhotoBrowserCellDelegate>
 
+@property (nonatomic, assign) BOOL statusHidden;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) WZMButton *closeBtn;
+@property (nonatomic, strong) UIView *navView;
 @property (nonatomic, strong) UIImage *bgImage;
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UIView *contentView;
@@ -27,6 +33,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.statusHidden = YES;
 #if WZM_APP
         self.bgImage = [UIImage wzm_getScreenImageByView:[UIApplication sharedApplication].delegate.window];
 #endif
@@ -68,18 +75,24 @@
     [_collectionView registerClass:[WZMPhotoBrowserCell class] forCellWithReuseIdentifier:@"WZMPhotoCell"];
     [self scrollToIndex:self.index];
     
-    UIView *closeView = [[UIView alloc] initWithFrame:CGRectMake(10, WZM_STATUS_HEIGHT, 40, 40)];
-    closeView.backgroundColor = [UIColor colorWithRed:50/255.0 green:50/255.0 blue:50/255.0 alpha:0.2];
-    closeView.layer.masksToBounds = YES;
-    closeView.layer.cornerRadius = 20;
-    [self.contentView addSubview:closeView];
+    self.navView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, WZM_SCREEN_WIDTH, WZM_NAVBAR_HEIGHT)];
+    self.navView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:50.0/255.0 green:50.0/255.0 blue:50.0/255.0 alpha:1.0]];
+    self.navView.alpha = 0.0;
+    [self.view addSubview:self.navView];
     
-    UITapGestureRecognizer *closeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeItemTap)];
-    [closeView addGestureRecognizer:closeTap];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0, WZM_STATUS_HEIGHT, WZM_SCREEN_WIDTH-120.0, 44.0)];
+    self.titleLabel.textColor = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
+    self.titleLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.index+1),@(self.images.count)];
+    [self.navView addSubview:self.titleLabel];
     
-    UIImageView *closeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14, 14, 12, 12)];
-    closeImageView.image = [WZMPublic imageWithFolder:@"common" imageName:@"close_1.png"];
-    [closeView addSubview:closeImageView];
+    self.closeBtn = [[WZMButton alloc] initWithFrame:CGRectMake(0.0, WZM_STATUS_HEIGHT, 60.0, 44.0)];
+    self.closeBtn.imageFrame = CGRectMake(15.0, 7.0, 30.0, 30.0);
+    self.closeBtn.adjustsImageWhenHighlighted = NO;
+    [self.closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:self.closeBtn];
+    [self traitCollectionDidChange:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,7 +105,7 @@
     self.bgImageView.hidden = YES;
 }
 
-- (void)closeItemTap {
+- (void)closeBtnClick:(UIButton *)btn {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
         [self.delegate photoBrowser:self clickAtIndex:self.index contentType:WZMAlbumPhotoTypePhoto gestureType:WZMGestureRecognizerTypeClose];
     }
@@ -107,8 +120,18 @@
         clickAtIndexPath:(NSIndexPath *)indexPath
              contentType:(WZMAlbumPhotoType)contentType
              gestureType:(WZMGestureRecognizerType)gestureType {
-    if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
-        [self.delegate photoBrowser:self clickAtIndex:indexPath.row contentType:contentType gestureType:gestureType];
+    if (gestureType == WZMGestureRecognizerTypeSingle) {
+        CGFloat alpha = 1 - self.navView.alpha;
+        self.statusHidden = (alpha == 0.0);
+        [self setNeedsStatusBarAppearanceUpdate];
+        [UIView animateWithDuration:0.2 animations:^{
+            self.navView.alpha = alpha;
+        }];
+    }
+    else {
+        if ([self.delegate respondsToSelector:@selector(photoBrowser:clickAtIndex:contentType:gestureType:)]) {
+            [self.delegate photoBrowser:self clickAtIndex:indexPath.row contentType:contentType gestureType:gestureType];
+        }
     }
 }
 
@@ -144,7 +167,12 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    _index = scrollView.contentOffset.x/WZM_SCREEN_WIDTH;
+    CGFloat i1 = scrollView.contentOffset.x/WZM_SCREEN_WIDTH;
+    NSInteger i2 = floor(i1);
+    if (i1 == i2) {
+        _index = i2;
+        self.titleLabel.text = [NSString stringWithFormat:@"%@/%@",@(self.index+1),@(self.images.count)];
+    }
 }
 
 #pragma mark - setter
@@ -175,12 +203,29 @@
     }
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    BOOL isLight = YES;
+    if (@available(iOS 12.0, *)) {
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            isLight = NO;
+        }
+    }
+    UIImage *image;
+    if (isLight) {
+        image = [WZMPublic imageWithFolder:@"common" imageName:@"back_black.png"];
+    }
+    else {
+        image = [WZMPublic imageWithFolder:@"common" imageName:@"back_white.png"];
+    }
+    [self.closeBtn setImage:image forState:UIControlStateNormal];
+}
+
 - (BOOL)wzm_navigationShouldDrag {
     return NO;
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return self.statusHidden;;
 }
 
 @end
