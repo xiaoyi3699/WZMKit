@@ -322,6 +322,7 @@
 
 //private 从AVURLAsset中导出视频
 + (void)wzm_exportVideoWithAVAsset:(AVAsset *)avasset preset:(NSString *)preset outFolder:(NSString *)outFolder completion:(void(^)(NSURL *videoURL))completion {
+    ///支持的预设值
     NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avasset];
     if ([presets containsObject:preset]) {
         //修正视频转向
