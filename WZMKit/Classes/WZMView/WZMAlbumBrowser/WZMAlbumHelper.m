@@ -464,6 +464,16 @@
 }
 
 #pragma mark - other
+///获取视频尺寸
++ (CGSize)wzm_getVideoSizeWithUrl:(NSURL *)url {
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    AVAssetTrack *videoTrack = [asset tracksWithMediaType:AVMediaTypeVideo].firstObject;
+    if (videoTrack) {
+        return videoTrack.naturalSize;
+    }
+    return CGSizeZero;
+}
+
 //修正图片转向
 + (UIImage *)wzm_fixImageOrientation:(UIImage *)aImage {
     if (aImage.imageOrientation == UIImageOrientationUp)

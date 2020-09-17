@@ -24,7 +24,7 @@
 @interface WZMAlbumEditViewController ()<WZMAlbumScaleViewDelegate,WZMClipTimeViewDelegate,WZMVideoEditerDelegate,WZMPlayerDelegate>
 
 @property (nonatomic, strong) WZMAlbumConfig *config;
-@property (nonatomic, assign) BOOL fixVideo;
+@property (nonatomic, assign) BOOL fixFrame;
 @property (nonatomic, assign) BOOL loadVideo;
 @property (nonatomic, assign) CGFloat navBarH;
 @property (nonatomic, strong) NSArray *originals;
@@ -39,6 +39,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 //视频
 @property (nonatomic, strong) NSURL *videoUrl;
+@property (nonatomic, assign) CGSize videoSize;
 @property (nonatomic, strong) WZMPlayer *player;
 @property (nonatomic, strong) WZMPlayerView *playerView;
 @property (nonatomic, strong) WZMClipTimeView *clipTimeView;
@@ -54,7 +55,7 @@
     self = [super init];
     if (self) {
         self.config = config;
-        self.fixVideo = NO;
+        self.fixFrame = NO;
         self.loadVideo = NO;
         self.title = @"剪裁";
         self.originals = originals;
@@ -67,7 +68,6 @@
         else {
             self.type = 1;
             self.videoUrl = originals.firstObject;
-            self.image = thumbnails.firstObject;
         }
     }
     return self;
@@ -85,7 +85,6 @@
     
     if (self.type == 0) {
         self.imageView = [[UIImageView alloc] init];
-        self.imageView.image = self.originals.firstObject;
         [self.contentView addSubview:self.imageView];
     }
     else {
@@ -119,7 +118,7 @@
         self.navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     }
     if (self.type == 0) {
-        self.fixVideo = YES;
+        self.fixFrame = YES;
         [self layoutSubviewFrame];
     }
     else {
@@ -129,7 +128,7 @@
         [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
         [WZMAlbumHelper wzm_fixVideoOrientation:self.videoUrl completion:^(NSURL *videoURL) {
             [WZMViewHandle wzm_dismiss];
-            self.fixVideo = YES;
+            self.fixFrame = YES;
             if ([self.videoUrl.path isEqualToString:videoURL.path] == NO) {
                 self.videoUrl = videoURL;
             }
@@ -151,8 +150,8 @@
         rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.imageView];
     }
     else {
-        UIImage *image = [UIImage wzm_getImageByUrl:self.videoUrl progress:0.0 original:YES];
-        scale = image.size.width/self.playerView.wzm_width;
+        CGSize size = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
+        scale = size.width/self.playerView.wzm_width;
         rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.playerView];
     }
     rect.origin.x *= scale;
@@ -245,19 +244,28 @@
 }
 
 - (void)layoutSubviewFrame {
-    if (self.fixVideo == NO) return;
-    self.fixVideo = NO;
+    if (self.fixFrame == NO) return;
+    self.fixFrame = NO;
     CGRect rect = self.view.bounds;
     rect.origin.y = (self.navBarH);
     rect.size.height -= (self.navBarH + WZM_BOTTOM_HEIGHT);
     self.contentView.frame = rect;
     CGFloat toolH = 60.0 + (self.type == 0 ? 0.0 : 70.0);
-    CGSize size = WZMSizeRatioToMaxSize(self.image.size, CGSizeMake(rect.size.width-10.0, rect.size.height-toolH-10.0));
+    CGSize previewSize;
+    if (self.type == 0) {
+        previewSize = self.image.size;
+    }
+    else {
+        previewSize = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
+        self.videoSize = previewSize;
+    }
+    CGSize size = WZMSizeRatioToMaxSize(previewSize, CGSizeMake(rect.size.width-10.0, rect.size.height-toolH-10.0));
     CGRect previewRect = CGRectZero;
     previewRect.origin.x = (rect.size.width-size.width)/2.0;
     previewRect.origin.y = (rect.size.height-toolH-size.height)/2.0;
     previewRect.size = size;
     if (self.type == 0) {
+        self.imageView.image = self.image;
         self.imageView.frame = previewRect;
     }
     else {

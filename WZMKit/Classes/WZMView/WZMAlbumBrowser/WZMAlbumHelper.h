@@ -41,6 +41,8 @@
 + (void)addUpdateAlbumObserver:(id)observer selector:(SEL)selector;
 + (void)removeUpdateAlbumObserver:(id)observer;
 #pragma mark - other
+///获取视频尺寸
++ (CGSize)wzm_getVideoSizeWithUrl:(NSURL *)url;
 ///修正图片转向
 + (UIImage *)wzm_fixImageOrientation:(UIImage *)aImage;
 ///修正视频转向

@@ -15,6 +15,7 @@
 
 @interface WZMVideoEditer ()<WZMAssetExportSessionDelegate>
 @property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) CGSize renderSize;
 @property (nonatomic, strong) NSString *exportPath;
 @property (nonatomic, strong) AVAudioMix *audioMix;
 @property (nonatomic, assign, getter=isExporting) BOOL exporting;
@@ -146,8 +147,8 @@
     CGAffineTransform transform = [self videoCompositionVideoAssetTrack:videoTrack];
     AVMutableVideoComposition *mainCompositionInst = [self videoCompositionVideoTrack:videoTrack videoAssetTrack:editer.video transform:transform];
     //添加视图动画等
-    if ([self.delegate respondsToSelector:@selector(videoEditer:renderLayerWithComposition:)]) {
-        [self.delegate videoEditer:self renderLayerWithComposition:mainCompositionInst];
+    if ([self.dataSource respondsToSelector:@selector(videoEditer:renderLayerWithComposition:)]) {
+        [self.dataSource videoEditer:self renderLayerWithComposition:mainCompositionInst];
     }
     //导出
     [self videoExportComosition:self.mixComposition videoComposition:mainCompositionInst quality:AVAssetExportPresetHighestQuality];
@@ -175,8 +176,8 @@
 }
 
 //添加视图动画等
-- (void)renderLayerWithComposition:(AVMutableVideoComposition *)composition {
-    CGSize renderSize = composition.renderSize;
+- (void)videoEditer:(WZMVideoEditer *)videoEditer renderLayerWithComposition:(AVMutableVideoComposition *)composition {
+    CGSize renderSize = videoEditer.renderSize;
     CALayer *parentLayer = [CALayer layer];
     parentLayer.frame = CGRectMake(0, 0, renderSize.width, renderSize.height);
     parentLayer.masksToBounds = YES;
@@ -191,7 +192,7 @@
 
 //剪裁视频的尺寸
 - (CGAffineTransform)videoCompositionVideoAssetTrack:(AVAssetTrack *)videoAssetTrack {
-    CGSize naturalSize = videoAssetTrack.naturalSize;
+    self.renderSize = videoAssetTrack.naturalSize;
     CGFloat renderWidth, renderHeight;
     CGRect cropRect = self.cropFrame;
     CGAffineTransform transform;
@@ -203,8 +204,8 @@
         transform = CGAffineTransformMakeTranslation(-point.x, -point.y);
     }
     if (cropRect.size.width == 0 || cropRect.size.height == 0) {
-        renderWidth = naturalSize.width;
-        renderHeight = naturalSize.height;
+        renderWidth = self.renderSize.width;
+        renderHeight = self.renderSize.height;
     }
     else {
         CGSize size = cropRect.size;
@@ -294,13 +295,8 @@
 - (void)exportFinish:(NSString *)path {
     self.exporting = NO;
     self.exportPath = path;
-    if (self.completion) {
-        self.completion(self);
-    }
-    else {
-        if ([self.delegate respondsToSelector:@selector(videoEditerDidExported:)]) {
-            [self.delegate videoEditerDidExported:self];
-        }
+    if ([self.delegate respondsToSelector:@selector(videoEditerDidExported:)]) {
+        [self.delegate videoEditerDidExported:self];
     }
 }
 
