@@ -9,7 +9,7 @@
 #import "ThirdViewController.h"
 #import "WZMAlertQueue.h"
 #import <Photos/Photos.h>
-@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate,WZMClipTimeViewDelegate>
+@interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @end
 
@@ -27,10 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor grayColor];
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 355.0)];
-    _imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:_imageView];
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0, 200.0, 100.0, 50.0)];
     btn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -54,25 +50,19 @@
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    NSURL *url = [originals firstObject];
-    [WZMAlbumHelper wzm_saveVideoWithPath:url.path completion:^(NSError *error) {
-        NSLog(@"===%@",error);
-    }];
+    id obj = [originals firstObject];
+    if ([obj isKindOfClass:[UIImage class]]) {
+        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
+            NSLog(@"===%@",error);
+        }];
+    }
+    else if ([obj isKindOfClass:[NSURL class]]){
+        [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {
+            NSLog(@"===%@",error);
+        }];
+    }
     
-    //_imageView.image = originals.firstObject;
     
-//    WZMClipTimeView *clipView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 60.0)];
-//    clipView.videoUrl = originals.firstObject;
-//    clipView.delegate = self;
-//    [self.view addSubview:clipView];
-}
-
-- (void)clipView:(WZMClipTimeView *)clipView clipChanged:(WZMCommonState)state {
-    NSLog(@"1=======%@====%@====%@====%@",@(state),@(clipView.value),@(clipView.startValue),@(clipView.endValue));
-}
-
-- (void)clipView:(WZMClipTimeView *)clipView valueChanged:(WZMCommonState)state {
-    NSLog(@"2=======%@====%@====%@====%@",@(state),@(clipView.value),@(clipView.startValue),@(clipView.endValue));
 }
 
 @end
