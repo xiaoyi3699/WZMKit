@@ -253,18 +253,25 @@
         [[NSFileManager defaultManager] removeItemAtPath:outPutPath error:nil];
     }
     //创建输出
-    WZMAssetExportSession *assetExport = [[WZMAssetExportSession alloc] initWithAsset:comosition presetName:quality];
-    assetExport.delegate = self;
-    assetExport.outputURL = outPutUrl;//输出路径
-    assetExport.outputFileType = self.exportFileType;//输出类型
-    assetExport.shouldOptimizeForNetworkUse = YES;
-    if (mainCompositionInst) {
-        assetExport.videoComposition = mainCompositionInst;
+    NSArray *presets = [AVAssetExportSession exportPresetsCompatibleWithAsset:comosition];
+    if ([presets containsObject:quality]) {
+        WZMAssetExportSession *assetExport = [[WZMAssetExportSession alloc] initWithAsset:comosition presetName:quality];
+        assetExport.delegate = self;
+        assetExport.outputURL = outPutUrl;//输出路径
+        assetExport.outputFileType = self.exportFileType;//输出类型
+        assetExport.shouldOptimizeForNetworkUse = YES;
+        if (mainCompositionInst) {
+            assetExport.videoComposition = mainCompositionInst;
+        }
+        if (self.audioMix) {
+            assetExport.audioMix = self.audioMix;
+        }
+        [assetExport startExport];
     }
-    if (self.audioMix) {
-        assetExport.audioMix = self.audioMix;
+    else {
+        NSString *des = [NSString stringWithFormat:@"当前设备不支持该预设:%@",quality];
+        WZMLog(@"%@",des);
     }
-    [assetExport startExport];
 }
 
 //视频导出代理
