@@ -393,14 +393,29 @@
 - (void)photosWithModels:(NSArray<WZMAlbumPhotoModel *> *)models index:(NSInteger)index originals:(NSMutableArray *)array1 thumbnails:(NSMutableArray *)array2 assets:(NSMutableArray *)array3 completion:(void(^)(NSArray *originals,NSArray *thumbnails,NSArray *assets))completion {
     if (index < models.count) {
         WZMAlbumPhotoModel *model = [models objectAtIndex:index];
-        [model getImageWithConfig:self.config completion:^(id obj) {
-            if (obj) {
-                [array1 addObject:obj];
-                [array2 addObject:model.thumbnail];
-                [array3 addObject:model.asset];
-                [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
-            }
-        }];
+        if (model.type == WZMAlbumPhotoTypeVideo) {
+            [model getImageWithConfig:self.config completion:^(id obj) {
+                if (obj) {
+                    //矫正视频角度
+                    [WZMAlbumHelper wzm_fixVideoOrientation:obj completion:^(NSURL *videoURL) {
+                        [array1 addObject:videoURL];
+                        [array2 addObject:model.thumbnail];
+                        [array3 addObject:model.asset];
+                        [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
+                    }];
+                }
+            }];
+        }
+        else {
+            [model getImageWithConfig:self.config completion:^(id obj) {
+                if (obj) {
+                    [array1 addObject:obj];
+                    [array2 addObject:model.thumbnail];
+                    [array3 addObject:model.asset];
+                    [self photosWithModels:models index:(index+1) originals:array1 thumbnails:array2 assets:array3 completion:completion];
+                }
+            }];
+        }
     }
     else {
         if (completion) completion([array1 copy],[array2 copy],[array3 copy]);
