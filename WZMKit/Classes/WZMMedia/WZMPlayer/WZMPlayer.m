@@ -15,7 +15,8 @@
 #import "WZMDefined.h"
 
 @interface WZMPlayer ()<AVAudioPlayerDelegate>
-
+//播放器状态激活
+@property (nonatomic, assign) BOOL audioSessionActive;
 @property (nonatomic, strong) AVPlayer *player;     //音频播放器
 @property (nonatomic, assign) CGFloat playProgress; //播放进度
 @property (nonatomic, assign) CGFloat loadProgress; //缓冲进度
@@ -27,7 +28,6 @@
 @property (nonatomic, assign, getter=isLocking) BOOL locking;
 @property (nonatomic, assign, getter=isRelated) BOOL related;
 @property (nonatomic, assign, getter=isBuffering) BOOL buffering;
-
 @end
 
 @implementation WZMPlayer
@@ -44,7 +44,7 @@
         self.background = NO;
         self.allowPlay = YES;
         self.trackingRunLoop = YES;
-        
+        self.audioSessionActive = NO;
         //监听音频播放结束
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 #if WZM_APP
@@ -57,12 +57,6 @@
         
         //监听音频播放中断
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieInterruption:) name:AVAudioSessionInterruptionNotification object:nil];
-        
-        //设置并激活后台播放
-        AVAudioSession *session=[AVAudioSession sharedInstance];
-        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-        [session setActive:YES error:nil];
-        
 #if WZM_APP
         //允许应用程序接收远程控制
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
@@ -359,16 +353,19 @@
         self.playing = YES;
         [self wzm_changeStatus];
     }
+    self.audioSessionActive = YES;
 }
 
 - (void)pause {
     self.locking = YES;
     [self loop_pause];
+    self.audioSessionActive = NO;
 }
 
 - (void)stop {
     [self pause];
     [self resetConfig:YES];
+    self.audioSessionActive = NO;
 }
 
 - (void)loop_pause {
@@ -415,6 +412,17 @@
         CMTime dur = self.player.currentItem.duration;
         [self.player seekToTime:CMTimeMultiplyByFloat64(dur, progress) toleranceBefore:CMTimeMake(1, 30) toleranceAfter:CMTimeMake(1, 30)];
     }
+}
+
+//设置并激活后台播放
+- (void)setAudioSessionActive:(BOOL)audioSessionActive {
+    if (_audioSessionActive == audioSessionActive) return;
+    _audioSessionActive = audioSessionActive;
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    if (audioSessionActive) {
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+    [session setActive:audioSessionActive error:nil];
 }
 
 //移除相关监听

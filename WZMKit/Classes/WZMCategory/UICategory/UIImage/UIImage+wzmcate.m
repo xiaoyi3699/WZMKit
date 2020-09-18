@@ -14,7 +14,6 @@
 #import <Accelerate/Accelerate.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define IMG_WZM_SCREEN_SCALE   [UIScreen mainScreen].scale
 @implementation UIImage (wzmcate)
 
 #pragma mark - 类方法
