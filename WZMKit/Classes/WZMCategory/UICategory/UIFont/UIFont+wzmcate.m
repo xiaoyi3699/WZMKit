@@ -37,8 +37,12 @@
         WZMLog(@"Failed to load font: %@", errorDesc);
         CFRelease(errorDesc);
     }
-    CFRelease(fontRef);
-    CFRelease(providerRef);
+    if (fontRef) {
+        CFRelease(fontRef);
+    }
+    if (providerRef) {
+        CFRelease(providerRef);
+    }
     return fontName;
 }
 

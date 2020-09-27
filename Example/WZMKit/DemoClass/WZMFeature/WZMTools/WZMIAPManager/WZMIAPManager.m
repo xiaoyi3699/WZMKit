@@ -269,7 +269,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
                 [self verifyPurchaseFail];
             }
             else {
-                WZMIAPResultStatus status = [WZMJSONParse getIntValueInDict:responseObject withKey:@"status"];
+                WZMIAPResultStatus status = [WZMJSONParse getIntegerValueInDict:responseObject withKey:@"status"];
                 if (status == WZMIAPResultStatusSuccess) {
                     //交易成功
                     self.failedCount = 0;

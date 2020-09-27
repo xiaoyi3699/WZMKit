@@ -11,122 +11,39 @@
 
 @implementation WZMJSONParse
 
-+ (long long)getLongValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    id tmp = nil;
-    @try {
-        tmp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (tmp == nil) {
-        return 0;
-    }
-    if ([tmp isKindOfClass:[NSNumber class]] || [tmp isKindOfClass:[NSString class]]) {
-        return [tmp longLongValue];
-    }
-    return 0;
-}
-
-+ (NSInteger)getIntValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    id tmp = nil;
-    @try {
-        tmp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (tmp == nil) {
-        return 0;
-    }
-    if ([tmp isKindOfClass:[NSNumber class]] || [tmp isKindOfClass:[NSString class]]) {
-        return [tmp integerValue];
-    }
-    return 0;
-}
-
 + (BOOL)getBoolValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    id tmp = nil;
-    @try {
-        tmp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (tmp == nil) {
-        return NO;
-    }
-    if ([tmp isKindOfClass:[NSNumber class]] || [tmp isKindOfClass:[NSString class]]) {
-        return [tmp boolValue];
-    }
-    return NO;
+    return [[self getDataInDict:dict withKey:key] boolValue];
 }
 
-+ (float)getFloatValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    id tmp = nil;
-    @try {
-        tmp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (tmp == nil) {
-        return 0.0f;
-    }
-    if ([tmp isKindOfClass:[NSNumber class]] || [tmp isKindOfClass:[NSString class]]) {
-        return [tmp floatValue];
-    }
-    return 0.0f;
++ (NSInteger)getIntegerValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
+    return [[self getDataInDict:dict withKey:key] integerValue];
+}
+
++ (CGFloat)getFloatValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
+    return [[self getDataInDict:dict withKey:key] doubleValue];
 }
 
 + (NSString *)getStringValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    id temp = nil;
-    @try {
-        temp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (temp == nil) {
-        return @"";
-    }
-    if ([temp isKindOfClass:[NSString class]]) {
-        return temp;
-    }
-    if ([temp isKindOfClass:[NSNumber class]]) {
-        return [NSString stringWithFormat:@"%@",temp];
-    }
-    return @"";
-}
-
-+ (NSNumber *)getNumberValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSNumber class]];
+    id v = [self getDataInDict:dict withKey:key];
+    return [NSString stringWithFormat:@"%@",v];
 }
 
 + (NSDictionary *)getDictionaryValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSDictionary class]];
+    id v = [self getDataInDict:dict withKey:key];
+    if ([v isKindOfClass:[NSDictionary class]]) return v;
+    return nil;
 }
 
 + (NSArray *)getArrayValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [WZMJSONParse getDataInDict:dict withKey:key ofClass:[NSArray class]];
+    id v = [self getDataInDict:dict withKey:key];
+    if ([v isKindOfClass:[NSArray class]]) return v;
+    return nil;
 }
 
-+ (NSMutableArray *)getMutableArrayValueInDict:(NSDictionary *)dict withKey:(NSString *)key {
-    return [[WZMJSONParse getArrayValueInDict:dict withKey:key] mutableCopy];
-}
-
-+ (id)getDataInDict:(NSDictionary *)dict withKey:(NSString *)key ofClass:(Class)class {
-    id temp = nil;
-    @try {
-        temp = [dict objectForKey:key];
-    }
-    @catch (NSException *exception) {
-        WZMLog(@"很遗憾的跟你说，程序出错了：%@",exception);
-    }
-    if (temp == nil) {
-        return nil;
-    }
-    return [temp isKindOfClass:class]?temp:nil;
++ (id)getDataInDict:(NSDictionary *)dict withKey:(NSString *)key {
+    if (key == nil || dict == nil) return nil;
+    if ([dict isKindOfClass:[NSDictionary class]] == NO) return nil;
+    return [dict objectForKey:key];
 }
 
 @end
