@@ -359,13 +359,11 @@
 - (void)pause {
     self.locking = YES;
     [self loop_pause];
-    self.audioSessionActive = NO;
 }
 
 - (void)stop {
     [self pause];
     [self resetConfig:YES];
-    self.audioSessionActive = NO;
 }
 
 - (void)loop_pause {
@@ -427,6 +425,7 @@
 
 //移除相关监听
 - (void)dealloc {
+    self.audioSessionActive = NO;
     [_player removeTimeObserver:_playTimeObserver];
     [_player replaceCurrentItemWithPlayerItem:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
