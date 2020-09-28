@@ -425,10 +425,10 @@
 
 //移除相关监听
 - (void)dealloc {
-    self.audioSessionActive = NO;
     [_player removeTimeObserver:_playTimeObserver];
     [_player replaceCurrentItemWithPlayerItem:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.audioSessionActive = NO;
 }
 
 @end
