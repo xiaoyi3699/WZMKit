@@ -51,14 +51,14 @@
     NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
-    for (NSInteger i = 0; i < self.tabBar.items.count; i ++) {
+    for (NSInteger i = 0; i < self.childViewControllers.count; i ++) {
         NSDictionary *atts = @{NSForegroundColorAttributeName:[UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:8.0/255.0 green:8.0/255.0 blue:8.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]],NSFontAttributeName:[UIFont systemFontOfSize:12.0]};
         NSDictionary *selAtts = @{NSForegroundColorAttributeName:[UIColor redColor],NSFontAttributeName:[UIFont systemFontOfSize:12.0]};
         
         UIImage *img = [[UIImage imageNamed:normalImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
-        UITabBarItem *tabBarItem = self.tabBar.items[i];
+        UITabBarItem *tabBarItem = [self.childViewControllers[i] tabBarItem];
         if (@available(iOS 13.0, *)) {
             UITabBarAppearance *appearance = [UITabBarAppearance new];
             appearance.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:8.0/255.0 green:8.0/255.0 blue:8.0/255.0 alpha:1.0]];
