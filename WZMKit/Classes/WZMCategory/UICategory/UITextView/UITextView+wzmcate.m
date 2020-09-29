@@ -9,6 +9,7 @@
 #import "UITextView+wzmcate.h"
 #import <objc/runtime.h>
 #import "WZMLogPrinter.h"
+#import "NSObject+wzmcate.h"
 
 #define TV_WZM_SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 @implementation UITextView (wzmcate)
@@ -28,14 +29,7 @@ static NSString *_performActionKey = @"performAction";
     dispatch_once(&onceToken, ^{
         SEL systemSel = @selector(canPerformAction:withSender:);
         SEL swizzSel = @selector(wzm_canPerformAction:withSender:);
-        Method systemMethod = class_getInstanceMethod([self class], systemSel);
-        Method swizzMethod = class_getInstanceMethod([self class], swizzSel);
-        BOOL isAdd = class_addMethod(self, systemSel, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));
-        if (isAdd) {
-            class_replaceMethod(self, swizzSel, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));
-        } else {
-            method_exchangeImplementations(systemMethod, swizzMethod);
-        }
+        [self wzm_swizzleMethod:self systemSel:systemSel swizzSel:swizzSel];
     });
 }
 

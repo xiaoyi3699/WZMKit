@@ -20,14 +20,7 @@ static NSString *_tag = @"wzm_tag";
     dispatch_once(&onceToken, ^{
         SEL systemSel = NSSelectorFromString(@"dealloc");
         SEL swizzSel = NSSelectorFromString(@"wzm_dealloc");
-        Method systemMethod = class_getInstanceMethod([self class], systemSel);
-        Method swizzMethod = class_getInstanceMethod([self class], swizzSel);
-        BOOL isAdd = class_addMethod(self, systemSel, method_getImplementation(swizzMethod), method_getTypeEncoding(swizzMethod));
-        if (isAdd) {
-            class_replaceMethod(self, swizzSel, method_getImplementation(systemMethod), method_getTypeEncoding(systemMethod));
-        } else {
-            method_exchangeImplementations(systemMethod, swizzMethod);
-        }
+        [self wzm_swizzleMethod:self systemSel:systemSel swizzSel:swizzSel];
     });
 }
 
@@ -38,6 +31,32 @@ static NSString *_tag = @"wzm_tag";
     [self wzm_dealloc];
 }
 #endif
+
+//方法交换
++ (BOOL)wzm_swizzleMethod:(Class)class systemSel:(SEL)origSel swizzSel:(SEL)altSel {
+    Method origMethod = class_getInstanceMethod(class, origSel);
+    Method altMethod = class_getInstanceMethod(class, altSel);
+    if (origMethod == nil) {
+        class = object_getClass(class);
+        origMethod = class_getInstanceMethod(class, origSel);
+        altMethod = class_getInstanceMethod(class, altSel);
+    }
+    if (!origMethod || !altMethod) {
+        return NO;
+    }
+    BOOL didAddMethod = class_addMethod(class,origSel,
+                                        method_getImplementation(altMethod),
+                                        method_getTypeEncoding(altMethod));
+    
+    if (didAddMethod) {
+        class_replaceMethod(class,altSel,
+                            method_getImplementation(origMethod),
+                            method_getTypeEncoding(origMethod));
+    } else {
+        method_exchangeImplementations(origMethod, altMethod);
+    }
+    return YES;
+}
 
 - (void)setWzm_tag:(int)wzm_tag {
     NSNumber *t = @(wzm_tag);

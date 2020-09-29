@@ -38,6 +38,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    config.allowShowLocation = YES;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;
     [self presentViewController:albumNav animated:YES completion:nil];

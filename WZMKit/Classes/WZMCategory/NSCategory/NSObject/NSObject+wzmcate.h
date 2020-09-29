@@ -20,4 +20,7 @@
 - (NSString *)wzm_className;
 + (NSString *)wzm_className;
 
+///方法交换
++ (BOOL)wzm_swizzleMethod:(Class)class systemSel:(SEL)origSel swizzSel:(SEL)altSel;
+
 @end
