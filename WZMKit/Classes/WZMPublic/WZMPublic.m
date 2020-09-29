@@ -233,7 +233,7 @@
 + (NSString *)filePathWithFolder:(NSString *)folder fileName:(NSString *)fileName {
     NSBundle *bundle = [[WZMPublic sharePublic] resourceBundle];
     NSString *resource = [NSString stringWithFormat:@"%@/%@",folder,fileName];
-    return [bundle pathForResource:resource ofType:nil];
+    return [NSString stringWithFormat:@"%@/%@",bundle.bundlePath,resource];
 }
 
 + (UIImage *)imageWithFolder:(NSString *)folder imageName:(NSString *)imageName {
