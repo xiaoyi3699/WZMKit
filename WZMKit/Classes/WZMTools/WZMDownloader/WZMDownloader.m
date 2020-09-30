@@ -103,15 +103,14 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     self.downloading = NO;
-    NSString *filePath;
+    NSString *filePath; NSError *error;
     if (self.folderPath.length) {
         BOOL isDirectory;
         if ([[NSFileManager defaultManager] fileExistsAtPath:self.folderPath isDirectory:&isDirectory]) {
             if (isDirectory) {
                 NSString *filePath2 = [self.folderPath stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
                 //移动文件到指定路径
-                if ([[NSFileManager defaultManager] moveItemAtPath:location.path toPath:filePath2 error:nil]) {
-                    [[NSFileManager defaultManager] removeItemAtURL:location error:nil];
+                if ([[NSFileManager defaultManager] moveItemAtPath:location.path toPath:filePath2 error:&error]) {
                     filePath = filePath2;
                 }
             }
@@ -120,21 +119,17 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     if (filePath == nil) {
         filePath = location.path;
     }
-    if ([self.delegate respondsToSelector:@selector(downloader:didFinish:)]) {
-        [self.delegate downloader:self didFinish:filePath];
+    if ([self.delegate respondsToSelector:@selector(downloader:didFinish:error:)]) {
+        [self.delegate downloader:self didFinish:filePath error:error];
     }
-}
-
-- (void)URLSession:(NSURLSession *)session
-      downloadTask:(NSURLSessionDownloadTask *)downloadTask
- didResumeAtOffset:(int64_t)fileOffset
-expectedTotalBytes:(int64_t)expectedTotalBytes {
-    
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
     if (error) {
-        WZMLog(@"=%@=",error);
+        self.downloading = NO;
+        if ([self.delegate respondsToSelector:@selector(downloader:didFinish:error:)]) {
+            [self.delegate downloader:self didFinish:nil error:error];
+        }
     }
 }
 

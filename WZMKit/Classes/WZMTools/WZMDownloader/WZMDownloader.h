@@ -32,6 +32,6 @@
 
 @optional
 - (void)downloader:(WZMDownloader *)downloader didWriteBytes:(int64_t)didWriteBytes totalBytes:(int64_t)totalBytes;
-- (void)downloader:(WZMDownloader *)downloader didFinish:(NSString *)path;
+- (void)downloader:(WZMDownloader *)downloader didFinish:(NSString *)path error:(NSError *)error;
 
 @end
