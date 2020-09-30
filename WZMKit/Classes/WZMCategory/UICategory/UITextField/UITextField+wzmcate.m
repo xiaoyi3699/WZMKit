@@ -29,7 +29,7 @@ static NSString *_performActionKey = @"performAction";
     dispatch_once(&onceToken, ^{
         SEL systemSel = @selector(canPerformAction:withSender:);
         SEL swizzSel = @selector(wzm_canPerformAction:withSender:);
-        [self wzm_swizzleMethod:self systemSel:systemSel swizzSel:swizzSel];
+        [self wzm_swizzleSystemSel:systemSel swizzSel:swizzSel];
     });
 }
 
