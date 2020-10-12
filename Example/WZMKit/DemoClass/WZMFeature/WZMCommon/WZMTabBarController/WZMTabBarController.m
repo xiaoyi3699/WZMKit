@@ -12,7 +12,6 @@
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
 #import "WZMMacro.h"
-#import "WZMTabBar.h"
 
 @interface WZMTabBarController ()
 
@@ -31,7 +30,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         tabBarController = [[WZMTabBarController alloc] init];
-        [tabBarController setValue:[[WZMTabBar alloc] init] forKey:@"tabBar"];
         tabBarController.tabBar.translucent = NO;
         
         FirstViewController *firstViewController = [[FirstViewController alloc] init];
@@ -45,19 +43,6 @@
         
         [tabBarController setViewControllers:@[firstNav,secondNav,thirdNav]];
         [tabBarController setConfig];
-        
-        WZMDispatch_after(2.0, ^{
-            [tabBarController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx == 2) {
-                    if (idx > 1) {
-                        idx++;
-                    }
-                    [(WZMTabBar *)tabBarController.tabBar setIndex:idx];
-                    obj.tabBarItem.image = nil;
-                    obj.tabBarItem.selectedImage = nil;
-                }
-            }];
-        });
     });
     return tabBarController;
 }

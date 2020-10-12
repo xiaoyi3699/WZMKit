@@ -29,38 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.videoEditer = [[WZMVideoEditer alloc] init];
-    self.videoEditer.loop2 = YES;
-    self.videoEditer.delegate = self;
-    self.videoEditer.cropFrame = CGRectMake(100.0, 100.0, 400, 400);
-    self.videoEditer.exportRenderSize = CGSizeMake(1000.0, 500.0);
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.allowShowLocation = YES;
-    WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    albumNav.pickerDelegate = self;
-    [self presentViewController:albumNav animated:YES completion:nil];
-}
-
-- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    [self.videoEditer handleVideoWithPath:[originals.firstObject path]];
-}
-
-- (void)videoEditerExporting:(WZMVideoEditer *)videoEditer {
-    NSLog(@"%@",@(videoEditer.progress));
-}
-
-- (void)videoEditerDidExported:(WZMVideoEditer *)videoEditer {
-    if (videoEditer.exportPath) {
-        [WZMAlbumHelper wzm_saveVideoWithPath:videoEditer.exportPath completion:^(NSError *error) {
-            NSLog(@"==%@",error);
-        }];
-//        NSURL *url = [NSURL fileURLWithPath:videoEditer.exportPath];
-//        WZMVideoPlayerViewController *vc = [[WZMVideoPlayerViewController alloc] initWithVideoUrl:url];
-//        [self.navigationController pushViewController:vc animated:YES];
-    }
+    
 }
 
 @end
