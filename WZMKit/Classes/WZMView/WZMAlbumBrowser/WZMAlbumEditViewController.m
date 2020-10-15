@@ -95,7 +95,6 @@
         self.player.playerView = self.playerView;
         self.player.delegate = self;
     }
-    
     self.cropView = [[WZMCropView alloc] initWithFrame:CGRectZero];
     self.cropView.edgeColor = self.config.themeColor;
     self.cropView.cornerColor = self.config.themeColor;
@@ -272,6 +271,11 @@
         self.playerView.frame = previewRect;
     }
     self.cropView.frame = previewRect;
+    CGFloat minLength = MIN(previewRect.size.width, previewRect.size.height)/2.0;
+    if (minLength < self.cropView.cornerSpacing) {
+        self.cropView.cornerSpacing = minLength*0.5;
+        self.cropView.cornerLenght = minLength*0.5;
+    }
     self.toolView.frame = CGRectMake(0.0, self.contentView.wzm_height-toolH, self.contentView.wzm_width, toolH);
     if (self.scaleView == nil) {
         self.scaleView = [[WZMAlbumScaleView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.contentView.wzm_width, 60.0)];

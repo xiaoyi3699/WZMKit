@@ -13,6 +13,8 @@
 ///剪裁框
 @property (nonatomic, assign) CGRect cropFrame;
 ///顶点线
+@property (nonatomic, assign) CGFloat cornerLenght;  //顶点显示长度
+@property (nonatomic, assign) CGFloat cornerSpacing; //顶点实际长度
 @property (nonatomic, assign) CGFloat cornerWidth;
 @property (nonatomic, strong) UIColor *cornerColor;
 @property (nonatomic, assign, getter=isShowCorner) BOOL showCorner;

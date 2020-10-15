@@ -21,7 +21,6 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
 
 @property (nonatomic, assign) CGRect startFrame;
 @property (nonatomic, assign) CGPoint startPoint;
-@property (nonatomic, assign) CGFloat cornerLenght;
 @property (nonatomic, assign) WZMCropMoveType moveType;
 
 @end
@@ -46,6 +45,7 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         self.separateWidth = 0.5;
         self.separateColor = [UIColor redColor];
         
+        self.cornerSpacing = 40.0;
         self.cornerLenght = 40.0;
         self.cropFrame = self.bounds;
         self.moveType = WZMCropMoveTypeNone;
@@ -145,19 +145,19 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         self.startFrame = self.cropFrame;
         CGFloat minX = CGRectGetMinX(self.cropFrame);
         CGFloat minY = CGRectGetMinY(self.cropFrame);
-        if (CGRectContainsPoint(CGRectMake(minX, minY, 40.0, 40.0), point)) {
+        if (CGRectContainsPoint(CGRectMake(minX, minY, self.cornerSpacing, self.cornerSpacing), point)) {
             //左上
             self.moveType = WZMCropMoveTypeLeftTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40.0, minY, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-self.cornerSpacing, minY, self.cornerSpacing, self.cornerSpacing), point)) {
             //右上
             self.moveType = WZMCropMoveTypeRightTop;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX, minY+self.cropFrame.size.height-40.0, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX, minY+self.cropFrame.size.height-self.cornerSpacing, self.cornerSpacing, self.cornerSpacing), point)) {
             //左下
             self.moveType = WZMCropMoveTypeLeftDowm;
         }
-        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-40, minY+self.cropFrame.size.height-40.0, 40.0, 40.0), point)) {
+        else if (CGRectContainsPoint(CGRectMake(minX+self.cropFrame.size.width-self.cornerSpacing, minY+self.cropFrame.size.height-self.cornerSpacing, self.cornerSpacing, self.cornerSpacing), point)) {
             //右下
             self.moveType = WZMCropMoveTypeRightDown;
         }
@@ -186,16 +186,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.x + dx <= 0.0) {
                 dx = -cropFrame.origin.x;
             }
-            if (cropFrame.size.width - dx <= 40.0*2) {
-                dx = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dx <= self.cornerSpacing*2) {
+                dx = cropFrame.size.width - self.cornerSpacing*2;
             }
             dy = dx/self.WHScale;
             if (cropFrame.origin.y + dy <= 0.0) {
                 dy = -cropFrame.origin.y;
                 dx = dy*self.WHScale;
             }
-            if (cropFrame.size.height - dy <= 40.0*2) {
-                dy = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dy <= self.cornerSpacing*2) {
+                dy = cropFrame.size.height - self.cornerSpacing*2;
                 dx = dy*self.WHScale;
             }
         }
@@ -206,11 +206,11 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.y + dy <= 0.0) {
                 dy = -cropFrame.origin.y;
             }
-            if (cropFrame.size.width - dx <= 40.0*2) {
-                dx = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dx <= self.cornerSpacing*2) {
+                dx = cropFrame.size.width - self.cornerSpacing*2;
             }
-            if (cropFrame.size.height - dy <= 40.0*2) {
-                dy = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dy <= self.cornerSpacing*2) {
+                dy = cropFrame.size.height - self.cornerSpacing*2;
             }
         }
         dw = dx; dh = dy;
@@ -222,16 +222,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
                 dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
             }
-            if (cropFrame.size.width - dw <= 40.0*2) {
-                dw = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dw <= self.cornerSpacing*2) {
+                dw = cropFrame.size.width - self.cornerSpacing*2;
             }
             dy = dw/self.WHScale;
             if (cropFrame.origin.y + dy <= 0.0) {
                 dy = -cropFrame.origin.y;
                 dw = dy*self.WHScale;
             }
-            if (cropFrame.size.height - dy <= 40.0*2) {
-                dy = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dy <= self.cornerSpacing*2) {
+                dy = cropFrame.size.height - self.cornerSpacing*2;
                 dw = dy*self.WHScale;
             }
         }
@@ -243,11 +243,11 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.y + dy <= 0.0) {
                 dy = -cropFrame.origin.y;
             }
-            if (cropFrame.size.width - dw <= 40.0*2) {
-                dw = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dw <= self.cornerSpacing*2) {
+                dw = cropFrame.size.width - self.cornerSpacing*2;
             }
-            if (cropFrame.size.height - dy <= 40.0*2) {
-                dy = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dy <= self.cornerSpacing*2) {
+                dy = cropFrame.size.height - self.cornerSpacing*2;
             }
         }
         dx = 0.0; dh = dy;
@@ -259,16 +259,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.x + dx <= 0.0) {
                 dx = -cropFrame.origin.x;
             }
-            if (cropFrame.size.width - dx <= 40.0*2) {
-                dx = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dx <= self.cornerSpacing*2) {
+                dx = cropFrame.size.width - self.cornerSpacing*2;
             }
             dh = dx/self.WHScale;
             if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
                 dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
                 dx = dh*self.WHScale;
             }
-            if (cropFrame.size.height - dh <= 40.0*2) {
-                dh = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dh <= self.cornerSpacing*2) {
+                dh = cropFrame.size.height - self.cornerSpacing*2;
                 dx = dh*self.WHScale;
             }
         }
@@ -280,11 +280,11 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
                 dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
             }
-            if (cropFrame.size.width - dx <= 40.0*2) {
-                dx = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dx <= self.cornerSpacing*2) {
+                dx = cropFrame.size.width - self.cornerSpacing*2;
             }
-            if (cropFrame.size.height - dh <= 40.0*2) {
-                dh = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dh <= self.cornerSpacing*2) {
+                dh = cropFrame.size.height - self.cornerSpacing*2;
             }
         }
         dy = 0.0; dw = dx;
@@ -296,16 +296,16 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
                 dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
             }
-            if (cropFrame.size.width - dw <= 40.0*2) {
-                dw = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dw <= self.cornerSpacing*2) {
+                dw = cropFrame.size.width - self.cornerSpacing*2;
             }
             dh = dw/self.WHScale;
             if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
                 dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
                 dw = dh*self.WHScale;
             }
-            if (cropFrame.size.height - dh <= 40.0*2) {
-                dh = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dh <= self.cornerSpacing*2) {
+                dh = cropFrame.size.height - self.cornerSpacing*2;
                 dw = dh*self.WHScale;
             }
         }
@@ -314,14 +314,14 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
             if (cropFrame.origin.x + cropFrame.size.width - dw >= self.bounds.size.width) {
                 dw = (cropFrame.origin.x + cropFrame.size.width) - self.bounds.size.width;
             }
-            if (cropFrame.size.width - dw <= 40.0*2) {
-                dw = cropFrame.size.width - 40.0*2;
+            if (cropFrame.size.width - dw <= self.cornerSpacing*2) {
+                dw = cropFrame.size.width - self.cornerSpacing*2;
             }
             if (cropFrame.origin.y + cropFrame.size.height - dh >= self.bounds.size.height) {
                 dh = (cropFrame.origin.y + cropFrame.size.height) - self.bounds.size.height;
             }
-            if (cropFrame.size.height - dh <= 40.0*2) {
-                dh = cropFrame.size.height - 40.0*2;
+            if (cropFrame.size.height - dh <= self.cornerSpacing*2) {
+                dh = cropFrame.size.height - self.cornerSpacing*2;
             }
         }
         dx = 0.0; dy = 0.0;
