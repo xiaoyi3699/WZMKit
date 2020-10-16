@@ -41,17 +41,17 @@
         _photoImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _photoImageView.contentMode = UIViewContentModeScaleAspectFill;
         _photoImageView.clipsToBounds = YES;
-        [self addSubview:_photoImageView];
+        [self.contentView addSubview:_photoImageView];
         
         _playImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.bounds.size.width-20)/2, (self.bounds.size.height-20)/2, 20, 20)];
         _playImageView.image = [WZMPublic imageWithFolder:@"album" imageName:@"album_play.png"];
         _playImageView.hidden = YES;
-        [self addSubview:_playImageView];
+        [self.contentView addSubview:_playImageView];
         
         _videoTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-15, self.bounds.size.width, 15)];
         _videoTimeView.backgroundColor = [UIColor blackColor];
         _videoTimeView.hidden = YES;
-        [self addSubview:_videoTimeView];
+        [self.contentView addSubview:_videoTimeView];
         
         _videoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_videoTimeView.bounds.size.width-42, 0, 40, 15)];
         _videoTimeLabel.font = [UIFont systemFontOfSize:7];
@@ -66,7 +66,7 @@
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _activityView.frame = self.bounds;
         _activityView.hidesWhenStopped = YES;
-        [self addSubview:_activityView];
+        [self.contentView addSubview:_activityView];
         
         _gifLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-25, self.bounds.size.height-15, 25, 15)];
         _gifLabel.text = @"GIF";
@@ -75,7 +75,7 @@
         _gifLabel.backgroundColor = [UIColor blackColor];
         _gifLabel.textAlignment = NSTextAlignmentCenter;
         _gifLabel.hidden = YES;
-        [self addSubview:_gifLabel];
+        [self.contentView addSubview:_gifLabel];
         
         _indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width-30, 0, 30, 30)];
         _indexLabel.text = @"1";
@@ -86,7 +86,7 @@
         _indexLabel.layer.masksToBounds = YES;
         _indexLabel.layer.cornerRadius = 15;
         _indexLabel.userInteractionEnabled = YES;
-        [self addSubview:_indexLabel];
+        [self.contentView addSubview:_indexLabel];
         
         UITapGestureRecognizer *indexTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(indexTapGesture:)];
         [_indexLabel addGestureRecognizer:indexTap];
@@ -97,7 +97,7 @@
         [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_normal.png"] forState:UIControlStateNormal];
         [_indexBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_seleced.png"] forState:UIControlStateSelected];
         [_indexBtn addTarget:self action:@selector(indexBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_indexBtn];
+        [self.contentView addSubview:_indexBtn];
         
         _iCloudBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _iCloudBtn.frame = CGRectMake(0, 0, 30, 30);
@@ -105,7 +105,7 @@
         [_iCloudBtn setImage:[[WZMPublic imageWithFolder:@"album" imageName:@"album_xz.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_iCloudBtn addTarget:self action:@selector(iCloudBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _iCloudBtn.hidden = YES;
-        [self addSubview:_iCloudBtn];
+        [self.contentView addSubview:_iCloudBtn];
         
         _localBtn = [WZMButton buttonWithType:UIButtonTypeCustom];
         _localBtn.frame = CGRectMake(0.0, self.bounds.size.height-30.0, 30.0, 30.0);
@@ -113,7 +113,7 @@
         [_localBtn setImage:[WZMPublic imageWithFolder:@"album" imageName:@"album_dw@3x.png"] forState:UIControlStateNormal];
         [_localBtn addTarget:self action:@selector(localBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         _localBtn.hidden = YES;
-        [self addSubview:_localBtn];
+        [self.contentView addSubview:_localBtn];
     }
     return self;
 }

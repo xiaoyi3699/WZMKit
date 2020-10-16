@@ -22,13 +22,13 @@
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         _imageView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.8];
-        [self addSubview:_imageView];
+        [self.contentView addSubview:_imageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 60)];
         _titleLabel.textColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor darkTextColor] darkColor:[UIColor whiteColor]];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.font = [UIFont systemFontOfSize:15];
-        [self addSubview:_titleLabel];
+        [self.contentView addSubview:_titleLabel];
     }
     return self;
 }

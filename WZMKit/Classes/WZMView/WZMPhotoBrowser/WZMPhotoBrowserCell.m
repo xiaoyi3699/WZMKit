@@ -26,7 +26,7 @@
         _photo = [[WZMPhoto alloc] initWithFrame:rect];
         _photo.wzm_delegate = self;
         _photo.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        [self addSubview:_photo];
+        [self.contentView addSubview:_photo];
     }
     return self;
 }

@@ -23,11 +23,11 @@
         _titleLabel = [[UILabel alloc] initWithFrame:rect];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_titleLabel];
+        [self.contentView addSubview:_titleLabel];
         
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(5.0, _titleLabel.wzm_maxY, self.wzm_width-10.0, 2.0)];
         _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_lineView];
+        [self.contentView addSubview:_lineView];
     }
     return self;
 }

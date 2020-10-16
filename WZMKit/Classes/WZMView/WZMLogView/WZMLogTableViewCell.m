@@ -19,7 +19,7 @@
         _width = width;
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 0;
-        [self addSubview:_contentLabel];
+        [self.contentView addSubview:_contentLabel];
     }
     return self;
 }
