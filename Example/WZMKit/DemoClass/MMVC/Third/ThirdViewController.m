@@ -41,8 +41,8 @@
 - (void)btnClick:(UIButton *)btn {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
     config.maxCount = 1;
-    config.allowEdit = YES;
-    config.allowPreview = NO;
+    //config.allowEdit = YES;
+    //config.allowPreview = NO;
     config.originalVideo = NO;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;

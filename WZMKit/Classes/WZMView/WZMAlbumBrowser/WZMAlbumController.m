@@ -54,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor colorWithRed:25.5/255.0 green:25.5/255.0 blue:25.5/255.0 alpha:1.0]];
     
     UIImage *dropImage = [[WZMPublic imageWithFolder:@"album" imageName:@"album_drop_down.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.titleView = [[UIView alloc] init];
@@ -143,6 +143,10 @@
 }
 
 - (void)leftItemClick {
+    if (self.visualView.hidden == NO) {
+        [self showVisualViewAction];
+        return;;
+    }
     if ([self.navigationController isKindOfClass:[WZMAlbumNavigationController class]]) {
         WZMAlbumNavigationController *picker = (WZMAlbumNavigationController *)self.navigationController;
         if ([picker.pickerDelegate respondsToSelector:@selector(albumNavigationControllerDidCancel:)]) {

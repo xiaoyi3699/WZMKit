@@ -10,6 +10,8 @@
 #import "WZMBaseDataProvider.h"
 #import "WZMBaseTableView.h"
 #import "WZMBaseCollectionView.h"
+#import "WZMTableViewCell.h"
+#import "WZMCollectionViewCell.h"
 
 @interface WZMPullListViewController : WZMBaseViewController
 

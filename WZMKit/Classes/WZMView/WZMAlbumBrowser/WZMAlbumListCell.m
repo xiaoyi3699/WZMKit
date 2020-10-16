@@ -17,6 +17,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self setConfig];
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
         _imageView.clipsToBounds = YES;
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -30,6 +31,12 @@
         [self addSubview:_titleLabel];
     }
     return self;
+}
+
+- (void)setConfig {
+    UIColor *dColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:44.0/255.0 green:44.0/255.0 blue:44.0/255.0 alpha:1.0]];
+    self.backgroundColor = dColor;
+    self.contentView.backgroundColor = dColor;
 }
 
 - (void)setConfig:(UIImage *)image title:(NSString *)title {

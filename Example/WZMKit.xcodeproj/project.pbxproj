@@ -18,6 +18,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640A45E3253944E700F4AA19 /* WZMTableViewCell.m */; };
+		640A45EB253944F400F4AA19 /* WZMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */; };
 		646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B4247E643200F96689 /* WZMSegmentedViewController.m */; };
 		646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B7247E6EF900F96689 /* WZMBaseTableView.m */; };
 		646A10BC247F49BF00F96689 /* WZMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BB247F49BF00F96689 /* WZMSubViewController.m */; };
@@ -95,6 +97,10 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		640A45E2253944E700F4AA19 /* WZMTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMTableViewCell.h; sourceTree = "<group>"; };
+		640A45E3253944E700F4AA19 /* WZMTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMTableViewCell.m; sourceTree = "<group>"; };
+		640A45E9253944F400F4AA19 /* WZMCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCollectionViewCell.h; sourceTree = "<group>"; };
+		640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMCollectionViewCell.m; sourceTree = "<group>"; };
 		646A10B3247E643200F96689 /* WZMSegmentedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMSegmentedViewController.h; sourceTree = "<group>"; };
 		646A10B4247E643200F96689 /* WZMSegmentedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedViewController.m; sourceTree = "<group>"; };
 		646A10B6247E6EF900F96689 /* WZMBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseTableView.h; sourceTree = "<group>"; };
@@ -300,6 +306,17 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		640A45E1253944D300F4AA19 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				640A45E2253944E700F4AA19 /* WZMTableViewCell.h */,
+				640A45E3253944E700F4AA19 /* WZMTableViewCell.m */,
+				640A45E9253944F400F4AA19 /* WZMCollectionViewCell.h */,
+				640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		646A10B2247E63DD00F96689 /* WZMSegmentedViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +442,7 @@
 		75DA9DCE230E924A0000A955 /* WZMBaseController */ = {
 			isa = PBXGroup;
 			children = (
+				640A45E1253944D300F4AA19 /* Cell */,
 				646A10C0247F58BF00F96689 /* View */,
 				64E84A36246CD967008958FF /* wzm_back_black.png */,
 				64E84A35246CD967008958FF /* wzm_back_white.png */,
@@ -845,6 +863,7 @@
 				6003F59E195388D20070C39A /* WZMAppDelegate.m in Sources */,
 				75DA9E50230E9BBD0000A955 /* WZMNewsModel.m in Sources */,
 				75DA9E1D230E924A0000A955 /* WZMTextStorage.m in Sources */,
+				640A45EB253944F400F4AA19 /* WZMCollectionViewCell.m in Sources */,
 				75DA9E29230E924A0000A955 /* UINavigationController+wzmnav.m in Sources */,
 				646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */,
 				75DA9E21230E924A0000A955 /* WZMCrashManager.m in Sources */,
@@ -853,6 +872,7 @@
 				75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */,
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
 				75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */,
+				640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */,
 				75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

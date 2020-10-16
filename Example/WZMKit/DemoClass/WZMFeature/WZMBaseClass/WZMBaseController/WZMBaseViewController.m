@@ -27,7 +27,7 @@
             self.userInterfaceStyle = WZMUserInterfaceStyleDark;
         }
     }
-    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor blackColor]];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:DARK_COLOR];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -128,7 +128,7 @@
 
 //导航栏背景色
 - (UIColor *)navigatonBarBackgroundColor {
-    return [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:[UIColor colorWithRed:8.0/255.0 green:8.0/255.0 blue:8.0/255.0 alpha:1.0]];
+    return [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:DARK_COLOR];
 }
 
 //导航栏title颜色
