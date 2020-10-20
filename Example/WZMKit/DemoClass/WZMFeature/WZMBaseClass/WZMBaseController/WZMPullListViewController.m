@@ -231,9 +231,9 @@
     actionBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     actionBtn.layer.masksToBounds = YES;
     actionBtn.layer.cornerRadius = 5;
-    actionBtn.layer.borderColor = THEME_COLOR.CGColor;
+    actionBtn.layer.borderColor = WZM_THEME_COLOR.CGColor;
     actionBtn.layer.borderWidth = 1;
-    [actionBtn setTitleColor:THEME_COLOR forState:UIControlStateNormal];
+    [actionBtn setTitleColor:WZM_THEME_COLOR forState:UIControlStateNormal];
     [actionBtn addTarget:self action:@selector(badViewAction) forControlEvents:UIControlEventTouchUpInside];
     [_badView addSubview:actionBtn];
     

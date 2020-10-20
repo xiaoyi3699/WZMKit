@@ -14,10 +14,7 @@
 @import UIKit;
 @import Foundation;
 
-#import "WZMFeature.h"
 #import <WZMKit/WZMKit.h>
-#define WZM_APP_ID  @"123456789"
-#define DARK_COLOR [UIColor colorWithRed:25.5/255.0 green:25.5/255.0 blue:25.5/255.0 alpha:1.0]
-#define THEME_COLOR [UIColor colorWithRed:66.0/255.0 green:152.0/255.0 blue:233.0/255.0 alpha:1.0]
+#import "WZMFeature.h"
 
 #endif

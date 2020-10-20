@@ -87,6 +87,11 @@
 //自定义弹出框的默认蒙版颜色
 #define WZM_ALERT_BG_COLOR WZM_R_G_B_A(20,20,20,.5)
 
+//项目相关
+#define WZM_APP_ID  @"123456789"
+#define WZM_DARK_COLOR [UIColor colorWithRed:25.5/255.0 green:25.5/255.0 blue:25.5/255.0 alpha:1.0]
+#define WZM_THEME_COLOR [UIColor colorWithRed:66.0/255.0 green:152.0/255.0 blue:233.0/255.0 alpha:1.0]
+
 //强弱引用
 #ifndef wzm_weakify
 #if DEBUG

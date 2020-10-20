@@ -19,7 +19,7 @@
 }
 
 - (void)setConfig {
-    UIColor *dColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:DARK_COLOR];
+    UIColor *dColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_DARK_COLOR];
     self.backgroundColor = dColor;
     self.contentView.backgroundColor = dColor;
 }

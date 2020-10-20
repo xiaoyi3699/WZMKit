@@ -61,7 +61,7 @@
         UITabBarItem *tabBarItem = [self.childViewControllers[i] tabBarItem];
         if (@available(iOS 13.0, *)) {
             UITabBarAppearance *appearance = [UITabBarAppearance new];
-            appearance.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:DARK_COLOR];
+            appearance.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_DARK_COLOR];
             appearance.stackedLayoutAppearance.normal.titleTextAttributes = atts;
             appearance.stackedLayoutAppearance.selected.titleTextAttributes = selAtts;
             tabBarItem.standardAppearance = appearance;

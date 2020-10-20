@@ -54,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:[UIColor colorWithRed:25.5/255.0 green:25.5/255.0 blue:25.5/255.0 alpha:1.0]];
+    self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_DARK_COLOR];
     
     UIImage *dropImage = [[WZMPublic imageWithFolder:@"album" imageName:@"album_drop_down.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.titleView = [[UIView alloc] init];

@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UITextView *textView;
 @end
 
-#define THEME_COLOR_UP [UIColor redColor]
+#define WZM_THEME_COLOR_UP [UIColor redColor]
 @implementation WZMAlertView
 
 - (id)initWithTitle:(NSString *)title message:(NSString *)message OKButtonTitle:(NSString *)OKButtonTitle cancelButtonTitle:(NSString *)cancelButtonTitle type:(WZMAlertViewType)type {
@@ -122,7 +122,7 @@
         CGFloat y             = (size.height-height)/2.0f;
         
         if (type == WZMAlertViewTypeUpdate) {
-            titleColor   = THEME_COLOR_UP;
+            titleColor   = WZM_THEME_COLOR_UP;
             messageColor = [UIColor darkGrayColor];
         }
         else {
@@ -226,7 +226,7 @@
             [_alertView addSubview:btn];
             if (type == WZMAlertViewTypeUpdate) {
                 if (i == 0) {
-                    [btn setTitleColor:THEME_COLOR_UP forState:UIControlStateNormal];
+                    [btn setTitleColor:WZM_THEME_COLOR_UP forState:UIControlStateNormal];
                 }
                 else {
                     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
