@@ -19,18 +19,18 @@ struct LVRGBAColor {
     CGFloat jp_a;
 };
 
-typedef NS_ENUM(NSUInteger, LVRectHorn) {
-    LVCenter,
-    LVLeftTop,
-    LVLeftMid,
-    LVLeftBottom,
+typedef NS_ENUM(NSUInteger, WZMRectHorn) {
+    WZMCenter,
+    WZMLeftTop,
+    WZMLeftMid,
+    WZMLeftBottom,
     
-    LVRightTop,
-    LVRightMid,
-    LVRightBottom,
+    WZMRightTop,
+    WZMRightMid,
+    WZMRightBottom,
     
-    LVTopMid,
-    LVBottomMid
+    WZMTopMid,
+    WZMBottomMid
 };
 
 typedef NS_ENUM(NSUInteger, LVLinePosition) {
@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 @property (nonatomic, weak) CAShapeLayer *verLeftLine;
 @property (nonatomic, weak) CAShapeLayer *verRightLine;
 
-@property (nonatomic, assign) LVRectHorn currHorn;
+@property (nonatomic, assign) WZMRectHorn currHorn;
 @property (nonatomic, assign) CGPoint diagonal;
 
 @property (nonatomic, assign) CGRect originImageFrame;
@@ -270,7 +270,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     if (self.superview) [self updateImageOriginFrameWithDirection:_rotationDirection];
 }
 
-- (void)setFrameType:(LVImageresizerFrameType)frameType {
+- (void)setFrameType:(WZMImageresizerFrameType)frameType {
     _frameType = frameType;
     CGFloat lineW = 0;
     if (frameType == LVConciseFrameType ||
@@ -308,22 +308,22 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     self.rightBottomDot.lineWidth = lineW;
 }
 
-- (void)setAnimationCurve:(LVAnimationCurve)animationCurve {
+- (void)setAnimationCurve:(WZMAnimationCurve)animationCurve {
     _animationCurve = animationCurve;
     switch (animationCurve) {
-        case LVAnimationCurveEaseInOut:
+        case WZMAnimationCurveEaseInOut:
             _kCAMediaTimingFunction = kCAMediaTimingFunctionEaseInEaseOut;
             _animationOption = UIViewAnimationOptionCurveEaseInOut;
             break;
-        case LVAnimationCurveEaseIn:
+        case WZMAnimationCurveEaseIn:
             _kCAMediaTimingFunction = kCAMediaTimingFunctionEaseIn;
             _animationOption = UIViewAnimationOptionCurveEaseIn;
             break;
-        case LVAnimationCurveEaseOut:
+        case WZMAnimationCurveEaseOut:
             _kCAMediaTimingFunction = kCAMediaTimingFunctionEaseOut;
             _animationOption = UIViewAnimationOptionCurveEaseOut;
             break;
-        case LVAnimationCurveLinear:
+        case WZMAnimationCurveLinear:
             _kCAMediaTimingFunction = kCAMediaTimingFunctionLinear;
             _animationOption = UIViewAnimationOptionCurveLinear;
             break;
@@ -474,9 +474,9 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 
 - (instancetype)initWithFrame:(CGRect)frame
                   contentSize:(CGSize)contentSize
-                     maskType:(LVImageresizerMaskType)maskType
-                    frameType:(LVImageresizerFrameType)frameType
-               animationCurve:(LVAnimationCurve)animationCurve
+                     maskType:(WZMImageresizerMaskType)maskType
+                    frameType:(WZMImageresizerFrameType)frameType
+               animationCurve:(WZMAnimationCurve)animationCurve
                   strokeColor:(UIColor *)strokeColor
                     fillColor:(UIColor *)fillColor
                     maskAlpha:(CGFloat)maskAlpha
@@ -485,8 +485,8 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
                 resizeWHScale:(CGFloat)resizeWHScale
                    scrollView:(UIScrollView *)scrollView
                     imageView:(UIImageView *)imageView
-    imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
- imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
+    imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+ imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
     
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = NO;
@@ -620,7 +620,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     return dotPath;
 }
 
-- (UIBezierPath *)arrPathWithPosition:(CGPoint)position rectHorn:(LVRectHorn)horn {
+- (UIBezierPath *)arrPathWithPosition:(CGPoint)position rectHorn:(WZMRectHorn)horn {
     CGFloat arrLineW = _arrLineW / _sizeScale;
     CGFloat arrLength = _arrLength / _sizeScale;;
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -629,7 +629,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     CGPoint secondPoint = CGPointZero;
     CGPoint thirdPoint = CGPointZero;
     switch (horn) {
-        case LVLeftTop:
+        case WZMLeftTop:
         {
             position.x -= halfArrLineW;
             position.y -= halfArrLineW;
@@ -638,7 +638,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVLeftBottom:
+        case WZMLeftBottom:
         {
             position.x -= halfArrLineW;
             position.y += halfArrLineW;
@@ -647,7 +647,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVRightTop:
+        case WZMRightTop:
         {
             position.x += halfArrLineW;
             position.y -= halfArrLineW;
@@ -656,7 +656,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVRightBottom:
+        case WZMRightBottom:
         {
             position.x += halfArrLineW;
             position.y += halfArrLineW;
@@ -848,10 +848,10 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
         }
         
     } else {
-        leftTopDotPath = [self arrPathWithPosition:CGPointMake(imageresizerX, imageresizerY) rectHorn:LVLeftTop];
-        leftBottomDotPath = [self arrPathWithPosition:CGPointMake(imageresizerX, imageresizerMaxY) rectHorn:LVLeftBottom];
-        rightTopDotPath = [self arrPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerY) rectHorn:LVRightTop];
-        rightBottomDotPath = [self arrPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerMaxY) rectHorn:LVRightBottom];
+        leftTopDotPath = [self arrPathWithPosition:CGPointMake(imageresizerX, imageresizerY) rectHorn:WZMLeftTop];
+        leftBottomDotPath = [self arrPathWithPosition:CGPointMake(imageresizerX, imageresizerMaxY) rectHorn:WZMLeftBottom];
+        rightTopDotPath = [self arrPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerY) rectHorn:WZMRightTop];
+        rightBottomDotPath = [self arrPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerMaxY) rectHorn:WZMRightBottom];
         
         CGFloat imageresizerW = imageresizerFrame.size.width;
         CGFloat imageresizerH = imageresizerFrame.size.height;
@@ -932,7 +932,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     [CATransaction commit];
 }
 
-- (void)updateImageOriginFrameWithDirection:(LVImageresizerRotationDirection)rotationDirection {
+- (void)updateImageOriginFrameWithDirection:(WZMImageresizerRotationDirection)rotationDirection {
     [self removeTimer];
     _baseImageW = self.imageView.bounds.size.width;
     _baseImageH = self.imageView.bounds.size.height;
@@ -948,7 +948,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     _updateDuration = -1.0;
 }
 
-- (void)updateRotationDirection:(LVImageresizerRotationDirection)rotationDirection {
+- (void)updateRotationDirection:(WZMImageresizerRotationDirection)rotationDirection {
     [self updateMaxResizeFrameWithDirection:rotationDirection];
     if (!_isArbitrarily) {
         BOOL isVer2Hor = ((_rotationDirection == LVImageresizerVerticalUpDirection ||
@@ -964,7 +964,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     _rotationDirection = rotationDirection;
 }
 
-- (void)updateMaxResizeFrameWithDirection:(LVImageresizerRotationDirection)direction {
+- (void)updateMaxResizeFrameWithDirection:(WZMImageresizerRotationDirection)direction {
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat w = 0;
@@ -1153,7 +1153,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 
 #pragma mark - puild method
 
-- (void)updateFrameType:(LVImageresizerFrameType)frameType {
+- (void)updateFrameType:(WZMImageresizerFrameType)frameType {
     if (self.frameType == frameType) return;
     self.frameType = frameType;
     self.strokeColor = _strokeColor;
@@ -1180,7 +1180,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     [self addTimer];
 }
 
-- (void)rotationWithDirection:(LVImageresizerRotationDirection)direction rotationDuration:(NSTimeInterval)rotationDuration {
+- (void)rotationWithDirection:(WZMImageresizerRotationDirection)direction rotationDuration:(NSTimeInterval)rotationDuration {
     _isRotation = YES;
     [self removeTimer];
     [self updateRotationDirection:direction];
@@ -1433,16 +1433,16 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     CGRect rightBotRect = CGRectMake(maxX - halfScopeWH, maxY - halfScopeWH, scopeWH, scopeWH);
     
     if (CGRectContainsPoint(leftTopRect, location)) {
-        self.currHorn = LVLeftTop;
+        self.currHorn = WZMLeftTop;
         self.diagonal = CGPointMake(x + width, y + height);
     } else if (CGRectContainsPoint(leftBotRect, location)) {
-        self.currHorn = LVLeftBottom;
+        self.currHorn = WZMLeftBottom;
         self.diagonal = CGPointMake(x + width, y);
     } else if (CGRectContainsPoint(rightTopRect, location)) {
-        self.currHorn = LVRightTop;
+        self.currHorn = WZMRightTop;
         self.diagonal = CGPointMake(x, y + height);
     } else if (CGRectContainsPoint(rightBotRect, location)) {
-        self.currHorn = LVRightBottom;
+        self.currHorn = WZMRightBottom;
         self.diagonal = CGPointMake(x, y);
     } else if (_isArbitrarily) {
         CGRect leftMidRect = CGRectNull;
@@ -1461,22 +1461,22 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             botMidRect = CGRectMake(midX - halfScopeWH, maxY - halfScopeWH, scopeWH, scopeWH);
         }
         if (CGRectContainsPoint(leftMidRect, location)) {
-            self.currHorn = LVLeftMid;
+            self.currHorn = WZMLeftMid;
             self.diagonal = CGPointMake(maxX, midY);
         } else if (CGRectContainsPoint(rightMidRect, location)) {
-            self.currHorn = LVRightMid;
+            self.currHorn = WZMRightMid;
             self.diagonal = CGPointMake(x, midY);
         } else if (CGRectContainsPoint(topMidRect, location)) {
-            self.currHorn = LVTopMid;
+            self.currHorn = WZMTopMid;
             self.diagonal = CGPointMake(midX, maxY);
         } else if (CGRectContainsPoint(botMidRect, location)) {
-            self.currHorn = LVBottomMid;
+            self.currHorn = WZMBottomMid;
             self.diagonal = CGPointMake(midX, y);
         } else {
-            self.currHorn = LVCenter;
+            self.currHorn = WZMCenter;
         }
     } else {
-        self.currHorn = LVCenter;
+        self.currHorn = WZMCenter;
     }
     
     _startResizeW = width;
@@ -1492,7 +1492,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     
     switch (self.currHorn) {
             
-        case LVLeftTop: {
+        case WZMLeftTop: {
             if (_isArbitrarily) {
                 x += translation.x;
                 y += translation.y;
@@ -1557,7 +1557,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVLeftBottom: {
+        case WZMLeftBottom: {
             if (_isArbitrarily) {
                 x += translation.x;
                 height = height + translation.y;
@@ -1618,7 +1618,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVRightTop: {
+        case WZMRightTop: {
             if (_isArbitrarily) {
                 y += translation.y;
                 width = width + translation.x;
@@ -1680,7 +1680,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVRightBottom: {
+        case WZMRightBottom: {
             if (_isArbitrarily) {
                 width = width + translation.x;
                 height = height + translation.y;
@@ -1737,7 +1737,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVLeftMid: {
+        case WZMLeftMid: {
             x += translation.x;
             
             if (x < self.maxResizeX) {
@@ -1753,7 +1753,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVRightMid: {
+        case WZMRightMid: {
             width = width + translation.x;
             
             CGFloat maxResizeMaxX = CGRectGetMaxX(self.maxResizeFrame);
@@ -1767,7 +1767,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVTopMid: {
+        case WZMTopMid: {
             y += translation.y;
             
             if (y < self.maxResizeY) {
@@ -1783,7 +1783,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
             break;
         }
             
-        case LVBottomMid: {
+        case WZMBottomMid: {
             height = height + translation.y;
             
             CGFloat maxResizeMaxY = CGRectGetMaxY(self.maxResizeFrame);

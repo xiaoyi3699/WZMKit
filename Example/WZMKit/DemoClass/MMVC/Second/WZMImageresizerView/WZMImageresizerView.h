@@ -28,8 +28,8 @@
  @discussion 使用WZMImageresizerConfigure配置好参数
  */
 + (instancetype)imageresizerViewWithConfigure:(WZMImageresizerConfigure *)configure
-                    imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
-                 imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
+                    imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+                 imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
 
 /*!
  @method
@@ -43,9 +43,9 @@
  */
 - (instancetype)initWithResizeImage:(UIImage *)resizeImage
                               frame:(CGRect)frame
-                           maskType:(LVImageresizerMaskType)maskType
-                          frameType:(LVImageresizerFrameType)frameType
-                     animationCurve:(LVAnimationCurve)animationCurve
+                           maskType:(WZMImageresizerMaskType)maskType
+                          frameType:(WZMImageresizerFrameType)frameType
+                     animationCurve:(WZMAnimationCurve)animationCurve
                         strokeColor:(UIColor *)strokeColor
                             bgColor:(UIColor *)bgColor
                           maskAlpha:(CGFloat)maskAlpha
@@ -53,17 +53,17 @@
                       horBaseMargin:(CGFloat)horBaseMargin
                       resizeWHScale:(CGFloat)resizeWHScale
                       contentInsets:(UIEdgeInsets)contentInsets
-          imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
-       imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
+          imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+       imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
 
 /** 遮罩样式，目前初始化后不可再更改 */
-@property (nonatomic, readonly) LVImageresizerMaskType maskType;
+@property (nonatomic, readonly) WZMImageresizerMaskType maskType;
 
 /** 边框样式 */
-@property (nonatomic) LVImageresizerFrameType frameType;
+@property (nonatomic) WZMImageresizerFrameType frameType;
 
 /** 动画曲线（默认是线性Linear） */
-@property (nonatomic, assign) LVAnimationCurve animationCurve;
+@property (nonatomic, assign) WZMAnimationCurve animationCurve;
 
 /** 裁剪的图片 */
 @property (nonatomic) UIImage *resizeImage;

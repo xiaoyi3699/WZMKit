@@ -13,9 +13,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
                   contentSize:(CGSize)contentSize
-                     maskType:(LVImageresizerMaskType)maskType
-                    frameType:(LVImageresizerFrameType)frameType
-               animationCurve:(LVAnimationCurve)animationCurve
+                     maskType:(WZMImageresizerMaskType)maskType
+                    frameType:(WZMImageresizerFrameType)frameType
+               animationCurve:(WZMAnimationCurve)animationCurve
                   strokeColor:(UIColor *)strokeColor
                     fillColor:(UIColor *)fillColor
                     maskAlpha:(CGFloat)maskAlpha
@@ -24,16 +24,16 @@
                 resizeWHScale:(CGFloat)resizeWHScale
                    scrollView:(UIScrollView *)scrollView
                     imageView:(UIImageView *)imageView
-    imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
- imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
+    imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+ imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale;
 
-@property (nonatomic, assign, readonly) LVImageresizerMaskType maskType;
+@property (nonatomic, assign, readonly) WZMImageresizerMaskType maskType;
 
-@property (nonatomic, assign, readonly) LVImageresizerFrameType frameType;
+@property (nonatomic, assign, readonly) WZMImageresizerFrameType frameType;
 
 @property (nonatomic, weak, readonly) UIPanGestureRecognizer *panGR;
 
-@property (nonatomic, assign) LVAnimationCurve animationCurve;
+@property (nonatomic, assign) WZMAnimationCurve animationCurve;
 
 @property (nonatomic, strong) UIColor *strokeColor;
 
@@ -49,12 +49,12 @@
 @property (nonatomic, assign) BOOL edgeLineIsEnabled;
 
 @property (nonatomic, assign, readonly) BOOL isCanRecovery;
-@property (nonatomic, copy) LVImageresizerIsCanRecoveryBlock imageresizerIsCanRecovery;
+@property (nonatomic, copy) WZMImageresizerIsCanRecoveryBlock imageresizerIsCanRecovery;
 
 @property (nonatomic, assign, readonly) BOOL isPrepareToScale;
-@property (nonatomic, copy) LVImageresizerIsPrepareToScaleBlock imageresizerIsPrepareToScale;
+@property (nonatomic, copy) WZMImageresizerIsPrepareToScaleBlock imageresizerIsPrepareToScale;
 
-@property (nonatomic, assign, readonly) LVImageresizerRotationDirection rotationDirection;
+@property (nonatomic, assign, readonly) WZMImageresizerRotationDirection rotationDirection;
 
 @property (nonatomic, readonly) BOOL isHorizontalDirection;
 
@@ -67,14 +67,14 @@
 @property (nonatomic, copy) BOOL (^isVerticalityMirror)(void);
 @property (nonatomic, copy) BOOL (^isHorizontalMirror)(void);
 
-- (void)updateFrameType:(LVImageresizerFrameType)frameType;
+- (void)updateFrameType:(WZMImageresizerFrameType)frameType;
 
 - (void)updateImageresizerFrameWithVerBaseMargin:(CGFloat)verBaseMargin horBaseMargin:(CGFloat)horBaseMargin;
 
 - (void)startImageresizer;
 - (void)endedImageresizer;
 
-- (void)rotationWithDirection:(LVImageresizerRotationDirection)direction rotationDuration:(NSTimeInterval)rotationDuration;
+- (void)rotationWithDirection:(WZMImageresizerRotationDirection)direction rotationDuration:(NSTimeInterval)rotationDuration;
 
 - (void)willRecovery;
 - (void)recoveryWithDuration:(NSTimeInterval)duration;

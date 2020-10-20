@@ -15,7 +15,7 @@
     - viewFrame = [UIScreen mainScreen].bounds;
     - maskAlpha = LVNormalMaskType;
     - frameType = LVConciseFrameType;
-    - animationCurve = LVAnimationCurveLinear;
+    - animationCurve = WZMAnimationCurveLinear;
     - strokeColor = [UIColor whiteColor];
     - bgColor = [UIColor blackColor];
     - maskAlpha = 0.75;
@@ -35,13 +35,13 @@
 @property (nonatomic, assign) CGRect viewFrame;
 
 /** 遮罩样式 */
-@property (nonatomic, assign) LVImageresizerMaskType maskType;
+@property (nonatomic, assign) WZMImageresizerMaskType maskType;
 
 /** 边框样式 */
-@property (nonatomic, assign) LVImageresizerFrameType frameType;
+@property (nonatomic, assign) WZMImageresizerFrameType frameType;
 
 /** 动画曲线 */
-@property (nonatomic, assign) LVAnimationCurve animationCurve;
+@property (nonatomic, assign) WZMAnimationCurve animationCurve;
 
 /** 裁剪线颜色 */
 @property (nonatomic, strong) UIColor *strokeColor;
@@ -73,9 +73,9 @@
 
 @property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_resizeImage)(UIImage *resizeImage);
 @property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_viewFrame)(CGRect viewFrame);
-@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_maskType)(LVImageresizerMaskType maskType);
-@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_frameType)(LVImageresizerFrameType frameType);
-@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_animationCurve)(LVAnimationCurve animationCurve);
+@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_maskType)(WZMImageresizerMaskType maskType);
+@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_frameType)(WZMImageresizerFrameType frameType);
+@property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_animationCurve)(WZMAnimationCurve animationCurve);
 @property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_strokeColor)(UIColor *strokeColor);
 @property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_bgColor)(UIColor *bgColor);
 @property (nonatomic, copy, readonly) WZMImageresizerConfigure *(^jp_maskAlpha)(CGFloat maskAlpha);

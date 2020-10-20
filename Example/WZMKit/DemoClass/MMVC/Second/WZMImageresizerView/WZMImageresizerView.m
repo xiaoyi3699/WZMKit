@@ -32,7 +32,7 @@
 
 #pragma mark - setter
 
-- (void)setFrameType:(LVImageresizerFrameType)frameType {
+- (void)setFrameType:(WZMImageresizerFrameType)frameType {
     [self.frameView updateFrameType:frameType];
 }
 
@@ -89,20 +89,20 @@
     }
 }
 
-- (void)setAnimationCurve:(LVAnimationCurve)animationCurve {
+- (void)setAnimationCurve:(WZMAnimationCurve)animationCurve {
     _animationCurve = animationCurve;
     _frameView.animationCurve = animationCurve;
     switch (animationCurve) {
-        case LVAnimationCurveEaseInOut:
+        case WZMAnimationCurveEaseInOut:
             _animationOption = UIViewAnimationOptionCurveEaseInOut;
             break;
-        case LVAnimationCurveEaseIn:
+        case WZMAnimationCurveEaseIn:
             _animationOption = UIViewAnimationOptionCurveEaseIn;
             break;
-        case LVAnimationCurveEaseOut:
+        case WZMAnimationCurveEaseOut:
             _animationOption = UIViewAnimationOptionCurveEaseOut;
             break;
-        case LVAnimationCurveLinear:
+        case WZMAnimationCurveLinear:
             _animationOption = UIViewAnimationOptionCurveLinear;
             break;
     }
@@ -127,11 +127,11 @@
 
 #pragma mark - getter
 
-- (LVImageresizerMaskType)maskType {
+- (WZMImageresizerMaskType)maskType {
     return self.frameView.maskType;
 }
 
-- (LVImageresizerFrameType)frameType {
+- (WZMImageresizerFrameType)frameType {
     return self.frameView.frameType;
 }
 
@@ -162,8 +162,8 @@
 #pragma mark - init
 
 + (instancetype)imageresizerViewWithConfigure:(WZMImageresizerConfigure *)configure
-                    imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
-                 imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
+                    imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+                 imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
     WZMImageresizerView *imageresizerView =  [[self alloc] initWithResizeImage:configure.resizeImage
                                        frame:configure.viewFrame
                                     maskType:configure.maskType
@@ -184,9 +184,9 @@
 
 - (instancetype)initWithResizeImage:(UIImage *)resizeImage
                               frame:(CGRect)frame
-                           maskType:(LVImageresizerMaskType)maskType
-                          frameType:(LVImageresizerFrameType)frameType
-                     animationCurve:(LVAnimationCurve)animationCurve
+                           maskType:(WZMImageresizerMaskType)maskType
+                          frameType:(WZMImageresizerFrameType)frameType
+                     animationCurve:(WZMAnimationCurve)animationCurve
                         strokeColor:(UIColor *)strokeColor
                             bgColor:(UIColor *)bgColor
                           maskAlpha:(CGFloat)maskAlpha
@@ -194,8 +194,8 @@
                       horBaseMargin:(CGFloat)horBaseMargin
                       resizeWHScale:(CGFloat)resizeWHScale
                       contentInsets:(UIEdgeInsets)contentInsets
-          imageresizerIsCanRecovery:(LVImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
-       imageresizerIsPrepareToScale:(LVImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
+          imageresizerIsCanRecovery:(WZMImageresizerIsCanRecoveryBlock)imageresizerIsCanRecovery
+       imageresizerIsPrepareToScale:(WZMImageresizerIsPrepareToScaleBlock)imageresizerIsPrepareToScale {
     
     if (self = [super initWithFrame:frame]) {
         _verBaseMargin = verBaseMargin;
@@ -287,14 +287,14 @@
     self.scrollView.contentOffset = CGPointMake(-horizontalInset, -verticalInset);
 }
 
-- (void)setupFrameViewWithMaskType:(LVImageresizerMaskType)maskType
-                         frameType:(LVImageresizerFrameType)frameType
-                    animationCurve:(LVAnimationCurve)animationCurve
+- (void)setupFrameViewWithMaskType:(WZMImageresizerMaskType)maskType
+                         frameType:(WZMImageresizerFrameType)frameType
+                    animationCurve:(WZMAnimationCurve)animationCurve
                        strokeColor:(UIColor *)strokeColor
                          maskAlpha:(CGFloat)maskAlpha
                      resizeWHScale:(CGFloat)resizeWHScale
-                isCanRecoveryBlock:(LVImageresizerIsCanRecoveryBlock)isCanRecoveryBlock
-             isPrepareToScaleBlock:(LVImageresizerIsPrepareToScaleBlock)isPrepareToScaleBlock {
+                isCanRecoveryBlock:(WZMImageresizerIsCanRecoveryBlock)isCanRecoveryBlock
+             isPrepareToScaleBlock:(WZMImageresizerIsPrepareToScaleBlock)isPrepareToScaleBlock {
     
     WZMImageresizerFrameView *frameView =
     [[WZMImageresizerFrameView alloc] initWithFrame:self.scrollView.frame
@@ -451,7 +451,7 @@
     self.directionIndex += 1;
     if (self.directionIndex > self.allDirections.count - 1) self.directionIndex = 0;
     
-    LVImageresizerRotationDirection direction = [self.allDirections[self.directionIndex] integerValue];
+    WZMImageresizerRotationDirection direction = [self.allDirections[self.directionIndex] integerValue];
     
     CGFloat scale = 1;
     if (self.isRotatedAutoScale) {

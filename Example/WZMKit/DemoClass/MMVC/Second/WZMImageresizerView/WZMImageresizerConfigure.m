@@ -15,7 +15,7 @@
     configure.viewFrame = [UIScreen mainScreen].bounds;
     configure.maskAlpha = LVNormalMaskType;
     configure.frameType = LVConciseFrameType;
-    configure.animationCurve = LVAnimationCurveEaseOut;
+    configure.animationCurve = WZMAnimationCurveEaseOut;
     configure.strokeColor = [UIColor whiteColor];
     configure.bgColor = [UIColor blackColor];
     configure.maskAlpha = 0.75;
@@ -28,16 +28,16 @@
     return configure;
 }
 
-- (void)setFrameType:(LVImageresizerFrameType)frameType {
+- (void)setFrameType:(WZMImageresizerFrameType)frameType {
     _frameType = frameType;
 }
 
-- (void)setAnimationCurve:(LVAnimationCurve)animationCurve {
+- (void)setAnimationCurve:(WZMAnimationCurve)animationCurve {
     _animationCurve = animationCurve;
 }
 
 + (instancetype)blurMaskTypeConfigureWithResizeImage:(UIImage *)resizeImage isLight:(BOOL)isLight make:(void (^)(WZMImageresizerConfigure *))make {
-    LVImageresizerMaskType maskType = isLight ? LVLightBlurMaskType : LVDarkBlurMaskType;
+    WZMImageresizerMaskType maskType = isLight ? LVLightBlurMaskType : LVDarkBlurMaskType;
     WZMImageresizerConfigure *configure = [self defaultConfigureWithResizeImage:resizeImage make:^(WZMImageresizerConfigure *configure) {
         configure.jp_maskType(maskType).jp_maskAlpha(0.3);
     }];
@@ -45,7 +45,7 @@
     return configure;
 }
 
-- (void)setMaskType:(LVImageresizerMaskType)maskType {
+- (void)setMaskType:(WZMImageresizerMaskType)maskType {
     _maskType = maskType;
     if (maskType == LVLightBlurMaskType) {
         self.bgColor = [UIColor whiteColor];
@@ -78,22 +78,22 @@
     };
 }
 
-- (WZMImageresizerConfigure *(^)(LVImageresizerMaskType maskType))jp_maskType {
-    return ^(LVImageresizerMaskType maskType) {
+- (WZMImageresizerConfigure *(^)(WZMImageresizerMaskType maskType))jp_maskType {
+    return ^(WZMImageresizerMaskType maskType) {
         self.maskType = maskType;
         return self;
     };
 }
 
-- (WZMImageresizerConfigure *(^)(LVImageresizerFrameType frameType))jp_frameType {
-    return ^(LVImageresizerFrameType frameType) {
+- (WZMImageresizerConfigure *(^)(WZMImageresizerFrameType frameType))jp_frameType {
+    return ^(WZMImageresizerFrameType frameType) {
         self.frameType = frameType;
         return self;
     };
 }
 
-- (WZMImageresizerConfigure *(^)(LVAnimationCurve animationCurve))jp_animationCurve {
-    return ^(LVAnimationCurve animationCurve) {
+- (WZMImageresizerConfigure *(^)(WZMAnimationCurve animationCurve))jp_animationCurve {
+    return ^(WZMAnimationCurve animationCurve) {
         self.animationCurve = animationCurve;
         return self;
     };

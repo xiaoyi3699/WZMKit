@@ -70,7 +70,7 @@
         jp_maskType(LVNormalMaskType).
         jp_contentInsets(UIEdgeInsetsMake(0, 0, 0, 0)).
         jp_isClockwiseRotation(YES).
-        jp_animationCurve(LVAnimationCurveEaseOut);
+        jp_animationCurve(WZMAnimationCurveEaseOut);
     }];
     self.configure = configure;
     

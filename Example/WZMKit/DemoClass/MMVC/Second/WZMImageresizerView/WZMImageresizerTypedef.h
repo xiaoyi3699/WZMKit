@@ -14,7 +14,7 @@
  * LVLightBlurMaskType： 明亮高斯模糊，bgColor强制为白色，maskAlpha可自行修改，建议为0.3
  * LVDarkBlurMaskType：  暗黑高斯模糊，bgColor强制为黑色，maskAlpha可自行修改，建议为0.3
  */
-typedef NS_ENUM(NSUInteger, LVImageresizerMaskType) {
+typedef NS_ENUM(NSUInteger, WZMImageresizerMaskType) {
     LVNormalMaskType, // default
     LVLightBlurMaskType,
     LVDarkBlurMaskType
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, LVImageresizerMaskType) {
  * LVConciseWithoutOtherDotFrameType：简洁样式，可拖拽4个方向（4角）
  * LVClassicFrameType：               经典样式，类似微信的裁剪边框样式，可拖拽4个方向
  */
-typedef NS_ENUM(NSUInteger, LVImageresizerFrameType) {
+typedef NS_ENUM(NSUInteger, WZMImageresizerFrameType) {
     LVConciseFrameType, // default
     LVConciseWithoutOtherDotFrameType,
     LVClassicFrameType
@@ -34,16 +34,16 @@ typedef NS_ENUM(NSUInteger, LVImageresizerFrameType) {
 
 /**
  * 动画曲线
- * LVAnimationCurveEaseInOut：慢进慢出，中间快
- * LVAnimationCurveEaseIn：   由慢到快
- * LVAnimationCurveEaseOut：  由快到慢
- * LVAnimationCurveLinear：   匀速
+ * WZMAnimationCurveEaseInOut：慢进慢出，中间快
+ * WZMAnimationCurveEaseIn：   由慢到快
+ * WZMAnimationCurveEaseOut：  由快到慢
+ * WZMAnimationCurveLinear：   匀速
  */
-typedef NS_ENUM(NSUInteger, LVAnimationCurve) {
-    LVAnimationCurveEaseInOut, // default
-    LVAnimationCurveEaseIn,
-    LVAnimationCurveEaseOut,
-    LVAnimationCurveLinear
+typedef NS_ENUM(NSUInteger, WZMAnimationCurve) {
+    WZMAnimationCurveEaseInOut, // default
+    WZMAnimationCurveEaseIn,
+    WZMAnimationCurveEaseOut,
+    WZMAnimationCurveLinear
 };
 
 /**
@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, LVAnimationCurve) {
  * LVImageresizerVerticalDownDirection：   垂直向下
  * LVImageresizerHorizontalRightDirection：水平向右
  */
-typedef NS_ENUM(NSUInteger, LVImageresizerRotationDirection) {
+typedef NS_ENUM(NSUInteger, WZMImageresizerRotationDirection) {
     LVImageresizerVerticalUpDirection = 0,  // default
     LVImageresizerHorizontalLeftDirection,
     LVImageresizerVerticalDownDirection,
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, LVImageresizerRotationDirection) {
     - YES：可重置
     - NO：不需要重置，裁剪区域跟图片区域一致，并且没有旋转、镜像过
  */
-typedef void(^LVImageresizerIsCanRecoveryBlock)(BOOL isCanRecovery);
+typedef void(^WZMImageresizerIsCanRecoveryBlock)(BOOL isCanRecovery);
 
 /**
  * 是否预备缩放裁剪区域至适应范围
@@ -76,4 +76,4 @@ typedef void(^LVImageresizerIsCanRecoveryBlock)(BOOL isCanRecovery);
     - YES：预备缩放，此时裁剪、旋转、镜像功能不可用
     - NO：没有预备缩放
  */
-typedef void(^LVImageresizerIsPrepareToScaleBlock)(BOOL isPrepareToScale);
+typedef void(^WZMImageresizerIsPrepareToScaleBlock)(BOOL isPrepareToScale);
