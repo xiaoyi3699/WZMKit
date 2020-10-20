@@ -12,7 +12,7 @@
 /** keypath */
 #define aKeyPath(objc, keyPath) @(((void)objc.keyPath, #keyPath))
 
-struct LVRGBAColor {
+struct WZMRGBAColor {
     CGFloat jp_r;
     CGFloat jp_g;
     CGFloat jp_b;
@@ -33,11 +33,11 @@ typedef NS_ENUM(NSUInteger, WZMRectHorn) {
     WZMBottomMid
 };
 
-typedef NS_ENUM(NSUInteger, LVLinePosition) {
-    LVHorizontalTop,
-    LVHorizontalBottom,
-    LVVerticalLeft,
-    LVVerticalRight
+typedef NS_ENUM(NSUInteger, WZMLinePosition) {
+    WZMHorizontalTop,
+    WZMHorizontalBottom,
+    WZMVerticalLeft,
+    WZMVerticalRight
 };
 
 @interface WZMImageresizerFrameView ()
@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     
     BOOL _isArbitrarily;
     
-    struct LVRGBAColor _fillRgba;
+    struct WZMRGBAColor _fillRgba;
     UIColor *_clearColor;
     
     BOOL _isHideBlurEffect;
@@ -184,8 +184,8 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     _frameLayer.strokeColor = strokeCGColor;
-    if (_frameType == LVConciseFrameType ||
-        _frameType == LVConciseWithoutOtherDotFrameType) {
+    if (_frameType == WZMConciseFrameType ||
+        _frameType == WZMConciseWithoutOtherDotFrameType) {
         
         _leftTopDot.fillColor = strokeCGColor;
         _leftBottomDot.fillColor = strokeCGColor;
@@ -258,7 +258,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     
     _isArbitrarily = resizeWHScale <= 0;
     
-    if (_frameType == LVConciseFrameType) {
+    if (_frameType == WZMConciseFrameType) {
         CGFloat midDotOpacity = 1;
         if (!_isArbitrarily) midDotOpacity = 0;
         _leftMidDot.opacity = midDotOpacity;
@@ -273,9 +273,9 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 - (void)setFrameType:(WZMImageresizerFrameType)frameType {
     _frameType = frameType;
     CGFloat lineW = 0;
-    if (frameType == LVConciseFrameType ||
-        frameType == LVConciseWithoutOtherDotFrameType) {
-        if (frameType == LVConciseFrameType) {
+    if (frameType == WZMConciseFrameType ||
+        frameType == WZMConciseWithoutOtherDotFrameType) {
+        if (frameType == WZMConciseFrameType) {
             [self leftMidDot];
             [self rightMidDot];
             [self topMidDot];
@@ -389,8 +389,8 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 - (CGSize)imageViewSzie {
     CGFloat w = ((NSInteger)(self.imageView.frame.size.width)) * 1.0;
     CGFloat h = ((NSInteger)(self.imageView.frame.size.height)) * 1.0;
-    if (self.rotationDirection == LVImageresizerVerticalUpDirection ||
-        self.rotationDirection == LVImageresizerVerticalDownDirection) {
+    if (self.rotationDirection == WZMImageresizerVerticalUpDirection ||
+        self.rotationDirection == WZMImageresizerVerticalDownDirection) {
         return CGSizeMake(w, h);
     } else {
         return CGSizeMake(h, w);
@@ -458,8 +458,8 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 }
 
 - (BOOL)isHorizontalDirection {
-    return (self.rotationDirection == LVImageresizerHorizontalLeftDirection ||
-            self.rotationDirection == LVImageresizerHorizontalRightDirection);
+    return (self.rotationDirection == WZMImageresizerHorizontalLeftDirection ||
+            self.rotationDirection == WZMImageresizerHorizontalRightDirection);
 }
 
 - (BOOL)edgeLineIsEnabled {
@@ -501,7 +501,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
         _scopeWH = 50.0;
         _minImageWH = 70.0;
         _sizeScale = 1.0;
-        _rotationDirection = LVImageresizerVerticalUpDirection;
+        _rotationDirection = WZMImageresizerVerticalUpDirection;
         
         _contentSize = contentSize;
         _maskType = maskType;
@@ -611,7 +611,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 }
 
 - (BOOL)isShowMidDot {
-    return _isArbitrarily && _frameType == LVConciseFrameType;
+    return _isArbitrarily && _frameType == WZMConciseFrameType;
 }
 
 - (UIBezierPath *)dotPathWithPosition:(CGPoint)position {
@@ -679,18 +679,18 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     return path;
 }
 
-- (UIBezierPath *)linePathWithLinePosition:(LVLinePosition)linePosition location:(CGPoint)location length:(CGFloat)length {
+- (UIBezierPath *)linePathWithLinePosition:(WZMLinePosition)linePosition location:(CGPoint)location length:(CGFloat)length {
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGPoint point = CGPointZero;
     switch (linePosition) {
-        case LVHorizontalTop:
-        case LVHorizontalBottom:
+        case WZMHorizontalTop:
+        case WZMHorizontalBottom:
         {
             point = CGPointMake(location.x + length, location.y);
             break;
         }
-        case LVVerticalLeft:
-        case LVVerticalRight:
+        case WZMVerticalLeft:
+        case WZMVerticalRight:
         {
             point = CGPointMake(location.x, location.y + length);
             break;
@@ -711,7 +711,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 - (BOOL)imageresizerFrameIsEqualImageViewFrame {
     CGSize imageresizerSize = self.imageresizerSize;
     CGSize imageViewSzie = self.imageViewSzie;
-    CGFloat resizeWHScale = (self.rotationDirection == LVImageresizerVerticalUpDirection || self.rotationDirection == LVImageresizerVerticalDownDirection) ? _resizeWHScale : (1.0 / _resizeWHScale);
+    CGFloat resizeWHScale = (self.rotationDirection == WZMImageresizerVerticalUpDirection || self.rotationDirection == WZMImageresizerVerticalDownDirection) ? _resizeWHScale : (1.0 / _resizeWHScale);
     if (_isArbitrarily || (resizeWHScale == _originWHScale)) {
         return (fabs(imageresizerSize.width - imageViewSzie.width) <= 1 &&
                 fabs(imageresizerSize.height - imageViewSzie.height) <= 1);
@@ -723,10 +723,10 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 
 #pragma mark - private method
 
-- (struct LVRGBAColor)createRgbaWithColor:(UIColor *)color {
+- (struct WZMRGBAColor)createRgbaWithColor:(UIColor *)color {
     CGFloat r, g, b, a;
     [color getRed:&r green:&g blue:&b alpha:&a];
-    struct LVRGBAColor rgba;
+    struct WZMRGBAColor rgba;
     rgba.jp_r = r;
     rgba.jp_g = g;
     rgba.jp_b = b;
@@ -834,13 +834,13 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     UIBezierPath *verLeftLinePath;
     UIBezierPath *verRightLinePath;
     
-    if (_frameType == LVConciseFrameType || _frameType == LVConciseWithoutOtherDotFrameType) {
+    if (_frameType == WZMConciseFrameType || _frameType == WZMConciseWithoutOtherDotFrameType) {
         leftTopDotPath = [self dotPathWithPosition:CGPointMake(imageresizerX, imageresizerY)];
         leftBottomDotPath = [self dotPathWithPosition:CGPointMake(imageresizerX, imageresizerMaxY)];
         rightTopDotPath = [self dotPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerY)];
         rightBottomDotPath = [self dotPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerMaxY)];
         
-        if (_frameType == LVConciseFrameType) {
+        if (_frameType == WZMConciseFrameType) {
             leftMidDotPath = [self dotPathWithPosition:CGPointMake(imageresizerX, imageresizerMidY)];
             rightMidDotPath = [self dotPathWithPosition:CGPointMake(imageresizerMaxX, imageresizerMidY)];
             topMidDotPath = [self dotPathWithPosition:CGPointMake(imageresizerMidX, imageresizerY)];
@@ -858,10 +858,10 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
         CGFloat oneThirdW = imageresizerW / 3.0;
         CGFloat oneThirdH = imageresizerH / 3.0;
         
-        horTopLinePath = [self linePathWithLinePosition:LVHorizontalTop location:CGPointMake(imageresizerX, imageresizerY + oneThirdH) length:imageresizerW];
-        horBottomLinePath = [self linePathWithLinePosition:LVHorizontalBottom location:CGPointMake(imageresizerX, imageresizerY + oneThirdH * 2) length:imageresizerW];
-        verLeftLinePath = [self linePathWithLinePosition:LVVerticalLeft location:CGPointMake(imageresizerX + oneThirdW, imageresizerY) length:imageresizerH];
-        verRightLinePath = [self linePathWithLinePosition:LVVerticalRight location:CGPointMake(imageresizerX + oneThirdW * 2, imageresizerY) length:imageresizerH];
+        horTopLinePath = [self linePathWithLinePosition:WZMHorizontalTop location:CGPointMake(imageresizerX, imageresizerY + oneThirdH) length:imageresizerW];
+        horBottomLinePath = [self linePathWithLinePosition:WZMHorizontalBottom location:CGPointMake(imageresizerX, imageresizerY + oneThirdH * 2) length:imageresizerW];
+        verLeftLinePath = [self linePathWithLinePosition:WZMVerticalLeft location:CGPointMake(imageresizerX + oneThirdW, imageresizerY) length:imageresizerH];
+        verRightLinePath = [self linePathWithLinePosition:WZMVerticalRight location:CGPointMake(imageresizerX + oneThirdW * 2, imageresizerY) length:imageresizerH];
     }
     
     UIBezierPath *bgPath;
@@ -895,7 +895,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
         layerPathAnimate(_leftBottomDot, leftBottomDotPath);
         layerPathAnimate(_rightTopDot, rightTopDotPath);
         layerPathAnimate(_rightBottomDot, rightBottomDotPath);
-        if (_frameType == LVConciseFrameType) {
+        if (_frameType == WZMConciseFrameType) {
             layerPathAnimate(_leftMidDot, leftMidDotPath);
             layerPathAnimate(_rightMidDot, rightMidDotPath);
             layerPathAnimate(_topMidDot, topMidDotPath);
@@ -916,7 +916,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     _leftBottomDot.path = leftBottomDotPath.CGPath;
     _rightTopDot.path = rightTopDotPath.CGPath;
     _rightBottomDot.path = rightBottomDotPath.CGPath;
-    if (_frameType == LVConciseFrameType) {
+    if (_frameType == WZMConciseFrameType) {
         _leftMidDot.path = leftMidDotPath.CGPath;
         _rightMidDot.path = rightMidDotPath.CGPath;
         _topMidDot.path = topMidDotPath.CGPath;
@@ -951,14 +951,14 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 - (void)updateRotationDirection:(WZMImageresizerRotationDirection)rotationDirection {
     [self updateMaxResizeFrameWithDirection:rotationDirection];
     if (!_isArbitrarily) {
-        BOOL isVer2Hor = ((_rotationDirection == LVImageresizerVerticalUpDirection ||
-                           _rotationDirection == LVImageresizerVerticalDownDirection) &&
-                          (rotationDirection == LVImageresizerHorizontalLeftDirection ||
-                           rotationDirection == LVImageresizerHorizontalRightDirection));
-        BOOL isHor2Ver = ((_rotationDirection == LVImageresizerHorizontalLeftDirection ||
-                           _rotationDirection == LVImageresizerHorizontalRightDirection) &&
-                          (rotationDirection == LVImageresizerVerticalUpDirection ||
-                           rotationDirection == LVImageresizerVerticalDownDirection));
+        BOOL isVer2Hor = ((_rotationDirection == WZMImageresizerVerticalUpDirection ||
+                           _rotationDirection == WZMImageresizerVerticalDownDirection) &&
+                          (rotationDirection == WZMImageresizerHorizontalLeftDirection ||
+                           rotationDirection == WZMImageresizerHorizontalRightDirection));
+        BOOL isHor2Ver = ((_rotationDirection == WZMImageresizerHorizontalLeftDirection ||
+                           _rotationDirection == WZMImageresizerHorizontalRightDirection) &&
+                          (rotationDirection == WZMImageresizerVerticalUpDirection ||
+                           rotationDirection == WZMImageresizerVerticalDownDirection));
         if (isVer2Hor || isHor2Ver) _resizeWHScale = 1.0 / _resizeWHScale;
     }
     _rotationDirection = rotationDirection;
@@ -969,8 +969,8 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     CGFloat y = 0;
     CGFloat w = 0;
     CGFloat h = 0;
-    if (direction == LVImageresizerVerticalUpDirection ||
-        direction == LVImageresizerVerticalDownDirection) {
+    if (direction == WZMImageresizerVerticalUpDirection ||
+        direction == WZMImageresizerVerticalDownDirection) {
         _sizeScale = _verSizeScale;
         x = _diffHalfW + _horBaseMargin;
         y = _verBaseMargin;
@@ -1146,7 +1146,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     CGPoint imageViewCenter = CGPointMake(CGRectGetMidX(self.imageView.bounds), CGRectGetMidY(self.imageView.bounds));
     BOOL isSameCenter = (labs((NSInteger)convertCenter.x - (NSInteger)imageViewCenter.x) <= 1 &&
                          labs((NSInteger)convertCenter.y - (NSInteger)imageViewCenter.y) <= 1);
-    BOOL isOriginFrame = (self.rotationDirection == LVImageresizerVerticalUpDirection &&
+    BOOL isOriginFrame = (self.rotationDirection == WZMImageresizerVerticalUpDirection &&
                           [self imageresizerFrameIsEqualImageViewFrame]);
     self.isCanRecovery = !isOriginFrame || !isSameCenter;
 }
@@ -1164,7 +1164,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     _verBaseMargin = verBaseMargin;
     _horBaseMargin = horBaseMargin;
     self.layer.transform = CATransform3DIdentity;
-    [self updateImageOriginFrameWithDirection:LVImageresizerVerticalUpDirection];
+    [self updateImageOriginFrameWithDirection:WZMImageresizerVerticalUpDirection];
 }
 
 - (void)startImageresizer {
@@ -1228,7 +1228,7 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
 }
 
 - (void)recoveryWithDuration:(NSTimeInterval)duration {
-    [self updateRotationDirection:LVImageresizerVerticalUpDirection];
+    [self updateRotationDirection:WZMImageresizerVerticalUpDirection];
     
     CGRect adjustResizeFrame = _isArbitrarily ? [self baseImageresizerFrame] : [self adjustResizeFrame];
     
@@ -1264,15 +1264,15 @@ typedef NS_ENUM(NSUInteger, LVLinePosition) {
     
     UIImageOrientation orientation;
     switch (self.rotationDirection) {
-        case LVImageresizerHorizontalLeftDirection:
+        case WZMImageresizerHorizontalLeftDirection:
             orientation = UIImageOrientationLeft;
             break;
             
-        case LVImageresizerVerticalDownDirection:
+        case WZMImageresizerVerticalDownDirection:
             orientation = UIImageOrientationDown;
             break;
             
-        case LVImageresizerHorizontalRightDirection:
+        case WZMImageresizerHorizontalRightDirection:
             orientation = UIImageOrientationRight;
             break;
             

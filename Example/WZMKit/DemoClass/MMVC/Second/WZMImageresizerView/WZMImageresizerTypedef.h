@@ -22,13 +22,13 @@ typedef NS_ENUM(NSUInteger, WZMImageresizerMaskType) {
 
 /**
  * 边框样式
- * LVConciseFrameType：               简洁样式，可拖拽8个方向（固定比例则4个方向）
- * LVConciseWithoutOtherDotFrameType：简洁样式，可拖拽4个方向（4角）
+ * WZMConciseFrameType：               简洁样式，可拖拽8个方向（固定比例则4个方向）
+ * WZMConciseWithoutOtherDotFrameType：简洁样式，可拖拽4个方向（4角）
  * LVClassicFrameType：               经典样式，类似微信的裁剪边框样式，可拖拽4个方向
  */
 typedef NS_ENUM(NSUInteger, WZMImageresizerFrameType) {
-    LVConciseFrameType, // default
-    LVConciseWithoutOtherDotFrameType,
+    WZMConciseFrameType, // default
+    WZMConciseWithoutOtherDotFrameType,
     LVClassicFrameType
 };
 
@@ -48,16 +48,16 @@ typedef NS_ENUM(NSUInteger, WZMAnimationCurve) {
 
 /**
  * 当前方向
- * LVImageresizerVerticalUpDirection：     垂直向上
- * LVImageresizerHorizontalLeftDirection： 水平向左
- * LVImageresizerVerticalDownDirection：   垂直向下
- * LVImageresizerHorizontalRightDirection：水平向右
+ * WZMImageresizerVerticalUpDirection：     垂直向上
+ * WZMImageresizerHorizontalLeftDirection： 水平向左
+ * WZMImageresizerVerticalDownDirection：   垂直向下
+ * WZMImageresizerHorizontalRightDirection：水平向右
  */
 typedef NS_ENUM(NSUInteger, WZMImageresizerRotationDirection) {
-    LVImageresizerVerticalUpDirection = 0,  // default
-    LVImageresizerHorizontalLeftDirection,
-    LVImageresizerVerticalDownDirection,
-    LVImageresizerHorizontalRightDirection
+    WZMImageresizerVerticalUpDirection = 0,  // default
+    WZMImageresizerHorizontalLeftDirection,
+    WZMImageresizerVerticalDownDirection,
+    WZMImageresizerHorizontalRightDirection
 };
 
 #pragma mark - Block

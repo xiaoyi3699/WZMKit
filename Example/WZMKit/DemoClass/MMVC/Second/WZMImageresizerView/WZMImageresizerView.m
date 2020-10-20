@@ -231,10 +231,10 @@
 - (void)setupBase {
     self.clipsToBounds = YES;
     self.autoresizingMask = UIViewAutoresizingNone;
-    self.allDirections = [@[@(LVImageresizerVerticalUpDirection),
-                            @(LVImageresizerHorizontalLeftDirection),
-                            @(LVImageresizerVerticalDownDirection),
-                            @(LVImageresizerHorizontalRightDirection)] mutableCopy];
+    self.allDirections = [@[@(WZMImageresizerVerticalUpDirection),
+                            @(WZMImageresizerHorizontalLeftDirection),
+                            @(WZMImageresizerVerticalDownDirection),
+                            @(WZMImageresizerHorizontalRightDirection)] mutableCopy];
 }
 
 #pragma mark - setupSubviews
@@ -455,8 +455,8 @@
     
     CGFloat scale = 1;
     if (self.isRotatedAutoScale) {
-        if (direction == LVImageresizerHorizontalLeftDirection ||
-            direction == LVImageresizerHorizontalRightDirection) {
+        if (direction == WZMImageresizerHorizontalLeftDirection ||
+            direction == WZMImageresizerHorizontalRightDirection) {
             scale = self.frame.size.width / self.scrollView.bounds.size.height;
         } else {
             scale = self.scrollView.bounds.size.height / self.frame.size.width;

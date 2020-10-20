@@ -14,7 +14,7 @@
     configure.resizeImage = resizeImage;
     configure.viewFrame = [UIScreen mainScreen].bounds;
     configure.maskAlpha = LVNormalMaskType;
-    configure.frameType = LVConciseFrameType;
+    configure.frameType = WZMConciseFrameType;
     configure.animationCurve = WZMAnimationCurveEaseOut;
     configure.strokeColor = [UIColor whiteColor];
     configure.bgColor = [UIColor blackColor];
