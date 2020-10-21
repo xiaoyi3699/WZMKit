@@ -1,11 +1,11 @@
 //
-//  WZMAlbumEditViewController.m
+//  WZMAlbumVideoEditController.m
 //  WZMKit
 //
 //  Created by Zhaomeng Wang on 2020/6/3.
 //
 
-#import "WZMAlbumEditViewController.h"
+#import "WZMAlbumVideoEditController.h"
 #import "UIColor+wzmcate.h"
 #import "WZMCropView.h"
 #import "WZMInline.h"
@@ -21,7 +21,7 @@
 #import "WZMAlbumHelper.h"
 #import "WZMAlbumConfig.h"
 
-@interface WZMAlbumEditViewController ()<WZMAlbumScaleViewDelegate,WZMClipTimeViewDelegate,WZMVideoEditerDelegate,WZMPlayerDelegate>
+@interface WZMAlbumVideoEditController ()<WZMAlbumScaleViewDelegate,WZMClipTimeViewDelegate,WZMVideoEditerDelegate,WZMPlayerDelegate>
 
 @property (nonatomic, strong) WZMAlbumConfig *config;
 @property (nonatomic, assign) BOOL fixFrame;
@@ -34,9 +34,6 @@
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) WZMCropView *cropView;
 @property (nonatomic, strong) WZMAlbumScaleView *scaleView;
-//图片
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) UIImageView *imageView;
 //视频
 @property (nonatomic, strong) NSURL *videoUrl;
 @property (nonatomic, assign) CGSize videoSize;
@@ -44,12 +41,10 @@
 @property (nonatomic, strong) WZMPlayerView *playerView;
 @property (nonatomic, strong) WZMClipTimeView *clipTimeView;
 @property (nonatomic, strong) WZMVideoEditer *editer;
-//type 0图片 1图片
-@property (nonatomic, assign) NSInteger type;
 
 @end
 
-@implementation WZMAlbumEditViewController
+@implementation WZMAlbumVideoEditController
 
 - (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets config:(WZMAlbumConfig *)config {
     self = [super init];
@@ -57,18 +52,11 @@
         self.config = config;
         self.fixFrame = NO;
         self.loadVideo = NO;
-        self.title = @"剪裁";
+        self.title = @"视频剪裁";
         self.originals = originals;
         self.thumbnails = thumbnails;
         self.assets = assets;
-        if ([originals.firstObject isKindOfClass:[UIImage class]]) {
-            self.type = 0;
-            self.image = originals.firstObject;
-        }
-        else {
-            self.type = 1;
-            self.videoUrl = originals.firstObject;
-        }
+        self.videoUrl = originals.firstObject;
     }
     return self;
 }
@@ -83,22 +71,19 @@
     self.toolView = [[UIView alloc] init];
     [self.contentView addSubview:self.toolView];
     
-    if (self.type == 0) {
-        self.imageView = [[UIImageView alloc] init];
-        [self.contentView addSubview:self.imageView];
-    }
-    else {
-        self.playerView = [[WZMPlayerView alloc] init];
-        [self.contentView addSubview:self.playerView];
-        
-        self.player = [[WZMPlayer alloc] init];
-        self.player.playerView = self.playerView;
-        self.player.delegate = self;
-    }
+    self.playerView = [[WZMPlayerView alloc] init];
+    [self.contentView addSubview:self.playerView];
+    
+    self.player = [[WZMPlayer alloc] init];
+    self.player.playerView = self.playerView;
+    self.player.delegate = self;
+    
     self.cropView = [[WZMCropView alloc] initWithFrame:CGRectZero];
     self.cropView.edgeColor = self.config.themeColor;
     self.cropView.cornerColor = self.config.themeColor;
     self.cropView.separateColor = self.config.themeColor;
+    self.cropView.cornerLenght = 25.0;
+    self.cropView.cornerSpacing = 25.0;
     [self.contentView addSubview:self.cropView];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
@@ -116,25 +101,19 @@
     if (self.navBarH == 0) {
         self.navBarH = CGRectGetMaxY(self.navigationController.navigationBar.frame);
     }
-    if (self.type == 0) {
+    if (self.loadVideo) return;
+    self.loadVideo = YES;
+    //矫正视频转向
+    [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
+    [WZMAlbumHelper wzm_fixVideoOrientation:self.videoUrl completion:^(NSURL *videoURL) {
+        [WZMViewHandle wzm_dismiss];
         self.fixFrame = YES;
+        if ([self.videoUrl.path isEqualToString:videoURL.path] == NO) {
+            self.videoUrl = videoURL;
+        }
         [self layoutSubviewFrame];
-    }
-    else {
-        if (self.loadVideo) return;
-        self.loadVideo = YES;
-        //矫正视频转向
-        [WZMViewHandle wzm_showProgressMessage:@"处理中..."];
-        [WZMAlbumHelper wzm_fixVideoOrientation:self.videoUrl completion:^(NSURL *videoURL) {
-            [WZMViewHandle wzm_dismiss];
-            self.fixFrame = YES;
-            if ([self.videoUrl.path isEqualToString:videoURL.path] == NO) {
-                self.videoUrl = videoURL;
-            }
-            [self layoutSubviewFrame];
-            [self.player playWithURL:self.videoUrl];
-        }];
-    }
+        [self.player playWithURL:self.videoUrl];
+    }];
 }
 
 - (void)leftItemClick {
@@ -143,39 +122,22 @@
 
 - (void)rightItemClick {
     //图片缩放比例
-    CGFloat scale; CGRect rect;
-    if (self.type == 0) {
-        scale = self.image.size.width/self.imageView.wzm_width;
-        rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.imageView];
-    }
-    else {
-        CGSize size = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
-        scale = size.width/self.playerView.wzm_width;
-        rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.playerView];
-    }
+    CGSize size = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
+    CGFloat scale = size.width/self.playerView.wzm_width;
+    CGRect rect = [self.cropView convertRect:self.cropView.cropFrame toView:self.playerView];
     rect.origin.x *= scale;
     rect.origin.y *= scale;
     rect.size.width *= scale;
     rect.size.height *= scale;
-    if (self.type == 0) {
-        UIImage *image = [self.image wzm_clipImageWithRect:rect];
-        if (image) {
-            self.originals = @[image];
-        }
-        if ([self.delegate respondsToSelector:@selector(albumEditViewController:handleOriginals:thumbnails:assets:)]) {
-            [self.delegate albumEditViewController:self handleOriginals:self.originals thumbnails:self.thumbnails assets:self.assets];
-        }
-    }
-    else {
-        PHAsset *asset = self.assets.firstObject;
-        CGFloat d = asset.duration;
-        self.editer = [[WZMVideoEditer alloc] init];
-        self.editer.delegate = self;
-        self.editer.cropFrame = rect;
-        self.editer.start = self.clipTimeView.startValue*d;
-        self.editer.duration = (self.clipTimeView.endValue-self.clipTimeView.startValue)*d;
-        [self.editer handleVideoWithPath:self.videoUrl.path];
-    }
+    
+    PHAsset *asset = self.assets.firstObject;
+    CGFloat d = asset.duration;
+    self.editer = [[WZMVideoEditer alloc] init];
+    self.editer.delegate = self;
+    self.editer.cropFrame = rect;
+    self.editer.start = self.clipTimeView.startValue*d;
+    self.editer.duration = (self.clipTimeView.endValue-self.clipTimeView.startValue)*d;
+    [self.editer handleVideoWithPath:self.videoUrl.path];
 }
 
 //播放器
@@ -215,8 +177,8 @@
                 self.thumbnails = @[image];
             }
         }
-        if ([self.delegate respondsToSelector:@selector(albumEditViewController:handleOriginals:thumbnails:assets:)]) {
-            [self.delegate albumEditViewController:self handleOriginals:self.originals thumbnails:self.thumbnails assets:self.assets];
+        if ([self.delegate respondsToSelector:@selector(albumVideoEditController:handleOriginals:thumbnails:assets:)]) {
+            [self.delegate albumVideoEditController:self handleOriginals:self.originals thumbnails:self.thumbnails assets:self.assets];
         }
     }
     else {
@@ -249,28 +211,19 @@
     rect.origin.y = (self.navBarH);
     rect.size.height -= (self.navBarH + WZM_BOTTOM_HEIGHT);
     self.contentView.frame = rect;
-    CGFloat toolH = 60.0 + (self.type == 0 ? 0.0 : 70.0);
-    CGSize previewSize;
-    if (self.type == 0) {
-        previewSize = self.image.size;
-    }
-    else {
-        previewSize = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
-        self.videoSize = previewSize;
-    }
+    CGFloat toolH = 60.0 + 70.0;
+    CGSize previewSize = [WZMAlbumHelper wzm_getVideoSizeWithUrl:self.videoUrl];
+    self.videoSize = previewSize;
     CGSize size = WZMSizeRatioToMaxSize(previewSize, CGSizeMake(rect.size.width-10.0, rect.size.height-toolH-10.0));
+    
     CGRect previewRect = CGRectZero;
     previewRect.origin.x = (rect.size.width-size.width)/2.0;
     previewRect.origin.y = (rect.size.height-toolH-size.height)/2.0;
     previewRect.size = size;
-    if (self.type == 0) {
-        self.imageView.image = self.image;
-        self.imageView.frame = previewRect;
-    }
-    else {
-        self.playerView.frame = previewRect;
-    }
+    
+    self.playerView.frame = previewRect;
     self.cropView.frame = previewRect;
+    
     CGFloat minLength = MIN(previewRect.size.width, previewRect.size.height)/2.0;
     if (minLength < self.cropView.cornerSpacing) {
         self.cropView.cornerSpacing = minLength*0.5;
@@ -282,7 +235,7 @@
         self.scaleView.delegate = self;
         [self.toolView addSubview:self.scaleView];
     }
-    if (self.type == 1 && self.clipTimeView == nil) {
+    if (self.clipTimeView == nil) {
         self.clipTimeView = [[WZMClipTimeView alloc] initWithFrame:CGRectMake(0.0, self.scaleView.wzm_maxY+5.0, self.contentView.wzm_width, 60.0)];
         self.clipTimeView.delegate = self;
         self.clipTimeView.videoUrl = self.videoUrl;

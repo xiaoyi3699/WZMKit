@@ -8,12 +8,7 @@
 
 #import "WZMImageresizerView.h"
 #import "WZMImageresizerFrameView.h"
-
-#ifdef DEBUG
-#define JPLog(...) printf("%s %s 第%d行: %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:__VA_ARGS__] UTF8String]);
-#else
-#define JPLog(...)
-#endif
+#import "WZMLogPrinter.h"
 
 @interface WZMImageresizerView () <UIScrollViewDelegate>
 @property (nonatomic, weak) UIScrollView *scrollView;
@@ -255,7 +250,9 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.autoresizingMask = UIViewAutoresizingNone;
     scrollView.clipsToBounds = NO;
-    if (@available(iOS 11.0, *)) scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    if (@available(iOS 11.0, *)) {
+        scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addSubview:scrollView];
     self.scrollView = scrollView;
 }
@@ -367,7 +364,7 @@
 
 - (void)setVerticalityMirror:(BOOL)verticalityMirror animated:(BOOL)isAnimated {
     if (self.frameView.isPrepareToScale) {
-        JPLog(@"裁剪区域预备缩放至适合位置，镜像功能暂不可用，此时应该将镜像按钮设为不可点或隐藏");
+        WZMLog(@"裁剪区域预备缩放至适合位置，镜像功能暂不可用，此时应该将镜像按钮设为不可点或隐藏");
         return;
     }
     if (_verticalityMirror == verticalityMirror) return;
@@ -377,7 +374,7 @@
 
 - (void)setHorizontalMirror:(BOOL)horizontalMirror animated:(BOOL)isAnimated {
     if (self.frameView.isPrepareToScale) {
-        JPLog(@"裁剪区域预备缩放至适合位置，镜像功能暂不可用，此时应该将镜像按钮设为不可点或隐藏");
+        WZMLog(@"裁剪区域预备缩放至适合位置，镜像功能暂不可用，此时应该将镜像按钮设为不可点或隐藏");
         return;
     }
     if (_horizontalMirror == horizontalMirror) return;
@@ -444,7 +441,7 @@
 
 - (void)rotation {
     if (self.frameView.isPrepareToScale) {
-        JPLog(@"裁剪区域预备缩放至适合位置，旋转功能暂不可用，此时应该将旋转按钮设为不可点或隐藏");
+        WZMLog(@"裁剪区域预备缩放至适合位置，旋转功能暂不可用，此时应该将旋转按钮设为不可点或隐藏");
         return;
     }
     
@@ -488,7 +485,7 @@
 
 - (void)recovery {
     if (!self.frameView.isCanRecovery) {
-        JPLog(@"已经是初始状态，不需要重置");
+        WZMLog(@"已经是初始状态，不需要重置");
         return;
     }
     
@@ -540,7 +537,7 @@
 
 - (void)imageresizerWithComplete:(void (^)(UIImage *))complete isOriginImageSize:(BOOL)isOriginImageSize referenceWidth:(CGFloat)referenceWidth {
     if (self.frameView.isPrepareToScale) {
-        JPLog(@"裁剪区域预备缩放至适合位置，裁剪功能暂不可用，此时应该将裁剪按钮设为不可点或隐藏");
+        WZMLog(@"裁剪区域预备缩放至适合位置，裁剪功能暂不可用，此时应该将裁剪按钮设为不可点或隐藏");
         !complete ? : complete(nil);
         return;
     }

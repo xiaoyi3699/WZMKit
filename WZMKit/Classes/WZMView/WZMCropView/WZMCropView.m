@@ -86,11 +86,11 @@ typedef NS_ENUM(NSInteger, WZMCropMoveType) {
         CGFloat minY = CGRectGetMinY(self.cropFrame);
         //分割线设置为虚线
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGFloat lengths2[]= {6.0, 4.0};
+//        CGFloat lengths2[]= {6.0, 4.0};
         CGContextSetStrokeColorWithColor(context, self.separateColor.CGColor);
         CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
         CGContextSetLineWidth(context, self.separateWidth);
-        CGContextSetLineDash(context, 0.0, lengths2, 2);
+//        CGContextSetLineDash(context, 0.0, lengths2, 2);
         //横向分割线
         CGContextMoveToPoint(context, minX, minY+h/3.0);
         CGContextAddLineToPoint(context, minX+w, minY+h/3.0);

@@ -7,9 +7,7 @@
 //
 
 #import "ThirdViewController.h"
-#import "WZMAlertQueue.h"
-#import <Photos/Photos.h>
-#import "WZMImageresizerViewController.h"
+
 @interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @end
@@ -42,8 +40,8 @@
 - (void)btnClick:(UIButton *)btn {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
     config.maxCount = 1;
-//    config.allowEdit = YES;
-//    config.allowPreview = NO;
+    config.allowEdit = YES;
+    config.allowPreview = NO;
     config.originalVideo = NO;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;
@@ -52,22 +50,10 @@
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
     id obj = [originals firstObject];
-//    if ([obj isKindOfClass:[UIImage class]]) {
-//        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
-//            NSLog(@"===%@",error);
-//        }];
-//    }
-//    else if ([obj isKindOfClass:[NSURL class]]){
-//        [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {
-//            NSLog(@"===%@",error);
-//        }];
-//    }
-    
     if ([obj isKindOfClass:[UIImage class]]) {
-        WZMImageresizerViewController *vc = [[WZMImageresizerViewController alloc] initWithImage:obj completion:^(UIImage *image) {
-            
+        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
+            NSLog(@"===%@",error);
         }];
-        [self.navigationController pushViewController:vc animated:YES];
     }
     else if ([obj isKindOfClass:[NSURL class]]){
         [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {

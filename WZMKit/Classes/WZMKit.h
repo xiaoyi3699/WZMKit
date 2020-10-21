@@ -368,6 +368,8 @@
 #import "WZMScannerViewController.h"
 #import "WZMPrivacyAlertController.h"
 #import "WZMScreenViewController.h"
+#import "WZMImageresizerView.h"
+#import "WZMAlbumImageEditController.h"
 
 /********************************************************/
 /********************** ↓ 扩展类 ↓ **********************/

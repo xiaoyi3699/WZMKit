@@ -6,13 +6,23 @@
 //  Copyright © 2019 aasjdi dau. All rights reserved.
 //
 
-#import "WZMImageresizerViewController.h"
+#import "WZMAlbumImageEditController.h"
 #import "WZMImageresizerView.h"
 #import "WZMAlbumScaleView.h"
 #import "WZMMacro.h"
+#import "UIView+wzmcate.h"
+#import "UIColor+wzmcate.h"
+#import "UIImage+wzmcate.h"
+#import "WZMAlbumConfig.h"
 
-@interface WZMImageresizerViewController ()<WZMAlbumScaleViewDelegate>
+@interface WZMAlbumImageEditController ()<WZMAlbumScaleViewDelegate>
 
+@property (nonatomic, strong) NSArray *originals;
+@property (nonatomic, strong) NSArray *thumbnails;
+@property (nonatomic, strong) NSArray *assets;
+@property (nonatomic, strong) WZMAlbumConfig *config;
+
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) WZMAlbumScaleView *scaleView;
 
@@ -20,22 +30,20 @@
 @property (nonatomic, strong) WZMImageresizerView *imageresizerView;
 
 @property (nonatomic, strong) UIImage *resizeImage;
-@property (nonatomic, copy) WZMImageBlock completionBlock;
 
 @end
 
-#define SC_WIDTH  [UIScreen mainScreen].bounds.size.width
-#define SC_HEIGHT [UIScreen mainScreen].bounds.size.height
-@implementation WZMImageresizerViewController {
-    
-}
+@implementation WZMAlbumImageEditController
 
-- (instancetype)initWithImage:(UIImage *)image completion:(WZMImageBlock)completion {
+- (instancetype)initWithOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets config:(WZMAlbumConfig *)config {
     self = [super init];
     if (self) {
-        _resizeImage = image;
-        _completionBlock = completion;
-        self.title = @"图片编辑";
+        self.config = config;
+        self.title = @"图片剪裁";
+        self.originals = originals;
+        self.thumbnails = thumbnails;
+        self.assets = assets;
+        self.resizeImage = self.originals.firstObject;
     }
     return self;
 }
@@ -43,28 +51,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor wzm_getDynamicColor:[UIColor whiteColor]];
-    if (self.navItemColor == nil) {
-        self.navItemColor = [UIColor wzm_getDynamicColor:[UIColor darkTextColor]];
-    }
-    if (self.themeItemColor == nil) {
-        self.themeItemColor = [UIColor colorWithRed:36.0/255.0 green:189.0/255.0 blue:72.0/255.0 alpha:1.0];
-    }
-    // 注意：iOS11以下的系统，所在的controller最好设置automaticallyAdjustsScrollViewInsets为NO，不然就会随导航栏或状态栏的变化产生偏移
-    if (@available(iOS 11.0, *)) {
-        
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
-    CGFloat bottomH = 65.0 + (WZM_IS_iPhoneX ? 34.0 : 0.0);
-    CGRect viewFrame = self.view.bounds;
-    viewFrame.origin.y = WZM_NAVBAR_HEIGHT;
-    viewFrame.size.height -= (WZM_NAVBAR_HEIGHT + bottomH);
+    
+    CGRect rect = self.view.bounds;
+    rect.origin.y = WZM_NAVBAR_HEIGHT;
+    rect.size.height -= (WZM_NAVBAR_HEIGHT);
+    self.contentView = [[UIView alloc] initWithFrame:rect];
+    [self.view addSubview:self.contentView];
+    
+    CGFloat bottomH = 60.0 + (WZM_IS_iPhoneX ? 34.0 : 0.0);
+    CGRect viewFrame = self.contentView.bounds;
+    viewFrame.size.height -= bottomH;
+    
     WZMImageresizerConfigure *configure = [WZMImageresizerConfigure defaultConfigureWithResizeImage:_resizeImage make:^(WZMImageresizerConfigure *configure) {
         // 到这里已经有了默认参数值，可以在这里另外设置你想要的参数值（使用了链式编程方式）
         configure.jp_viewFrame(viewFrame).
-        jp_maskAlpha(1.0).
+        jp_maskAlpha(0.8).
         jp_resizeWHScale(0.0).
-        jp_strokeColor(self.themeItemColor).
+        jp_strokeColor(self.config.themeColor).
         jp_bgColor([self navigatonBarBackgroundColor]).
         jp_frameType(WZMClassicFrameType).
         jp_maskType(WZMNormalMaskType).
@@ -87,21 +90,22 @@
     }];
     imageresizerView.backgroundColor = [self navigatonBarBackgroundColor];
     // 添加到视图上
-    [self.view addSubview:imageresizerView];
+    self.contentView.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:imageresizerView];
     self.imageresizerView = imageresizerView;
     
-    self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0.0, SC_HEIGHT-60.0, SC_WIDTH, 60.0)];
-    [self.view addSubview:self.toolView];
+    self.toolView = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.contentView.wzm_height-bottomH, WZM_SCREEN_WIDTH, bottomH)];
+    [self.contentView addSubview:self.toolView];
     
     self.scaleView = [[WZMAlbumScaleView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.toolView.wzm_width, 60.0)];
     self.scaleView.delegate = self;
     [self.toolView addSubview:self.scaleView];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(leftItemClick)];
-    leftItem.tintColor = self.navItemColor;
+    leftItem.tintColor = self.config.navItemColor;
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick)];
-    rightItem.tintColor = self.themeItemColor;
+    rightItem.tintColor = self.config.themeColor;
     
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -115,12 +119,17 @@
     @wzm_weakify(self);
     [self.imageresizerView originImageresizerWithComplete:^(UIImage *resizeImage) {
         @wzm_strongify(self);
-        if (self.completionBlock) {
-            self.completionBlock(resizeImage);
+        if (resizeImage == nil) {
+            resizeImage = self.originals.firstObject;
+        }
+        UIImage *thumImage = [resizeImage wzm_getScaleImage];
+        if ([self.delegate respondsToSelector:@selector(albumImageEditController:handleOriginals:thumbnails:assets:)]) {
+            [self.delegate albumImageEditController:self handleOriginals:@[resizeImage] thumbnails:@[thumImage] assets:self.assets];
         }
     }];
 }
 
+//改变比例
 - (void)scaleView:(WZMAlbumScaleView *)scaleView didChangeScale:(CGFloat)scale {
     [self.imageresizerView setResizeWHScale:scale];
 }
@@ -130,11 +139,8 @@
     return [UIColor wzm_getDynamicColorByLightColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0] darkColor:WZM_DARK_COLOR];
 }
 
+//暗黑切换
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    if (self.navigationController) {
-        UIColor *navBGColor = [self navigatonBarBackgroundColor];
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage wzm_getImageByColor:navBGColor] forBarMetrics:UIBarMetricsDefault];
-    }
     [self.imageresizerView setBgColor:[self navigatonBarBackgroundColor]];
 }
 

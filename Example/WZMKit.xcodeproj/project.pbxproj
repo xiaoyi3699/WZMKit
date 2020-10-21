@@ -25,11 +25,6 @@
 		646A10BC247F49BF00F96689 /* WZMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BB247F49BF00F96689 /* WZMSubViewController.m */; };
 		646A10BF247F58B900F96689 /* WZMBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BE247F58B900F96689 /* WZMBaseCollectionView.m */; };
 		646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 646F21AE24064BE500B49DB1 /* WXxiari.ttf */; };
-		64801A0D253F0BA30016EE8C /* WZMImageresizerConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 64801A04253F0BA30016EE8C /* WZMImageresizerConfigure.m */; };
-		64801A0E253F0BA30016EE8C /* WZMImageresizerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64801A05253F0BA30016EE8C /* WZMImageresizerView.m */; };
-		64801A0F253F0BA30016EE8C /* WZMImageresizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64801A08253F0BA30016EE8C /* WZMImageresizerViewController.m */; };
-		64801A10253F0BA30016EE8C /* WZMImageresizerFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64801A0B253F0BA30016EE8C /* WZMImageresizerFrameView.m */; };
-		64801A11253F0BA30016EE8C /* UIImage+WZMExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 64801A0C253F0BA30016EE8C /* UIImage+WZMExtension.m */; };
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
@@ -115,17 +110,6 @@
 		646A10BD247F58B900F96689 /* WZMBaseCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseCollectionView.h; sourceTree = "<group>"; };
 		646A10BE247F58B900F96689 /* WZMBaseCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMBaseCollectionView.m; sourceTree = "<group>"; };
 		646F21AE24064BE500B49DB1 /* WXxiari.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WXxiari.ttf; sourceTree = "<group>"; };
-		64801A02253F0BA30016EE8C /* WZMImageresizerTypedef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMImageresizerTypedef.h; sourceTree = "<group>"; };
-		64801A03253F0BA30016EE8C /* WZMImageresizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMImageresizerViewController.h; sourceTree = "<group>"; };
-		64801A04253F0BA30016EE8C /* WZMImageresizerConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMImageresizerConfigure.m; sourceTree = "<group>"; };
-		64801A05253F0BA30016EE8C /* WZMImageresizerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMImageresizerView.m; sourceTree = "<group>"; };
-		64801A06253F0BA30016EE8C /* WZMImageresizerFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMImageresizerFrameView.h; sourceTree = "<group>"; };
-		64801A07253F0BA30016EE8C /* UIImage+WZMExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WZMExtension.h"; sourceTree = "<group>"; };
-		64801A08253F0BA30016EE8C /* WZMImageresizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMImageresizerViewController.m; sourceTree = "<group>"; };
-		64801A09253F0BA30016EE8C /* WZMImageresizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMImageresizerView.h; sourceTree = "<group>"; };
-		64801A0A253F0BA30016EE8C /* WZMImageresizerConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMImageresizerConfigure.h; sourceTree = "<group>"; };
-		64801A0B253F0BA30016EE8C /* WZMImageresizerFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMImageresizerFrameView.m; sourceTree = "<group>"; };
-		64801A0C253F0BA30016EE8C /* UIImage+WZMExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WZMExtension.m"; sourceTree = "<group>"; };
 		6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeWebController.m; sourceTree = "<group>"; };
 		6486E45D23D8451600D777D7 /* WZMRechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeModel.m; sourceTree = "<group>"; };
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
@@ -361,24 +345,6 @@
 				646A10BE247F58B900F96689 /* WZMBaseCollectionView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		64801A01253F0BA30016EE8C /* WZMImageresizerView */ = {
-			isa = PBXGroup;
-			children = (
-				64801A0A253F0BA30016EE8C /* WZMImageresizerConfigure.h */,
-				64801A04253F0BA30016EE8C /* WZMImageresizerConfigure.m */,
-				64801A06253F0BA30016EE8C /* WZMImageresizerFrameView.h */,
-				64801A0B253F0BA30016EE8C /* WZMImageresizerFrameView.m */,
-				64801A02253F0BA30016EE8C /* WZMImageresizerTypedef.h */,
-				64801A09253F0BA30016EE8C /* WZMImageresizerView.h */,
-				64801A05253F0BA30016EE8C /* WZMImageresizerView.m */,
-				64801A03253F0BA30016EE8C /* WZMImageresizerViewController.h */,
-				64801A08253F0BA30016EE8C /* WZMImageresizerViewController.m */,
-				64801A07253F0BA30016EE8C /* UIImage+WZMExtension.h */,
-				64801A0C253F0BA30016EE8C /* UIImage+WZMExtension.m */,
-			);
-			path = WZMImageresizerView;
 			sourceTree = "<group>";
 		};
 		6486E45B23D8451600D777D7 /* WZMRechargeH5 */ = {
@@ -628,7 +594,6 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
-				64801A01253F0BA30016EE8C /* WZMImageresizerView */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 			);
@@ -883,17 +848,12 @@
 				75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */,
 				6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
-				64801A10253F0BA30016EE8C /* WZMImageresizerFrameView.m in Sources */,
-				64801A0F253F0BA30016EE8C /* WZMImageresizerViewController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMURLResponse.m in Sources */,
 				6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */,
-				64801A0E253F0BA30016EE8C /* WZMImageresizerView.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
-				64801A0D253F0BA30016EE8C /* WZMImageresizerConfigure.m in Sources */,
-				64801A11253F0BA30016EE8C /* UIImage+WZMExtension.m in Sources */,
 				75DA9E27230E924A0000A955 /* WZMBaseModel.m in Sources */,
 				646A10BF247F58B900F96689 /* WZMBaseCollectionView.m in Sources */,
 				75DA9E1E230E924A0000A955 /* WZMAttributeTextView.m in Sources */,

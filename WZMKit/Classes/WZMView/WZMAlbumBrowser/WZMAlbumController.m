@@ -21,11 +21,12 @@
 #import "WZMAlbumNavigationController.h"
 #import "UIViewController+WZMModalAnimation.h"
 #import "WZMDefined.h"
-#import "WZMAlbumEditViewController.h"
+#import "WZMAlbumVideoEditController.h"
+#import "WZMAlbumImageEditController.h"
 #import "WZMAlbumHelper.h"
 
 #if WZM_APP
-@interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate,WZMAlbumEditViewControllerDelegate>
+@interface WZMAlbumController ()<UIAlertViewDelegate,UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate,WZMAlbumVideoEditControllerDelegate,WZMAlbumImageEditControllerDelegate>
 #else
 @interface WZMAlbumController ()<UITableViewDelegate,UITableViewDataSource,WZMAlbumViewDelegate,WZMPhotoBrowserDelegate>
 #endif
@@ -180,9 +181,22 @@
         self.navigationController.view.userInteractionEnabled = YES;
         if (self.config.isOnlyOne && self.config.allowEdit) {
             //允许编辑
-            WZMAlbumEditViewController *editVC = [[WZMAlbumEditViewController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets config:self.config];
-            editVC.delegate = self;
-            [self.navigationController pushViewController:editVC animated:YES];
+            id obj = originals.firstObject;
+            if ([obj isKindOfClass:[UIImage class]]) {
+                WZMAlbumImageEditController *editVC = [[WZMAlbumImageEditController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets config:self.config];
+                editVC.delegate = self;
+                [self.navigationController pushViewController:editVC animated:YES];
+            }
+            else {
+                if ([obj isKindOfClass:[NSURL class]]) {
+                    WZMAlbumVideoEditController *editVC = [[WZMAlbumVideoEditController alloc] initWithOriginals:originals thumbnails:thumbnails assets:assets config:self.config];
+                    editVC.delegate = self;
+                    [self.navigationController pushViewController:editVC animated:YES];
+                }
+                else {
+                    [WZMViewHandle wzm_showInfoMessage:@"不支持编辑的格式"];
+                }
+            }
         }
         else {
             [self handleOriginals:originals thumbnails:thumbnails assets:assets];
@@ -190,7 +204,11 @@
     }];
 }
 
-- (void)albumEditViewController:(WZMAlbumEditViewController *)albumEditViewController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+- (void)albumVideoEditController:(WZMAlbumVideoEditController *)albumVideoEditController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    [self handleOriginals:originals thumbnails:thumbnails assets:assets];
+}
+
+- (void)albumImageEditController:(WZMAlbumImageEditController *)albumImageEditController handleOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
     [self handleOriginals:originals thumbnails:thumbnails assets:assets];
 }
 
