@@ -16,7 +16,10 @@
 
 @end
 
-@implementation SecondViewController
+@implementation SecondViewController {
+    UIView *_bgView;
+    NSMutableArray *_drawViews;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -29,11 +32,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    for (NSInteger i = 0; i < 2; i ++) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0+i*100.0, 64, 100.0, 50.0)];
+        btn.tag = i;
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [btn setTitle:@"hhaah" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+    }
     
+    _drawViews = [[NSMutableArray alloc] init];
+    CGRect rect = CGRectMake(10.0, 100.0, WZM_SCREEN_WIDTH-20.0, 355.0);
+    _bgView = [[UIView alloc] initWithFrame:rect];
+    _bgView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:_bgView];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+- (void)btnClick:(UIButton *)btn {
+    if (btn.tag == 0) {
+        static BOOL huabi = YES;
+        if (huabi) {
+            WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:_bgView.bounds];
+            [_bgView addSubview:drawView];
+            [_drawViews addObject:drawView];
+        }
+        else {
+            WZMPasterView *pasterView = [[WZMPasterView alloc] initWithFrame:_bgView.bounds];
+            [_bgView addSubview:pasterView];
+            [_drawViews addObject:pasterView];
+        }
+        huabi = !huabi;
+    }
+    else {
+        
+    }
 }
 
 @end

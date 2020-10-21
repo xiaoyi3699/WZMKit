@@ -21,7 +21,7 @@
 @end
 @interface WZMPasterView : UIView
 
-@property (nonatomic,strong) WZMPasterItemView *m_filterPaster;
+@property (nonatomic, strong, readonly) NSMutableArray *pasters;
 @property (nonatomic,weak) id<WZMPasterViewDelegate> delegate;
 
 - (void)addPasterWithImg:(UIImage *)imgP;

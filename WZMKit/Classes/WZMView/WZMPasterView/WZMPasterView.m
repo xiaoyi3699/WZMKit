@@ -14,19 +14,19 @@
 @interface WZMPasterView ()<WZMPasterItemViewDelegate> {
     CGPoint         startPoint;
     CGPoint         touchPoint;
-    NSMutableArray  *m_listPaster;
 }
 
 @property (nonatomic,assign) int newPasterID;
 @property (nonatomic,strong) UIButton *bgButton;
+@property (nonatomic, strong) NSMutableArray *pasters;
 @property (nonatomic,strong) WZMPasterItemView *pasterCurrent;
-
+@property (nonatomic,strong) WZMPasterItemView *filterPaster;
 
 @end
 
 @implementation WZMPasterView
 
-@synthesize m_filterPaster;
+@synthesize filterPaster;
 
 - (int)newPasterID
 {
@@ -37,8 +37,8 @@
 - (void)setPasterCurrent:(WZMPasterItemView *)pasterCurrent {
     _pasterCurrent = pasterCurrent;
     [self bringSubviewToFront:_pasterCurrent];
-    m_filterPaster = _pasterCurrent;
-    if ([self.delegate respondsToSelector:@selector(m_filterPaster)]) {
+    filterPaster = _pasterCurrent;
+    if ([self.delegate respondsToSelector:@selector(filterPaster)]) {
         [self.delegate m_filterPaster:_pasterCurrent];
     }
 }
@@ -62,7 +62,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        m_listPaster = [[NSMutableArray alloc] initWithCapacity:1];
+        self.pasters = [[NSMutableArray alloc] initWithCapacity:1];
         [self bgButton];
     }
     return self;
@@ -79,7 +79,7 @@
     [self clearAllOnFirst];
     self.pasterCurrent = [[WZMPasterItemView alloc] initWithBgView:self pasterID:self.newPasterID img:imgP];
     _pasterCurrent.delegate = self;
-    [m_listPaster addObject:_pasterCurrent];
+    [self.pasters addObject:_pasterCurrent];
 }
 
 - (void)backgroundClicked:(UIButton *)btBg
@@ -90,7 +90,7 @@
 - (void)clearAllOnFirst
 {
     _pasterCurrent.isOnFirst = NO;
-    [m_listPaster enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.pasters enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
          pasterV.isOnFirst = NO;
     }];
 }
@@ -98,7 +98,7 @@
 #pragma mark - PasterViewDelegate
 - (void)makePasterBecomeFirstRespond:(int)pasterID
 {
-    [m_listPaster enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.pasters enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
         pasterV.isOnFirst = NO;
         if (pasterV.pasterID == pasterID) {
             self.pasterCurrent = pasterV;
@@ -109,9 +109,9 @@
 
 - (void)removePaster:(int)pasterID
 {
-    [m_listPaster enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.pasters enumerateObjectsUsingBlock:^(WZMPasterItemView *pasterV, NSUInteger idx, BOOL * _Nonnull stop) {
         if (pasterV.pasterID == pasterID) {
-            [m_listPaster removeObjectAtIndex:idx];
+            [self.pasters removeObjectAtIndex:idx];
             *stop = YES;
         }
     }];
