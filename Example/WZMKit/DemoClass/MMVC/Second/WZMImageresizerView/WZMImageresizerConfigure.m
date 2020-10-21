@@ -13,7 +13,7 @@
     WZMImageresizerConfigure *configure = [[self alloc] init];
     configure.resizeImage = resizeImage;
     configure.viewFrame = [UIScreen mainScreen].bounds;
-    configure.maskAlpha = LVNormalMaskType;
+    configure.maskAlpha = WZMNormalMaskType;
     configure.frameType = WZMConciseFrameType;
     configure.animationCurve = WZMAnimationCurveEaseOut;
     configure.strokeColor = [UIColor whiteColor];
@@ -37,7 +37,7 @@
 }
 
 + (instancetype)blurMaskTypeConfigureWithResizeImage:(UIImage *)resizeImage isLight:(BOOL)isLight make:(void (^)(WZMImageresizerConfigure *))make {
-    WZMImageresizerMaskType maskType = isLight ? LVLightBlurMaskType : LVDarkBlurMaskType;
+    WZMImageresizerMaskType maskType = isLight ? WZMLightBlurMaskType : WZMDarkBlurMaskType;
     WZMImageresizerConfigure *configure = [self defaultConfigureWithResizeImage:resizeImage make:^(WZMImageresizerConfigure *configure) {
         configure.jp_maskType(maskType).jp_maskAlpha(0.3);
     }];
@@ -47,17 +47,17 @@
 
 - (void)setMaskType:(WZMImageresizerMaskType)maskType {
     _maskType = maskType;
-    if (maskType == LVLightBlurMaskType) {
+    if (maskType == WZMLightBlurMaskType) {
         self.bgColor = [UIColor whiteColor];
-    } else if (maskType == LVDarkBlurMaskType) {
+    } else if (maskType == WZMDarkBlurMaskType) {
         self.bgColor = [UIColor blackColor];
     }
 }
 
 - (void)setBgColor:(UIColor *)bgColor {
-    if (self.maskType == LVLightBlurMaskType) {
+    if (self.maskType == WZMLightBlurMaskType) {
         _bgColor = [UIColor whiteColor];
-    } else if (self.maskType == LVDarkBlurMaskType) {
+    } else if (self.maskType == WZMDarkBlurMaskType) {
         _bgColor = [UIColor blackColor];
     } else {
         _bgColor = bgColor;

@@ -204,9 +204,9 @@
         CGFloat width = (self.bounds.size.width - _contentInsets.left - _contentInsets.right);
         CGFloat height = (self.bounds.size.height - _contentInsets.top - _contentInsets.bottom);
         _contentSize = CGSizeMake(width, height);
-        if (maskType == LVLightBlurMaskType) {
+        if (maskType == WZMLightBlurMaskType) {
             self.bgColor = [UIColor whiteColor];
-        } else if (maskType == LVDarkBlurMaskType) {
+        } else if (maskType == WZMDarkBlurMaskType) {
             self.bgColor = [UIColor blackColor];
         } else {
             self.bgColor = bgColor;

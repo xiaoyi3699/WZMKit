@@ -141,9 +141,9 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
 }
 
 - (void)setFillColor:(UIColor *)fillColor {
-    if (self.maskType == LVLightBlurMaskType) {
+    if (self.maskType == WZMLightBlurMaskType) {
         fillColor = [UIColor whiteColor];
-    } else if (self.maskType == LVDarkBlurMaskType) {
+    } else if (self.maskType == WZMDarkBlurMaskType) {
         fillColor = [UIColor blackColor];
     }
     _fillRgba = [self createRgbaWithColor:fillColor];
@@ -515,7 +515,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
                               self.bounds.origin.y - _diffRotLength,
                               self.bounds.size.width + _diffRotLength * 2,
                               self.bounds.size.height + _diffRotLength * 2);
-        if (maskType != LVNormalMaskType) {
+        if (maskType != WZMNormalMaskType) {
             UIView *blurContentView = [[UIView alloc] initWithFrame:_bgFrame];
             [self addSubview:blurContentView];
             self.blurContentView = blurContentView;
@@ -735,7 +735,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
 }
 
 - (void)hideOrShowBlurEffect:(BOOL)isHide animateDuration:(NSTimeInterval)duration {
-    if (self.maskType == LVNormalMaskType) return;
+    if (self.maskType == WZMNormalMaskType) return;
     if (_isHideBlurEffect == isHide) return;
     _isHideBlurEffect = isHide;
     CGFloat toOpacity = isHide ? 0 : 1;
@@ -756,7 +756,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
 }
 
 - (void)hideOrShowFrameLine:(BOOL)isHide animateDuration:(NSTimeInterval)duration {
-    if (self.frameType != LVClassicFrameType) return;
+    if (self.frameType != WZMClassicFrameType) return;
     if (_isHideFrameLine == isHide) return;
     _isHideFrameLine = isHide;
     CGFloat toOpacity = isHide ? 0 : 1;
@@ -900,7 +900,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
             layerPathAnimate(_rightMidDot, rightMidDotPath);
             layerPathAnimate(_topMidDot, topMidDotPath);
             layerPathAnimate(_bottomMidDot, bottomMidDotPath);
-        } else if (_frameType == LVClassicFrameType) {
+        } else if (_frameType == WZMClassicFrameType) {
             layerPathAnimate(_horTopLine, horTopLinePath);
             layerPathAnimate(_horBottomLine, horBottomLinePath);
             layerPathAnimate(_verLeftLine, verLeftLinePath);
@@ -921,7 +921,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
         _rightMidDot.path = rightMidDotPath.CGPath;
         _topMidDot.path = topMidDotPath.CGPath;
         _bottomMidDot.path = bottomMidDotPath.CGPath;
-    } else if (_frameType == LVClassicFrameType) {
+    } else if (_frameType == WZMClassicFrameType) {
         _horTopLine.path = horTopLinePath.CGPath;
         _horBottomLine.path = horBottomLinePath.CGPath;
         _verLeftLine.path = verLeftLinePath.CGPath;
@@ -995,7 +995,7 @@ typedef NS_ENUM(NSUInteger, WZMLinePosition) {
     
     _frameLayer.lineWidth = 1.0 / _sizeScale;
     CGFloat lineW = 0;
-    if (_frameType == LVClassicFrameType) lineW = _arrLineW / _sizeScale;
+    if (_frameType == WZMClassicFrameType) lineW = _arrLineW / _sizeScale;
     _leftTopDot.lineWidth = lineW;
     _leftBottomDot.lineWidth = lineW;
     _rightTopDot.lineWidth = lineW;

@@ -20,7 +20,7 @@
 @property (nonatomic, strong) WZMImageresizerView *imageresizerView;
 
 @property (nonatomic, strong) UIImage *resizeImage;
-@property (nonatomic, copy) LVImageBlock completionBlock;
+@property (nonatomic, copy) WZMImageBlock completionBlock;
 
 @end
 
@@ -30,7 +30,7 @@
     
 }
 
-- (instancetype)initWithImage:(UIImage *)image completion:(LVImageBlock)completion {
+- (instancetype)initWithImage:(UIImage *)image completion:(WZMImageBlock)completion {
     self = [super init];
     if (self) {
         _resizeImage = image;
@@ -62,12 +62,12 @@
     WZMImageresizerConfigure *configure = [WZMImageresizerConfigure defaultConfigureWithResizeImage:_resizeImage make:^(WZMImageresizerConfigure *configure) {
         // 到这里已经有了默认参数值，可以在这里另外设置你想要的参数值（使用了链式编程方式）
         configure.jp_viewFrame(viewFrame).
-        jp_maskAlpha(0.9).
+        jp_maskAlpha(1.0).
         jp_resizeWHScale(0.0).
         jp_strokeColor(self.themeItemColor).
         jp_bgColor([self navigatonBarBackgroundColor]).
-        jp_frameType(LVClassicFrameType).
-        jp_maskType(LVNormalMaskType).
+        jp_frameType(WZMClassicFrameType).
+        jp_maskType(WZMNormalMaskType).
         jp_contentInsets(UIEdgeInsetsMake(0, 0, 0, 0)).
         jp_isClockwiseRotation(YES).
         jp_animationCurve(WZMAnimationCurveEaseOut);

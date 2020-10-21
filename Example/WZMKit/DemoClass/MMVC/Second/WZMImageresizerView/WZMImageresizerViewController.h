@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^LVImageBlock)(UIImage *image);
+typedef void(^WZMImageBlock)(UIImage *image);
 @interface WZMImageresizerViewController : UIViewController
 
 /**
@@ -18,6 +18,6 @@ typedef void(^LVImageBlock)(UIImage *image);
 @property (nonatomic, strong) UIColor *navItemColor;
 @property (nonatomic, strong) UIColor *themeItemColor;
 
-- (instancetype)initWithImage:(UIImage *)image completion:(LVImageBlock)completion;
+- (instancetype)initWithImage:(UIImage *)image completion:(WZMImageBlock)completion;
 
 @end

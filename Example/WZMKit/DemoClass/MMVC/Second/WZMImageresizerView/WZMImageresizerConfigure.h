@@ -13,7 +13,7 @@
 /**
  * 默认参数值：
     - viewFrame = [UIScreen mainScreen].bounds;
-    - maskAlpha = LVNormalMaskType;
+    - maskAlpha = WZMNormalMaskType;
     - frameType = WZMConciseFrameType;
     - animationCurve = WZMAnimationCurveLinear;
     - strokeColor = [UIColor whiteColor];

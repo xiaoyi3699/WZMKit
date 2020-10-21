@@ -10,26 +10,26 @@
 
 /**
  * 遮罩样式
- * LVNormalMaskType：    通常类型，bgColor能任意设置
- * LVLightBlurMaskType： 明亮高斯模糊，bgColor强制为白色，maskAlpha可自行修改，建议为0.3
- * LVDarkBlurMaskType：  暗黑高斯模糊，bgColor强制为黑色，maskAlpha可自行修改，建议为0.3
+ * WZMNormalMaskType：    通常类型，bgColor能任意设置
+ * WZMLightBlurMaskType： 明亮高斯模糊，bgColor强制为白色，maskAlpha可自行修改，建议为0.3
+ * WZMDarkBlurMaskType：  暗黑高斯模糊，bgColor强制为黑色，maskAlpha可自行修改，建议为0.3
  */
 typedef NS_ENUM(NSUInteger, WZMImageresizerMaskType) {
-    LVNormalMaskType, // default
-    LVLightBlurMaskType,
-    LVDarkBlurMaskType
+    WZMNormalMaskType, // default
+    WZMLightBlurMaskType,
+    WZMDarkBlurMaskType
 };
 
 /**
  * 边框样式
  * WZMConciseFrameType：               简洁样式，可拖拽8个方向（固定比例则4个方向）
  * WZMConciseWithoutOtherDotFrameType：简洁样式，可拖拽4个方向（4角）
- * LVClassicFrameType：               经典样式，类似微信的裁剪边框样式，可拖拽4个方向
+ * WZMClassicFrameType：               经典样式，类似微信的裁剪边框样式，可拖拽4个方向
  */
 typedef NS_ENUM(NSUInteger, WZMImageresizerFrameType) {
     WZMConciseFrameType, // default
     WZMConciseWithoutOtherDotFrameType,
-    LVClassicFrameType
+    WZMClassicFrameType
 };
 
 /**
