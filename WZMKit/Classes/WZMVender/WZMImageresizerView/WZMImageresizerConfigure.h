@@ -7,7 +7,7 @@
 //  WZMImageresizerConfigure：用于配置初始化参数
 
 #import <UIKit/UIKit.h>
-#import <WZMImageresizerTypedef.h>
+#import "WZMImageresizerTypedef.h"
 
 @interface WZMImageresizerConfigure : NSObject
 /**

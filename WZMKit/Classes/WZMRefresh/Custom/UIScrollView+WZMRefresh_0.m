@@ -26,9 +26,9 @@ static NSString *_footerKey = @"footer";
             [wzm_header_0 createViews];
         }
         // 存储新的
-        [self willChangeValueForKey:@"WZMRefreshHeader_0"]; // KVO
+        [self willChangeValueForKey:@"wzm_header_0"]; // KVO
         objc_setAssociatedObject(self, &_headerKey, wzm_header_0, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [self didChangeValueForKey:@"WZMRefreshHeader_0"];  // KVO
+        [self didChangeValueForKey:@"wzm_header_0"];  // KVO
     }
 }
 
@@ -49,9 +49,9 @@ static NSString *_footerKey = @"footer";
         }
         
         // 存储新的
-        [self willChangeValueForKey:@"WZMRefreshFooter_0"]; // KVO
+        [self willChangeValueForKey:@"wzm_footer_0"]; // KVO
         objc_setAssociatedObject(self, &_footerKey, wzm_footer_0, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [self didChangeValueForKey:@"WZMRefreshFooter_0"];  // KVO
+        [self didChangeValueForKey:@"wzm_footer_0"];  // KVO
     }
 }
 

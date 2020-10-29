@@ -10,8 +10,15 @@
 
 @interface UIScrollView (wzmcate)
 
-- (void)wzm_scrollsToTopAnimated:(BOOL)animated;
+///自定义header和footer
+- (void)setWzm_headerView:(UIView *)wzm_headerView;
+- (UIView *)wzm_headerView;
 
+- (void)setWzm_footerView:(UIView *)wzm_footerView;
+- (UIView *)wzm_footerView;
+
+///滑动
+- (void)wzm_scrollsToTopAnimated:(BOOL)animated;
 - (void)wzm_scrollsToBottomAnimated:(BOOL)animated;
 
 @end

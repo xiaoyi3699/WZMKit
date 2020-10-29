@@ -41,8 +41,8 @@
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
     config.maxCount = 1;
     config.allowEdit = YES;
-    config.allowPreview = NO;
-    config.originalVideo = NO;
+//    config.allowPreview = NO;
+//    config.originalVideo = NO;
     WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
     albumNav.pickerDelegate = self;
     [self presentViewController:albumNav animated:YES completion:nil];

@@ -43,32 +43,10 @@
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
     }
-    
-    _drawViews = [[NSMutableArray alloc] init];
-    CGRect rect = CGRectMake(10.0, 100.0, WZM_SCREEN_WIDTH-20.0, 355.0);
-    _bgView = [[UIView alloc] initWithFrame:rect];
-    _bgView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:_bgView];
 }
 
 - (void)btnClick:(UIButton *)btn {
-    if (btn.tag == 0) {
-        static BOOL huabi = YES;
-        if (huabi) {
-            WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:_bgView.bounds];
-            [_bgView addSubview:drawView];
-            [_drawViews addObject:drawView];
-        }
-        else {
-            WZMPasterView *pasterView = [[WZMPasterView alloc] initWithFrame:_bgView.bounds];
-            [_bgView addSubview:pasterView];
-            [_drawViews addObject:pasterView];
-        }
-        huabi = !huabi;
-    }
-    else {
-        
-    }
+    
 }
 
 @end

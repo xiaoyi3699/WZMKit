@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <WZMImageresizerConfigure.h>
+#import "WZMImageresizerConfigure.h"
 
 @interface WZMImageresizerView : UIView
 @property (nonatomic, weak) UIImageView *imageView;
