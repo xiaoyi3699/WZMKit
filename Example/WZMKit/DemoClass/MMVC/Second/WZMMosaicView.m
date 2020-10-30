@@ -30,68 +30,8 @@
     return self;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
-    if (newSuperview) {
-        [self createMosaicLayersIfNeed];
-        [self createMosaicImageIfNeed];
-    }
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
-    NSString *key = [self getKey:self.type];
-    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    
-    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-    CGPathMoveToPoint(path, NULL, point.x, point.y);
-    CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-    shapeLayer.path = startPath;
-    shapeLayer.lineWidth = self.lineWidth;
-    CGPathRelease(startPath);
-    
-    NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
-    [pointArray addObject:[NSValue valueWithCGPoint:point]];
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [dic setObject:pointArray forKey:@"points"];
-    [dic setObject:@(self.type) forKey:@"type"];
-    [dic setObject:@(self.lineWidth) forKey:@"width"];
-    [self.lines addObject:dic];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-    NSString *key = [self getKey:self.type];
-    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    
-    CGPathAddLineToPoint(path, NULL, point.x, point.y);
-    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
-    
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    if (!currentContext) {
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
-    }
-    CGContextAddPath(currentContext, pathRef);
-    [[UIColor blueColor] setStroke];
-    CGContextDrawPath(currentContext, kCGPathStroke);
-    shapeLayer.path = pathRef;
-    shapeLayer.lineWidth = self.lineWidth;
-    CGPathRelease(pathRef);
-    
-    NSDictionary *dic = [self.lines lastObject];
-    NSMutableArray *pointArray = [dic objectForKey:@"points"];
-    [pointArray addObject:[NSValue valueWithCGPoint:point]];
-}
-
+#pragma mark - public method
+//清空
 - (void)recover {
     if (self.lines.count) {
         [self recoverLayer];
@@ -100,6 +40,7 @@
     }
 }
 
+//撤销
 - (void)backforward {
     if (self.lines.count) {
         [self recoverLayer];
@@ -108,6 +49,7 @@
     }
 }
 
+#pragma mark - private method
 - (void)recoverLayer {
     for (NSString *key in self.pathDic.allKeys) {
         CGMutablePathRef pathRef = CGPathCreateMutable();
@@ -118,44 +60,6 @@
     for (CAShapeLayer *shapeLayer in self.shapeLayerDic.allValues) {
         shapeLayer.path = nil;
     }
-}
-
-- (void)drawRect:(CGRect)rect {
-    if (self.image == nil) return;
-    [self createMosaicImageIfNeed];
-    [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableArray *pointsArray = [dic objectForKey:@"points"];
-        CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
-        WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
-        NSString *key = [self getKey:type];
-        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-        if (pointsArray.count > 1) {
-            CGPoint startPoint = [pointsArray[0] CGPointValue];
-            CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
-            CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-            shapeLayer.path = startPath;
-            shapeLayer.lineWidth = lineWidth;
-            CGPathRelease(startPath);
-            
-            NSInteger count = pointsArray.count;
-            for (NSInteger i = 1; i < count; i ++) {
-                CGPoint endPoint = [pointsArray[i] CGPointValue];
-                CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
-                CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
-                
-                CGContextRef currentContext = UIGraphicsGetCurrentContext();
-                if (!currentContext) {
-                    UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
-                }
-                CGContextAddPath(currentContext, pathRef);
-                [[UIColor blueColor] setStroke];
-                CGContextDrawPath(currentContext, kCGPathStroke);
-                shapeLayer.path = pathRef;
-                CGPathRelease(pathRef);
-            }
-        }
-    }];
 }
 
 - (void)createMosaicLayersIfNeed {
@@ -229,6 +133,7 @@
     }
 }
 
+#pragma mark - setter
 - (void)setImage:(UIImage *)image {
     _image = image;
     self.imageView.image = image;
@@ -243,8 +148,117 @@
     }
 }
 
+- (void)setLineWidth:(CGFloat)lineWidth {
+    if (_lineWidth == lineWidth) return;
+    _lineWidth = lineWidth;
+    if (self.superview) {
+        [self setNeedsDisplay];
+    }
+}
+
 - (NSString *)getKey:(WZMMosaicViewType)i {
     return [NSString stringWithFormat:@"%@",@(i)];
+}
+
+#pragma mark - super method
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    if (newSuperview) {
+        [self createMosaicLayersIfNeed];
+        [self createMosaicImageIfNeed];
+    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    
+    NSString *key = [self getKey:self.type];
+    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];
+    
+    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+    CGPathMoveToPoint(path, NULL, point.x, point.y);
+    CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+    shapeLayer.path = startPath;
+    shapeLayer.lineWidth = self.lineWidth;
+    CGPathRelease(startPath);
+    
+    NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
+    [pointArray addObject:[NSValue valueWithCGPoint:point]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [dic setObject:pointArray forKey:@"points"];
+    [dic setObject:@(self.type) forKey:@"type"];
+    [dic setObject:@(self.lineWidth) forKey:@"width"];
+    [self.lines addObject:dic];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
+    NSString *key = [self getKey:self.type];
+    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];
+    
+    CGPathAddLineToPoint(path, NULL, point.x, point.y);
+    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
+    
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    if (!currentContext) {
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+    }
+    CGContextAddPath(currentContext, pathRef);
+    [[UIColor blueColor] setStroke];
+    CGContextDrawPath(currentContext, kCGPathStroke);
+    shapeLayer.path = pathRef;
+    shapeLayer.lineWidth = self.lineWidth;
+    CGPathRelease(pathRef);
+    
+    NSDictionary *dic = [self.lines lastObject];
+    NSMutableArray *pointArray = [dic objectForKey:@"points"];
+    [pointArray addObject:[NSValue valueWithCGPoint:point]];
+}
+
+- (void)drawRect:(CGRect)rect {
+    if (self.image == nil) return;
+    [self createMosaicImageIfNeed];
+    [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSMutableArray *pointsArray = [dic objectForKey:@"points"];
+        CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+        WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
+        NSString *key = [self getKey:type];
+        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        if (pointsArray.count > 1) {
+            CGPoint startPoint = [pointsArray[0] CGPointValue];
+            CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
+            CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+            shapeLayer.path = startPath;
+            shapeLayer.lineWidth = lineWidth;
+            CGPathRelease(startPath);
+            
+            NSInteger count = pointsArray.count;
+            for (NSInteger i = 1; i < count; i ++) {
+                CGPoint endPoint = [pointsArray[i] CGPointValue];
+                CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
+                CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
+                
+                CGContextRef currentContext = UIGraphicsGetCurrentContext();
+                if (!currentContext) {
+                    UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+                }
+                CGContextAddPath(currentContext, pathRef);
+                [[UIColor blueColor] setStroke];
+                CGContextDrawPath(currentContext, kCGPathStroke);
+                shapeLayer.path = pathRef;
+                CGPathRelease(pathRef);
+            }
+        }
+    }];
 }
 
 - (void)dealloc {

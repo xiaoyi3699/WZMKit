@@ -20,7 +20,9 @@ typedef NS_ENUM(NSInteger, WZMMosaicViewType) {
 ///线条
 @property (nonatomic, strong, readonly) NSMutableArray *lines;
 
+///清空
 - (void)recover;
+///撤销
 - (void)backforward;
 
 @end
