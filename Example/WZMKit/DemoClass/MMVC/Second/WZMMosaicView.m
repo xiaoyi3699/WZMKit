@@ -129,7 +129,6 @@
         WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
         NSString *key = [self getKey:type];
         CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-        if (shapeLayer) return;
         CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
         if (pointsArray.count > 1) {
             CGPoint startPoint = [pointsArray[0] CGPointValue];

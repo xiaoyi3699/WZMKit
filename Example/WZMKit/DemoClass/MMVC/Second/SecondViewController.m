@@ -52,34 +52,6 @@
     mscView.type = WZMMosaicViewTypeMosaic;
     [self.view addSubview:mscView];
     self.mscView = mscView;
-    
-    WZMDispatch_after(3.0, ^{
-        mscView.type = WZMMosaicViewTypeBlur;
-    });
-    
-    WZMDispatch_after(6.0, ^{
-        mscView.type = WZMMosaicViewTypeSepia;
-    });
-    
-//    UIImage *image = [UIImage imageNamed:@"meinv"];
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 64.0, 375.0, 375.0)];
-//    imageView.image = image;
-//    [self.view addSubview:imageView];
-//
-//    //生成马赛克
-//    CIImage *ciImage = [[CIImage alloc] initWithImage:image];
-//    CIFilter *filter = [CIFilter filterWithName:@"CIPixellate"];
-//    [filter setValue:ciImage  forKey:kCIInputImageKey];
-//    //马赛克像素大小
-//    [filter setValue:@(30) forKey:kCIInputScaleKey];
-//    CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
-//
-//    CIContext *context = [CIContext contextWithOptions:nil];
-//    CGImageRef cgImage = [context createCGImage:outImage fromRect:[outImage extent]];
-//    UIImage *showImage = [UIImage imageWithCGImage:cgImage];
-//    CGImageRelease(cgImage);
-//
-//    imageView.image = showImage;
 }
 
 - (void)btnClick:(UIButton *)btn {
