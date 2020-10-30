@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, WZMMosaicViewType) {
+    WZMMosaicViewTypeMosaic = 0,
+    WZMMosaicViewTypeBlur
+};
+
 @interface WZMMosaicView : UIView
 
 ///图片
@@ -16,6 +21,9 @@
 @property (nonatomic, strong) UIImage *mosaicImage;
 ///马赛克线宽
 @property (nonatomic, assign) CGFloat lineWidth;
+///样式
+@property (nonatomic, assign) WZMMosaicViewType type;
+///线条
 @property (nonatomic, strong, readonly) NSMutableArray *linesArray;
 
 - (void)recover;

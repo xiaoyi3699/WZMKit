@@ -48,6 +48,7 @@
     UIImage *image = [UIImage imageNamed:@"meinv"];
     WZMMosaicView *mscView = [[WZMMosaicView alloc] initWithFrame:CGRectMake(0.0, 64.0, 375.0, 375.0)];
     mscView.image = image;
+    mscView.type = WZMMosaicViewTypeBlur;
     [self.view addSubview:mscView];
 }
 

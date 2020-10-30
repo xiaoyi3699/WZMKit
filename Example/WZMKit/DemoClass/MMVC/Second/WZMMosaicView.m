@@ -24,6 +24,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.lineWidth = 16.0;
+        self.type = WZMMosaicViewTypeMosaic;
         self.linesArray = [[NSMutableArray alloc] initWithCapacity:0];
         //添加imageview（imageView）到self上
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
@@ -125,10 +126,18 @@
     if (self.mosaicImageLayer.contents == nil) {
         //生成马赛克
         CIImage *ciImage = [[CIImage alloc] initWithImage:self.image];
-        CIFilter *filter = [CIFilter filterWithName:@"CIPixellate"];
+        CIFilter *filter;
+        if (self.type == WZMMosaicViewTypeBlur) {
+            //高斯模糊
+            filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+            [filter setValue:@(30) forKey:kCIInputRadiusKey];
+        }
+        else {
+            //马赛克
+            filter = [CIFilter filterWithName:@"CIPixellate"];
+            [filter setValue:@(30) forKey:kCIInputScaleKey];
+        }
         [filter setValue:ciImage  forKey:kCIInputImageKey];
-        //马赛克像素大小
-        [filter setValue:@(30) forKey:kCIInputScaleKey];
         CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
         
         CIContext *context = [CIContext contextWithOptions:nil];
