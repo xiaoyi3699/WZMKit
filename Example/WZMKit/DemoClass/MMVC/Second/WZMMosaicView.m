@@ -125,6 +125,10 @@
             filter = [CIFilter filterWithName:@"CIGaussianBlur"];
             [filter setValue:@(30) forKey:kCIInputRadiusKey];
         }
+        else if (self.type == WZMMosaicViewTypeSepia) {
+            filter = [CIFilter filterWithName:@"CISepiaTone"];
+            [filter setValue:@(30) forKey:kCIInputIntensityKey];
+        }
         else {
             //马赛克
             filter = [CIFilter filterWithName:@"CIPixellate"];

@@ -2,8 +2,9 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, WZMMosaicViewType) {
-    WZMMosaicViewTypeMosaic = 0,
-    WZMMosaicViewTypeBlur
+    WZMMosaicViewTypeMosaic = 0, //马赛克
+    WZMMosaicViewTypeBlur,       //高斯模糊
+    WZMMosaicViewTypeSepia,      //色调
 };
 
 @interface WZMMosaicView : UIView
