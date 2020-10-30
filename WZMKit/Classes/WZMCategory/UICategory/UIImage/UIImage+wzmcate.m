@@ -469,8 +469,8 @@ static void addRoundedRectToPath(CGContextRef context, CGRect rect, float ovalWi
     return newImage;
 }
 
-- (UIImage *)wzm_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top {
-    return [self stretchableImageWithLeftCapWidth:left topCapHeight:top];
+- (UIImage *)wzm_getBubbleImageWithLeft:(CGFloat)left top:(CGFloat)top {
+    return [self stretchableImageWithLeftCapWidth:left*self.size.width topCapHeight:top*self.size.height];
 }
 
 - (UIColor *)wzm_getColorAtPixel:(CGPoint)point {

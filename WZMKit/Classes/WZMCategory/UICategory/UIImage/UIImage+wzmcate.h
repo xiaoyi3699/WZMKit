@@ -64,7 +64,7 @@
 ///拉伸图片
 - (UIImage *)wzm_resizableImage;
 ///聊天气泡拉伸
-- (UIImage *)wzm_getBubbleImageWithLeft:(NSInteger)left top:(NSInteger)top;
+- (UIImage *)wzm_getBubbleImageWithLeft:(CGFloat)left top:(CGFloat)top;
 ///取图片某一像素的颜色
 - (UIColor *)wzm_getColorAtPixel:(CGPoint)point;
 ///判断该图片是否有Alpha通道
