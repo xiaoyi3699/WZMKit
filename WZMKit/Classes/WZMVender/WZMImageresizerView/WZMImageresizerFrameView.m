@@ -19,7 +19,7 @@ struct WZMRGBAColor {
     CGFloat jp_a;
 };
 
-typedef NS_ENUM(NSUInteger, WZMRectHorn) {
+typedef NS_ENUM(NSInteger, WZMRectHorn) {
     WZMCenter,
     WZMLeftTop,
     WZMLeftMid,
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, WZMRectHorn) {
     WZMBottomMid
 };
 
-typedef NS_ENUM(NSUInteger, WZMLinePosition) {
+typedef NS_ENUM(NSInteger, WZMLinePosition) {
     WZMHorizontalTop,
     WZMHorizontalBottom,
     WZMVerticalLeft,

@@ -1,7 +1,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, WZMMosaicViewType) {
+typedef NS_ENUM(NSInteger, WZMMosaicViewType) {
     WZMMosaicViewTypeMosaic = 0, //马赛克
     WZMMosaicViewTypeBlur,       //高斯模糊
     WZMMosaicViewTypeSepia,      //色调

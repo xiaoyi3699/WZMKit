@@ -17,7 +17,7 @@
 #import "WZMPlayer.h"
 #import "WZMPlayerView.h"
 
-typedef NS_ENUM(NSUInteger, WZMDirection) {
+typedef NS_ENUM(NSInteger, WZMDirection) {
     WZMDirectionNone = 0,
     WZMDirectionHrizontal,    //水平方向滑动
     WZMDirectionVertical,     //垂直方向滑动

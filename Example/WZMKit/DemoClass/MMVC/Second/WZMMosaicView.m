@@ -3,11 +3,11 @@
 
 @interface WZMMosaicView ()
 
-@property (nonatomic, strong) CAShapeLayer *shapeLayer;
-@property (nonatomic, strong) CALayer *mosaicImageLayer;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, assign) CGMutablePathRef path;
 @property (nonatomic, strong) NSMutableArray *lines;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) NSMutableDictionary *pathDic;
+@property (nonatomic, strong) NSMutableDictionary *shapeLayerDic;
+@property (nonatomic, strong) NSMutableDictionary *mosaicImageLayerDic;
 
 @end
 
@@ -19,43 +19,39 @@
         self.lineWidth = 16.0;
         self.type = WZMMosaicViewTypeMosaic;
         self.lines = [[NSMutableArray alloc] initWithCapacity:0];
-        //添加imageview（imageView）到self上
+        
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         [self addSubview:self.imageView];
-        //添加layer（mosaicImageLayer）到self上
-        self.mosaicImageLayer = [CALayer layer];
-        self.mosaicImageLayer.frame = self.bounds;
-        //self.mosaicImageLayer.wzm_contentMode = UIViewContentModeScaleAspectFill;
-        [self.layer addSublayer:self.mosaicImageLayer];
         
-        self.shapeLayer = [CAShapeLayer layer];
-        self.shapeLayer.frame = self.bounds;
-        self.shapeLayer.lineCap = kCALineCapRound;
-        self.shapeLayer.lineJoin = kCALineJoinRound;
-        //手指移动时 画笔的宽度
-        self.shapeLayer.lineWidth = self.lineWidth;
-        self.shapeLayer.strokeColor = [UIColor blueColor].CGColor;
-        self.shapeLayer.fillColor = nil;
-        
-        [self.layer addSublayer:self.shapeLayer];
-        self.mosaicImageLayer.mask = self.shapeLayer;
-        
-        CGMutablePathRef pathRef = CGPathCreateMutable();
-        self.path = CGPathCreateMutableCopy(pathRef);
-        CGPathRelease(pathRef);
+        self.pathDic = [[NSMutableDictionary alloc] init];
+        self.shapeLayerDic = [[NSMutableDictionary alloc] init];
+        self.mosaicImageLayerDic = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    if (newSuperview) {
+        [self createMosaicLayersIfNeed];
+        [self createMosaicImageIfNeed];
+    }
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
+    
+    NSString *key = [self getKey:self.type];
+    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+    
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
-    CGPathMoveToPoint(self.path, NULL, point.x, point.y);
-    CGMutablePathRef startPath = CGPathCreateMutableCopy(self.path);
-    self.shapeLayer.path = startPath;
-    self.shapeLayer.lineWidth = self.lineWidth;
+    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+    CGPathMoveToPoint(path, NULL, point.x, point.y);
+    CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+    shapeLayer.path = startPath;
+    shapeLayer.lineWidth = self.lineWidth;
     CGPathRelease(startPath);
     
     NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
@@ -63,28 +59,33 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
     [dic setObject:pointArray forKey:@"points"];
+    [dic setObject:@(self.type) forKey:@"type"];
     [dic setObject:@(self.lineWidth) forKey:@"width"];
     [self.lines addObject:dic];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
+    NSString *key = [self getKey:self.type];
+    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+    
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     
-    CGPathAddLineToPoint(self.path, NULL, point.x, point.y);
-    CGMutablePathRef path = CGPathCreateMutableCopy(self.path);
+    CGPathAddLineToPoint(path, NULL, point.x, point.y);
+    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
     
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     if (!currentContext) {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
     }
-    CGContextAddPath(currentContext, path);
+    CGContextAddPath(currentContext, pathRef);
     [[UIColor blueColor] setStroke];
     CGContextDrawPath(currentContext, kCGPathStroke);
-    self.shapeLayer.path = path;
-    self.shapeLayer.lineWidth = self.lineWidth;
-    CGPathRelease(path);
+    shapeLayer.path = pathRef;
+    shapeLayer.lineWidth = self.lineWidth;
+    CGPathRelease(pathRef);
     
     NSDictionary *dic = [self.lines lastObject];
     NSMutableArray *pointArray = [dic objectForKey:@"points"];
@@ -108,91 +109,149 @@
 }
 
 - (void)recoverLayer {
-    CGMutablePathRef pathRef = CGPathCreateMutable();
-    self.path = CGPathCreateMutableCopy(pathRef);
-    CGPathRelease(pathRef);
-    self.shapeLayer.path = nil;
+    for (NSString *key in self.pathDic.allKeys) {
+        CGMutablePathRef pathRef = CGPathCreateMutable();
+        CGMutablePathRef path = CGPathCreateMutableCopy(pathRef);
+        CGPathRelease(pathRef);
+        [self.pathDic setValue:(__bridge id)(path) forKey:key];
+    }
+    for (CAShapeLayer *shapeLayer in self.shapeLayerDic.allValues) {
+        shapeLayer.path = nil;
+    }
 }
 
 - (void)drawRect:(CGRect)rect {
     if (self.image == nil) return;
-    if (self.mosaicImageLayer.contents == nil) {
-        //生成马赛克
-        CIImage *ciImage = [[CIImage alloc] initWithImage:self.image];
-        CIFilter *filter;
-        if (self.type == WZMMosaicViewTypeBlur) {
-            //高斯模糊
-            filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-            [filter setValue:@(30) forKey:kCIInputRadiusKey];
-        }
-        else if (self.type == WZMMosaicViewTypeSepia) {
-            filter = [CIFilter filterWithName:@"CISepiaTone"];
-            [filter setValue:@(30) forKey:kCIInputIntensityKey];
-        }
-        else {
-            //马赛克
-            filter = [CIFilter filterWithName:@"CIPixellate"];
-            [filter setValue:@(30) forKey:kCIInputScaleKey];
-        }
-        [filter setValue:ciImage  forKey:kCIInputImageKey];
-        CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
-        
-        CIContext *context = [CIContext contextWithOptions:nil];
-        CGImageRef cgImage = [context createCGImage:outImage fromRect:[outImage extent]];
-        self.mosaicImageLayer.contents = (__bridge id)(cgImage);
-        CGImageRelease(cgImage);
-    }
+    [self createMosaicImageIfNeed];
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *pointsArray = [dic objectForKey:@"points"];
         CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+        WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
+        NSString *key = [self getKey:type];
+        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
         if (pointsArray.count > 1) {
             CGPoint startPoint = [pointsArray[0] CGPointValue];
-            CGPathMoveToPoint(self.path, NULL, startPoint.x, startPoint.y);
-            CGMutablePathRef startPath = CGPathCreateMutableCopy(self.path);
-            self.shapeLayer.path = startPath;
-            self.shapeLayer.lineWidth = lineWidth;
+            CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
+            CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+            shapeLayer.path = startPath;
+            shapeLayer.lineWidth = lineWidth;
             CGPathRelease(startPath);
             
             NSInteger count = pointsArray.count;
             for (NSInteger i = 1; i < count; i ++) {
                 CGPoint endPoint = [pointsArray[i] CGPointValue];
-                CGPathAddLineToPoint(self.path, NULL, endPoint.x, endPoint.y);
-                CGMutablePathRef path = CGPathCreateMutableCopy(self.path);
+                CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
+                CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
                 
                 CGContextRef currentContext = UIGraphicsGetCurrentContext();
                 if (!currentContext) {
                     UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
                 }
-                CGContextAddPath(currentContext, path);
+                CGContextAddPath(currentContext, pathRef);
                 [[UIColor blueColor] setStroke];
                 CGContextDrawPath(currentContext, kCGPathStroke);
-                self.shapeLayer.path = path;
-                CGPathRelease(path);
+                shapeLayer.path = pathRef;
+                CGPathRelease(pathRef);
             }
         }
     }];
 }
 
-- (void)setMosaicImage:(UIImage *)mosaicImage {
-    _mosaicImage = mosaicImage;
-    self.mosaicImageLayer.contents = (id)mosaicImage.CGImage;
+- (void)createMosaicLayersIfNeed {
+    NSString *key = [self getKey:self.type];
+    CALayer *mosaicImageLayer = [self.mosaicImageLayerDic valueForKey:key];
+    if (mosaicImageLayer == nil) {
+        mosaicImageLayer = [CALayer layer];
+        mosaicImageLayer.frame = self.bounds;
+        //mosaicImageLayer.wzm_contentMode = UIViewContentModeScaleAspectFill;
+        [self.layer addSublayer:mosaicImageLayer];
+        [self.mosaicImageLayerDic setValue:mosaicImageLayer forKey:key];
+    }
+    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+    if (shapeLayer == nil) {
+        shapeLayer = [CAShapeLayer layer];
+        shapeLayer.frame = self.bounds;
+        shapeLayer.lineCap = kCALineCapRound;
+        shapeLayer.lineJoin = kCALineJoinRound;
+        shapeLayer.lineWidth = self.lineWidth;
+        shapeLayer.strokeColor = [UIColor blueColor].CGColor;
+        shapeLayer.fillColor = nil;
+        [self.layer addSublayer:shapeLayer];
+        mosaicImageLayer.mask = shapeLayer;
+        [self.shapeLayerDic setValue:shapeLayer forKey:key];
+    }
+    
+    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+    if (path == nil) {
+        CGMutablePathRef pathRef = CGPathCreateMutable();
+        path = CGPathCreateMutableCopy(pathRef);
+        CGPathRelease(pathRef);
+        [self.pathDic setValue:(__bridge id)(path) forKey:key];
+    }
+}
+
+- (void)createMosaicImageIfNeed {
+    for (NSString *key in self.mosaicImageLayerDic.allKeys) {
+        CALayer *mosaicImageLayer = [self.mosaicImageLayerDic valueForKey:key];
+        if (mosaicImageLayer.contents == nil) {
+            //生成马赛克
+            UIImage *image = self.mosaicImage;
+            if (image == nil) {
+                image = self.image;
+            }
+            CIImage *ciImage = [[CIImage alloc] initWithImage:image];
+            CIFilter *filter;
+            WZMMosaicViewType type = (WZMMosaicViewType)key.integerValue;
+            if (type == WZMMosaicViewTypeBlur) {
+                //高斯模糊
+                filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+                [filter setValue:@(30) forKey:kCIInputRadiusKey];
+            }
+            else if (type == WZMMosaicViewTypeSepia) {
+                filter = [CIFilter filterWithName:@"CISepiaTone"];
+                [filter setValue:@(30) forKey:kCIInputIntensityKey];
+            }
+            else {
+                //马赛克
+                filter = [CIFilter filterWithName:@"CIPixellate"];
+                [filter setValue:@(30) forKey:kCIInputScaleKey];
+            }
+            [filter setValue:ciImage  forKey:kCIInputImageKey];
+            CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
+            
+            CIContext *context = [CIContext contextWithOptions:nil];
+            CGImageRef cgImage = [context createCGImage:outImage fromRect:[outImage extent]];
+            mosaicImageLayer.contents = (__bridge id)(cgImage);
+            CGImageRelease(cgImage);
+        }
+    }
 }
 
 - (void)setImage:(UIImage *)image {
     _image = image;
     self.imageView.image = image;
-    
 }
 
-- (void)setLineWidth:(CGFloat)lineWidth {
-    if (_lineWidth == lineWidth) return;
-    _lineWidth = lineWidth;
-    self.shapeLayer.lineWidth = _lineWidth;
+- (void)setType:(WZMMosaicViewType)type {
+    if (_type == type) return;
+    _type = type;
+    if (self.superview) {
+        [self createMosaicLayersIfNeed];
+        [self setNeedsDisplay];
+    }
+}
+
+- (NSString *)getKey:(WZMMosaicViewType)i {
+    return [NSString stringWithFormat:@"%@",@(i)];
 }
 
 - (void)dealloc {
-    if (self.path) {
-        CGPathRelease(_path);
+    for (NSString *key in self.pathDic.allKeys) {
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        if (path) {
+            CGPathRelease(path);
+        }
     }
     NSLog(@"马赛克释放了");
 }

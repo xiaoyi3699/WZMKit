@@ -14,7 +14,7 @@
  * WZMLightBlurMaskType： 明亮高斯模糊，bgColor强制为白色，maskAlpha可自行修改，建议为0.3
  * WZMDarkBlurMaskType：  暗黑高斯模糊，bgColor强制为黑色，maskAlpha可自行修改，建议为0.3
  */
-typedef NS_ENUM(NSUInteger, WZMImageresizerMaskType) {
+typedef NS_ENUM(NSInteger, WZMImageresizerMaskType) {
     WZMNormalMaskType, // default
     WZMLightBlurMaskType,
     WZMDarkBlurMaskType
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, WZMImageresizerMaskType) {
  * WZMConciseWithoutOtherDotFrameType：简洁样式，可拖拽4个方向（4角）
  * WZMClassicFrameType：               经典样式，类似微信的裁剪边框样式，可拖拽4个方向
  */
-typedef NS_ENUM(NSUInteger, WZMImageresizerFrameType) {
+typedef NS_ENUM(NSInteger, WZMImageresizerFrameType) {
     WZMConciseFrameType, // default
     WZMConciseWithoutOtherDotFrameType,
     WZMClassicFrameType
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, WZMImageresizerFrameType) {
  * WZMAnimationCurveEaseOut：  由快到慢
  * WZMAnimationCurveLinear：   匀速
  */
-typedef NS_ENUM(NSUInteger, WZMAnimationCurve) {
+typedef NS_ENUM(NSInteger, WZMAnimationCurve) {
     WZMAnimationCurveEaseInOut, // default
     WZMAnimationCurveEaseIn,
     WZMAnimationCurveEaseOut,
@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, WZMAnimationCurve) {
  * WZMImageresizerVerticalDownDirection：   垂直向下
  * WZMImageresizerHorizontalRightDirection：水平向右
  */
-typedef NS_ENUM(NSUInteger, WZMImageresizerRotationDirection) {
+typedef NS_ENUM(NSInteger, WZMImageresizerRotationDirection) {
     WZMImageresizerVerticalUpDirection = 0,  // default
     WZMImageresizerHorizontalLeftDirection,
     WZMImageresizerVerticalDownDirection,
