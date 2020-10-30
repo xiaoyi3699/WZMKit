@@ -1,5 +1,7 @@
 
 #import "WZMMosaicView.h"
+#import "WZMLogPrinter.h"
+#import "UIImage+wzmcate.h"
 
 @interface WZMMosaicView ()
 
@@ -17,7 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.lineWidth = 16.0;
-        self.type = WZMMosaicViewTypeMosaic;
+        self.type = WZMMosaicViewTypeFilterMosaic;
         self.lines = [[NSMutableArray alloc] initWithCapacity:0];
         
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
@@ -104,31 +106,46 @@
             if (image == nil) {
                 image = self.image;
             }
-            CIImage *ciImage = [[CIImage alloc] initWithImage:image];
-            CIFilter *filter;
             WZMMosaicViewType type = (WZMMosaicViewType)key.integerValue;
-            if (type == WZMMosaicViewTypeBlur) {
-                //高斯模糊
-                filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-                [filter setValue:@(30) forKey:kCIInputRadiusKey];
-            }
-            else if (type == WZMMosaicViewTypeSepia) {
-                //色调
-                filter = [CIFilter filterWithName:@"CISepiaTone"];
-                [filter setValue:@(30) forKey:kCIInputIntensityKey];
+            if (type < WZMMosaicViewTypeCodeBlur) {
+                //滤镜
+                CIImage *ciImage = [[CIImage alloc] initWithImage:image];
+                CIFilter *filter;
+                
+                if (type == WZMMosaicViewTypeFilterMosaic) {
+                    //马赛克
+                    filter = [CIFilter filterWithName:@"CIPixellate"];
+                    [filter setValue:@(30) forKey:kCIInputScaleKey];
+                }
+                else if (type == WZMMosaicViewTypeFilterSepia) {
+                    //色调
+                    filter = [CIFilter filterWithName:@"CISepiaTone"];
+                    [filter setValue:@(30) forKey:kCIInputIntensityKey];
+                }
+                else {
+                    //模糊
+                    filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+                    [filter setValue:@(10) forKey:kCIInputRadiusKey];
+                }
+                [filter setValue:ciImage  forKey:kCIInputImageKey];
+                CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
+                
+                CIContext *context = [CIContext contextWithOptions:nil];
+                CGImageRef cgImage = [context createCGImage:outImage fromRect:[outImage extent]];
+                mosaicImageLayer.contents = (__bridge id)(cgImage);
+                CGImageRelease(cgImage);
             }
             else {
-                //马赛克
-                filter = [CIFilter filterWithName:@"CIPixellate"];
-                [filter setValue:@(30) forKey:kCIInputScaleKey];
+                if (type == WZMMosaicViewTypeCodeMosaic) {
+                    //马赛克
+                    mosaicImageLayer.contents = (__bridge id)(image.CGImage);
+                }
+                else {
+                    //模糊
+                    image = [image wzm_getBlurImageWithScale:0.8];
+                    mosaicImageLayer.contents = (__bridge id)(image.CGImage);
+                }
             }
-            [filter setValue:ciImage  forKey:kCIInputImageKey];
-            CIImage *outImage = [filter valueForKey:kCIOutputImageKey];
-            
-            CIContext *context = [CIContext contextWithOptions:nil];
-            CGImageRef cgImage = [context createCGImage:outImage fromRect:[outImage extent]];
-            mosaicImageLayer.contents = (__bridge id)(cgImage);
-            CGImageRelease(cgImage);
         }
     }
 }
@@ -268,7 +285,7 @@
             CGPathRelease(path);
         }
     }
-    NSLog(@"马赛克释放了");
+    WZMLog(@"马赛克释放了");
 }
 
 @end

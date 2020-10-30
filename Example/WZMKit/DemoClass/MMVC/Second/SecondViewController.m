@@ -7,7 +7,6 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMMosaicView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -49,7 +48,7 @@
     UIImage *image = [UIImage imageNamed:@"meinv"];
     WZMMosaicView *mscView = [[WZMMosaicView alloc] initWithFrame:CGRectMake(0.0, 64.0, 375.0, 375.0)];
     mscView.image = image;
-    mscView.type = WZMMosaicViewTypeMosaic;
+    mscView.type = WZMMosaicViewTypeCodeBlur;
     [self.view addSubview:mscView];
     self.mscView = mscView;
 }

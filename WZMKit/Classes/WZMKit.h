@@ -285,6 +285,11 @@
 #import "WZMDrawView.h"
 
 /*
+ 马赛克
+ */
+#import "WZMMosaicView.h"
+
+/*
  圆周运动
  */
 #import "WZMCycleView.h"

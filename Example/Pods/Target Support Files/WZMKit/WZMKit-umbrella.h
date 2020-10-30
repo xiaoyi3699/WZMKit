@@ -144,6 +144,7 @@
 #import "WZMLogTableViewCell.h"
 #import "WZMLogView.h"
 #import "WZMMenuView.h"
+#import "WZMMosaicView.h"
 #import "UIImage+WZMPasterView.h"
 #import "WZMPasterItemView.h"
 #import "WZMPasterView.h"
