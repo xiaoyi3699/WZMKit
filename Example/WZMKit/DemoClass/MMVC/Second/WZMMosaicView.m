@@ -7,7 +7,7 @@
 @property (nonatomic, strong) CALayer *mosaicImageLayer;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) CGMutablePathRef path;
-@property (nonatomic, strong) NSMutableArray *linesArray;
+@property (nonatomic, strong) NSMutableArray *lines;
 
 @end
 
@@ -18,7 +18,7 @@
     if (self) {
         self.lineWidth = 16.0;
         self.type = WZMMosaicViewTypeMosaic;
-        self.linesArray = [[NSMutableArray alloc] initWithCapacity:0];
+        self.lines = [[NSMutableArray alloc] initWithCapacity:0];
         //添加imageview（imageView）到self上
         self.imageView = [[UIImageView alloc]initWithFrame:self.bounds];
         [self addSubview:self.imageView];
@@ -64,7 +64,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
     [dic setObject:pointArray forKey:@"points"];
     [dic setObject:@(self.lineWidth) forKey:@"width"];
-    [self.linesArray addObject:dic];
+    [self.lines addObject:dic];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -86,23 +86,23 @@
     self.shapeLayer.lineWidth = self.lineWidth;
     CGPathRelease(path);
     
-    NSDictionary *dic = [self.linesArray lastObject];
+    NSDictionary *dic = [self.lines lastObject];
     NSMutableArray *pointArray = [dic objectForKey:@"points"];
     [pointArray addObject:[NSValue valueWithCGPoint:point]];
 }
 
 - (void)recover {
-    if (self.linesArray.count) {
+    if (self.lines.count) {
         [self recoverLayer];
-        [self.linesArray removeAllObjects];
+        [self.lines removeAllObjects];
         [self setNeedsDisplay];
     }
 }
 
 - (void)backforward {
-    if (self.linesArray.count) {
+    if (self.lines.count) {
         [self recoverLayer];
-        [self.linesArray removeLastObject];
+        [self.lines removeLastObject];
         [self setNeedsDisplay];
     }
 }
@@ -142,7 +142,7 @@
         self.mosaicImageLayer.contents = (__bridge id)(cgImage);
         CGImageRelease(cgImage);
     }
-    [_linesArray enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *pointsArray = [dic objectForKey:@"points"];
         CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
         if (pointsArray.count > 1) {
