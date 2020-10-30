@@ -11,6 +11,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.dotted = NO;
         self.lineWidth = 12;
         self.color = [UIColor redColor];
         self.backgroundColor = [UIColor clearColor];
@@ -45,6 +46,7 @@
         [dic setObject:points forKey:@"points"];
         [dic setObject:self.color forKey:@"color"];
         [dic setObject:@(self.lineWidth) forKey:@"width"];
+        [dic setObject:@(self.isDotted) forKey:@"dotted"];
         [self.lines addObject:dic];
     }
     else {
@@ -61,6 +63,7 @@
         NSMutableArray *points = [dic objectForKey:@"points"];
         UIColor *color = [dic objectForKey:@"color"];
         CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+        BOOL dotted = [[dic objectForKey:@"dotted"] boolValue];
         if (points.count > 1) {
             CGContextRef ctx = UIGraphicsGetCurrentContext();
             CGPoint startPoint = [points[0] CGPointValue];
@@ -75,6 +78,10 @@
             CGContextSetLineWidth(ctx, lineWidth);
             CGContextSetStrokeColorWithColor(ctx, color.CGColor);
             CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+            if (dotted) {
+                CGFloat lengths[]= {lineWidth*4.0, lineWidth*2.0};
+                CGContextSetLineDash(ctx, 0.0, lengths, 2);
+            }
             CGContextStrokePath(ctx);
         }
     }];
