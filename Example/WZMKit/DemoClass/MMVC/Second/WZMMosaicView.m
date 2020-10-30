@@ -129,6 +129,7 @@
         WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
         NSString *key = [self getKey:type];
         CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+        if (shapeLayer) return;
         CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
         if (pointsArray.count > 1) {
             CGPoint startPoint = [pointsArray[0] CGPointValue];
@@ -209,6 +210,7 @@
                 [filter setValue:@(30) forKey:kCIInputRadiusKey];
             }
             else if (type == WZMMosaicViewTypeSepia) {
+                //色调
                 filter = [CIFilter filterWithName:@"CISepiaTone"];
                 [filter setValue:@(30) forKey:kCIInputIntensityKey];
             }
