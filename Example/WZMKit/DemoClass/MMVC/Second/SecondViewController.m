@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMMosaicView.h"
 //http://www.vasueyun.cn/resource/wzm_snow.mp3
 //http://www.vasueyun.cn/resource/wzm_qnyh.mp4
 
@@ -32,17 +33,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    for (NSInteger i = 0; i < 2; i ++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0+i*100.0, 64, 100.0, 50.0)];
-        btn.tag = i;
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [btn setTitle:@"hhaah" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:btn];
-    }
+//    for (NSInteger i = 0; i < 2; i ++) {
+//        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0+i*100.0, 64, 100.0, 50.0)];
+//        btn.tag = i;
+//        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        [btn setTitle:@"hhaah" forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//        [btn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//        [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:btn];
+//    }
+    
+    UIImage *image = [UIImage imageNamed:@"meinv"];
+    WZMMosaicView *mscView = [[WZMMosaicView alloc] initWithFrame:CGRectMake(0.0, 64.0, 375.0, 375.0)];
+    mscView.image = image;
+    [self.view addSubview:mscView];
 }
 
 - (void)btnClick:(UIButton *)btn {
