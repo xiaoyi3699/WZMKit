@@ -83,7 +83,7 @@
 
 + (BOOL)QQJoinGroup:(NSString *)group key:(NSString *)key {
 #if WZM_APP
-    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", group,key];
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external&jump_from=webapi", group,key];
     NSURL *url = [NSURL URLWithString:urlStr];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];

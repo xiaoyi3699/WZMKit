@@ -281,6 +281,7 @@
 - (void)dealloc {
     for (NSString *key in self.pathDic.allKeys) {
         CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        [self.pathDic removeObjectForKey:key];
         if (path) {
             CGPathRelease(path);
         }
