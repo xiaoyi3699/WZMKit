@@ -14,30 +14,21 @@
 @end
 
 @implementation WZMScrollImageView {
-    NSArray<UIImage *> *_images;
+    NSArray<UIImage *> *_showImages;
     UIScrollView       *_scrollView;
     UIPageControl      *_pageControl;
     NSArray            *_imageViews;
     NSTimer            *_timer;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame images:(NSArray<UIImage *> *)images {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
-        NSMutableArray *temp = [NSMutableArray arrayWithCapacity:(images.count+2)];
-        [temp addObject:images.lastObject];
-        [temp addObjectsFromArray:images];
-        [temp addObject:images.firstObject];
-        _images = [temp copy];
-        
-        NSInteger num = _images.count;
         
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.delegate = self;
         _scrollView.pagingEnabled = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.contentSize = CGSizeMake(num*self.wzm_width, self.wzm_height);
         [self addSubview:_scrollView];
         
         CGFloat pageControlH = self.wzm_height/4;
@@ -45,33 +36,10 @@
                                                                        self.wzm_height-pageControlH,
                                                                        self.wzm_width,
                                                                        pageControlH)];
-        _pageControl.numberOfPages = images.count;
+        
         _pageControl.userInteractionEnabled = NO;
         //[_pageControl addTarget:self action:@selector(pageControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
-        
-        NSMutableArray *imageViews = [NSMutableArray arrayWithCapacity:num];
-        for (NSInteger i = 0; i < num; i ++) {
-            
-            CGRect rect = _scrollView.bounds;
-            rect.origin.x = i%num*_scrollView.wzm_width;
-            
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-            imageView.tag = i;
-            imageView.image = _images[i];
-            imageView.userInteractionEnabled = YES;
-            [_scrollView addSubview:imageView];
-            
-            if ((i !=0) && (i != num-1)) {
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
-                [imageView addGestureRecognizer:tap];
-            }
-            
-            [imageViews addObject:imageView];
-        }
-        _imageViews = [imageViews copy];
-        
-        _scrollView.contentOffset = CGPointMake(_scrollView.wzm_width, 0);
     }
     return self;
 }
@@ -90,13 +58,14 @@
 //}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_showImages.count <= 0) return;
     CGFloat offsetX = scrollView.contentOffset.x;
     if (offsetX <= 0) {
         _currentPage = 0;
-        scrollView.contentOffset = CGPointMake(scrollView.wzm_width*(_images.count-2), 0);
+        scrollView.contentOffset = CGPointMake(scrollView.wzm_width*(_showImages.count-2), 0);
     }
-    else if (offsetX >= scrollView.wzm_width*(_images.count-1)) {
-        _currentPage = _images.count-3;
+    else if (offsetX >= scrollView.wzm_width*(_showImages.count-1)) {
+        _currentPage = _showImages.count-3;
         scrollView.contentOffset = CGPointMake(scrollView.wzm_width, 0);
     }
     else {
@@ -106,14 +75,65 @@
 }
 
 #pragma mark - setter && getter
-- (void)setImageViewInset:(UIEdgeInsets)imageViewInset {
-    if (UIEdgeInsetsEqualToEdgeInsets(_imageViewInset, imageViewInset)) return;
+- (void)setImages:(NSArray *)images {
+    _images = images;
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:(images.count+2)];
+    [temp addObject:images.lastObject];
+    [temp addObjectsFromArray:images];
+    [temp addObject:images.firstObject];
+    _showImages = [temp copy];
     
+    NSInteger num = _showImages.count;
+    _scrollView.contentSize = CGSizeMake(num*self.wzm_width, self.wzm_height);
+    _pageControl.numberOfPages = images.count;
+    //移除旧视图
+    for (UIView *subview in _scrollView.subviews) {
+        if ([subview isKindOfClass:[UIImageView class]]) {
+            [subview removeFromSuperview];
+        }
+    }
+    //添加新视图
+    NSMutableArray *imageViews = [NSMutableArray arrayWithCapacity:num];
+    for (NSInteger i = 0; i < num; i ++) {
+        
+        CGRect rect = _scrollView.bounds;
+        rect.origin.x = i%num*_scrollView.wzm_width;
+        
+        id image = _showImages[i];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+        imageView.tag = i;
+        if ([image isKindOfClass:[UIImage class]]) {
+            imageView.image = image;
+        }
+        else {
+            
+        }
+        imageView.userInteractionEnabled = YES;
+        [_scrollView addSubview:imageView];
+        
+        if ((i !=0) && (i != num-1)) {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
+            [imageView addGestureRecognizer:tap];
+        }
+        [imageViews addObject:imageView];
+    }
+    _imageViews = [imageViews copy];
+    if (self.currentPage <= 0 || self.currentPage >= images.count) {
+        _scrollView.contentOffset = CGPointMake(_scrollView.wzm_width, 0);
+    }
+    else {
+        CGPoint point = CGPointMake((self.currentPage+1)*_scrollView.wzm_width, 0);
+        [_scrollView setContentOffset:point animated:YES];
+    }
+}
+
+- (void)setImageViewInset:(UIEdgeInsets)imageViewInset {
+    if (_showImages.count <= 0) return;
+    if (UIEdgeInsetsEqualToEdgeInsets(_imageViewInset, imageViewInset)) return;
     CGFloat top    = (imageViewInset.top    > 0 ? imageViewInset.top    : 0);
     CGFloat left   = (imageViewInset.left   > 0 ? imageViewInset.left   : 0);
     CGFloat bottom = (imageViewInset.bottom > 0 ? imageViewInset.bottom : 0);
     CGFloat right  = (imageViewInset.right  > 0 ? imageViewInset.right  : 0);
-    
     for (UIImageView *imageView in _imageViews) {
         CGRect rect = imageView.frame;
         rect.origin.x += left;
@@ -144,7 +164,8 @@
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage {
-    if (currentPage < 0 || currentPage > _images.count-3) return;
+    if (_showImages.count <= 0) return;
+    if (currentPage < 0 || currentPage > _showImages.count-3) return;
     if (_currentPage == currentPage) return;
     _currentPage = currentPage;
     _pageControl.currentPage = currentPage;
@@ -174,7 +195,8 @@
 }
 
 - (void)timerRun:(NSTimer *)timer {
-    NSInteger index = ((_currentPage+1)+1)%_images.count;
+    if (_showImages.count <= 0) return;
+    NSInteger index = ((_currentPage+1)+1)%_showImages.count;
     CGPoint point = CGPointMake(index*_scrollView.wzm_width, 0);
     [_scrollView setContentOffset:point animated:YES];
 }

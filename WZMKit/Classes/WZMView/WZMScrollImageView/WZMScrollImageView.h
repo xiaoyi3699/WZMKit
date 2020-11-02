@@ -13,6 +13,9 @@
 
 @property (nonatomic, weak) id<WZMScrollImageViewDelegage> delegate;
 
+///源图片
+@property (nonatomic, strong) NSArray *images;
+
 ///图片距边界距离(取正值，图片不可超出视图)
 @property (nonatomic, assign) UIEdgeInsets imageViewInset;
 
@@ -30,8 +33,6 @@
 
 ///是否自动滚动，默认YES
 @property (nonatomic, assign, getter=isAutoScroll) BOOL autoScroll;
-
-- (instancetype)initWithFrame:(CGRect)frame images:(NSArray<UIImage *> *)images;
 
 @end
 
