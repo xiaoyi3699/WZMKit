@@ -14,17 +14,16 @@
 @end
 
 @implementation WZMScrollImageView {
-    NSArray<UIImage *> *_showImages;
-    UIScrollView       *_scrollView;
-    UIPageControl      *_pageControl;
-    NSArray            *_imageViews;
-    NSTimer            *_timer;
+    NSArray       *_showImages;
+    UIScrollView  *_scrollView;
+    UIPageControl *_pageControl;
+    NSArray       *_imageViews;
+    NSTimer       *_timer;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.delegate = self;
         _scrollView.pagingEnabled = YES;
@@ -32,11 +31,7 @@
         [self addSubview:_scrollView];
         
         CGFloat pageControlH = self.wzm_height/4;
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0,
-                                                                       self.wzm_height-pageControlH,
-                                                                       self.wzm_width,
-                                                                       pageControlH)];
-        
+        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.wzm_height-pageControlH, self.wzm_width, pageControlH)];
         _pageControl.userInteractionEnabled = NO;
         //[_pageControl addTarget:self action:@selector(pageControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
@@ -95,7 +90,7 @@
     //添加新视图
     NSMutableArray *imageViews = [NSMutableArray arrayWithCapacity:num];
     for (NSInteger i = 0; i < num; i ++) {
-        
+
         CGRect rect = _scrollView.bounds;
         rect.origin.x = i%num*_scrollView.wzm_width;
         
@@ -164,14 +159,21 @@
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage {
-    if (_showImages.count <= 0) return;
-    if (currentPage < 0 || currentPage > _showImages.count-3) return;
-    if (_currentPage == currentPage) return;
-    _currentPage = currentPage;
-    _pageControl.currentPage = currentPage;
-    
-    CGPoint point = CGPointMake((currentPage+1)*_scrollView.wzm_width, 0);
-    [_scrollView setContentOffset:point animated:YES];
+    if (self.images.count) {
+        if (currentPage <= 0 || currentPage >= self.images.count) {
+            currentPage = 0;
+        }
+        if (_currentPage == currentPage) return;
+        _currentPage = currentPage;
+        _pageControl.currentPage = currentPage;
+        
+        CGPoint point = CGPointMake((currentPage+1)*_scrollView.wzm_width, 0);
+        [_scrollView setContentOffset:point animated:YES];
+    }
+    else {
+        if (_currentPage == currentPage) return;
+        _currentPage = currentPage;
+    }
 }
 
 - (void)setAutoScroll:(BOOL)autoScroll {
