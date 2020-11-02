@@ -54,12 +54,7 @@
 }
 
 - (void)btnClick:(UIButton *)btn {
-    if (btn.tag == 0) {
-        [self.mscView backforward];
-    }
-    else {
-        [self.mscView recover];
-    }
+    
 }
 
 @end
