@@ -69,15 +69,17 @@
 #define WZM_IS_iPhone_5_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==736)
 //iPhoneX系列
 #define WZM_IS_iPhoneX    (WZM_IS_iPhone && WZM_SCREEN_HEIGHT>=812)
-//5.4寸 12mini
+//5.4寸 3x 12mini 375x812pt 1125x2436px
 #define WZM_IS_iPhone_5_4 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)
-//5.8寸 X/XS/11Pro 375x812pt 1125x2436px
+//5.8寸 3x X/XS/11Pro 375x812pt 1125x2436px
 #define WZM_IS_iPhone_5_8 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)
-//6.1寸 XR/11 414x896pt 828x1792px 828x1792px
-#define WZM_IS_iPhone_6_1 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
-//6.5寸 XS MAX/11ProMAX 414x896pt 1242x2688px
+//6.1寸 2x XR/11 414x896pt 828x1792px
+#define WZM_IS_iPhone_6_1_2 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
+//6.1寸 3x 12 390x842pt 2532x1170px
+#define WZM_IS_iPhone_6_1_3 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
+//6.5寸 3x XS MAX/11ProMAX 414x896pt 1242x2688px
 #define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
-//6.7寸 12ProMax 428x926pt 1284x2778px
+//6.7寸 3x 12ProMax 428x926pt 1284x2778px
 #define WZM_IS_iPhone_6_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
 
 /*  *****自定义*****  */
