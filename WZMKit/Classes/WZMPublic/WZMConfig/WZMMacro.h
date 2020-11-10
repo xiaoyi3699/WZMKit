@@ -63,13 +63,22 @@
 #define WZM_IS_IOS9_ONLY      (WZM_DEVICE >= 9 && WZM_DEVICE < 10)  //是否是iOS9系统
 #define WZM_IS_IOS8_ONLY      (WZM_DEVICE >= 8 && WZM_DEVICE < 9)   //是否是iOS8系统
 
-#define WZM_IS_iPhone_4_0 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==568)  //4.0寸
-#define WZM_IS_iPhone_4_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==667)  //4.7寸
-#define WZM_IS_iPhone_5_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==736)  //5.5寸
-#define WZM_IS_iPhoneX    (WZM_IS_iPhone && WZM_SCREEN_HEIGHT>=812)  //iPhoneX系列
-#define WZM_IS_iPhone_5_8 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)  //5.8寸
-#define WZM_IS_iPhone_6_1 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)  //6.1寸
-#define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)  //6.5寸
+//4.7寸 2X 6/6s 7 8 SE2代 375x667pt 1334x750px
+#define WZM_IS_iPhone_4_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==667)
+//5.5寸 3x 6P/6sP 7P 8P 414x736pt 1242x2208px
+#define WZM_IS_iPhone_5_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==736)
+//iPhoneX系列
+#define WZM_IS_iPhoneX    (WZM_IS_iPhone && WZM_SCREEN_HEIGHT>=812)
+//5.4寸 12mini
+#define WZM_IS_iPhone_5_4 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)
+//5.8寸 X/XS/11Pro 375x812pt 1125x2436px
+#define WZM_IS_iPhone_5_8 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==812)
+//6.1寸 XR/11 414x896pt 828x1792px 828x1792px
+#define WZM_IS_iPhone_6_1 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
+//6.5寸 XS MAX/11ProMAX 414x896pt 1242x2688px
+#define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
+//6.7寸 12ProMax
+#define WZM_IS_iPhone_6_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
 
 /*  *****自定义*****  */
 #define WZM_R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]
