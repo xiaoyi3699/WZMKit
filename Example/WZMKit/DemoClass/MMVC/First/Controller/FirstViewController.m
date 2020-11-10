@@ -69,24 +69,6 @@
         index += [tableView numberOfRowsInSection:i];
     }
     
-    if (index == 0) {
-        [WZMAlbumHelper wzm_saveImage:[UIImage imageNamed:@"meinv"] completion:^(NSError *error) {
-            NSLog(@"===%@",error);
-        }];
-    }
-    else if (index == 1) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"jingcai" ofType:@"gif"];
-        [WZMAlbumHelper wzm_saveImageWithPath:path completion:^(NSError *error) {
-            NSLog(@"===%@",error);
-        }];
-    }
-    else {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"xmhzma" ofType:@"MP4"];
-        [WZMAlbumHelper wzm_saveVideoWithPath:path completion:^(NSError *error) {
-            NSLog(@"===%@",error);
-        }];
-    }
-    
     if (indexPath.row < _newDataProvider.currentList.count) {
         WZMNewsModel *model = _newDataProvider.currentList[indexPath.row];
         WZMWebViewController *webVC = [[WZMWebViewController alloc] initWithUrl:model.newsUrl];
