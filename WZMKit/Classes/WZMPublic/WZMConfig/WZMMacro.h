@@ -77,7 +77,7 @@
 #define WZM_IS_iPhone_6_1 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
 //6.5寸 XS MAX/11ProMAX 414x896pt 1242x2688px
 #define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
-//6.7寸 12ProMax
+//6.7寸 12ProMax 428x926pt 1284x2778px
 #define WZM_IS_iPhone_6_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
 
 /*  *****自定义*****  */

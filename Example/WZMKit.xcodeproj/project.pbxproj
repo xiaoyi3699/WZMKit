@@ -28,6 +28,7 @@
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
+		64B44656255A3E7A0025BBEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B44655255A3E7A0025BBEF /* LaunchScreen.storyboard */; };
 		64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C03D99246AC795003EBE79 /* wzm_reload_black.png */; };
 		64E84A37246CD967008958FF /* wzm_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A35246CD967008958FF /* wzm_back_white.png */; };
 		64E84A38246CD967008958FF /* wzm_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A36246CD967008958FF /* wzm_back_black.png */; };
@@ -115,6 +116,7 @@
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
 		6486E45F23D8451600D777D7 /* WZMRechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeModel.h; sourceTree = "<group>"; };
 		649C2C5124581F1D00FF7635 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		64B44655255A3E7A0025BBEF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64C03D99246AC795003EBE79 /* wzm_reload_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_reload_black.png; sourceTree = "<group>"; };
 		64E84A35246CD967008958FF /* wzm_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_white.png; sourceTree = "<group>"; };
 		64E84A36246CD967008958FF /* wzm_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_black.png; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* WZMKit-Prefix.pch */,
+				64B44655255A3E7A0025BBEF /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				64E84A38246CD967008958FF /* wzm_back_black.png in Resources */,
 				75DA9E30230E924A0000A955 /* WZMTest.png in Resources */,
+				64B44656255A3E7A0025BBEF /* LaunchScreen.storyboard in Resources */,
 				75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */,
 				64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
@@ -993,7 +997,6 @@
 			baseConfigurationReference = 769C666531D3E3F78F06E262 /* Pods-WZMKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEVELOPMENT_TEAM = F66A99Y6V4;
 				ENABLE_BITCODE = NO;
@@ -1021,7 +1024,6 @@
 			baseConfigurationReference = D485FA748EDD144AD72A7367 /* Pods-WZMKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEVELOPMENT_TEAM = F66A99Y6V4;
 				ENABLE_BITCODE = NO;
