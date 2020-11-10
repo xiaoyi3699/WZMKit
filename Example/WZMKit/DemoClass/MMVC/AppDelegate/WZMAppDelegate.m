@@ -129,6 +129,8 @@
     [self.window wzm_startObserveFpsAndCpu];
 #endif
     
+    NSLog(@"%@====%@",@(WZM_SCREEN_WIDTH),@(WZM_SCREEN_HEIGHT));
+    
     NSLog(@"恭喜你，成功打印日志！");
     
     WZMLog(@"恭喜你，成功打印日志！");
