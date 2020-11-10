@@ -76,11 +76,11 @@
 //6.1寸 2x XR/11 414x896pt 828x1792px
 #define WZM_IS_iPhone_6_1_2 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
 //6.1寸 3x 12 390x842pt 2532x1170px
-#define WZM_IS_iPhone_6_1_3 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==2.0)
+#define WZM_IS_iPhone_6_1_3 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
 //6.5寸 3x XS MAX/11ProMAX 414x896pt 1242x2688px
 #define WZM_IS_iPhone_6_5 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
 //6.7寸 3x 12ProMax 428x926pt 1284x2778px
-#define WZM_IS_iPhone_6_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==896 && WZM_SCREEN_SCALE==3.0)
+#define WZM_IS_iPhone_6_7 (WZM_IS_iPhone && WZM_SCREEN_HEIGHT==926 && WZM_SCREEN_SCALE==3.0)
 
 /*  *****自定义*****  */
 #define WZM_R_G_B(_r_,_g_,_b_) [UIColor colorWithRed:_r_/255. green:_g_/255. blue:_b_/255. alpha:1.0]

@@ -99,7 +99,13 @@
 ///状态栏高
 - (CGFloat)statusH {
     if (_statusH == -1) {
-        _statusH = ([self iPhoneX] ? 44:20);
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            _statusH = window.safeAreaInsets.top;
+        }
+        else {
+            _statusH = 20.0;
+        }
     }
     return _statusH;
 }
@@ -107,7 +113,13 @@
 ///导航高
 - (CGFloat)navBarH {
     if (_navBarH == -1) {
-        _navBarH = ([self iPhoneX] ? 88:64);
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            _navBarH = window.safeAreaInsets.top + 44.0;
+        }
+        else {
+            _navBarH = 44.0;
+        }
     }
     return _navBarH;
 }
@@ -115,7 +127,13 @@
 ///taBar高
 - (CGFloat)tabBarH {
     if (_tabBarH == -1) {
-        _tabBarH = ([self iPhoneX] ? 83:49);
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            _tabBarH = window.safeAreaInsets.bottom + 49.0;
+        }
+        else {
+            _tabBarH = 49.0;
+        }
     }
     return _tabBarH;
 }
@@ -155,7 +173,13 @@
 ///iPhoneX底部高度
 - (CGFloat)iPhoneXBottomH {
     if (_iPhoneXBottomH == -1) {
-        _iPhoneXBottomH = ([self iPhoneX] ? 34:0);
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            _iPhoneXBottomH = window.safeAreaInsets.bottom;
+        }
+        else {
+            _tabBarH = 34;
+        }
     }
     return _iPhoneXBottomH;
 }
