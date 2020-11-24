@@ -36,6 +36,10 @@
 		64E84A37246CD967008958FF /* wzm_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A35246CD967008958FF /* wzm_back_white.png */; };
 		64E84A38246CD967008958FF /* wzm_back_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A36246CD967008958FF /* wzm_back_black.png */; };
 		64E84A3A246CE199008958FF /* wzm_reload_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A39246CE199008958FF /* wzm_reload_white.png */; };
+		64EA8AC0256CDA09007EC7C3 /* WZMTransGifViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8ABF256CDA09007EC7C3 /* WZMTransGifViewController.m */; };
+		64EA8AC9256CDA4C007EC7C3 /* WZMGifListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8AC7256CDA4C007EC7C3 /* WZMGifListCell.m */; };
+		64EA8ACA256CDA4C007EC7C3 /* WZMGifListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8AC8256CDA4C007EC7C3 /* WZMGifListView.m */; };
+		64EA8B1D256CE618007EC7C3 /* WZMGifHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8B1C256CE618007EC7C3 /* WZMGifHelper.m */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
@@ -127,6 +131,14 @@
 		64E84A35246CD967008958FF /* wzm_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_white.png; sourceTree = "<group>"; };
 		64E84A36246CD967008958FF /* wzm_back_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_black.png; sourceTree = "<group>"; };
 		64E84A39246CE199008958FF /* wzm_reload_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_reload_white.png; sourceTree = "<group>"; };
+		64EA8ABE256CDA09007EC7C3 /* WZMTransGifViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMTransGifViewController.h; sourceTree = "<group>"; };
+		64EA8ABF256CDA09007EC7C3 /* WZMTransGifViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMTransGifViewController.m; sourceTree = "<group>"; };
+		64EA8AC4256CDA4C007EC7C3 /* WZMGifListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMGifListView.h; sourceTree = "<group>"; };
+		64EA8AC6256CDA4C007EC7C3 /* WZMGifListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMGifListCell.h; sourceTree = "<group>"; };
+		64EA8AC7256CDA4C007EC7C3 /* WZMGifListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMGifListCell.m; sourceTree = "<group>"; };
+		64EA8AC8256CDA4C007EC7C3 /* WZMGifListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMGifListView.m; sourceTree = "<group>"; };
+		64EA8B1B256CE618007EC7C3 /* WZMGifHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMGifHelper.h; sourceTree = "<group>"; };
+		64EA8B1C256CE618007EC7C3 /* WZMGifHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMGifHelper.m; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -367,6 +379,37 @@
 			path = WZMRechargeH5;
 			sourceTree = "<group>";
 		};
+		64EA8AC3256CDA4C007EC7C3 /* WZMGifListView */ = {
+			isa = PBXGroup;
+			children = (
+				64EA8AC6256CDA4C007EC7C3 /* WZMGifListCell.h */,
+				64EA8AC7256CDA4C007EC7C3 /* WZMGifListCell.m */,
+				64EA8AC4256CDA4C007EC7C3 /* WZMGifListView.h */,
+				64EA8AC8256CDA4C007EC7C3 /* WZMGifListView.m */,
+			);
+			path = WZMGifListView;
+			sourceTree = "<group>";
+		};
+		64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */ = {
+			isa = PBXGroup;
+			children = (
+				64EA8ADE256CE34C007EC7C3 /* WZMGif */,
+				64EA8AC3256CDA4C007EC7C3 /* WZMGifListView */,
+				64EA8ABE256CDA09007EC7C3 /* WZMTransGifViewController.h */,
+				64EA8ABF256CDA09007EC7C3 /* WZMTransGifViewController.m */,
+			);
+			path = WZMTransGifViewController;
+			sourceTree = "<group>";
+		};
+		64EA8ADE256CE34C007EC7C3 /* WZMGif */ = {
+			isa = PBXGroup;
+			children = (
+				64EA8B1B256CE618007EC7C3 /* WZMGifHelper.h */,
+				64EA8B1C256CE618007EC7C3 /* WZMGifHelper.m */,
+			);
+			path = WZMGif;
+			sourceTree = "<group>";
+		};
 		7558CBB822DF4FB80043651C /* DemoClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +646,7 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
+				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 				645E0BCE25625EC800E94FD6 /* 1.png */,
 				645E0BCF25625EC800E94FD6 /* 2.png */,
 				645E0BD8256261F300E94FD6 /* 3.png */,
@@ -867,6 +911,7 @@
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */,
 				75DA9E24230E924A0000A955 /* WZMBaseDataProvider.m in Sources */,
+				64EA8B1D256CE618007EC7C3 /* WZMGifHelper.m in Sources */,
 				75DA9E23230E924A0000A955 /* WZMURLResponse.m in Sources */,
 				6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */,
 				75DA9E22230E924A0000A955 /* WZMProviderDataCache.m in Sources */,
@@ -884,12 +929,15 @@
 				646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */,
 				75DA9E21230E924A0000A955 /* WZMCrashManager.m in Sources */,
 				75DA9E2A230E924A0000A955 /* WZMScreenShotView.m in Sources */,
+				64EA8AC0256CDA09007EC7C3 /* WZMTransGifViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */,
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
 				75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */,
 				640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */,
+				64EA8AC9256CDA4C007EC7C3 /* WZMGifListCell.m in Sources */,
 				75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */,
+				64EA8ACA256CDA4C007EC7C3 /* WZMGifListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

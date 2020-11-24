@@ -11,8 +11,6 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "WZMPlayerItem.h"
 #import "WZMMacro.h"
-#import "WZMLogPrinter.h"
-#import "WZMDefined.h"
 
 @interface WZMPlayer ()<AVAudioPlayerDelegate>
 //播放器状态激活
