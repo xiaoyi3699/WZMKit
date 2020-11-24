@@ -38,6 +38,8 @@
 + (NSMutableArray *)wzm_getImagesByUrl:(NSURL *)url count:(NSInteger)count original:(BOOL)original;
 ///视频中获取图片
 + (UIImage *)wzm_getImageByUrl:(NSURL *)url progress:(CGFloat)progress original:(BOOL)original;
+///拼接图片
++ (UIImage *)wzm_getImageByImages:(NSArray<UIImage *> *)images type:(WZMAddImageType)type;
 #pragma mark - 二维码
 ///生成二维码图片
 + (UIImage *)wzm_getQRCodeByString:(NSString *)string size:(CGFloat)size;
@@ -49,8 +51,6 @@
 #pragma mark - 实例方法
 ///剪裁图片
 - (UIImage *)wzm_clipImageWithRect:(CGRect)rect;
-///拼接图片
-+ (UIImage *)wzm_getImageByImages:(NSArray<UIImage *> *)images type:(WZMAddImageType)type;
 ///压缩图片所占的物理内存大小 100M以内的图片经过三层压缩，<= 1M
 - (UIImage *)wzm_getScaleImage;
 ///按比例压缩image

@@ -91,7 +91,13 @@
 ///是否是iPhoneX
 - (BOOL)iPhoneX {
     if (_iPhoneX == -1) {
-        _iPhoneX = ([self iPhone] && [UIScreen mainScreen].bounds.size.height>=812);
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = [UIApplication sharedApplication].delegate.window;
+            _iPhoneX = ([self iPhone] && (window.safeAreaInsets.top > 0.0));
+        }
+        else {
+            _iPhoneX = 0;
+        }
     }
     return (_iPhoneX == 1);
 }

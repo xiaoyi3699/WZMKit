@@ -312,18 +312,6 @@
     return image;
 }
 
-#pragma mark - 实例方法
-- (UIImage *)wzm_clipImageWithRect:(CGRect)rect {
-    rect.origin.x *= self.scale;
-    rect.origin.y *= self.scale;
-    rect.size.width *= self.scale;
-    rect.size.height *= self.scale;
-    CGImageRef refImage = CGImageCreateWithImageInRect(self.CGImage, rect);
-    UIImage *image = [UIImage imageWithCGImage:refImage];
-    CGImageRelease(refImage);
-    return image;
-}
-
 + (UIImage *)wzm_getImageByImages:(NSArray<UIImage *> *)images type:(WZMAddImageType)type {
     UIImage *fImage = images.firstObject;
     if (type == WZMAddImageTypeHorizontal) {
@@ -347,6 +335,18 @@
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return scaledImage;
+}
+
+#pragma mark - 实例方法
+- (UIImage *)wzm_clipImageWithRect:(CGRect)rect {
+    rect.origin.x *= self.scale;
+    rect.origin.y *= self.scale;
+    rect.size.width *= self.scale;
+    rect.size.height *= self.scale;
+    CGImageRef refImage = CGImageCreateWithImageInRect(self.CGImage, rect);
+    UIImage *image = [UIImage imageWithCGImage:refImage];
+    CGImageRelease(refImage);
+    return image;
 }
 
 #define WZM_M (1000*1000)
