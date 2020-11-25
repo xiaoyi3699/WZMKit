@@ -93,7 +93,7 @@
     if (_iPhoneX == -1) {
         if (@available(iOS 11.0, *)) {
             UIWindow *window = [UIApplication sharedApplication].delegate.window;
-            _iPhoneX = ([self iPhone] && (window.safeAreaInsets.top > 0.0));
+            _iPhoneX = ([self iPhone] && (window.safeAreaInsets.bottom > 0.0));
         }
         else {
             _iPhoneX = 0;
@@ -184,7 +184,7 @@
             _iPhoneXBottomH = window.safeAreaInsets.bottom;
         }
         else {
-            _tabBarH = 34;
+            _iPhoneXBottomH = 0.0;
         }
     }
     return _iPhoneXBottomH;
