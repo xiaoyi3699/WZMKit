@@ -21,6 +21,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.interactionEnabled = YES;
         self.direction = WZMPanGestureRecognizerDirectionHorizontal;
     }
     return self;

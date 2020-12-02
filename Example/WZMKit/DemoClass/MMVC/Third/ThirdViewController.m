@@ -7,6 +7,7 @@
 //
 
 #import "ThirdViewController.h"
+#import "WZMTransGifViewController.h"
 
 @interface ThirdViewController ()<WZMAlbumNavigationControllerDelegate>
 
@@ -39,7 +40,7 @@
 
 - (void)btnClick:(UIButton *)btn {
     WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.maxCount = 1;
+    config.maxCount = 10;
     config.allowEdit = YES;
 //    config.allowPreview = NO;
 //    config.originalVideo = NO;
@@ -49,17 +50,21 @@
 }
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    id obj = [originals firstObject];
-    if ([obj isKindOfClass:[UIImage class]]) {
-        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
-            NSLog(@"===%@",error);
-        }];
-    }
-    else if ([obj isKindOfClass:[NSURL class]]){
-        [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {
-            NSLog(@"===%@",error);
-        }];
-    }
+    
+    WZMTransGifViewController *vc = [[WZMTransGifViewController alloc] initWithImages:originals];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+//    id obj = [originals firstObject];
+//    if ([obj isKindOfClass:[UIImage class]]) {
+//        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
+//            NSLog(@"===%@",error);
+//        }];
+//    }
+//    else if ([obj isKindOfClass:[NSURL class]]){
+//        [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {
+//            NSLog(@"===%@",error);
+//        }];
+//    }
 }
 
 @end
