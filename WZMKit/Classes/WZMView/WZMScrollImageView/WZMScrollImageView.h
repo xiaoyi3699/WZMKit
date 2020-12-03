@@ -34,6 +34,9 @@
 ///是否自动滚动，默认YES
 @property (nonatomic, assign, getter=isAutoScroll) BOOL autoScroll;
 
+///是否无限循环
+@property (nonatomic, assign, getter=isLoop) BOOL loop;
+
 @end
 
 @protocol WZMScrollImageViewDelegage <NSObject>

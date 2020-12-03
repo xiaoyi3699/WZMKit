@@ -42,29 +42,31 @@
 #pragma mark - 交互事件 && 代理事件
 - (void)tapHandle:(UITapGestureRecognizer *)tap {
     if ([self.delegate respondsToSelector:@selector(scrollImageView:didSelectedAtIndex:)]) {
-        [self.delegate scrollImageView:self didSelectedAtIndex:(tap.view.tag-1)];
+        [self.delegate scrollImageView:self didSelectedAtIndex:(tap.view.tag-(self.isLoop ? 1 : 0))];
     }
 }
 
 //- (void)pageControlValueChanged:(UIPageControl *)pageControl {
 //    _currentPage = pageControl.currentPage;
-//    CGPoint point = CGPointMake((_currentPage+1)*_scrollView.wzm_width, 0);
+//    CGPoint point = CGPointMake((_currentPage+(self.isLoop ? 1 : 0))*_scrollView.wzm_width, 0);
 //    [_scrollView setContentOffset:point animated:YES];
 //}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_showImages.count <= 0) return;
     CGFloat offsetX = scrollView.contentOffset.x;
-    if (offsetX <= 0) {
+    if (self.isLoop && offsetX <= 0) {
         _currentPage = 0;
         scrollView.contentOffset = CGPointMake(scrollView.wzm_width*(_showImages.count-2), 0);
     }
-    else if (offsetX >= scrollView.wzm_width*(_showImages.count-1)) {
+    else if (self.isLoop && offsetX >= scrollView.wzm_width*(_showImages.count-1)) {
         _currentPage = _showImages.count-3;
         scrollView.contentOffset = CGPointMake(scrollView.wzm_width, 0);
     }
     else {
-        _currentPage = scrollView.contentOffset.x/scrollView.wzm_width-1;
+        CGFloat c = scrollView.contentOffset.x/scrollView.wzm_width-(self.isLoop ? 1 : 0);
+        _currentPage = (NSInteger)c;
+        if (_currentPage != c) return;
     }
     [_pageControl setCurrentPage:_currentPage];
 }
@@ -72,11 +74,16 @@
 #pragma mark - setter && getter
 - (void)setImages:(NSArray *)images {
     _images = images;
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:(images.count+2)];
-    [temp addObject:images.lastObject];
-    [temp addObjectsFromArray:images];
-    [temp addObject:images.firstObject];
-    _showImages = [temp copy];
+    if (self.isLoop) {
+        NSMutableArray *temp = [NSMutableArray arrayWithCapacity:(images.count+2)];
+        [temp addObject:images.lastObject];
+        [temp addObjectsFromArray:images];
+        [temp addObject:images.firstObject];
+        _showImages = [temp copy];
+    }
+    else {
+        _showImages = images;
+    }
     
     NSInteger num = _showImages.count;
     _scrollView.contentSize = CGSizeMake(num*self.wzm_width, self.wzm_height);
@@ -90,7 +97,7 @@
     //添加新视图
     NSMutableArray *imageViews = [NSMutableArray arrayWithCapacity:num];
     for (NSInteger i = 0; i < num; i ++) {
-
+        
         CGRect rect = _scrollView.bounds;
         rect.origin.x = i%num*_scrollView.wzm_width;
         
@@ -100,13 +107,20 @@
         if ([image isKindOfClass:[UIImage class]]) {
             imageView.image = image;
         }
-        else {
-            
+        else if ([image isKindOfClass:[NSString class]]) {
+            UIImage *img = [UIImage imageNamed:image];
+            if (img) {
+                imageView.image = img;
+            }
+            else {
+                
+            }
         }
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.userInteractionEnabled = YES;
         [_scrollView addSubview:imageView];
         
-        if ((i !=0) && (i != num-1)) {
+        if (self.isLoop && (i !=0) && (i != num-1)) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
             [imageView addGestureRecognizer:tap];
         }
@@ -114,10 +128,10 @@
     }
     _imageViews = [imageViews copy];
     if (self.currentPage <= 0 || self.currentPage >= images.count) {
-        _scrollView.contentOffset = CGPointMake(_scrollView.wzm_width, 0);
+        _scrollView.contentOffset = CGPointMake(_scrollView.wzm_width*(self.isLoop ? 1 : 0), 0);
     }
     else {
-        CGPoint point = CGPointMake((self.currentPage+1)*_scrollView.wzm_width, 0);
+        CGPoint point = CGPointMake((self.currentPage+(self.isLoop ? 1 : 0))*_scrollView.wzm_width, 0);
         [_scrollView setContentOffset:point animated:YES];
     }
 }
@@ -167,7 +181,7 @@
         _currentPage = currentPage;
         _pageControl.currentPage = currentPage;
         
-        CGPoint point = CGPointMake((currentPage+1)*_scrollView.wzm_width, 0);
+        CGPoint point = CGPointMake((currentPage+(self.isLoop ? 1 : 0))*_scrollView.wzm_width, 0);
         [_scrollView setContentOffset:point animated:YES];
     }
     else {
@@ -198,7 +212,7 @@
 
 - (void)timerRun:(NSTimer *)timer {
     if (_showImages.count <= 0) return;
-    NSInteger index = ((_currentPage+1)+1)%_showImages.count;
+    NSInteger index = ((_currentPage+(self.isLoop ? 1 : 0))+1)%_showImages.count;
     CGPoint point = CGPointMake(index*_scrollView.wzm_width, 0);
     [_scrollView setContentOffset:point animated:YES];
 }
