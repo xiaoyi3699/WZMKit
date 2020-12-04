@@ -14,6 +14,7 @@
 @interface WZMSqliteManager (){
     NSString *_dataBasePath;
     sqlite3 *_sql3;
+    BOOL _opened;
 }
 @end
 
@@ -317,12 +318,15 @@
  打开数据库
  */
 - (BOOL)openDataBase{
+    if (_opened) return YES;
+    _opened = YES;
     const char *filePath = [[self dataBasePath] UTF8String];
     int result = sqlite3_open(filePath, &_sql3);
     if (result == SQLITE_OK) {
         return YES;
     }
     else{
+        _opened = NO;
         sqlite3_close(_sql3);
         //NSAssert(NO, @"数据库-打开-失败");
         WZMLog(@"数据库-打开-失败");
@@ -334,6 +338,8 @@
  关闭数据库
  */
 -(BOOL)closeDataBase{
+    if (_opened == NO) return YES;
+    _opened = NO;
     return !sqlite3_close(_sql3);
 }
 
