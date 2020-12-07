@@ -152,6 +152,10 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
 
 ///参数解析
 - (NSString *)parameters:(id)parameters {
+    return [self parameters:parameters encode:NO];
+}
+
+- (NSString *)parameters:(id)parameters encode:(BOOL)encode {
     if ([parameters isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)parameters;
         if (dic.allKeys.count) {
@@ -159,16 +163,19 @@ NSString * const WZMNetRequestContentTypeJson = @"application/json;charset=utf-8
             for (NSString *key in dic.allKeys) {
                 id value = [dic objectForKey:key];
                 if (result == nil) {
-                    result = [NSString stringWithFormat:@"%@=%@",key,[self parameters:value]];
+                    result = [NSString stringWithFormat:@"%@=%@",key,[self parameters:value encode:YES]];
                 }
                 else {
-                    result = [NSString stringWithFormat:@"%@&%@=%@",result,key,[self parameters:value]];
+                    result = [NSString stringWithFormat:@"%@&%@=%@",result,key,[self parameters:value encode:YES]];
                 }
             }
             return result;
         }
     }
     else if ([parameters isKindOfClass:[NSString class]]) {
+        if (encode == NO) {
+            return (NSString *)parameters;
+        }
         return [(NSString *)parameters wzm_getURLEncoded2];
     }
     else if ([parameters isKindOfClass:[NSNumber class]]) {

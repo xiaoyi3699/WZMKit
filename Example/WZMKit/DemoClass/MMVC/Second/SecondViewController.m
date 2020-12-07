@@ -48,24 +48,28 @@ using namespace std;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     ///720 × 1080
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-720*0.4)/2.0, WZM_NAVBAR_HEIGHT, 720*0.4, 1080*0.4)];
-//    imageView.image = [UIImage imageNamed:@"1"];//[self maskImage:[UIImage imageNamed:@"1"] withMask:[UIImage imageNamed:@"3"]];
-//    [self.view addSubview:imageView];
+    UIImageView *imageView0 = [[UIImageView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-720*0.4)/2.0, WZM_NAVBAR_HEIGHT, 720*0.4, 1080*0.4)];
+    imageView0.image = [UIImage imageNamed:@"3"];
+    [self.view addSubview:imageView0];
     
-    CALayer *bgLayer = [CALayer layer];
-    bgLayer.frame = WZMRectMiddleArea();
-    bgLayer.contents = (__bridge id)([UIImage imageNamed:@"1"].CGImage);
-    [self.view.layer addSublayer:bgLayer];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-720*0.4)/2.0, WZM_NAVBAR_HEIGHT, 720*0.4, 1080*0.4)];
+    imageView.image = [self maskImage:[UIImage imageNamed:@"1"] withMask:[UIImage imageNamed:@"3"]];
+    [self.view addSubview:imageView];
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
-    UIBezierPath *cropPath = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
-    [path appendPath:cropPath];
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.backgroundColor = [UIColor redColor].CGColor;
-    layer.path = path.CGPath;
-    layer.fillRule = kCAFillRuleNonZero;
-    layer.contents = (__bridge id)([UIImage imageNamed:@"2"].CGImage);
-    bgLayer.mask = layer;
+//    CALayer *bgLayer = [CALayer layer];
+//    bgLayer.frame = WZMRectMiddleArea();
+//    bgLayer.contents = (__bridge id)([UIImage imageNamed:@"1"].CGImage);
+//    [self.view.layer addSublayer:bgLayer];
+//
+//    UIBezierPath *path = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
+//    UIBezierPath *cropPath = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
+//    [path appendPath:cropPath];
+//    CAShapeLayer *layer = [CAShapeLayer layer];
+//    layer.backgroundColor = [UIColor redColor].CGColor;
+//    layer.path = path.CGPath;
+//    layer.fillRule = kCAFillRuleNonZero;
+//    layer.contents = (__bridge id)([UIImage imageNamed:@"4"].CGImage);
+//    bgLayer.mask = layer;
 }
 
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
@@ -81,10 +85,9 @@ using namespace std;
     CGImageRef imageWithAlpha = sourceImage;
     //add alpha channel for images that don't have one (ie GIF, JPEG, etc...)
     //this however has a computational cost
-    if (CGImageGetAlphaInfo(sourceImage) == kCGImageAlphaNone) {
-//        imageWithAlpha =CopyImageAndAddAlphaChannel(sourceImage);
+    if (CGImageGetAlphaInfo(sourceImage) != kCGImageAlphaNone) {
+        imageWithAlpha = [self CopyImageAndAddAlphaChannel:sourceImage];
     }
-    
     CGImageRef masked = CGImageCreateWithMask(imageWithAlpha, mask);
 
     CGImageRelease(mask);
@@ -96,6 +99,32 @@ using namespace std;
     CGImageRelease(masked);
     
     return retImage;
+}
+
+- (CGImageRef)CopyImageAndAddAlphaChannel:(CGImageRef)sourceImage
+{
+    CGImageRef retVal = NULL;
+    
+    size_t width = CGImageGetWidth(sourceImage);
+    size_t height = CGImageGetHeight(sourceImage);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGContextRef offscreenContext = CGBitmapContextCreate(NULL, width, height,
+                                                          8, 0, colorSpace,
+                                                          kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    
+    if (offscreenContext != NULL)
+    {
+        CGContextDrawImage(offscreenContext, CGRectMake(0, 0, width, height), sourceImage);
+        
+        retVal = CGBitmapContextCreateImage(offscreenContext);
+        CGContextRelease(offscreenContext);
+    }
+    
+    CGColorSpaceRelease(colorSpace);
+    
+    return retVal;
 }
 
 @end

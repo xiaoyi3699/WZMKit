@@ -217,6 +217,7 @@
             [alertView showAnimated:YES];
         }
     }
+    CAShapeLayer *lay;
 }
 
 - (BOOL)compareVersion:(NSString *)version otherVersion:(NSString *)otherVersion {
