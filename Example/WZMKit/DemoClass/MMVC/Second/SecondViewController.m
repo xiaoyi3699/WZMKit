@@ -7,32 +7,12 @@
 //
 
 #import "SecondViewController.h"
-//http://www.vasueyun.cn/resource/wzm_snow.mp3
-//http://www.vasueyun.cn/resource/wzm_qnyh.mp4
-#ifdef __cplusplus
-#import <opencv2/opencv.hpp>
-#import <opencv2/imgcodecs/ios.h>
-#import <opencv2/imgproc.hpp>
-#import <opencv2/highgui.hpp>
-#import <opencv2/core/operations.hpp>
 
-#import <opencv2/core/core_c.h>
-using namespace cv;
-using namespace std;
-
-#endif
-
-@interface SecondViewController ()<WZMVideoEditerDelegate,WZMAlbumNavigationControllerDelegate>
-
-@property (nonatomic, strong) WZMVideoEditer *videoEditer;
-@property (nonatomic, strong) WZMMosaicView *mscView;
+@interface SecondViewController ()
 
 @end
 
-@implementation SecondViewController {
-    UIView *_bgView;
-    NSMutableArray *_drawViews;
-}
+@implementation SecondViewController
 
 - (instancetype)init {
     self = [super init];
@@ -46,30 +26,7 @@ using namespace std;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor grayColor];
-    ///720 × 1080
-    UIImageView *imageView0 = [[UIImageView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-720*0.4)/2.0, WZM_NAVBAR_HEIGHT, 720*0.4, 1080*0.4)];
-    imageView0.image = [UIImage imageNamed:@"3"];
-    [self.view addSubview:imageView0];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-720*0.4)/2.0, WZM_NAVBAR_HEIGHT, 720*0.4, 1080*0.4)];
-    imageView.image = [self maskImage:[UIImage imageNamed:@"1"] withMask:[UIImage imageNamed:@"3"]];
-    [self.view addSubview:imageView];
-    
-//    CALayer *bgLayer = [CALayer layer];
-//    bgLayer.frame = WZMRectMiddleArea();
-//    bgLayer.contents = (__bridge id)([UIImage imageNamed:@"1"].CGImage);
-//    [self.view.layer addSublayer:bgLayer];
-//
-//    UIBezierPath *path = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
-//    UIBezierPath *cropPath = [UIBezierPath bezierPathWithRect:bgLayer.bounds];
-//    [path appendPath:cropPath];
-//    CAShapeLayer *layer = [CAShapeLayer layer];
-//    layer.backgroundColor = [UIColor redColor].CGColor;
-//    layer.path = path.CGPath;
-//    layer.fillRule = kCAFillRuleNonZero;
-//    layer.contents = (__bridge id)([UIImage imageNamed:@"4"].CGImage);
-//    bgLayer.mask = layer;
 }
 
 - (UIImage *)maskImage:(UIImage *)image withMask:(UIImage *)maskImage {

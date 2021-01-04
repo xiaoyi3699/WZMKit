@@ -36,10 +36,6 @@
     [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
-    
-    
-    
-    
 }
 
 - (void)downloader:(WZMDownloader *)downloader didWriteBytes:(int64_t)didWriteBytes totalBytes:(int64_t)totalBytes {
@@ -58,34 +54,6 @@
     downloader.url = str;
     downloader.delegate = self;
     [downloader start];
-    
-    return;
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.maxCount = 10;
-    config.allowEdit = YES;
-//    config.allowPreview = NO;
-//    config.originalVideo = NO;
-    WZMAlbumNavigationController *albumNav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    albumNav.pickerDelegate = self;
-    [self presentViewController:albumNav animated:YES completion:nil];
-}
-
-- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    
-    WZMTransGifViewController *vc = [[WZMTransGifViewController alloc] initWithImages:originals];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-//    id obj = [originals firstObject];
-//    if ([obj isKindOfClass:[UIImage class]]) {
-//        [WZMAlbumHelper wzm_saveImage:obj completion:^(NSError *error) {
-//            NSLog(@"===%@",error);
-//        }];
-//    }
-//    else if ([obj isKindOfClass:[NSURL class]]){
-//        [WZMAlbumHelper wzm_saveVideoWithPath:[obj path] completion:^(NSError *error) {
-//            NSLog(@"===%@",error);
-//        }];
-//    }
 }
 
 @end
