@@ -37,8 +37,6 @@
 		64EA8AC9256CDA4C007EC7C3 /* WZMGifListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8AC7256CDA4C007EC7C3 /* WZMGifListCell.m */; };
 		64EA8ACA256CDA4C007EC7C3 /* WZMGifListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8AC8256CDA4C007EC7C3 /* WZMGifListView.m */; };
 		64EA8B1D256CE618007EC7C3 /* WZMGifHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EA8B1C256CE618007EC7C3 /* WZMGifHelper.m */; };
-		64F140E7258DDD5C001AF18D /* im_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F140E5258DDD5C001AF18D /* im_1.png */; };
-		64F140E8258DDD5C001AF18D /* im_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64F140E6258DDD5C001AF18D /* im_2.png */; };
 		7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBB922DF4FB80043651C /* FirstViewController.m */; };
 		7558CBC322DF50D30043651C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC222DF50D30043651C /* SecondViewController.m */; };
 		7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7558CBC522DF50E60043651C /* ThirdViewController.m */; };
@@ -135,8 +133,6 @@
 		64EA8AC8256CDA4C007EC7C3 /* WZMGifListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMGifListView.m; sourceTree = "<group>"; };
 		64EA8B1B256CE618007EC7C3 /* WZMGifHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMGifHelper.h; sourceTree = "<group>"; };
 		64EA8B1C256CE618007EC7C3 /* WZMGifHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMGifHelper.m; sourceTree = "<group>"; };
-		64F140E5258DDD5C001AF18D /* im_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_1.png; sourceTree = "<group>"; };
-		64F140E6258DDD5C001AF18D /* im_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = im_2.png; sourceTree = "<group>"; };
 		7558CBB922DF4FB80043651C /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		7558CBBA22DF4FB80043651C /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		7558CBC122DF50D30043651C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -637,8 +633,6 @@
 				646A10B2247E63DD00F96689 /* WZMSegmentedViewController */,
 				7558CBC422DF50E60043651C /* ThirdViewController.h */,
 				7558CBC522DF50E60043651C /* ThirdViewController.m */,
-				64F140E5258DDD5C001AF18D /* im_1.png */,
-				64F140E6258DDD5C001AF18D /* im_2.png */,
 			);
 			path = Third;
 			sourceTree = "<group>";
@@ -796,7 +790,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64F140E7258DDD5C001AF18D /* im_1.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				64E84A3A246CE199008958FF /* wzm_reload_white.png in Resources */,
 				64E84A37246CD967008958FF /* wzm_back_white.png in Resources */,
@@ -806,7 +799,6 @@
 				64B44656255A3E7A0025BBEF /* LaunchScreen.storyboard in Resources */,
 				75D1ADA923191C5900C01BA1 /* xmhzma.MP4 in Resources */,
 				64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */,
-				64F140E8258DDD5C001AF18D /* im_2.png in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
 				75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */,
 				646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */,
