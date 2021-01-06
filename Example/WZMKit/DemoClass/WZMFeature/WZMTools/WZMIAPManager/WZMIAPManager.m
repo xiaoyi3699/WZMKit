@@ -246,6 +246,9 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         [self saveReceiptData];
         [self verifyPurchaseForService];
     }
+    else {
+        [self showInfoMessage:@"支付请求失败，请检查网络后重试"];
+    }
 }
 
 /**验证收据真实性*/
@@ -374,6 +377,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 }
 
 - (void)showInfoMessage:(NSString *)msg {
+    [WZMViewHandle wzm_dismiss];
     if (msg.length == 0) return;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:msg
