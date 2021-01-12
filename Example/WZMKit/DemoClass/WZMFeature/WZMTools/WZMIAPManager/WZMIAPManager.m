@@ -31,12 +31,15 @@
 //订单号
 @property (nonatomic, strong) NSString *orderId;
 @property (nonatomic, strong) NSString *receipt;
+@property (nonatomic, strong) NSString *productId;
 //是否是用户手动验证的订单
 @property (nonatomic, assign, getter=isManualVerify) BOOL manualVerify;
 //是否是恢复购买
 @property (nonatomic, assign, getter=isRestore) BOOL restore;
 //支付队列
 @property (nonatomic, strong) SKPaymentQueue *defaultQueue;
+//获取商品信息失败次数
+@property (nonatomic, assign) NSInteger errorCount;
 
 @end
 
@@ -61,6 +64,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
         self.verifyInApp = YES;
         self.manualVerify = NO;
         self.failedCount = 0;
+        self.errorCount = 0;
         self.shareKey = @"123456789";
         self.type = WZMIAPTypeNormal;
         self.defaultQueue = [SKPaymentQueue defaultQueue];
@@ -142,6 +146,7 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
     self.restore = NO;
     [self addIAPObserver];
     self.manualVerify = YES;
+    self.productId = productId;
     NSArray *product = [[NSArray alloc] initWithObjects:productId,nil];
     NSSet *nsset = [NSSet setWithArray:product];
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
@@ -153,13 +158,19 @@ static NSString *kSaveReceiptData = @"kSaveReceiptData";
 #pragma mark -- SKProductsRequestDelegate
 //收到产品返回信息
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
-    NSArray *product = response.products;
-    if([product count] == 0){
-        [self finishTransaction:nil message:@"获取商品信息失败，请检查网络后重试" allowFinishAll:NO];
+    SKProduct *product = response.products.firstObject;
+    if(product == nil || [product isKindOfClass:[SKProduct class]] == NO) {
+        if (self.isManualVerify && self.errorCount < 3) {
+            self.errorCount ++;
+            [self requestProductData:self.productId];
+        }
+        else {
+            self.errorCount = 0;
+            [self finishTransaction:nil message:@"获取商品信息失败，请检查网络后重试" allowFinishAll:NO];
+        }
         return;
     }
-    SKProduct *p = product.firstObject;
-    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:p];
+    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
     payment.quantity = 1;
     //payment.applicationUsername = self.orderId;
     [self.defaultQueue addPayment:payment];
