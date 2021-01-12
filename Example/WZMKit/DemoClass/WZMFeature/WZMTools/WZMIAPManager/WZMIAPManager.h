@@ -11,6 +11,18 @@
 #if WZM_APP
 @interface WZMIAPManager : NSObject
 
+/*
+ 内购注意事项：
+ 项目配置 Signing & Capabilities 添加内购选项
+ App Store Connect 应用描述内添加订阅套餐、功能、价格
+ 若为自动续订项目，还需添加 包月协议 及如下内容：
+ 若有免费试用，则还需添加如下第一条：
+ 试用：试用3天，试用结束后按月(或年，按需自行更改)收费，您可以在试用期间随时取消；
+ 付款：确认购买，即从苹果iTunes账号扣款；
+ 续费：到期前24小时，苹果自动从iTunes账号中扣费并延长会员周期；
+ 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能。
+ */
+
 ///支付结果
 typedef NS_ENUM(NSInteger, WZMIAPResultStatus) {
     WZMIAPResultStatusSuccess           = 0,     //成功
