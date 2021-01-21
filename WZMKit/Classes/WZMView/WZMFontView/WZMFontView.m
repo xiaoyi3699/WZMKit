@@ -83,7 +83,7 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     NSString *fontName = [[_fonts objectAtIndex:section] objectAtIndex:row];
-    cell.textLabel.text = @"字体展示abcABC123";
+    cell.textLabel.text = @"gmd在线观看";
     cell.textLabel.font = [UIFont fontWithName:fontName size:15];
     NSString* fontFamilyName = [_familys objectAtIndex:section];
     fontFamilyName = [fontFamilyName stringByReplacingOccurrencesOfString:@" " withString:@""];

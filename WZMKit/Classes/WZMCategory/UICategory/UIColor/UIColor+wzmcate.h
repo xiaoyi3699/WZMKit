@@ -10,6 +10,7 @@
 
 @interface UIColor (wzmcate)
 
+- (NSString *)wzm_getHexString;
 + (UIColor *)wzm_getColorByImage:(UIImage *)image;
 + (UIColor *)wzm_getColorByHex:(NSInteger)hexValue;
 + (UIColor *)wzm_getColorByHex:(NSInteger)hexValue alpha:(CGFloat)alpha;

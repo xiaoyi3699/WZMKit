@@ -47,6 +47,8 @@
 - (UIImage *)wzm_addLogo:(UIImage *)logo logoSize:(CGFloat)logoSize;
 ///改变二维码图片的颜色
 - (UIImage *)wzm_getQRImageWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue;
+///溶图
++ (UIImage *)wzm_mixtureImage:(UIImage *)image withMaskImage:(UIImage *)maskImage;
 
 #pragma mark - 实例方法
 ///剪裁图片

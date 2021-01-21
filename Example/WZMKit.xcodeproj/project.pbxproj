@@ -640,9 +640,9 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
+				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
-				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -758,7 +758,7 @@
 				ORGANIZATIONNAME = wangzhaomeng;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = F66A99Y6V4;
+						DevelopmentTeam = 2V44WYXQPX;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -1046,7 +1046,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 0.2.3;
-				DEVELOPMENT_TEAM = F66A99Y6V4;
+				DEVELOPMENT_TEAM = 2V44WYXQPX;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
@@ -1055,7 +1055,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.WZMKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1073,7 +1073,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 0.2.3;
-				DEVELOPMENT_TEAM = F66A99Y6V4;
+				DEVELOPMENT_TEAM = 2V44WYXQPX;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WZMKit/WZMKit-Prefix.pch";
@@ -1082,7 +1082,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.3;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.demo.WZMKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
