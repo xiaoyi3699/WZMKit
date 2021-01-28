@@ -91,6 +91,7 @@
     slider1.minimumValue = 0.0;
     slider1.maximumValue = 1.0;
     slider1.value = self.imageView2.alpha;
+    slider1.maximumTrackTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
     [slider1 addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
     [slider1 addTarget:self action:@selector(touchChange:) forControlEvents:UIControlEventValueChanged];
     [slider1 addTarget:self action:@selector(touchUp:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside|UIControlEventTouchCancel];
