@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *imageView1;
 @property (nonatomic, strong) UIImageView *imageView2;
 @property (nonatomic, strong) UIView *toolView;
+@property (nonatomic, strong) UIView *trashView;
 @property (nonatomic, assign, getter=isLocked) BOOL locked;
 
 @end
@@ -47,15 +48,22 @@
     self.imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageContentView2 addSubview:self.imageView2];
     
+    self.addBtn = [[UIButton alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-80.0)/2.0, (WZM_SCREEN_HEIGHT-80.0)/2.0, 80.0, 80.0)];
+    [self.addBtn setBackgroundImage:[UIImage imageNamed:@"photo_add"] forState:UIControlStateNormal];
+    [self.addBtn addTarget:self action:@selector(addBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.addBtn];
+    
+    CGFloat trashW = WZM_SCREEN_WIDTH/3.0;
+    self.trashView = [[UIView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-trashW)/2.0, (WZM_SCREEN_HEIGHT-trashW)/2.0, trashW, trashW)];
+    self.trashView.hidden = YES;
+    self.trashView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+    self.trashView.wzm_cornerRadius = trashW/2.0;
+    [self.contentView addSubview:self.trashView];
+    
     self.toolView = [[UIView alloc] initWithFrame:CGRectMake(10.0, WZM_SCREEN_HEIGHT-100.0-WZM_BOTTOM_HEIGHT, WZM_SCREEN_WIDTH-20.0, 80.0)];
     self.toolView.wzm_cornerRadius = 5.0;
     self.toolView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.contentView addSubview:self.toolView];
-    
-    self.addBtn = [[UIButton alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-80.0)/2.0, (WZM_SCREEN_HEIGHT-80.0)/2.0-20.0, 80.0, 80.0)];
-    [self.addBtn setBackgroundImage:[UIImage imageNamed:@"photo_add"] forState:UIControlStateNormal];
-    [self.addBtn addTarget:self action:@selector(addBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.addBtn];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentTapClick)];
     [self.contentView addGestureRecognizer:tap];
@@ -98,11 +106,15 @@
         [self.contentView addSubview:hDotView];
         
         UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(0.0, 24.5, WZM_SCREEN_WIDTH, 1.0)];
+        hdot.tag = 1;
         hdot.backgroundColor = [UIColor greenColor];
         [hDotView addSubview:hdot];
         
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
         [hDotView addGestureRecognizer:pan];
+        
+        UILongPressGestureRecognizer *longG = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
+        [hDotView addGestureRecognizer:longG];
     }
     else {
         UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 0.0, 50.0, WZM_SCREEN_HEIGHT)];
@@ -110,12 +122,17 @@
         [self.contentView addSubview:hDotView];
         
         UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(24.5, 0.0, 1.0, WZM_SCREEN_HEIGHT)];
+        hdot.tag = 1;
         hdot.backgroundColor = [UIColor greenColor];
         [hDotView addSubview:hdot];
         
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
         [hDotView addGestureRecognizer:pan];
+        
+        UILongPressGestureRecognizer *longG = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
+        [hDotView addGestureRecognizer:longG];
     }
+    [self.toolView.superview bringSubviewToFront:self.toolView];
 }
 
 - (void)contentTapClick {
@@ -203,6 +220,28 @@
     else if (recognizer.state == UIGestureRecognizerStateEnded ||
              recognizer.state == UIGestureRecognizerStateCancelled) {
         
+    }
+}
+
+- (void)longClick:(UILongPressGestureRecognizer *)recognizer {
+    UIView *tapView = recognizer.view;
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.trashView.hidden = NO;
+        AudioServicesPlaySystemSound(1520);
+        UIView *dotView = [tapView viewWithTag:1];
+        dotView.backgroundColor = [UIColor redColor];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded ||
+             recognizer.state == UIGestureRecognizerStateCancelled) {
+        CGPoint point = [recognizer locationInView:tapView.superview];
+        if (CGRectContainsPoint(self.trashView.frame, point)) {
+            [tapView removeFromSuperview];
+        }
+        else {
+            UIView *dotView = [tapView viewWithTag:1];
+            dotView.backgroundColor = [UIColor greenColor];
+        }
+        self.trashView.hidden = YES;
     }
 }
 
