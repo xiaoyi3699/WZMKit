@@ -91,11 +91,11 @@
     [UIView animateWithDuration:0.35 animations:^{
         self.toolView.alpha = (1.0-self.toolView.alpha);
     } completion:^(BOOL finished) {
-        if (@available(iOS 11.0, *)) {
-            [self setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
-        } else {
-            // Fallback on earlier versions
-        }
+//        if (@available(iOS 11.0, *)) {
+//            [self setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
+//        } else {
+//            // Fallback on earlier versions
+//        }
     }];
 }
 
@@ -207,11 +207,11 @@
 }
 
 //屏蔽屏幕底部的系统手势
-- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
-    if (self.toolView.alpha == 0.0) {
-        return  UIRectEdgeAll;
-    }
-    return  UIRectEdgeNone;
-}
+//- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+//    if (self.toolView.alpha == 0.0) {
+//        return  UIRectEdgeAll;
+//    }
+//    return  UIRectEdgeNone;
+//}
 
 @end
