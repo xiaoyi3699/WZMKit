@@ -102,7 +102,7 @@
 //辅助线
 - (void)addDotView:(BOOL)h {
     if (h) {
-        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(0.0, WZM_STATUS_HEIGHT, WZM_SCREEN_WIDTH, 50.0)];
+        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(0.0, (WZM_SCREEN_HEIGHT-50.0)/2.0+50.0, WZM_SCREEN_WIDTH, 50.0)];
         hDotView.wzm_tag = 0;
         [self.contentView addSubview:hDotView];
         
@@ -116,9 +116,11 @@
         
         UILongPressGestureRecognizer *longG = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
         [hDotView addGestureRecognizer:longG];
+        
+        [self animationWithView:hdot duration:0.5];
     }
     else {
-        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 0.0, 50.0, WZM_SCREEN_HEIGHT)];
+        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake((WZM_SCREEN_WIDTH-50.0)/2.0+50.0, 0.0, 50.0, WZM_SCREEN_HEIGHT)];
         hDotView.wzm_tag = 1;
         [self.contentView addSubview:hDotView];
         
@@ -132,6 +134,8 @@
         
         UILongPressGestureRecognizer *longG = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longClick:)];
         [hDotView addGestureRecognizer:longG];
+        
+        [self animationWithView:hdot duration:0.5];
     }
     [self.toolView.superview bringSubviewToFront:self.toolView];
 }
@@ -327,6 +331,31 @@
     else {
         [WZMViewHandle wzm_showAlertMessage:@"图片资源出错"];
     }
+}
+
+- (void)animationWithView:(UIView *)view duration:(NSTimeInterval)duration {
+    CGFloat d = duration/5.0;
+    [UIView animateWithDuration:d animations:^{
+        view.backgroundColor = [UIColor redColor];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:d animations:^{
+            view.backgroundColor = [UIColor greenColor];
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:d animations:^{
+                view.backgroundColor = [UIColor redColor];
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:d animations:^{
+                    view.backgroundColor = [UIColor greenColor];
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:d animations:^{
+                        view.backgroundColor = [UIColor redColor];
+                    } completion:^(BOOL finished) {
+                        view.backgroundColor = [UIColor greenColor];
+                    }];
+                }];
+            }];
+        }];
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden {
