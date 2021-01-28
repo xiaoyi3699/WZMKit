@@ -8,6 +8,8 @@
 
 #import "WZMPhotoDuibiViewController.h"
 
+#define LINE_COLOR [UIColor blueColor]
+#define SHAN_CLOOR [UIColor redColor]
 @interface WZMPhotoDuibiViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *addBtn;
@@ -108,7 +110,7 @@
         
         UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(0.0, 24.5, WZM_SCREEN_WIDTH, 1.0)];
         hdot.tag = 1;
-        hdot.backgroundColor = [UIColor greenColor];
+        hdot.backgroundColor = LINE_COLOR;
         [hDotView addSubview:hdot];
         
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
@@ -126,7 +128,7 @@
         
         UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(24.5, 0.0, 1.0, WZM_SCREEN_HEIGHT)];
         hdot.tag = 1;
-        hdot.backgroundColor = [UIColor greenColor];
+        hdot.backgroundColor = LINE_COLOR;
         [hDotView addSubview:hdot];
         
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
@@ -244,7 +246,7 @@
         }
         else {
             UIView *dotView = [tapView viewWithTag:1];
-            dotView.backgroundColor = [UIColor greenColor];
+            dotView.backgroundColor = LINE_COLOR;
         }
         self.trashView.hidden = YES;
     }
@@ -336,21 +338,21 @@
 - (void)animationWithView:(UIView *)view duration:(NSTimeInterval)duration {
     CGFloat d = duration/5.0;
     [UIView animateWithDuration:d animations:^{
-        view.backgroundColor = [UIColor redColor];
+        view.backgroundColor = SHAN_CLOOR;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:d animations:^{
-            view.backgroundColor = [UIColor greenColor];
+            view.backgroundColor = LINE_COLOR;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:d animations:^{
-                view.backgroundColor = [UIColor redColor];
+                view.backgroundColor = SHAN_CLOOR;
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:d animations:^{
-                    view.backgroundColor = [UIColor greenColor];
+                    view.backgroundColor = LINE_COLOR;
                 } completion:^(BOOL finished) {
                     [UIView animateWithDuration:d animations:^{
-                        view.backgroundColor = [UIColor redColor];
+                        view.backgroundColor = SHAN_CLOOR;
                     } completion:^(BOOL finished) {
-                        view.backgroundColor = [UIColor greenColor];
+                        view.backgroundColor = LINE_COLOR;
                     }];
                 }];
             }];
