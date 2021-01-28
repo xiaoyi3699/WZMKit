@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *imageView1;
 @property (nonatomic, strong) UIImageView *imageView2;
 @property (nonatomic, strong) UIView *toolView;
+@property (nonatomic, assign, getter=isLocked) BOOL locked;
 
 @end
 
@@ -65,7 +66,7 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(toolPanClick:)];
     [self.toolView addGestureRecognizer:pan];
     
-    NSArray *btnTitles = @[@"交换位置",@"修改图片",@"复位",@"隐藏"];
+    NSArray *btnTitles = @[@"换位",@"改图",@"复位",@"隐藏",@"锁定",@"横线",@"竖线"];
     CGFloat btnW = (self.toolView.wzm_width/btnTitles.count);
     for (NSInteger i = 0; i < btnTitles.count; i ++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*btnW, 0.0, btnW, 40.0)];
@@ -89,6 +90,34 @@
     [self.toolView addSubview:slider1];
 }
 
+//辅助线
+- (void)addDotView:(BOOL)h {
+    if (h) {
+        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(0.0, WZM_STATUS_HEIGHT, WZM_SCREEN_WIDTH, 50.0)];
+        hDotView.wzm_tag = 0;
+        [self.contentView addSubview:hDotView];
+        
+        UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(0.0, 24.5, WZM_SCREEN_WIDTH, 1.0)];
+        hdot.backgroundColor = [UIColor greenColor];
+        [hDotView addSubview:hdot];
+        
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
+        [hDotView addGestureRecognizer:pan];
+    }
+    else {
+        UIView *hDotView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 0.0, 50.0, WZM_SCREEN_HEIGHT)];
+        hDotView.wzm_tag = 1;
+        [self.contentView addSubview:hDotView];
+        
+        UIView *hdot = [[UIView alloc] initWithFrame:CGRectMake(24.5, 0.0, 1.0, WZM_SCREEN_HEIGHT)];
+        hdot.backgroundColor = [UIColor greenColor];
+        [hDotView addSubview:hdot];
+        
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dotPanClick:)];
+        [hDotView addGestureRecognizer:pan];
+    }
+}
+
 - (void)contentTapClick {
     [UIView animateWithDuration:0.35 animations:^{
         self.toolView.alpha = (1.0-self.toolView.alpha);
@@ -102,6 +131,7 @@
 }
 
 - (void)contentPanClick:(UIPanGestureRecognizer *)recognizer {
+    if (self.isLocked) return;
     if (self.imageView2.isHidden) return;
     if (self.imageView2.image == nil) return;
     UIView *tapView = self.imageContentView2;
@@ -141,6 +171,41 @@
     }
 }
 
+- (void)dotPanClick:(UIPanGestureRecognizer *)recognizer {
+    UIView *tapView = recognizer.view;
+    CGPoint point_0 = [recognizer translationInView:tapView];
+    static CGRect rect;
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        rect = tapView.frame;
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        if (tapView.wzm_tag == 0) {
+            CGFloat y = rect.origin.y+point_0.y;
+            if (y < WZM_STATUS_HEIGHT-24.5) {
+                y = WZM_STATUS_HEIGHT-24.5;
+            }
+            else if (y > WZM_SCREEN_HEIGHT-WZM_BOTTOM_HEIGHT-25.5) {
+                y = WZM_SCREEN_HEIGHT-WZM_BOTTOM_HEIGHT-25.5;
+            }
+            tapView.frame = CGRectMake(0.0, y, tapView.frame.size.width, tapView.frame.size.height);
+        }
+        else {
+            CGFloat x = rect.origin.x+point_0.x;
+            if (x < -24.5) {
+                x = -24.5;
+            }
+            else if (x > WZM_SCREEN_WIDTH-25.0) {
+                x = WZM_SCREEN_WIDTH-25.0;
+            }
+            tapView.frame = CGRectMake(x, 0, tapView.frame.size.width, tapView.frame.size.height);
+        }
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded ||
+             recognizer.state == UIGestureRecognizerStateCancelled) {
+        
+    }
+}
+
 - (void)itemBtnClick:(UIButton *)btn {
     if (btn.tag == 0) {
         //交换位置
@@ -161,6 +226,19 @@
         //隐藏
         self.imageView2.hidden = !self.imageView2.isHidden;
         [btn setTitle:(self.imageView2.isHidden ? @"显示" : @"隐藏") forState:UIControlStateNormal];
+    }
+    else if (btn.tag == 4) {
+        //锁定
+        self.locked = !self.isLocked;
+        [btn setTitle:(self.isLocked ? @"解锁" : @"锁定") forState:UIControlStateNormal];
+    }
+    else if (btn.tag == 5) {
+        //横线
+        [self addDotView:YES];
+    }
+    else if (btn.tag == 6) {
+        //竖线
+        [self addDotView:NO];
     }
 }
 
