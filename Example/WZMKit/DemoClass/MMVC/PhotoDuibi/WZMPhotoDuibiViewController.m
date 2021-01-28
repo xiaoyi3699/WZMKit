@@ -38,10 +38,12 @@
     
     self.imageView1 = [[UIImageView alloc] initWithFrame:self.imageContentView1.bounds];
     self.imageView1.alpha = 1.0;
+    self.imageView1.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageContentView1 addSubview:self.imageView1];
     
     self.imageView2 = [[UIImageView alloc] initWithFrame:self.imageContentView2.bounds];
     self.imageView2.alpha = 0.5;
+    self.imageView2.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageContentView2 addSubview:self.imageView2];
     
     self.toolView = [[UIView alloc] initWithFrame:CGRectMake(10.0, WZM_SCREEN_HEIGHT-100.0-WZM_BOTTOM_HEIGHT, WZM_SCREEN_WIDTH-20.0, 80.0)];
