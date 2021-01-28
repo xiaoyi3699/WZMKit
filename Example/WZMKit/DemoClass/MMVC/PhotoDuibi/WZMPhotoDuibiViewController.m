@@ -65,7 +65,7 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(toolPanClick:)];
     [self.toolView addGestureRecognizer:pan];
     
-    NSArray *btnTitles = @[@"交换位置",@"修改图片",@"复位"];
+    NSArray *btnTitles = @[@"交换位置",@"修改图片",@"复位",@"隐藏"];
     CGFloat btnW = (self.toolView.wzm_width/btnTitles.count);
     for (NSInteger i = 0; i < btnTitles.count; i ++) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*btnW, 0.0, btnW, 40.0)];
@@ -102,6 +102,7 @@
 }
 
 - (void)contentPanClick:(UIPanGestureRecognizer *)recognizer {
+    if (self.imageView2.isHidden) return;
     if (self.imageView2.image == nil) return;
     UIView *tapView = self.imageContentView2;
     CGPoint point_0 = [recognizer translationInView:recognizer.view];
@@ -151,9 +152,15 @@
         //修改图片
         [self addBtnClick:nil];
     }
-    else {
+    else if (btn.tag == 2) {
+        //交换
         self.imageContentView1.frame = self.contentView.bounds;
         self.imageContentView2.frame = self.contentView.bounds;
+    }
+    else if (btn.tag == 3) {
+        //隐藏
+        self.imageView2.hidden = !self.imageView2.isHidden;
+        [btn setTitle:(self.imageView2.isHidden ? @"显示" : @"隐藏") forState:UIControlStateNormal];
     }
 }
 
