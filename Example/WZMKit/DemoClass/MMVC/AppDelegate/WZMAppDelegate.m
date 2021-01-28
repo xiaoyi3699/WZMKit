@@ -79,6 +79,7 @@
 #import "ThirdViewController.h"
 #import <UserNotifications/UserNotifications.h>
 #import <AdSupport/AdSupport.h>
+#import "WZMPhotoDuibiViewController.h"
 
 @interface WZMAppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -96,11 +97,12 @@
     self.window.backgroundColor = [UIColor clearColor];
     [self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [WZMTabBarController shareTabBarController];
+    self.window.rootViewController = [[WZMPhotoDuibiViewController alloc] init];
+//    self.window.rootViewController = [WZMTabBarController shareTabBarController];
     
     //禁止多点触控
     [[UIView appearance] setExclusiveTouch:YES];
-    
+    /*
     //检查更新
     NSString *url = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",WZM_APP_ID];
     [[WZMNetWorking shareNetWorking] GET:url parameters:nil callBack:^(id responseObject, NSError *error) {
@@ -134,7 +136,7 @@
     NSLog(@"恭喜你，成功打印日志！");
     
     WZMLog(@"恭喜你，成功打印日志！");
-    
+    */
     return YES;
 }
 

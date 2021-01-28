@@ -28,6 +28,8 @@
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
+		64A8575125C267A1006D5CB0 /* WZMPhotoDuibiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A8575025C267A1006D5CB0 /* WZMPhotoDuibiViewController.m */; };
+		64A8575825C26A97006D5CB0 /* photo_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 64A8575725C26A97006D5CB0 /* photo_add.png */; };
 		64B44656255A3E7A0025BBEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B44655255A3E7A0025BBEF /* LaunchScreen.storyboard */; };
 		64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C03D99246AC795003EBE79 /* wzm_reload_black.png */; };
 		64E84A37246CD967008958FF /* wzm_back_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 64E84A35246CD967008958FF /* wzm_back_white.png */; };
@@ -120,6 +122,9 @@
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
 		6486E45F23D8451600D777D7 /* WZMRechargeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeModel.h; sourceTree = "<group>"; };
 		649C2C5124581F1D00FF7635 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		64A8574F25C267A1006D5CB0 /* WZMPhotoDuibiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMPhotoDuibiViewController.h; sourceTree = "<group>"; };
+		64A8575025C267A1006D5CB0 /* WZMPhotoDuibiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMPhotoDuibiViewController.m; sourceTree = "<group>"; };
+		64A8575725C26A97006D5CB0 /* photo_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_add.png; sourceTree = "<group>"; };
 		64B44655255A3E7A0025BBEF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64C03D99246AC795003EBE79 /* wzm_reload_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_reload_black.png; sourceTree = "<group>"; };
 		64E84A35246CD967008958FF /* wzm_back_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wzm_back_white.png; sourceTree = "<group>"; };
@@ -373,6 +378,24 @@
 			path = WZMRechargeH5;
 			sourceTree = "<group>";
 		};
+		64A8574E25C26782006D5CB0 /* PhotoDuibi */ = {
+			isa = PBXGroup;
+			children = (
+				64A8575625C26A87006D5CB0 /* Resource */,
+				64A8574F25C267A1006D5CB0 /* WZMPhotoDuibiViewController.h */,
+				64A8575025C267A1006D5CB0 /* WZMPhotoDuibiViewController.m */,
+			);
+			path = PhotoDuibi;
+			sourceTree = "<group>";
+		};
+		64A8575625C26A87006D5CB0 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				64A8575725C26A97006D5CB0 /* photo_add.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		64EA8AC3256CDA4C007EC7C3 /* WZMGifListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,6 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				75DA9E57230E9CEC0000A955 /* AppDelegate */,
+				64A8574E25C26782006D5CB0 /* PhotoDuibi */,
 				75DA9E44230E99590000A955 /* First */,
 				75DA9E46230E99670000A955 /* Second */,
 				75DA9E45230E99610000A955 /* Third */,
@@ -801,6 +825,7 @@
 				64C03D9A246AC795003EBE79 /* wzm_reload_black.png in Resources */,
 				75DA9E31230E924A0000A955 /* WZMTest.html in Resources */,
 				75D1ADAB2319208300C01BA1 /* jingcai.gif in Resources */,
+				64A8575825C26A97006D5CB0 /* photo_add.png in Resources */,
 				646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */,
 				75DA9E2E230E924A0000A955 /* WZMTest.css in Resources */,
 				75DA9E2F230E924A0000A955 /* WZMTest.js in Resources */,
@@ -923,6 +948,7 @@
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
 				75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */,
 				640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */,
+				64A8575125C267A1006D5CB0 /* WZMPhotoDuibiViewController.m in Sources */,
 				64EA8AC9256CDA4C007EC7C3 /* WZMGifListCell.m in Sources */,
 				75DA9E20230E924A0000A955 /* WZMIAPManager.m in Sources */,
 				64EA8ACA256CDA4C007EC7C3 /* WZMGifListView.m in Sources */,
