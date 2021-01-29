@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) UIView *trashView;
 @property (nonatomic, assign, getter=isLocked) BOOL locked;
+@property (nonatomic, strong) UILabel *trashLabel;
 
 @end
 
@@ -61,6 +62,14 @@
     self.trashView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
     self.trashView.wzm_cornerRadius = trashW/2.0;
     [self.contentView addSubview:self.trashView];
+    
+    self.trashLabel = [[UILabel alloc] initWithFrame:self.trashView.bounds];
+    self.trashLabel.text = @"拖拽删除辅助线";
+    self.trashLabel.textColor = [UIColor whiteColor];
+    self.trashLabel.textAlignment = NSTextAlignmentCenter;
+    self.trashLabel.font = [UIFont boldSystemFontOfSize:13];
+    self.trashLabel.numberOfLines = 0;
+    [self.trashView addSubview:self.trashLabel];
     
     self.toolView = [[UIView alloc] initWithFrame:CGRectMake(10.0, WZM_SCREEN_HEIGHT-100.0-WZM_BOTTOM_HEIGHT, WZM_SCREEN_WIDTH-20.0, 80.0)];
     self.toolView.wzm_cornerRadius = 5.0;
@@ -231,12 +240,30 @@
 }
 
 - (void)longClick:(UILongPressGestureRecognizer *)recognizer {
+    static BOOL inside = NO;
     UIView *tapView = recognizer.view;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        inside = NO;
         self.trashView.hidden = NO;
         AudioServicesPlaySystemSound(1520);
         UIView *dotView = [tapView viewWithTag:1];
         dotView.backgroundColor = [UIColor redColor];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGPoint point = [recognizer locationInView:tapView.superview];
+        if (CGRectContainsPoint(self.trashView.frame, point)) {
+            if (inside == NO) {
+                inside = YES;
+                AudioServicesPlaySystemSound(1520);
+            }
+            self.trashLabel.text = @"松开删除辅助线";
+            self.trashLabel.textColor = [UIColor greenColor];
+        }
+        else {
+            inside = NO;
+            self.trashLabel.text = @"拖拽删除辅助线";
+            self.trashLabel.textColor = [UIColor whiteColor];
+        }
     }
     else if (recognizer.state == UIGestureRecognizerStateEnded ||
              recognizer.state == UIGestureRecognizerStateCancelled) {
@@ -249,6 +276,8 @@
             dotView.backgroundColor = LINE_COLOR;
         }
         self.trashView.hidden = YES;
+        self.trashLabel.text = @"拖拽删除辅助线";
+        self.trashLabel.textColor = [UIColor whiteColor];
     }
 }
 
