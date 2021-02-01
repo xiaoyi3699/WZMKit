@@ -72,8 +72,8 @@
         self.start = 0.0;
         self.duration = duration;
     }
-    self.start = ceil(self.start);
-    self.duration = floor(self.duration);
+    self.start = self.start;
+    self.duration = self.duration;
     CMTime t1 = CMTimeMakeWithSeconds(self.start, 30);
     CMTime t2 = CMTimeMakeWithSeconds((self.start+self.duration), 30);
     CMTimeRange range = CMTimeRangeFromTimeToTime(t1, t2);
