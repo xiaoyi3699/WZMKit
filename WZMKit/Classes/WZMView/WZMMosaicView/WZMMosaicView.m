@@ -270,7 +270,6 @@
                     UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
                 }
                 CGContextAddPath(currentContext, pathRef);
-                [[UIColor blueColor] setStroke];
                 CGContextDrawPath(currentContext, kCGPathStroke);
                 shapeLayer.path = pathRef;
                 CGPathRelease(pathRef);
