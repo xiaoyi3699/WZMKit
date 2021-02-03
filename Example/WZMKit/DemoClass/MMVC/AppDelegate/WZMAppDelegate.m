@@ -97,8 +97,8 @@
     self.window.backgroundColor = [UIColor clearColor];
     [self.window makeKeyAndVisible];
     
-    self.window.rootViewController = [[WZMPhotoDuibiViewController alloc] init];
-//    self.window.rootViewController = [WZMTabBarController shareTabBarController];
+//    self.window.rootViewController = [[WZMPhotoDuibiViewController alloc] init];
+    self.window.rootViewController = [WZMTabBarController shareTabBarController];
     
     //禁止多点触控
     [[UIView appearance] setExclusiveTouch:YES];

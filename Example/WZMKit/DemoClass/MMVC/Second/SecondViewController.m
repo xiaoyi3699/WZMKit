@@ -25,6 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor grayColor];
+    
+    WZMMosaicView *v = [[WZMMosaicView alloc] initWithFrame:CGRectMake(10.0, 100.0, 200.0, 200.0)];
+    v.image = [UIImage imageNamed:@"meinv"];
+    v.type = WZMMosaicViewTypeCodeMosaic;
+    [self.view addSubview:v];
 }
 
 @end

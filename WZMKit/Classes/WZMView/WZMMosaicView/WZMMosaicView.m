@@ -138,6 +138,7 @@
             else {
                 if (type == WZMMosaicViewTypeCodeMosaic) {
                     //马赛克
+                    image = [image wzm_getMosaicImageWithLevel:30];
                     mosaicImageLayer.contents = (__bridge id)(image.CGImage);
                 }
                 else {

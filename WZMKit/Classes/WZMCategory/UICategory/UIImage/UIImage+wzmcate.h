@@ -71,6 +71,8 @@
 - (UIColor *)wzm_getColorAtPixel:(CGPoint)point;
 ///判断该图片是否有Alpha通道
 - (BOOL)wzm_isHasAlphaChannel;
+///马赛克图片
+- (UIImage *)wzm_getMosaicImageWithLevel:(NSUInteger)level;
 ///模糊图片
 - (UIImage *)wzm_getBlurImageWithScale:(CGFloat)scale;
 ///灰度图
