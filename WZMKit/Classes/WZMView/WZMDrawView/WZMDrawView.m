@@ -12,6 +12,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.dotted = NO;
+        self.eraser = NO;
         self.lineWidth = 12;
         self.color = [UIColor redColor];
         self.backgroundColor = [UIColor clearColor];
@@ -47,6 +48,7 @@
         [dic setObject:self.color forKey:@"color"];
         [dic setObject:@(self.lineWidth) forKey:@"width"];
         [dic setObject:@(self.isDotted) forKey:@"dotted"];
+        [dic setObject:@(self.isEraser) forKey:@"eraser"];
         [self.lines addObject:dic];
     }
     else {
@@ -64,8 +66,15 @@
         UIColor *color = [dic objectForKey:@"color"];
         CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
         BOOL dotted = [[dic objectForKey:@"dotted"] boolValue];
+        BOOL eraser = [[dic objectForKey:@"eraser"] boolValue];
         if (points.count > 1) {
             CGContextRef ctx = UIGraphicsGetCurrentContext();
+            if (eraser) {
+                CGContextSetBlendMode(ctx, kCGBlendModeClear);
+            }
+            else {
+                CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+            }
             CGPoint startPoint = [points[0] CGPointValue];
             CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
             NSInteger count = points.count;
