@@ -2,6 +2,7 @@
 
 @interface WZMDrawView : UIView
 
+@property (nonatomic, strong) UIImage *image;
 @property (nonatomic,strong) UIColor *color;
 @property (nonatomic,assign) CGFloat lineWidth;
 @property (nonatomic,strong,readonly) NSMutableArray *lines;

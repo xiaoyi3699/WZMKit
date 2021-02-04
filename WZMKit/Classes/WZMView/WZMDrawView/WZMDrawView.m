@@ -61,6 +61,9 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    if (self.image) {
+        [self.image drawInRect:rect];
+    }
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *points = [dic objectForKey:@"points"];
         UIColor *color = [dic objectForKey:@"color"];

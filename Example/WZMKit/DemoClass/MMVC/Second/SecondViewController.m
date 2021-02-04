@@ -41,10 +41,25 @@
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(200.0, 100.0, 50.0, 50.0)];
+    btn2.tag = 1;
+    btn2.titleLabel.font = [UIFont systemFontOfSize:15];
+    btn2.backgroundColor = [UIColor orangeColor];
+    [btn2 setTitle:@"撤销" forState:UIControlStateNormal];
+    [btn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
 }
 
 - (void)btnClick:(UIButton *)btn {
-    _v.eraser = !_v.isEraser;
+    if (btn.tag == 0) {
+        _v.lineWidth = arc4random()%10 + 5;
+        _v.eraser = !_v.isEraser;
+    }
+    else {
+        [_v backforward];
+    }
 }
 
 @end
