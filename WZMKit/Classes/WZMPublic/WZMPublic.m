@@ -119,13 +119,7 @@
 ///导航高
 - (CGFloat)navBarH {
     if (_navBarH == -1) {
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = [UIApplication sharedApplication].delegate.window;
-            _navBarH = window.safeAreaInsets.top + 44.0;
-        }
-        else {
-            _navBarH = 44.0;
-        }
+        _navBarH = [self statusH] + 44.0;
     }
     return _navBarH;
 }
