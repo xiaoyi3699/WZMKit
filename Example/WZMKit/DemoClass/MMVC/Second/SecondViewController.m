@@ -31,6 +31,7 @@
     
     WZMDrawView *v = [[WZMDrawView alloc] initWithFrame:self.view.bounds];
     v.color = [UIColor redColor];
+    v.image = [UIImage imageNamed:@"meinv"];
     [self.view addSubview:v];
     _v = v;
     
@@ -50,6 +51,45 @@
     [btn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
+    
+    UIImage *image = [UIImage imageNamed:@"meinv"];
+    CGSize size = CGSizeMake(108.0, 144.0);
+    {
+        //生成一张
+        UIImage *hbImage = [UIImage wzm_getRectImageByColor:[UIColor whiteColor] size:size];
+        UIGraphicsBeginImageContextWithOptions(size, NO, [[UIScreen mainScreen] scale]);
+        [hbImage drawInRect:CGRectMake(0, 0 , size.width, size.height)];
+        [image drawInRect:CGRectMake(0.0, 0.0, size.width, size.height)];
+        UIImage *newPic = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        [WZMAlbumHelper wzm_saveImage:newPic completion:^(NSError *error) {
+            NSLog(@"11111");
+        }];
+    }
+    
+    {
+        //生成6张
+        NSInteger c = 3, r = 3;
+        CGFloat s = 5.0;
+        CGFloat w = s*(c+1)+size.width*c;
+        CGFloat h = s*(r+1)+size.height*r;
+        
+        CGSize hbSize = CGSizeMake(w, h);
+        UIImage *hbImage = [UIImage wzm_getRectImageByColor:[UIColor whiteColor] size:hbSize];
+        UIGraphicsBeginImageContextWithOptions(hbSize, NO, [[UIScreen mainScreen] scale]);
+        [hbImage drawInRect:CGRectMake(0, 0 , hbSize.width, hbSize.height)];
+        for (NSInteger i = 0; i < (c*r); i ++) {
+            CGRect rect = CGRectMake(s+i%c*(size.width+s), s+i/c*(size.height+s), size.width, size.height);
+            [image drawInRect:rect];
+        }
+        UIImage *newPic = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        [WZMAlbumHelper wzm_saveImage:newPic completion:^(NSError *error) {
+            NSLog(@"11111");
+        }];
+    }
 }
 
 - (void)btnClick:(UIButton *)btn {

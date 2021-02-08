@@ -61,7 +61,7 @@
     return image;
 }
 
-- (UIImage *)wzm_getScreenImageByLayer:(CALayer *)layer {
++ (UIImage *)wzm_getScreenImageByLayer:(CALayer *)layer {
     UIGraphicsBeginImageContextWithOptions(layer.bounds.size, layer.opaque, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     [layer renderInContext:context];
