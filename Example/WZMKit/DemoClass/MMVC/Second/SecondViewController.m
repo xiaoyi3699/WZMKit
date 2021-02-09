@@ -29,12 +29,14 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    WZMDrawView *v = [[WZMDrawView alloc] initWithFrame:self.view.bounds];
+    WZMDrawView *v = [[WZMDrawView alloc] initWithFrame:WZMRectMiddleArea()];
     v.color = [UIColor redColor];
     v.image = [UIImage imageNamed:@"meinv"];
+    v.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:v];
     _v = v;
     
+    return;
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0, 100.0, 50.0, 50.0)];
     btn.titleLabel.font = [UIFont systemFontOfSize:15];
     btn.backgroundColor = [UIColor orangeColor];

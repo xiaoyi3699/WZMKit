@@ -1,5 +1,5 @@
 #import "WZMDrawView.h"
-
+#import "WZMInline.h"
 @interface WZMDrawView ()
 
 @property (nonatomic,strong) NSMutableArray *lines;
@@ -62,7 +62,22 @@
 
 - (void)drawRect:(CGRect)rect {
     if (self.image) {
-        [self.image drawInRect:rect];
+        CGRect imageFrame = rect;
+        if (self.contentMode == UIViewContentModeScaleAspectFit) {
+            CGSize size = WZMSizeRatioToMaxSize(self.image.size, rect.size);
+            CGFloat x = (rect.size.width - size.width)/2.0;
+            CGFloat y = (rect.size.height - size.height)/2.0;
+            imageFrame.origin = CGPointMake(x, y);
+            imageFrame.size = size;
+        }
+        else if (self.contentMode == UIViewContentModeScaleAspectFill) {
+            CGSize size = WZMSizeRatioToFillSize(self.image.size, rect.size);
+            CGFloat x = (rect.size.width - size.width)/2.0;
+            CGFloat y = (rect.size.height - size.height)/2.0;
+            imageFrame.origin = CGPointMake(x, y);
+            imageFrame.size = size;
+        }
+        [self.image drawInRect:imageFrame];
     }
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *points = [dic objectForKey:@"points"];
