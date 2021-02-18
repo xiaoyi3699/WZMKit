@@ -28,7 +28,7 @@
     //头部悬浮视图
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, WZM_SCREEN_WIDTH, WZM_NAVBAR_HEIGHT+200.0)];
     self.headerView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:self.headerView];
+    [self.contentView addSubview:self.headerView];
     
     self.segmentedView = [[WZMSegmentedView alloc] initWithFrame:CGRectMake(0.0, self.headerView.wzm_height-44.0, WZM_SCREEN_WIDTH, 44.0)];
     self.segmentedView.titles = @[@"测试一",@"测试二",@"测试三",@"测试四",@"测试五",@"测试六",@"测试七",@"测试八",@"测试九",@"测试十"];
@@ -52,7 +52,7 @@
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"collectionCell"];
-    [self.view insertSubview:self.collectionView belowSubview:self.headerView];
+    [self.contentView insertSubview:self.collectionView belowSubview:self.headerView];
 }
 
 #pragma mark - WZMSegmentedViewDelegate
@@ -152,7 +152,7 @@
 }
 
 - (CGRect)collectionViewFrame {
-    return self.view.bounds;
+    return self.contentView.bounds;
 }
 
 - (BOOL)navigatonBarIsHidden {

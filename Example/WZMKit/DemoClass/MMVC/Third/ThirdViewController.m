@@ -8,6 +8,7 @@
 
 #import "ThirdViewController.h"
 #import "WZMTransGifViewController.h"
+#import "WZMSegmentedViewController.h"
 
 @interface ThirdViewController ()
 

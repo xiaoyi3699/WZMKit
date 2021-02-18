@@ -39,15 +39,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = self.frame;
+    self.contentView.frame = self.view.bounds;
     UIView *headerView = [[UIView alloc] initWithFrame:self.superViewController.headerView.bounds];
-    
     self.tableView = self.superTableView;
-    self.tableView.frame = self.view.bounds;
+    self.tableView.frame = self.contentView.bounds;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableHeaderView = headerView;
     [self.tableView wzm_cleraExtraLine];
-    [self.view addSubview:self.tableView];
+    [self.contentView addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollViewOffsetChanged:) name:notificationKey object:nil];
 }
