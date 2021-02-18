@@ -27,22 +27,13 @@
 
 @implementation WZMWebViewController {
     NSString *_url;
-    CGRect   _frame;
 }
 
 #pragma mark - init
 - (instancetype)initWithUrl:(NSString *)url {
     self = [super init];
     if (self) {
-        [self setConfig:WZMRectBottomArea() url:url];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame url:(NSString *)url {
-    self = [super init];
-    if (self) {
-        [self setConfig:frame url:url];
+        [self setConfigWithUrl:url];
     }
     return self;
 }
@@ -50,26 +41,12 @@
 - (id)initWithHtml:(NSString *)html {
     self = [super init];
     if (self) {
-        [self setConfig:WZMRectBottomArea() url:[[NSBundle mainBundle] pathForResource:html ofType:@"html"]];
+        [self setConfigWithUrl:[[NSBundle mainBundle] pathForResource:html ofType:@"html"]];
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame html:(NSString *)html {
-    self = [super init];
-    if (self) {
-        [self setConfig:frame url:[[NSBundle mainBundle] pathForResource:html ofType:@"html"]];
-    }
-    return self;
-}
-
-- (void)setConfig:(CGRect)frame url:(NSString *)url {
-    if (CGRectIsNull(frame)) {
-        _frame = WZMRectBottomArea();
-    }
-    else {
-        _frame = frame;
-    }
+- (void)setConfigWithUrl:(NSString *)url {
     _url = url;
     _scriptNames = @[@"universal"];
 }
@@ -87,7 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_DARK_COLOR];
-    [self.view addSubview:self.webView];
+    [self.contentView addSubview:self.webView];
     [self loadUrl:_url];
 }
 
@@ -97,7 +74,7 @@
         [self.navigationController.navigationBar.layer addSublayer:self.progressLayer];
     }
     else {
-        [self.view.layer addSublayer:self.progressLayer];
+        [self.contentView.layer addSublayer:self.progressLayer];
     }
 }
 
@@ -307,7 +284,7 @@
         WZMLog(@"loading...");
     }
     else if ([keyPath isEqualToString:@"title"]) {
-        self.title = self.webView.title;
+        self.navigationItem.title = self.webView.title;
     }
     else if ([keyPath isEqualToString:@"estimatedProgress"]) {
         WZMLog(@"progress: %f", self.webView.estimatedProgress);
@@ -336,7 +313,7 @@
         config.preferences.javaScriptCanOpenWindowsAutomatically = YES;
         config.userContentController = userContentController;
         
-        _webView = [[WKWebView alloc]initWithFrame:_frame configuration:config];
+        _webView = [[WKWebView alloc] initWithFrame:self.contentView.bounds configuration:config];
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
@@ -379,6 +356,10 @@
         [self removeObserver];
         [(WZMUserContentController *)self.webView.configuration.userContentController removeScriptMessageHandler:_scriptNames];
     }
+}
+
+- (WZMContentType)contentType {
+    return WZMContentTypeTopBar;
 }
 
 @end

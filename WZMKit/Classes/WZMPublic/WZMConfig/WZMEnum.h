@@ -9,6 +9,12 @@
 #ifndef WZMEnum_h
 #define WZMEnum_h
 
+typedef NS_OPTIONS(NSUInteger, WZMContentType) {
+    WZMContentTypeTopBar    = 1 << 0,
+    WZMContentTypeBottomBar = 1 << 1,
+    WZMContentTypeNone = ~0UL
+};
+
 ///导航栏颜色
 typedef NS_ENUM(NSInteger, WZMStatusBarStyle) {
     WZMStatusBarStyleDefault         = 0, //黑色
@@ -217,7 +223,7 @@ typedef NS_ENUM(NSInteger, WZMImageType) {
 
 ///图片拼接
 typedef NS_ENUM(NSInteger, WZMAddImageType) {
-    WZMAddImageTypeHorizontal= 0,
+    WZMAddImageTypeHorizontal = 0,
     WZMAddImageTypeVertical
 };
 

@@ -52,12 +52,11 @@
     [super viewDidLoad];
     
     _tableView = self.superTableView;
-    _tableView.frame = WZMRectMiddleArea();
+    _tableView.frame = self.contentView.bounds;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView wzm_cleraExtraLine];
-    [self.view addSubview:_tableView];
-    
+    [self.contentView addSubview:_tableView];
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
@@ -92,6 +91,10 @@
         cell.textLabel.text = model.newsTitle;
     }
     return cell;
+}
+
+- (WZMContentType)contentType {
+    return WZMContentTypeTopBar|WZMContentTypeBottomBar;
 }
 
 @end

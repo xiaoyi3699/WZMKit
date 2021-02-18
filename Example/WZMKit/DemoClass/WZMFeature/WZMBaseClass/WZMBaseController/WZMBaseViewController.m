@@ -14,9 +14,16 @@
 
 @interface WZMBaseViewController ()
 
+@property (nonatomic, strong) UIView *contentView;
+
 @end
 
 @implementation WZMBaseViewController
+
+- (void)loadView {
+    [super loadView];
+    [self.view addSubview:self.contentView];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -110,7 +117,31 @@
     
 }
 
+#pragma mark - setter / getter
+- (UIView *)contentView {
+    if (_contentView == nil) {
+        CGRect rect = self.view.bounds;
+        WZMContentType type = [self contentType];
+        if (type != WZMContentTypeNone) {
+            if (type & WZMContentTypeTopBar) {
+                rect.origin.y = WZM_NAVBAR_HEIGHT;
+                rect.size.height -= WZM_NAVBAR_HEIGHT;
+            }
+            if (type & WZMContentTypeBottomBar) {
+                rect.size.height -= WZM_TABBAR_HEIGHT;
+            }
+        }
+        _contentView = [[UIView alloc] initWithFrame:rect];
+    }
+    return _contentView;
+}
+
 #pragma mark - 导航栏
+//视图类型
+- (WZMContentType)contentType {
+    return WZMContentTypeNone;
+}
+
 //是否接管导航栏
 - (BOOL)capturesNavigatonBar {
     return YES;

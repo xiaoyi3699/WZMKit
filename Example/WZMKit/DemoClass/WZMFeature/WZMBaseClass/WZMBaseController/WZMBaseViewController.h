@@ -11,6 +11,7 @@
 
 @interface WZMBaseViewController : UIViewController
 
+@property (nonatomic, strong, readonly) UIView *contentView;
 @property (nonatomic, assign) WZMUserInterfaceStyle userInterfaceStyle;
 
 ///设置导航栏左侧item
@@ -23,6 +24,8 @@
 - (UIView *)navigatonRightItemView;
 - (void)navigatonRightButtonClick;
 
+///视图类型
+- (WZMContentType)contentType;
 ///是否接管导航栏
 - (BOOL)capturesNavigatonBar;
 ///导航栏是否隐藏

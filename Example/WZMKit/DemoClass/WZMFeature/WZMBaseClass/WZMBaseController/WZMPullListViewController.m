@@ -164,12 +164,12 @@
         }
     }
     if (_badView.superview == nil) {
-        [self.view addSubview:_badView];
+        [self.contentView addSubview:_badView];
     }
     if ([self badViewFront]) {
         for (UIView *view in [self badViewFront]) {
             if ([view isKindOfClass:[UIView class]]) {
-                [self.view bringSubviewToFront:view];
+                [self.contentView bringSubviewToFront:view];
             }
         }
     }
@@ -208,7 +208,7 @@
 - (UIView *)badView {
     CGRect rect = [self badViewFrame];
     if (CGRectIsNull(rect)) {
-        rect = self.view.bounds;
+        rect = self.contentView.bounds;
     }
     _badView = [[UIView alloc] initWithFrame:rect];
     _badView.backgroundColor = [self badViewColor];

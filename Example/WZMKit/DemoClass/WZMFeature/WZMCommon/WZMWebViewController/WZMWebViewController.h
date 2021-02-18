@@ -11,12 +11,8 @@
 @interface WZMWebViewController : WZMBaseViewController
 
 ///加载网页
-- (instancetype)initWithUrl:(NSString *)url;
-- (instancetype)initWithFrame:(CGRect)frame url:(NSString *)url;
-
-///加载本地html
 - (id)initWithHtml:(NSString *)html;
-- (id)initWithFrame:(CGRect)frame html:(NSString *)html;
+- (instancetype)initWithUrl:(NSString *)url;
 
 - (void)reload;
 - (void)webGoback;

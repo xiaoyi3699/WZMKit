@@ -48,7 +48,7 @@
 }
 
 - (void)setConfig {
-    NSArray *titles = @[@"第一页",@"第二页",@"第三页"];
+    NSArray *titles = @[@"首页",@"次页",@"后页"];
     NSArray *normalImages = @[@"tabbar_icon",@"tabbar_icon",@"tabbar_icon"];
     NSArray *selectImages = @[@"tabbar_icon_on",@"tabbar_icon_on",@"tabbar_icon_on"];
     for (NSInteger i = 0; i < self.childViewControllers.count; i ++) {
@@ -59,16 +59,14 @@
         UIImage *selImg = [[UIImage imageNamed:selectImages[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
         UITabBarItem *tabBarItem = [self.childViewControllers[i] tabBarItem];
+        [tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
+        [tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
         if (@available(iOS 13.0, *)) {
-            UITabBarAppearance *appearance = [UITabBarAppearance new];
+            UITabBarAppearance *appearance = [[UITabBarAppearance alloc] init];
             appearance.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:[UIColor whiteColor] darkColor:WZM_DARK_COLOR];
             appearance.stackedLayoutAppearance.normal.titleTextAttributes = atts;
             appearance.stackedLayoutAppearance.selected.titleTextAttributes = selAtts;
             tabBarItem.standardAppearance = appearance;
-        }
-        else {
-            [tabBarItem setTitleTextAttributes:atts forState:UIControlStateNormal];
-            [tabBarItem setTitleTextAttributes:selAtts forState:UIControlStateSelected];
         }
         tabBarItem.title = titles[i];
         tabBarItem.image = img;
