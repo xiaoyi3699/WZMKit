@@ -100,11 +100,11 @@
                 CGPoint endPoint = [points[i] CGPointValue];
                 CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
             }
-            CGContextSetLineJoin(ctx, kCGLineJoinRound);
-            CGContextSetLineCap(ctx, kCGLineCapRound);
             CGContextSetLineWidth(ctx, lineWidth);
-            CGContextSetStrokeColorWithColor(ctx, color.CGColor);
+            CGContextSetLineCap(ctx, kCGLineCapRound);
+            CGContextSetLineJoin(ctx, kCGLineJoinRound);
             CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+            CGContextSetStrokeColorWithColor(ctx, color.CGColor);
             if (dotted) {
                 CGFloat lengths[]= {lineWidth*4.0, lineWidth*2.0};
                 CGContextSetLineDash(ctx, 0.0, lengths, 2);
