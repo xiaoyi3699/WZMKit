@@ -14,6 +14,11 @@
 
 @interface NSAttributedString (wzmcate)
 
+/**
+ 获取富文本的路径
+ */
+- (UIBezierPath *)wzm_getBezierPath;
+
 @end
 
 

@@ -27,24 +27,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor grayColor];
+    WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:self.contentView.bounds];
+    drawView.contentMode = UIViewContentModeScaleAspectFill;
+//    drawView.hbImages = @[[UIImage imageNamed:@"tabbar_icon_on"],@"tabbar_icon"];
+    [self.contentView addSubview:drawView];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100.0, 100.0, 50.0, 50.0)];
-    btn.titleLabel.font = [UIFont systemFontOfSize:15];
-    btn.backgroundColor = [UIColor orangeColor];
-    [btn setTitle:@"111" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    return;
+    CALayer *imageLayer = [[CALayer alloc] init];
+    imageLayer.frame = CGRectMake(10.0, 100.0, 255.0, 50.0);
+    imageLayer.contents = (__bridge id)([UIImage imageNamed:@"meinv"].CGImage);
+    [self.view.layer addSublayer:imageLayer];
     
-    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(200.0, 100.0, 50.0, 50.0)];
-    btn2.tag = 1;
-    btn2.titleLabel.font = [UIFont systemFontOfSize:15];
-    btn2.backgroundColor = [UIColor orangeColor];
-    [btn2 setTitle:@"222" forState:UIControlStateNormal];
-    [btn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn2];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 5.0;
+    style.alignment = NSTextAlignmentCenter;
+    style.lineBreakMode = NSLineBreakByCharWrapping;
+    
+    NSString *text = @"床前明月光";
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:text];
+    [attStr addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:30.0], NSParagraphStyleAttributeName:style} range:NSMakeRange(0, attStr.length)];
+    
+    UIBezierPath *path = [attStr wzm_getBezierPath];
+    CAShapeLayer *shaperLayer = [[CAShapeLayer alloc] init];
+    shaperLayer.path = path.CGPath;
+    shaperLayer.frame = imageLayer.bounds;
+    shaperLayer.fillRule = kCAFillRuleEvenOdd;
+    
+    imageLayer.mask = shaperLayer;
 }
 
 - (void)btnClick:(UIButton *)btn {
@@ -54,6 +63,10 @@
     else {
         
     }
+}
+
+- (WZMContentType)contentType {
+    return WZMContentTypeTopBar|WZMContentTypeBottomBar;
 }
 
 @end

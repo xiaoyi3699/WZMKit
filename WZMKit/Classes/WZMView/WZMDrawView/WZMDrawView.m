@@ -1,19 +1,24 @@
 #import "WZMDrawView.h"
 #import "WZMInline.h"
+
 @interface WZMDrawView ()
 
 @property (nonatomic,strong) NSMutableArray *lines;
 
 @end
 
-@implementation WZMDrawView
+@implementation WZMDrawView {
+    CGPoint _lastPoint;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.dotted = NO;
         self.eraser = NO;
-        self.lineWidth = 12;
+        self.hbSize = 20.0;
+        self.spacing = 30.0;
+        self.lineWidth = 12.0;
         self.color = [UIColor redColor];
         self.backgroundColor = [UIColor clearColor];
         _lines = [[NSMutableArray alloc] initWithCapacity:0];
@@ -50,13 +55,28 @@
         [dic setObject:@(self.isDotted) forKey:@"dotted"];
         [dic setObject:@(self.isEraser) forKey:@"eraser"];
         [self.lines addObject:dic];
+        
+        if (self.hbImages.count) {
+            _lastPoint = point;
+            [self setNeedsDisplay];
+        }
     }
     else {
         NSDictionary *dic = [self.lines lastObject];
         NSMutableArray *points = [dic objectForKey:@"points"];
         CGPoint point = [gesture locationInView:gesture.view];
-        [points addObject:[NSValue valueWithCGPoint:point]];
-        [self setNeedsDisplay];
+        
+        if (self.hbImages.count) {
+            if (fabs(point.x-_lastPoint.x) > self.spacing || fabs(point.y-_lastPoint.y) > self.spacing) {
+                _lastPoint = point;
+                [points addObject:[NSValue valueWithCGPoint:point]];
+                [self setNeedsDisplay];
+            }
+        }
+        else {
+            [points addObject:[NSValue valueWithCGPoint:point]];
+            [self setNeedsDisplay];
+        }
     }
 }
 
@@ -81,35 +101,58 @@
     }
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *points = [dic objectForKey:@"points"];
-        UIColor *color = [dic objectForKey:@"color"];
-        CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
-        BOOL dotted = [[dic objectForKey:@"dotted"] boolValue];
-        BOOL eraser = [[dic objectForKey:@"eraser"] boolValue];
-        if (points.count > 1) {
-            CGContextRef ctx = UIGraphicsGetCurrentContext();
-            if (eraser) {
-                CGContextSetBlendMode(ctx, kCGBlendModeClear);
+        if (self.hbImages.count) {
+            for (NSInteger i = 0; i < points.count; i ++) {
+                UIImage *image;
+                id img = [self.hbImages objectAtIndex:(i%(self.hbImages.count))];
+                if ([img isKindOfClass:[NSString class]]) {
+                    image = [UIImage imageNamed:img];
+                }
+                else if ([img isKindOfClass:[UIImage class]]) {
+                    image = img;
+                }
+                if (image == nil) return;
+                CGPoint point = [points[i] CGPointValue];
+                
+                CGSize imageSize = WZMSizeRatioToMaxSize(image.size, CGSizeMake(self.hbSize, self.hbSize));
+                CGRect imageRect = CGRectZero;
+                imageRect.size = imageSize;
+                imageRect.origin.x = (point.x - imageSize.width/2.0);
+                imageRect.origin.y = (point.y - imageSize.height/2.0);
+                [image drawInRect:imageRect];
             }
-            else {
-                CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+        }
+        else {
+            UIColor *color = [dic objectForKey:@"color"];
+            CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+            BOOL dotted = [[dic objectForKey:@"dotted"] boolValue];
+            BOOL eraser = [[dic objectForKey:@"eraser"] boolValue];
+            if (points.count > 1) {
+                CGContextRef ctx = UIGraphicsGetCurrentContext();
+                if (eraser) {
+                    CGContextSetBlendMode(ctx, kCGBlendModeClear);
+                }
+                else {
+                    CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+                }
+                CGPoint startPoint = [points[0] CGPointValue];
+                CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
+                NSInteger count = points.count;
+                for (NSInteger i = 1; i < count; i ++) {
+                    CGPoint endPoint = [points[i] CGPointValue];
+                    CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+                }
+                CGContextSetLineWidth(ctx, lineWidth);
+                CGContextSetLineCap(ctx, kCGLineCapRound);
+                CGContextSetLineJoin(ctx, kCGLineJoinRound);
+                CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+                CGContextSetStrokeColorWithColor(ctx, color.CGColor);
+                if (dotted && eraser == NO) {
+                    CGFloat lengths[]= {lineWidth*4.0, lineWidth*2.0};
+                    CGContextSetLineDash(ctx, 0.0, lengths, 2);
+                }
+                CGContextStrokePath(ctx);
             }
-            CGPoint startPoint = [points[0] CGPointValue];
-            CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-            NSInteger count = points.count;
-            for (NSInteger i = 1; i < count; i ++) {
-                CGPoint endPoint = [points[i] CGPointValue];
-                CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
-            }
-            CGContextSetLineWidth(ctx, lineWidth);
-            CGContextSetLineCap(ctx, kCGLineCapRound);
-            CGContextSetLineJoin(ctx, kCGLineJoinRound);
-            CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
-            CGContextSetStrokeColorWithColor(ctx, color.CGColor);
-            if (dotted) {
-                CGFloat lengths[]= {lineWidth*4.0, lineWidth*2.0};
-                CGContextSetLineDash(ctx, 0.0, lengths, 2);
-            }
-            CGContextStrokePath(ctx);
         }
     }];
 }
