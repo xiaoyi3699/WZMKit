@@ -90,6 +90,13 @@
 - (UIColor *)wzm_borderColor;
 - (void)setWzm_borderColor:(UIColor *)wzm_borderColor;
 
+///遮罩
+- (BOOL)wzm_hollow; //是否镂空/镂空部分融合
+- (void)setWzm_hollow:(BOOL)hollow;
+
+- (UIView *)wzm_maskView;
+- (void)setWzm_maskView:(UIView *)view;
+
 ///添加任意圆角
 - (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius;
 ///设置圆角、边框

@@ -29,8 +29,27 @@
     
     WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:self.contentView.bounds];
     drawView.contentMode = UIViewContentModeScaleAspectFill;
-//    drawView.hbImages = @[[UIImage imageNamed:@"tabbar_icon_on"],@"tabbar_icon"];
+    drawView.hbImages = @[[UIImage imageNamed:@"tabbar_icon_on"],@"tabbar_icon"];
     [self.contentView addSubview:drawView];
+    
+    return;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 200.0)];
+    imageView.image = [UIImage imageNamed:@"bgcolors"];
+    [self.view addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:imageView.bounds];
+    label.text = @"d神打哇多哇多哇多无dawa达瓦多哇dwadada打到我w🙂weaeawe 带娃大无";
+    label.numberOfLines = 0;
+//    label.backgroundColor = [UIColor redColor];
+
+//    imageView.wzm_hollow = YES;
+    imageView.wzm_maskView = label;
+    
+//    UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:imageView.bounds];
+//    imageView2.image = [UIImage imageNamed:@"pikaqiu"];
+//
+//    imageView.wzm_hollow = YES;
+//    imageView.wzm_maskView = imageView2;
     
     return;
     CALayer *imageLayer = [[CALayer alloc] init];

@@ -13,6 +13,7 @@
 @implementation UIView (wzmcate)
 
 static NSString *_visualKey = @"visual";
+static NSString *_clearKey = @"clear";
 
 - (UIViewController *)wzm_viewController{
     UIResponder *next = [self nextResponder];
@@ -301,6 +302,76 @@ static NSString *_visualKey = @"visual";
 
 - (void)setWzm_borderColor:(UIColor *)wzm_borderColor {
     self.layer.borderColor = [wzm_borderColor CGColor];
+}
+
+///遮罩
+- (BOOL)wzm_hollow {
+    return [objc_getAssociatedObject(self, &_clearKey) boolValue];
+}
+
+- (void)setWzm_hollow:(BOOL)hollow {
+    objc_setAssociatedObject(self, &_clearKey, @(hollow), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIView *)wzm_maskView {
+    return self.maskView;
+}
+
+- (void)setWzm_maskView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
+    CGContextTranslateCTM(UIGraphicsGetCurrentContext(),
+                          view.frame.origin.x,
+                          view.frame.origin.y);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //获取相反的遮罩图
+    image = [self wzm_maskImageWithImage:image];
+    
+    //将取反的遮罩图设置为寄宿图
+    UIView *maskView = [[UIView alloc] init];
+    maskView.frame = self.bounds;
+    maskView.layer.contents = (__bridge id)(image.CGImage);
+    
+    self.maskView = maskView;
+}
+
+- (UIImage *)wzm_maskImageWithImage:(UIImage *)image {
+    CGImageRef originalMaskImage = [image CGImage];
+    float width = CGImageGetWidth(originalMaskImage);
+    float height = CGImageGetHeight(originalMaskImage);
+    
+    int strideLength = ceil(width);
+    unsigned char * alphaData = calloc(strideLength * height, sizeof(unsigned char));
+    CGContextRef alphaOnlyContext = CGBitmapContextCreate(alphaData,
+                                                          width,
+                                                          height,
+                                                          8,
+                                                          strideLength,
+                                                          NULL,
+                                                          kCGImageAlphaOnly);
+    
+    CGContextDrawImage(alphaOnlyContext, CGRectMake(0, 0, width, height), originalMaskImage);
+    
+    if (self.wzm_hollow) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                unsigned char val = alphaData[y*strideLength + x];
+                val = 255 - val;
+                alphaData[y*strideLength + x] = val;
+            }
+        }
+    }
+    
+    CGImageRef alphaMaskImage = CGBitmapContextCreateImage(alphaOnlyContext);
+    UIImage *result = [UIImage imageWithCGImage:alphaMaskImage];
+    
+    CGImageRelease(alphaMaskImage);
+    CGContextRelease(alphaOnlyContext);
+    free(alphaData);
+    
+    return result;
 }
 
 - (void)wzm_addCorners:(UIRectCorner)corner radius:(CGFloat)radius{

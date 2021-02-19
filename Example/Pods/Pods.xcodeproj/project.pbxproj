@@ -132,6 +132,8 @@
 		5FFEA6AC4791B596A8CD001840714528 /* WZMAutoHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CBCB187F2A27E1A50659141FE33F2FB /* WZMAutoHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		600B505F3B2C424BFBA33E06077D3199 /* UINavigationController+WZMNavAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE5FD771963E98BFAB2408EFABD8FA5 /* UINavigationController+WZMNavAnimation.m */; };
 		61B7BAE2C405DC7EEFFBAB0846F42843 /* NSURLRequest+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BFDE9237726B3369E6713E858E647A /* NSURLRequest+wzmcate.m */; };
+		6458F88F25DFA79900A66B33 /* WZMOpenDrawView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6458F88D25DFA79900A66B33 /* WZMOpenDrawView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6458F89025DFA79900A66B33 /* WZMOpenDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6458F88E25DFA79900A66B33 /* WZMOpenDrawView.m */; };
 		646BA7E5AAFF2B8E4631E6C48EC31754 /* WZMNetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7067E5E4B05A214B70EB20E86D212609 /* WZMNetWorking.m */; };
 		64F5FEE1F6734F85E621D30504894300 /* UITextView+wzmcate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC33A4191B966FD06ABF53720ED9CC5F /* UITextView+wzmcate.m */; };
 		651391ADED43DAF942240A8D8E4BEA67 /* WZMBaseHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 79860346538DC3850E76631E67470224 /* WZMBaseHeaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -464,6 +466,8 @@
 		612EF42B455EBC8A7C3A3D8959A0DE6A /* NSDictionary+wzmcate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+wzmcate.h"; sourceTree = "<group>"; };
 		6275548C7EC7EE809C6712B2CCCEA2CE /* Pods-WZMKit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WZMKit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		62AB2F0BD8879E9BA959EBCC3C6F6DB3 /* WZMDefined.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMDefined.h; sourceTree = "<group>"; };
+		6458F88D25DFA79900A66B33 /* WZMOpenDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMOpenDrawView.h; sourceTree = "<group>"; };
+		6458F88E25DFA79900A66B33 /* WZMOpenDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMOpenDrawView.m; sourceTree = "<group>"; };
 		66025956C5842D0F61868A5A805F12C2 /* WZMLogView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMLogView.h; sourceTree = "<group>"; };
 		67E69BF0A83B33611578B680680B097C /* WZMReaction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMReaction.h; sourceTree = "<group>"; };
 		687BA83749AFC466F02E3AAEB6C4E515 /* WZMRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = WZMRefresh.h; sourceTree = "<group>"; };
@@ -1290,6 +1294,8 @@
 			children = (
 				0388CE2F2451BD86B043F56B0A27D828 /* WZMDrawView.h */,
 				4DA61211433D817B9F66EBE0A45D220F /* WZMDrawView.m */,
+				6458F88D25DFA79900A66B33 /* WZMOpenDrawView.h */,
+				6458F88E25DFA79900A66B33 /* WZMOpenDrawView.m */,
 			);
 			path = WZMDrawView;
 			sourceTree = "<group>";
@@ -2112,6 +2118,7 @@
 				BC4D0ED5AF4C01E9FA8BE58C85A17808 /* WZMVideoKeyView2.h in Headers */,
 				34FCCEE6AD20AE7FAAD18B579069EBD8 /* WZMVideoPlayerView.h in Headers */,
 				AC0D387FCB8562C8F789E752732B8B4E /* WZMVideoPlayerViewController.h in Headers */,
+				6458F88F25DFA79900A66B33 /* WZMOpenDrawView.h in Headers */,
 				04F8E2C4BD2C2A81CAC04400A39B8FC0 /* WZMViewControllerAnimator.h in Headers */,
 				42137A9114D36AC9EB3A9A4B095CAC52 /* WZMViewHandle.h in Headers */,
 			);
@@ -2410,6 +2417,7 @@
 				08DA4203ACE6EC69670EE61937B983A0 /* WZMRefreshFooterView.m in Sources */,
 				2456942EB3852F6B7A78D4DEFE310C10 /* WZMRefreshHeaderView.m in Sources */,
 				53D0C08C45BAD65A0B412BDAB6767EE8 /* WZMRefreshHelper.m in Sources */,
+				6458F89025DFA79900A66B33 /* WZMOpenDrawView.m in Sources */,
 				3561BC64CA713DFACB470A039B02AA61 /* WZMScannerViewController.m in Sources */,
 				3F81138AD8964E0F065848D242A04DE6 /* WZMScreenViewController.m in Sources */,
 				296A8348DA2E240FB4253A7646131AB4 /* WZMScrollImageView.m in Sources */,
