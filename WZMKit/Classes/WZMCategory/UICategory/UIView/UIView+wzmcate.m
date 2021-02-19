@@ -326,8 +326,10 @@ static NSString *_clearKey = @"clear";
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    //获取相反的遮罩图
-    image = [self wzm_maskImageWithImage:image];
+    if (self.wzm_hollow) {
+        //获取相反的遮罩图
+        image = [self wzm_maskImageWithImage:image];
+    }
     
     //将取反的遮罩图设置为寄宿图
     UIView *maskView = [[UIView alloc] init];
@@ -354,13 +356,11 @@ static NSString *_clearKey = @"clear";
     
     CGContextDrawImage(alphaOnlyContext, CGRectMake(0, 0, width, height), originalMaskImage);
     
-    if (self.wzm_hollow) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                unsigned char val = alphaData[y*strideLength + x];
-                val = 255 - val;
-                alphaData[y*strideLength + x] = val;
-            }
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            unsigned char val = alphaData[y*strideLength + x];
+            val = 255 - val;
+            alphaData[y*strideLength + x] = val;
         }
     }
     

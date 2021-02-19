@@ -41,7 +41,7 @@
     label.text = @"d神打哇多哇多哇多无dawa达瓦多哇dwadada打到我w🙂weaeawe 带娃大无";
     label.numberOfLines = 0;
 //    label.backgroundColor = [UIColor redColor];
-
+    
 //    imageView.wzm_hollow = YES;
     imageView.wzm_maskView = label;
     
