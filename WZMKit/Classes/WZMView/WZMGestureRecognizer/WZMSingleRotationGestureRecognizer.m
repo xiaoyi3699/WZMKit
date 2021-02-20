@@ -6,6 +6,12 @@
  单手实现视图的旋转功能。
  apple提供了UIRotationGestureRecognizer可供用户实现双手旋转视图的效果，这里利用toch
  */
+@interface WZMSingleRotationGestureRecognizer()
+
+@property (nonatomic, assign) CGFloat rotation;
+
+@end
+
 @implementation WZMSingleRotationGestureRecognizer
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action {
