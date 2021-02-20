@@ -24,13 +24,25 @@
     return self;
 }
 
+- (void)rot {
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:self.contentView.bounds];
-    drawView.contentMode = UIViewContentModeScaleAspectFill;
-    drawView.hbImages = @[[UIImage imageNamed:@"tabbar_icon_on"],@"tabbar_icon"];
-    [self.contentView addSubview:drawView];
+    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(100.0, 200.0, 200.0, 200.0)];
+    testView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:testView];
+    
+    WZMSingleRotationGestureRecognizer *ges = [[WZMSingleRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rot)];
+    ges.activeRect = CGRectMake(160.0, 160.0, 40.0, 40.0);
+    [testView addGestureRecognizer:ges];
+    
+//    WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:self.contentView.bounds];
+//    drawView.contentMode = UIViewContentModeScaleAspectFill;
+//    drawView.hbImages = @[[UIImage imageNamed:@"tabbar_icon_on"],@"tabbar_icon"];
+//    [self.contentView addSubview:drawView];
     
     return;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 200.0)];
@@ -75,13 +87,10 @@
     imageLayer.mask = shaperLayer;
 }
 
-- (void)btnClick:(UIButton *)btn {
-    if (btn.tag == 0) {
-        
-    }
-    else {
-        
-    }
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 100;
 }
 
 - (WZMContentType)contentType {

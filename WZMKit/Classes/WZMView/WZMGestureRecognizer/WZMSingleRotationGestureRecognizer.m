@@ -25,42 +25,40 @@
         if (CGRectIsNull(self.activeRect)) {
             self.activeRect = self.view.bounds;
         }
+        UITouch *touch = [touches anyObject];
+        CGPoint currentPoint = [touch locationInView:self.view];
+        if (CGRectContainsPoint(self.activeRect, currentPoint) == NO) {
+            [self setState:UIGestureRecognizerStateFailed];
+        }
+        else {
+            [self setState:UIGestureRecognizerStateBegan];
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self setState:UIGestureRecognizerStateChanged];
     UITouch *touch = [touches anyObject];
     CGPoint currentPoint = [touch locationInView:self.view];
-    if (CGRectContainsPoint(self.activeRect, currentPoint)) {
-        if (self.state == UIGestureRecognizerStatePossible) {
-            [self setState:UIGestureRecognizerStateBegan];
-        }
-        else {
-            [self setState:UIGestureRecognizerStateChanged];
-        }
-        // 获取手势作用视图的中心点
-        CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
-        // 获取之前手势作用位置
-        CGPoint previousPoint = [touch previousLocationInView:self.view];
-        
-        // 计算x和y差,然后利用tan反函数计算当前角度和手势作用之前角度
-        CGFloat currentRotation = atan2f((currentPoint.y - center.y), (currentPoint.x - center.x));
-        CGFloat previousRotation = atan2f((previousPoint.y - center.y), (previousPoint.x - center.x));
-        
-        // 得出前后手势作用旋转角度
-        CGFloat rotation = (currentRotation - previousRotation);
-        self.view.transform = CGAffineTransformRotate(self.view.transform, rotation);
-        
-        CGFloat radian = acosf(self.view.transform.a);
-        // 旋转180度后，需要处理弧度的变化
-        if (self.view.transform.b < 0) {
-            radian = 2*M_PI-radian;
-        }
-        self.rotation = radian;
+    // 获取手势作用视图的中心点
+    CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+    // 获取之前手势作用位置
+    CGPoint previousPoint = [touch previousLocationInView:self.view];
+    
+    // 计算x和y差,然后利用tan反函数计算当前角度和手势作用之前角度
+    CGFloat currentRotation = atan2f((currentPoint.y - center.y), (currentPoint.x - center.x));
+    CGFloat previousRotation = atan2f((previousPoint.y - center.y), (previousPoint.x - center.x));
+    
+    // 得出前后手势作用旋转角度
+    CGFloat rotation = (currentRotation - previousRotation);
+    self.view.transform = CGAffineTransformRotate(self.view.transform, rotation);
+    
+    CGFloat radian = acosf(self.view.transform.a);
+    // 旋转180度后，需要处理弧度的变化
+    if (self.view.transform.b < 0) {
+        radian = 2*M_PI-radian;
     }
-    else {
-        [self setState:UIGestureRecognizerStateFailed];
-    }
+    self.rotation = radian;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
