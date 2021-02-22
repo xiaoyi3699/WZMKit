@@ -61,7 +61,7 @@
             [self setNeedsDisplay];
         }
     }
-    else {
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
         NSDictionary *dic = [self.lines lastObject];
         NSMutableArray *points = [dic objectForKey:@"points"];
         CGPoint point = [gesture locationInView:gesture.view];

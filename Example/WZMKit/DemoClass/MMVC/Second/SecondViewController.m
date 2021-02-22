@@ -8,6 +8,7 @@
 
 #import "SecondViewController.h"
 #import "WTRotateView.h"
+#import "WZMImageDrawView.h"
 
 @interface SecondViewController ()
 @property (nonatomic, strong) UIImageView *bigImageView;
@@ -26,10 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WZMDrawView *drawView = [[WZMDrawView alloc] initWithFrame:self.contentView.bounds];
-    drawView.spacing = 30.0;
-    drawView.hbSize = 20.0;
-    drawView.hbImages = @[@"maobi"];
+    WZMImageDrawView *drawView = [[WZMImageDrawView alloc] initWithFrame:self.contentView.bounds];
+    drawView.width = 20.0;
+    drawView.image = [UIImage imageNamed:@"maobi"];
     [self.contentView addSubview:drawView];
 }
 
