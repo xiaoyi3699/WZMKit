@@ -10,7 +10,8 @@
 #import "WTRotateView.h"
 #import "WZMImageDrawView.h"
 
-@interface SecondViewController ()
+@interface SecondViewController ()<WZMVideoEditerDelegate>
+@property (nonatomic, strong) WZMVideoEditer *editer;
 @property (nonatomic, strong) UIImageView *bigImageView;
 @end
 
@@ -31,6 +32,31 @@
     drawView.width = 20.0;
     drawView.image = [UIImage imageNamed:@"maobi"];
     [self.contentView addSubview:drawView];
+    
+    self.editer = [[WZMVideoEditer alloc] init];
+    self.editer.delegate = self;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"dalll.mp4" ofType:nil];
+    [self.editer handleVideoWithPath:path];
+}
+
+///视频导出中,进度 = videoEditer.progress
+- (void)videoEditerExporting:(WZMVideoEditer *)videoEditer {
+    NSLog(@"%@",@(videoEditer.progress));
+}
+
+///视频导出结束,videoEditer.exportPath不为空,则成功,反之失败
+- (void)videoEditerDidExported:(WZMVideoEditer *)videoEditer {
+    if (videoEditer.exportPath) {
+        [WZMAlbumHelper wzm_saveVideoWithPath:videoEditer.exportPath completion:^(NSError *error) {
+            NSLog(@"成功");
+        }];
+    }
+    else {
+        NSLog(@"失败");
+    }
 }
 
 - (WZMContentType)contentType {

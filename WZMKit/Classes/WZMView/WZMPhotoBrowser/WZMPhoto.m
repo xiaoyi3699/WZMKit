@@ -176,7 +176,7 @@
 - (void)setupImageView {
     _imageView.hidden = NO;
     _imageView.frame = [self imageFrame];
-    if (_imageView.bounds.size.height/_imageView.bounds.size.width > 2.0) {
+    if (_imageView.bounds.size.height/_imageView.bounds.size.width > WZMPhotoMaxSCale) {
         self.maximumZoomScale = (self.bounds.size.width/_imageView.bounds.size.width);
     }
     else {
