@@ -75,6 +75,8 @@
 - (UIImage *)wzm_getMosaicImageWithLevel:(NSUInteger)level;
 ///模糊图片
 - (UIImage *)wzm_getBlurImageWithScale:(CGFloat)scale;
+///改变颜色
+- (UIImage *)wzm_changeColor:(UIColor *)color;
 ///灰度图
 - (UIImage *)wzm_getGrayImage;
 ///按给定的方向旋转图片

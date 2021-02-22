@@ -7,6 +7,7 @@
 //
 
 #import "WZMImageDrawView.h"
+
 @interface WZMImageDrawView ()
 
 @property (nonatomic,strong) NSMutableArray *lines;
@@ -85,11 +86,7 @@
 }
 
 - (void)drawImageAtPoint:(CGPoint)point {
-    UIImage *image = self.image;
-    if (self.color) {
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    }
-    CGSize imageSize = WZMSizeRatioToMaxSize(image.size, CGSizeMake(self.width, self.width));
+    CGSize imageSize = WZMSizeRatioToMaxSize(self.image.size, CGSizeMake(self.width, self.width));
     CGRect imageRect = CGRectZero;
     imageRect.size = imageSize;
     imageRect.origin.x = (point.x - imageSize.width/2.0);
@@ -97,8 +94,22 @@
     
     CALayer *layer = [[CALayer alloc] init];
     layer.frame = imageRect;
-    layer.contents = CFBridgingRelease(image.CGImage);
+    layer.contents = CFBridgingRelease(self.image.CGImage);
     [self.layer addSublayer:layer];
+}
+
+- (void)setColor:(UIColor *)color {
+    if (_image && color) {
+        _image = [_image wzm_changeColor:color];
+    }
+    _color = color;
+}
+
+- (void)setImage:(UIImage *)image {
+    if (_color && image) {
+        image = [image wzm_changeColor:_color];
+    }
+    _image = image;
 }
 
 @end
