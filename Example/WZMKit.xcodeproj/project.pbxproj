@@ -20,6 +20,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640A45E3253944E700F4AA19 /* WZMTableViewCell.m */; };
 		640A45EB253944F400F4AA19 /* WZMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */; };
+		6425D28125E38EA6000308DC /* WTRotateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D28025E38EA5000308DC /* WTRotateView.m */; };
 		646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B4247E643200F96689 /* WZMSegmentedViewController.m */; };
 		646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B7247E6EF900F96689 /* WZMBaseTableView.m */; };
 		646A10BC247F49BF00F96689 /* WZMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BB247F49BF00F96689 /* WZMSubViewController.m */; };
@@ -108,6 +109,8 @@
 		640A45E3253944E700F4AA19 /* WZMTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMTableViewCell.m; sourceTree = "<group>"; };
 		640A45E9253944F400F4AA19 /* WZMCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMCollectionViewCell.h; sourceTree = "<group>"; };
 		640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMCollectionViewCell.m; sourceTree = "<group>"; };
+		6425D27F25E38EA5000308DC /* WTRotateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTRotateView.h; sourceTree = "<group>"; };
+		6425D28025E38EA5000308DC /* WTRotateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTRotateView.m; sourceTree = "<group>"; };
 		646A10B3247E643200F96689 /* WZMSegmentedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMSegmentedViewController.h; sourceTree = "<group>"; };
 		646A10B4247E643200F96689 /* WZMSegmentedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedViewController.m; sourceTree = "<group>"; };
 		646A10B6247E6EF900F96689 /* WZMBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseTableView.h; sourceTree = "<group>"; };
@@ -664,6 +667,8 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
+				6425D27F25E38EA5000308DC /* WTRotateView.h */,
+				6425D28025E38EA5000308DC /* WTRotateView.m */,
 				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
@@ -947,6 +952,7 @@
 				75DA9E35230E924A0000A955 /* WZMTabBarController.m in Sources */,
 				7558CBBE22DF4FB90043651C /* FirstViewController.m in Sources */,
 				75DA9E2D230E924A0000A955 /* WZMWebHelper.m in Sources */,
+				6425D28125E38EA6000308DC /* WTRotateView.m in Sources */,
 				640A45E4253944E700F4AA19 /* WZMTableViewCell.m in Sources */,
 				64A8575125C267A1006D5CB0 /* WZMPhotoDuibiViewController.m in Sources */,
 				64EA8AC9256CDA4C007EC7C3 /* WZMGifListCell.m in Sources */,
