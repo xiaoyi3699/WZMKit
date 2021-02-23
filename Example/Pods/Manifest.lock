@@ -1,5 +1,5 @@
 PODS:
-  - WZMKit (0.2.4)
+  - WZMKit (0.2.5)
 
 DEPENDENCIES:
   - WZMKit (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  WZMKit: 19b3f30fc373e5f66f9c6abe6e27cd87b2f40793
+  WZMKit: cfcee6743917f38bb6a15b01e0d966efbe42ecb8
 
 PODFILE CHECKSUM: 18896e0d26303e037a8c201a1e9a9344785ff1f5
 
