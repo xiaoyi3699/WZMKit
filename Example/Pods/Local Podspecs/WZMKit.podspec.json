@@ -16,7 +16,7 @@
     "tag": "0.2.5"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
   "source_files": "WZMKit/Classes/**/*",
   "resource_bundles": {
