@@ -10,7 +10,7 @@
 #import "WTRotateView.h"
 #import "WZMImageDrawView.h"
 
-@interface SecondViewController ()<WZMVideoEditerDelegate>
+@interface SecondViewController ()<WZMVideoEditerDelegate,WZMAlbumNavigationControllerDelegate>
 @property (nonatomic, strong) WZMVideoEditer *editer;
 @property (nonatomic, strong) UIImageView *bigImageView;
 @end
@@ -28,17 +28,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    WZMImageDrawView *drawView = [[WZMImageDrawView alloc] initWithFrame:self.contentView.bounds];
-    drawView.width = 20.0;
-    drawView.image = [UIImage imageNamed:@"maobi"];
-    [self.contentView addSubview:drawView];
-    
     self.editer = [[WZMVideoEditer alloc] init];
     self.editer.delegate = self;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"dalll.mp4" ofType:nil];
+    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    config.allowShowImage = NO;
+    config.allowShowGIF = NO;
+    config.maxCount = 1.0;
+    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+    nav.pickerDelegate = self;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    NSString *path = [originals.firstObject path];
     [self.editer handleVideoWithPath:path];
 }
 
