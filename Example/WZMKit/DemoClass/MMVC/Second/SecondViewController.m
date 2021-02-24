@@ -10,9 +10,8 @@
 #import "WTRotateView.h"
 #import "WZMImageDrawView.h"
 
-@interface SecondViewController ()<WZMVideoEditerDelegate,WZMAlbumNavigationControllerDelegate>
-@property (nonatomic, strong) WZMVideoEditer *editer;
-@property (nonatomic, strong) UIImageView *bigImageView;
+@interface SecondViewController ()
+
 @end
 
 @implementation SecondViewController
@@ -28,40 +27,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.editer = [[WZMVideoEditer alloc] init];
-    self.editer.delegate = self;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 40.0)];
+    label.text = @"瓦达无大无大无多哇大无";
+    label.textColor = [UIColor darkGrayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:15];
+//    label.hidden = YES;
+    [self.view addSubview:label];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 40.0)];
+    imageView.image = [UIImage imageNamed:@"bgcolors"];
+    [self.view addSubview:imageView];
+    
+    imageView.wzm_maskView = label;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.allowShowImage = NO;
-    config.allowShowGIF = NO;
-    config.maxCount = 1.0;
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    nav.pickerDelegate = self;
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
-    NSString *path = [originals.firstObject path];
-    [self.editer handleVideoWithPath:path];
-}
-
-///视频导出中,进度 = videoEditer.progress
-- (void)videoEditerExporting:(WZMVideoEditer *)videoEditer {
-    NSLog(@"%@",@(videoEditer.progress));
-}
-
-///视频导出结束,videoEditer.exportPath不为空,则成功,反之失败
-- (void)videoEditerDidExported:(WZMVideoEditer *)videoEditer {
-    if (videoEditer.exportPath) {
-        [WZMAlbumHelper wzm_saveVideoWithPath:videoEditer.exportPath completion:^(NSError *error) {
-            NSLog(@"成功");
-        }];
-    }
-    else {
-        NSLog(@"失败");
-    }
+    
 }
 
 - (WZMContentType)contentType {

@@ -320,9 +320,7 @@ static NSString *_clearKey = @"clear";
 - (void)setWzm_maskView:(UIView *)view {
     if (view) {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-        CGContextTranslateCTM(UIGraphicsGetCurrentContext(),
-                              view.frame.origin.x,
-                              view.frame.origin.y);
+        CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0.0, 0.0);
         [view.layer renderInContext:UIGraphicsGetCurrentContext()];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
