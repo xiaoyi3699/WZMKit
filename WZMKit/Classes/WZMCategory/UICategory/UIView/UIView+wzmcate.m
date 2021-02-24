@@ -318,25 +318,30 @@ static NSString *_clearKey = @"clear";
 }
 
 - (void)setWzm_maskView:(UIView *)view {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-    CGContextTranslateCTM(UIGraphicsGetCurrentContext(),
-                          view.frame.origin.x,
-                          view.frame.origin.y);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    if (self.wzm_hollow) {
-        //获取相反的遮罩图
-        image = [self wzm_maskImageWithImage:image];
+    if (view) {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
+        CGContextTranslateCTM(UIGraphicsGetCurrentContext(),
+                              view.frame.origin.x,
+                              view.frame.origin.y);
+        [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        if (self.wzm_hollow) {
+            //获取相反的遮罩图
+            image = [self wzm_maskImageWithImage:image];
+        }
+        
+        //将取反的遮罩图设置为寄宿图
+        UIView *maskView = [[UIView alloc] init];
+        maskView.frame = self.bounds;
+        maskView.layer.contents = (__bridge id)(image.CGImage);
+        
+        self.maskView = maskView;
     }
-    
-    //将取反的遮罩图设置为寄宿图
-    UIView *maskView = [[UIView alloc] init];
-    maskView.frame = self.bounds;
-    maskView.layer.contents = (__bridge id)(image.CGImage);
-    
-    self.maskView = maskView;
+    else {
+        self.maskView = nil;
+    }
 }
 
 - (UIImage *)wzm_maskImageWithImage:(UIImage *)image {
