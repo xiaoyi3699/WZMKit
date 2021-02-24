@@ -58,7 +58,7 @@
 ///按比例压缩image
 - (UIImage *)wzm_getImageWithScale:(CGFloat)scale;
 ///重新设置比例
-- (UIImage *)wzm_getImageWithSize:(CGSize)size
+- (UIImage *)wzm_getImageWithSize:(CGSize)size;
 ///设置最大尺寸压缩image
 - (UIImage *)wzm_getImageWithMaxSize:(CGSize)size;
 ///圆角图片
