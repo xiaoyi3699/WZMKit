@@ -54,6 +54,10 @@
         [dic setObject:@(self.lineWidth) forKey:@"width"];
         [dic setObject:@(self.isDotted) forKey:@"dotted"];
         [dic setObject:@(self.isEraser) forKey:@"eraser"];
+        if (self.hbImages.count) {
+            [dic setObject:self.hbImages forKey:@"images"];
+            [dic setObject:@(self.hbSize) forKey:@"hbSize"];
+        }
         [self.lines addObject:dic];
         
         if (self.hbImages.count) {
@@ -101,10 +105,12 @@
     }
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableArray *points = [dic objectForKey:@"points"];
-        if (self.hbImages.count) {
+        NSArray *images = [dic objectForKey:@"images"];
+        CGFloat hbSize = [[dic objectForKey:@"hbSize"] floatValue];
+        if (images.count) {
             for (NSInteger i = 0; i < points.count; i ++) {
                 UIImage *image;
-                id img = [self.hbImages objectAtIndex:(i%(self.hbImages.count))];
+                id img = [images objectAtIndex:(i%(images.count))];
                 if ([img isKindOfClass:[NSString class]]) {
                     image = [UIImage imageNamed:img];
                 }
@@ -114,7 +120,7 @@
                 if (image == nil) return;
                 CGPoint point = [points[i] CGPointValue];
                 
-                CGSize imageSize = WZMSizeRatioToMaxSize(image.size, CGSizeMake(self.hbSize, self.hbSize));
+                CGSize imageSize = WZMSizeRatioToMaxSize(image.size, CGSizeMake(hbSize, hbSize));
                 CGRect imageRect = CGRectZero;
                 imageRect.size = imageSize;
                 imageRect.origin.x = (point.x - imageSize.width/2.0);
