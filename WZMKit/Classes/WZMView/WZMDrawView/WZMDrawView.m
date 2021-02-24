@@ -157,6 +157,14 @@
                     CGFloat lengths[]= {lineWidth*4.0, lineWidth*2.0};
                     CGContextSetLineDash(ctx, 0.0, lengths, 2);
                 }
+                else {
+                    CGFloat d = lineWidth;
+                    if (!dotted) {
+                        d = 0.01;
+                    }
+                    CGFloat lengths[]= {d*4.0, d*2.0};
+                    CGContextSetLineDash(ctx, 0.0, lengths, 2);
+                }
                 CGContextStrokePath(ctx);
             }
         }
