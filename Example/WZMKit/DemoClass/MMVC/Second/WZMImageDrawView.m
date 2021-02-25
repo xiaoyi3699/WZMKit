@@ -53,7 +53,6 @@
         
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
         [dic setObject:points forKey:@"points"];
-        [dic setObject:self.color forKey:@"color"];
         [self.lines addObject:dic];
         
         _lastPoint = point;
