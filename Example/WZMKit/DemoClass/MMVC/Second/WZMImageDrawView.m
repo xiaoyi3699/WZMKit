@@ -22,7 +22,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.width = 20.0;
-        self.color = [UIColor redColor];
         self.backgroundColor = [UIColor clearColor];
         _lines = [[NSMutableArray alloc] initWithCapacity:0];
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
