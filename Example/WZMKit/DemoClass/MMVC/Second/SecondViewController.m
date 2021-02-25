@@ -27,19 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 40.0)];
-    label.text = @"瓦达无大无大无多哇大无";
-    label.textColor = [UIColor darkGrayColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:15];
-//    label.hidden = YES;
-    [self.view addSubview:label];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 40.0)];
-    imageView.image = [UIImage imageNamed:@"bgcolors"];
-    [self.view addSubview:imageView];
-    
-    imageView.wzm_maskView = label;
+    WZMMosaicView *mskView = [[WZMMosaicView alloc] initWithFrame:WZMRectMiddleArea()];
+    mskView.image = [UIImage imageNamed:@"meinv"];
+    mskView.type = 0;
+    [self.view addSubview:mskView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

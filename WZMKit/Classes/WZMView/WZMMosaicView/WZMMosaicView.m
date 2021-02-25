@@ -28,6 +28,9 @@
         self.pathDic = [[NSMutableDictionary alloc] init];
         self.shapeLayerDic = [[NSMutableDictionary alloc] init];
         self.mosaicImageLayerDic = [[NSMutableDictionary alloc] init];
+        
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+        [self addGestureRecognizer:pan];
     }
     return self;
 }
@@ -187,58 +190,53 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
-    NSString *key = [self getKey:self.type];
-    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    
-    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-    CGPathMoveToPoint(path, NULL, point.x, point.y);
-    CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-    shapeLayer.path = startPath;
-    shapeLayer.lineWidth = self.lineWidth;
-    CGPathRelease(startPath);
-    
-    NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
-    [pointArray addObject:[NSValue valueWithCGPoint:point]];
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [dic setObject:pointArray forKey:@"points"];
-    [dic setObject:@(self.type) forKey:@"type"];
-    [dic setObject:@(self.lineWidth) forKey:@"width"];
-    [self.lines addObject:dic];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-    NSString *key = [self getKey:self.type];
-    CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-    CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    
-    CGPathAddLineToPoint(path, NULL, point.x, point.y);
-    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
-    
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    if (!currentContext) {
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+- (void)panGesture:(UIPanGestureRecognizer *)gesture {
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        CGPoint point = [gesture locationInView:gesture.view];
+        NSString *key = [self getKey:self.type];
+        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+        
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        CGPathMoveToPoint(path, NULL, point.x, point.y);
+        CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+        shapeLayer.path = startPath;
+        shapeLayer.lineWidth = self.lineWidth;
+        CGPathRelease(startPath);
+        
+        NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
+        [pointArray addObject:[NSValue valueWithCGPoint:point]];
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithCapacity:0];
+        [dic setObject:pointArray forKey:@"points"];
+        [dic setObject:@(self.type) forKey:@"type"];
+        [dic setObject:@(self.lineWidth) forKey:@"width"];
+        [self.lines addObject:dic];
     }
-    CGContextAddPath(currentContext, pathRef);
-    [[UIColor blueColor] setStroke];
-    CGContextDrawPath(currentContext, kCGPathStroke);
-    shapeLayer.path = pathRef;
-    shapeLayer.lineWidth = self.lineWidth;
-    CGPathRelease(pathRef);
-    
-    NSDictionary *dic = [self.lines lastObject];
-    NSMutableArray *pointArray = [dic objectForKey:@"points"];
-    [pointArray addObject:[NSValue valueWithCGPoint:point]];
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
+        CGPoint point = [gesture locationInView:gesture.view];
+        
+        NSString *key = [self getKey:self.type];
+        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        
+        CGPathAddLineToPoint(path, NULL, point.x, point.y);
+        CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
+        
+        CGContextRef currentContext = UIGraphicsGetCurrentContext();
+        if (!currentContext) {
+            UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+        }
+        CGContextAddPath(currentContext, pathRef);
+        [[UIColor blueColor] setStroke];
+        CGContextDrawPath(currentContext, kCGPathStroke);
+        shapeLayer.path = pathRef;
+        shapeLayer.lineWidth = self.lineWidth;
+        CGPathRelease(pathRef);
+        
+        NSDictionary *dic = [self.lines lastObject];
+        NSMutableArray *pointArray = [dic objectForKey:@"points"];
+        [pointArray addObject:[NSValue valueWithCGPoint:point]];
+    }
 }
 
 - (void)drawRect:(CGRect)rect {
