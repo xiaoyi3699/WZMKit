@@ -93,7 +93,7 @@
     
     CALayer *layer = [[CALayer alloc] init];
     layer.frame = imageRect;
-    layer.contents = CFBridgingRelease(self.image.CGImage);
+    layer.contents = (__bridge id)((self.image.CGImage));
     [self.layer addSublayer:layer];
 }
 
