@@ -54,7 +54,7 @@
 }
 
 + (UIImage *)wzm_getScreenImageByView:(UIView *)view {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -71,25 +71,20 @@
 }
 
 + (UIImage *)wzm_getScreenImageByScrollView:(UIScrollView *)scrollView {
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
-        UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, NO, [UIScreen mainScreen].scale);
-    }
-    else {
-        UIGraphicsBeginImageContext(scrollView.contentSize);
-    }
+    CGSize contentSize = CGSizeMake(MAX(scrollView.contentSize.width, scrollView.bounds.size.width), MAX(scrollView.contentSize.height, scrollView.bounds.size.height));
+    UIGraphicsBeginImageContextWithOptions(contentSize, NO, [UIScreen mainScreen].scale);
     //先保存原来frame 和 偏移量
     CGPoint savedContentOffset = scrollView.contentOffset;
     CGRect savedFrame = scrollView.frame;
-    CGSize contentSize = scrollView.contentSize;
     CGRect oldBounds = scrollView.layer.bounds;
     if(@available(iOS 13, *)){
-        //iOS 13 系统截屏需要改变tableview的bounds
+        //iOS 13 系统截屏需要改变tableview 的bounds
         [scrollView.layer setBounds:CGRectMake(oldBounds.origin.x, oldBounds.origin.y, contentSize.width, contentSize.height)];
     }
     //偏移量归零
     scrollView.contentOffset = CGPointZero;
     //frame变为contentSize
-    scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+    scrollView.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
     //截图
     [scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
     if(@available(iOS 13,*)) {
