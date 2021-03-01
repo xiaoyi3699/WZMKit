@@ -40,10 +40,4 @@
     return WZMContentTypeTopBar|WZMContentTypeBottomBar;
 }
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
-//    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 100;
-//}
-
 @end
