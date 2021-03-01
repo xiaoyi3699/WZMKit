@@ -22,7 +22,6 @@
 		640A45EB253944F400F4AA19 /* WZMCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640A45EA253944F400F4AA19 /* WZMCollectionViewCell.m */; };
 		6425D28125E38EA6000308DC /* WTRotateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D28025E38EA5000308DC /* WTRotateView.m */; };
 		6425D28925E3B259000308DC /* WZMImageDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6425D28825E3B259000308DC /* WZMImageDrawView.m */; };
-		6425D28F25E3CC5A000308DC /* dalll.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6425D28E25E3CC5A000308DC /* dalll.mp4 */; };
 		646A10B5247E643200F96689 /* WZMSegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B4247E643200F96689 /* WZMSegmentedViewController.m */; };
 		646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10B7247E6EF900F96689 /* WZMBaseTableView.m */; };
 		646A10BC247F49BF00F96689 /* WZMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BB247F49BF00F96689 /* WZMSubViewController.m */; };
@@ -115,7 +114,6 @@
 		6425D28025E38EA5000308DC /* WTRotateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTRotateView.m; sourceTree = "<group>"; };
 		6425D28725E3B259000308DC /* WZMImageDrawView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMImageDrawView.h; sourceTree = "<group>"; };
 		6425D28825E3B259000308DC /* WZMImageDrawView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMImageDrawView.m; sourceTree = "<group>"; };
-		6425D28E25E3CC5A000308DC /* dalll.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dalll.mp4; sourceTree = "<group>"; };
 		646A10B3247E643200F96689 /* WZMSegmentedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMSegmentedViewController.h; sourceTree = "<group>"; };
 		646A10B4247E643200F96689 /* WZMSegmentedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMSegmentedViewController.m; sourceTree = "<group>"; };
 		646A10B6247E6EF900F96689 /* WZMBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMBaseTableView.h; sourceTree = "<group>"; };
@@ -672,12 +670,11 @@
 		75DA9E46230E99670000A955 /* Second */ = {
 			isa = PBXGroup;
 			children = (
-				6425D28E25E3CC5A000308DC /* dalll.mp4 */,
+				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 				6425D27F25E38EA5000308DC /* WTRotateView.h */,
 				6425D28025E38EA5000308DC /* WTRotateView.m */,
 				6425D28725E3B259000308DC /* WZMImageDrawView.h */,
 				6425D28825E3B259000308DC /* WZMImageDrawView.m */,
-				64EA8ACD256CDA52007EC7C3 /* WZMTransGifViewController */,
 				7558CBC122DF50D30043651C /* SecondViewController.h */,
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 			);
@@ -828,7 +825,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				6425D28F25E3CC5A000308DC /* dalll.mp4 in Resources */,
 				64E84A3A246CE199008958FF /* wzm_reload_white.png in Resources */,
 				64E84A37246CD967008958FF /* wzm_back_white.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,

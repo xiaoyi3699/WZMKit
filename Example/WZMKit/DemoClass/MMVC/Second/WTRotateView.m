@@ -10,8 +10,9 @@
 @interface WTRotateView () {
     CGFloat deltaAngle;
     CGPoint prevPoint;
-    CGFloat pasterSize;
     CGFloat rotateSize;
+    CGFloat originalW;
+    CGFloat originalH;
 }
 
 @end
@@ -21,6 +22,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.minScale = 0.5;
+        self.maxScale = 2.0;
         rotateSize = MAX(frame.size.width, frame.size.height);
         UIPanGestureRecognizer *panResizeGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(resizeTranslate:)];
         [self addGestureRecognizer:panResizeGesture];
@@ -36,13 +39,8 @@
 }
 
 - (void)setConfig:(UIView *)superview {
-    if (self.minWidth == 0.0) {
-        self.minWidth = superview.bounds.size.width*0.5;
-    }
-    if (self.minHeight == 0.0) {
-        self.minHeight = superview.bounds.size.height*0.5;
-    }
-    pasterSize = MAX(superview.bounds.size.width, superview.bounds.size.height);
+    originalW = superview.bounds.size.width;
+    originalH = superview.bounds.size.height;
     deltaAngle = atan2(superview.frame.origin.y+superview.frame.size.height-superview.center.y,
                        superview.frame.origin.x+superview.frame.size.width-superview.center.x);
 }
@@ -53,8 +51,12 @@
         [self.superview setNeedsDisplay];
     }else if ([recognizer state] == UIGestureRecognizerStateChanged) {
         // preventing from the picture being shrinked too far by resizing
-        if (self.superview.bounds.size.width < self.minWidth || self.superview.bounds.size.height < self.minHeight) {
-            self.superview.bounds = CGRectMake(self.superview.bounds.origin.x, self.superview.bounds.origin.y, self.minWidth + 1, self.minHeight + 1);
+        CGFloat minWidth = originalW*self.minScale;
+        CGFloat minHeight = originalH*self.minScale;
+        CGFloat maxWidth = originalW*self.maxScale;
+        CGFloat maxHeight = originalH*self.maxScale;
+        if (self.superview.bounds.size.width < minWidth || self.superview.bounds.size.height < minHeight) {
+            self.superview.bounds = CGRectMake(self.superview.bounds.origin.x, self.superview.bounds.origin.y, minWidth + 1, minHeight + 1);
             self.frame = CGRectMake(self.superview.bounds.size.width-rotateSize, self.superview.bounds.size.height-rotateSize, rotateSize, rotateSize);
             prevPoint = [recognizer locationInView:self.superview];
         } else {// Resizing
@@ -71,17 +73,17 @@
             
             CGFloat finalWidth  = self.superview.bounds.size.width + (wChange);
             CGFloat finalHeight = self.superview.bounds.size.height + (wChange);
-            if (finalWidth > pasterSize*(1+0.5)) {
-                finalWidth = pasterSize*(1+0.5);
+            if (finalWidth > maxWidth) {
+                finalWidth = maxWidth;
             }
-            if (finalWidth < pasterSize*(1-0.5)) {
-                finalWidth = pasterSize*(1-0.5);
+            if (finalWidth < minWidth) {
+                finalWidth = minWidth;
             }
-            if (finalHeight > pasterSize*(1+0.5)) {
-                finalHeight = pasterSize*(1+0.5);
+            if (finalHeight > maxHeight) {
+                finalHeight = maxHeight;
             }
-            if (finalHeight < pasterSize*(1-0.5)) {
-                finalHeight = pasterSize*(1-0.5);
+            if (finalHeight < minHeight) {
+                finalHeight = minHeight;
             }
             self.superview.bounds = CGRectMake(self.superview.bounds.origin.x, self.superview.bounds.origin.y, finalWidth, finalHeight);
             self.frame = CGRectMake(self.superview.bounds.size.width-rotateSize, self.superview.bounds.size.height-rotateSize, rotateSize, rotateSize);

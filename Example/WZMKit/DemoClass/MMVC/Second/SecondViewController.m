@@ -30,6 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100.0, 150.0, 150.0, 300.0)];
+    view.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:view];
+    
+    WTRotateView *rv = [[WTRotateView alloc] initWithFrame:CGRectMake(120.0, 270.0, 30.0, 30.0)];
+    rv.backgroundColor = [UIColor redColor];
+    [view addSubview:rv];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

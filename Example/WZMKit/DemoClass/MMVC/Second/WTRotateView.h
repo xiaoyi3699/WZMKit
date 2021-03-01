@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WTRotateView : UIView
 
-@property (nonatomic, assign) CGFloat minWidth;
-@property (nonatomic, assign) CGFloat minHeight;
+@property (nonatomic, assign) CGFloat minScale;
+@property (nonatomic, assign) CGFloat maxScale;
 
 @end
 
