@@ -7,8 +7,6 @@
 //
 
 #import "SecondViewController.h"
-#import "WTRotateView.h"
-#import "WZMImageDrawView.h"
 
 @interface SecondViewController ()
 
@@ -18,7 +16,7 @@
     UIScrollView *_bgView;
     UIImageView *_imageView2;
 }
-
+ 
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -29,14 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor grayColor];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(100.0, 150.0, 150.0, 300.0)];
-    view.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:view];
-    
-    WTRotateView *rv = [[WTRotateView alloc] initWithFrame:CGRectMake(120.0, 270.0, 30.0, 30.0)];
-    rv.backgroundColor = [UIColor redColor];
-    [view addSubview:rv];
+    WZMMoreEditView *editView = [[WZMMoreEditView alloc] initWithFrame:CGRectMake(100.0, 150.0, 175.0, 300.0)];
+    [self.view addSubview:editView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

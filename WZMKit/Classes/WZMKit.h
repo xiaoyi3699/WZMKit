@@ -284,6 +284,8 @@
  */
 #import "WZMDrawView.h"
 #import "WZMOpenDrawView.h"
+#import "WZMImageDrawView.h"
+#import "WZMMoreEditView.h"
 
 /*
  马赛克
