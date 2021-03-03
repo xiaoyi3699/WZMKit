@@ -1,25 +1,26 @@
+//
+//  WZMDrawView.h
+//  WZMKit_Example
+//
+//  Created by Zhaomeng Wang on 2021/3/3.
+//  Copyright © 2021 wangzhaomeng. All rights reserved.
+//
+
 #import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WZMDrawView : UIView
 
-///橡皮擦
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign, getter=isEraser) BOOL eraser;
-
-///画笔
-@property (nonatomic, strong) UIColor *color;
-@property (nonatomic, assign, getter=isDotted) BOOL dotted;
-
-///图片画笔
-@property (nonatomic, strong) NSArray *hbImages;
-@property (nonatomic, assign) CGFloat hbSize;
-@property (nonatomic, assign) CGFloat spacing;
-
-///public
-@property (nonatomic,assign) CGFloat lineWidth;
-@property (nonatomic, strong, readonly) NSMutableArray *lines;
+@property (nonatomic, assign) BOOL lineDotted;
+@property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, assign) CGFloat imageSpacing;
 
 - (void)recover;
 - (void)backforward;
 
 @end
+
+NS_ASSUME_NONNULL_END

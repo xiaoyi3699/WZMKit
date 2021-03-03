@@ -136,7 +136,7 @@
 #import "WZMCycleView.h"
 #import "WZMDottedView.h"
 #import "WZMDrawView.h"
-#import "WZMImageDrawView.h"
+#import "WZMEraserView.h"
 #import "WZMOpenDrawView.h"
 #import "WZMFontView.h"
 #import "WZMPanGestureRecognizer.h"

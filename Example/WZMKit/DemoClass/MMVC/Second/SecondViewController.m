@@ -7,16 +7,12 @@
 //
 
 #import "SecondViewController.h"
-#import "WZMDrawView2.h"
 
 @interface SecondViewController ()
 
 @end
 
-@implementation SecondViewController {
-    UIScrollView *_bgView;
-    UIImageView *_imageView2;
-}
+@implementation SecondViewController
  
 - (instancetype)init {
     self = [super init];
@@ -30,9 +26,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    WZMDrawView2 *drawView = [[WZMDrawView2 alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 500.0)];
-    drawView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:drawView];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
 }
 
 - (WZMContentType)contentType {

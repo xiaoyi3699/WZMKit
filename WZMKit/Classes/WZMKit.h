@@ -283,8 +283,8 @@
  手指移动绘图
  */
 #import "WZMDrawView.h"
+#import "WZMEraserView.h"
 #import "WZMOpenDrawView.h"
-#import "WZMImageDrawView.h"
 #import "WZMMoreEditView.h"
 
 /*
