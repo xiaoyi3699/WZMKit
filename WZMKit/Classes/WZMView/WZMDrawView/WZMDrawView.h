@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL lineDotted;
 @property (nonatomic, assign) CGFloat lineWidth;
 @property (nonatomic, strong) UIColor *lineColor;
-@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong, nullable) NSArray *images;
 @property (nonatomic, assign) CGFloat imageSpacing;
+@property (nonatomic, strong, readonly) NSMutableArray *lines;
 
 - (void)recover;
 - (void)backforward;
