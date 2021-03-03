@@ -97,6 +97,7 @@
 - (void)drawLines {
     if (self.image == nil) return;
     [self createMosaicImageIfNeed];
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
         @autoreleasepool {
             NSMutableArray *pointsArray = [dic objectForKey:@"points"];
@@ -116,9 +117,6 @@
                     CGPoint endPoint = [pointsArray[i] CGPointValue];
                     CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
                     CGContextRef currentContext = UIGraphicsGetCurrentContext();
-                    if (!currentContext) {
-                        UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
-                    }
                     CGContextAddPath(currentContext, path);
                     CGContextDrawPath(currentContext, kCGPathStroke);
                     shapeLayer.path = path;
@@ -126,6 +124,7 @@
             }
         }
     }];
+    UIGraphicsEndImageContext();
 }
 
 - (void)createMosaicImageIfNeed {
@@ -212,16 +211,13 @@
     _type = type;
     if (self.superview) {
         [self createMosaicLayersIfNeed];
-        [self drawLines];
+        [self createMosaicImageIfNeed];
     }
 }
 
 - (void)setLineWidth:(CGFloat)lineWidth {
     if (_lineWidth == lineWidth) return;
     _lineWidth = lineWidth;
-    if (self.superview) {
-        [self drawLines];
-    }
 }
 
 #pragma mark - super method
@@ -252,6 +248,8 @@
         [dic setObject:@(self.type) forKey:@"type"];
         [dic setObject:@(self.lineWidth) forKey:@"width"];
         [self.lines addObject:dic];
+        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         CGPoint point = [gesture locationInView:gesture.view];
@@ -262,9 +260,6 @@
         CGPathAddLineToPoint(path, NULL, point.x, point.y);
         
         CGContextRef currentContext = UIGraphicsGetCurrentContext();
-        if (!currentContext) {
-            UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
-        }
         CGContextAddPath(currentContext, path);
         CGContextDrawPath(currentContext, kCGPathStroke);
         shapeLayer.path = path;
@@ -273,6 +268,10 @@
         NSDictionary *dic = [self.lines lastObject];
         NSMutableArray *pointArray = [dic objectForKey:@"points"];
         [pointArray addObject:[NSValue valueWithCGPoint:point]];
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded ||
+             gesture.state == UIGestureRecognizerStateCancelled) {
+        UIGraphicsEndImageContext();
     }
 }
 

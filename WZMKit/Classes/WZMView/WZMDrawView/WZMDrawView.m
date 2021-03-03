@@ -8,6 +8,7 @@
 
 #import "WZMDrawView.h"
 #import "WZMInline.h"
+#import "UIImage+wzmcate.h"
 
 @interface WZMDrawView ()
 
@@ -143,6 +144,30 @@
     layer.frame = imageRect;
     layer.contents = (__bridge id)((image.CGImage));
     [self.shapeLayer addSublayer:layer];
+}
+
+- (void)setImageColor:(UIColor *)imageColor {
+    if (_images.count && imageColor) {
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (UIImage *image in _images) {
+            UIImage *img = [image wzm_changeColor:imageColor];
+            [images addObject:img];
+        }
+        _images = [images copy];
+    }
+    _imageColor = imageColor;
+}
+
+- (void)setImages:(NSArray *)images {
+    if (_imageColor && images.count) {
+        NSMutableArray *imgs = [[NSMutableArray alloc] init];
+        for (UIImage *image in images) {
+            UIImage *img = [image wzm_changeColor:_imageColor];
+            [imgs addObject:img];
+        }
+        images = [imgs copy];
+    }
+    _images = images;
 }
 
 @end
