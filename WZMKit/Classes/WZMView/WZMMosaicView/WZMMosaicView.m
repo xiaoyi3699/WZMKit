@@ -41,7 +41,7 @@
     if (self.lines.count) {
         [self recoverLayer];
         [self.lines removeAllObjects];
-        [self setNeedsDisplay];
+        [self drawRectMosaic];
     }
 }
 
@@ -50,7 +50,7 @@
     if (self.lines.count) {
         [self recoverLayer];
         [self.lines removeLastObject];
-        [self setNeedsDisplay];
+        [self drawRectMosaic];
     }
 }
 
@@ -165,7 +165,7 @@
     _type = type;
     if (self.superview) {
         [self createMosaicLayersIfNeed];
-        [self setNeedsDisplay];
+        [self drawRectMosaic];
     }
 }
 
@@ -173,7 +173,7 @@
     if (_lineWidth == lineWidth) return;
     _lineWidth = lineWidth;
     if (self.superview) {
-        [self setNeedsDisplay];
+        [self drawRectMosaic];
     }
 }
 
@@ -227,7 +227,6 @@
             UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
         }
         CGContextAddPath(currentContext, pathRef);
-        [[UIColor blueColor] setStroke];
         CGContextDrawPath(currentContext, kCGPathStroke);
         shapeLayer.path = pathRef;
         shapeLayer.lineWidth = self.lineWidth;
@@ -239,38 +238,40 @@
     }
 }
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRectMosaic {
     if (self.image == nil) return;
     [self createMosaicImageIfNeed];
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableArray *pointsArray = [dic objectForKey:@"points"];
-        CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
-        WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
-        NSString *key = [self getKey:type];
-        CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-        if (pointsArray.count > 1) {
-            CGPoint startPoint = [pointsArray[0] CGPointValue];
-            CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
-            CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-            shapeLayer.path = startPath;
-            shapeLayer.lineWidth = lineWidth;
-            CGPathRelease(startPath);
-            
-            NSInteger count = pointsArray.count;
-            for (NSInteger i = 1; i < count; i ++) {
-                CGPoint endPoint = [pointsArray[i] CGPointValue];
-                CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
-                CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
-                
-                CGContextRef currentContext = UIGraphicsGetCurrentContext();
-                if (!currentContext) {
-                    UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+        @autoreleasepool {
+            NSMutableArray *pointsArray = [dic objectForKey:@"points"];
+            CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+            WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
+            NSString *key = [self getKey:type];
+            CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+            CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+            if (pointsArray.count > 1) {
+                CGPoint startPoint = [pointsArray[0] CGPointValue];
+                CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
+                CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
+                shapeLayer.path = startPath;
+                shapeLayer.lineWidth = lineWidth;
+                CGPathRelease(startPath);
+
+                NSInteger count = pointsArray.count;
+                for (NSInteger i = 1; i < count; i ++) {
+                    CGPoint endPoint = [pointsArray[i] CGPointValue];
+                    CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
+                    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
+
+                    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+                    if (!currentContext) {
+                        UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+                    }
+                    CGContextAddPath(currentContext, pathRef);
+                    CGContextDrawPath(currentContext, kCGPathStroke);
+                    shapeLayer.path = pathRef;
+                    CGPathRelease(pathRef);
                 }
-                CGContextAddPath(currentContext, pathRef);
-                CGContextDrawPath(currentContext, kCGPathStroke);
-                shapeLayer.path = pathRef;
-                CGPathRelease(pathRef);
             }
         }
     }];
