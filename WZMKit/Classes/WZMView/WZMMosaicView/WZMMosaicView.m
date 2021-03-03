@@ -56,14 +56,10 @@
 
 #pragma mark - private method
 - (void)recoverLayer {
-    for (NSString *key in self.pathDic.allKeys) {
+    NSArray *keys = [self releaseShapePath];
+    for (NSString *key in keys) {
         CGMutablePathRef pathRef = CGPathCreateMutable();
-        CGMutablePathRef path = CGPathCreateMutableCopy(pathRef);
-        CGPathRelease(pathRef);
-        [self.pathDic setValue:(__bridge id)(path) forKey:key];
-    }
-    for (CAShapeLayer *shapeLayer in self.shapeLayerDic.allValues) {
-        shapeLayer.path = nil;
+        [self.pathDic setValue:(__bridge id)(pathRef) forKey:key];
     }
 }
 
@@ -84,8 +80,8 @@
         shapeLayer.lineCap = kCALineCapRound;
         shapeLayer.lineJoin = kCALineJoinRound;
         shapeLayer.lineWidth = self.lineWidth;
-        shapeLayer.strokeColor = [UIColor blueColor].CGColor;
         shapeLayer.fillColor = nil;
+        shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
         [self.layer addSublayer:shapeLayer];
         mosaicImageLayer.mask = shapeLayer;
         [self.shapeLayerDic setValue:shapeLayer forKey:key];
@@ -93,11 +89,43 @@
     
     CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
     if (path == nil) {
-        CGMutablePathRef pathRef = CGPathCreateMutable();
-        path = CGPathCreateMutableCopy(pathRef);
-        CGPathRelease(pathRef);
+        path = CGPathCreateMutable();
         [self.pathDic setValue:(__bridge id)(path) forKey:key];
     }
+}
+
+- (void)drawLines {
+    if (self.image == nil) return;
+    [self createMosaicImageIfNeed];
+    [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
+        @autoreleasepool {
+            NSMutableArray *pointsArray = [dic objectForKey:@"points"];
+            CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
+            WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
+            NSString *key = [self getKey:type];
+            CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
+            CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+            if (pointsArray.count > 1) {
+                CGPoint startPoint = [pointsArray[0] CGPointValue];
+                CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
+                shapeLayer.path = path;
+                shapeLayer.lineWidth = lineWidth;
+                
+                NSInteger count = pointsArray.count;
+                for (NSInteger i = 1; i < count; i ++) {
+                    CGPoint endPoint = [pointsArray[i] CGPointValue];
+                    CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
+                    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+                    if (!currentContext) {
+                        UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
+                    }
+                    CGContextAddPath(currentContext, path);
+                    CGContextDrawPath(currentContext, kCGPathStroke);
+                    shapeLayer.path = path;
+                }
+            }
+        }
+    }];
 }
 
 - (void)createMosaicImageIfNeed {
@@ -154,6 +182,25 @@
     }
 }
 
+- (NSArray *)releaseShapePath {
+    NSArray *keys = [NSArray arrayWithArray:self.pathDic.allKeys];
+    for (CAShapeLayer *shapeLayer in self.shapeLayerDic.allValues) {
+        shapeLayer.path = nil;
+    }
+    for (NSString *key in self.pathDic.allKeys) {
+        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
+        [self.pathDic removeObjectForKey:key];
+        if (path) {
+            CGPathRelease(path);
+        }
+    }
+    return keys;
+}
+
+- (NSString *)getKey:(WZMMosaicViewType)i {
+    return [NSString stringWithFormat:@"%@",@(i)];
+}
+
 #pragma mark - setter
 - (void)setImage:(UIImage *)image {
     _image = image;
@@ -177,10 +224,6 @@
     }
 }
 
-- (NSString *)getKey:(WZMMosaicViewType)i {
-    return [NSString stringWithFormat:@"%@",@(i)];
-}
-
 #pragma mark - super method
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
@@ -198,10 +241,8 @@
         
         CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
         CGPathMoveToPoint(path, NULL, point.x, point.y);
-        CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-        shapeLayer.path = startPath;
+        shapeLayer.path = path;
         shapeLayer.lineWidth = self.lineWidth;
-        CGPathRelease(startPath);
         
         NSMutableArray *pointArray = [[NSMutableArray alloc] initWithCapacity:0];
         [pointArray addObject:[NSValue valueWithCGPoint:point]];
@@ -218,19 +259,16 @@
         NSString *key = [self getKey:self.type];
         CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
         CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-        
         CGPathAddLineToPoint(path, NULL, point.x, point.y);
-        CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
         
         CGContextRef currentContext = UIGraphicsGetCurrentContext();
         if (!currentContext) {
-            UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
         }
-        CGContextAddPath(currentContext, pathRef);
+        CGContextAddPath(currentContext, path);
         CGContextDrawPath(currentContext, kCGPathStroke);
-        shapeLayer.path = pathRef;
+        shapeLayer.path = path;
         shapeLayer.lineWidth = self.lineWidth;
-        CGPathRelease(pathRef);
         
         NSDictionary *dic = [self.lines lastObject];
         NSMutableArray *pointArray = [dic objectForKey:@"points"];
@@ -238,53 +276,8 @@
     }
 }
 
-- (void)drawLines {
-    if (self.image == nil) return;
-    [self createMosaicImageIfNeed];
-    [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
-        @autoreleasepool {
-            NSMutableArray *pointsArray = [dic objectForKey:@"points"];
-            CGFloat lineWidth = [[dic objectForKey:@"width"] floatValue];
-            WZMMosaicViewType type = [[dic objectForKey:@"type"] integerValue];
-            NSString *key = [self getKey:type];
-            CAShapeLayer *shapeLayer = [self.shapeLayerDic valueForKey:key];
-            CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-            if (pointsArray.count > 1) {
-                CGPoint startPoint = [pointsArray[0] CGPointValue];
-                CGPathMoveToPoint(path, NULL, startPoint.x, startPoint.y);
-                CGMutablePathRef startPath = CGPathCreateMutableCopy(path);
-                shapeLayer.path = startPath;
-                shapeLayer.lineWidth = lineWidth;
-                CGPathRelease(startPath);
-
-                NSInteger count = pointsArray.count;
-                for (NSInteger i = 1; i < count; i ++) {
-                    CGPoint endPoint = [pointsArray[i] CGPointValue];
-                    CGPathAddLineToPoint(path, NULL, endPoint.x, endPoint.y);
-                    CGMutablePathRef pathRef = CGPathCreateMutableCopy(path);
-
-                    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-                    if (!currentContext) {
-                        UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, 0);
-                    }
-                    CGContextAddPath(currentContext, pathRef);
-                    CGContextDrawPath(currentContext, kCGPathStroke);
-                    shapeLayer.path = pathRef;
-                    CGPathRelease(pathRef);
-                }
-            }
-        }
-    }];
-}
-
 - (void)dealloc {
-    for (NSString *key in self.pathDic.allKeys) {
-        CGMutablePathRef path = (__bridge CGMutablePathRef)([self.pathDic valueForKey:key]);
-        [self.pathDic removeObjectForKey:key];
-        if (path) {
-            CGPathRelease(path);
-        }
-    }
+    [self releaseShapePath];
     WZMLog(@"马赛克释放了");
 }
 
