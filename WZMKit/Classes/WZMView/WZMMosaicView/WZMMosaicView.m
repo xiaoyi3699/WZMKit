@@ -41,7 +41,7 @@
     if (self.lines.count) {
         [self recoverLayer];
         [self.lines removeAllObjects];
-        [self drawRectMosaic];
+        [self drawLines];
     }
 }
 
@@ -50,7 +50,7 @@
     if (self.lines.count) {
         [self recoverLayer];
         [self.lines removeLastObject];
-        [self drawRectMosaic];
+        [self drawLines];
     }
 }
 
@@ -165,7 +165,7 @@
     _type = type;
     if (self.superview) {
         [self createMosaicLayersIfNeed];
-        [self drawRectMosaic];
+        [self drawLines];
     }
 }
 
@@ -173,7 +173,7 @@
     if (_lineWidth == lineWidth) return;
     _lineWidth = lineWidth;
     if (self.superview) {
-        [self drawRectMosaic];
+        [self drawLines];
     }
 }
 
@@ -238,7 +238,7 @@
     }
 }
 
-- (void)drawRectMosaic {
+- (void)drawLines {
     if (self.image == nil) return;
     [self createMosaicImageIfNeed];
     [_lines enumerateObjectsUsingBlock:^(NSMutableDictionary  *_Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
