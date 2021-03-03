@@ -14,8 +14,8 @@
 + (void)wzm_loadDealloc;
 #endif
 
-- (void)setWzm_tag:(int)wzm_tag;
-- (int)wzm_tag;
+- (void)setWzm_tag:(NSInteger)wzm_tag;
+- (NSInteger)wzm_tag;
 
 - (NSString *)wzm_className;
 + (NSString *)wzm_className;

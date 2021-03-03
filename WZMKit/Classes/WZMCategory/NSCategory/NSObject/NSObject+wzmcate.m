@@ -59,14 +59,14 @@ static NSString *_tag = @"wzm_tag";
     return YES;
 }
 
-- (void)setWzm_tag:(int)wzm_tag {
+- (void)setWzm_tag:(NSInteger)wzm_tag {
     NSNumber *t = @(wzm_tag);
     objc_setAssociatedObject(self, &_tag, t, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (int)wzm_tag {
+- (NSInteger)wzm_tag {
     NSNumber *t = objc_getAssociatedObject(self, &_tag);
-    return (int)[t integerValue];
+    return (NSInteger)[t integerValue];
 }
 
 - (NSString *)wzm_className {
