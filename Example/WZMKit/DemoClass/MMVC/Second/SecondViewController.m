@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMDrawView2.h"
 
 @interface SecondViewController ()
 
@@ -29,12 +30,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    WZMMoreEditView *editView = [[WZMMoreEditView alloc] initWithFrame:CGRectMake(100.0, 150.0, 175.0, 300.0)];
-    [self.view addSubview:editView];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    WZMDrawView2 *drawView = [[WZMDrawView2 alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 500.0)];
+    drawView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:drawView];
 }
 
 - (WZMContentType)contentType {

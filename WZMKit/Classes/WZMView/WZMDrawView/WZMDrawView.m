@@ -171,4 +171,26 @@
     }];
 }
 
+- (void)drawImage:(NSArray *)images index:(NSInteger)index point:(CGPoint)point size:(CGFloat)size {
+    UIImage *image;
+    id img = [images objectAtIndex:(index%(images.count))];
+    if ([img isKindOfClass:[NSString class]]) {
+        image = [UIImage imageNamed:img];
+    }
+    else if ([img isKindOfClass:[UIImage class]]) {
+        image = img;
+    }
+    if (image == nil) return;
+    CGSize imageSize = WZMSizeRatioToMaxSize(image.size, CGSizeMake(size, size));
+    CGRect imageRect = CGRectZero;
+    imageRect.size = imageSize;
+    imageRect.origin.x = (point.x - imageSize.width/2.0);
+    imageRect.origin.y = (point.y - imageSize.height/2.0);
+    
+    CALayer *layer = [[CALayer alloc] init];
+    layer.frame = imageRect;
+    layer.contents = (__bridge id)((image.CGImage));
+    [self.layer addSublayer:layer];
+}
+
 @end
