@@ -74,22 +74,22 @@
     if (CGRectEqualToRect(frame, CGRectZero)) return;
     if (CGRectEqualToRect(frame, self.frame)) return;
     [super setFrame:frame];
-    CGFloat toolHeight = 50;
+    CGFloat toolHeight = 50.0+WZM_BOTTOM_HEIGHT;
     if (self.config.isOnlyOne) {
-        toolHeight = 0;
+        toolHeight = 0.0;
     }
     if (self.hasViews == NO) {
         self.hasViews = YES;
-        self.albumFrame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT);
-        CGFloat itemW = floor((self.albumFrame.size.width-10-5*(self.config.column-1))/self.config.column);
+        self.albumFrame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height-toolHeight);
+        CGFloat itemW = floor((self.albumFrame.size.width-10.0-5.0*(self.config.column-1))/self.config.column);
         CGFloat itemH = itemW;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         flowLayout.itemSize = CGSizeMake(itemW, itemH);
-        flowLayout.minimumInteritemSpacing = 5;
-        flowLayout.minimumLineSpacing = 5;
-        flowLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+        flowLayout.minimumInteritemSpacing = 5.0;
+        flowLayout.minimumLineSpacing = 5.0;
+        flowLayout.sectionInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
         
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.albumFrame collectionViewLayout:flowLayout];
         collectionView.delegate = self;
@@ -108,9 +108,9 @@
             self.toolView.backgroundColor = [UIColor wzm_getDynamicColorByLightColor:WZM_R_G_B(235, 235, 235) darkColor:WZM_R_G_B(20, 20, 20)];
             [self addSubview:self.toolView];
             
-            self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110, 7, 100, 36)];
+            self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.wzm_width-110.0, 7.0, 100.0, 36.0)];
             self.countLabel.text = [NSString stringWithFormat:@"完成(%@/%@)",@(self.selectedPhotos.count),@(self.config.maxCount)];
-            self.countLabel.font = [UIFont systemFontOfSize:14];
+            self.countLabel.font = [UIFont systemFontOfSize:14.0];
             self.countLabel.textColor = [UIColor whiteColor];
             self.countLabel.textAlignment = NSTextAlignmentCenter;
             self.countLabel.wzm_cornerRadius = 5;
@@ -121,15 +121,15 @@
             UITapGestureRecognizer *okTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectedFinish)];
             [self.countLabel addGestureRecognizer:okTap];
             
-            UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.wzm_width-self.countLabel.wzm_width-20, toolHeight)];
+            UILabel *msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 0.0, self.wzm_width-self.countLabel.wzm_width-20.0, 50.0)];
             msgLabel.text = [NSString stringWithFormat:@"最多选择%@张图片",@(self.config.maxCount)];
-            msgLabel.font = [UIFont systemFontOfSize:13];
+            msgLabel.font = [UIFont systemFontOfSize:13.0];
             msgLabel.textColor = self.config.themeColor;
             msgLabel.textAlignment = NSTextAlignmentLeft;
             [self.toolView addSubview:msgLabel];
         }
     }
-    self.collectionView.wzm_height = self.bounds.size.height-toolHeight-WZM_BOTTOM_HEIGHT;
+    self.collectionView.wzm_height = self.bounds.size.height-toolHeight;
     self.toolView.wzm_minY = self.collectionView.wzm_maxY;
     //[self reloadData];
 }

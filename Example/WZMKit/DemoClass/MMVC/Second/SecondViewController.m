@@ -7,8 +7,9 @@
 //
 
 #import "SecondViewController.h"
+#import "WZMTransGifViewController.h"
 
-@interface SecondViewController ()
+@interface SecondViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @end
 
@@ -26,7 +27,22 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+    config.allowShowImage = YES;
+    config.allowShowVideo = NO;
+    config.allowShowGIF = NO;
+    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+    nav.pickerDelegate = self;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
+    WZMTransGifViewController *vc = [[WZMTransGifViewController alloc] initWithImages:originals];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (WZMContentType)contentType {

@@ -8,13 +8,50 @@
 
 #import "UIFont+wzmcate.h"
 #import "WZMLogPrinter.h"
+#import "WZMBase64.h"
 #import <CoreText/CoreText.h>
+
+@interface WZMFontManager : NSObject
+@property (nonatomic, strong) NSMutableDictionary *fontNames;
+@end
+
+@implementation WZMFontManager
+
++ (instancetype)shareManager {
+    static WZMFontManager *manager;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [[WZMFontManager alloc] init];
+    });
+    return manager;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.fontNames = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
+///获取字体名称
++ (NSString *)fontNameWithPath:(NSString *)path {
+    NSString *key = [path.lastPathComponent wzm_base64EncodedString];
+    return [[WZMFontManager shareManager].fontNames objectForKey:key];
+}
+
++ (void)setFontName:(NSString *)fontName forPath:(NSString *)path {
+    NSString *key = [path.lastPathComponent wzm_base64EncodedString];
+    [[WZMFontManager shareManager].fontNames setObject:fontName forKey:key];
+}
+
+@end
 
 @implementation UIFont (wzmcate)
 
 ///字体是否存在
 + (BOOL)wzm_fontExistWithFontName:(NSString *)fontName {
-    UIFont* aFont = [UIFont fontWithName:fontName size:10];
+    UIFont *aFont = [UIFont fontWithName:fontName size:10];
     BOOL exist = (aFont && ([aFont.fontName compare:fontName] == NSOrderedSame
                                  || [aFont.familyName compare:fontName] == NSOrderedSame));
     return exist;
@@ -22,9 +59,11 @@
 
 ///获取字体名称
 + (NSString *)wzm_fontNameWithPath:(NSString *)path {
+    NSString *fontName = [WZMFontManager fontNameWithPath:path];
+    if (fontName.length) return fontName;
     if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) return nil;
     NSData *fontData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]];
-    CFErrorRef error; NSString *fontName;
+    CFErrorRef error;
     CGDataProviderRef providerRef = CGDataProviderCreateWithCFData((CFDataRef)fontData);
     CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
     if (CTFontManagerRegisterGraphicsFont(fontRef, &error)) {
@@ -43,6 +82,10 @@
     if (providerRef) {
         CFRelease(providerRef);
     }
+    if (fontName == nil) {
+        fontName = [UIFont systemFontOfSize:15.0].fontName;
+    }
+    [WZMFontManager setFontName:fontName forPath:path];
     return fontName;
 }
 
