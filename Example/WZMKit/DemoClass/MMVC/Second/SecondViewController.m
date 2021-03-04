@@ -12,9 +12,7 @@
 
 @end
 
-@implementation SecondViewController {
-    WZMMosaicView *_mskView;
-}
+@implementation SecondViewController
  
 - (instancetype)init {
     self = [super init];
@@ -28,21 +26,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    WZMMosaicView *mskView = [[WZMMosaicView alloc] initWithFrame:CGRectMake(10.0, 100.0, 355.0, 500.0)];
-    mskView.image = [UIImage imageNamed:@"meinv"];
+    WZMMoreEditView *mskView = [[WZMMoreEditView alloc] initWithFrame:CGRectMake(10.0, 100.0, 370.0, 500.0)];
+    mskView.contentView.backgroundColor = [UIColor redColor];
     [self.view addSubview:mskView];
-    _mskView = mskView;
-    
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10.0, 100.0, 50.0, 40.0)];
-    btn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [btn setTitle:@"撤销" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-}
-
-- (void)btnClick:(UIButton *)btn {
-    [_mskView backforward];
 }
 
 - (WZMContentType)contentType {

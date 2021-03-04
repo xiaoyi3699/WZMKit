@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WZMMoreEditView : UIView
 
+@property (nonatomic, strong, readonly) UIView *contentView;
 @property (nonatomic, weak) id<WZMMoreEditViewDelegate> delegate;
 
 - (BOOL)allowZoom;

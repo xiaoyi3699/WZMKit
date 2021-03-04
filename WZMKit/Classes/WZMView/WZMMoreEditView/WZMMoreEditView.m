@@ -8,12 +8,49 @@
 
 #import "WZMMoreEditView.h"
 #import "UIView+wzmcate.h"
+#import "WZMPublic.h"
+
+@interface WZMMoreEditContentView :UIView
+@property (nonatomic, assign) BOOL dotted;
+@end
+
+@implementation WZMMoreEditContentView
+
+- (void)setDotted:(BOOL)dotted {
+    if (_dotted == dotted) return;
+    _dotted = dotted;
+    if (self.superview) {
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    if (self.dotted == NO) return;
+    CGFloat lineWidth = 1.0;
+    CGFloat lengths[]= {6.0, 4.0};
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetLineDash(context, 0.0, lengths, 2);
+    CGRect rect2 = self.bounds;
+    rect2.origin.x = lineWidth*0.5;
+    rect2.origin.y = lineWidth*0.5;
+    rect2.size.width -= lineWidth;
+    rect2.size.height -= lineWidth;
+    CGContextAddRect(context, rect2);
+    CGContextStrokePath(context);
+}
+
+@end
 
 @interface WZMMoreEditView ()
 
 @property (nonatomic, assign) BOOL dotted;
 @property (nonatomic, assign) BOOL addRote;
 @property (nonatomic, assign) BOOL editing;
+@property (nonatomic, assign) CGFloat scale;
 @property (nonatomic, assign) CGFloat maxScale;
 @property (nonatomic, assign) CGFloat minScale;
 @property (nonatomic, strong) UIView *item0;
@@ -21,30 +58,39 @@
 @property (nonatomic, strong) UIView *item2;
 @property (nonatomic, strong) UIView *item3;
 @property (nonatomic, assign) CGFloat itemSize;
+@property (nonatomic, assign) CGFloat rotation;
 @property (nonatomic, assign) CGFloat deltaAngle;
 @property (nonatomic, assign) CGAffineTransform scaleTransform;
 @property (nonatomic, assign) CGAffineTransform rotateTransform;
+@property (nonatomic, strong) WZMMoreEditContentView *contentView;
+//记录item的初始中心点
+@property (nonatomic, assign) CGPoint center0;
+@property (nonatomic, assign) CGPoint center1;
+@property (nonatomic, assign) CGPoint center2;
+@property (nonatomic, assign) CGPoint center3;
 
 @end
 
 @implementation WZMMoreEditView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    CGFloat itemSize = 30.0;
-    CGRect rect = frame;
-    rect.origin.x -= itemSize/2.0;
-    rect.origin.y -= itemSize/2.0;
-    rect.size.width += itemSize;
-    rect.size.height += itemSize;
-    self = [super initWithFrame:rect];
+    self = [super initWithFrame:frame];
     if (self) {
         self.dotted = YES;
-        self.itemSize = itemSize;
+        self.itemSize = 30.0;
+        self.scale = 1.0;
         self.minScale = 0.5;
         self.maxScale = 2.0;
+        self.rotation = 0.0;
         self.scaleTransform = CGAffineTransformIdentity;
         self.rotateTransform = CGAffineTransformIdentity;
         self.backgroundColor = [UIColor clearColor];
+        
+        self.contentView = [[WZMMoreEditContentView alloc] initWithFrame:self.bounds];
+        self.contentView.clipsToBounds = YES;
+        [self addSubview:self.contentView];
+        [(WZMMoreEditContentView *)self.contentView setDotted:self.dotted];
+        
         UIImage *image0 = [self getImage0];
         if (image0) {
             self.item0 = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.itemSize, self.itemSize)];
@@ -187,15 +233,18 @@
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGAffineTransform transform2 = CGAffineTransformScale(transform, recognizer.scale, recognizer.scale);
-        CGFloat scale =  sqrt(transform2.a * transform2.a + transform2.c * transform2.c);
-        if (scale < self.minScale) {
+        self.scale = sqrt(transform2.a * transform2.a + transform2.c * transform2.c);
+        if (self.scale < self.minScale) {
+            self.scale = self.minScale;
             transform2 = CGAffineTransformMakeScale(self.minScale, self.minScale);
         }
-        else if (scale > self.maxScale) {
+        else if (self.scale > self.maxScale) {
+            self.scale = self.maxScale;
             transform2 = CGAffineTransformMakeScale(self.maxScale, self.maxScale);
         }
         self.scaleTransform = transform2;
         self.transform = CGAffineTransformConcat(self.rotateTransform, self.scaleTransform);
+        [self zoomSubItemViews];
     }
 }
 
@@ -207,8 +256,8 @@
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGFloat ang = atan2([recognizer locationInView:self.superview].y - self.center.y, [recognizer locationInView:self.superview].x - self.center.x);
-        CGFloat angleDiff = self.deltaAngle - ang;
-        CGAffineTransform transform2 = CGAffineTransformMakeRotation(-angleDiff);
+        self.rotation = -(self.deltaAngle - ang);
+        CGAffineTransform transform2 = CGAffineTransformMakeRotation(self.rotation);
         self.rotateTransform = transform2;
         self.transform = CGAffineTransformConcat(self.rotateTransform, self.scaleTransform);
     }
@@ -227,24 +276,58 @@
 //布局
 - (void)layoutSubItemViews {
     if (self.item0) {
-        CGRect rect = self.item0.frame;
-        rect.origin = CGPointMake(0.0, 0.0);
-        self.item0.frame = rect;
+        CGPoint center = CGPointMake(0.0, 0.0);
+        self.item0.center = center;
+        self.center0 = self.item0.center;
     }
     if (self.item1) {
-        CGRect rect = self.item1.frame;
-        rect.origin = CGPointMake(self.bounds.size.width-self.itemSize, 0.0);
-        self.item1.frame = rect;
+        CGPoint center = CGPointMake(self.bounds.size.width, 0.0);
+        self.item1.center = center;
+        self.center1 = self.item1.center;
     }
     if (self.item2) {
-        CGRect rect = self.item2.frame;
-        rect.origin = CGPointMake(0.0, self.bounds.size.height-self.itemSize);
-        self.item2.frame = rect;
+        CGPoint center = CGPointMake(0.0, self.bounds.size.height);
+        self.item2.center = center;
+        self.center2 = self.item2.center;
     }
     if (self.item3) {
-        CGRect rect = self.item3.frame;
-        rect.origin = CGPointMake(self.bounds.size.width-self.itemSize, self.bounds.size.height-self.itemSize);
-        self.item3.frame = rect;
+        CGPoint center = CGPointMake(self.bounds.size.width, self.bounds.size.height);
+        self.item3.center = center;
+        self.center3 = self.item3.center;
+    }
+}
+
+//布局
+- (void)zoomSubItemViews {
+    CGFloat scale = 1/self.scale;
+//    CGFloat dl = self.itemSize*(1-scale)/2.0;
+    if (self.item0) {
+//        CGPoint center = self.center0;
+//        center.x -= dl;
+//        center.y -= dl;
+//        self.item0.center = center;
+        self.item0.transform = CGAffineTransformMakeScale(scale, scale);
+    }
+    if (self.item1) {
+//        CGPoint center = self.center1;
+//        center.x += dl;
+//        center.y -= dl;
+//        self.item1.center = center;
+        self.item1.transform = CGAffineTransformMakeScale(scale, scale);
+    }
+    if (self.item2) {
+//        CGPoint center = self.center2;
+//        center.x -= dl;
+//        center.y += dl;
+//        self.item2.center = center;
+        self.item2.transform = CGAffineTransformMakeScale(scale, scale);
+    }
+    if (self.item3) {
+//        CGPoint center = self.center3;
+//        center.x += dl;
+//        center.y += dl;
+//        self.item3.center = center;
+        self.item3.transform = CGAffineTransformMakeScale(scale, scale);
     }
 }
 
@@ -257,44 +340,51 @@
 }
 
 - (UIImage *)getImage0 {
-    return nil;
+    return [WZMPublic imageWithFolder:@"edit" imageName:@"edit_delete"];
 }
 
 - (UIImage *)getImage1 {
-    return nil;
+    return [WZMPublic imageWithFolder:@"edit" imageName:@"edit_bianji"];
 }
 
 - (UIImage *)getImage2 {
-    return nil;
+    return [WZMPublic imageWithFolder:@"edit" imageName:@"edit_tianjia"];
 }
 
 - (UIImage *)getImage3 {
-    return nil;
+    return [WZMPublic imageWithFolder:@"edit" imageName:@"edit_zoom"];
 }
 
 - (void)setDotted:(BOOL)dotted {
     if (_dotted == dotted) return;
     _dotted = dotted;
-    [self setNeedsDisplay];
+    if ([self.contentView isKindOfClass:[WZMMoreEditContentView class]]) {
+        [(WZMMoreEditContentView *)self.contentView setDotted:_dotted];
+    }
 }
 
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    if (self.dotted == NO) return;
-    CGFloat lineWidth = 1.0;
-    CGFloat lengths[]= {6.0, 4.0};
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-    CGContextSetLineWidth(context, lineWidth);
-    CGContextSetLineDash(context, 0.0, lengths, 2);
-    CGRect rect2 = self.bounds;
-    rect2.origin.x = lineWidth;
-    rect2.origin.y = lineWidth;
-    rect2.size.width -= lineWidth*2;
-    rect2.size.height -= lineWidth*2;
-    CGContextAddRect(context, rect2);
-    CGContextStrokePath(context);
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if (self.item0) {
+        if (CGRectContainsPoint(self.item0.frame, point)) {
+            return self.item0;
+        }
+    }
+    if (self.item1) {
+        if (CGRectContainsPoint(self.item1.frame, point)) {
+            return self.item1;
+        }
+    }
+    if (self.item2) {
+        if (CGRectContainsPoint(self.item2.frame, point)) {
+            return self.item2;
+        }
+    }
+    if (self.item3) {
+        if (CGRectContainsPoint(self.item3.frame, point)) {
+            return self.item3;
+        }
+    }
+    return [super hitTest:point withEvent:event];
 }
 
 @end
