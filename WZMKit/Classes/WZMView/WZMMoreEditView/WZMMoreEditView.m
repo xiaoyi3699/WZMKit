@@ -10,41 +10,6 @@
 #import "UIView+wzmcate.h"
 #import "WZMPublic.h"
 
-@interface WZMMoreEditContentView :UIView
-@property (nonatomic, assign) BOOL dotted;
-@end
-
-@implementation WZMMoreEditContentView
-
-- (void)setDotted:(BOOL)dotted {
-    if (_dotted == dotted) return;
-    _dotted = dotted;
-    if (self.superview) {
-        [self setNeedsDisplay];
-    }
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    if (self.dotted == NO) return;
-    CGFloat lineWidth = 1.0;
-    CGFloat lengths[]= {6.0, 4.0};
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-    CGContextSetLineWidth(context, lineWidth);
-    CGContextSetLineDash(context, 0.0, lengths, 2);
-    CGRect rect2 = self.bounds;
-    rect2.origin.x = lineWidth*0.5;
-    rect2.origin.y = lineWidth*0.5;
-    rect2.size.width -= lineWidth;
-    rect2.size.height -= lineWidth;
-    CGContextAddRect(context, rect2);
-    CGContextStrokePath(context);
-}
-
-@end
-
 @interface WZMMoreEditView ()
 
 @property (nonatomic, assign) BOOL dotted;
@@ -60,9 +25,9 @@
 @property (nonatomic, assign) CGFloat itemSize;
 @property (nonatomic, assign) CGFloat rotation;
 @property (nonatomic, assign) CGFloat deltaAngle;
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, assign) CGAffineTransform scaleTransform;
 @property (nonatomic, assign) CGAffineTransform rotateTransform;
-@property (nonatomic, strong) WZMMoreEditContentView *contentView;
 //记录item的初始中心点
 @property (nonatomic, assign) CGPoint center0;
 @property (nonatomic, assign) CGPoint center1;
@@ -86,10 +51,14 @@
         self.rotateTransform = CGAffineTransformIdentity;
         self.backgroundColor = [UIColor clearColor];
         
-        self.contentView = [[WZMMoreEditContentView alloc] initWithFrame:self.bounds];
+        CGRect contentRect = self.bounds;
+        contentRect.origin.x = 1.0;
+        contentRect.origin.y = 1.0;
+        contentRect.size.width -= 2.0;
+        contentRect.size.height -= 2.0;
+        self.contentView = [[UIView alloc] initWithFrame:contentRect];
         self.contentView.clipsToBounds = YES;
         [self addSubview:self.contentView];
-        [(WZMMoreEditContentView *)self.contentView setDotted:self.dotted];
         
         UIImage *image0 = [self getImage0];
         if (image0) {
@@ -358,9 +327,28 @@
 - (void)setDotted:(BOOL)dotted {
     if (_dotted == dotted) return;
     _dotted = dotted;
-    if ([self.contentView isKindOfClass:[WZMMoreEditContentView class]]) {
-        [(WZMMoreEditContentView *)self.contentView setDotted:_dotted];
+    if (self.superview) {
+        [self setNeedsDisplay];
     }
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    if (self.dotted == NO) return;
+    CGFloat lineWidth = 1.0;
+    CGFloat lengths[]= {6.0, 4.0};
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetLineDash(context, 0.0, lengths, 2);
+    CGRect rect2 = self.bounds;
+    rect2.origin.x = lineWidth*0.5;
+    rect2.origin.y = lineWidth*0.5;
+    rect2.size.width -= lineWidth;
+    rect2.size.height -= lineWidth;
+    CGContextAddRect(context, rect2);
+    CGContextStrokePath(context);
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {

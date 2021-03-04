@@ -26,9 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    WZMMoreEditView *mskView = [[WZMMoreEditView alloc] initWithFrame:CGRectMake(10.0, 100.0, 370.0, 500.0)];
-    mskView.contentView.backgroundColor = [UIColor redColor];
-    [self.view addSubview:mskView];
+    
 }
 
 - (WZMContentType)contentType {
