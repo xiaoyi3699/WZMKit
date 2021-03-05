@@ -32,10 +32,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.imageView = [[UIImageView alloc] init];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.image = [WZMGifHelper getImage:self.images.firstObject];
+    self.imageView.clipsToBounds = YES;
     [self.view addSubview:self.imageView];
     [self layoutPreview];
     
@@ -45,6 +47,17 @@
     self.gifListView.delegate = self;
     [self.view addSubview:self.gifListView];
     [self.gifListView reloadWithImages:self.images];
+    
+    //保存按钮
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 28.0)];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    rightBtn.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:189.0/255.0 blue:72.0/255.0 alpha:1.0];
+    [rightBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+    rightBtn.wzm_cornerRadius = 14.0;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -52,7 +65,7 @@
     [self gifListViewDidChange:self.gifListView];
 }
 
-- (void)save {
+- (void)rightItemClick {
     [WZMViewHandle wzm_showProgressMessage:@"制作中..."];
     WZMDispatch_execute_global_queue(^{
         CGFloat duration = (self.gifListView.dataList.count*self.gifListView.delayTime*self.gifScale);
@@ -148,14 +161,14 @@
 - (void)layoutPreview {
     UIImage *preImage = self.imageView.image;
     if (preImage) {
-        CGFloat dh = [self bottomToolHeight]+20.0;
+        CGFloat dh = [self bottomToolHeight]+20.0+WZM_NAVBAR_HEIGHT;
         CGSize contentSize = self.view.bounds.size;
         contentSize.width -= 20.0;
         contentSize.height -= (WZM_BOTTOM_HEIGHT+dh);
         CGSize size = WZMSizeRatioToMaxSize(preImage.size, contentSize);
         CGRect rect = self.view.bounds;
         rect.origin.x = 10.0+(rect.size.width-20.0-size.width)/2.0;
-        rect.origin.y = 10.0+(rect.size.height-(WZM_BOTTOM_HEIGHT+dh)-size.height)/2.0;
+        rect.origin.y = WZM_NAVBAR_HEIGHT+10.0+(rect.size.height-(WZM_BOTTOM_HEIGHT+dh)-size.height)/2.0;
         rect.size = size;
         self.imageView.frame = rect;
     }
@@ -179,6 +192,10 @@
 
 - (CGFloat)bottomToolHeight {
     return 160.0;
+}
+
+- (void)dealloc {
+    WZMLog(@"%@释放了",self.wzm_className);
 }
 
 @end

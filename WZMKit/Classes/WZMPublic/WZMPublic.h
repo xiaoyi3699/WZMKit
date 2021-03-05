@@ -55,4 +55,9 @@
 + (NSString *)filePathWithFolder:(NSString *)folder fileName:(NSString *)fileName;
 + (UIImage *)imageWithFolder:(NSString *)folder imageName:(NSString *)imageName;
 
+///上传单张图片
++ (void)uploadImage:(UIImage *)image completion:(void(^)(NSString *url))completion;
+///上传多张图片
++ (void)uploadImages:(NSArray *)images completion:(void(^)(NSArray *urls))completion;
+
 @end

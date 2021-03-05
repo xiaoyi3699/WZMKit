@@ -265,4 +265,33 @@
     return [UIImage imageWithContentsOfFile:filePath];
 }
 
+//上传单张图片
++ (void)uploadImage:(UIImage *)image completion:(void(^)(NSString *url))completion {
+    
+}
+
+//上传多张图片
++ (void)uploadImages:(NSArray *)images completion:(void(^)(NSArray *urls))completion {
+    //这里面放要完成之后的url
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    [self uploadImages:images index:0 array:array completion:^{
+        if (completion) completion(array);
+    }];
+}
+
++ (void)uploadImages:(NSArray *)images index:(NSInteger)index array:(NSMutableArray *)array completion:(void(^)(void))completion {
+    if (index < images.count) {
+        UIImage *image = [images objectAtIndex:index];
+        [self uploadImage:image completion:^(NSString *url) {
+            [array addObject:url];
+            [self uploadImages:images index:(index+1) array:array completion:^ {
+                if (completion) completion();
+            }];
+        }];
+    }
+    else {
+        if (completion) completion();
+    }
+}
+
 @end
