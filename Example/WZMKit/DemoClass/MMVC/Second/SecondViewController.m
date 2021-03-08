@@ -8,13 +8,14 @@
 
 #import "SecondViewController.h"
 #import "WZMTransGifViewController.h"
+#import "WZMArrowView.h"
 
 @interface SecondViewController ()<WZMAlbumNavigationControllerDelegate>
 
 @end
 
 @implementation SecondViewController
- 
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -27,18 +28,24 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
+    WZMArrowView *arrow = [[WZMArrowView alloc] initWithFrame:WZMRectMiddleArea()];
+    [self.view addSubview:arrow];
+    
+    arrow.selected = YES;
+    arrow.startPoint = CGPointMake(10.0, 10.0);
+    arrow.endPoint = CGPointMake(355.0, 200.0);
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
-    config.allowShowImage = YES;
-    config.allowShowVideo = NO;
-    config.allowShowGIF = NO;
-    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
-    nav.pickerDelegate = self;
-    [self presentViewController:nav animated:YES completion:nil];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//
+//    WZMAlbumConfig *config = [[WZMAlbumConfig alloc] init];
+//    config.allowShowImage = YES;
+//    config.allowShowVideo = NO;
+//    config.allowShowGIF = NO;
+//    WZMAlbumNavigationController *nav = [[WZMAlbumNavigationController alloc] initWithConfig:config];
+//    nav.pickerDelegate = self;
+//    [self presentViewController:nav animated:YES completion:nil];
+//}
 
 - (void)albumNavigationController:(WZMAlbumNavigationController *)albumNavigationController didSelectedOriginals:(NSArray *)originals thumbnails:(NSArray *)thumbnails assets:(NSArray *)assets {
     WZMTransGifViewController *vc = [[WZMTransGifViewController alloc] initWithImages:originals];
