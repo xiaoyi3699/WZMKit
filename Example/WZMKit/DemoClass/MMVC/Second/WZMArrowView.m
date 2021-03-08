@@ -23,6 +23,8 @@
     if (self) {
         self.arrowWidth = 3.0;
         self.type = WZMArrowViewTypeArrow;
+        self.normalColor = [UIColor blackColor];
+        self.selectedColor = [UIColor redColor];
         self.shapeLayers = [[NSMutableArray alloc] init];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector((tapGesture:))];
@@ -90,6 +92,8 @@
             self.createLayer.startPoint = point;
             self.createLayer.type = self.type;
             self.createLayer.lineWidth = self.arrowWidth;
+            self.createLayer.normalColor = self.normalColor;
+            self.createLayer.selectedColor = self.selectedColor;
             [self.layer addSublayer:self.createLayer];
             [self.shapeLayers addObject:self.createLayer];
         }
@@ -183,6 +187,15 @@
              gesture.state == UIGestureRecognizerStateCancelled) {
         if (createLayer) {
             self.createLayer = nil;
+        }
+    }
+}
+
+- (void)setSelected:(BOOL)selected {
+    _selected = selected;
+    if (_selected == NO) {
+        if (self.shapeLayer) {
+            self.shapeLayer.selected = NO;
         }
     }
 }

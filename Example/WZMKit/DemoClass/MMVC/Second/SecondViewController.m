@@ -29,6 +29,7 @@
     self.view.backgroundColor = [UIColor grayColor];
     
     WZMArrowView *arrow = [[WZMArrowView alloc] initWithFrame:WZMRectMiddleArea()];
+    arrow.arrowWidth = 5.0;
     [self.view addSubview:arrow];
 }
 
