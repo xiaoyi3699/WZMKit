@@ -31,7 +31,6 @@
     WZMArrowView *arrow = [[WZMArrowView alloc] initWithFrame:WZMRectMiddleArea()];
     [self.view addSubview:arrow];
     
-    arrow.selected = YES;
     arrow.startPoint = CGPointMake(10.0, 10.0);
     arrow.endPoint = CGPointMake(355.0, 200.0);
 }
