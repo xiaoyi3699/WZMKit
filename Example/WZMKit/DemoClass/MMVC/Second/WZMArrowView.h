@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) WZMArrowViewType type;
 @property (nonatomic, strong) UIColor *normalColor;
 @property (nonatomic, strong) UIColor *selectedColor;
+@property (nonatomic, assign) CGFloat arrowWidth;
 
 - (void)recover;
 - (void)backforward;

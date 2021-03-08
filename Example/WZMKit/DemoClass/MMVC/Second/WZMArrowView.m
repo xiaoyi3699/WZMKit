@@ -21,6 +21,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.arrowWidth = 3.0;
+        self.type = WZMArrowViewTypeArrow;
         self.shapeLayers = [[NSMutableArray alloc] init];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector((tapGesture:))];
@@ -86,6 +88,8 @@
             self.createLayer = [[WZMArrowLayer alloc] init];
             self.createLayer.frame = self.bounds;
             self.createLayer.startPoint = point;
+            self.createLayer.type = self.type;
+            self.createLayer.lineWidth = self.arrowWidth;
             [self.layer addSublayer:self.createLayer];
             [self.shapeLayers addObject:self.createLayer];
         }
