@@ -10,8 +10,9 @@
 
 @interface WZMArrowLayer ()
 
-//@property (nonatomic, strong) CAShapeLayer *startLayer;
-//@property (nonatomic, strong) CAShapeLayer *endLayer;
+@property (nonatomic, strong) CAShapeLayer *startLayer;
+@property (nonatomic, strong) CAShapeLayer *midLayer;
+@property (nonatomic, strong) CAShapeLayer *endLayer;
 @property (nonatomic, assign) CGFloat touchDistance;
 @property (nonatomic, assign) NSInteger startCount;
 @property (nonatomic, assign) NSInteger endCount;
@@ -39,26 +40,36 @@
         self.fillColor = _normalColor.CGColor;
         self.strokeColor = _normalColor.CGColor;
         
-//        CGRect pathRect = CGRectMake(0.0, 0.0, 20.0, 20.0);
-//        UIBezierPath *startPath = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:pathRect.size.width/2.0];
-//        self.startLayer = [[CAShapeLayer alloc] init];
-//        self.startLayer.bounds = pathRect;
-//        self.startLayer.wzm_center = self.startPoint;
-//        self.startLayer.path = startPath.CGPath;
-//        self.startLayer.lineWidth = 1.0;
-//        self.startLayer.fillColor = [UIColor clearColor].CGColor;
-//        self.startLayer.strokeColor = [UIColor whiteColor].CGColor;
-//        [self addSublayer:self.startLayer];
-//
-//        UIBezierPath *endPath = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:pathRect.size.width/2.0];
-//        self.endLayer = [[CAShapeLayer alloc] init];
-//        self.endLayer.bounds = pathRect;
-//        self.endLayer.wzm_center = self.endPoint;
-//        self.endLayer.path = endPath.CGPath;
-//        self.endLayer.lineWidth = 1.0;
-//        self.endLayer.fillColor = [UIColor clearColor].CGColor;
-//        self.endLayer.strokeColor = [UIColor whiteColor].CGColor;
-//        [self addSublayer:self.endLayer];
+        CGRect pathRect = CGRectMake(0.0, 0.0, 15.0, 15.0);
+        UIBezierPath *startPath = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:pathRect.size.width/2.0];
+        self.startLayer = [[CAShapeLayer alloc] init];
+        self.startLayer.hidden = YES;
+        self.startLayer.bounds = pathRect;
+        self.startLayer.path = startPath.CGPath;
+        self.startLayer.lineWidth = 2.0;
+        self.startLayer.fillColor = [UIColor whiteColor].CGColor;
+        self.startLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self addSublayer:self.startLayer];
+        
+        UIBezierPath *midPath = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:pathRect.size.width/2.0];
+        self.midLayer = [[CAShapeLayer alloc] init];
+        self.midLayer.hidden = YES;
+        self.midLayer.bounds = pathRect;
+        self.midLayer.path = midPath.CGPath;
+        self.midLayer.lineWidth = 2.0;
+        self.midLayer.fillColor = [UIColor whiteColor].CGColor;
+        self.midLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self addSublayer:self.midLayer];
+        
+        UIBezierPath *endPath = [UIBezierPath bezierPathWithRoundedRect:pathRect cornerRadius:pathRect.size.width/2.0];
+        self.endLayer = [[CAShapeLayer alloc] init];
+        self.endLayer.hidden = YES;
+        self.endLayer.bounds = pathRect;
+        self.endLayer.path = endPath.CGPath;
+        self.endLayer.lineWidth = 2.0;
+        self.endLayer.fillColor = [UIColor whiteColor].CGColor;
+        self.endLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self addSublayer:self.endLayer];
     }
     return self;
 }
@@ -86,21 +97,39 @@
         self.fillColor = self.selectedColor.CGColor;
         self.strokeColor = self.selectedColor.CGColor;
         
-//        self.startLayer.hidden = NO;
-//        self.endLayer.hidden = NO;
-//        [CATransaction begin];
-//        [CATransaction setDisableActions:YES];
-//        self.startLayer.wzm_center = self.startPoint;
-//        self.endLayer.wzm_center = self.endPoint;
-//        [CATransaction setDisableActions:NO];
-//        [CATransaction commit];
+        self.startLayer.hidden = NO;
+        self.midLayer.hidden = NO;
+        self.endLayer.hidden = NO;
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        CGRect frame = self.startLayer.frame;
+        frame.origin.x = self.startPoint.x - frame.size.width * 0.5;
+        frame.origin.y = self.startPoint.y - frame.size.height * 0.5;
+        self.startLayer.frame = frame;
+        self.startLayer.strokeColor = self.selectedColor.CGColor;
+        
+        CGPoint midPoint = CGPointMake((self.startPoint.x+self.endPoint.x)/2.0, (self.startPoint.y+self.endPoint.y)/2.0);
+        CGRect frame2 = self.endLayer.frame;
+        frame2.origin.x = midPoint.x - frame2.size.width * 0.5;
+        frame2.origin.y = midPoint.y - frame2.size.height * 0.5;
+        self.midLayer.frame = frame2;
+        self.midLayer.strokeColor = self.selectedColor.CGColor;
+        
+        CGRect frame3 = self.endLayer.frame;
+        frame3.origin.x = self.endPoint.x - frame3.size.width * 0.5;
+        frame3.origin.y = self.endPoint.y - frame3.size.height * 0.5;
+        self.endLayer.frame = frame3;
+        self.endLayer.strokeColor = self.selectedColor.CGColor;
+        [CATransaction setDisableActions:NO];
+        [CATransaction commit];
     }
     else {
         self.fillColor = self.normalColor.CGColor;
         self.strokeColor = self.normalColor.CGColor;
         
-//        self.startLayer.hidden = YES;
-//        self.endLayer.hidden = YES;
+        self.startLayer.hidden = YES;
+        self.midLayer.hidden = YES;
+        self.endLayer.hidden = YES;
     }
     self.path = path.CGPath;
 }
