@@ -191,12 +191,9 @@
     }
 }
 
-- (void)setSelected:(BOOL)selected {
-    _selected = selected;
-    if (_selected == NO) {
-        if (self.shapeLayer) {
-            self.shapeLayer.selected = NO;
-        }
+- (void)clearSelectedLayer {
+    if (self.shapeLayer) {
+        self.shapeLayer.selected = NO;
     }
 }
 

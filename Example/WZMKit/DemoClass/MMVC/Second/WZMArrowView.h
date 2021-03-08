@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *normalColor;
 @property (nonatomic, strong) UIColor *selectedColor;
 @property (nonatomic, assign) CGFloat arrowWidth;
-@property (nonatomic, assign) BOOL selected;
 @property (nonatomic, strong, readonly) NSMutableArray *shapeLayers;
 
 - (void)recover;
 - (void)backforward;
+- (void)clearSelectedLayer;
 
 @end
 
