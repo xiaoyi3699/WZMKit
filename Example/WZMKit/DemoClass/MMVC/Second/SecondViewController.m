@@ -30,9 +30,6 @@
     
     WZMArrowView *arrow = [[WZMArrowView alloc] initWithFrame:WZMRectMiddleArea()];
     [self.view addSubview:arrow];
-    
-    arrow.startPoint = CGPointMake(10.0, 10.0);
-    arrow.endPoint = CGPointMake(355.0, 200.0);
 }
 
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

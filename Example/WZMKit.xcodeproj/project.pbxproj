@@ -26,6 +26,7 @@
 		646A10BF247F58B900F96689 /* WZMBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 646A10BE247F58B900F96689 /* WZMBaseCollectionView.m */; };
 		646F21AF24064BE500B49DB1 /* WXxiari.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 646F21AE24064BE500B49DB1 /* WXxiari.ttf */; };
 		647DFBBE25F5BA19009D2A1E /* WZMArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 647DFBBD25F5BA19009D2A1E /* WZMArrowView.m */; };
+		647DFBC325F607E2009D2A1E /* WZMArrowLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 647DFBC225F607E2009D2A1E /* WZMArrowLayer.m */; };
 		6486E46023D8451600D777D7 /* WZMRechargeWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */; };
 		6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6486E45D23D8451600D777D7 /* WZMRechargeModel.m */; };
 		649C2C5224581F1D00FF7635 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 649C2C5124581F1D00FF7635 /* StoreKit.framework */; };
@@ -120,6 +121,8 @@
 		646F21AE24064BE500B49DB1 /* WXxiari.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WXxiari.ttf; sourceTree = "<group>"; };
 		647DFBBC25F5BA19009D2A1E /* WZMArrowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMArrowView.h; sourceTree = "<group>"; };
 		647DFBBD25F5BA19009D2A1E /* WZMArrowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMArrowView.m; sourceTree = "<group>"; };
+		647DFBC125F607E2009D2A1E /* WZMArrowLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WZMArrowLayer.h; sourceTree = "<group>"; };
+		647DFBC225F607E2009D2A1E /* WZMArrowLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WZMArrowLayer.m; sourceTree = "<group>"; };
 		6486E45C23D8451600D777D7 /* WZMRechargeWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeWebController.m; sourceTree = "<group>"; };
 		6486E45D23D8451600D777D7 /* WZMRechargeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZMRechargeModel.m; sourceTree = "<group>"; };
 		6486E45E23D8451600D777D7 /* WZMRechargeWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZMRechargeWebController.h; sourceTree = "<group>"; };
@@ -672,6 +675,8 @@
 				7558CBC222DF50D30043651C /* SecondViewController.m */,
 				647DFBBC25F5BA19009D2A1E /* WZMArrowView.h */,
 				647DFBBD25F5BA19009D2A1E /* WZMArrowView.m */,
+				647DFBC125F607E2009D2A1E /* WZMArrowLayer.h */,
+				647DFBC225F607E2009D2A1E /* WZMArrowLayer.m */,
 			);
 			path = Second;
 			sourceTree = "<group>";
@@ -925,6 +930,7 @@
 				75DA9E25230E924A0000A955 /* WZMBaseViewController.m in Sources */,
 				75DA9E1B230E924A0000A955 /* UIImage+WZMCustomImage.m in Sources */,
 				6486E46123D8451600D777D7 /* WZMRechargeModel.m in Sources */,
+				647DFBC325F607E2009D2A1E /* WZMArrowLayer.m in Sources */,
 				75DA9E28230E924A0000A955 /* WZMNavigationController.m in Sources */,
 				7558CBC622DF50E60043651C /* ThirdViewController.m in Sources */,
 				646A10B8247E6EF900F96689 /* WZMBaseTableView.m in Sources */,
