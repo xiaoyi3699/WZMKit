@@ -417,6 +417,10 @@ static NSString *_clearKey = @"clear";
 
 - (void)wzm_hollowFrame:(CGRect)hollowFrame shadowColor:(UIColor *)shadowColor blur:(BOOL)blur {
     if (blur) {
+        if ([self.visual isKindOfClass:[UIVisualEffectView class]] == NO) {
+            [self.visual removeFromSuperview];
+            self.visual = nil;
+        }
         if (self.visual == nil) {
             UIVisualEffectView *visualView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
             visualView.frame = self.bounds;
@@ -425,6 +429,10 @@ static NSString *_clearKey = @"clear";
         }
     }
     else {
+        if ([self.visual isKindOfClass:[UIVisualEffectView class]]) {
+            [self.visual removeFromSuperview];
+            self.visual = nil;
+        }
         if (self.visual == nil) {
             UIView *visualView = [[UIView alloc] init];
             visualView.frame = self.bounds;
